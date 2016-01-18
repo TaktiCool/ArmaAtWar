@@ -1,0 +1,99 @@
+#include "R3F_LOG\desc_include.h"
+#include "hpp\params.hpp"
+
+author = "JohnnyShootos";
+onLoadName = "Project Reality:Arma 3";
+onLoadMission = "[=DRK=]Project Reality: Arma III";
+loadScreen =  "media\prlogoBLACK.jpg";
+
+// Game Type settings
+class Header {
+ gameType = CTI;
+ minPlayers = 1;
+ maxPlayers = 100;
+};
+
+//Respawn Settings
+respawn = 3;
+respawnDelay = 30;
+respawnOnStart = 1;
+respawnButton = 0;
+respawnDialog = 1;
+respawnTemplates[] = {"Revive", "MenuPosition"};
+reviveDelay = 60;
+reviveForceRespawnDelay = 15;
+reviveBleedOutDelay = 300;
+
+
+// Settings for the Revive Template
+//reviveDelay = 10;
+//reviveForceRespawnDelay = 3;
+//reviveBleedOutDelay = 120;
+
+// Enable the Admin Console
+// 0 = No debug console
+// 1 = Only looged in admin gets console
+// 2 = Everyone gets console (NOT RECOMMENDED for final version but fantasitc for live testing / mission making with other coders)
+enableDebugConsole = 1;
+//enableDebugConsole = 2; 
+//allowFunctionsRecompile = 1; //Debug and Testing mode only
+
+//Turn off AI in lobby
+disabledAI = 1;
+
+//Force Rotor Lib
+forceRotorLibSimulation = 1;
+
+//Get rid of Side, Global, and System Chat channels - this is to remove sidechat spam. Leaders can still communicate between squads at platoon level using command chat
+disableChannels[]={0,1,6};
+
+//when joining the lobby players will be initially placed in a slot on the team with the fewer numbers
+joinUnassigned = 0;
+
+
+//////////////// Dont Touch Below ////////////////
+class CfgFunctions {
+	#include "functions\drk.hpp"
+};
+
+class CfgRemoteExec
+{
+	#include "hpp\whitelist.hpp"
+};
+
+class CfgNotifications
+{
+	#include "hpp\notifications.hpp"
+};
+
+//////////////// mArma Junk /////////////////////
+
+class mARMADebug {
+    // Will report total map objects every 60 seconds
+    class MapObjects {
+        name = "Objects";
+        code = "count allMissionObjects 'All'";
+        interval = 60;
+    };
+
+    // Will report ingame players every 60 seconds
+    class Players {
+        name = "Players";
+        code = "{isPlayer _x} count playableUnits";
+        interval = 10;
+    };
+
+    // Returns the mission name every 60 seconds
+    class MissionName {
+        name = "Mission Name";
+        code = "MissionName";
+        interval = 60;
+    };
+
+    // Returns the world name every 60 seconds
+    class WorldName {
+        name = "World Name";
+        code = "WorldName";
+        interval = 60;
+    };
+};
