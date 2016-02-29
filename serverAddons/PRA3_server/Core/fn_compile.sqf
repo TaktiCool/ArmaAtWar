@@ -28,11 +28,11 @@ _funcArray = _funcArray select {!(_x in _toRemoveString)};
 
 _funcString = toString _funcArray;
 
-_fncCode = compile preprocessFileLineNumbers _functionPath;
+_fncCode = compileFinal preprocessFileLineNumbers _functionPath;
 {
-	_x setVariable [_functionName, _fncCode, public]
-	SETVAR(_x,_functionVarName,compile _fncCode)
-} forEach [missionNamespace, uiNamespace, parsingNamespace];
+	_x setVariable [_functionName, _fncCode];
+	nil
+} count [missionNamespace, uiNamespace, parsingNamespace];
 
-CVAR(functionCache) pushBack _functionName;
+GVAR(functionCache) pushBack _functionName;
 nil
