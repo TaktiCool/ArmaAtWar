@@ -10,7 +10,7 @@
     Parameter(s):
     0: Marker of the Sector <String>
     1: Depentency of the Sector <Array>
-     2: TicketBleed of the Sector <Number>
+    2: TicketBleed of the Sector <Number>
     3: Minimum Units in the Area to start Capturing <Number>
     4: Time To Capture the Sector <Number>
     5: Sector Designator <String>

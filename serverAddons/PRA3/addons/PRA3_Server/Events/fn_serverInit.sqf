@@ -19,8 +19,8 @@ if (isDedicated) then {
 	[{
 		// If time is greater than zero trigger the event and remove the OEF EH to ensure that the event is only triggered once.
 		if (time > 0) then {
-			["missionStarted"] call FUNC(Events,localEvent);
+			["missionStarted"] call FUNC(localEvent);
 			(_this select 0) call FUNC(removePerFrameHandler);
 		};
-	}] call FUNC(addPerFrameHandler);
+	}] call CFUNC(addPerFrameHandler);
 };

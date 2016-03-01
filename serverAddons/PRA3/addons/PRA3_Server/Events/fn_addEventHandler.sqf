@@ -17,13 +17,13 @@
 */
 params [["_event", "", [""]], ["_function", {},[{}]], ["_args", []]];
 
-_event = format ["Event_PRA3_", _event];
-private _eventFunctions = GVAR(EventNamespace) getVariable _event;
-if (isNil "_eventFunctions") then {
-    _eventFunctions = [_function];
+_event = format ["Event_PRA3_%1", _event];
+private _eventArray = GVAR(EventNamespace) getVariable _event;
+if (isNil "_eventArray") then {
+    _eventArray = [_function, _args];
 } else {
-    _eventFunctions pushBack _function;
+    _eventArray pushBack [_function, _args];
 };
 
-GVAR(EventNamespace) setVariable [_event, [_eventFunctions,_args]];
+GVAR(EventNamespace) setVariable [_event, _eventArray];
 nil

@@ -1,7 +1,7 @@
-class GVAR(CaptureStatus) {
+class PRA3_mission_CaptureStatus {
     idd = -1;
     duration = 999999;
-    onLoad = "uiNamespace setVariable [""BG_sector_CaptureStatus"", _this select 0];";
+    onLoad = "uiNamespace setVariable [""PRA3_mission_CaptureStatus"", _this select 0];";
     class Controls {
         class CtrlGroup : RscControlsGroup {
             idc = 100;

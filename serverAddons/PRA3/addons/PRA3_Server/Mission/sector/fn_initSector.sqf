@@ -15,15 +15,18 @@
 */
 
 GVAR(competingSides) = [];
+GVAR(captureStatusPFH) = [];
 {
     GVAR(competingSides) pushBack configName _x;
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];
     missionNamespace setVariable [format ["%1_%2",QGVAR(SideColor),configName _x], getArray (_x >> "color")];
     nil;
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
+
 if (isServer) then {
     [] spawn {
-        GVAR(allSectors) = (call EFUNC(Core,getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
+        waitUntil {time > 3};
+        GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
         publicVariable QGVAR(allSectors);
         GVAR(allSectorsArray) = [];
 
@@ -34,8 +37,9 @@ if (isServer) then {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             nil;
         } count _sectors;
-        GVAR(sectorCreationDone) = true;
+
         publicVariable QGVAR(allSectorsArray);
+        GVAR(sectorCreationDone) = true;
         publicVariable QGVAR(sectorCreationDone);
     };
 };
@@ -56,16 +60,15 @@ if (isServer) then {
             if (_marker != "") then {
                 _marker setMarkerColor format["Color%1",_newSide];
             };
-        }] call EFUNC(events,addEventHandler);
+        }] call EFUNC(Events,addEventHandler);
     };
 
     if (hasInterface) then {
-        GVAR(captureStatusPFH) = false;
-        ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
+        ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(Events,addEventHandler);
 
-        ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
+        ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(Events,addEventHandler);
 
-        ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(events,addEventHandler);
+        ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(Events,addEventHandler);
 
         /*
         PRA3_Player addEventHandler ["Respawn", {
@@ -80,4 +83,4 @@ if (isServer) then {
 
 }, {
     !isNil QGVAR(sectorCreationDone)
-}] call CFUNC(waitUntil);
+},[]] call CFUNC(waitUntil);

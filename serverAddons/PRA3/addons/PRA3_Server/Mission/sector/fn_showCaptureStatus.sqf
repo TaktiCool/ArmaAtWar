@@ -18,16 +18,16 @@
 params ["_show","_sector"];
 
 if (_show) then {
-    _sector = [_sector] call FUNC(getSector);
+    _sectorObject = [_sector] call FUNC(getSector);
     ([QGVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QGVAR(CaptureStatus),"PLAIN"];
-    if (GVAR(captureStatusPFH) != -1) then {
-        [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
+    if (GVAR(captureStatusPFH)) then {
+        GVAR(captureStatusPFH) pushBack _sector;
     };
 
     [{
             disableSerialization;
             params ["_args","_id"];
-            _args params ["_sector"];
+            _args params ["_sector", "_uid"];
             private _aside = _sector getVariable ["attackerSide",sideUnknown];
             private _side = _sector getVariable ["side",sideUnknown];
             private _progress = _sector getVariable ["captureProgress",0];
@@ -42,13 +42,14 @@ if (_show) then {
             (_dialog displayCtrl 104) ctrlSetTextColor (missionNamespace getVariable [format ["%1_%2",QGVAR(SideColor),_aside],[0,1,0,1]]);
             (_dialog displayCtrl 104) ctrlCommit 0;
             (_dialog displayCtrl 104) progressSetPosition (_progress + (serverTime - _lastTick)*_rate);
-            if !(GVAR(captureStatusPFH)) then {
-                [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
+            if (_uid in GVAR(captureStatusPFH)) then {
+                [_id] call CFUNC(removePerFrameHandler);
+                GVAR(captureStatusPFH) deleteAt (GVAR(captureStatusPFH) find _uid);
             };
-        }, 0, [_sector]] call CFUNC(addPerFrameHandler);
+        }, 0, [_sectorObject, _sector]] call CFUNC(addPerFrameHandler);
         GVAR(captureStatusPFH) = true;
 } else {
-    GVAR(captureStatusPFH) = false;
+    GVAR(captureStatusPFH) pushBack _sector;
 
     ([QGVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 1;
 };

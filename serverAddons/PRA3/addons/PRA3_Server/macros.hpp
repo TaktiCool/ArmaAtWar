@@ -39,8 +39,6 @@
     #define FUNC(var) DFUNC(var)
 #endif
 
-
-
 #define EFUNC(var1,var2) PRA3_##var1##_fnc##_##var2
 #define QEFUNC(var1,var2) QUOTE(EFUNC(var1,var2))
 
@@ -52,7 +50,6 @@
 
 #define STR2SIDE(s) switch (s) do { case "WEST"; case "west": {blufor}; case "EAST"; case "east": {opfor}; case "GUER"; case "guer": {independent};  case "CIV"; case "civ": {civilian}; case "LOGIC"; case "logic": {sideLogic}; case "UNKNOWN"; case "unknown": {sideUnknown}; case "ENEMY"; case "enemy": {sideEnemy}; case "FRIENDLY"; case "friendly": {sideEnemy}}
 #define LOGICGROUP missionNamespace getVariable ["PRA3_common_logicGroup",createGroup (createCenter sideLogic);
-
 
 #ifdef PRA3_DEBUGFULL
     #define ENABLEPERFORMANCECOUNTER

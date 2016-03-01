@@ -21,19 +21,19 @@ PRA3_Player = player;
 	private _currentPlayer = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
 	// If the player changed we trigger an event and update the global variable.
 	if (PRA3_Player != _currentPlayer) then {
-		["playerChanged", [_currentPlayer, PRA3_Player]] call FUNC(Events,localEvent);
+		["playerChanged", [_currentPlayer, PRA3_Player]] call FUNC(localEvent);
 		PRA3_Player = _currentPlayer;
 	};
-}] call FUNC(addPerFrameHandler);
+}] call CFUNC(addPerFrameHandler);
 
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.
 [{
 	// If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
 	if (!isNull (findDisplay 46)) then {
-		["missionStarted"] call FUNC(Events,localEvent);
-		(_this select 1) call FUNC(removePerFrameHandler);
+		["missionStarted"] call FUNC(localEvent);
+		(_this select 1) call CFUNC(removePerFrameHandler);
 	};
-}] call FUNC(addPerFrameHandler);
+}] call CFUNC(addPerFrameHandler);
 
 // Build a dynamic event system to use it in modules.
 {
@@ -56,10 +56,10 @@ PRA3_Player = player;
 		// If the value changed trigger the event and update the value in out variable.
 		_currentValue = call _code;
 		if (!(_oldValue isEqualTo _currentValue) && {alive PRA3_Player}) then {
-			[_name + "Changed", [_currentValue, _oldValue]] call EFUNC(Events,localEvent);
+			[_name + "Changed", [_currentValue, _oldValue]] call FUNC(localEvent);
 			missionNamespace setVariable [_varName, _currentValue];
 		};
-	}, 0, [_x, _varName, _code]] call FUNC(addPerFrameHandler);
+	}, 0, [_x, _varName, _code]] call CFUNC(addPerFrameHandler);
 
 	true
 } count [
@@ -75,7 +75,7 @@ PRA3_Player = player;
 // Import the vanilla events in the event system and provide a permanent zeus compatible player.
 {
 	// The event has the same name and data as the vanilla version.
-	private _code = compile format ["[""%1"", _this] call %2", _x, QEFUNC(Events,localEvnet)];
+	private _code = compile format ["[""%1"", _this] call %2", _x, QFUNC(localEvnet)];
 
 	// Bind it to the current player and store the index to delete it.
 	private _index = PRA3_Player addEventHandler [_x, _code];

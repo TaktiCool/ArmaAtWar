@@ -13,22 +13,21 @@
     Returns:
     None
 */
-PERFORMNACECOUNTER_START(SectorControllSystem)
 if (!isServer) exitWith {};
 
 if (GVAR(allSectorsArray) isEqualTo []) exitWith {};
-
+PERFORMNACECOUNTER_START(SectorControllSystem)
 GVAR(sectorLoopCounter) = GVAR(sectorLoopCounter) mod (count GVAR(allSectorsArray));
 private _cIdx = GVAR(sectorLoopCounter);
 private _cSector = GVAR(allSectorsArray) select GVAR(sectorLoopCounter);
-GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter)+1) mod (count GVAR(allSectorsArray));
+GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter) + 1) mod (count GVAR(allSectorsArray));
 
 while {!([_cSector] call FUNC(isCaptureable)) && _cIdx != GVAR(sectorLoopCounter)} do {
     _cSector = GVAR(allSectorsArray) select GVAR(sectorLoopCounter);
-    GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter)+1) mod (count GVAR(allSectorsArray));
+    GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter) + 1) mod (count GVAR(allSectorsArray));
 };
 
-if (_cIdx == GVAR(sectorLoopCounter)) exitWith {};
+if (_cIdx == GVAR(sectorLoopCounter)) exitWith {PERFORMNACECOUNTER_END(SectorControllSystem)};
 
 private _tick = serverTime;
 private _lastTick = _cSector getVariable ["lastCaptureTick",_tick];
