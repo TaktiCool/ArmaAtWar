@@ -8,8 +8,8 @@
 
 #define QUOTE(var) #var
 
-#define FUNCPATH(var) \pr\PRA3_Server\addons\PRA3_server\##MODULE\fn_##var.sqf
-#define FFNCPATH(folder,var) \pr\PRA3_Server\addons\PRA3_server\##MODULE\##folder\fn_##var.sqf
+#define FUNCPATH(var) \pr\PRA3\addons\PRA3_server\##MODULE\fn_##var.sqf
+#define FFNCPATH(folder,var) \pr\PRA3\addons\PRA3_server\##MODULE\##folder\fn_##var.sqf
 
 #define GVAR(var) PRA3_##MODULE##_##var
 #define QGVAR(var) QUOTE(GVAR(var))

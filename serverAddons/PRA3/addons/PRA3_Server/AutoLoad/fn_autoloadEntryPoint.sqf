@@ -16,4 +16,4 @@
 */
 
 // Transfers entry function from server to all clients.
-if (isServer) then { publicVariable QEGVAR(Core,importentNamespaces); publicVariable QFUNC(loadModules); };
+if (isServer) then { publicVariable QFUNC(loadModules); };

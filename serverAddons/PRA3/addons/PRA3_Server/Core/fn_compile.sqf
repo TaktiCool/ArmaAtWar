@@ -32,7 +32,7 @@ _fncCode = compileFinal preprocessFileLineNumbers _functionPath;
 {
     _x setVariable [_functionName, _fncCode];
     nil
-} count GVAR(importentNamespaces);
+} count [missionNamespace,uiNamespace/*,parsingNamespace*/];
 
 EGVAR(AutoLoad,functionCache) pushBack _functionName;
 nil

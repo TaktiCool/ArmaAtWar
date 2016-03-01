@@ -23,7 +23,7 @@ GVAR(requiredFunctions) = [];
 {
     // Extract the module name out of the full function name.
     // 1: Remove "AME_" prefix
-    private _functionModuleName = _x select [4, count _x - 5];
+    private _functionModuleName = _x select [5, count _x - 6];
     // 2: All characters until the next "_" are the module name.
     _functionModuleName = _functionModuleName select [0, _functionModuleName find "_"];
 
@@ -45,7 +45,7 @@ if (isServer) then {
             //@todo progress is not correct if we keep the server files server only
             //if (_x find "_fnc_serverInit" < 0) then {
             // Extract the code out of the function.
-            private _functionCode = str (missionNamespace getVariable [_x, {}]);
+            private _functionCode = str (uiNamespace getVariable [_x, {}]);
             // Remove leading and trailing braces from the code.
             _functionCode = _functionCode select [1, count _functionCode - 2];
 

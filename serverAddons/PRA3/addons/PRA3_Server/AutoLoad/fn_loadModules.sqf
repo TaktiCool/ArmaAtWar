@@ -39,7 +39,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     {
         _x setVariable [_functionVarName, _functionCode];
         nil
-    } count [missionNamespace, uiNamespace, parsingNamespace];
+    } count [missionNamespace,uiNamespace/*,parsingNamespace*/];
 
     // Update the loading screen with the progress.
     progressLoadingScreen _progress;

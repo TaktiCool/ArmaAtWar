@@ -1,5 +1,4 @@
 #include "macros.hpp"
-GVAR(importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
 
 // Per Frame Eventhandler
 PREP(addPerFrameHandler)
