@@ -23,7 +23,7 @@ if (hasInterface) then {
 };
 
 // If the machine has AME running exit and call all requested modules.
-if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { _this call FNC(loadModulesServer); };
+if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { _this call FUNC(loadModulesServer); };
 
 // Start the loading screen on the client to prevent a drawing lag while loading. Disable input too to prevent unintended movement after spawn.
 startLoadingScreen ["Loading PRA3"];

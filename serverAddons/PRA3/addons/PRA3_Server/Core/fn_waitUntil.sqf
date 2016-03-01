@@ -12,7 +12,7 @@
  * None
  *
  * Example:
- * [{hint "you die"},{alive _this},player] call DS_sys_fnc_waitUntil;
+ * [{hint "you die"},{alive _this},player] call CFUNC(waitUnitl);
  */
 GVAR(waitUntilArray) pushBack _this;
 nil

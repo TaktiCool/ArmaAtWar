@@ -14,7 +14,7 @@
     -
 
     Example:
-    true spawn JK_Core_fnc_Interaction_loop;
+    true call FUNC(loop);
 */
 
 _text = "";
@@ -43,4 +43,4 @@ player setVariable ["JK_LastTarget", _lastTarget, true];
     false
 } count JK_Core_Interaction_Actions;
 
-[FUNC(loop),{!isNull cursorObject && cursorObject != _this}, _lastTarget] call FUNC(waitUntil);
+[FUNC(loop),{!isNull cursorObject && cursorObject != _this}, _lastTarget] call CFUNC(waitUntil);

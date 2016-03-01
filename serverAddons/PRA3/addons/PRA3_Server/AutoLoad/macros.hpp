@@ -1,2 +1,2 @@
 #define MODULE AutoLoad
-#include "..\macros.hpp"
+#include "\pr\PRA3\addons\PRA3_Server\macros.hpp"

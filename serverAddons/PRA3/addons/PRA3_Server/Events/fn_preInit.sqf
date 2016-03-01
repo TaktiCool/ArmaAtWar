@@ -2,7 +2,6 @@
 // Events
 PREP(initEvents)
 PREP(addEventhandler)
-PREP(removeEventhandler)
 
 // Trigger Events
 PREP(localEvent)

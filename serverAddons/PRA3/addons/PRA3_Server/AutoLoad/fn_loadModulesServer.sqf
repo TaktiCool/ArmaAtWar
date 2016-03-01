@@ -14,7 +14,7 @@
     -
 
     Example:
-    ["Module1", "Module2"] call FNC(loadModulesServer);
+    ["Module1", "Module2"] call FUNC(loadModulesServer);
 */
 
 
@@ -58,4 +58,4 @@ if (isServer) then {
 };
 
 // Call all required function on the server.
-call FNC(callModules);
+call FUNC(callModules);

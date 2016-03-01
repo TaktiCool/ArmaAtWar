@@ -46,7 +46,7 @@ if (isServer) then {
 
 if (isServer) then {
     GVAR(sectorLoopCounter) = 0;
-    [FUNC(loop), 0.1, []] call FUNC(addPerFrameHandler);
+    [FUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
     ["sector_side_changed", {
         params ["_sector", "_oldSide", "_newSide"];
 
@@ -55,16 +55,16 @@ if (isServer) then {
         if (_marker != "") then {
             _marker setMarkerColor format["Color%1",_newSide];
         };
-    }] call EFUNC(Events,addEventHandler);
+    }] call EFUNC(events,addEventHandler);
 };
 
 if (hasInterface) then {
     GVAR(captureStatusPFH) = false;
-    ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call FUNC(events,addEventHandler);
+    ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
 
-    ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call FUNC(events,addEventHandler);
+    ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
 
-    ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call FUNC(events,addEventHandler);
+    ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(events,addEventHandler);
 
     /*
     player addEventHandler ["Respawn", {

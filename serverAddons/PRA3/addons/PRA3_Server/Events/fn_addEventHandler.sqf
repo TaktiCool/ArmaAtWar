@@ -18,7 +18,7 @@
 */
 params [["_event", "", [""]], ["_function", {},[{}]]];
 
-_event = format [GEVENT(%1), _event];
+_event = format ["Event_PRA3_", _event];
 private _eventFunctions = GVAR(EventNamespace) getVariable _event;
 if (isNil "_event") then {
     _eventFunctions = [_function];

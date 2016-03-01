@@ -12,7 +12,7 @@
  * None
  *
  * Example:
- * [{hint "you die"},10,player] call DS_sys_fnc_wait;
+ * [{hint "you die"},10,player] call CFUNC(wait);
  */
 params ["_code", "_time", "_args"];
 GVAR(waitArray) pushBack [_time + time, _code, _args];

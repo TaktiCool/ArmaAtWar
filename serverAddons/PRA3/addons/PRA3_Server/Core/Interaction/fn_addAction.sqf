@@ -39,7 +39,7 @@ if (typeName _onObject == "OBJECT") then {
         {
             waitUntil {(_this select 1) != player};
             _this set [1, player];
-            _this call PRA3_Core_fnc_addAction;
+            _this call FUNC(addAction);
         };
     } else {
         GVAR(Interaction_Actions) pushBack [_onObject, _text, _condition, _callback, _args];
