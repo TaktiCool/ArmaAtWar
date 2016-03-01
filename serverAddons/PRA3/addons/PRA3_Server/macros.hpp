@@ -1,3 +1,5 @@
+#define PRA3_DEBUGFULL
+
 #define MAJOR 0
 #define MINOR 1
 #define PATCHLVL 0
@@ -23,14 +25,22 @@
 #define GEVENT(var1,var2) QUOTE(PRA3_Event_##var1##_##var2)
 
 #ifdef PRA3_DEBUGFULL
-    #define FUNC(var) {DUMP(QUOTE(Function PRA3_##MODULE##_fnc##_##var called with _this Parameter)); private _tempRet = _this call PRA3_##MODULE##_fnc##_##var; _tempRet}
+    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
+        systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
+#else
+    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
+#endif
+
+#ifdef PRA3_DEBUGFULL
+    #define FUNC(var) {DUMP(QUOTE(Function PRA3_##MODULE##_fnc##_##var called with _this Parameter)) private _tempRet = _this call PRA3_##MODULE##_fnc##_##var; _tempRet}
 #else
     #define FUNC(var) PRA3_##MODULE##_fnc##_##var
 #endif
 
-#define QFUNC(var) QUOTE(FUNC(var))
-
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var
+
+#define QFUNC(var) QUOTE(DFUNC(var))
+
 
 #define EFUNC(var1,var2) PRA3_##var1##_fnc##_##var2
 #define QEFUNC(var1,var2) QUOTE(EFUNC(var1,var2))
@@ -40,13 +50,6 @@
 
 #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
-
-#ifdef PRA3_DEBUGFULL
-    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
-        systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
-#else
-    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
-#endif
 
 #define FORMAT_1(STR,ARG1) format[STR, ARG1]
 #define FORMAT_2(STR,ARG1,ARG2) format[STR, ARG1, ARG2]
@@ -66,3 +69,16 @@
 
 #define STR2SIDE(s) switch (s) do { case "WEST"; case "west": {blufor}; case "EAST"; case "east": {opfor}; case "GUER"; case "guer": {independent};  case "CIV"; case "civ": {civilian}; case "LOGIC"; case "logic": {sideLogic}; case "UNKNOWN"; case "unknown": {sideUnknown}; case "ENEMY"; case "enemy": {sideEnemy}; case "FRIENDLY"; case "friendly": {sideEnemy}}
 #define LOGICGROUP missionNamespace getVariable ["PRA3_common_logicGroup",createGroup (createCenter sideLogic);
+
+
+#ifdef PRA3_DEBUGFULL
+    #define ENABLEPERFORMANCECOUNTER
+#endif
+
+#ifdef ENABLEPERFORMANCECOUNTER
+    #define PERFORMNACECOUNTER_START(var1) [QUOTE(var1), true] call CFUNC(addPerformanceCounter);
+    #define PERFORMNACECOUNTER_END(var2) [QUOTE(var1), false] call CFUNC(addPerformanceCounter);
+#else
+    #define PERFORMNACECOUNTER_START /* Performance Counter disabled */
+    #define PERFORMNACECOUNTER_END /* Performance Counter disabled */
+#endif

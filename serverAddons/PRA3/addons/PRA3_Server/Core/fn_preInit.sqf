@@ -21,10 +21,11 @@ EPREP(Interaction,loop)
 EPREP(Nametags,draw3D)
 EPREP(Nametags,clientInitNametag)
 
+// Init
+PREP(init)
+
 // Other Functions
 PREP(getLogicGroup)
 PREP(isAlive)
 PREP(cachedCall)
-
-// Init
-PREP(init)
+PREP(addPerformanceCounter)
