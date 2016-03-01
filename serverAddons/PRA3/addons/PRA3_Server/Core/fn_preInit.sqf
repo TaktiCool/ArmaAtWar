@@ -1,4 +1,6 @@
 #include "macros.hpp"
+GVAR(importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
+
 // Per Frame Eventhandler
 PREP(addPerFrameHandler)
 PREP(removePerFrameHandler)
@@ -19,6 +21,3 @@ EPREP(Interaction,init)
 
 // Nametags
 EPREP(Nametags,draw3D)
-
-
-GVAR(importentNamespaces) = [missionNamespace,uiNamespace,/*parsingNamespace*/]

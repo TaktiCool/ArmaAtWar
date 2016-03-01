@@ -1,5 +1,5 @@
 #include "macros.hpp"
-
+EGVAR(Core,importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
 // The autoloader uses this array to get all function names.
 EGVAR(AutoLoad,functionCache) = [];
 
@@ -8,9 +8,6 @@ PREP(autoloadEntryPoint)
 PREP(callModules)
 PREP(loadModules)
 PREP(loadModulesServer)
-
-
-
 
 
 

@@ -1,2 +1,2 @@
-#define MODULE Core
+#define MODULE AutoLoad
 #include "..\macros.hpp"
