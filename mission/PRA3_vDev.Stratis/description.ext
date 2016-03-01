@@ -11,8 +11,8 @@ class PRA3 {
             color[] = {0, 0.3, 0.8, 1};
         };
         class east {
-            name = "TALIBAN";
-            flag = "CUP\BaseConfigs\CUP_BaseConfigs\Data\Flags\flag_tkm_co.paa";
+            name = "CSAT";
+            flag = "a3\data_f\Flags\flag_csat_co.paa";
             color[] = {0.5, 0, 0, 1};
         };
     };

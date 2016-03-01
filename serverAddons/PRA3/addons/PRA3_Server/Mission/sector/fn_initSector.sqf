@@ -20,7 +20,7 @@ GVAR(competingSides) = [];
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];
     missionNamespace setVariable [format ["%1_%2",QGVAR(SideColor),configName _x], getArray (_x >> "color")];
     nil;
-} count ("isClass _x" configClasses (missionConfigFile >> "PRA3" >> "sides"));
+} count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 
 if (isServer) then {
     [] spawn {
@@ -29,7 +29,7 @@ if (isServer) then {
         GVAR(allSectorsArray) = [];
 
 
-        private _sectors = "isClass _x" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
+        private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
 
         {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);

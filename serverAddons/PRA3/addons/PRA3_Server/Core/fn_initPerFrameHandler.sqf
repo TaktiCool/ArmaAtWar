@@ -28,14 +28,14 @@ GVAR(waitUntilArray) = [];
         // call Function if
         if (diag_tickTime > _delta) then {
             if (_fnc isEqualType "") then {
-                if (_fnc find "PRA3_Event_" > 0) then {
-                    [_fnc, _args] call EFUNC(Events,localEvent);
+                if (_fnc find "Event_PRA3_" > 0) then {
+                    [_fnc, [_args, _forEachIndex]] call EFUNC(Events,localEvent);
                 } else {
                     _fnc = missionNamespace getVariable [_fnc, {}];
-                    [_params, _forEachIndex] call _fnc;
+                    [_args, _forEachIndex] call _fnc;
                 };
             } else {
-                [_params, _forEachIndex] call _fnc;
+                [_args, _forEachIndex] call _fnc;
             };
             // Set the new execution time depending on the provided delay.
             _x set [3, _delta + _delay];
