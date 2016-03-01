@@ -55,5 +55,5 @@ if (isServer) then {
 
         _group setVariable ["BG_GroupId", _groupId,true];
 
-        }] call CBA_fnc_addEventHandler;
+    }] call CBA_fnc_addEventHandler;
 };

@@ -16,7 +16,7 @@
     5: the arguments which get passed to the callback. <Array> (Default: [])
 
     Returns:
-    0: Return Name <TYPE>
+    None
 */
 params ["_text","_onObject","_distance","_condition","_callback",["_args",[]]];
 
@@ -27,7 +27,7 @@ if (typeName _onObject == "STRING") then {_onObject = [_onObject];};
 
 if (typeName _onObject == "ARRAY") then {
     {
-        JK_Core_Interaction_Actions pushBack [_x, _text, _condition, _callback, _args];
+        GVAR(Interaction_Actions) pushBack [_x, _text, _condition, _callback, _args];
         false
     } count _onObject;
 };
@@ -36,12 +36,12 @@ if (typeName _onObject == "OBJECT") then {
     if (_onObject == player) then {
         _text = (call _text);
         _onObject addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
-        _this spawn {
+        {
             waitUntil {(_this select 1) != player};
             _this set [1, player];
             _this call PRA3_Core_fnc_addAction;
         };
     } else {
-        JK_Core_Interaction_Actions pushBack [_onObject, _text, _condition, _callback, _args];
+        GVAR(Interaction_Actions) pushBack [_onObject, _text, _condition, _callback, _args];
     };
 };

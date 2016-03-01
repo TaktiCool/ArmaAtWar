@@ -65,7 +65,8 @@ class GVAR(CaptureStatus) {
                 class Progress : RscProgress {
                     idc = 104;
                     colorFrame[] = {0,0,0,0};
-                    colorBar[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};                    x = PX(0);
+                    colorBar[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};
+                    x = PX(0);
                     y = PY(3);
                     w = PX(40);
                     h = PY(0.6);

@@ -1,15 +1,15 @@
-#define MAJOR 3
-#define MINOR 5
+#define MAJOR 0
+#define MINOR 1
 #define PATCHLVL 0
-#define BUILD 0
+#define BUILD 1
 
 #define VERSION MAJOR.MINOR.PATCHLVL.BUILD
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
 
 #define QUOTE(var) #var
 
-#define FUNCPATH(var) \pr\PRA3\addons\PRA3_server\##MODULE\fn_##var.sqf
-#define FFNCPATH(folder,var) \x\AME\addons\AME\##MODULE\##folder\fn_##var.sqf
+#define FUNCPATH(var) \pr\PRA3_Server\addons\PRA3_server\##MODULE\fn_##var.sqf
+#define FFNCPATH(folder,var) \pr\PRA3_Server\addons\PRA3_server\##MODULE\##folder\fn_##var.sqf
 
 #define GVAR(var) PRA3_##MODULE##_##var
 #define QGVAR(var) #GVAR(var)
@@ -44,3 +44,22 @@
 #else
     #define DUMP(var) /*Deactivated*/
 #endif
+
+#define FORMAT_1(STR,ARG1) format[STR, ARG1]
+#define FORMAT_2(STR,ARG1,ARG2) format[STR, ARG1, ARG2]
+#define FORMAT_3(STR,ARG1,ARG2,ARG3) format[STR, ARG1, ARG2, ARG3]
+#define FORMAT_4(STR,ARG1,ARG2,ARG3,ARG4) format[STR, ARG1, ARG2, ARG3, ARG4]
+#define FORMAT_5(STR,ARG1,ARG2,ARG3,ARG4,ARG5) format[STR, ARG1, ARG2, ARG3, ARG4, ARG5]
+#define FORMAT_6(STR,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6) format[STR, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6]
+#define FORMAT_7(STR,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7) format[STR, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7]
+#define FORMAT_8(STR,ARG1,ARG2,ARG3,ARG4,ARG5,ARG6,ARG7,ARG8) format[STR, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8]
+
+#define DEBUG(msg) diag_log format ["DEBUG - %1 - %2: %3", DOUBLES(PREFIX,COMPONENT), __FILE___, msg]
+#define DEBUG_1(STR, ARG1) DEBUG(FORMAT_1(STR, ARG1))
+#define DEBUG_2(STR, ARG1, ARG2) DEBUG(FORMAT_2(STR, ARG1, ARG2))
+#define DEBUG_3(STR, ARG1, ARG2, ARG3) DEBUG(FORMAT_3(STR, ARG1, ARG2, ARG3))
+
+#define ERROR(msg) diag_log format ["ERROR - %1 - %2: %3", DOUBLES(PREFIX,COMPONENT), __FILE___, msg]
+
+#define STR2SIDE(s) switch (s) do { case "WEST"; case "west": {blufor}; case "EAST"; case "east": {opfor}; case "GUER"; case "guer": {independent};  case "CIV"; case "civ": {civilian}; case "LOGIC"; case "logic": {sideLogic}; case "UNKNOWN"; case "unknown": {sideUnknown}; case "ENEMY"; case "enemy": {sideEnemy}; case "FRIENDLY"; case "friendly": {sideEnemy}}
+#define LOGICGROUP missionNamespace getVariable ["PRA3_common_logicGroup",createGroup (createCenter sideLogic);

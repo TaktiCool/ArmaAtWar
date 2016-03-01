@@ -20,7 +20,7 @@ GVAR(competingSides) = [];
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];
     missionNamespace setVariable [format ["%1_%2",QGVAR(SideColor),configName _x], getArray (_x >> "color")];
     nil;
-} count ("true" configClasses (missionConfigFile >> "BG" >> "sides"));
+} count ("isClass _x" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 
 if (isServer) then {
     [] spawn {
@@ -29,7 +29,7 @@ if (isServer) then {
         GVAR(allSectorsArray) = [];
 
 
-        private _sectors = "true" configClasses (missionConfigFile >> "BG" >> "CfgSectors");
+        private _sectors = "isClass _x" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
 
         {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
@@ -59,12 +59,11 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
-    GVAR(captureStatusPFH) = -1;
+    GVAR(captureStatusPFH) = false;
     ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call FUNC(events,addEventHandler);
 
     ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call FUNC(events,addEventHandler);
 
-    // Todo make Own UI or use BI Task Hint for that and make useage of Task system/ add Better Visualisation(Check Posible use of Markers)
     ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call FUNC(events,addEventHandler);
 
     /*

@@ -558,13 +558,13 @@ class CfgPatches {
             "a3_weapons_f_uniforms",
             "a3_weapons_f_vests",
             "a3data",
-            "map_vr",
+            "map_vr"
         };
-        author[] = {"PRA3 Team"};
+        author[] = {"joko // Jonas", "NetFuison", "Hoeginson", "Badguy", "PRA3 Team"};
         authorUrl = "";
         version = VERSION;
         versionStr = QUOTE(VERSION);
-        versionAr[] = {VERSION_AR}
+        versionAr[] = {VERSION_AR};
     };
 };
 

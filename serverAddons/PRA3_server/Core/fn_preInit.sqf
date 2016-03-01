@@ -14,7 +14,11 @@ PREP(deleteNamespace)
 PREP(getLogicGroup)
 
 // Interaction
-EPREP(Nametags,draw3D)
+EPREP(Interaction,addAction)
+EPREP(Interaction,init)
 
 // Nametags
 EPREP(Nametags,draw3D)
+
+
+GVAR(importentNamespaces) = [missionNamespace,uiNamespace,/*parsingNamespace*/]
