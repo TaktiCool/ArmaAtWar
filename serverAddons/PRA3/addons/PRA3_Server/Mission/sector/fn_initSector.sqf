@@ -21,7 +21,6 @@ GVAR(competingSides) = [];
     missionNamespace setVariable [format ["%1_%2",QGVAR(SideColor),configName _x], getArray (_x >> "color")];
     nil;
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
-
 if (isServer) then {
     [] spawn {
         GVAR(allSectors) = (call EFUNC(Core,getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
@@ -35,7 +34,9 @@ if (isServer) then {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             nil;
         } count _sectors;
+        GVAR(sectorCreationDone) = true;
         publicVariable QGVAR(allSectorsArray);
+        publicVariable QGVAR(sectorCreationDone);
     };
 };
 
@@ -78,5 +79,5 @@ if (isServer) then {
     };
 
 }, {
-    !isNil QGVAR(allSectorsArray)
+    !isNil QGVAR(sectorCreationDone)
 }] call CFUNC(waitUntil);
