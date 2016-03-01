@@ -20,6 +20,7 @@
 // The client waits for the player to be available. This makes sure the player variable is initialized in every script later.
 if (hasInterface) then {
     waitUntil {!isNull player};
+    PRA3_Player = player;
 };
 
 // If the machine has AME running exit and call all requested modules.

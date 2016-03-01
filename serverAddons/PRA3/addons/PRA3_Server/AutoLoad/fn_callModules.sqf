@@ -25,43 +25,43 @@ private _hcInit = [];
 {
     // Client only functions.
     if (_x find "_fnc_clientInit" > 0) then {
-        _clientInit pushBack (compile ("call " + _x));
+        _clientInit pushBack _x;
     };
     // Server only functions.
     if (_x find "_fnc_serverInit" > 0) then {
-        _serverInit pushBack compile ("call " + _x);
+        _serverInit pushBack _x;
     };
     // HC only functions.
     if (_x find "_fnc_hcInit" > 0) then {
-        _hcInit pushBack compile ("call " + _x);
+        _hcInit pushBack _x;
     };
     // Functions for both.
     if (_x find "_fnc_init" > 0) then {
-        _init pushBack compile ("call " + _x);
+        _init pushBack _x;
     };
     if (_x find "_fnc_postInit" > 0) then {
-        _postInit pushBack compile ("call "+ _x)
+        _postInit pushBack _x;
     };
     nil
 } count GVAR(requiredFunctions);
 
 {
-    call _x;
+    call compile ("call "+ _x);
     DUMP("Call: " + _x)
     nil
 } count _init;
 
 if (isServer) then {
     {
-        call _x;
-        DUMP("Call: " + _x)
+        call compile ("call "+ _x);
+        DUMP("Call: " +  _x)
         nil
     } count _serverInit;
 };
 
 if (hasInterface) then {
     {
-        call _x;
+        call compile ("call "+ _x);
         DUMP("Call: " + _x)
         nil
     } count _clientInit;
@@ -69,14 +69,14 @@ if (hasInterface) then {
 
 if (!hasInterface && !isServer) then {
     {
-        call _x;
+        call compile ("call "+ _x);
         DUMP("Call: " + _x)
         nil
     } count _hcInit;
 };
 
 {
-    call _x;
+    call compile ("call "+ _x);
     DUMP("Call: " + _x)
     nil
 } count _postInit;

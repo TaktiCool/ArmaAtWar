@@ -1,5 +1,3 @@
-#define PRA3_DEBUGFULL
-
 #define MAJOR 0
 #define MINOR 1
 #define PATCHLVL 0
@@ -33,15 +31,14 @@
 
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var
 
+#define QFUNC(var) QUOTE(DFUNC(var))
+
 #ifdef PRA3_DEBUGFULL
-    #define FUNC(var) { DUMP("Function " + QFUNC(var) + " called with " + str _this + " Parameter") private _tempRet = _this call DFUNC(var); _tempRet}
+    #define FUNC(var) { DUMP("Function " + QFUNC(var) + " called with " + str (_this) + " Parameter") private _tempRet = _this call DFUNC(var); _tempRet}
 #else
     #define FUNC(var) DFUNC(var)
 #endif
 
-
-
-#define QFUNC(var) QUOTE(DFUNC(var))
 
 
 #define EFUNC(var1,var2) PRA3_##var1##_fnc##_##var2
@@ -63,8 +60,8 @@
 
 #ifdef ENABLEPERFORMANCECOUNTER
     #define PERFORMNACECOUNTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
-    #define PERFORMNACECOUNTER_END(var2) [#var1, false] call CFUNC(addPerformanceCounter);
+    #define PERFORMNACECOUNTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
 #else
-    #define PERFORMNACECOUNTER_START /* Performance Counter disabled */
-    #define PERFORMNACECOUNTER_END /* Performance Counter disabled */
+    #define PERFORMNACECOUNTER_START(var1) /* Performance Counter disabled */
+    #define PERFORMNACECOUNTER_END(var1) /* Performance Counter disabled */
 #endif

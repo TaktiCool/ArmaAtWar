@@ -27,8 +27,8 @@ if (!surfaceIsWater _playerPos) then {
         private _targetPos = visiblePositionASL _target;
         private _distance = _targetPos distance _playerPos;
         private _headPosition = _target modelToWorldVisual (_target selectionPosition "pilot");
-        //private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
-        private _icon = "";
+        private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
+        //private _icon = "";
         private _alpha = ((1 - 0.2 * (_distance - 8) min 1) * 0.8) max 0;
 
         if (lineIntersects [_playerPos, _targetPos vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
