@@ -52,7 +52,7 @@ private _activeSides = _cSector getVariable ["activeSides",[]];
 private _force = [];
 
 private _nbrSides = {
-    private _c = {alive _x} count list (_cSector getVariable [format ["trigger_%1",_x],[]]);
+    private _c = {_x call CFUNC(isAlive)} count list (_cSector getVariable [format ["trigger_%1",_x],[]]);
     _force pushBack [_c,_x];
     true;
 } count _activeSides;

@@ -38,8 +38,8 @@ if (hasInterface) then {
         _trig = createTrigger ["EmptyDetector", getMarkerPos _marker, false];
         _trig setTriggerArea [_size select 0, _size select 1, markerDir _marker, (markerShape _marker) == "RECTANGLE"];
         _trig setTriggerActivation ["ANY", "PRESENT", true];
-        _trig setTriggerStatements ["this", format ["['sector_entered',['%1']] call PRA3_events_fnc_localEvent;",_marker], format ["['sector_leaved',['%1']] call PRA3_events_fnc_localEvent;",_marker]];
+        _trig setTriggerStatements ["this", format ["['sector_entered','%1'] call PRA3_events_fnc_localEvent;",_marker], format ["['sector_leaved','%1'] call PRA3_events_fnc_localEvent;",_marker]];
         _sector setVariable ["trigger",_trig];
     };
-    _trig triggerAttachVehicle [player];
+    _trig triggerAttachVehicle [PRA3_Player];
 };

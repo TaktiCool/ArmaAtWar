@@ -11,8 +11,6 @@ PREP(waitUntil)
 PREP(createNamespace)
 PREP(deleteNamespace)
 
-// Other Functions
-PREP(getLogicGroup)
 
 // Interaction
 EPREP(Interaction,addAction)
@@ -22,3 +20,7 @@ EPREP(Interaction,loop)
 // Nametags
 EPREP(Nametags,draw3D)
 EPREP(Nametags,clientInitNametag)
+
+// Other Functions
+PREP(getLogicGroup)
+PREP(isAlive)

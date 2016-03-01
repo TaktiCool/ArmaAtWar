@@ -16,4 +16,4 @@
 
 if !(hasInterface) exitWith {};
 GVAR(Interaction_Actions) = [];
-player call FUNC(loop);
+PRA3_Player call FUNC(loop);

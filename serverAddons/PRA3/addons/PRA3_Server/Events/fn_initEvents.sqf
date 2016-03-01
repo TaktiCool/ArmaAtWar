@@ -8,10 +8,10 @@
     init for Events
 
     Parameter(s):
-    0: Argument Name <TYPE>
+    None
 
     Returns:
-    0: Return Name <TYPE>
+    None
 */
 
 GVAR(EventNamespace) = call EFUNC(Core,createNamespace);

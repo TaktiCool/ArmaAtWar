@@ -16,11 +16,11 @@
 */
 params["_object","_distance"];
 
-if (_object isKindOf "Man") exitWith {player distance _object < _distance};
+if (_object isKindOf "Man") exitWith {PRA3_Player distance _object < _distance};
 
-_playerPos = eyePos player;
-_viewDirection = eyeDirection player;
+_playerPos = eyePos PRA3_Player;
+_viewDirection = eyeDirection PRA3_Player;
 
 _direction = _viewDirection vectorMultiply (_distance / (vectorMagnitude _viewDirection));
 
-_object in lineIntersectsWith [_playerPos, _playerPos vectorAdd _direction] || player distance _object < _distance
+_object in lineIntersectsWith [_playerPos, _playerPos vectorAdd _direction] || PRA3_Player distance _object < _distance

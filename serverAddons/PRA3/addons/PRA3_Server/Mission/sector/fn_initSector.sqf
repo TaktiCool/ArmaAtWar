@@ -48,7 +48,7 @@ if (isServer) then {
         GVAR(sectorLoopCounter) = 0;
         [FUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
         ["sector_side_changed", {
-            params ["_sector", "_oldSide", "_newSide"];
+            (_this select 0) params ["_sector", "_oldSide", "_newSide"];
 
             private _marker = _sector getVariable ["marker",""];
 
@@ -67,7 +67,7 @@ if (isServer) then {
         ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(events,addEventHandler);
 
         /*
-        player addEventHandler ["Respawn", {
+        PRA3_Player addEventHandler ["Respawn", {
             {
                 [_x] call FUNC(createSectorTrigger);
                 nil;

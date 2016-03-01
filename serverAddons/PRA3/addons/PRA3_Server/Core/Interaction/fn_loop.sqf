@@ -22,7 +22,7 @@
 
 _text = "";
 _lastTarget = cursorObject;
-player setVariable [QGVAR(lastTarget), _lastTarget, true];
+PRA3_Player setVariable [QGVAR(lastTarget), _lastTarget, true];
 {
     params ["_onObject", "_text"];
     _text = (call (_text));

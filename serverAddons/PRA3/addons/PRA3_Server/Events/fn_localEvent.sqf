@@ -18,11 +18,12 @@
 params [["_event", "", [""]], ["_args", []]];
 
 _event = format ["Event_PRA3_", _event];
-private _eventFunctions = GVAR(EventNamespace) getVariable _event;
+private _eventArray = GVAR(EventNamespace) getVariable _event;
 
-if !(isNil "_eventFunctions") then {
+if !(isNil "_eventArray") then {
+    _eventArray params ["_eventFunctions", "_data"];
     {
-        _args call _x;
+        [_args, _data] call _x;
         nil
     } count _eventFunctions;
 };

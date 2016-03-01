@@ -1,3 +1,4 @@
+#include "macros.hpp"
 /*
      Name: JK_Core_fnc_GetWeight
 

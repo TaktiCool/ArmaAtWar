@@ -33,12 +33,12 @@ if (typeName _onObject == "ARRAY") then {
 };
 
 if (typeName _onObject == "OBJECT") then {
-    if (_onObject == player) then {
+    if (_onObject == PRA3_Player) then {
         _text = (call _text);
         _onObject addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
         {
-            waitUntil {(_this select 1) != player};
-            _this set [1, player];
+            waitUntil {(_this select 1) != PRA3_Player};
+            _this set [1, PRA3_Player];
             _this call FUNC(addAction);
         };
     } else {
