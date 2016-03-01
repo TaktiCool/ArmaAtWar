@@ -28,12 +28,12 @@
     #define FUNC(var) PRA3_##MODULE##_fnc##_##var
 #endif
 
-#define QFUNC(var) QUOTE(FNC(var))
+#define QFUNC(var) QUOTE(FUNC(var))
 
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var
 
 #define EFUNC(var1,var2) PRA3_##var1##_fnc##_##var2
-#define QEFUNC(var1,var2) QUOTE(EUFNC(var1,var2))
+#define QEFUNC(var1,var2) QUOTE(EFUNC(var1,var2))
 
 #define CFUNC(var1) EFUNC(Core,var1)
 #define QCFUNC(var1) QUOTE(CFUNC(var1))
