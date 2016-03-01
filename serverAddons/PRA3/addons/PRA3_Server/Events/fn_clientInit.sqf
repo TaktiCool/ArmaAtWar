@@ -1,5 +1,6 @@
+#include macros.hpp"
 /*
-	Arma Mission Enhancement - Core\fn_clientInit.sqf
+	Project Reality ArmA 3
 
 	Author: NetFusion
 
@@ -7,15 +8,11 @@
 	This function is the entry point for the core module. It is called by autoloader for all clients. It adds OEF EH to trigger some common events.
 
 	Parameter(s):
-	-
+	None
 
 	Returns:
-	-
-
-	Example:
-	-
+	None
 */
-#include "\x\AME\addons\AME\Core\macros.hpp"
 
 // This is needed to provide a player object for zeus controlled units. Important to ensure that player is not null here (which is done in autoload).
 PRA3_Player = player;

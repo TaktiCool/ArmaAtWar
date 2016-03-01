@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-	Arma Mission Enhancement - Core\fn_clientInit.sqf
+	Project Reality ArmA 3
 
 	Author: NetFusion
 
@@ -8,13 +8,10 @@
 	This function is the entry point for the core module. It is called by autoloader for server. It adds OEF EH to trigger some common events.
 
 	Parameter(s):
-	-
+	None
 
 	Returns:
-	-
-
-	Example:
-	-
+	None
 */
 
 // To ensure that the briefing is done during briefings we trigger an event if the mission starts.
