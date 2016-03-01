@@ -10,7 +10,7 @@ PREP(waitUntil)
 // Namespaces
 PREP(createNamespace)
 PREP(deleteNamespace)
-
+PREP(getVariableLoc)
 
 // Interaction
 EPREP(Interaction,addAction)
@@ -24,3 +24,7 @@ EPREP(Nametags,clientInitNametag)
 // Other Functions
 PREP(getLogicGroup)
 PREP(isAlive)
+PREP(cachedCall)
+
+// Init
+PREP(init)
