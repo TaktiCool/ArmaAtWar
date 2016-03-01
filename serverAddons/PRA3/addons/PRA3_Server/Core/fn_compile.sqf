@@ -16,7 +16,20 @@
 */
 params [["_functionPath", "", [""]], ["_functionVarName", "", [""]]];
 
-private _funcString = preprocessFileLineNumbers _functionPath;
+#ifdef keyword
+    private _debug = "private _fnc_scriptMap = if (isNil '_fnc_scriptMap') then {[_fnc_scriptName]} else {_fnc_scriptMap + [_fnc_scriptName]};";
+#else
+    private _debug = "";
+#endif
+
+private _header = format ["
+    private _fnc_scriptNameParent = if (isNil '_fnc_scriptName') then {'%1'} else {_fnc_scriptName};
+    private _fnc_scriptName = '%1';
+    scriptName _fnc_scriptName;
+    %2
+", _functionVarName, _debug];
+
+private _funcString = _header + preprocessFileLineNumbers _functionPath;
 
 // 0.NewLine 1.Tab
 private _toRemoveString = [10, 9];
@@ -27,7 +40,7 @@ _funcArray = _funcArray select {!(_x in _toRemoveString)};
 
 _funcString = toString _funcArray;
 
-_fncCode = compileFinal preprocessFileLineNumbers _functionPath;
+_fncCode = compileFinal _funcString;
 {
     _x setVariable [_functionVarName, _fncCode];
     nil
