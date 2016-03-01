@@ -16,4 +16,4 @@
     Example:
     -
 */
-createLocation ["fakeName", [-100000,-100000,-100000], 0, 0];
+createLocation ["fakeTown", [-100000,-100000,-100000], 0, 0];

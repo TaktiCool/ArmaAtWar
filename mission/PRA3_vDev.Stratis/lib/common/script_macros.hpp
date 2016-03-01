@@ -10,7 +10,7 @@
 #define EFUNCTAG(var1) DOUBLES(PREFIX,var1)
 #define FUNCTAG EFUNCTAG(COMPONENT)
 
-#define EFUNCPATH(var1) ##ROOT_FOLDER\PREFIX\##var1\functions
+#define EFUNCPATH(var1) ##ROOT_FOLDER\##var1\functions
 #define FUNCPATH EFUNCPATH(COMPONENT)
 
 #define EFUNC(var1,var2) TRIPLES(EFUNCTAG(var1),fnc,var2)
