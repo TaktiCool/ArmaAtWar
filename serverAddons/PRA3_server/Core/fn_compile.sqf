@@ -1,18 +1,18 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3 - Core\fn_compile.sqf
+    Project Reality ArmA 3 - Core\fn_compile.sqf
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	Compile and Compress a function
+    Description:
+    Compile and Compress a function
 
-	Parameter(s):
-	0: Path to Function <STRING>
-	1: Function Name <STRING>
+    Parameter(s):
+    0: Path to Function <STRING>
+    1: Function Name <STRING>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 if !(isServer) exitWith {};
 params [["_functionPath", "", [""]], ["_functionVarName", "", [""]]];
@@ -30,9 +30,9 @@ _funcString = toString _funcArray;
 
 _fncCode = compileFinal preprocessFileLineNumbers _functionPath;
 {
-	_x setVariable [_functionName, _fncCode];
-	nil
+    _x setVariable [_functionName, _fncCode];
+    nil
 } count [missionNamespace, uiNamespace, parsingNamespace];
 
-GVAR(functionCache) pushBack _functionName;
+EGVAR(AutoLoad,functionCache) pushBack _functionName;
 nil

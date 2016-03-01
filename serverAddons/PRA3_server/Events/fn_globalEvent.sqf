@@ -1,19 +1,19 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3
+    Project Reality ArmA 3
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	trigger a Event on every Maschine
+    Description:
+    trigger a Event on every Maschine
 
-	Parameter(s):
-	0: Event Name <String>
-	1: Arguments <Any>
-	2: is Persistent <String, Number>
+    Parameter(s):
+    0: Event Name <String>
+    1: Arguments <Any>
+    2: is Persistent <String, Number>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 [["_event", "EventError", [""]], ["_args", []], ["_persistent", 0, ["", 0]]];
 

@@ -1,18 +1,18 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3
+    Project Reality ArmA 3
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	trigger a event on the Server
+    Description:
+    trigger a event on the Server
 
-	Parameter(s):
-	0: Event Name <String>
-	1: Arguments <Any>
+    Parameter(s):
+    0: Event Name <String>
+    1: Arguments <Any>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 [["_event", "EventError", [""]], ["_args", []], ["_persistent", 0, ["", 0]]];
 

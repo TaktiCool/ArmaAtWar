@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
- * Author: joko // Jonas
+ * Author: EstelDudleDain edit by joko // Jonas
  * wait a time and execute script
  *
  * Arguments:

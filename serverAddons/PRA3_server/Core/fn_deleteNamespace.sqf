@@ -1,17 +1,17 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3 - Core\fn_createNamespace.sqf
+    Project Reality ArmA 3 - Core\fn_createNamespace.sqf
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	Delete a Location
+    Description:
+    Delete a Location
 
-	Parameter(s):
-	Namespace <Location>
+    Parameter(s):
+    Namespace <Location>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 params [["_namespace", locationNull, [locationNull]]];
 deleteLocation _namespace;

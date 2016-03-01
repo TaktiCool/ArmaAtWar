@@ -1,19 +1,19 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3
+    Project Reality ArmA 3
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	add a Perframe eventhandler
+    Description:
+    add a Perframe eventhandler
 
-	Parameter(s):
-	0: Function that get called <Code, String>
-	1: Delay <Number>
-	2: Arguments <Any>
+    Parameter(s):
+    0: Function that get called <Code, String>
+    1: Delay <Number>
+    2: Arguments <Any>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 params [["_fnc", {hint "idiot"}], ["_delay", 0, [0]], ["_args", []]];
 private _handler = GVAR(PFHCache) getVariable QGVAR(PerframehandlerArray);

@@ -1,18 +1,18 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3 - Autoload\fn_autoloadEntryPoint.sqf
+    Project Reality ArmA 3 - Autoload\fn_autoloadEntryPoint.sqf
 
-	Author: NetFusion
+    Author: NetFusion
 
-	Description:
-	Entry point for autoloader. This should be the first called function for everything to work properly.
-	Provides an entry point for all clients. Must be called in preInit.
+    Description:
+    Entry point for autoloader. This should be the first called function for everything to work properly.
+    Provides an entry point for all clients. Must be called in preInit.
 
-	Parameter(s):
-	None
+    Parameter(s):
+    None
 
-	Returns:
-	None
+    Returns:
+    None
 */
 
 // Transfers entry function from server to all clients.

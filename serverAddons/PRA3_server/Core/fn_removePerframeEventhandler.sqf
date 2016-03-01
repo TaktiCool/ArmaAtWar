@@ -1,17 +1,17 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3
+    Project Reality ArmA 3
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	Remove a Perframe Eventhandler per ID
+    Description:
+    Remove a Perframe Eventhandler per ID
 
-	Parameter(s):
-	0: Index of PFH <Number>
+    Parameter(s):
+    0: Index of PFH <Number>
 
-	Returns:
-	None
+    Returns:
+    None
 */
 #include "macros.hpp"
 params ["_index"];

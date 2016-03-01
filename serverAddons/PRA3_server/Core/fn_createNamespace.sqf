@@ -1,19 +1,19 @@
 #include "macros.hpp"
 /*
-	Project Reality ArmA 3 - Core\fn_createNamespace.sqf
+    Project Reality ArmA 3 - Core\fn_createNamespace.sqf
 
-	Author: joko // Jonas
+    Author: joko // Jonas
 
-	Description:
-	Create a Location
+    Description:
+    Create a Location
 
-	Parameter(s):
-	None
+    Parameter(s):
+    None
 
-	Returns:
-	Namespace <Location>
+    Returns:
+    Namespace <Location>
 
-	Example:
-	-
+    Example:
+    -
 */
 createLocation ["fakeName", [-100000,-100000,-100000], 0, 0];

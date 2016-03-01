@@ -1,0 +1,46 @@
+enableDebugConsole = true;
+saving = 0;
+joinUnassigned = 0;
+allowFunctionsRecompile = 1;
+debriefing = 0;
+
+class BG {
+
+    class sides {
+        class west {
+            name = "US ARMY";
+            flag = "a3\data_f\Flags\flag_us_co.paa";
+            color[] = {0, 0.3, 0.8, 1};
+        };
+        class east {
+            name = "TALIBAN";
+            flag = "CUP\BaseConfigs\CUP_BaseConfigs\Data\Flags\flag_tkm_co.paa";
+            color[] = {0.5, 0, 0, 1};
+        };
+    };
+
+    #include "lib\BG\config.hpp"
+
+    class CfgSectors {
+        #include "CfgSectors.hpp"
+    };
+};
+
+class CfgFunctions {
+    #include "lib\BG\CfgFunctions.hpp"
+};
+
+class RscTitles {
+    #include "lib\BG\RscTitles.hpp"
+};
+
+class CfgRespawnTemplates {
+    #include "lib\BG\CfgRespawnTemplates.hpp"
+};
+
+respawn = 3;
+respawnDelay = 3;
+
+respawnTemplates[] = {"BG_respawn_template"};
+
+#include "lib\BG\RscDialogs.hpp"
