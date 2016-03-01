@@ -13,8 +13,7 @@
     Returns:
     None
 */
-
-
+PERFORMNACECOUNTER_START(SectorControllSystem)
 if (!isServer) exitWith {};
 
 if (GVAR(allSectorsArray) isEqualTo []) exitWith {};
@@ -116,3 +115,4 @@ if ((str _side) != _lastSide) then {
     _cSector setVariable ["side",_side,true];
     ["sector_side_changed",[_cSector,_lastSide,_side]] call EFUNC(events,globalEvent);
 };
+PERFORMNACECOUNTER_END(SectorControllSystem)

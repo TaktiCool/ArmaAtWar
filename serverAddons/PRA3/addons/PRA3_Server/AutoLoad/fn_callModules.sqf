@@ -39,6 +39,9 @@ private _hcInit = [];
     if (_x find "_fnc_init" > 0) then {
         _init pushBack compile ("call " + _x);
     };
+    if (_x find "_fnc_postInit" > 0) then {
+        _postInit pushBack compile ("call "+ _x)
+    };
     nil
 } count GVAR(requiredFunctions);
 
@@ -56,12 +59,6 @@ if (isServer) then {
     } count _serverInit;
 };
 
-{
-    call _x;
-    DUMP("Call: " + _x)
-    nil
-} count _postInit;
-
 if (hasInterface) then {
     {
         call _x;
@@ -77,3 +74,9 @@ if (!hasInterface && !isServer) then {
         nil
     } count _hcInit;
 };
+
+{
+    call _x;
+    DUMP("Call: " + _x)
+    nil
+} count _postInit;

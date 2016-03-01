@@ -21,6 +21,8 @@ GVAR(waitArray) = [];
 GVAR(waitUntilArray) = [];
 
 [QGVAR(OnEachFrameID), "onEachFrame", {
+    //PERFORMNACECOUNTER_START(PFHCounter)
+
     private _handler = GVAR(PFHCache) getVariable QGVAR(PerframehandlerArray);
     {
         _x params ["_fnc", "_args", "_delay", "_delta"];
@@ -57,4 +59,5 @@ GVAR(waitUntilArray) = [];
             true
         };
     };
+    //PERFORMNACECOUNTER_END(PFHCounter)
 }] call BIS_fnc_addStackedEventHandler;
