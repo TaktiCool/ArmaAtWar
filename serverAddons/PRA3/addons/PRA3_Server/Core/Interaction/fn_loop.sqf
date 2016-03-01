@@ -1,4 +1,7 @@
+#include "macros.hpp"
 /*
+        Project Reality ArmA 3
+
     Author: NetFusion
 
     Description:
