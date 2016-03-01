@@ -13,9 +13,14 @@
     Returns:
     None
 */
+
 GVAR(PFHCache) = call FUNC(createNamespace);
 GVAR(PFHCache) setVariable [QGVAR(PerframehandlerArray),[]];
-[QGVAR(OnEachFrame), "onEachFrame", {
+
+GVAR(waitArray) = [];
+GVAR(waitUntilArray) = [];
+
+[QGVAR(OnEachFrameID), "onEachFrame", {
     private _handler = GVAR(PFHCache) getVariable QGVAR(PerframehandlerArray);
     {
         _x params ["_fnc", "_args", "_delay", "_delta"];

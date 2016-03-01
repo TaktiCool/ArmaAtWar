@@ -20,7 +20,7 @@ params [["_event", "", [""]], ["_function", {},[{}]]];
 
 _event = format ["Event_PRA3_", _event];
 private _eventFunctions = GVAR(EventNamespace) getVariable _event;
-if (isNil "_event") then {
+if (isNil "_eventFunctions") then {
     _eventFunctions = [_function];
 } else {
     _eventFunctions pushBack _function;

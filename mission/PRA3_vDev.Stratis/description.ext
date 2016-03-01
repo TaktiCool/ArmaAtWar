@@ -1,7 +1,8 @@
 joinUnassigned = 0;
 allowFunctionsRecompile = 1;
+allowFunctionsLog = 1;
 debriefing = 0;
-
+enableDebugConsole = 2;
 class PRA3 {
     class sides {
         class west {

@@ -21,7 +21,7 @@ if (_show) then {
     _sector = [_sector] call FUNC(getSector);
     ([QGVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QGVAR(CaptureStatus),"PLAIN"];
     if (GVAR(captureStatusPFH) != -1) then {
-        [GVAR(captureStatusPFH)] call EFUNC(Core,removePerFrameHandler);
+        [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
     };
 
     [{
@@ -43,9 +43,9 @@ if (_show) then {
             (_dialog displayCtrl 104) ctrlCommit 0;
             (_dialog displayCtrl 104) progressSetPosition (_progress + (serverTime - _lastTick)*_rate);
             if !(GVAR(captureStatusPFH)) then {
-                [GVAR(captureStatusPFH)] call EFUNC(Core,removePerFrameHandler);
+                [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
             };
-        }, 0, [_sector]] call EFUNC(Core,addPerFrameHandler);
+        }, 0, [_sector]] call CFUNC(addPerFrameHandler);
         GVAR(captureStatusPFH) = true;
 } else {
     GVAR(captureStatusPFH) = false;

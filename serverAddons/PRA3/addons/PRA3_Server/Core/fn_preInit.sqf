@@ -16,9 +16,9 @@ PREP(getLogicGroup)
 
 // Interaction
 EPREP(Interaction,addAction)
-EPREP(Interaction,clientInit)
+EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 
 // Nametags
 EPREP(Nametags,draw3D)
-EPREP(Nametags,clientInit)
+EPREP(Nametags,clientInitNametag)

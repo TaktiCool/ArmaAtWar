@@ -42,9 +42,10 @@
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 
 #ifdef PRA3_DEBUGFULL
-    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
+    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
+        systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
 #else
-    #define DUMP(var) /*Deactivated*/
+    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
 #endif
 
 #define FORMAT_1(STR,ARG1) format[STR, ARG1]

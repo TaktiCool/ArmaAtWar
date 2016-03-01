@@ -21,8 +21,8 @@
 */
 
 _text = "";
-_lastTarget = cursorTarget;
-player setVariable ["JK_LastTarget", _lastTarget, true];
+_lastTarget = cursorObject;
+player setVariable [QGVAR(lastTarget), _lastTarget, true];
 {
     params ["_onObject", "_text"];
     _text = (call (_text));
@@ -44,6 +44,6 @@ player setVariable ["JK_LastTarget", _lastTarget, true];
         };
     };
     false
-} count JK_Core_Interaction_Actions;
+} count GVAR(Interaction_Actions);
 
 [FUNC(loop),{!isNull cursorObject && cursorObject != _this}, _lastTarget] call CFUNC(waitUntil);

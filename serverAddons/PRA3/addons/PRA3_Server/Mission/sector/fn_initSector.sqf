@@ -8,10 +8,10 @@
     Initialize the
 
     Parameter(s):
-    0: Argument Name <TYPE>
+    None
 
     Returns:
-    0: Return Name <TYPE>
+    None
 */
 
 GVAR(competingSides) = [];
@@ -24,7 +24,7 @@ GVAR(competingSides) = [];
 
 if (isServer) then {
     [] spawn {
-        GVAR(allSectors) = (call EFUNC(common,getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
+        GVAR(allSectors) = (call EFUNC(Core,getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
         publicVariable QGVAR(allSectors);
         GVAR(allSectorsArray) = [];
 
@@ -39,40 +39,44 @@ if (isServer) then {
     };
 };
 
-{
-    [_x] call FUNC(createSectorTrigger);
-    nil;
-} count GVAR(allSectorsArray);
-
-if (isServer) then {
-    GVAR(sectorLoopCounter) = 0;
-    [FUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
-    ["sector_side_changed", {
-        params ["_sector", "_oldSide", "_newSide"];
-
-        private _marker = _sector getVariable ["marker",""];
-
-        if (_marker != "") then {
-            _marker setMarkerColor format["Color%1",_newSide];
-        };
-    }] call EFUNC(events,addEventHandler);
-};
-
-if (hasInterface) then {
-    GVAR(captureStatusPFH) = false;
-    ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
-
-    ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
-
-    ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(events,addEventHandler);
-
-    /*
-    player addEventHandler ["Respawn", {
-        {
-            [_x] call FUNC(createSectorTrigger);
-            nil;
-        } count GVAR(allSectorsArray);
+[{
+    {
+        [_x] call FUNC(createSectorTrigger);
         nil;
-    }];
-    */
-};
+    } count GVAR(allSectorsArray);
+    if (isServer) then {
+        GVAR(sectorLoopCounter) = 0;
+        [FUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
+        ["sector_side_changed", {
+            params ["_sector", "_oldSide", "_newSide"];
+
+            private _marker = _sector getVariable ["marker",""];
+
+            if (_marker != "") then {
+                _marker setMarkerColor format["Color%1",_newSide];
+            };
+        }] call EFUNC(events,addEventHandler);
+    };
+
+    if (hasInterface) then {
+        GVAR(captureStatusPFH) = false;
+        ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
+
+        ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(events,addEventHandler);
+
+        ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(events,addEventHandler);
+
+        /*
+        player addEventHandler ["Respawn", {
+            {
+                [_x] call FUNC(createSectorTrigger);
+                nil;
+            } count GVAR(allSectorsArray);
+            nil;
+        }];
+        */
+    };
+
+}, {
+    !isNil QGVAR(allSectorsArray)
+}] call CFUNC(waitUntil);
