@@ -12,10 +12,13 @@
 #define FFNCPATH(folder,var) \pr\PRA3_Server\addons\PRA3_server\##MODULE\##folder\fn_##var.sqf
 
 #define GVAR(var) PRA3_##MODULE##_##var
-#define QGVAR(var) #GVAR(var)
+#define QGVAR(var) QUOTE(GVAR(var))
 
 #define EGVAR(var1,var2) PRA3_##var1##_##var2
-#define QEGVAR(var1,var2) #EGVAR(var1,var2)
+#define QEGVAR(var1,var2) QUOTE(EGVAR(var1,var2))
+
+#define CGVAR(var1) EGVAR(Core,var1)
+#define QCGVAR(var1) QEGVAR(Core,var1)
 
 #define GEVENT(var1,var2) QUOTE(PRA3_Event_##var1##_##var2)
 
@@ -25,19 +28,18 @@
     #define FUNC(var) PRA3_##MODULE##_fnc##_##var
 #endif
 
-
-#define FUNC(var) PRA3_##MODULE##_fnc##_##var
-
-#define QFUNC(var) #FNC(var)
+#define QFUNC(var) QUOTE(FNC(var))
 
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var
 
-
 #define EFUNC(var1,var2) PRA3_##var1##_fnc##_##var2
-#define QEFUNC(var1,var2) #EFNC(var1,var2)
+#define QEFUNC(var1,var2) QUOTE(EUFNC(var1,var2))
 
-#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFNC(fncName)] call PRA3_fnc_compileCode;
-#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFNC(fncName)] call AME_Core_fnc_compileCode;
+#define CFUNC(var1) EFUNC(Core,var1)
+#define QCFUNC(var1) QUOTE(CFUNC(var1))
+
+#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
+#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 
 #ifdef PRA3_DEBUGFULL
     #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];

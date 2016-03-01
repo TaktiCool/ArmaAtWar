@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={7060.0806,40.964329,5991.1865};
-		dir[]={0.54594845,-0.78915131,-0.28144768};
-		up[]={0.70142817,0.61420029,-0.36159953};
-		aside[]={-0.45822331,2.3804023e-007,-0.88885611};
+		pos[]={7084.7183,21.364225,6002.1245};
+		dir[]={0.28971693,-0.56872725,-0.76988411};
+		up[]={0.20031297,0.82250369,-0.53230309};
+		aside[]={-0.93597835,-1.1920929e-007,-0.35222};
 	};
 };
 binarizationWanted=0;
@@ -32,6 +32,48 @@ randomSeed=13778806;
 class CustomAttributes
 {
 	class Category0
+	{
+		name="Multiplayer";
+		class Attribute0
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnButton";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"SCALAR"
+						};
+					};
+					value=1;
+				};
+			};
+		};
+		nAttributes=2;
+	};
+	class Category1
 	{
 		name="Scenario";
 		class Attribute0
@@ -176,14 +218,15 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={7099.1152,6.6087093,5979.5986};
-						angles[]={0.062419467,0,6.0618711};
+						position[]={7096.1479,7.7966461,5983.374};
+						angles[]={6.1196656,0,6.0618777};
 					};
 					side="West";
 					flags=2;
 					class Attributes
 					{
 						skill=0.60000002;
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=60;

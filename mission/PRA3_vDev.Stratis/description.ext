@@ -1,5 +1,3 @@
-enableDebugConsole = true;
-saving = 0;
 joinUnassigned = 0;
 allowFunctionsRecompile = 1;
 debriefing = 0;
