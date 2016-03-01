@@ -35,9 +35,11 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
 	(_this select 1) params ["_functionVarName", "_functionCode", "_progress"];
 
 	// Compile the function code and assign it.
+	_functionCode = compileFinal _functionCode;
 	{
-		_x setVariable [_functionVarName, compile _functionCode];
-	} forEach [missionNamespace, uiNamespace, parsingNamespace];
+		_x setVariable [_functionVarName, _functionCode];
+		nil
+	} count [missionNamespace, uiNamespace, parsingNamespace];
 
 	// Update the loading screen with the progress.
 	progressLoadingScreen _progress;

@@ -9,7 +9,6 @@
 #define QUOTE(var) #var
 
 #define FUNCPATH(var) \pr\PRA3\addons\PRA3_server\##MODULE\fn_##var.sqf
-#define FFUNCPATH(folder,var) \x\AME\addons\AME\##MODULE\##folder\fn_##var.sqf
 
 #define GVAR(var) PRA3_##MODULE##_##var
 #define QGVAR(var) #GVAR(var)
@@ -26,7 +25,6 @@
 #define QEFUNC(var1,var2) #EFNC(var1,var2)
 
 #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFNC(fncName)] call PRA3_fnc_compileCode;
-#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFNC(fncName)] call PRA3_fnc_compileCode;
 
 #ifdef PRA3_DEBUGFULL
 	#define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
