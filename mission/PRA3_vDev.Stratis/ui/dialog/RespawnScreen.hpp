@@ -1,7 +1,7 @@
 class GVAR(RespawnScreen) {
     idd = -1;
-    onLoad = "[_this select 0] call PRA3_respawn_fnc_initRespawnScreen;";
-    onUnLoad = "[_this select 0] call PRA3_respawn_fnc_closeRespawnScreen;";
+    onLoad = "[_this select 0] call PRA3_mission_fnc_initRespawnScreen;";
+    onUnLoad = "[_this select 0] call PRA3_mission_fnc_closeRespawnScreen;";
     class Controls {
 
         #define GWIDTH 40
@@ -89,7 +89,7 @@ class GVAR(RespawnScreen) {
                     y = PY(4);
                     w = PX(8);
 
-                    onButtonClick = "[_this] call PRA3_respawn_fnc_createSquadBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_createSquadBtn;";
                 };
 
                 class SquadList : RscListNBox {
@@ -139,7 +139,7 @@ class GVAR(RespawnScreen) {
                     y = PY(22.5);
                     w = PX(6);
 
-                    onButtonClick = "[_this] call PRA3_respawn_fnc_joinLeaveBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_joinLeaveBtn;";
                 };
 
                 class KickBtn : PRA3_RscButtonMenu {
@@ -149,7 +149,7 @@ class GVAR(RespawnScreen) {
                     y = PY(22.5);
                     w = PX(6);
 
-                    onButtonClick = "[_this] call PRA3_respawn_fnc_kickSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_kickSquadMemberBtn;";
                 };
 
                 class PromoteBtn : PRA3_RscButtonMenu {
@@ -159,7 +159,7 @@ class GVAR(RespawnScreen) {
                     y = PY(22.5);
                     w = PX(9);
 
-                    onButtonClick = "[_this] call PRA3_respawn_fnc_promoteSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_promoteSquadMemberBtn;";
                 };
             };
         };
