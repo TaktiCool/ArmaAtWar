@@ -14,7 +14,7 @@
     Returns:
     None
 */
-[["_event", "EventError", [""]], ["_args", []]];
+params [["_event", "EventError", [""]], ["_args", []]];
 
 if (isServer) then {
     [_event, _args] call FUNC(localEvent);

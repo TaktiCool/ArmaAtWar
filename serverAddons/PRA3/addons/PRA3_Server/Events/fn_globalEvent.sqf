@@ -15,7 +15,7 @@
     Returns:
     None
 */
-[["_event", "EventError", [""]], ["_args", []], "_persistent"];
+params [["_event", "EventError", [""]], ["_args", []], "_persistent"];
 
 if (isNil "_persistent") then {
     [_event, _args] remoteExecCall [QFUNC(localEvent), 0];
