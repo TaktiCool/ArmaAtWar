@@ -15,7 +15,8 @@
 */
 
 GVAR(competingSides) = [];
-GVAR(captureStatusPFH) = [];
+GVAR(captureStatusPFHRemove) = false;
+GVAR(captureStatusPFHisRunning) = false;
 {
     GVAR(competingSides) pushBack configName _x;
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];

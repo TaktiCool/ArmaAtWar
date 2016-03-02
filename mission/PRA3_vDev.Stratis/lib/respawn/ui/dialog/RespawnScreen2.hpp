@@ -52,9 +52,9 @@ class GVAR(RespawnScreen) {
                     font = "PuristaMedium";
                     sizeEx = PY(2);
                     colorSelectBackground2[] = {0.4,0.4,0.4,1};
-                	colorSelectBackground[] = {0.4,0.4,0.4,1};
+                    colorSelectBackground[] = {0.4,0.4,0.4,1};
                     colorSelect2[] = {1,1,1,1};
-                	colorSelect[] = {1,1,1,1};
+                    colorSelect[] = {1,1,1,1};
                     rowHeight = PY(3);
                     columns[] = {-0.01,1/8,6/8};
                 };
@@ -166,9 +166,9 @@ class GVAR(RespawnScreen) {
                     font = "PuristaMedium";
                     sizeEx = PY(2);
                     colorSelectBackground2[] = {0.4,0.4,0.4,1};
-                	colorSelectBackground[] = {0.4,0.4,0.4,1};
+                    colorSelectBackground[] = {0.4,0.4,0.4,1};
                     colorSelect2[] = {1,1,1,1};
-                	colorSelect[] = {1,1,1,1};
+                    colorSelect[] = {1,1,1,1};
                     rowHeight = PY(3);
                     columns[] = {-0.01,1/8,6/8};
                 };

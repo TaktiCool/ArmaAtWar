@@ -14,6 +14,10 @@
     Returns:
     None
 */
-[["_event", "EventError", [""]], ["_args", []], ["_persistent", 0, ["", 0]]];
+[["_event", "EventError", [""]], ["_args", []]];
 
-[_event, _args] remoteExecCall [QFUNC(localEvent), 2, _persistent];
+if (isServer) then {
+    [_event, _args] call FUNC(localEvent);
+} else {
+    [_event, _args] remoteExecCall [QFUNC(localEvent), 2];
+};

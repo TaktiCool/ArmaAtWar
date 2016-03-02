@@ -3,17 +3,17 @@
 
 
 class BG_RscButtonMenu : RscButton {
-	text = "";
-	font = "PuristaMedium";
-	style = ST_LEFT;
-	sizeEx = PY(2);
-	shadow = 0;
-	colorBackground[] = {1,0.4,0,1};
-	colorText[] = {1,1,1,1};
-	x = PX(0);
-	y = PY(0);
-	w = PX(9);
-	h = PY(3);
+    text = "";
+    font = "PuristaMedium";
+    style = ST_LEFT;
+    sizeEx = PY(2);
+    shadow = 0;
+    colorBackground[] = {1,0.4,0,1};
+    colorText[] = {1,1,1,1};
+    x = PX(0);
+    y = PY(0);
+    w = PX(9);
+    h = PY(3);
 };
 
 class BG_RscEdit : RscEdit {

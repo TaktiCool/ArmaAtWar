@@ -16,11 +16,11 @@
     Returns:
     None
 */
-params [["_event", "EventError", [""]], ["_target", objNull, ["", objNull, 0,[], grpNull, sideUnknown]], ["_args", []], ["_persistent", 0, ["", 0]]];
+params [["_event", "EventError", [""]], ["_target", objNull, ["", objNull, 0,[], grpNull, sideUnknown]], ["_args", []], ["_persistent", false, ["", false]]];
 
 // exit if the Unit is Local
 if (_target isEqualType objNull && {local _target}) exitWith {
-    [_event, _args]  call FUNC(localEvent);
+    [_event, _args] call FUNC(localEvent);
 };
 
 // exit if the target is a string

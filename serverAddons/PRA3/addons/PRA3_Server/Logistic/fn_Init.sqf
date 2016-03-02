@@ -125,7 +125,7 @@ if (isDedicated || !hasInterface) exitWith {};
             _draggedObject setPosATL _position;
         };
     }
-] call JK_Core_fnc_Interaction_addAction;
+] call CFUNC(addAction);
 
 [
     {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},

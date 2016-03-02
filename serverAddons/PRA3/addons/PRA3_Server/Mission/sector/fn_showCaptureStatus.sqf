@@ -20,8 +20,8 @@ params ["_show","_sector"];
 if (_show) then {
     _sectorObject = [_sector] call FUNC(getSector);
     ([QGVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QGVAR(CaptureStatus),"PLAIN"];
-    if (GVAR(captureStatusPFH)) then {
-        GVAR(captureStatusPFH) pushBack _sector;
+    if (GVAR(captureStatusPFHisRunning)) then {
+        GVAR(captureStatusPFHRemove) = true;
     };
 
     [{
@@ -42,14 +42,14 @@ if (_show) then {
             (_dialog displayCtrl 104) ctrlSetTextColor (missionNamespace getVariable [format ["%1_%2",QGVAR(SideColor),_aside],[0,1,0,1]]);
             (_dialog displayCtrl 104) ctrlCommit 0;
             (_dialog displayCtrl 104) progressSetPosition (_progress + (serverTime - _lastTick)*_rate);
-            if (_uid in GVAR(captureStatusPFH)) then {
+            if (GVAR(captureStatusPFHRemove)) then {
                 [_id] call CFUNC(removePerFrameHandler);
-                GVAR(captureStatusPFH) deleteAt (GVAR(captureStatusPFH) find _uid);
+                GVAR(captureStatusPFHisRunning) = false;
             };
         }, 0, [_sectorObject, _sector]] call CFUNC(addPerFrameHandler);
-        GVAR(captureStatusPFH) = true;
+        GVAR(captureStatusPFHisRunning) = true;
 } else {
-    GVAR(captureStatusPFH) pushBack _sector;
+    GVAR(captureStatusPFHRemove) = true;
 
     ([QGVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 1;
 };
