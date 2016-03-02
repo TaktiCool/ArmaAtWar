@@ -1,8 +1,5 @@
-#include "common\ui\defines.hpp"
-#include "common\ui\baseclasses.hpp"
 
-
-class BG_RscButtonMenu : RscButton {
+class PRA3_RscButtonMenu : RscButton {
     text = "";
     font = "PuristaMedium";
     style = ST_LEFT;
@@ -16,7 +13,7 @@ class BG_RscButtonMenu : RscButton {
     h = PY(3);
 };
 
-class BG_RscEdit : RscEdit {
+class PRA3_RscEdit : RscEdit {
     idc = 201;
     text = "";
     font = "PuristaMedium";
@@ -31,7 +28,7 @@ class BG_RscEdit : RscEdit {
     h = PY(3);
 };
 
-class BG_H1Text : RscText {
+class PRA3_H1Text : RscText {
     text = "";
     font = "PuristaSemiBold";
     sizeEx = PY(3);
@@ -44,13 +41,13 @@ class BG_H1Text : RscText {
     h = PY(4);
 };
 
-class BG_H2Text : BG_H1Text {
+class PRA3_H2Text : PRA3_H1Text {
     font = "PuristaSemiBold";
     sizeEx = PY(2.5);
     h = PY(3);
 };
 
-class BG_RscText : RscText {
+class PRA3_RscText : RscText {
     text = "";
     font = "PuristaMedium";
     sizeEx = PY(2);
@@ -63,9 +60,6 @@ class BG_RscText : RscText {
     h = PY(3);
 };
 
-class BG_RscTextSmall : BG_RscText {
+class PRA3_RscTextSmall : PRA3_RscText {
     sizeEx = PY(2);
 };
-
-#include "groups\RscDialogs.hpp"
-#include "respawn\RscDialogs.hpp"

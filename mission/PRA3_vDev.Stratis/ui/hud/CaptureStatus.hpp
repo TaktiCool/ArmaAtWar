@@ -1,4 +1,4 @@
-class PRA3_mission_CaptureStatus {
+class GVAR(CaptureStatus) {
     idd = -1;
     duration = 999999;
     onLoad = "uiNamespace setVariable [""PRA3_mission_CaptureStatus"", _this select 0];";
@@ -49,9 +49,9 @@ class PRA3_mission_CaptureStatus {
                     colorBackground[] = {0,0,0,0};
                     colorText[] = {1,1,1,1};
                     x = PX(7);
-                    y = PY(0.5);
+                    y = PY(0.25);
                     w = PX(33);
-                    h = PY(2);
+                    h = PY(2.5);
                 };
 
                 class BackgroundProgress : RscText {

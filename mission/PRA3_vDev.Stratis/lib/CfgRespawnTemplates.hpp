@@ -1,2 +1,0 @@
-
-#include "respawn\CfgRespawnTemplates.hpp"

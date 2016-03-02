@@ -1,8 +1,7 @@
-#include "script_macros.hpp"
 class GVAR(RespawnScreen) {
     idd = -1;
-    onLoad = "[_this select 0] call BG_respawn_fnc_initRespawnScreen;";
-    onUnLoad = "[_this select 0] call BG_respawn_fnc_closeRespawnScreen;";
+    onLoad = "[_this select 0] call PRA3_respawn_fnc_initRespawnScreen;";
+    onUnLoad = "[_this select 0] call PRA3_respawn_fnc_closeRespawnScreen;";
     class Controls {
 
         #define GWIDTH 40
@@ -13,9 +12,6 @@ class GVAR(RespawnScreen) {
             y = safeZoneY + PY(10);
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
-
-
-
 
             class Controls {
                 class Background : RscPicture {
@@ -35,7 +31,7 @@ class GVAR(RespawnScreen) {
                     h = PY(2);
                 };
 
-                class TeamName : BG_H1Text {
+                class TeamName : PRA3_H1Text {
                     idc = 103;
                     text = "US ARMY";
                     x = PX(5);
@@ -64,7 +60,7 @@ class GVAR(RespawnScreen) {
                     h = PY(GHEIGHT);
                 };
 
-                class Heading : BG_H2Text {
+                class Heading : PRA3_H2Text {
                     idc = 202;
                     text = "SQUAD";
                     x = PX(0.5);
@@ -72,28 +68,28 @@ class GVAR(RespawnScreen) {
                     w = PX(GWIDTH-0.5);
                 };
 
-                class NewSquadDesignator : BG_RscText {
+                class NewSquadDesignator : PRA3_RscText {
                     idc = 203;
                     x = PX(1);
                     y = PY(4);
                     w = PX(2);
                 };
 
-                class NewSquadDescriptionInput : BG_RscEdit {
+                class NewSquadDescriptionInput : PRA3_RscEdit {
                     idc = 204;
                     x = PX(4);
                     y = PY(4);
                     w = PX(26.5);
                 };
 
-                class CreateSquadBtn : BG_RscButtonMenu {
+                class CreateSquadBtn : PRA3_RscButtonMenu {
                     idc = 205;
                     text = "CREATE";
                     x = PX(31);
                     y = PY(4);
                     w = PX(8);
 
-                    onButtonClick = "[_this] call BG_respawn_fnc_createSquadBtn;";
+                    onButtonClick = "[_this] call PRA3_respawn_fnc_createSquadBtn;";
                 };
 
                 class SquadList : RscListNBox {
@@ -118,7 +114,7 @@ class GVAR(RespawnScreen) {
                     h = PY(22);
                 };
 
-                class HeadingSquadDetails : BG_H2Text {
+                class HeadingSquadDetails : PRA3_H2Text {
                     idc = 208;
                     text = "ALPHA";
                     x = PX(0.5);
@@ -136,38 +132,36 @@ class GVAR(RespawnScreen) {
                     rowHeight = PY(3.5);
                 };
 
-                class JoinLeaveBtn : BG_RscButtonMenu {
+                class JoinLeaveBtn : PRA3_RscButtonMenu {
                     idc = 210;
                     text = "JOIN";
                     x = PX(34);
                     y = PY(22.5);
                     w = PX(6);
 
-                    onButtonClick = "[_this] call BG_respawn_fnc_joinLeaveBtn;";
+                    onButtonClick = "[_this] call PRA3_respawn_fnc_joinLeaveBtn;";
                 };
 
-                class KickBtn : BG_RscButtonMenu {
+                class KickBtn : PRA3_RscButtonMenu {
                     idc = 211;
                     text = "KICK";
                     x = PX(27.5);
                     y = PY(22.5);
                     w = PX(6);
 
-                    onButtonClick = "[_this] call BG_respawn_fnc_kickSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_respawn_fnc_kickSquadMemberBtn;";
                 };
 
-                class PromoteBtn : BG_RscButtonMenu {
+                class PromoteBtn : PRA3_RscButtonMenu {
                     idc = 212;
                     text = "PROMOTE";
                     x = PX(18);
                     y = PY(22.5);
                     w = PX(9);
 
-                    onButtonClick = "[_this] call BG_respawn_fnc_promoteSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_respawn_fnc_promoteSquadMemberBtn;";
                 };
-
             };
         };
-
     };
 };

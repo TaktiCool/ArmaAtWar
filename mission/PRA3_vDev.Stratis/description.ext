@@ -3,11 +3,17 @@ allowFunctionsRecompile = 1;
 allowFunctionsLog = 1;
 debriefing = 0;
 enableDebugConsole = 2;
+
+respawn = 3;
+respawnDelay = 3;
+
+#include "macros.hpp"
+
 class PRA3 {
     class sides {
         class west {
-            name = "US ARMY";
-            flag = "a3\data_f\Flags\flag_us_co.paa";
+            name = "NATO";
+            flag = "a3\data_f\Flags\flag_nato_co.paa";
             color[] = {0, 0.3, 0.8, 1};
         };
         class east {
@@ -17,28 +23,23 @@ class PRA3 {
         };
     };
 
-    #include "lib\config.hpp"
+    class sector {
+        dependency[] = {};
+        ticketBleed = 5;
+        captureTime[] = {30,60};
+        minUnits = 1;
+    };
 
     class CfgSectors {
         #include "CfgSectors.hpp"
     };
 };
 
-class CfgFunctions {
-    #include "lib\CfgFunctions.hpp"
-};
+#include "ui\common\defines.hpp"
+#include "ui\common\baseclasses.hpp"
+#include "ui\common\pra3_baseclasses.hpp"
+#include "ui\dialog\RespawnScreen.hpp"
 
 class RscTitles {
-    #include "lib\RscTitles.hpp"
+    #include "ui\hud\CaptureStatus.hpp"
 };
-
-class CfgRespawnTemplates {
-    #include "lib\CfgRespawnTemplates.hpp"
-};
-
-respawn = 3;
-respawnDelay = 3;
-
-respawnTemplates[] = {"PRA3_respawn_template"};
-
-#include "lib\RscDialogs.hpp"
