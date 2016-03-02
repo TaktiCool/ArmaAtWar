@@ -24,20 +24,20 @@ _text = "";
 _lastTarget = cursorObject;
 PRA3_Player setVariable [QGVAR(lastTarget), _lastTarget, true];
 {
-    params ["_onObject", "_text"];
+    _x params ["_onObject", "_text", "_condition", "_code", "_args"];
     _text = (call (_text));
-    _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
+    private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
     if (!(_x in _objActions)) then {
-        if (typeName _onObject == "STRING") then {
+        if (_onObject isEqualType "") then {
             if (_lastTarget isKindOf _onObject) then {
-                _lastTarget addAction [_text, _x select 3, _x select 4, 1.5, true, true, "", _x select 2];
+                _lastTarget addAction [_text, _code, _args, 1.5, true, true, "", _condition];
                 _objActions pushBack _x;
                 _lastTarget setVariable [QGVAR(Interaction_Actions), _objActions];
             };
         };
-        if (typeName _onObject == "OBJECT") then {
+        if (_onObject isEqualType objNull) then {
             if ([_lastTarget] find _onObject > -1) then {
-                _lastTarget addAction [_text, _x select 3, _x select 4, 1.5, true, true, "", _x select 2];
+                _lastTarget addAction [_text, _code, _args, 1.5, true, true, "", _condition];
                 _objActions pushBack _x;
                 _lastTarget setVariable [QGVAR(Interaction_Actions), _objActions];
             };
