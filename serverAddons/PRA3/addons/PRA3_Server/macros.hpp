@@ -48,17 +48,14 @@
 #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 
-#define STR2SIDE(s) switch (s) do { case "WEST"; case "west": {blufor}; case "EAST"; case "east": {opfor}; case "GUER"; case "guer": {independent};  case "CIV"; case "civ": {civilian}; case "LOGIC"; case "logic": {sideLogic}; case "UNKNOWN"; case "unknown": {sideUnknown}; case "ENEMY"; case "enemy": {sideEnemy}; case "FRIENDLY"; case "friendly": {sideEnemy}}
-#define LOGICGROUP missionNamespace getVariable ["PRA3_common_logicGroup",createGroup (createCenter sideLogic);
-
 #ifdef PRA3_DEBUGFULL
-    #define ENABLEPERFORMANCECOUNTER
+    #define ENABLEPERFORMANCECONUTER
 #endif
 
-#ifdef ENABLEPERFORMANCECOUNTER
-    #define PERFORMNACECOUNTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
-    #define PERFORMNACECOUNTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
+#ifdef ENABLEPERFORMANCECONUTER
+    #define PERFORMANCECONUTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
+    #define PERFORMANCECONUTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
 #else
-    #define PERFORMNACECOUNTER_START(var1) /* Performance Counter disabled */
-    #define PERFORMNACECOUNTER_END(var1) /* Performance Counter disabled */
+    #define PERFORMANCECONUTER_START(var1) /* Performance Counter disabled */
+    #define PERFORMANCECONUTER_END(var1) /* Performance Counter disabled */
 #endif
