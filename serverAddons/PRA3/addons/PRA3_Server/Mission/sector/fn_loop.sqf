@@ -28,7 +28,6 @@ while {!([_cSector] call FUNC(isCaptureable)) && _cIdx != GVAR(sectorLoopCounter
 };
 
 if (_cIdx == GVAR(sectorLoopCounter)) exitWith {PERFORMNACECOUNTER_END(SectorControllSystem)};
-
 private _tick = serverTime;
 private _lastTick = _cSector getVariable ["lastCaptureTick",_tick];
 private _captureRate = _cSector getVariable ["captureRate",0];
@@ -112,6 +111,6 @@ if ((str _attackerSide) != _lastAttackerSide) then {
 };
 if ((str _side) != _lastSide) then {
     _cSector setVariable ["side",_side,true];
-    ["sector_side_changed",[_cSector,_lastSide,_side]] call EFUNC(events,globalEvent);
+    ["sector_side_changed",[_cSector,_lastSide,_side]] call EFUNC(Events,globalEvent);
 };
 PERFORMNACECOUNTER_END(SectorControllSystem)

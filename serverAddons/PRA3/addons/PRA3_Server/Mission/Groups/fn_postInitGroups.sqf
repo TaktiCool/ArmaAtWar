@@ -1,4 +1,18 @@
-#include "script_macros.hpp"
+#include "macros.hpp"
+/*
+    Project Reality ArmA 3
+
+    Author: Badguy
+
+    Description:
+    Init Groups
+
+    Parameter(s):
+    None
+
+    Returns:
+    None
+*/
 
 if (isServer) then {
     GVAR(allGroupIds) = [
@@ -41,7 +55,7 @@ if (isServer) then {
 
         {
             if (side _x == side _group) then {
-                private _groupId = _x getVariable ["BG_GroupId",""];
+                private _groupId = _x getVariable ["PRA3_GroupId",""];
                 if (_groupId != "") then {
                     _allGroupIds pushBack _groupId;
                 };
@@ -53,7 +67,7 @@ if (isServer) then {
 
         private _groupId = (GVAR(allGroupIds)-_allGroupIds) select 0;
 
-        _group setVariable ["BG_GroupId", _groupId,true];
+        _group setVariable ["PRA3_GroupId", _groupId,true];
 
-    }] call CBA_fnc_addEventHandler;
+    }] call EFUNC(Events,addEventhandler);
 };

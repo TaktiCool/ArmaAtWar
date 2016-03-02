@@ -14,35 +14,25 @@
     None
 */
 
-GVAR(PFHCache) = call FUNC(createNamespace);
-GVAR(PFHCache) setVariable [QGVAR(PerframehandlerArray),[]];
-
 GVAR(waitArray) = [];
 GVAR(waitUntilArray) = [];
-
+GVAR(perFrameHandlerArray) = [];
+GVAR(PFHhandles) = [];
+GVAR(nextFrameBufferA) = [];
+GVAR(nextFrameBufferB) = [];
+GVAR(nextFrameNo) = diag_frameno;
 [QGVAR(OnEachFrameID), "onEachFrame", {
-    //PERFORMNACECOUNTER_START(PFHCounter)
+    PERFORMNACECOUNTER_START(PFHCounter)
 
-    private _handler = GVAR(PFHCache) getVariable QGVAR(PerframehandlerArray);
     {
-        _x params ["_fnc", "_args", "_delay", "_delta"];
+        _x params ["_function", "_delay", "_delta", "", "_args", "_handle"];
 
-        // call Function if
         if (diag_tickTime > _delta) then {
-            if (_fnc isEqualType "") then {
-                if (_fnc find "Event_PRA3_" > 0) then {
-                    [_fnc, [_args, _forEachIndex]] call EFUNC(Events,localEvent);
-                } else {
-                    _fnc = missionNamespace getVariable [_fnc, {}];
-                    [_args, _forEachIndex] call _fnc;
-                };
-            } else {
-                [_args, _forEachIndex] call _fnc;
-            };
-            // Set the new execution time depending on the provided delay.
-            _x set [3, _delta + _delay];
+            _x set [2, _delta + _delay];
+            [_args, _handle] call _function;
+            false
         };
-    } forEach _handler;
+    } count GVAR(perFrameHandlerArray);
 
 
     // Code Ported from ACE changed by joko // Jonas
@@ -59,5 +49,18 @@ GVAR(waitUntilArray) = [];
             true
         };
     };
-    //PERFORMNACECOUNTER_END(PFHCounter)
+
+    //Handle the execNextFrame array:
+    {
+        (_x select 0) call (_x select 1);
+        false
+    } count GVAR(nextFrameBufferA);
+
+    //Swap double-buffer:
+    GVAR(nextFrameBufferA) = GVAR(nextFrameBufferB);
+    GVAR(nextFrameBufferB) = [];
+    GVAR(nextFrameNo) = diag_frameno + 1;
+
+
+    PERFORMNACECOUNTER_END(PFHCounter)
 }] call BIS_fnc_addStackedEventHandler;

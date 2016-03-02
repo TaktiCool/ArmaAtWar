@@ -13,8 +13,14 @@
     Returns:
     None
 */
-#include "macros.hpp"
-params ["_index"];
-private _handler = GVAR(PFHCache) getVariable QGVAR(PerframehandlerArray);
-_handler deleteAt _index;
-GVAR(PFHCache) setVariable [QGVAR(PerframehandlerArray), _handler];
+params [["_handle", -1, [0]]];
+
+if (_handle < 0 || {_handle >= count GVAR(PFHhandles)}) exitWith {};
+
+GVAR(perFrameHandlerArray) deleteAt (GVAR(PFHhandles) select _handle);
+GVAR(PFHhandles) set [_handle, nil];
+
+{
+    _x params ["", "", "", "", "", "_handle"];
+    GVAR(PFHhandles) set [_handle, _forEachIndex];
+} forEach GVAR(perFrameHandlerArray);

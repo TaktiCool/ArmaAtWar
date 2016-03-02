@@ -15,8 +15,7 @@
 */
 
 GVAR(competingSides) = [];
-GVAR(captureStatusPFHRemove) = false;
-GVAR(captureStatusPFHisRunning) = false;
+GVAR(captureStatusPFH) = -1;
 {
     GVAR(competingSides) pushBack configName _x;
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];
@@ -25,12 +24,10 @@ GVAR(captureStatusPFHisRunning) = false;
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 
 if (isServer) then {
-    [] spawn {
-        waitUntil {time > 3};
+    [{
         GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
         publicVariable QGVAR(allSectors);
         GVAR(allSectorsArray) = [];
-
 
         private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
 
@@ -42,7 +39,7 @@ if (isServer) then {
         publicVariable QGVAR(allSectorsArray);
         GVAR(sectorCreationDone) = true;
         publicVariable QGVAR(sectorCreationDone);
-    };
+    }, 3,[]] call CFUNC(wait);
 };
 
 [{
@@ -81,7 +78,6 @@ if (isServer) then {
         }];
         */
     };
-
 }, {
     !isNil QGVAR(sectorCreationDone)
 },[]] call CFUNC(waitUntil);
