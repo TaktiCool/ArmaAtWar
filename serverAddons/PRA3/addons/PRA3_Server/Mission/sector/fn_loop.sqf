@@ -16,14 +16,14 @@
 if (!isServer) exitWith {};
 
 if (GVAR(allSectorsArray) isEqualTo []) exitWith {};
-PERFORMNACECOUNTER_START(SectorControllSystem)
+PERFORMANCECONUTER_START(SectorControllSystem)
 GVAR(sectorLoopCounter) = GVAR(sectorLoopCounter) mod (count GVAR(allSectorsArray));
 private _cIdx = GVAR(sectorLoopCounter);
 private _cSector = GVAR(allSectorsArray) select GVAR(sectorLoopCounter);
 GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter) + 1) mod (count GVAR(allSectorsArray));
 
 
-if (!([_cSector] call FUNC(isCaptureable))) exitWith {PERFORMNACECOUNTER_END(SectorControllSystem)};
+if (!([_cSector] call FUNC(isCaptureable))) exitWith {PERFORMANCECONUTER_END(SectorControllSystem)};
 private _tick = serverTime;
 private _lastTick = _cSector getVariable ["lastCaptureTick",_tick];
 private _captureRate = _cSector getVariable ["captureRate",0];
@@ -109,4 +109,4 @@ if ((str _side) != _lastSide) then {
     _cSector setVariable ["side",_side,true];
     ["sector_side_changed",[_cSector,_lastSide,_side]] call EFUNC(Events,globalEvent);
 };
-PERFORMNACECOUNTER_END(SectorControllSystem)
+PERFORMANCECONUTER_END(SectorControllSystem)

@@ -41,7 +41,7 @@ if (_show) then {
             (_dialog displayCtrl 103) ctrlSetText (_sector getVariable ["fullName",""]);
             (_dialog displayCtrl 104) ctrlSetTextColor (missionNamespace getVariable [format ["%1_%2",QGVAR(SideColor),_aside],[0,1,0,1]]);
             (_dialog displayCtrl 104) ctrlCommit 0;
-            (_dialog displayCtrl 104) progressSetPosition (_progress + (serverTime - _lastTick)*_rate);
+            (_dialog displayCtrl 104) progressSetPosition (_progress + (serverTime - _lastTick) * _rate);
         }, 0, [_sectorObject, _sector]] call CFUNC(addPerFrameHandler);
 } else {
     [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
