@@ -16,6 +16,7 @@ PREP(getVariableLoc)
 EPREP(Interaction,addAction)
 EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
+EPREP(Interaction,inRange)
 
 // Nametags
 EPREP(Nametags,draw3D)
