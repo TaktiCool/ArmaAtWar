@@ -27,9 +27,9 @@ if (isDedicated || !hasInterface) exitWith {};
     {
         private ["_currentWeight", "_gunner", "_attachPoint"];
         params ["_draggedObject"];
-        _currentWeight = _draggedObject call JK_Core_fnc_GetWeight;
+        _currentWeight = _draggedObject call FUNC(getWeight);
         if (_currentWeight >= __MAXWEIGHT) exitWith {
-            hint format[localize "STR_JK_JK_TOHEAVY", _currentWeight - __MAXWEIGHT];
+            hint format["The box is %1 KG to heavy", _currentWeight - __MAXWEIGHT];
         };
 
         if (_draggedObject isKindOf "StaticWeapon") then {
@@ -75,29 +75,6 @@ if (isDedicated || !hasInterface) exitWith {};
 
     }
 ] call CFUNC(addAction);
-
-/* Not used this is for BIS Medical System
-[
-    {format [localize "STR_JK_JK_DRAG_MED", (if ((PRA3_Player getVariable ["JK_LastTarget", cursorObject]) isKindOf "Man") then {name (PRA3_Player getVariable ["JK_LastTarget", cursorObject])} else {getText(configFile >> "CfgVehicles" >> typeof (PRA3_Player getVariable ["JK_LastTarget", cursorObject]) >> "displayName")})]},
-    ["Man"],
-    3,
-    "isNull (PRA3_Player getVariable ['PRA3_Logistic_Item', objNull]) && isNull (_target getVariable ['PRA3_Logistic_Player', objNull]) && ([_target in JK_BIS_revive_units, false] select (isNil 'JK_BIS_revive_units') || [_target in BIS_revive_units, false] select (isNil 'BIS_revive_units')) && !(_target isKindOf 'Man')",
-
-    {
-        private "_attachPoint";
-        params ["_draggedObject"];
-
-        PRA3_Player setVariable [QGVAR(Item), _draggedObject, true];
-        _draggedObject setVariable [QGVAR(Player), PRA3_Player, true];
-
-        PRA3_Player playActionNow "grabDrag";
-        waitUntil {animationState PRA3_Player in __DRAGANIMSTATE};
-
-        _attachPoint = [0, 1.1, ((getPos _draggedObject) select 2) - ((getPos PRA3_Player) select 2)];
-        _draggedObject attachTo [PRA3_Player, _attachPoint];
-    }
-] call JK_Core_fnc_Interaction_addAction;
-*/
 
 [
     "Drop",
@@ -160,7 +137,7 @@ if (isDedicated || !hasInterface) exitWith {};
         params ["_vehicle"];
         _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
         _draggedObject = _draggedObjectArray deleteAt 0;
-        _currentWeight = _draggedObject call JK_Core_fnc_GetWeight;
+        _currentWeight = _draggedObject call FUNC(getWeight);
         _vehicle setVariable [QGVAR(CargoItems),_draggedObjectArray,true];
         PRA3_Player setVariable [QGVAR(Item), _draggedObject, true];
         _draggedObject setVariable [QGVAR(Player), PRA3_Player, true];
