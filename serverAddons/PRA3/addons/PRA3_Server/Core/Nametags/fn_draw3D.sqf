@@ -27,8 +27,8 @@ if (!surfaceIsWater _playerPos) then {
         private _targetPos = visiblePositionASL _target;
         private _distance = _targetPos distance _playerPos;
         private _headPosition = _target modelToWorldVisual (_target selectionPosition "pilot");
-        private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
-        //private _icon = "";
+        //private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
+        private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
         private _alpha = ((1 - 0.2 * (_distance - 8) min 1) * 0.8) max 0;
 
         if (lineIntersects [_playerPos, _targetPos vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
@@ -47,6 +47,14 @@ if (!surfaceIsWater _playerPos) then {
             [0.77, 0.51, 0.08, _alpha]
         };
 
+        // Unit is in group than get Loadout Class
+        private _name = (_target getVariable [QEGVAR(Loadout,class),""]);
+        if (_name find "medic" >= 0) then {
+            _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+        };
+        if (_name find "leader" >= 0) then {
+            _icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
+        };
         private _text = name _target;
         private _textAddinfo = call {
             // Unit is Unconscious todo replace later by own medical system
@@ -55,11 +63,6 @@ if (!surfaceIsWater _playerPos) then {
                 " Unconscious"
             };
 
-            // Unit is in group than get Loadout Class
-            _name = (_target getVariable [QEGVAR(Loadout,class),""]);
-            if (_name find "medic" > 0) then {
-                _icon = "\A3\ui_f\data\Revive\medikit_ca.paa";
-            };
             if (_isInGroup) exitWith {
                 _name
             };
