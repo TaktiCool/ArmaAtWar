@@ -1,5 +1,5 @@
 class cfgFunctions {
-    #include "AutoLoad\cfgFunctions.hpp"
+    #include "Autoload\cfgFunctions.hpp"
     #include "Core\cfgFunctions.hpp"
     #include "Events\cfgFunctions.hpp"
     #include "Logistic\cfgFunctions.hpp"

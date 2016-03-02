@@ -1,6 +1,6 @@
-class PRA3_AutoLoad {
-    class AutoLoad {
-        file = "\pr\PRA3\addons\PRA3_server\AutoLoad";
+class PRA3_Autoload {
+    class Autoload {
+        file = "\pr\PRA3\addons\PRA3_Server\Autoload";
         class preInit {preInit = 1;};
     };
 };
