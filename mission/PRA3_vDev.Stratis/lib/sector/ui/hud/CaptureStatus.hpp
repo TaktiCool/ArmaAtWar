@@ -3,12 +3,13 @@ class PRA3_mission_CaptureStatus {
     duration = 999999;
     onLoad = "uiNamespace setVariable [""PRA3_mission_CaptureStatus"", _this select 0];";
     class Controls {
-        class CtrlGroup : RscControlsGroup {
+        class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 100;
             x = 0.5 - PX(20);
             y = safeZoneY + PY(0.5);
             w = PX(40);
             h = PY(4);
+
 
             class Controls {
                 class Background : RscPicture {

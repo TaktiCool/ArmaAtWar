@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: BadGuy, joko // Jonas
 
     Description:
     Initialize the
@@ -66,7 +66,7 @@ if (isServer) then {
 
         ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus);}] call EFUNC(Events,addEventHandler);
 
-        ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0,_this select 1,_this select 2];}] call EFUNC(Events,addEventHandler);
+        ["sector_side_changed", {hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0 select 0,_this select 0 select 1,_this select 0 select 2];}] call EFUNC(Events,addEventHandler);
 
         /*
         PRA3_Player addEventHandler ["Respawn", {

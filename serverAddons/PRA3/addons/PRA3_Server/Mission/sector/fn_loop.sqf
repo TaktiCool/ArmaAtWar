@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: BadGuy, joko // Jonas
 
     Description:
     Frame Loop for Sector Controll

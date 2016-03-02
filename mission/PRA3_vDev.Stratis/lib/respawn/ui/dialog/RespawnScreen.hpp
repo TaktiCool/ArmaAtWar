@@ -7,7 +7,7 @@ class GVAR(RespawnScreen) {
 
         #define GWIDTH 40
         #define GHEIGHT 3
-        class TeamInfo : RscControlsGroup {
+        class TeamInfo : RscControlsGroupNoScollbars {
             idc = 100;
             x = 0.5 - PX(75);
             y = safeZoneY + PY(10);
@@ -47,7 +47,7 @@ class GVAR(RespawnScreen) {
         };
 
         #define GHEIGHT 44.5
-        class SquadManagement : RscControlsGroup {
+        class SquadManagement : RscControlsGroupNoScollbars {
             idc = 200;
             x = 0.5 - PX(75);
             y = safeZoneY + PY(14);

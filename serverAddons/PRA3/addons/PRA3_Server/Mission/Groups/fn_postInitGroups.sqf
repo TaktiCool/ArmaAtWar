@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: Badguy
+    Author: BadGuy
 
     Description:
     Init Groups

@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: BadGuy, joko // Jonas
 
     Description:
     Toggle Status Layer of current Sector
