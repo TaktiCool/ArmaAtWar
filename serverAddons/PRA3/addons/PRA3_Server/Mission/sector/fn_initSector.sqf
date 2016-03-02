@@ -20,6 +20,7 @@ GVAR(captureStatusPFH) = -1;
     GVAR(competingSides) pushBack configName _x;
     missionNamespace setVariable [format ["%1_%2",QGVAR(Flag),configName _x], getText (_x >> "flag")];
     missionNamespace setVariable [format ["%1_%2",QGVAR(SideColor),configName _x], getArray (_x >> "color")];
+    missionNamespace setVariable [format ["%1_%2",QGVAR(SideName),configName _x], getText (_x >> "name")];
     nil;
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 

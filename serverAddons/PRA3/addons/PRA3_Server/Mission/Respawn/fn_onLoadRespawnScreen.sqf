@@ -5,7 +5,7 @@
     Author: BadGuy
 
     Description:
-    Initialization of the RespawnScreen
+    Handling onLoad Event of RespawnDialog
 
     Parameter(s):
     0: RespawnDialog <Dialog>
@@ -13,10 +13,11 @@
     Returns:
     None
 */
-
 params ["_dialog"];
 
 disableSerialization;
+private _teamFlag = _dialog displayCtrl 102;
+private _teamName = _dialog displayCtrl 103;
 private _squadList = _dialog displayCtrl 206;
 private _squadName = _dialog displayCtrl 208;
 private _squadMemberList = _dialog displayCtrl 209;
@@ -27,7 +28,10 @@ private _promoteButton = _dialog displayCtrl 212;
 
 GVAR(respawnScreenPFH) = [{
     disableSerialization;
-    (_this select 0) params["_squadList","_squadName","_squadMemberList", "_joinLeaveButton", "_kickButton", "_promoteButton"];
+    (_this select 0) params["_teamFlag","_teamName","_squadList","_squadName","_squadMemberList", "_joinLeaveButton", "_kickButton", "_promoteButton"];
+
+    _teamFlag ctrlSetText (missionNamespace getVariable [format ["%1_%2",QGVAR(Flag),playerSide], ""]);
+    _teamName ctrlSetText (missionNamespace getVariable [format ["%1_%2",QGVAR(SideName),playerSide], ""]);
 
     private _currentSelection = lnbCurSelRow _squadList;
     private _selectedGroupName = "";
@@ -40,9 +44,9 @@ GVAR(respawnScreenPFH) = [{
     private _currentGroups = [];
     {
         if (side _x == playerSide) then {
-            private _groupId = _x getVariable ["BG_GroupId",""];
+            private _groupId = _x getVariable ["PRA3_GroupId",""];
             if (_groupId != "") then {
-                private _rowNumber = _squadList lnbAddRow [_groupId select [0,1], _x getVariable ["BG_description",""], format["Ch. %1", _x getVariable ["BG_RadioChannel",""]], format ["%1 / 9",_x getVariable ["BG_Size",0]]];
+                private _rowNumber = _squadList lnbAddRow [_groupId select [0,1], _x getVariable ["PRA3_description",""], format ["%1 / 9",count units _x]];
                 _squadList lnbSetData [ [_rowNumber,0],_groupId];
                 if (_selectedGroupName == _groupId) then {
                     _squadList lnbSetCurSelRow _rowNumber;
@@ -55,7 +59,7 @@ GVAR(respawnScreenPFH) = [{
 
     lnbClear _squadMemberList;
     if (!isNull _selectedGroup) then {
-        _squadName ctrlSetText (_selectedGroup getVariable ["BG_GroupId",groupId _selectedGroup]);
+        _squadName ctrlSetText (_selectedGroup getVariable ["PRA3_GroupId",groupId _selectedGroup]);
 
         {
 
@@ -81,4 +85,4 @@ GVAR(respawnScreenPFH) = [{
 
 
 
-}, 0, [_squadList, _squadName, _squadMemberList, _joinLeaveButton, _kickButton, _promoteButton]] call CFUNC(addPerFrameHandler);
+}, 0, [_teamFlag, _teamName, _squadList, _squadName, _squadMemberList, _joinLeaveButton, _kickButton, _promoteButton]] call CFUNC(addPerFrameHandler);;

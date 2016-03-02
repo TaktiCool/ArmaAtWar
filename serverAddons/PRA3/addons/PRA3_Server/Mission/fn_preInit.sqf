@@ -13,7 +13,7 @@ EPREP(sector,showCaptureStatus)
 EPREP(Groups,postInitGroups)
 
 // Respawn
-EPREP(Respawn,initRespawnScreen)
-EPREP(Respawn,joinLeaveButton)
-EPREP(Respawn,closeRespawnScreen)
+EPREP(Respawn,onLoadRespawnScreen)
+EPREP(Respawn,onUnLoadRespawnScreen)
+EPREP(Respawn,joinLeaveBtn)
 EPREP(Respawn,createSquadBtn)
