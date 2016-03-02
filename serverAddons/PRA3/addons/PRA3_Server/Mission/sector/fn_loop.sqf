@@ -22,12 +22,8 @@ private _cIdx = GVAR(sectorLoopCounter);
 private _cSector = GVAR(allSectorsArray) select GVAR(sectorLoopCounter);
 GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter) + 1) mod (count GVAR(allSectorsArray));
 
-while {!([_cSector] call FUNC(isCaptureable)) && _cIdx != GVAR(sectorLoopCounter)} do {
-    _cSector = GVAR(allSectorsArray) select GVAR(sectorLoopCounter);
-    GVAR(sectorLoopCounter) = (GVAR(sectorLoopCounter) + 1) mod (count GVAR(allSectorsArray));
-};
 
-if (_cIdx == GVAR(sectorLoopCounter)) exitWith {PERFORMNACECOUNTER_END(SectorControllSystem)};
+if (!([_cSector] call FUNC(isCaptureable))) exitWith {PERFORMNACECOUNTER_END(SectorControllSystem)};
 private _tick = serverTime;
 private _lastTick = _cSector getVariable ["lastCaptureTick",_tick];
 private _captureRate = _cSector getVariable ["captureRate",0];
@@ -49,7 +45,7 @@ private _activeSides = _cSector getVariable ["activeSides",[]];
 private _force = [];
 
 private _nbrSides = {
-    private _c = {_x call CFUNC(isAlive)} count list (_cSector getVariable [format ["trigger_%1",_x],[]]);
+    private _c = {_x call CFUNC(isAlive)} count list (_cSector getVariable [format ["trigger_%1",_x],objNull]);
     _force pushBack [_c,_x];
     true;
 } count _activeSides;

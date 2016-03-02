@@ -92,8 +92,8 @@
 #define MB_BUTTON_CANCEL  2
 #define MB_BUTTON_USER    4
 
-#define PYN 144
-#define PRATIO ((safeZoneW/safeZoneH)/(4/3))
+#define PYN 192
+//#define PRATIO ((safeZoneW/safeZoneH)/(4/3))
 
-#define PX(X) ((X)/PYN*PRATIO*safeZoneW)
-#define PY(Y) ((Y)/PYN*PRATIO*safeZoneW*4/3)
+#define PX(X) ((X)/PYN*safeZoneW)
+#define PY(Y) ((Y)/PYN*safeZoneW*4/3)

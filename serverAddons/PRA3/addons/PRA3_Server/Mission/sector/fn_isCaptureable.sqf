@@ -19,11 +19,12 @@ private _side = _sector getVariable ["side",sideUnknown];
 private _activeSides = [];
 private _currentCount = {
         private _currentSectorSide = ([_x] call FUNC(getSector)) getVariable ["side",sideUnknown];
-        if (_currentSectorSide != sideUnknown && !(_currentSectorSide in _activeSides )) then {
-            _activeSides pushBack _currentSectorSide;
+        if (_currentSectorSide != sideUnknown) then {
+            _activeSides pushBackUnique _currentSectorSide;
         };
         _side != _currentSectorSide && _currentSectorSide != sideUnknown;
     } count (_sector getVariable ["dependency",[]]);
+
 _sector setVariable ["activeSides",_activeSides];
 private _ret = true;
 
