@@ -51,18 +51,16 @@ if (!surfaceIsWater _playerPos) then {
         private _textAddinfo = call {
             // Unit is Unconscious todo replace later by own medical system
             if (_target in (missionNamespace getVariable ["BIS_revive_units", []])) exitWith {
-                _icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
+                //_icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
                 " Unconscious"
             };
 
             // Unit is in group than get Loadout Class
-            if (_isInGroup) then {
-                _name = (_target getVariable[QEGVAR(Loadout,class),""]);
-                if (_name find "medic" > 0) then {
-                    _icon = "\A3\ui_f\data\Revive\medikit_ca.paa";
-                };
-                _string = format ["STR_JK_GEAR_%1",toUpper _name];
-                if (isLocalized (_string)) then { _name = localize _string; };
+            _name = (_target getVariable [QEGVAR(Loadout,class),""]);
+            if (_name find "medic" > 0) then {
+                _icon = "\A3\ui_f\data\Revive\medikit_ca.paa";
+            };
+            if (_isInGroup) exitWith {
                 _name
             };
 

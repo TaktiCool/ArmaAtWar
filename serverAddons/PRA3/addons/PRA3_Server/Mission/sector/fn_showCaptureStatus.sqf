@@ -24,7 +24,7 @@ if (_show) then {
         [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
     };
 
-    [{
+    GVAR(captureStatusPFH) = [{
             disableSerialization;
             params ["_args","_id"];
             _args params ["_sector", "_uid"];
