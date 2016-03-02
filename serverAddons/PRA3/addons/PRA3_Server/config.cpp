@@ -560,7 +560,7 @@ class CfgPatches {
             "a3data",
             "map_vr"
         };
-        author[] = {"joko // Jonas", "NetFuison", "Hoeginson", "Badguy", "PRA3 Team"};
+        author[] = {"joko // Jonas", "NetFusion", "Hoeginson", "Badguy", "PRA3 Team"};
         authorUrl = "";
         version = VERSION;
         versionStr = QUOTE(VERSION);
