@@ -22,7 +22,7 @@ GVAR(nextFrameBufferA) = [];
 GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
 [QGVAR(OnEachFrameID), "onEachFrame", {
-    PERFORMANCECONUTER_START(PFHCounter)
+    PERFORMANCECOUNTER_START(PFHCounter)
 
     {
         _x params ["_function", "_delay", "_delta", "", "_args", "_handle"];
@@ -62,5 +62,5 @@ GVAR(nextFrameNo) = diag_frameno;
     GVAR(nextFrameNo) = diag_frameno + 1;
 
 
-    PERFORMANCECONUTER_END(PFHCounter)
+    PERFORMANCECOUNTER_END(PFHCounter)
 }] call BIS_fnc_addStackedEventHandler;

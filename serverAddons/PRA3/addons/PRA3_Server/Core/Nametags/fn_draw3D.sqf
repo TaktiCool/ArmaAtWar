@@ -13,7 +13,7 @@
     Returns:
     None
 */
-PERFORMANCECONUTER_START(Nametags)
+PERFORMANCECOUNTER_START(Nametags)
 private _playerPos = positionCameraToWorld [0, 0, 0];
 private _targets = _playerPos nearObjects ["Man", 13.3];
 if (!surfaceIsWater _playerPos) then {
@@ -75,4 +75,4 @@ if (!surfaceIsWater _playerPos) then {
     };
     false
 } count _targets;
-PERFORMANCECONUTER_END(Nametags)
+PERFORMANCECOUNTER_END(Nametags)

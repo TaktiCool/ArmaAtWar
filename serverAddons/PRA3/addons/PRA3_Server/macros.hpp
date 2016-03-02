@@ -49,13 +49,13 @@
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 
 #ifdef PRA3_DEBUGFULL
-    #define ENABLEPERFORMANCECONUTER
+    #define ENABLEPERFORMANCECOUNTER
 #endif
 
-#ifdef ENABLEPERFORMANCECONUTER
-    #define PERFORMANCECONUTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
-    #define PERFORMANCECONUTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
+#ifdef ENABLEPERFORMANCECOUNTER
+    #define PERFORMANCECOUNTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
+    #define PERFORMANCECOUNTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
 #else
-    #define PERFORMANCECONUTER_START(var1) /* Performance Counter disabled */
-    #define PERFORMANCECONUTER_END(var1) /* Performance Counter disabled */
+    #define PERFORMANCECOUNTER_START(var1) /* Performance Counter disabled */
+    #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
 #endif
