@@ -67,7 +67,7 @@ if (_nbrSides > 1) then {
 private _forceCount = (_force select 0 select 0);
 
 if (_forceCount >= _minUnits && _diff > 0) then {
-    if (_side in [_attackerSide, sideUnknown]) then {
+    if (_side in [_leadingSide, sideUnknown]) then {
         if (_captureProgress < 1) then {
             _attackerSide = _leadingSide;
             _captureRate = 1/(_captureTimeMin-_captureTimeMax*_diff/9);
