@@ -1,6 +1,10 @@
 class Loadouts {
     class West {
         class Rifleman {
+
+            scope = 1;
+            displayName = "Rifleman";
+
             // Special attributes
             isMedic = 0;
             isEngineer = 0;
@@ -15,6 +19,8 @@ class Loadouts {
             primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
             primaryMagazineCount = 5;
             primaryMagazineTracerCount = 3;
+            primarySecoundMagazine = "";
+            primarySecoundMagazineCount = 0;
 
             // Secondary weapon
             secondaryWeapon = "";

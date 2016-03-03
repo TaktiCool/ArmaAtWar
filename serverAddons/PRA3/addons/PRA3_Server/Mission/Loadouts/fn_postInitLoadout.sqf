@@ -15,11 +15,8 @@
 */
 GVAR(LoadoutCache) = call CFUNC(createNamespace);
 ["saveLoadout", {
-    {
-        _x params ["_varName", "_value"];
-        GVAR(LoadoutCache) setVariable [_varName, _value];
-        nil
-    } count (_this select 0);
+    params ["_loadoutVar", "_value"];
+    GVAR(LoadoutCache) setVariable [_loadoutVar, _value];
 }] call CFUNC(addEventhandler);
 
 
@@ -27,6 +24,8 @@ if (isServer) then {
     {
         {
             [_x] call FUNC(Loadout_loadConfig);
+            nil
         } count ("true" configClasses (_x));
+        nil
     } count ("true" configClasses (missionConfigFile >> "PRA3" >>"Loadouts"));
 };

@@ -18,3 +18,9 @@ EPREP(Respawn,onLoadRespawnScreen)
 EPREP(Respawn,onUnLoadRespawnScreen)
 EPREP(Respawn,joinLeaveBtn)
 EPREP(Respawn,createSquadBtn)
+
+// Loadouts
+EPREP(Loadouts,postInitLoadout)
+EPREP(Loadouts,addContainer)
+EPREP(Loadouts,applyLoadout)
+EPREP(Loadouts,Loadout_loadConfig)
