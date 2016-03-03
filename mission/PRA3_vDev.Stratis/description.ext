@@ -1,0 +1,54 @@
+/*
+ * https://community.bistudio.com/wiki/Description.ext
+ */
+
+joinUnassigned = 0;
+allowFunctionsRecompile = 1;
+allowFunctionsLog = 1;
+debriefing = 0;
+enableDebugConsole = 2;
+
+respawn = 3;
+respawnDelay = 3;
+
+#include "macros.hpp"
+
+#include "cfgNotifications.hpp"
+
+
+class PRA3 {
+    class sides {
+        class west {
+            name = "NATO";
+            flag = "a3\data_f\Flags\flag_nato_co.paa";
+            color[] = {0, 0.3, 0.8, 1};
+        };
+        class east {
+            name = "CSAT";
+            flag = "a3\data_f\Flags\flag_csat_co.paa";
+            color[] = {0.5, 0, 0, 1};
+        };
+    };
+
+    class sector {
+        dependency[] = {};
+        ticketBleed = 5;
+        captureTime[] = {30,60};
+        minUnits = 1;
+    };
+
+    class CfgSectors {
+        #include "CfgSectors.hpp"
+        firstCaptureTime[] = {5,15};
+    };
+    #include "cfgLoadouts.hpp"
+};
+
+#include "ui\common\defines.hpp"
+#include "ui\common\baseclasses.hpp"
+#include "ui\common\pra3_baseclasses.hpp"
+#include "ui\dialog\RespawnScreen.hpp"
+
+class RscTitles {
+    #include "ui\hud\CaptureStatus.hpp"
+};
