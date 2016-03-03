@@ -1,13 +1,13 @@
 #include "macros.hpp"
 
 // Sector
-EPREP(xector,createSectorLogic)
-EPREP(xector,createSectorTrigger)
-EPREP(xector,getSector)
-EPREP(xector,initSector)
-EPREP(xector,isCaptureable)
-EPREP(xector,loop)
-EPREP(xector,showCaptureStatus)
+EPREP(Sector,createSectorLogic)
+EPREP(Sector,createSectorTrigger)
+EPREP(Sector,getSector)
+EPREP(Sector,initSector)
+EPREP(Sector,isCaptureable)
+EPREP(Sector,loop)
+EPREP(Sector,showCaptureStatus)
 
 // Groups
 EPREP(Groups,postInitGroups)
