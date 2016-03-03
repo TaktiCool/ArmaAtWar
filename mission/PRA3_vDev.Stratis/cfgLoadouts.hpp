@@ -62,6 +62,8 @@ class Loadouts {
         };
         class Grenadier: Rifleman {
             primaryWeapon = "arifle_MX_GL_F";
+            primarySecondMagazine = "1Rnd_HE_Grenade_shell";
+            primarySecondMagazineCount = 6;
         };
         class Medic: Rifleman {
             isMedic = 1;
