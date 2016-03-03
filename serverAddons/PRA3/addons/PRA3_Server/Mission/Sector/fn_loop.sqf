@@ -38,6 +38,10 @@ private _lastAttackerSide = str _attackerSide;
 
 (_cSector getVariable ["captureTime",[30,60]]) params ["_captureTimeMin","_captureTimeMax"];
 
+if !(_cSector getVariable ["firstCaptureDone", false]) then {
+    _captureTimeMin = GVAR(FirstCaptureTime) select 0;
+    _captureTimeMax = GVAR(FirstCaptureTime) select 1;
+};
 
 private _activeSides = _cSector getVariable ["activeSides",[]];
 
@@ -108,5 +112,6 @@ if ((str _attackerSide) != _lastAttackerSide) then {
 if ((str _side) != _lastSide) then {
     _cSector setVariable ["side",_side,true];
     ["sector_side_changed",[_cSector,_lastSide,_side]] call CFUNC(globalEvent);
+    _cSector setVariable ["firstCaptureDone", true, true];
 };
 PERFORMANCECOUNTER_END(SectorControllSystem)

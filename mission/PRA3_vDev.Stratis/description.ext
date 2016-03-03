@@ -9,6 +9,9 @@ respawnDelay = 3;
 
 #include "macros.hpp"
 
+#include "cfgNotifications.hpp"
+
+
 class PRA3 {
     class sides {
         class west {
@@ -32,6 +35,7 @@ class PRA3 {
 
     class CfgSectors {
         #include "CfgSectors.hpp"
+        firstCaptureTime[] = {5,15};
     };
 };
 
