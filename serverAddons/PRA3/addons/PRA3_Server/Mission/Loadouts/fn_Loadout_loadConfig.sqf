@@ -45,8 +45,8 @@ _primaryMagazine = getText (_cfg >> "primaryMagazine");
 _primaryMagazineTracer = getText (_cfg >> "primaryMagazineTracer");
 _primaryMagazineCount = getNumber (_cfg >> "primaryMagazineCount");
 _primaryMagazineTracerCount = getNumber (_cfg >> "primaryMagazineTracerCount");
-_primarySecoundMagazine = getText (_cfg >> "primarySecoundMagazine");
-_primarySecoundMagazineCount = getNumber (_cfg >> "primarySecoundMagazineCount");
+_primarySecondMagazine = getText (_cfg >> "primarySecondMagazine");
+_primarySecondMagazineCount = getNumber (_cfg >> "primarySecondMagazineCount");
 
 _secondaryWeapon = getText (_cfg >> "secondaryWeapon");
 _secondaryMagazine = getText (_cfg >> "secondaryMagazine");

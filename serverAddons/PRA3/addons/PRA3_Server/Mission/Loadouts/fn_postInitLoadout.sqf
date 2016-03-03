@@ -15,7 +15,7 @@
 */
 GVAR(LoadoutCache) = call CFUNC(createNamespace);
 ["saveLoadout", {
-    params ["_loadoutVar", "_value"];
+    (_this select 0) params ["_loadoutVar", "_value"];
     GVAR(LoadoutCache) setVariable [_loadoutVar, _value];
 }] call CFUNC(addEventhandler);
 

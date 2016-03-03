@@ -19,8 +19,8 @@ class Loadouts {
             primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
             primaryMagazineCount = 5;
             primaryMagazineTracerCount = 3;
-            primarySecoundMagazine = "";
-            primarySecoundMagazineCount = 0;
+            primarySecondMagazine = "";
+            primarySecondMagazineCount = 0;
 
             // Secondary weapon
             secondaryWeapon = "";
