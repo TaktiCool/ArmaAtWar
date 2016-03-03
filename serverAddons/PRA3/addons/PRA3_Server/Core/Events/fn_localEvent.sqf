@@ -17,6 +17,7 @@
 
 params [["_event", "", [""]], ["_args", []]];
 
+DUMP("Local event: " + _event)
 _event = format ["PRA3_Event_%1", _event];
 private _eventArray = GVAR(EventNamespace) getVariable _event;
 if !(isNil "_eventArray") then {
