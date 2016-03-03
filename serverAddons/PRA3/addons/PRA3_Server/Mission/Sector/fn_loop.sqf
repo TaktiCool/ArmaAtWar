@@ -70,10 +70,10 @@ if (_forceCount >= _minUnits && _diff > 0) then {
     if (_side in [_leadingSide, sideUnknown]) then {
         if (_captureProgress < 1) then {
             _attackerSide = _leadingSide;
-            _captureRate = 1/(_captureTimeMin-_captureTimeMax*_diff/9);
+            _captureRate = 1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/9) min 1)));
         };
     } else {
-        _captureRate = -1/(_captureTimeMin-_captureTimeMax*_diff/9);
+        _captureRate = -1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/9) min 1)));
     };
 } else {
     _captureRate = 0;
