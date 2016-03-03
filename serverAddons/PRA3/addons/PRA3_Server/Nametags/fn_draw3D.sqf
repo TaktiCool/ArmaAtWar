@@ -15,7 +15,7 @@
 */
 PERFORMANCECOUNTER_START(Nametags)
 private _playerPos = positionCameraToWorld [0, 0, 0];
-private _targets = _playerPos nearObjects ["Man", 13.3];
+private _targets = _playerPos nearObjects ["CAManBase", 13.3];
 if (!surfaceIsWater _playerPos) then {
     _playerPos = ATLtoASL _playerPos;
 };
@@ -23,7 +23,7 @@ if (!surfaceIsWater _playerPos) then {
 {
     private _target = effectiveCommander _x;
     private _targetSide = (_target getVariable ["jk_var_side","CIV"]);
-    if (!(_x in allUnitsUAV) && (isPlayer _target || _target isKindOf "Man") && (_target != PRA3_Player) && alive PRA3_Player && (str(playerside) == _targetSide || "CIV" == _targetSide || str(playerside) == "CIV")) then {
+    if (!(_x in allUnitsUAV) && (isPlayer _target || _target isKindOf "CAManBase") && (_target != PRA3_Player) && alive PRA3_Player && (str(playerside) == _targetSide || "CIV" == _targetSide || str(playerside) == "CIV")) then {
         private _targetPos = visiblePositionASL _target;
         private _distance = _targetPos distance _playerPos;
         private _headPosition = _target modelToWorldVisual (_target selectionPosition "pilot");
