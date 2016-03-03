@@ -32,7 +32,13 @@
 #define QFUNC(var) QUOTE(DFUNC(var))
 
 #ifdef PRA3_DEBUGFULL
-    #define FUNC(var) { DUMP("Function " + QFUNC(var) + " called with " + str (_this) + " Parameter") private _tempRet = _this call DFUNC(var); _tempRet}
+    #define FUNC(var) {\
+        DUMP("Function " + QFUNC(var) + " called with " + str (_this));\
+        private _tempRet = _this call DFUNC(var);\
+        if (!isNil "_tempRet") then {\
+            _tempRet\
+        }\
+    }
 #else
     #define FUNC(var) DFUNC(var)
 #endif

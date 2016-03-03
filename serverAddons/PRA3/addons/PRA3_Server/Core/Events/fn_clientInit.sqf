@@ -75,7 +75,7 @@ PRA3_Player = player;
 // Import the vanilla events in the event system and provide a permanent zeus compatible player.
 {
     // The event has the same name and data as the vanilla version.
-    private _code = compile format ["[""%1"", _this] call %2", _x, QFUNC(localEvnet)];
+    private _code = compile format ["[""%1"", _this] call %2", _x, QFUNC(localEvent)];
 
     // Bind it to the current player and store the index to delete it.
     private _index = PRA3_Player addEventHandler [_x, _code];

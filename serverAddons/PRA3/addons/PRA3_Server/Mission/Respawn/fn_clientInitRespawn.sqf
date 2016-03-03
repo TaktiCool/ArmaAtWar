@@ -15,4 +15,5 @@
 */
 ["Killed", {
     systemChat "Test";
+    DUMP("aiohawhawiufhawfuawhwui")
 }] call CFUNC(addEventHandler);
