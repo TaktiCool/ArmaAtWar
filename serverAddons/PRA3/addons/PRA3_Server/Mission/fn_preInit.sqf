@@ -13,6 +13,7 @@ EPREP(Sector,showCaptureStatus)
 EPREP(Groups,postInitGroups)
 
 // Respawn
+EPREP(Respawn,clientInit)
 EPREP(Respawn,onLoadRespawnScreen)
 EPREP(Respawn,onUnLoadRespawnScreen)
 EPREP(Respawn,joinLeaveBtn)
