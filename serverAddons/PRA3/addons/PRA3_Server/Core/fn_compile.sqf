@@ -35,7 +35,12 @@ _funcArray = _funcArray select {!(_x in _toRemoveString)};
 
 _funcString = toString _funcArray;
 */
-_fncCode = compileFinal _funcString;
+#ifdef isDev
+    _fncCode = compile _funcString;
+#else
+    _fncCode = compileFinal _funcString;
+#endif
+
 {
     _x setVariable [_functionVarName, _fncCode];
     nil

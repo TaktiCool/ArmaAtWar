@@ -2,7 +2,7 @@
 #define MINOR 1
 #define PATCHLVL 0
 #define BUILD 1
-
+#define isDev
 #define VERSION MAJOR.MINOR.PATCHLVL.BUILD
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
 
