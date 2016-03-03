@@ -41,5 +41,5 @@ _fncCode = compileFinal _funcString;
     nil
 } count [missionNamespace,uiNamespace/*,parsingNamespace*/];
 
-EGVAR(Autoload,functionCache) pushBack _functionVarName;
+GVAR(functionCache) pushBack _functionVarName;
 nil

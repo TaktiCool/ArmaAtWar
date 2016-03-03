@@ -66,5 +66,5 @@ if (isServer) then {
 
         _group setVariable ["PRA3_GroupId", _groupId,true];
 
-    }] call EFUNC(Events,addEventhandler);
+    }] call CFUNC(addEventhandler);
 };
