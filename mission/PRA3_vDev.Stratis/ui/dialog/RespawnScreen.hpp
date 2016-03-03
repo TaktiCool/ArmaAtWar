@@ -1,11 +1,11 @@
-class GVAR(RespawnScreen) {
+class PRA3_UI_RespawnScreen {
     idd = -1;
     onLoad = "[_this select 0] call PRA3_mission_fnc_onLoadRespawnScreen;";
     onUnLoad = "[_this select 0] call PRA3_mission_fnc_onUnloadRespawnScreen;";
-    class Controls {
 
-        #define GWIDTH 40
-        #define GHEIGHT 3
+    #define GWIDTH 40
+    #define GHEIGHT 3
+    class Controls {
         class TeamInfo : RscControlsGroupNoScollbars {
             idc = 100;
             x = 0.5 - PX(75);
@@ -163,5 +163,25 @@ class GVAR(RespawnScreen) {
                 };
             };
         };
+
+        #define GHEIGHT 130.5
+        class RoleManagement : RscControlsGroupNoScollbars {
+            idc = 300;
+            x = 0.5 - PX(75);
+            y = safeZoneY + PY(59.5);
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+
+            class Controls {
+                class Background : RscPicture {
+                    idc = 301;
+                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    x = PX(0);
+                    y = PY(0);
+                    w = PX(GWIDTH);
+                    h = PY(GHEIGHT);
+                };
+            }
+        }
     };
 };

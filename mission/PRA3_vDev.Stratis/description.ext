@@ -11,8 +11,6 @@ enableDebugConsole = 2;
 respawn = 3;
 respawnDelay = 3;
 
-#include "macros.hpp"
-
 #include "cfgNotifications.hpp"
 
 
