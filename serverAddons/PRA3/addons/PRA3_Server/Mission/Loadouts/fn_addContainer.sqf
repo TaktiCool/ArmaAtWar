@@ -13,7 +13,7 @@
     2: Type Of Classname <Number>(Default: generated out of Config)
 
     Returns:
-    0: Return Name <TYPE>
+    None
 */
 
 

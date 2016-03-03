@@ -8,10 +8,10 @@
     Load Loadouts from mission Config
 
     Parameter(s):
-    0: Argument Name <TYPE>
+    0: Config Path <Config>
 
     Returns:
-    0: Return Name <TYPE>
+    None
 */
 private ["_scope", "_cfg", "_name", "_displayName", "_isMedic", "_isEngineer",
 "_isPilot", "_isVehicleCrew", "_isLeader", "_primaryWeapon", "_primaryAttachments",
@@ -19,7 +19,7 @@ private ["_scope", "_cfg", "_name", "_displayName", "_isMedic", "_isEngineer",
 "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount", "_handgunWeapon", "_handgunMagazine",
 "_handgunMagazineCount", "_uniform", "_vest", "_backpack", "_headGear", "_assignedItems",
 "_attributes", "_realLoadout", "_loadoutVar", "_loadout"];
-params ["_cfg"];
+params ["_cfg", "_sideName"];
 
 _scope = getNumber(_cfg >> "scope");
 
@@ -30,7 +30,7 @@ _displayName = getText (_cfg >> "displayName");
 if (_displayName == "") then {
     _displayName = _name;
 };
-
+_name = format ["%1_%2", _sideName, _name];
 
 _isMedic = (getNumber (_cfg >> "isMedic")) isEqualTo 1;
 _isEngineer = (getNumber (_cfg >> "isEngineer")) isEqualTo 1;
@@ -65,9 +65,9 @@ _headGear = getText (_cfg >> "headGear");
 
 
 _assignedItems = getArray (_cfg >> "assignedItems");
-_assignedItems = getArray (_cfg >> "items");
+_items = getArray (_cfg >> "items");
 
 _attributes = [_isMedic, _isEngineer, _isPilot, _isVehicleCrew, _isLeader];
-_realLoadout = [_primaryWeapon,_primaryAttachments,_primaryMagazine,_primaryMagazineTracer,_primaryMagazineCount,_primaryMagazineTracerCount,_secondaryWeapon,_secondaryMagazine,_secondaryMagazineCount,_handgunWeapon,_handgunMagazine,_handgunMagazineCount,_uniform,_vest,_backpack,_headGear,_assignedItems,_assignedItems];
+_realLoadout = [_primaryWeapon,_primaryAttachments,_primaryMagazine,_primaryMagazineTracer,_primaryMagazineCount,_primaryMagazineTracerCount,_secondaryWeapon,_secondaryMagazine,_secondaryMagazineCount,_handgunWeapon,_handgunMagazine,_handgunMagazineCount,_uniform,_vest,_backpack,_headGear,_assignedItems,_items];
 _loadoutVar = [_name, [_displayName, _realLoadout, _attributes]];
 ["saveLoadout", _loadoutVar, true] call CFUNC(globalEvent);
