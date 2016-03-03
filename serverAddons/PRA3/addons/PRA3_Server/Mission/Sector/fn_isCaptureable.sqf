@@ -19,16 +19,16 @@ private _side = _sector getVariable ["side",sideUnknown];
 private _activeSides = [];
 private _currentCount = {
         private _currentSectorSide = ([_x] call FUNC(getSector)) getVariable ["side",sideUnknown];
-        if !(_currentSectorSide in [sideUnknown,_side]) then {
+        if (_currentSectorSide != sideUnknown) then {
             _activeSides pushBackUnique _currentSectorSide;
         };
         !(_currentSectorSide in [sideUnknown,_side])
     } count (_sector getVariable ["dependency",[]]);
 
-_sector setVariable ["activeSides",_activeSides];
+_sector setVariable ["activeSides", _activeSides];
 private _ret = true;
 
-if (!(_currentCount > 0) || {(_sector getVariable ["captureProgress",[]]) >= 1}) exitWith {
+if (!(_currentCount > 0) /*|| {(_sector getVariable ["captureProgress",[]]) >= 1}*/) exitWith {
     if (isServer) then {
 
         if (_side == sideUnknown && {(_sector getVariable ["captureProgress",[]]) != 0}) then {
