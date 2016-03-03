@@ -37,6 +37,7 @@ class PRA3 {
         #include "CfgSectors.hpp"
         firstCaptureTime[] = {5,15};
     };
+    #include "cfgLoadouts.hpp"
 };
 
 #include "ui\common\defines.hpp"
