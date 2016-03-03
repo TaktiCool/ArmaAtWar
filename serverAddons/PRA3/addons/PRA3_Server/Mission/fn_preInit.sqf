@@ -8,6 +8,9 @@ EPREP(Sector,initSector)
 EPREP(Sector,isCaptureable)
 EPREP(Sector,loop)
 EPREP(Sector,showCaptureStatus)
+//EPREP(Sector,renderIcons)
+
+
 
 // Groups
 EPREP(Groups,postInitGroups)

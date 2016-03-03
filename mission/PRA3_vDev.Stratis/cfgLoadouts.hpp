@@ -4,6 +4,7 @@ class Loadouts {
 
             scope = 1;
             displayName = "Rifleman";
+            icon = "";
 
             // Special attributes
             isMedic = 0;

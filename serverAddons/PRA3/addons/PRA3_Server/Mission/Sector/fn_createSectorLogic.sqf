@@ -34,6 +34,11 @@ private _side = switch (markerColor _marker) do {
     case "ColorGUER": {independent};
     default {sideUnknown};
 };
+private _infoMarker = createMarker [format ["InformationMarker_%1", _marker], getMarkerPos _marker];
+_infoMarker setMarkerShape "ICON";
+_infoMarker setMarkerType SelectSideMarker(_side);
+_infoMarker setMarkerColor (markerColor _marker);
+_logic setVariable ["informationMarker", _infoMarker, true];
 _logic setVariable ["name",_marker,true];
 _logic setVariable ["fullName",markerText _marker,true];
 _logic setVariable ["designator",_designator,true];

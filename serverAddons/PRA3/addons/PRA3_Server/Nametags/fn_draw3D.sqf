@@ -14,6 +14,7 @@
     None
 */
 PERFORMANCECOUNTER_START(Nametags)
+if ((isNull PRA3_Player) || {!alive PRA3_Player} || {!isNull (findDisplay 49)}) exitWith {};
 private _playerPos = positionCameraToWorld [0, 0, 0];
 private _targets = _playerPos nearObjects ["CAManBase", 13.3];
 if (!surfaceIsWater _playerPos) then {

@@ -63,6 +63,12 @@ if (isServer) then {
             if (_marker != "") then {
                 _marker setMarkerColor format["Color%1",_newSide];
             };
+
+            private _infoMarker = _sector getVariable ["informationMarker", ""];
+            if (_infoMarker != "") then {
+                _infoMarker setMarkerType SelectSideMarker(_newSide);
+                _infoMarker setMarkerColor format["Color%1",_newSide];
+            };
         }] call CFUNC(addEventHandler);
     };
 
