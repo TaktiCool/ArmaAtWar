@@ -1,9 +1,9 @@
 #include "macros.hpp"
 
 
-CGVAR(importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
+GVAR(importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
 // The autoloader uses this array to get all function names.
-EGVAR(AutoLoad,functionCache) = [];
+GVAR(functionCache) = [];
 
 // Autoload
 EPREP(Autoload,autoloadEntryPoint)
@@ -44,10 +44,6 @@ EPREP(Interaction,addAction)
 EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)
-
-// Nametags
-EPREP(Nametags,draw3D)
-EPREP(Nametags,clientInitNametag)
 
 // Init
 PREP(init)

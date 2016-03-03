@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Project Reality ArmA 3 - Events\fn_targetEvent.sqf
+    Project Reality ArmA 3
 
     Author: joko // Jonas
 

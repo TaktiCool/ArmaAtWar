@@ -17,7 +17,7 @@
 */
 params [["_event", "", [""]], ["_function", {},[{}]], ["_args", []]];
 
-_event = format ["Event_PRA3_%1", _event];
+_event = format ["PRA3_Event_%1", _event];
 private _eventArray = GVAR(EventNamespace) getVariable _event;
 if (isNil "_eventArray") then {
     _eventArray = [_function, _args];
