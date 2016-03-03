@@ -70,4 +70,4 @@ _items = getArray (_cfg >> "items");
 _attributes = [_isMedic, _isEngineer, _isPilot, _isVehicleCrew, _isLeader];
 _realLoadout = [_primaryWeapon,_primaryAttachments,_primaryMagazine,_primaryMagazineTracer,_primaryMagazineCount,_primaryMagazineTracerCount,_secondaryWeapon,_secondaryMagazine,_secondaryMagazineCount,_handgunWeapon,_handgunMagazine,_handgunMagazineCount,_uniform,_vest,_backpack,_headGear,_assignedItems,_items];
 _loadoutVar = [_name, [_displayName, _realLoadout, _attributes]];
-["saveLoadout", _loadoutVar, true] call CFUNC(globalEvent);
+["saveLoadout", _loadoutVar, true] call CFUNC(localEvent);

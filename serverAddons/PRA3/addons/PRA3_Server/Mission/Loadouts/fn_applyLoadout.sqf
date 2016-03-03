@@ -17,8 +17,10 @@
 */
 params ["_name", "_side", "_unit"];
 
-private _loadoutVar = format ["%1_%2", _sideName, _name];
+private _loadoutVar = format ["%1_%2", _side, _name];
 private _var = GVAR(LoadoutCache) getVariable _loadoutVar;
+
+if (isNil "_var") exitWith {};
 
 _var params ["", "_realLoadout", "_attributes"];
 _realLoadout params [
@@ -27,9 +29,18 @@ _realLoadout params [
     "_secondaryMagazine", "_secondaryMagazineCount", "_handgunWeapon","_handgunMagazine",
     "_handgunMagazineCount", "_uniform", "_vest", "_backpack", "_headGear","_assignedItems", "_items"
 ];
+
+// remove all Items
+removeAllAssignedItems _unit;
+removeallWeapons _unit;
+removeHeadgear _unit;
+{_unit removeMagazine _x; nil} count magazines _unit;
+
+_unit setVariable ["PRA3_Loadout_class", _loadoutVar, true];
+
 private _names = ["isMedic", "isEngineer", "isPilot", "isVehicleCrew", "isLeader"];
 {
-    _unit setVariable [format ["PRA3_Loadout_class_%1", _names select _forEachIndex], _x, true];
+    _unit setVariable [format ["PRA3_Loadout_classInfo_%1", _names select _forEachIndex], _x, true];
 } forEach _attributes;
 
 // add Uniform
@@ -65,3 +76,6 @@ _unit addHeadgear _headGear;
     };
     nil
 } count _items;
+
+// reload Weapon
+reload _unit;

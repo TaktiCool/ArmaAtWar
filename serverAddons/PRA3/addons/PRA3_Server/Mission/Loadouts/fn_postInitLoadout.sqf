@@ -16,16 +16,24 @@
 
 DFUNC(addMagazine) = {
     params ["_unit", "_className", "_count"];
-    _unit addMagazine [_className, _count];
+    if (_className != "" && _count > 0) then {
+        for "_i" from 0 to _count do {
+            _unit addMagazine _className;
+        };
+    };
 };
 DFUNC(addWeapon) = {
     params ["_unit", "_className", "_magazine", "_count"];
-    _unit addWeapon _className;
-    [_magazine, _count] call FUNC(addMagazine);
+    if (_className != "" && _magazine != "" && _count > 0) then {
+        _unit addWeapon _className;
+        [_unit, _magazine, _count] call FUNC(addMagazine);
+    };
 };
 DFUNC(addPrimaryAttachment) = {
     params ["_unit", "_className"];
-    _unit addPrimaryWeaponItem _className;
+    if (_className != "") then {
+        _unit addPrimaryWeaponItem _className;
+    };
 };
 
 /*
@@ -41,6 +49,7 @@ DFUNC(addHandGunAttachment) = {
 
 DFUNC(addItem) = {
     params ["_unit", "_className", ["_count", 1]];
+    if (_className != "" && _count < 0) exitWith {};
     if (_unit canAddItemToUniform [_className, _count]) exitWith {};
     if (_unit canAddItemToVest [_className, _count]) exitWith {};
     if (_unit canAddItemToBackpack [_className, _count]) exitWith {};
