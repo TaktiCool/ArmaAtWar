@@ -35,7 +35,7 @@ EPREP(Events,globalEvent)
 EPREP(Events,serverEvent)
 
 // Base Eventhandler
-EPREP(Events,clientInit)
+EPREP(Events,clientInitEvents)
 EPREP(Events,serverInit)
 EPREP(Events,hcInit)
 

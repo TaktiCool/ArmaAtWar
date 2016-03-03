@@ -1,4 +1,4 @@
-#include macros.hpp"
+#include "macros.hpp"
 /*
     Project Reality ArmA 3
 
@@ -37,29 +37,26 @@ PRA3_Player = player;
 
 // Build a dynamic event system to use it in modules.
 {
-    _x params ["_name"];
-
-    private _code = compile format ["%1 %2", _x, PRA3_Player];
+    private _code = compile format ["%1 PRA3_Player", _x];
 
     // Build a name for the variable where we store the data. Fill it with the initial value.
-    private _varName = _x;
-    missionNamespace setVariable [_varName, call _code];
+    GVAR(EventNamespace) setVariable [_x, call _code];
 
     // Use an OEF EH to detect if the value changes.
     [{
-        params ["_id", "_params"];
-        _params params ["_name", "_varName", "_code"];
+        params ["_params", "_id"];
+        _params params ["_name", "_code"];
 
         // Read the value we detected earlier.
-        private _oldValue = missionNamespace getVariable _varName;
+        private _oldValue = GVAR(EventNamespace) getVariable _name;
 
         // If the value changed trigger the event and update the value in out variable.
         _currentValue = call _code;
         if (!(_oldValue isEqualTo _currentValue) && {alive PRA3_Player}) then {
             [_name + "Changed", [_currentValue, _oldValue]] call FUNC(localEvent);
-            missionNamespace setVariable [_varName, _currentValue];
+            GVAR(EventNamespace) setVariable [_name, _currentValue];
         };
-    }, 0, [_x, _varName, _code]] call CFUNC(addPerFrameHandler);
+    }, 0, [_x, _code]] call CFUNC(addPerFrameHandler);
 
     true
 } count [
