@@ -18,6 +18,6 @@
 params [["_event", "", [""]], ["_function", {}, [{}]], ["_args", []]];
 
 _event = format ["PRA3_Event_%1", _event];
-private _eventArray = GVAR(EventNamespace) getVariable [_event, []];
+private _eventArray = [GVAR(EventNamespace), _event, []] call FUNC(getVariableLoc);
 _eventArray pushBack [_function, _args];
 GVAR(EventNamespace) setVariable [_event, _eventArray];
