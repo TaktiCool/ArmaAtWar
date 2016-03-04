@@ -3,12 +3,32 @@ class PRA3_UI_RespawnScreen {
     onLoad = "[_this select 0] call PRA3_mission_fnc_onLoadRespawnScreen;";
     onUnLoad = "[_this select 0] call PRA3_mission_fnc_onUnloadRespawnScreen;";
 
-    #define GWIDTH 40
-    #define GHEIGHT 3
+    class controlsBackground {
+        #define GHEIGHT 82
+        class MapBackground : RscPicture {
+            idc = 600;
+            text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+            x = PX(72) + safeZoneX;
+            y = PY(10) + safeZoneY;
+            w = safeZoneW - PX(77);
+            h = PY(GHEIGHT);
+        };
+
+        class Map : RscMapControl {
+            idc = 700;
+            x = PX(72.5) + safeZoneX;
+            y = PY(10.5) + safeZoneY;
+            w = safeZoneW - PX(78);
+            h = PY(GHEIGHT-1);
+        };
+    };
+
     class Controls {
+        #define GWIDTH 40
+        #define GHEIGHT 3
         class TeamInfo : RscControlsGroupNoScollbars {
             idc = 100;
-            x = 0.5 - PX(69.5);
+            x = PX(5) + safeZoneX;
             y = PY(10) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
@@ -56,7 +76,7 @@ class PRA3_UI_RespawnScreen {
         #define GHEIGHT 44.5
         class SquadManagement : RscControlsGroupNoScollbars {
             idc = 200;
-            x = 0.5 - PX(69.5);
+            x = PX(5) + safeZoneX;
             y = PY(14) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
@@ -190,7 +210,7 @@ class PRA3_UI_RespawnScreen {
         #define GHEIGHT 38.5
         class RoleManagement : RscControlsGroupNoScollbars {
             idc = 300;
-            x = 0.5 - PX(69.5);
+            x = PX(5) + safeZoneX;
             y = PY(59.5) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
@@ -244,7 +264,7 @@ class PRA3_UI_RespawnScreen {
         #define GHEIGHT 26.5
         class DeploymentManagement : RscControlsGroupNoScollbars {
             idc = 400;
-            x = 0.5 - PX(25.5);
+            x = PX(46) + safeZoneX;
             y = PY(10) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
@@ -258,28 +278,38 @@ class PRA3_UI_RespawnScreen {
                     w = PX(GWIDTH);
                     h = PY(GHEIGHT);
                 };
-            };
-        };
 
-        #define GWIDTH 85
-        #define GHEIGHT 82
-        class Map : RscControlsGroupNoScollbars {
-            idc = 500;
-            x = 0.5 + PX(0.5);
-            y = PY(10) + safeZoneY;
-            w = PX(GWIDTH);
-            h = PY(GHEIGHT);
+                class Heading : PRA3_H2Text {
+                    idc = 202;
+                    text = "DEPLOYMENT";
+                    x = PX(0.5);
+                    y = PY(0.5);
+                    w = PX(GWIDTH-1);
+                    h = PY(3);
+                };
 
-            class Controls {
-                class Background : RscPicture {
-                    idc = 501;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                class RolesList : RscListNBox {
+                    idc = 303;
                     x = PX(0);
-                    y = PY(0);
+                    y = PY(4);
                     w = PX(GWIDTH);
-                    h = PY(GHEIGHT);
+                    h = PY(22.5);
+
+                    rowHeight = PY(3);
+                    columns[] = {0,0.075,0.875};
                 };
             };
         };
+
+        #define GWIDTH 26
+        #define GHEIGHT 5
+        class DeployBtn : PRA3_RscButtonMenu {
+            idc = 500;
+            text = "DEPLOY";
+            x = safeZoneW - PX(GWIDTH+5) + safeZoneX;
+            y = PY(93) + safeZoneY;
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+        }
     };
 };

@@ -25,13 +25,14 @@ private _joinLeaveButton = _dialog displayCtrl 210;
 private _kickButton = _dialog displayCtrl 211;
 private _promoteButton = _dialog displayCtrl 212;
 
+[QGVAR(blurScreen), true] call CFUNC(blurScreen);
 
 GVAR(respawnScreenPFH) = [{
     disableSerialization;
     (_this select 0) params["_teamFlag","_teamName","_squadList","_squadName","_squadMemberList", "_joinLeaveButton", "_kickButton", "_promoteButton"];
 
-    _teamFlag ctrlSetText (missionNamespace getVariable [format ["%1_%2",QGVAR(Flag),playerSide], ""]);
-    _teamName ctrlSetText (missionNamespace getVariable [format ["%1_%2",QGVAR(SideName),playerSide], ""]);
+    _teamFlag ctrlSetText (missionNamespace getVariable [format [QGVAR(Flag_%1),side group PRA3_Player], ""]);
+    _teamName ctrlSetText (missionNamespace getVariable [format [QGVAR(SideName_%1),side group PRA3_Player], ""]);
 
     private _currentSelection = lnbCurSelRow _squadList;
     private _selectedGroupName = "";

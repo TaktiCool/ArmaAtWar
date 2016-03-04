@@ -16,11 +16,13 @@ EPREP(Sector,showCaptureStatus)
 EPREP(Groups,postInitGroups)
 
 // Respawn
+EPREP(Respawn,serverInitRespawn)
 EPREP(Respawn,clientInitRespawn)
 EPREP(Respawn,onLoadRespawnScreen)
 EPREP(Respawn,onUnLoadRespawnScreen)
 EPREP(Respawn,joinLeaveBtn)
 EPREP(Respawn,createSquadBtn)
+EPREP(Respawn,changeSide)
 
 // Loadouts
 EPREP(Loadouts,postInitLoadout)
