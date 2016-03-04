@@ -5,7 +5,8 @@ class PRA3_RscButtonMenu : RscButton {
     style = ST_LEFT;
     sizeEx = PY(2);
     shadow = 0;
-    colorBackground[] = {1,0.4,0,1};
+    colorBackground[] = {0.4,0.4,0.4,1};
+    colorFocused[] = {1,0.4,0,1};
     colorText[] = {1,1,1,1};
     x = PX(0);
     y = PY(0);
@@ -31,7 +32,7 @@ class PRA3_RscEdit : RscEdit {
 class PRA3_H1Text : RscText {
     text = "";
     font = "PuristaSemiBold";
-    sizeEx = PY(3);
+    sizeEx = PY(2.9);
     shadow = 0;
     colorBackground[] = {0,0,0,0};
     colorText[] = {1,1,1,1};

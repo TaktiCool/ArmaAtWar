@@ -8,15 +8,15 @@ class PRA3_UI_RespawnScreen {
     class Controls {
         class TeamInfo : RscControlsGroupNoScollbars {
             idc = 100;
-            x = 0.5 - PX(75);
-            y = safeZoneY + PY(10);
+            x = 0.5 - PX(69.5);
+            y = PY(10) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
 
             class Controls {
                 class Background : RscPicture {
                     idc = 101;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.75)";
+                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
@@ -27,17 +27,28 @@ class PRA3_UI_RespawnScreen {
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
                     x = PX(0.5);
                     y = PY(0.5);
-                    w = PX(3.33);
+                    w = PX(3);
                     h = PY(2);
                 };
 
                 class TeamName : PRA3_H1Text {
                     idc = 103;
                     text = "US ARMY";
-                    x = PX(5);
+                    x = PX(4);
                     y = PY(0);
-                    w = PX(GWIDTH-6);
+                    w = PX(GWIDTH-13);
                     h = PY(GHEIGHT);
+                };
+
+                class ChangeSideBtn : PRA3_RscButtonMenu {
+                    idc = 104;
+                    text = "CHANGE";
+                    x = PX(GWIDTH-9);
+                    y = PY(0);
+                    w = PX(9);
+                    h = PY(GHEIGHT)
+
+                    onButtonClick = "[_this] call PRA3_mission_fnc_changeSide;";
                 };
             };
         };
@@ -45,8 +56,8 @@ class PRA3_UI_RespawnScreen {
         #define GHEIGHT 44.5
         class SquadManagement : RscControlsGroupNoScollbars {
             idc = 200;
-            x = 0.5 - PX(75);
-            y = safeZoneY + PY(14);
+            x = 0.5 - PX(69.5);
+            y = PY(14) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
 
@@ -64,43 +75,49 @@ class PRA3_UI_RespawnScreen {
                     idc = 202;
                     text = "SQUAD";
                     x = PX(0.5);
-                    y = PY(0);
-                    w = PX(GWIDTH-0.5);
+                    y = PY(0.5);
+                    w = PX(GWIDTH-1);
+                    h = PY(3);
                 };
 
                 class NewSquadDesignator : PRA3_RscText {
                     idc = 203;
-                    x = PX(1);
+                    text = "D";
+                    x = PX(0.5);
                     y = PY(4);
-                    w = PX(2);
+                    w = PX(2.5);
+                    h = PY(3);
                 };
 
                 class NewSquadDescriptionInput : PRA3_RscEdit {
                     idc = 204;
-                    x = PX(4);
+                    x = PX(3.5);
                     y = PY(4);
-                    w = PX(26.5);
+                    w = PX(GWIDTH-13);
+                    h = PY(3);
                 };
 
                 class CreateSquadBtn : PRA3_RscButtonMenu {
                     idc = 205;
                     text = "CREATE";
-                    x = PX(31);
+                    x = PX(GWIDTH-9);
                     y = PY(4);
                     w = PX(8);
+                    h = PY(3);
 
                     onButtonClick = "[_this] call PRA3_mission_fnc_createSquadBtn;";
                 };
 
                 class SquadList : RscListNBox {
                     idc = 206;
-                    x = 0;
+                    x = PX(0);
                     y = PY(8);
                     w = PX(GWIDTH);
                     h = PY(14.5);
+
                     sizeEx = PY(2);
                     rowHeight = PY(3.5);
-                    columns[] = {0,0.1,0.85};
+                    columns[] = {0,0.075,0.875};
                 };
 
 
@@ -109,7 +126,7 @@ class PRA3_UI_RespawnScreen {
                     idc = 207;
                     text = "#(argb,8,8,3)color(0.2,0.2,0.2,1)";
                     x = PX(0);
-                    y = PY(22.5);
+                    y = PY(GHEIGHT-22);
                     w = PX(GWIDTH);
                     h = PY(22);
                 };
@@ -118,26 +135,30 @@ class PRA3_UI_RespawnScreen {
                     idc = 208;
                     text = "ALPHA";
                     x = PX(0.5);
-                    y = PY(22.5);
-                    w = PX(GWIDTH/2);
+                    y = PY(GHEIGHT-22);
+                    w = PX(GWIDTH-22);
+                    h = PY(3);
                 };
 
-                class SquadMemberList : RscListNBox {
+                class SquadMemberList : RscListNBox { //@todo move down
                     idc = 209;
-                    x = 0;
-                    y = PY(26.5);
+                    x = PX(0);
+                    y = PY(GHEIGHT-18.3);
                     w = PX(GWIDTH);
-                    h = PY(10.5);
+                    h = PY(18.3);
 
-                    rowHeight = PY(3.5);
+                    sizeEx = PY(2);
+                    rowHeight = PY(3);
+                    columns[] = {0,0.075,0.875};
                 };
 
                 class JoinLeaveBtn : PRA3_RscButtonMenu {
                     idc = 210;
                     text = "JOIN";
-                    x = PX(34);
-                    y = PY(22.5);
+                    x = PX(GWIDTH-6);
+                    y = PY(GHEIGHT-22);
                     w = PX(6);
+                    h = PY(3);
 
                     onButtonClick = "[_this] call PRA3_mission_fnc_joinLeaveBtn;";
                 };
@@ -145,9 +166,10 @@ class PRA3_UI_RespawnScreen {
                 class KickBtn : PRA3_RscButtonMenu {
                     idc = 211;
                     text = "KICK";
-                    x = PX(27.5);
-                    y = PY(22.5);
+                    x = PX(GWIDTH-12.5);
+                    y = PY(GHEIGHT-22);
                     w = PX(6);
+                    h = PY(3);
 
                     onButtonClick = "[_this] call PRA3_mission_fnc_kickSquadMemberBtn;";
                 };
@@ -155,20 +177,21 @@ class PRA3_UI_RespawnScreen {
                 class PromoteBtn : PRA3_RscButtonMenu {
                     idc = 212;
                     text = "PROMOTE";
-                    x = PX(18);
-                    y = PY(22.5);
+                    x = PX(GWIDTH-22);
+                    y = PY(GHEIGHT-22);
                     w = PX(9);
+                    h = PY(3);
 
                     onButtonClick = "[_this] call PRA3_mission_fnc_promoteSquadMemberBtn;";
                 };
             };
         };
 
-        #define GHEIGHT 130.5
+        #define GHEIGHT 38.5
         class RoleManagement : RscControlsGroupNoScollbars {
             idc = 300;
-            x = 0.5 - PX(75);
-            y = safeZoneY + PY(59.5);
+            x = 0.5 - PX(69.5);
+            y = PY(59.5) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
 
@@ -181,7 +204,82 @@ class PRA3_UI_RespawnScreen {
                     w = PX(GWIDTH);
                     h = PY(GHEIGHT);
                 };
+
+                class Heading : PRA3_H2Text {
+                    idc = 302;
+                    text = "ROLE";
+                    x = PX(0.5);
+                    y = PY(0.5);
+                    w = PX(GWIDTH-1);
+                    h = PY(3);
+                };
+
+                class RolesList : RscListNBox {
+                    idc = 303;
+                    x = PX(0);
+                    y = PY(4);
+                    w = PX(GWIDTH);
+                    h = PY(19);
+
+                    rowHeight = PY(3.5);
+                    columns[] = {0,0.075,0.875};
+                };
+
+                class WeaponsTabs : RscToolbox {
+                    idc = 304;
+                    x = PX(0);
+                    y = PY(GHEIGHT-15.5);
+                    w = PX(GWIDTH);
+                    h = PY(2.5);
+
+                    sizeEx = PY(2);
+                    rows = 1;
+                    columns = 3;
+                    strings[] = {"Primary", "Secondary", "Special"};
+                }
             }
         }
+
+        #define GWIDTH 25
+        #define GHEIGHT 26.5
+        class DeploymentManagement : RscControlsGroupNoScollbars {
+            idc = 400;
+            x = 0.5 - PX(25.5);
+            y = PY(10) + safeZoneY;
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+
+            class Controls {
+                class Background : RscPicture {
+                    idc = 401;
+                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    x = PX(0);
+                    y = PY(0);
+                    w = PX(GWIDTH);
+                    h = PY(GHEIGHT);
+                };
+            };
+        };
+
+        #define GWIDTH 85
+        #define GHEIGHT 82
+        class Map : RscControlsGroupNoScollbars {
+            idc = 500;
+            x = 0.5 + PX(0.5);
+            y = PY(10) + safeZoneY;
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+
+            class Controls {
+                class Background : RscPicture {
+                    idc = 501;
+                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    x = PX(0);
+                    y = PY(0);
+                    w = PX(GWIDTH);
+                    h = PY(GHEIGHT);
+                };
+            };
+        };
     };
 };

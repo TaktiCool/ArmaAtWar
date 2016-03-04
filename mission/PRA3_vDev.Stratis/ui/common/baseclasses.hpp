@@ -1893,4 +1893,21 @@ class RscControlsGroupNoScollbars : RscControlsGroup {
         thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
         width = 0;
     };
-}
+};
+
+class RscToolbox {
+    type = CT_TOOLBOX;
+    style = ST_CENTER;
+
+    color[] = {0, 0, 0, 1};    // seems nothing to change, but define it to avoid error!
+    colorText[] = {1, 1, 1, 1};
+    colorBackground[] = {1, 1, 1, 0.5};
+    colorTextSelect[] = {1, 1, 1, 1};
+    colorSelectedBg[] = {0.2, 0.2, 0.2, 1};
+    colorSelect[] = {1, 1, 1, 1};
+    colorTextDisable[] = {0.4, 0.4, 0.4, 1};
+    colorDisable[] = {0.4, 0.4, 0.4, 1};
+
+    font = "PuristaMedium";
+    sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+};

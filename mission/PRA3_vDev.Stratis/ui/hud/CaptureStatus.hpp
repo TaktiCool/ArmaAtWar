@@ -6,10 +6,9 @@ class PRA3_UI_CaptureStatus {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 100;
             x = 0.5 - PX(20);
-            y = safeZoneY + PY(0.5);
+            y = PY(0.5) + safeZoneY;
             w = PX(40);
             h = PY(4);
-
 
             class Controls {
                 class Background : RscPicture {
