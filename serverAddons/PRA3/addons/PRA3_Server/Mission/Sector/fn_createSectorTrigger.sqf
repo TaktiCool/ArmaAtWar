@@ -27,7 +27,7 @@ if (isServer) then {
         private _trig = createTrigger ["EmptyDetector", getMarkerPos _marker,false];
         _trig setTriggerArea [_size select 0, _size select 1, markerDir _marker, (markerShape _marker) == "RECTANGLE"];
         _trig setTriggerActivation [_x, "PRESENT", true];
-        _trig setTriggerStatements ["this","hint 'Entered'", "hint 'Leaved'"];
+        //_trig setTriggerStatements ["this","hint 'Entered'", "hint 'Leaved'"];
         _sector setVariable [format["trigger_%1",_x], _trig];
         nil;
     } count GVAR(competingSides);
