@@ -16,12 +16,12 @@
 GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 
 ["hideObject", {
-    private _var = _this select 0;
-    (_var select 0) hideObjectGlobal (_var select 1)
+    (_this select 0) params ["_object", "_value"];
+    _object hideObjectGlobal _value;
 }] call FUNC(addEventhandler);
 ["enableSimulation", {
-    private _var = _this select 0;
-    (_var select 0) enableSimulationGlobal (_var select 1)
+    (_this select 0) params ["_object", "_value"];
+    _object enableSimulationGlobal _value;
 }] call FUNC(addEventhandler);
 ["forceWalk", {
     (_this select 0) params ["_object", "_set"];
