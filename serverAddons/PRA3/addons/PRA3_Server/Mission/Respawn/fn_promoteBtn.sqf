@@ -16,10 +16,6 @@
 (_this select 0) params ["_btn"];
 disableSerialization;
 
-if ((ctrlText _btn) == "JOIN") then {
-    private _selectedGroupId = lnbData [206,[lnbCurSelRow 206,0]];
+private _playerId = lnbData [207,[lnbCurSelRow 209,0]];
 
-    ["join_group",[_selectedGroupId,PRA3_player]] call CFUNC(serverEvent);
-} else {
-    [PRA3_player] join grpNull;
-};
+[group PRA3_player, objectFromNetId _playerId] remoteExec ["selectLeader", groupOwner PRA3_player];

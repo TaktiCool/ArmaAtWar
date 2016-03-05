@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=185;
+		nextID=187;
 	};
 	class MarkerIDProvider
 	{
@@ -16,7 +16,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={5025.332,307.36566,5813.6406};
+		pos[]={4962.0044,598.95929,5583.3247};
 		dir[]={0,-0.70710683,0.70710683};
 		up[]={0,0.70710677,0.70710677};
 		aside[]={0.99999994,0,0};
@@ -931,7 +931,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3308.1731,3.0659375,6853.3359};
+						position[]={3308.1731,3.065937,6853.3359};
 						angles[]={0,1.9022692,0};
 					};
 					side="West";
@@ -939,6 +939,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""ALPHA"",true];";
 						isPlayer=1;
 						isPlayable=1;
 					};
@@ -1091,7 +1092,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3302.1238,2.470273,6854.2666};
+						position[]={3302.124,2.470284,6854.2666};
 						angles[]={0,1.9022692,0};
 					};
 					side="West";
@@ -1099,6 +1100,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""BRAVO"",true];";
 						isPlayable=1;
 					};
 					id=159;
@@ -1250,7 +1252,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3298.0913,2.9726217,6855.1973};
+						position[]={3298.0911,2.9728768,6855.1968};
 						angles[]={0,1.9022692,0};
 					};
 					side="West";
@@ -1258,6 +1260,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""CHARLIE"",true];";
 						isPlayable=1;
 					};
 					id=168;
@@ -1409,7 +1412,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3292.042,2.6994088,6856.1279};
+						position[]={3292.042,2.6998935,6856.1279};
 						angles[]={0,1.9022692,0};
 					};
 					side="West";
@@ -1417,6 +1420,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""DELTA"",true];";
 						isPlayable=1;
 					};
 					id=177;

@@ -65,4 +65,15 @@ if (isServer) then {
         _group setVariable ["PRA3_GroupId", _groupId,true];
 
     }] call CFUNC(addEventhandler);
+
+    ["join_group",{
+        (_this select 0) params ["_groupId","_player"];
+
+        private _group = groupFromNetId  _groupId;
+
+        if ((count units _group) < 9) then {
+            [_player] join _group;
+        };
+
+    }] call CFUNC(addEventhandler);
 };
