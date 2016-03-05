@@ -63,14 +63,11 @@ GVAR(LoadoutCache) = call CFUNC(createNamespace);
     GVAR(LoadoutCache) setVariable [_loadoutVar, _value];
 }] call CFUNC(addEventhandler);
 
-
-if (isServer) then {
+{
+    private _sideName = configName _x;
     {
-        private _sideName = configName _x;
-        {
-            [_x, _sideName] call FUNC(Loadout_loadConfig);
-            nil
-        } count ("true" configClasses (_x));
+        [_x, _sideName] call FUNC(Loadout_loadConfig);
         nil
-    } count ("true" configClasses (missionConfigFile >> "PRA3" >>"Loadouts"));
-};
+    } count ("true" configClasses (_x));
+    nil
+} count ("true" configClasses (missionConfigFile >> "PRA3" >>"Loadouts"));
