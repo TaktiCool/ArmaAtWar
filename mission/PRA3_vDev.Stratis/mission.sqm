@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1;
+	toggles=129;
 	class ItemIDProvider
 	{
 		nextID=198;
@@ -144,13 +144,14 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2984.1543,171.32338,1888.4587};
+						position[]={2984.1541,171.32338,1888.4591};
 					};
 					side="East";
 					flags=3;
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""ALPHA"",true];";
 						isPlayable=1;
 					};
 					id=113;
@@ -295,13 +296,14 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2983.4407,171.37148,1884.4169};
+						position[]={2983.4409,171.37148,1884.417};
 					};
 					side="East";
 					flags=3;
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""BRAVO"",true];";
 						isPlayable=1;
 					};
 					id=122;
@@ -446,13 +448,14 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2982.6204,171.39453,1880.1899};
+						position[]={2982.6201,171.39453,1880.1901};
 					};
 					side="East";
 					flags=3;
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""CHARLIE"",true];";
 						isPlayable=1;
 					};
 					id=131;
@@ -597,13 +600,14 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2982.1619,171.40143,1875.704};
+						position[]={2982.1621,171.40143,1875.7041};
 					};
 					side="East";
 					flags=3;
 					class Attributes
 					{
 						rank="SERGEANT";
+						init="(group this) setVariable [""PRA3_groupId"",""DELTA"",true];";
 						isPlayable=1;
 					};
 					id=140;
