@@ -42,13 +42,15 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
 } else {
     _unit action ["WeaponOnBack",_unit];
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2) + 0.5];
-    _unit forceWalk true;
+    ["forceWalk", [_unit, true]] call CFUNC(localEvent);
 };
 _draggedObject attachTo [_unit, _attachPoint];
 
 // TODO replace with PFH
 
-GVAR(GetInVehiclePFH) = [{
+[{
+    params ["_args", "_id"];
+    _args params ["_unit"];
     if (_unit == vehicle _unit) exitWith {};
     private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
     detach _draggedObject;
@@ -56,13 +58,12 @@ GVAR(GetInVehiclePFH) = [{
     _unit setVariable [QGVAR(Item), objNull, true];
     _draggedObject setVariable [QGVAR(Player), objNull, true];
     detach _draggedObject;
-    _unit forceWalk false;
-    _draggedObject setDamage 0;
+    ["forceWalk", [_unit, false]] call CFUNC(localEvent);
     ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
     private _position = getPosATL _draggedObject;
     if (_position select 2 < 0) then {
         _position set [2, 0];
         _draggedObject setPosATL _position;
    };
-    [GVAR(GetInVehiclePFH)] call CFUNC(removePerFrameHandler);
-}] call CFUNC(addPerFrameHandler);
+    [_id] call CFUNC(removePerFrameHandler);
+}, 1,_unit] call CFUNC(addPerFrameHandler);
