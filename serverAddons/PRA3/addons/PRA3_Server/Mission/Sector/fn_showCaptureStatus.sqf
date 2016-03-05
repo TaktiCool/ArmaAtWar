@@ -20,10 +20,9 @@ params ["_show","_sector"];
 if (_show) then {
     _sectorObject = [_sector] call FUNC(getSector);
     ([QEGVAR(UI,CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QEGVAR(UI,CaptureStatus),"PLAIN"];
-    if (GVAR(captureStatusPFH) == -1) then {
+    if (GVAR(captureStatusPFH) != -1) then {
         [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
     };
-
     GVAR(captureStatusPFH) = [{
         disableSerialization;
         params ["_args","_id"];
