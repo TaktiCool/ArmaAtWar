@@ -24,20 +24,24 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
     _object enableSimulationGlobal _value;
 }] call FUNC(addEventhandler);
 ["forceWalk", {
-    (_this select 0) params ["_object", "_set"];
-    _object forceWalk (_set > 0);
+    (_this select 0) params ["_object", "_value"];
+    _object forceWalk _value;
 }] call FUNC(addEventHandler);
 ["blockSprint", {
-    (_this select 0) params ["_object", "_set"];
-    _object allowSprint (_set == 0);
+    (_this select 0) params ["_object", "_value"];
+    _object allowSprint !_value;
+}] call FUNC(addEventHandler);
+["fixFloating", {
+    (_this select 0) params ["_object"];
+    [_object] call FUNC(fixFloating);
 }] call FUNC(addEventHandler);
 ["setCaptive", {
-    (_this select 0) params ["_object", "_set"];
-    _object setCaptive (_set > 0);
+    (_this select 0) params ["_object", "_value"];
+    _object setCaptive _value;
 }] call FUNC(addEventHandler);
 ["blockDamage", {
-    (_this select 0) params ["_object", "_set"];
-    _object allowDamage (_set == 0);
+    (_this select 0) params ["_object", "_value"];
+    _object allowDamage !_value;
 }] call FUNC(addEventHandler);
 ["selectLeader", {
     (_this select 0) params ["_group", "_unit"];

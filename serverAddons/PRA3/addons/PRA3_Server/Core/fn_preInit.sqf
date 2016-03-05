@@ -23,7 +23,6 @@ PREP(createNamespace)
 PREP(deleteNamespace)
 PREP(getVariableLoc)
 
-
 // Events
 EPREP(Events,initEvents)
 EPREP(Events,addEventhandler)
@@ -54,8 +53,7 @@ PREP(isAlive)
 PREP(cachedCall)
 PREP(addPerformanceCounter)
 PREP(blurScreen)
-
-
+PREP(fixFloating)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);
