@@ -83,13 +83,13 @@ if (isServer) then {
             // Dont use playerSide the player side dont change if chaning the side
             private _sectorName = _sector getVariable ["fullName", ""];
             if ((side player) isEqualTo _oldSide) then {
-                [QCGVAR(EnemySideCaptureSector), [_sectorName]] call BIS_fnc_showNotification;
+                ["PRA3_SectorLost", [format["Your team lost sector %1", _sectorName]]] call BIS_fnc_showNotification;
             } else {
 
                 if (GVAR(currentSector) isEqualTo _sector) then {
-                    [QCGVAR(youCaptureSector), [_sectorName]] call BIS_fnc_showNotification;
+                    ["PRA3_SectorCaptured", [format["You captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
                 } else {
-                    [QCGVAR(yourSideCaptureSector), [_sectorName]] call BIS_fnc_showNotification;
+                    ["PRA3_SectorCaptured", [format["Your team captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
                 };
             };
 
