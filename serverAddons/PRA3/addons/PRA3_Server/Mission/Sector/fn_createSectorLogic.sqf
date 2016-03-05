@@ -38,6 +38,7 @@ private _infoMarker = createMarker [format ["InformationMarker_%1", _marker], ge
 _infoMarker setMarkerShape "ICON";
 _infoMarker setMarkerType SelectSideMarker(_side);
 _infoMarker setMarkerColor (markerColor _marker);
+_marker setMarkerAlpha 1;
 _logic setVariable ["informationMarker", _infoMarker, true];
 _logic setVariable ["name",_marker,true];
 _logic setVariable ["fullName",markerText _marker,true];

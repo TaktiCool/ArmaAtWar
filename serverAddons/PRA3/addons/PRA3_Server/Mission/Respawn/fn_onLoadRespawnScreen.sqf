@@ -19,6 +19,7 @@ disableSerialization;
 uiNamespace setVariable ["PRA3_UI_RespawnScreen", _dialog];
 private _teamFlag = _dialog displayCtrl 102;
 private _teamName = _dialog displayCtrl 103;
+private _nextSquadId = _dialog displayCtrl 203;
 private _squadList = _dialog displayCtrl 206;
 private _squadName = _dialog displayCtrl 208;
 private _squadMemberList = _dialog displayCtrl 209;
@@ -30,10 +31,14 @@ private _promoteButton = _dialog displayCtrl 212;
 
 GVAR(respawnScreenPFH) = [{
     disableSerialization;
-    (_this select 0) params["_teamFlag","_teamName","_squadList","_squadName","_squadMemberList", "_joinLeaveButton", "_kickButton", "_promoteButton"];
+    (_this select 0) params["_teamFlag","_teamName", "_nextSquadId","_squadList","_squadName","_squadMemberList", "_joinLeaveButton", "_kickButton", "_promoteButton"];
 
     _teamFlag ctrlSetText (missionNamespace getVariable [format [QGVAR(Flag_%1),side group PRA3_Player], ""]);
     _teamName ctrlSetText (missionNamespace getVariable [format [QGVAR(SideName_%1),side group PRA3_Player], ""]);
+
+    _strNextSquadId = missionNamespace getVariable [format ["%1_%2",QGVAR(nextGroupId), side group PRA3_Player], "ALPHA"];
+
+    _nextSquadId ctrlSetText (_strNextSquadId select [0, 1]);
 
     private _currentSelection = lnbCurSelRow _squadList;
     private _selectedGroup = grpNull;
@@ -84,4 +89,4 @@ GVAR(respawnScreenPFH) = [{
 
 
 
-}, 0, [_teamFlag, _teamName, _squadList, _squadName, _squadMemberList, _joinLeaveButton, _kickButton, _promoteButton]] call CFUNC(addPerFrameHandler);;
+}, 0, [_teamFlag, _teamName, _nextSquadId, _squadList, _squadName, _squadMemberList, _joinLeaveButton, _kickButton, _promoteButton]] call CFUNC(addPerFrameHandler);;

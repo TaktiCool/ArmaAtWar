@@ -33,10 +33,21 @@ if (isServer) then {
         GVAR(FirstCaptureTime) = getArray (missionConfigFile >> "PRA3" >> "CfgSectors" >> "firstCaptureTime");
         private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
 
+        {_x setMarkerAlpha 0}count allMapMarkers;
+
+        {
+            if ((configName _x find "base") < 1) then {
+                [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
+            };
+            nil;
+        } count _sectors;
+
+        private _path = selectRandom ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors" >> "CfgSectorPath"));
+
         {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             nil;
-        } count _sectors;
+        } count ("true" configClasses _path);
 
         publicVariable QGVAR(FirstCaptureTime);
         publicVariable QGVAR(allSectorsArray);

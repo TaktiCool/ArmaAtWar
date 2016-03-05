@@ -43,7 +43,23 @@ if (isServer) then {
         "YANKEE",
         "ZULU"
     ];
+    {
+        private _side = _x;
+        private _allGroupIds = [];
 
+        {
+            if (_side == str side _x) then {
+                private _groupId = _x getVariable ["PRA3_GroupId",""];
+                if (_groupId != "") then {
+                    _allGroupIds pushBack _groupId;
+                };
+            };
+            nil;
+        } count allGroups;
+
+        private _groups = (GVAR(allGroupIds)-_allGroupIds);
+        missionNamespace setVariable [format ["%1_%2",QGVAR(nextGroupId),_side], _groups select 0, true];
+    } count GVAR(competingSides);
 
     ["newGroupRequested", {
         (_this select 0) params ["_group"];
@@ -60,9 +76,12 @@ if (isServer) then {
             nil;
         } count allGroups;
 
-        private _groupId = (GVAR(allGroupIds)-_allGroupIds) select 0;
+        private _groups = (GVAR(allGroupIds)-_allGroupIds);
+        private _groupId = _groups select 0;
+
 
         _group setVariable ["PRA3_GroupId", _groupId,true];
+        missionNamespace setVariable [format ["%1_%2",QGVAR(nextGroupId), side _group], _groups select 1, true];
 
     }] call CFUNC(addEventhandler);
 

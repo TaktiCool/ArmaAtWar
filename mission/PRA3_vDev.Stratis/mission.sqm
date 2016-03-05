@@ -8,11 +8,11 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=188;
+		nextID=198;
 	};
 	class MarkerIDProvider
 	{
-		nextID=13;
+		nextID=23;
 	};
 	class LayerIndexProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3371.417,184.63107,6625.5347};
-		dir[]={0.030906988,-0.6032362,0.79697037};
-		up[]={0.023376355,0.79756409,0.60278356};
-		aside[]={0.99925464,-1.356384e-007,-0.038751479};
+		pos[]={3306.3489,97.452827,6745.8408};
+		dir[]={0,-0.70710683,0.70710683};
+		up[]={0,0.70710677,0.70710677};
+		aside[]={0.99999994,0,-0};
 	};
 };
 binarizationWanted=0;
@@ -131,7 +131,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=15;
+		items=25;
 		class Item0
 		{
 			dataType="Group";
@@ -1502,7 +1502,7 @@ class Mission
 		class Item10
 		{
 			dataType="Marker";
-			position[]={5027.5381,208.79347,5912.5415};
+			position[]={5018.7969,208.59067,5912.5415};
 			name="sector_0";
 			text="Camp Rogain";
 			markerType="ELLIPSE";
@@ -1563,6 +1563,136 @@ class Mission
 			a=150;
 			b=150;
 			id=53;
+		};
+		class Item15
+		{
+			dataType="Marker";
+			position[]={3258.9321,5.0447216,5806.8223};
+			name="sector_4";
+			text="Military Range";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=100;
+			b=100;
+			id=188;
+		};
+		class Item16
+		{
+			dataType="Marker";
+			position[]={2951.5708,0.52490234,5994.9897};
+			name="sector_5";
+			text="Agia Marina";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=189;
+		};
+		class Item17
+		{
+			dataType="Marker";
+			position[]={4338.9771,224.90552,3803.333};
+			name="sector_6";
+			text="Air Station Mike-26";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=190;
+		};
+		class Item18
+		{
+			dataType="Marker";
+			position[]={1971.15,2.756325,3564.937};
+			name="sector_7";
+			text="Camp Tempest";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=120;
+			b=120;
+			id=191;
+		};
+		class Item19
+		{
+			dataType="Marker";
+			position[]={2169.0984,6.1252642,5699.1934};
+			name="sector_8";
+			text="Stratis Air Base";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=192;
+		};
+		class Item20
+		{
+			dataType="Marker";
+			position[]={3508.0105,200.49631,4920.5352};
+			name="sector_9";
+			text="Radio Tower";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=100;
+			b=100;
+			id=193;
+		};
+		class Item21
+		{
+			dataType="Marker";
+			position[]={2034.6764,3.2711062,2723.46};
+			name="sector_10";
+			text="Girna";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=194;
+		};
+		class Item22
+		{
+			dataType="Marker";
+			position[]={6484.0195,7.5747204,5392.438};
+			name="sector_11";
+			text="Kamino Firing Range";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=195;
+		};
+		class Item23
+		{
+			dataType="Marker";
+			position[]={4499.6333,106.07378,6796.1113};
+			name="sector_12";
+			text="Kill Farm";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=80;
+			b=80;
+			id=196;
+		};
+		class Item24
+		{
+			dataType="Marker";
+			position[]={2808.4617,38.047085,3740.061};
+			name="sector_13";
+			text="Ruins";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=80;
+			b=80;
+			id=197;
 		};
 	};
 };
