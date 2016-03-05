@@ -24,4 +24,4 @@ _group setVariable ["PRA3_description", _description, true];
 
 [PRA3_player] join _group;
 
-["newGroup",[_group]] call CFUNC(serverEvent);
+["newGroupRequested",[_group]] call CFUNC(serverEvent);
