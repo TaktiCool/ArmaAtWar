@@ -60,8 +60,6 @@ if (isServer) then {
             nil;
         } count allGroups;
 
-        hint format ["%1",_allGroupIds];
-
         private _groupId = (GVAR(allGroupIds)-_allGroupIds) select 0;
 
         _group setVariable ["PRA3_GroupId", _groupId,true];
