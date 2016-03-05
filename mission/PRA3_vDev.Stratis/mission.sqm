@@ -8,18 +8,22 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=187;
+		nextID=188;
 	};
 	class MarkerIDProvider
 	{
 		nextID=13;
 	};
+	class LayerIndexProvider
+	{
+		nextID=1;
+	};
 	class Camera
 	{
-		pos[]={4962.0044,598.95929,5583.3247};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		pos[]={3371.417,184.63107,6625.5347};
+		dir[]={0.030906988,-0.6032362,0.79697037};
+		up[]={0.023376355,0.79756409,0.60278356};
+		aside[]={0.99925464,-1.356384e-007,-0.038751479};
 	};
 };
 binarizationWanted=0;
@@ -129,84 +133,6 @@ class Mission
 	{
 		items=15;
 		class Item0
-		{
-			dataType="Marker";
-			position[]={5225.2148,216.13184,5000.0747};
-			name="sector_1";
-			text="Radio Station";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorUNKNOWN";
-			a=150;
-			b=150;
-			id=53;
-		};
-		class Item1
-		{
-			dataType="Marker";
-			position[]={4374.564,178.34044,4363.374};
-			name="sector_2";
-			text="Old Outpost";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorUNKNOWN";
-			a=150;
-			b=150;
-			id=54;
-		};
-		class Item2
-		{
-			dataType="Marker";
-			position[]={2977.0171,163.9248,1881.2314};
-			name="base_east";
-			text="CSAT Main Base";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorEAST";
-			a=150;
-			b=150;
-			id=55;
-		};
-		class Item3
-		{
-			dataType="Marker";
-			position[]={3309.0503,227.23227,2955.6211};
-			name="sector_3";
-			text="Camp Maxwell";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorUNKNOWN";
-			a=150;
-			b=150;
-			id=56;
-		};
-		class Item4
-		{
-			dataType="Marker";
-			position[]={3302.4355,4.2189307,6829.0303};
-			name="base_west";
-			text="NATO Main Base";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorWEST";
-			a=150;
-			b=150;
-			id=57;
-		};
-		class Item5
-		{
-			dataType="Marker";
-			position[]={5027.5381,208.79347,5912.5415};
-			name="sector_0";
-			text="Camp Rogain";
-			markerType="ELLIPSE";
-			type="Empty";
-			colorName="ColorUNKNOWN";
-			a=150;
-			b=150;
-			id=75;
-		};
-		class Item6
 		{
 			dataType="Group";
 			side="East";
@@ -357,7 +283,7 @@ class Mission
 			};
 			id=112;
 		};
-		class Item7
+		class Item1
 		{
 			dataType="Group";
 			side="East";
@@ -508,7 +434,7 @@ class Mission
 			};
 			id=121;
 		};
-		class Item8
+		class Item2
 		{
 			dataType="Group";
 			side="East";
@@ -659,7 +585,7 @@ class Mission
 			};
 			id=130;
 		};
-		class Item9
+		class Item3
 		{
 			dataType="Group";
 			side="East";
@@ -810,7 +736,7 @@ class Mission
 			};
 			id=139;
 		};
-		class Item10
+		class Item4
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -919,7 +845,7 @@ class Mission
 				nAttributes=5;
 			};
 		};
-		class Item11
+		class Item5
 		{
 			dataType="Group";
 			side="West";
@@ -1080,7 +1006,7 @@ class Mission
 			};
 			id=149;
 		};
-		class Item12
+		class Item6
 		{
 			dataType="Group";
 			side="West";
@@ -1240,7 +1166,7 @@ class Mission
 			};
 			id=158;
 		};
-		class Item13
+		class Item7
 		{
 			dataType="Group";
 			side="West";
@@ -1400,7 +1326,7 @@ class Mission
 			};
 			id=167;
 		};
-		class Item14
+		class Item8
 		{
 			dataType="Group";
 			side="West";
@@ -1559,6 +1485,84 @@ class Mission
 			{
 			};
 			id=176;
+		};
+		class Item9
+		{
+			dataType="Marker";
+			position[]={3309.0503,227.23227,2955.6211};
+			name="sector_3";
+			text="Camp Maxwell";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=56;
+		};
+		class Item10
+		{
+			dataType="Marker";
+			position[]={5027.5381,208.79347,5912.5415};
+			name="sector_0";
+			text="Camp Rogain";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=75;
+		};
+		class Item11
+		{
+			dataType="Marker";
+			position[]={2977.0171,163.9248,1881.2314};
+			name="base_east";
+			text="CSAT Main Base";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorEAST";
+			a=150;
+			b=150;
+			id=55;
+		};
+		class Item12
+		{
+			dataType="Marker";
+			position[]={3302.4355,4.2189307,6829.0303};
+			name="base_west";
+			text="NATO Main Base";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorWEST";
+			a=150;
+			b=150;
+			id=57;
+		};
+		class Item13
+		{
+			dataType="Marker";
+			position[]={4374.564,178.34044,4363.374};
+			name="sector_2";
+			text="Old Outpost";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=54;
+		};
+		class Item14
+		{
+			dataType="Marker";
+			position[]={5225.2148,216.13184,5000.0747};
+			name="sector_1";
+			text="Radio Station";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorUNKNOWN";
+			a=150;
+			b=150;
+			id=53;
 		};
 	};
 };

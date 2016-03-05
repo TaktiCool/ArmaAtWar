@@ -21,6 +21,8 @@ EPREP(Respawn,clientInitRespawn)
 EPREP(Respawn,onLoadRespawnScreen)
 EPREP(Respawn,onUnLoadRespawnScreen)
 EPREP(Respawn,joinLeaveBtn)
+EPREP(Respawn,promoteBtn)
+EPREP(Respawn,kickBtn)
 EPREP(Respawn,createSquadBtn)
 EPREP(Respawn,changeSide)
 

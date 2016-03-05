@@ -36,27 +36,21 @@ GVAR(respawnScreenPFH) = [{
     _teamName ctrlSetText (missionNamespace getVariable [format [QGVAR(SideName_%1),side group PRA3_Player], ""]);
 
     private _currentSelection = lnbCurSelRow _squadList;
-    private _selectedGroupId = "";
     private _selectedGroup = grpNull;
 
     if (_currentSelection >= 0) then {
-        _selectedGroupId = _squadList lnbData [_currentSelection,0];
-        _selectedGroup = groupFromNetId  _selectedGroupId;
+        _selectedGroup = missionNamespace getVariable [(_squadList lnbData [_currentSelection,0]), objNull];
+        _selectedGroup = group _selectedGroup;
     };
 
 
     lnbClear _squadList;
     {
-        if (side _x == playerSide) then {
+        if (side _x == side player) then {
             private _groupId = _x getVariable ["PRA3_GroupId",""];
             if (_groupId != "") then {
                 private _rowNumber = _squadList lnbAddRow [_groupId select [0, 1], _x getVariable ["PRA3_description",""], format ["%1 / 9",count units _x]];
-                _squadList lnbSetData [ [_rowNumber, 0], netId _x];
-
-
-                if (_selectedGroup isEqualTo _x) then {
-                    _squadList lnbSetCurSelRow _rowNumber;
-                };
+                _squadList lnbSetData [ [_rowNumber, 0], leader _x call BIS_fnc_objectVar];
             };
         };
         nil;
@@ -68,7 +62,7 @@ GVAR(respawnScreenPFH) = [{
 
         private _grpCount = {
             private _rowNumber = _squadMemberList lnbAddRow [name _x];
-            _squadMemberList lnbSetData [[_rowNumber, 0], netId _x];
+            _squadMemberList lnbSetData [[_rowNumber, 0], _x call BIS_fnc_objectVar];
             true;
         } count units _selectedGroup;
         private _isLeader = (PRA3_player == leader _selectedGroup);
@@ -78,8 +72,7 @@ GVAR(respawnScreenPFH) = [{
 
 
         _joinLeaveButton ctrlSetText (["JOIN","LEAVE"] select (_selectedGroup == group PRA3_player));
-
-        _joinLeaveButton ctrlShow ((_grpCount < 9) && (_selectedGroup != group PRA3_player));
+        _joinLeaveButton ctrlShow ((_grpCount < 9) || (_selectedGroup == group PRA3_player));
     } else {
         _squadName ctrlSetText "SELECT OR CREATE A SQUAD";
 

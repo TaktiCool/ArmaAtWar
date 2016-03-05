@@ -19,9 +19,9 @@ private _description = ctrlText 204;
 
 ctrlSetText [204, ""];
 
-private _group = createGroup playerSide;
-_group setVariable ["PRA3_description",_description, true];
+private _group = createGroup side player;
+_group setVariable ["PRA3_description", _description, true];
 
 [PRA3_player] join _group;
 
-["new_group",[_group]] call CFUNC(serverEvent);
+["newGroup",[_group]] call CFUNC(serverEvent);

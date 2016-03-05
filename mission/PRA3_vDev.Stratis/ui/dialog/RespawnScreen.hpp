@@ -191,7 +191,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(6);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_kickSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_kickBtn;";
                 };
 
                 class PromoteBtn : PRA3_RscButtonMenu {
@@ -202,7 +202,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(9);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_promoteSquadMemberBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_promoteBtn;";
                 };
             };
         };

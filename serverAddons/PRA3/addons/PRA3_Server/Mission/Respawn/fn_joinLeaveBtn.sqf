@@ -17,9 +17,9 @@
 disableSerialization;
 
 if ((ctrlText _btn) == "JOIN") then {
-    private _selectedGroupId = lnbData [206,[lnbCurSelRow 206,0]];
-
-    ["join_group",[_selectedGroupId,PRA3_player]] call CFUNC(serverEvent);
+    private _selectedGroup = missionNamespace getVariable [lnbData [206,[lnbCurSelRow 206,0]], grpNull];
+    _selectedGroup = group _selectedGroup;
+    ["joinGroupRequested",[_selectedGroup,PRA3_player]] call CFUNC(serverEvent);
 } else {
     [PRA3_player] join grpNull;
 };
