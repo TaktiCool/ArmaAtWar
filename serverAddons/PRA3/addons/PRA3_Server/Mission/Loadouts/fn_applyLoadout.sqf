@@ -22,7 +22,8 @@ private _var = GVAR(LoadoutCache) getVariable _loadoutVar;
 
 if (isNil "_var") exitWith {};
 
-_var params ["", "_realLoadout", "_attributes"];
+_var params ["_display", "_realLoadout", "_attributes"];
+_display params ["_displayName", "_icon"];
 _realLoadout params [
     "_primaryWeapon", "_primaryAttachments", "_primaryMagazine", "_primaryMagazineTracer",
     "_primaryMagazineCount", "_primaryMagazineTracerCount","_secondaryWeapon",
@@ -36,6 +37,8 @@ removeallWeapons _unit;
 removeHeadgear _unit;
 {_unit removeMagazine _x; nil} count magazines _unit;
 
+_unit setVariable ["PRA3_Loadout_className", _displayName, true];
+_unit setVariable ["PRA3_Loadout_classIcon", _icon, true];
 _unit setVariable ["PRA3_Loadout_class", _loadoutVar, true];
 
 private _names = ["isMedic", "isEngineer", "isPilot", "isVehicleCrew", "isLeader"];

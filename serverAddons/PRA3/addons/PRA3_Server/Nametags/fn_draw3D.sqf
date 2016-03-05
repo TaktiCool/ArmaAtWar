@@ -29,7 +29,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
         private _distance = _targetPos distance _playerPos;
         private _headPosition = _target modelToWorldVisual (_target selectionPosition "pilot");
         //private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
-        private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
+        private _icon = _x getVariable ["PRA3_Loadout_classIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
         private _alpha = ((1 - 0.2 * (_distance - 8) min 1) * 0.8) max 0;
 
         if (lineIntersects [_playerPos, (getPos _target) vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
@@ -49,13 +49,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
         };
 
         // Unit is in group than get Loadout Class
-        private _name = (_target getVariable [QEGVAR(Loadout,class),""]);
-        if (_name find "medic" >= 0) then {
-            _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
-        };
-        if (_name find "leader" >= 0) then {
-            _icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
-        };
+
         private _text = name _target;
         private _textAddinfo = call {
             // Unit is Unconscious todo replace later by own medical system
@@ -63,7 +57,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
                 //_icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
                 " Unconscious"
             };
-
+            private _name = (_target getVariable [QEGVAR(Loadout,class),""]);
             if (_isInGroup) exitWith {
                 _name
             };
