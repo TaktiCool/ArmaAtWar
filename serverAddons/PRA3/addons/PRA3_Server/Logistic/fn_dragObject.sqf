@@ -65,5 +65,6 @@ _draggedObject attachTo [_unit, _attachPoint];
         _position set [2, 0];
         _draggedObject setPosATL _position;
    };
+   ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
     [_id] call CFUNC(removePerFrameHandler);
 }, 1,_unit] call CFUNC(addPerFrameHandler);

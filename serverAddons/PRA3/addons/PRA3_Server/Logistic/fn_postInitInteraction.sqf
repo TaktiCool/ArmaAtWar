@@ -51,6 +51,7 @@ if (isDedicated || !hasInterface) exitWith {};
             _position set [2, 0];
             _draggedObject setPosATL _position;
         };
+        ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
     }
 ] call CFUNC(addAction);
 
