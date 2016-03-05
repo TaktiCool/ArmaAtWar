@@ -139,4 +139,26 @@ class CfgSectorPath {
         };
     };
 
+    class path_7 {
+        class sector_4 : sector {
+            dependency[] = {"base_west","sector_9"};
+            designator = "A";
+        };
+
+        class sector_9 : sector {
+            dependency[] = {"sector_4","sector_3"};
+            designator = "B";
+        };
+
+        class sector_3 : sector {
+            dependency[] = {"sector_9","sector_10"};
+            designator = "C";
+        };
+
+        class sector_10 : sector {
+            dependency[] = {"sector_3","base_east"};
+            designator = "D";
+        };
+    };
+
 };
