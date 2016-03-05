@@ -280,7 +280,7 @@ class PRA3_UI_RespawnScreen {
                 };
 
                 class Heading : PRA3_H2Text {
-                    idc = 202;
+                    idc = 402;
                     text = "DEPLOYMENT";
                     x = PX(0.5);
                     y = PY(0.5);
@@ -289,7 +289,7 @@ class PRA3_UI_RespawnScreen {
                 };
 
                 class RolesList : RscListNBox {
-                    idc = 303;
+                    idc = 403;
                     x = PX(0);
                     y = PY(4);
                     w = PX(GWIDTH);
