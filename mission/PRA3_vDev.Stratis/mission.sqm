@@ -16,7 +16,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={5024.2192,253.40121,5868.7861};
+		pos[]={5025.332,307.36566,5813.6406};
 		dir[]={0,-0.70710683,0.70710683};
 		up[]={0,0.70710677,0.70710677};
 		aside[]={0.99999994,0,0};
@@ -31,30 +31,16 @@ addons[]=
 	"A3_Characters_F_BLUFOR"
 };
 randomSeed=13778806;
+class ScenarioData
+{
+	author="BadGuy360th";
+};
 class CustomAttributes
 {
 	class Category0
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnButton";
 			expression="true";
@@ -70,6 +56,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -133,7 +137,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorUNKNOWN";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=53;
@@ -147,7 +150,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorUNKNOWN";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=54;
@@ -161,7 +163,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorEAST";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=55;
@@ -175,7 +176,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorUNKNOWN";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=56;
@@ -189,7 +189,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorWEST";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=57;
@@ -203,7 +202,6 @@ class Mission
 			markerType="ELLIPSE";
 			type="Empty";
 			colorName="ColorUNKNOWN";
-			fillName="DiagGrid";
 			a=150;
 			b=150;
 			id=75;
