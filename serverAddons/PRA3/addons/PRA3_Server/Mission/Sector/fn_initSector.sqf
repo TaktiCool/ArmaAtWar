@@ -36,7 +36,7 @@ if (isServer) then {
         {_x setMarkerAlpha 0}count allMapMarkers;
 
         {
-            if ((configName _x find "base") < 1) then {
+            if ((configName _x find "base") >= 0) then {
                 [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             };
             nil;
