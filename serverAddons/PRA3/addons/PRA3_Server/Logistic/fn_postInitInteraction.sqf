@@ -72,8 +72,8 @@ if (isDedicated || !hasInterface) exitWith {};
         _draggedObject setPos [-10000,-10000,100000];
         private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
         _ItemArray pushBack _draggedObject;
-        _vehicle setVariable [QGVAR(CargoItems), _ItemArray];
-        PRA3_Player setVariable ["PRA3_Logistic_Item",objNull];
+        _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
+        PRA3_Player setVariable ["PRA3_Logistic_Item",objNull, true];
     }
 ] call CFUNC(addAction);
 
