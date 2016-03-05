@@ -30,12 +30,14 @@ if (_draggedObject isKindOf "StaticWeapon") then {
         private _gunner setPosASL getPosASL _gunner;
     };
 };
+
+private _position = _unit modelToWorld [0,0,0];
+_draggedObject setPos _position;
 private _attachPoint = [0,0,0];
 _unit setVariable [QGVAR(Item), _draggedObject, true];
 _draggedObject setVariable [QGVAR(Player), _unit, true];
 if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) then {
     _unit playActionNow "grabDrag";
-    //waitUntil {animationState _unit in __DRAGANIMSTATE};
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2)];
 } else {
     _unit action ["WeaponOnBack",_unit];
@@ -56,7 +58,7 @@ GVAR(GetInVehiclePFH) = [{
     detach _draggedObject;
     _unit forceWalk false;
     _draggedObject setDamage 0;
-    [[_draggedObject, true], "enableSimulationGlobal", false, false, true] call BIS_fnc_MP;
+    ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
     private _position = getPosATL _draggedObject;
     if (_position select 2 < 0) then {
         _position set [2, 0];

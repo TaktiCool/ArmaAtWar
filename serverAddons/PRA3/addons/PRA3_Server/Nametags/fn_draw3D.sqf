@@ -32,7 +32,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
         private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
         private _alpha = ((1 - 0.2 * (_distance - 8) min 1) * 0.8) max 0;
 
-        if (lineIntersects [_playerPos, _target vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
+        if (lineIntersects [_playerPos, (getPos _target) vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
 
         private _isInGroup = (group _target == group player);
 
