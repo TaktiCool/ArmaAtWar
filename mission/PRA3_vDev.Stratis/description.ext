@@ -11,6 +11,7 @@ enableDebugConsole = 2;
 
 respawn = 3;
 respawnDelay = 3;
+respawnDialog = 0;
 
 #include "cfgNotifications.hpp"
 

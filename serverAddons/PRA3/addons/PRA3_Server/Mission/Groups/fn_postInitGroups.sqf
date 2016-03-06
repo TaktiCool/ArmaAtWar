@@ -84,38 +84,4 @@ if (isServer) then {
         missionNamespace setVariable [format ["%1_%2",QGVAR(nextGroupId), side _group], _groups select 1, true];
 
     }] call CFUNC(addEventhandler);
-
-    ["joinGroupRequested",{
-        (_this select 0) params ["_group","_unit"];
-
-        if ((count units _group) < 9) then {
-            [_unit] join _group;
-        };
-
-    }] call CFUNC(addEventhandler);
-
-    ["sideChangeRequested",{
-        (_this select 0) params ["_unit"];
-        private _currentSide = side group _unit;
-        private _otherSide = call compile ((GVAR(competingSides) select { _x != str _currentSide }) select 0);
-
-        private _baseGroupCurrentSide = missionNamespace getVariable (format [QGVAR(baseGroup%1), _currentSide]);
-        private _baseGroupOtherSide = missionNamespace getVariable (format [QGVAR(baseGroup%1), _otherSide]);
-
-        if (group _unit != _baseGroupCurrentSide) then {
-            ["groupLeave", group _unit] call CFUNC(globalEvent);
-        };
-
-        [_unit] join _baseGroupOtherSide;
-        ["changeSide", _unit, _otherSide] call CFUNC(targetEvent);
-
-    }] call CFUNC(addEventhandler);
-
-    ["selectLeaderRequested",{
-        (_this select 0) params ["_group","_unit"];
-
-        hint format ["%1, %2",_group, _unit];
-        ["selectLeader", groupOwner _group, [_group, _unit]] call FUNC(targetEvent);
-
-    }] call CFUNC(addEventhandler);
 };

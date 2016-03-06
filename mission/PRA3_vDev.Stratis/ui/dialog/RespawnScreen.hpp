@@ -125,7 +125,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(8);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_createSquadBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_createSquad;";
                 };
 
                 class SquadList : RscListNBox {
@@ -138,6 +138,8 @@ class PRA3_UI_RespawnScreen {
                     sizeEx = PY(2);
                     rowHeight = PY(3.5);
                     columns[] = {0,0.075,0.875};
+
+                    onLBSelChanged = "[""PRA3_mission_updateSquadMemberList""] call PRA3_Core_fnc_localEvent;";
                 };
 
 
@@ -170,6 +172,8 @@ class PRA3_UI_RespawnScreen {
                     sizeEx = PY(2);
                     rowHeight = PY(3);
                     columns[] = {0,0.075,0.875};
+
+                    onLBSelChanged = "[""PRA3_mission_updateSquadMemberButtons""] call PRA3_Core_fnc_localEvent;";
                 };
 
                 class JoinLeaveBtn : PRA3_RscButtonMenu {
@@ -180,7 +184,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(6);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_joinLeaveBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_joinLeave;";
                 };
 
                 class KickBtn : PRA3_RscButtonMenu {
@@ -191,7 +195,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(6);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_kickBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_kick;";
                 };
 
                 class PromoteBtn : PRA3_RscButtonMenu {
@@ -202,7 +206,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(9);
                     h = PY(3);
 
-                    onButtonClick = "[_this] call PRA3_mission_fnc_promoteBtn;";
+                    onButtonClick = "[_this] call PRA3_mission_fnc_promote;";
                 };
             };
         };
