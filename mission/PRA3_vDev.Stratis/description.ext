@@ -45,6 +45,7 @@ class PRA3 {
     #include "cfgLoadouts.hpp"
 
     class CfgRally {
+        waitTime = 300;
         minDistance = 100;
         spawnCount = 9;
         nearPlayerToBuild = 2;
