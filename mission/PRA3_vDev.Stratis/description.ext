@@ -49,6 +49,7 @@ class PRA3 {
         minDistance = 100;
         spawnCount = 9;
         nearPlayerToBuild = 2;
+        maxEnemyCount = 3;
         class East {
             objects[] = {{"Land_Campfire_F", {0,0,0}}};
         };

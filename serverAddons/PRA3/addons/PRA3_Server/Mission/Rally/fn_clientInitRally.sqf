@@ -37,7 +37,7 @@ private _sides = [];
 } count "isClass _x" configClasses _cfg;
 
 GVAR(rallyArray) = [_minDistance, _spawnCount, _sides, _nearPlayerToBuild, _waitTime];
-
+GVAR(maxNearEnemy) = getNumber (_cfg >> "maxEnemyCount")
 DFUNC(BuildRally) = {
     params ["_array", "_position"];
     _ret = [];
@@ -53,7 +53,29 @@ DFUNC(BuildRally) = {
 
 if (isServer) then {
     // ToDo distroy stuff
-    [{}, 2] call CFUNC(addPerFrameHandler);
+    GVAR(RallyIndex) = 0;
+    [{
+        if (GVAR(respawnPositions) isEqualTo [] || (GVAR(RallyIndex) isEqualTo -1) || (GVAR(RallyMaxIndex) isEqualTo 0)) exitWith {};
+        GVAR(RallyIndex) = ((GVAR(RallyIndex) + 1) mod GVAR(RallyMaxIndex));
+        private _currentRally = GVAR(respawnPositions) select GVAR(RallyIndex);
+        if (_currentRally select 1 isEqualTo "Base") exitWith {};
+        private _side = _currentRally select 0;
+
+        private _enemyCount = {
+            str(side _x) != _side
+        } count nearestObjects [getPos (_currentRally select 1), "CAManBase", 20];
+
+        if (_enemyCount >= GVAR(maxNearEnemy)) then {
+            {
+                deleteVehicle _x;
+                nil
+            } count (_currentRally select 2);
+            GVAR(respawnPositions) deleteAt (GVAR(respawnPositions) find _currentRally);
+            GVAR(RallyMaxIndex) = (count GVAR(respawnPositions));
+            GVAR(RallyIndex) = (GVAR(RallyIndex) - 1) max 0;
+        };
+
+    }, 0.1] call CFUNC(addPerFrameHandler);
 };
 
 [
