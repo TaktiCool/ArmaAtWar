@@ -17,8 +17,10 @@ params ["_side"];
 private _ret = [];
 
 {
-    if (toLower(_x) find toLower(str(_side))) then {
+    if ((toLower _x) find (toLower str _side) == 0) then {
         _ret pushBack _x;
     };
     nil
 } count allVariables GVAR(LoadoutCache);
+
+_ret
