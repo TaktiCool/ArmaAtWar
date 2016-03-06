@@ -50,6 +50,7 @@ GVAR(squadIds) = [
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
     [QGVAR(updateSquadList)] call CFUNC(localEvent);
+    [QGVAR(updateRoleList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateSquadMemberButtons), {
@@ -137,4 +138,20 @@ GVAR(squadIds) = [
     private _currentSide = side group PRA3_Player;
     ctrlSetText [102, (missionNamespace getVariable [format [QGVAR(Flag_%1), _currentSide], ""])];
     ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), _currentSide], ""])];
+}] call CFUNC(addEventHandler);
+
+[QGVAR(updateRoleList), {
+    disableSerialization;
+
+    if (!dialog) exitWith {};
+
+    lnbClear 303;
+    {
+        private _loadout = GVAR(LoadoutCache) getVariable _x;
+        private _rowNumber = lnbAddRow [303, ["", _loadout select 0 select 0, "? / ?"]];
+        lnbSetPicture [303, [_rowNumber, 0], _loadout select 0 select 2];
+        nil
+    } count ([side group PRA3_Player] call FUNC(getAllLoadouts));
+
+    //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

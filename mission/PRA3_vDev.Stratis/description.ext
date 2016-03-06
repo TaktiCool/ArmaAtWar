@@ -45,7 +45,7 @@ class PRA3 {
     class CfgRally {
         minDistance = 100;
         spawnCount = 9;
-        objects[] = {}
+        objects[] = {};
     };
 };
 
