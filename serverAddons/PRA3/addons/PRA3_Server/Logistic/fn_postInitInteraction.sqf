@@ -21,7 +21,13 @@ if (isDedicated || !hasInterface) exitWith {};
     {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
     ["StaticWeapon", "ReammoBox_F"],
     3,
-    "(isNull assignedGunner _target) && !(_target isKindOf 'Pod_Heli_Transport_04_base_F') && !(_target isKindOf 'Slingload_base_F') && isNull (PRA3_Player getVariable ['PRA3_Logistic_Item', objNull]) && isNull (_target getVariable ['PRA3_Logistic_Player', objNull])",
+    {
+        (isNull assignedGunner _target) &&
+        !(_target isKindOf 'Pod_Heli_Transport_04_base_F') &&
+        !(_target isKindOf 'Slingload_base_F') &&
+        isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) &&
+        isNull (_target getVariable [QGVAR(Player), objNull])
+    },
     {
         params ["_draggedObject"];
         [_draggedObject, PRA3_Player] call FUNC(dragObject);
@@ -32,7 +38,7 @@ if (isDedicated || !hasInterface) exitWith {};
     "Drop",
     PRA3_Player,
     0,
-    "!(isNull (PRA3_Player getVariable ['PRA3_Logistic_Item', objNull]))",
+    {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
 
@@ -59,7 +65,7 @@ if (isDedicated || !hasInterface) exitWith {};
     {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
     ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship"],
     10,
-    "!(isNull (PRA3_Player getVariable ['PRA3_Logistic_Item', objNull]))",
+    {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         params ["_vehicle"];
         private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
@@ -73,7 +79,7 @@ if (isDedicated || !hasInterface) exitWith {};
         private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
         _ItemArray pushBack _draggedObject;
         _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
-        PRA3_Player setVariable ["PRA3_Logistic_Item",objNull, true];
+        PRA3_Player setVariable [QGVAR(Item),objNull, true];
     }
 ] call CFUNC(addAction);
 
@@ -81,7 +87,7 @@ if (isDedicated || !hasInterface) exitWith {};
     {format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorObject getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
     ["AllVehicles"],
     10,
-    "isNull (PRA3_Player getVariable ['PRA3_Logistic_Item', objNull]) && !((_target getVariable ['PRA3_Logistic_CargoItems', []]) isEqualTo [])",
+    {isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])},
     {
         params ["_vehicle"];
         private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];

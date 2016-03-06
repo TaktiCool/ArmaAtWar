@@ -41,6 +41,11 @@ class PRA3 {
         firstCaptureTime[] = {5,15};
     };
     #include "cfgLoadouts.hpp"
+    class CfgRally {
+        minDistance = 100;
+        spawnCount = 9;
+        objects[] = {}
+    };
 };
 
 

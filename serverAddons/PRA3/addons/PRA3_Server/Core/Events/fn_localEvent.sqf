@@ -15,11 +15,11 @@
     None
 */
 
-params [["_event", "", [""]], ["_args", []]];
+params [["_eventName", "", [""]], ["_args", []]];
 
-DUMP("Local event: " + _event)
-_event = format ["PRA3_Event_%1", _event];
-private _eventArray = GVAR(EventNamespace) getVariable _event;
+DUMP("Local event: " + _eventName)
+_eventName = format ["PRA3_Event_%1", _eventName];
+private _eventArray = GVAR(EventNamespace) getVariable _eventName;
 if !(isNil "_eventArray") then {
     {
         _x params ["_eventFunctions", "_data"];
