@@ -7,6 +7,7 @@ class Loadouts {
             scope = 1;
             displayName = "Rifleman";
             icon = "";
+            UIicon = "";
 
             // Special attributes
             isMedic = 0;
