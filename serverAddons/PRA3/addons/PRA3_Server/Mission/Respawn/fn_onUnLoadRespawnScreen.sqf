@@ -13,7 +13,4 @@
     Returns:
     None
 */
-params ["_dialog"];
-
 [QGVAR(blurScreen), false] call CFUNC(blurScreen);
-[GVAR(respawnScreenPFH)] call CFUNC(removePerFrameHandler);
