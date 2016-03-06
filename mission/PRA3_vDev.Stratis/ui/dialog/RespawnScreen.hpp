@@ -1,7 +1,7 @@
 class PRA3_UI_RespawnScreen {
     idd = -1;
-    onLoad = "[_this select 0] call PRA3_mission_fnc_onLoadRespawnScreen;";
-    onUnLoad = "[_this select 0] call PRA3_mission_fnc_onUnloadRespawnScreen;";
+    onLoad = "[""PRA3_UI_RespawnScreen"", true] call PRA3_Core_fnc_blurScreen;";
+    onUnLoad = "[""PRA3_UI_RespawnScreen"", false] call PRA3_Core_fnc_blurScreen;";
 
     class controlsBackground {
         #define GHEIGHT 82
@@ -238,7 +238,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class RolesList : RscListNBox {
+                class RoleList : RscListNBox {
                     idc = 303;
                     x = PX(0);
                     y = PY(4);
@@ -249,7 +249,7 @@ class PRA3_UI_RespawnScreen {
                     columns[] = {0,0.075,0.875};
                 };
 
-                class WeaponsTabs : RscToolbox {
+                class WeaponTabs : RscToolbox {
                     idc = 304;
                     x = PX(0);
                     y = PY(GHEIGHT-15.5);

@@ -21,8 +21,6 @@ EPREP(Groups,postInitGroups)
 
 // Respawn
 EPREP(Respawn,clientInitRespawn)
-EPREP(Respawn,onLoadRespawnScreen)
-EPREP(Respawn,onUnLoadRespawnScreen)
 EPREP(Respawn,changeSide)
 EPREP(Respawn,createSquad)
 EPREP(Respawn,joinLeave)
