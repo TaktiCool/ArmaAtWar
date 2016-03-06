@@ -6,6 +6,7 @@ class PRA3_RscButtonMenu : RscButton {
     sizeEx = PY(2);
     shadow = 0;
     colorBackground[] = {0.4,0.4,0.4,1};
+    colorBackgroundActive[] = {1,0.4,0,1};
     colorFocused[] = {1,0.4,0,1};
     colorText[] = {1,1,1,1};
     x = PX(0);

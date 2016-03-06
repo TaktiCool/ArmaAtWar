@@ -306,6 +306,7 @@ class PRA3_UI_RespawnScreen {
         class DeployBtn : PRA3_RscButtonMenu {
             idc = 500;
             text = "DEPLOY";
+            colorBackground[] = {1,0.4,0,1};
             x = safeZoneW - PX(GWIDTH+5) + safeZoneX;
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);
