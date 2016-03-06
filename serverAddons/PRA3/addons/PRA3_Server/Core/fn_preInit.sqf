@@ -44,6 +44,9 @@ EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)
 
+// Notification System
+EPREP(Notification,clientInitNotification)
+
 // Init
 PREP(init)
 
