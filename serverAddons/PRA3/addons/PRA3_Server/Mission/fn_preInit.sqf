@@ -1,5 +1,9 @@
 #include "macros.hpp"
 
+PREP(init)
+
+
+
 // Sector
 EPREP(Sector,createSectorLogic)
 EPREP(Sector,createSectorTrigger)

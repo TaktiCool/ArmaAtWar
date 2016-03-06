@@ -26,14 +26,13 @@ GVAR(currentSector) = objNull;
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 
 if (isServer) then {
+    {_x setMarkerAlpha 0}count allMapMarkers;
     [{
         GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
         publicVariable QGVAR(allSectors);
         GVAR(allSectorsArray) = [];
         GVAR(FirstCaptureTime) = getArray (missionConfigFile >> "PRA3" >> "CfgSectors" >> "firstCaptureTime");
         private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
-
-        {_x setMarkerAlpha 0}count allMapMarkers;
 
         {
             if ((configName _x find "base") >= 0) then {
