@@ -41,13 +41,20 @@ class PRA3 {
         #include "CfgSectors.hpp"
         firstCaptureTime[] = {5,15};
     };
+
     #include "cfgLoadouts.hpp"
+
     class CfgRally {
         minDistance = 100;
         spawnCount = 9;
-        objects[] = {}
-    };
-};
+        nearPlayerToBuild = 2;
+        class East {
+            objects[] = {{"Land_Campfire_F", {0,0,0}}};
+        };
+        class West {
+            objects[] = {{"Land_Campfire_F", {0,0,0}}};
+        };
+    };};
 
 
 #include "ui\common\defines.hpp"
