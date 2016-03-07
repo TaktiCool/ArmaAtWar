@@ -4,7 +4,7 @@ class PRA3_UI_CaptureStatus {
     onLoad = "uiNamespace setVariable [""PRA3_UI_CaptureStatus"", _this select 0];";
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
-            idc = 100;
+            idc = 1000;
             x = 0.5 - PX(20);
             y = PY(0.5) + safeZoneY;
             w = PX(40);
@@ -19,7 +19,7 @@ class PRA3_UI_CaptureStatus {
                     h = PY(3.5);
                 };
                 class FlagImage : RscPicture {
-                    idc = 101;
+                    idc = 1001;
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
                     x = PX(0.5);
                     y = PY(0.5);
@@ -27,7 +27,7 @@ class PRA3_UI_CaptureStatus {
                     h = PY(2);
                 };
                 class SectorDesignator : RscText {
-                    idc = 102;
+                    idc = 1002;
                     text = "X";
                     font = "PuristaBold";
                     sizeEx = PY(2.5);
@@ -40,7 +40,7 @@ class PRA3_UI_CaptureStatus {
                     h = PY(2);
                 };
                 class SectorName : RscText {
-                    idc = 103;
+                    idc = 1003;
                     text = "Sector Name";
                     font = "PuristaMedium";
                     sizeEx = PY(2.5);
@@ -63,7 +63,7 @@ class PRA3_UI_CaptureStatus {
                 };
 
                 class Progress : RscProgress {
-                    idc = 104;
+                    idc = 1004;
                     colorFrame[] = {0,0,0,0};
                     colorBar[] = {"(profilenamespace getvariable ['Map_BLUFOR_R',0])","(profilenamespace getvariable ['Map_BLUFOR_G',1])","(profilenamespace getvariable ['Map_BLUFOR_B',1])","(profilenamespace getvariable ['Map_BLUFOR_A',0.8])"};
                     x = PX(0);
