@@ -20,10 +20,10 @@ GVAR(mutexLock) = false;
 GVAR(mutexQueue) = [];
 
 // EH which fired if some client requests mutex executing
-QGVAR(mutexToken) addPublicVariableEventHandler {
+[QGVAR(mutexRequest), {
     // We enqueue the value in the queue
-    GVAR(mutexQueue) pushBackUnique (_this select 1);
-};
+    GVAR(mutexQueue) pushBackUnique (_this select 0);
+}] call CFUNC(addEventHandler);
 
 // We check on each frame if we can switch the mutex client
 [{
@@ -32,6 +32,6 @@ QGVAR(mutexToken) addPublicVariableEventHandler {
         // Lock the mutex
         GVAR(mutexLock) = true;
         // Tell the client that he can start and remove him from the queue
-        (owner (GVAR(mutexQueue) deleteAt 0)) publicVariableClient QGVAR(mutexLock);
+        [QGVAR(mutexLock), GVAR(mutexQueue) deleteAt 0] call CFUNC(targetEvent);
     };
 }] call CFUNC(addPerFrameHandler);

@@ -18,7 +18,7 @@
 GVAR(mutexCache) = [];
 
 // EH which fires on server response
-QGVAR(mutexLock) addPublicVariableEventHandler {
+[QGVAR(mutexLock), {
     // Its time to execute out cached functions.
     {
         _x params ["_code", "_args"];
@@ -32,4 +32,4 @@ QGVAR(mutexLock) addPublicVariableEventHandler {
     // Tell the server that we finished
     GVAR(mutexLock) = false;
     publicVariableServer QGVAR(mutexLock);
-};
+}] call CFUNC(addEventHandler);

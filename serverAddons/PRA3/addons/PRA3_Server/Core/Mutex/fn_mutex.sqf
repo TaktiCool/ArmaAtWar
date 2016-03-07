@@ -20,5 +20,4 @@ params [["_code", {}], ["_args", []]];
 GVAR(mutexCache) pushBack [_code, _args];
 
 // Tell the server that there is something to execute
-GVAR(mutexToken) = PRA3_Player;
-publicVariableServer QGVAR(mutexToken);
+[QGVAR(mutexRequest), PRA3_Player] call CFUNC(serverEvent);
