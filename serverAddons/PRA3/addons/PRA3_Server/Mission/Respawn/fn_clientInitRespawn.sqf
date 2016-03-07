@@ -116,10 +116,13 @@ GVAR(squadIds) = [
     lnbClear 206;
     {
         if (side _x == side group PRA3_Player) then {
-            private _rowNumber = lnbAddRow [206, [_x getVariable [QGVAR(Id), ""] select [0, 1], _x getVariable [QGVAR(Description), str _x], str (count units _x) + " / 9"]];
-            lnbSetData [206, [_rowNumber, 0], netId _x];
-            if (_x == _selectedGroup) then {
-                lnbSetCurSelRow [206, _rowNumber];
+            private _groupId = _x getVariable [QGVAR(Id), ""];
+            if (_groupId != "") then {
+                private _rowNumber = lnbAddRow [206, [_groupId select [0, 1], _x getVariable [QGVAR(Description), str _x], str (count units _x) + " / 9"]];
+                lnbSetData [206, [_rowNumber, 0], netId _x];
+                if (_x == _selectedGroup) then {
+                    lnbSetCurSelRow [206, _rowNumber];
+                };
             };
         };
         nil

@@ -16,9 +16,6 @@ EPREP(Sector,showCaptureStatus)
 EPREP(Rally,clientInitRally)
 EPREP(Rally,isRallyPlaceable)
 
-// Groups
-EPREP(Groups,postInitGroups)
-
 // Respawn
 EPREP(Respawn,clientInitRespawn)
 EPREP(Respawn,initRespawn)
