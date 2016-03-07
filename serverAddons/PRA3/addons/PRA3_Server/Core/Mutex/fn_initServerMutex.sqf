@@ -5,13 +5,13 @@
     Author: NetFusion
 
     Description:
-    -
+    Init for Mutex System on Server
 
     Parameter(s):
-    -
+    None
 
     Returns:
-    -
+    None
 */
 // Variable which indicates if some client is currently executing
 GVAR(mutexLock) = false;

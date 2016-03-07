@@ -9,9 +9,10 @@
 
     Parameter(s):
     0: Code which gets executed <Code>
+    1: Aruments for the Code <Any>
 
     Returns:
-    <Anything>
+    <Any>
 */
 params [["_code", {}], ["_args", []]];
 

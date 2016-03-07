@@ -15,7 +15,7 @@
     _loadoutName: Current Loadout
     _maxCountGroup: Maximal Group Count
     _maxCountSide: Maximal Side Count
-
+    _unit: Unit Object
 
     Returns:
     is Selectable <Bool>
@@ -24,8 +24,10 @@ params ["_unit", "_class"];
 
 private _loadout = GVAR(LoadoutCache) getVariable _class;
 if (isNil "_loadout") exitWith {false};
+
 _loadout params ["", "", "", "_var"];
 _var params ["_maxCountGroup", "_maxCountSide", "_condition"];
+private loadoutName = _class;
 private _ret = call _condition;
 if (isNil "_ret") exitWith {false};
 _ret;

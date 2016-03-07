@@ -5,13 +5,13 @@
     Author: NetFusion
 
     Description:
-    -
+    Init for Mutex System on Client
 
     Parameter(s):
-    -
+    None
 
     Returns:
-    -
+    None
 */
 
 // Storage for mutex functions
