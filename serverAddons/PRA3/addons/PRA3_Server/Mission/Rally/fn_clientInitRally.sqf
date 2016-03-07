@@ -35,8 +35,8 @@ DFUNC(BuildRally) = {
     private _ret = [];
     {
         _x params ["_type", "_pos"];
-        private _obj = createVehicle [_type, _position, [], 0, "NONE"];
-        _obj setPosASL [_position select 0, _position select 1, (getTerrainHeightASL _position)];
+        private _obj = createVehicle [_type, _position, [], 0, "CAN_COLLIDE"];
+        _obj setPosASL ([_position select 0, _position select 1, (getTerrainHeightASL _position)] vectorAdd _pos);
         _obj setVectorUp (surfaceNormal (getPos _obj));
         ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
         _ret pushBack _obj;

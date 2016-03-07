@@ -47,7 +47,7 @@ class Loadouts {
             items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
         };
         class Leader: Rifleman {
-            condition = "PRA3_player == leader PRA3_player";
+            condition = "_unit == leader _unit";
             groupMaxCount = 1;
             globalMaxCount = 99;
             isLeader = 1;
@@ -59,7 +59,7 @@ class Loadouts {
 
         };
         class AutomaticRifleman: Rifleman {
-            condition = "{_x getVariable [] == _loadoutName} count (units groups) < _maxCountGroup";
+            condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
             groupMaxCount = 2;
             globalMaxCount = 99;
             primaryWeapon = "LMG_Mk200_F";
@@ -72,7 +72,7 @@ class Loadouts {
             items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
         };
         class Grenadier: Rifleman {
-            condition = "{_x getVariable [] == _loadoutName} count (units groups) < _maxCountGroup";
+            condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
             groupMaxCount = 2;
             globalMaxCount = 99;
             primaryWeapon = "arifle_MX_GL_F";
@@ -80,7 +80,7 @@ class Loadouts {
             primarySecondMagazineCount = 6;
         };
         class Medic: Rifleman {
-            condition = "{_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units groups) < _maxCountGroup";
+            condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
             groupMaxCount = 2;
             globalMaxCount = 99;
             isMedic = 1;
@@ -90,7 +90,7 @@ class Loadouts {
             icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
         };
         class AntiTank: Rifleman {
-            condition = "{_x getVariable [] == _loadoutName} count (units groups) < _maxCountGroup";
+            condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
             groupMaxCount = 2;
             globalMaxCount = 99;
             isLeader = 1;

@@ -80,10 +80,13 @@ GVAR(squadIds) = [
     if (!dialog) exitWith {};
 
     private _currentSelection = lnbCurSelRow 206;
+    private _selectedGroup = grpNull;
+    if (_currentSelection >= 0) then {
+        _selectedGroup = groupFromNetId (lnbData [206, [_currentSelection, 0]]);
+    };
 
     lnbClear 209;
-    if (_currentSelection >= 0) then {
-        private _selectedGroup = groupFromNetId (lnbData [206, [_currentSelection, 0]]);
+    if (!isNull _selectedGroup) then {
         ctrlSetText [208, (_selectedGroup getVariable [QGVAR(Id), ""])];
 
         private _unitCount = {

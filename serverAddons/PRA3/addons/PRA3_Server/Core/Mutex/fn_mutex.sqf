@@ -9,9 +9,10 @@
 
     Parameter(s):
     0: Code which gets executed <Code>
+    1: Aruments for the Code <Any>
 
     Returns:
-    <Anything>
+    <Any>
 */
 params [["_code", {}], ["_args", []]];
 
@@ -19,5 +20,4 @@ params [["_code", {}], ["_args", []]];
 GVAR(mutexCache) pushBack [_code, _args];
 
 // Tell the server that there is something to execute
-GVAR(mutexToken) = PRA3_Player;
-publicVariableServer QGVAR(mutexToken);
+[QGVAR(mutexRequest), PRA3_Player] call CFUNC(serverEvent);
