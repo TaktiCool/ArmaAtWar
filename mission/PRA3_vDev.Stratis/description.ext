@@ -61,7 +61,22 @@ class PRA3 {
         class West {
             objects[] = {{"Land_Campfire_F", {0,0,0}}};
         };
-    };};
+    };
+
+    class CfgVehicleRespawn {
+        class default {
+            respawnTime = 5;
+        };
+
+        class v_respawn_0 : default {
+
+        };
+
+        class v_respawn_1 : default {
+
+        };
+    };
+};
 
 
 #include "ui\common\defines.hpp"

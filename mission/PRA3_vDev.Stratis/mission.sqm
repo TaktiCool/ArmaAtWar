@@ -5,14 +5,14 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=129;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=198;
+		nextID=205;
 	};
 	class MarkerIDProvider
 	{
-		nextID=23;
+		nextID=25;
 	};
 	class LayerIndexProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3306.5762,188.67096,6709.3276};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		pos[]={3258.4387,22.201334,6793.0029};
+		dir[]={0.28751653,-0.50007355,0.81686777};
+		up[]={0.1660298,0.86598295,0.47171092};
+		aside[]={0.94328493,-4.0046871e-007,-0.33201024};
 	};
 };
 binarizationWanted=0;
@@ -32,7 +32,8 @@ addons[]=
 	"A3_Characters_F_OPFOR",
 	"a3_characters_f",
 	"A3_Modules_F_Curator_Curator",
-	"A3_Characters_F_BLUFOR"
+	"A3_Characters_F_BLUFOR",
+	"A3_Soft_F_MRAP_01"
 };
 randomSeed=13778806;
 class ScenarioData
@@ -45,24 +46,6 @@ class CustomAttributes
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnButton";
 			expression="true";
@@ -78,6 +61,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -131,7 +132,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=25;
+		items=27;
 		class Item0
 		{
 			dataType="Group";
@@ -151,7 +152,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""ALPHA"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""ALPHA"",true];";
 						isPlayable=1;
 					};
 					id=113;
@@ -303,7 +304,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""BRAVO"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""BRAVO"",true];";
 						isPlayable=1;
 					};
 					id=122;
@@ -455,7 +456,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""CHARLIE"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""CHARLIE"",true];";
 						isPlayable=1;
 					};
 					id=131;
@@ -607,7 +608,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""DELTA"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""DELTA"",true];";
 						isPlayable=1;
 					};
 					id=140;
@@ -869,7 +870,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""ALPHA"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""ALPHA"",true];";
 						isPlayer=1;
 						isPlayable=1;
 					};
@@ -1030,7 +1031,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""BRAVO"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""BRAVO"",true];";
 						isPlayable=1;
 					};
 					id=159;
@@ -1190,7 +1191,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""CHARLIE"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""CHARLIE"",true];";
 						isPlayable=1;
 					};
 					id=168;
@@ -1350,7 +1351,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_groupId"",""DELTA"",true];";
+						init="(group this) setVariable [""PRA3_mission_Id"",""DELTA"",true];";
 						isPlayable=1;
 					};
 					id=177;
@@ -1697,6 +1698,38 @@ class Mission
 			a=80;
 			b=80;
 			id=197;
+		};
+		class Item25
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3272.3582,6.3885655,6818.7173};
+				angles[]={0.020001473,1.8346727,0.049951322};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="v_respawn_0";
+			};
+			id=203;
+			type="B_MRAP_01_F";
+		};
+		class Item26
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3259.2329,5.9690495,6822.7642};
+				angles[]={0.024993116,1.8346727,6.2631841};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="v_respawn_1";
+			};
+			id=204;
+			type="B_MRAP_01_F";
 		};
 	};
 };
