@@ -14,12 +14,13 @@
     is Rally Placeable <Bool>
 */
 params ["_unit"];
+if (isNull _unit) exitWith {};
 scopeName "Main";
 GVAR(rallyArray) params ["_minDistance","_spawnCount"];
 private _playerSide = str(side group _unit);
 {
-    if ((_x select 0) == _playerSide) then {
-        if (_unit distance _x select 1 >= _minDistance) then {
+    if (toLower(_x select 0) isEqualTo toLower(_playerSide)) then {
+        if ((_unit distance (_x select 1)) >= _minDistance) then {
             false breakOut "Main";
         };
     };
@@ -27,10 +28,10 @@ private _playerSide = str(side group _unit);
 } count GVAR(respawnPositions);
 
 private _count = {
-    if (str(side player) != _playerSide) then {
+    if (toLower(str(side player)) != toLower(_playerSide)) then {
         false breakOut "Main";
     };
     true
-} count nearestObjects [getPos _unit, "CAManBase", 10];
+} count (nearestObjects [_unit, ["CAManBase"], 10]);
 
 _count >= (GVAR(rallyArray) select 3)

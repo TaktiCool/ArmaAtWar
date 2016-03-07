@@ -66,7 +66,7 @@ class PRA3_UI_RespawnScreen {
                     x = PX(GWIDTH-9);
                     y = PY(0);
                     w = PX(9);
-                    h = PY(GHEIGHT)
+                    h = PY(GHEIGHT);
 
                     onButtonClick = "[_this] call PRA3_mission_fnc_changeSide;";
                 };

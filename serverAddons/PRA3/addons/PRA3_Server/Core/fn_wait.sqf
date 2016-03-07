@@ -14,6 +14,6 @@
  * Example:
  * [{hint "you die"},10,player] call CFUNC(wait);
  */
-params ["_code", "_time", "_args"];
+params ["_code", "_time", ["_args", []]];
 GVAR(waitArray) pushBack [_time + time, _code, _args];
 GVAR(waitArray) sort true;

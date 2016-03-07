@@ -14,5 +14,6 @@
  * Example:
  * [{hint "you die"},{alive _this},player] call CFUNC(waitUnitl);
  */
-GVAR(waitUntilArray) pushBack _this;
+ params ["_callback", "_condition", ["_args",[]]];
+GVAR(waitUntilArray) pushBack [_callback, _condition, _args];
 nil

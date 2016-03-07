@@ -1,7 +1,12 @@
 /*
  * https://community.bistudio.com/wiki/Description.ext
  */
-
+ class Header
+ {
+ 	gameType = "SCont"; // Game type, see 'class' columns in the table below
+ 	minPlayers = 1; //min # of players the mission supports
+ 	maxPlayers = 250; //max # of players the mission supports
+ };
 joinUnassigned = 0;
 allowFunctionsRecompile = 1;
 allowFunctionsLog = 1;

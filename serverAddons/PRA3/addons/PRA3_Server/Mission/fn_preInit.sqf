@@ -2,8 +2,6 @@
 
 PREP(init)
 
-
-
 // Sector
 EPREP(Sector,createSectorLogic)
 EPREP(Sector,createSectorTrigger)
@@ -14,13 +12,16 @@ EPREP(Sector,loop)
 EPREP(Sector,showCaptureStatus)
 //EPREP(Sector,renderIcons)
 
-
+// Rally System
+EPREP(Rally,clientInitRally)
+EPREP(Rally,isRallyPlaceable)
 
 // Groups
 EPREP(Groups,postInitGroups)
 
 // Respawn
 EPREP(Respawn,clientInitRespawn)
+EPREP(Respawn,initRespawn)
 EPREP(Respawn,changeSide)
 EPREP(Respawn,createSquad)
 EPREP(Respawn,joinLeave)
