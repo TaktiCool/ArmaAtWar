@@ -22,8 +22,10 @@ private _currentSelection = lnbCurSelRow 209;
 if (_currentSelection < 0) exitWith {}; // This should never happen. Safety check.
 
 private _selectedUnit = objectFromNetId (lnbData [209, [_currentSelection, 0]]);
-if (PRA3_Player == leader _selectedUnit) then {
-    [group PRA3_Player, _selectedUnit] remoteExecCall ["selectLeader", groupOwner group PRA3_Player];
-};
 
-[QGVAR(updateSquadMemberButtons)] call CFUNC(globalEvent); //@todo only group PRA3_Player needs to update
+[{
+    if (PRA3_Player == leader _this) then {
+        [group PRA3_Player, _this] remoteExecCall ["selectLeader", groupOwner group PRA3_Player]; //@todo groupOwner does not work on client
+        [QGVAR(updateSquadMemberButtons), group PRA3_Player] call CFUNC(targetEvent);
+    };
+}, _selectedUnit] call CFUNC(mutex);

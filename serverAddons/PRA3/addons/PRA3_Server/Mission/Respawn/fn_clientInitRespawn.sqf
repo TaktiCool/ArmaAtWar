@@ -125,7 +125,7 @@ GVAR(squadIds) = [
         nil
     } count allGroups;
 
-    ctrlSetText [203, "A"]; //@todo persistent group names
+    ctrlSetText [203, (GVAR(squadIds) - (allGroups select {side _x == side group PRA3_Player} apply {_x getVariable QGVAR(Id)})) select 0 select [0, 1]];
 
     [QGVAR(updateSquadMemberList)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
 }] call CFUNC(addEventHandler);
