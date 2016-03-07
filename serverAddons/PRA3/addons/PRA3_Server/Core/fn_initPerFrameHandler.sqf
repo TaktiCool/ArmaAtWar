@@ -57,7 +57,7 @@ GVAR(nextFrameNo) = diag_frameno;
     } count GVAR(nextFrameBufferA);
 
     //Swap double-buffer:
-    GVAR(nextFrameBufferA) = GVAR(nextFrameBufferB);
+    GVAR(nextFrameBufferA) = +GVAR(nextFrameBufferB);
     GVAR(nextFrameBufferB) = [];
     GVAR(nextFrameNo) = diag_frameno + 1;
 

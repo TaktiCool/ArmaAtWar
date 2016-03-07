@@ -15,6 +15,7 @@ EPREP(Autoload,loadModulesServer)
 PREP(addPerFrameHandler)
 PREP(removePerFrameHandler)
 PREP(initPerFrameHandler)
+PREP(execNextFrame)
 PREP(wait)
 PREP(waitUntil)
 

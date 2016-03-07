@@ -65,7 +65,7 @@ class PRA3 {
 
     class CfgVehicleRespawn {
         class default {
-            respawnTime = 5;
+            respawnTime = 10;
         };
 
         class v_respawn_0 : default {

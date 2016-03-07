@@ -31,3 +31,6 @@ EPREP(Loadouts,addContainer)
 EPREP(Loadouts,applyLoadout)
 EPREP(Loadouts,Loadout_loadConfig)
 EPREP(Loadouts,getAllLoadouts)
+
+// VehicleRespawn
+EPREP(VehicleRespawn,serverInitVehicleRespawn)
