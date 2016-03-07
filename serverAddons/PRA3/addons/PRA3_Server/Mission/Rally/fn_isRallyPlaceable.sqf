@@ -15,7 +15,6 @@
 */
 params ["_unit"];
 if (isNull _unit) exitWith {};
-scopeName "Main";
 GVAR(rallyArray) params ["_minDistance","_spawnCount"];
 private _playerSide = str(side group _unit);
 {

@@ -11,7 +11,7 @@
     0: Event Name <String>
     1: Traget <Object, Number, String, Array>
     2: Arguments <Any> (default: nil)
-    3: is Persistent <String, Number>
+    3: is Persistent <String, Bool>
 
     Returns:
     None
@@ -28,16 +28,26 @@ if (_target isEqualType "") exitWith {
 
     private _targets = [];
     // if the string a Class in CfgVehicles then get all objects of the kind and send the code it them
-    if (isClass (configFile >> "CfgVehicles" >> _target)) then {
-        _targets = allMissionObjects _target;
-    } else {
-        // check all Players if the target String is not a Class
+    if (_target in [str(west), str(east), str(resistance), str(civilian)]) then {
         {
-            if (getPlayerUID _x isEqualTo _target) then {
-                _targets pushBack _x;
+            if (_target isEqualTo str(side _x)) then {
+                _targets append (units _x);
             };
             nil
-        } count allPlayers
+        } count allGroups;
+    } else {
+        if (isClass (configFile >> "CfgVehicles" >> _target)) then {
+            _targets = allMissionObjects _target;
+        } else {
+            // check all Players if the target String is not a Class
+            _targets = allPlayers select (allPlayers find _target);
+            {
+                if (getPlayerUID _x isEqualTo _target) then {
+                    _targets pushBack _x;
+                };
+                nil
+            } count allPlayers
+        };
     };
     [_event, _args] remoteExecCall [QFUNC(localEvent), _targets, _persistent];
 };
