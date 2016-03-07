@@ -14,7 +14,8 @@
     is Rally Placeable <Bool>
 */
 params ["_unit"];
-if (isNull _unit) exitWith {};
+if (isNull _unit) exitWith {false};
+
 GVAR(rallyArray) params ["_minDistance","_spawnCount"];
 private _playerSide = str(side group _unit);
 {
