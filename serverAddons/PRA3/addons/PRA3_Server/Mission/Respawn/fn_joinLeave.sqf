@@ -23,11 +23,13 @@ if (_currentSelection < 0) exitWith {}; // This should never happen. Safety chec
 
 private _selectedGroup = groupFromNetId (lnbData [206, [_currentSelection, 0]]);
 if (_selectedGroup != group PRA3_Player) then {
-    if ((count units _selectedGroup) < 9) then {
-        [PRA3_Player] join _selectedGroup;
-    };
+    [{
+        if ((count units _this) < 9) then {
+            [PRA3_Player] join _this;
+            [QGVAR(updateSquadList), side group PRA3_Player] call CFUNC(targetEvent);
+        };
+    }, _selectedGroup] call CFUNC(mutex);
 } else {
     [PRA3_Player] join grpNull;
+    [QGVAR(updateSquadList), side group PRA3_Player] call CFUNC(targetEvent);
 };
-
-[QGVAR(updateSquadList)] call CFUNC(globalEvent); //@todo only currentSide needs to update

@@ -15,11 +15,16 @@
 */
 private _currentSide = side group PRA3_Player;
 
-private _newSquad = createGroup _currentSide;
-_newSquad setVariable [QGVAR(Id), GVAR(squadIds) select 0, true]; //@todo persistent group names
-_newSquad setVariable [QGVAR(Description), ctrlText 204, true];
-ctrlSetText [204, ""];
+[{
+    params ["_currentSide"];
 
-[PRA3_Player] join _newSquad;
+    private _newSquad = createGroup _currentSide;
 
-[QGVAR(updateSquadList)] call CFUNC(globalEvent); //@todo only currentSide needs to update
+    _newSquad setVariable [QGVAR(Id), (GVAR(squadIds) - (allGroups select {side _x == side group PRA3_Player} apply {_x getVariable QGVAR(Id)})) select 0, true];
+    _newSquad setVariable [QGVAR(Description), ctrlText 204, true];
+    ctrlSetText [204, ""];
+
+    [PRA3_Player] join _newSquad;
+
+    [QGVAR(updateSquadList), _currentSide] call CFUNC(targetEvent);
+}, [_currentSide]] call CFUNC(mutex);

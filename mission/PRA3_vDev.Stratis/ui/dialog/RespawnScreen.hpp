@@ -137,7 +137,7 @@ class PRA3_UI_RespawnScreen {
 
                     sizeEx = PY(2);
                     rowHeight = PY(3.5);
-                    columns[] = {0,0.075,0.875};
+                    columns[] = {0,0.075,0.85};
 
                     onLBSelChanged = "[""PRA3_mission_updateSquadMemberList""] call PRA3_Core_fnc_localEvent;";
                 };
@@ -171,7 +171,7 @@ class PRA3_UI_RespawnScreen {
 
                     sizeEx = PY(2);
                     rowHeight = PY(3);
-                    columns[] = {0,0.075,0.875};
+                    columns[] = {0,0.075,0.85};
 
                     onLBSelChanged = "[""PRA3_mission_updateSquadMemberButtons""] call PRA3_Core_fnc_localEvent;";
                 };
@@ -246,7 +246,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(19);
 
                     rowHeight = PY(3.5);
-                    columns[] = {0,0.075,0.875};
+                    columns[] = {0,0.075,0.85};
                 };
 
                 class WeaponTabs : RscToolbox {
@@ -261,6 +261,15 @@ class PRA3_UI_RespawnScreen {
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
                 }
+
+                class WeaponBackground : RscPicture {
+                    idc = 305;
+                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,1)";
+                    x = PX(0);
+                    y = PY(GHEIGHT-13);
+                    w = PX(GWIDTH);
+                    h = PY(13);
+                };
             }
         }
 

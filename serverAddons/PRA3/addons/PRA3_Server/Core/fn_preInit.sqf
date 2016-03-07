@@ -44,6 +44,11 @@ EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)
 
+// Mutex
+EPREP(Mutex,initClientMutex)
+EPREP(Mutex,initServerMutex)
+EPREP(Mutex,mutex)
+
 // Notification System
 EPREP(Notification,clientInitNotification)
 
