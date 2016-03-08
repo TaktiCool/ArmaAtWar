@@ -66,14 +66,17 @@ class PRA3 {
     class CfgVehicleRespawn {
         class default {
             respawnTime = 10;
+            condition = "true";
+            side = "";
         };
 
         class v_respawn_0 : default {
-
+            side = "WEST";
         };
 
         class v_respawn_1 : default {
-
+            condition = "time > 60";
+            side = "WEST";
         };
     };
 };

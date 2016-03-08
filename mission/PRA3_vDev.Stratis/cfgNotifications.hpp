@@ -22,4 +22,10 @@ class CfgNotifications
         title = "Sector lost";
         color[] = {0.75,0.12,0.12,1};
     };
+
+    class PRA3_VehicleRespawnAvailable: Default {
+        title = "New vehicle available";
+        description = "%1";
+        iconPicture = "%2";
+    };
 };
