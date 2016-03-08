@@ -22,7 +22,7 @@ DFUNC(VehicleRespawn_PerformRespawn) = {
         deleteVehicle _vehicle;
     };
 
-    [ {
+    [{
         [{
             params ["_type", "_pos", "_dir", "_respawnTime","_respawnCondition","_side"];
             hint format ["Vehicle Respawned: %1",_side];
@@ -65,4 +65,3 @@ addMissionEventHandler ["EntityKilled",{
         [DFUNC(VehicleRespawn_PerformRespawn), _respawnTime, [_killedEntity, _type, _pos, _dir, _respawnTime-2, _respawnCondition, _side]] call CFUNC(wait);
     };
 }];
-
