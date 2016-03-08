@@ -123,6 +123,9 @@ GVAR(squadIds) = [
             if (_groupId != "") then {
                 private _rowNumber = lnbAddRow [206, [_groupId select [0, 1], _x getVariable [QGVAR(Description), str _x], str (count units _x) + " / 9"]];
                 lnbSetData [206, [_rowNumber, 0], netId _x];
+                if (_x == group PRA3_Player) then {
+                    lnbSetColor [206, [_rowNumber, 0], [1, 0.4, 0, 1]];
+                };
                 if (_x == _selectedGroup) then {
                     lnbSetCurSelRow [206, _rowNumber];
                 };
