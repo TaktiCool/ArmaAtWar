@@ -25,13 +25,12 @@ if (_target isEqualType objNull && {local _target}) exitWith {
 
 // exit if the target is a string
 if (_target isEqualType "") exitWith {
-
     private _targets = [];
     // if the string a Class in CfgVehicles then get all objects of the kind and send the code it them
-    if (_target in [str(west), str(east), str(resistance), str(civilian)]) then {
+    if ((toLower _target) in ["west", "east", "resistance", "civilian"]) then {
         {
-            if (_target isEqualTo str(side _x)) then {
-                _targets append (units _x);
+            if (_target isEqualTo (str side _x)) then {
+                _targets append ((units _x) select {isPlayer _x});
             };
             nil
         } count allGroups;
@@ -40,7 +39,6 @@ if (_target isEqualType "") exitWith {
             _targets = allMissionObjects _target;
         } else {
             // check all Players if the target String is not a Class
-            _targets = allPlayers select (allPlayers find _target);
             {
                 if (getPlayerUID _x isEqualTo _target) then {
                     _targets pushBack _x;
