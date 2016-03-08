@@ -25,6 +25,7 @@ private _otherSide = call compile ((GVAR(competingSides) select { _x != str _cur
     [PRA3_Player] join (createGroup _otherSide);
 
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
+    [QGVAR(updateSquadList)] call CFUNC(localEvent);
     [QGVAR(updateSquadList), _currentSide] call CFUNC(targetEvent);
 }, [_currentSide, _otherSide]] call CFUNC(mutex);
 
