@@ -34,3 +34,4 @@ EPREP(Loadouts,getAllLoadouts)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)
+EPREP(VehicleRespawn,clientInitVehicleRespawn)
