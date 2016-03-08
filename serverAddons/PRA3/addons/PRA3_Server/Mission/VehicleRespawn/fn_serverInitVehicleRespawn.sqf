@@ -48,7 +48,7 @@ DFUNC(VehicleRespawn_PerformRespawn) = {
         [_vehicle, typeOf _vehicle, getPos _vehicle, getDir _vehicle, getNumber (_x >> "respawnTime"), compile getText (_x >> "condition"), toUpper getText (_x >> "side")] call DFUNC(VehicleRespawn_PerformRespawn);
     };
     nil
-} count ("configName _x != ""default""" configClasses (missionConfigFile >> "PRA3" >> "CfgVehicleRespawn"));
+} count ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgVehicleRespawn"));
 
 addMissionEventHandler ["EntityKilled",{
     params["_killedEntity","_killer"];

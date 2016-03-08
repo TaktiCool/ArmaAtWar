@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=205;
+		nextID=216;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3255.5203,35.084831,6778.5371};
-		dir[]={0.28751653,-0.50007355,0.81686777};
-		up[]={0.1660298,0.86598295,0.47171092};
-		aside[]={0.94328493,-4.0046871e-007,-0.33201024};
+		pos[]={3030.4749,195.44348,1883.8606};
+		dir[]={-0.66536039,-0.51481682,0.54066014};
+		up[]={-0.39954799,0.85729563,0.3246657};
+		aside[]={0.63064712,-4.2561442e-007,0.7761066};
 	};
 };
 binarizationWanted=0;
@@ -33,7 +33,10 @@ addons[]=
 	"a3_characters_f",
 	"A3_Modules_F_Curator_Curator",
 	"A3_Characters_F_BLUFOR",
-	"A3_Soft_F_MRAP_01"
+	"A3_Soft_F_MRAP_01",
+	"A3_Armor_F_Slammer",
+	"A3_Soft_F_MRAP_02",
+	"A3_Armor_F_T100K"
 };
 randomSeed=13778806;
 class ScenarioData
@@ -132,7 +135,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=27;
+		items=29;
 		class Item0
 		{
 			dataType="Group";
@@ -1710,7 +1713,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="v_respawn_0";
+				name="vr_hunter_0";
 			};
 			id=203;
 			type="B_MRAP_01_F";
@@ -1720,16 +1723,48 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={3259.2329,5.9690495,6822.7642};
+				position[]={3259.2324,5.9446406,6822.7651};
 				angles[]={0.024993116,1.8346727,6.2631841};
 			};
 			side="Empty";
 			class Attributes
 			{
-				name="v_respawn_1";
+				name="vr_slammer_0";
 			};
-			id=204;
-			type="B_MRAP_01_F";
+			id=205;
+			type="B_MBT_01_cannon_F";
+		};
+		class Item27
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3009.0481,170.48038,1907.7996};
+				angles[]={0.044959679,0.80084431,6.1810489};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="vr_ifrit_0";
+			};
+			id=209;
+			type="O_MRAP_02_F";
+		};
+		class Item28
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={2994.1829,173.01259,1896.3159};
+				angles[]={6.2806716,0.74689615,6.2407041};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="vr_varsuk_0";
+			};
+			id=215;
+			type="O_MBT_02_cannon_F";
 		};
 	};
 };
