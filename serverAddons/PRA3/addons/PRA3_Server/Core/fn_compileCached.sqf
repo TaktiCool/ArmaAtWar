@@ -23,7 +23,7 @@ private _fncCode = if (isNil "_cachedFunction") then {
     private _funcString = _header + preprocessFileLineNumbers _functionPath;
     compileFinal _funcString;
 } else {
-    _fncCode
+    _cachedFunction
 };
 
 {
