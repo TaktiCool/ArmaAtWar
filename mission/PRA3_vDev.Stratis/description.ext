@@ -42,9 +42,10 @@ class PRA3 {
 
     class sector {
         dependency[] = {};
-        ticketBleed = 5;
+        ticketBleed = 30;
         captureTime[] = {30,60};
         minUnits = 1;
+        isLastSector = "";
     };
 
     class CfgSectors {
@@ -65,6 +66,23 @@ class PRA3 {
         };
         class West {
             objects[] = {{"Land_Campfire_F", {0,0,0}}};
+        };
+    };
+
+    class CfgTicketBleed {
+        Tickets = 1000;
+
+        // 0: Time 1: Tickets
+        TicketLostLastFlag[] = {10,5};
+
+        // Seperate Player from Vehilces
+        PlayerDead = 1;
+
+        TicketBleed[] = {
+            {"0_MRAP_02_F", 5, "east"},
+            {"O_MBT_02_cannon_F", 20, "east"},
+            {"B_MRAP_01_F", 5, "west"},
+            {"B_MBT_01_cannon_F", 20, "west"}
         };
     };
 

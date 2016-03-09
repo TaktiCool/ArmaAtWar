@@ -36,7 +36,7 @@ if (isServer) then {
 
         {
             if ((configName _x find "base") >= 0) then {
-                [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
+                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"), getText(_x >> "designator"), getText(_x >> "isLastSector")] call FUNC(createSectorLogic);
             };
             nil;
         } count _sectors;
@@ -94,7 +94,6 @@ if (isServer) then {
             if ((side player) isEqualTo _oldSide) then {
                 ["PRA3_SectorLost", [format["Your team lost sector %1", _sectorName]]] call BIS_fnc_showNotification;
             } else {
-
                 if (GVAR(currentSector) isEqualTo _sector) then {
                     ["PRA3_SectorCaptured", [format["You captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
                 } else {
@@ -102,18 +101,10 @@ if (isServer) then {
                 };
             };
 
-            hint format["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0 select 0,_this select 0 select 1,_this select 0 select 2];
+            //hint format ["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0 select 0,_this select 0 select 1,_this select 0 select 2];
 
         }] call CFUNC(addEventHandler);
-        /*
-        PRA3_Player addEventHandler ["Respawn", {
-            {
-                [_x] call FUNC(createSectorTrigger);
-                nil;
-            } count GVAR(allSectorsArray);
-            nil;
-        }];
-        */
+
     };
 }, {
     !isNil QGVAR(sectorCreationDone)

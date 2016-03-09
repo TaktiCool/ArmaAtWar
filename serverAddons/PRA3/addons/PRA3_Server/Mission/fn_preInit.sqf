@@ -16,6 +16,9 @@ EPREP(Sector,showCaptureStatus)
 EPREP(Rally,clientInitRally)
 EPREP(Rally,isRallyPlaceable)
 
+// TicketBleed
+EPREP(TicketBleed,postInitTicketBleed)
+
 // Respawn
 EPREP(Respawn,clientInitRespawn)
 EPREP(Respawn,initRespawn)
