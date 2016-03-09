@@ -2,9 +2,11 @@
 #define MINOR 1
 #define PATCHLVL 0
 #define BUILD 1
-#define isDev
+
 #define VERSION MAJOR.MINOR.PATCHLVL.BUILD
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
+
+#define isDev
 
 #define QUOTE(var) #var
 
@@ -26,7 +28,7 @@
     #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
         systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
 #else
-    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];
+    #define DUMP(var) if(CGVAR(allowFunctionsLog)) then {diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)]};
 #endif
 
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var

@@ -22,7 +22,7 @@ if (hasInterface) then {
     waitUntil {!isNull player};
     PRA3_Player = player;
 };
-
+GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") isEqualTo 1);
 // If the machine has AME running exit and call all requested modules.
 if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { _this call FUNC(loadModulesServer); };
 

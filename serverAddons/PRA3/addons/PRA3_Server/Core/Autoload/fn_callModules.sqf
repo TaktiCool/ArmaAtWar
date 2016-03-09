@@ -46,37 +46,47 @@ private _hcInit = [];
 } count GVAR(requiredFunctions);
 
 {
+    private _time = diag_tickTime;
     call compile ("call "+ _x);
-    DUMP("Call: " + _x)
+    _time = diag_tickTime - _time;
+    DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
 } count _init;
 
 if (isServer) then {
     {
+        private _time = diag_tickTime;
         call compile ("call "+ _x);
-        DUMP("Call: " +  _x)
+        _time = diag_tickTime - _time;
+        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _serverInit;
 };
 
 if (hasInterface) then {
     {
+        private _time = diag_tickTime;
         call compile ("call "+ _x);
-        DUMP("Call: " + _x)
+        _time = diag_tickTime - _time;
+        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _clientInit;
 };
 
 if (!hasInterface && !isServer) then {
     {
+        private _time = diag_tickTime;
         call compile ("call "+ _x);
-        DUMP("Call: " + _x)
+        _time = diag_tickTime - _time;
+        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _hcInit;
 };
 
 {
+    private _time = diag_tickTime;
     call compile ("call "+ _x);
-    DUMP("Call: " + _x)
+    _time = diag_tickTime - _time;
+    DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
 } count _postInit;

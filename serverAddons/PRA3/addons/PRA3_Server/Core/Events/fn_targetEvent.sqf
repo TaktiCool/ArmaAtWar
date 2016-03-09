@@ -47,6 +47,8 @@ if (_target isEqualType "") exitWith {
             } count allPlayers
         };
     };
-    [_event, _args] remoteExecCall [QFUNC(localEvent), _targets, _persistent];
+    if (count _targets != 0) then {
+        [_event, _args] remoteExecCall [QFUNC(localEvent), _targets, _persistent];
+    };
 };
 [_event, _args] remoteExecCall [QFUNC(localEvent), _target, _persistent];
