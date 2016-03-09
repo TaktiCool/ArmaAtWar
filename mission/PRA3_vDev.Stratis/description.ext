@@ -14,7 +14,7 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
-author = "NetFusion, Hoeginson, Badguy, joko // Jonas, PRA3 Team";
+author = "NetFusion, Hoeginson, BadGuy, joko // Jonas, PRA3 Team";
 onLoadName = "Project Reality:Arma 3";
 onLoadMission = "Project Reality: Arma III";
 loadScreen =  "media\prlogoBLACK.paa";
