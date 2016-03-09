@@ -20,6 +20,8 @@
 #define CGVAR(var1) EGVAR(Core,var1)
 #define QCGVAR(var1) QEGVAR(Core,var1)
 
+#define UIVAR(var1) QEGVAR(UI,var1)
+
 #ifdef PRA3_DEBUGFULL
     #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
         systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
