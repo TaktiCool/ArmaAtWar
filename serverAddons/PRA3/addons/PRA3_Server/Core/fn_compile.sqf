@@ -26,20 +26,7 @@ private _header = format ["private _fnc_scriptNameParent = if (isNil '_fnc_scrip
 
 private _funcString = _header + preprocessFileLineNumbers _functionPath;
 
-// 0.NewLine 1.Tab
-/*private _toRemoveString = [10, 9];
-
-private _funcArray = toArray _funcString;
-
-_funcArray = _funcArray select {!(_x in _toRemoveString)};
-
-_funcString = toString _funcArray;
-*/
-#ifdef isDev
-    _fncCode = compile _funcString;
-#else
-    _fncCode = compileFinal _funcString;
-#endif
+private _fncCode = compile _funcString;
 
 {
     _x setVariable [_functionVarName, _fncCode];
