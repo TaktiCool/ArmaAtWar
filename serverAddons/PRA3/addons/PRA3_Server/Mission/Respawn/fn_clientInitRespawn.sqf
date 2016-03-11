@@ -90,7 +90,7 @@ GVAR(squadIds) = [
         ctrlSetText [208, (_selectedGroup getVariable [QGVAR(Id), ""])];
 
         private _unitCount = {
-            private _rowNumber = lnbAddRow [209, ["", name _x]]; //@todo what if player is dead?
+            private _rowNumber = lnbAddRow [209, ["", (_x call CFUNC(name))]];
             lnbSetData [209, [_rowNumber, 0], netId _x];
             true
         } count units _selectedGroup;

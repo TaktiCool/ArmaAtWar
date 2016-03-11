@@ -50,7 +50,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
 
         // Unit is in group than get Loadout Class
 
-        private _text = name _target;
+        private _text = _target call CFUNC(name);
         private _textAddinfo = call {
             // Unit is Unconscious todo replace later by own medical system
             if (_target in (missionNamespace getVariable ["BIS_revive_units", []])) exitWith {
