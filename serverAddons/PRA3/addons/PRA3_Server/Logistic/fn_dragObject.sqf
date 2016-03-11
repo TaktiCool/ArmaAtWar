@@ -46,8 +46,6 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
 };
 _draggedObject attachTo [_unit, _attachPoint];
 
-// TODO replace with PFH
-
 [{
     params ["_args", "_id"];
     _args params ["_unit"];
