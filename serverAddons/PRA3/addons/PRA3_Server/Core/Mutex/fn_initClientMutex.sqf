@@ -30,6 +30,6 @@ GVAR(mutexCache) = [];
     GVAR(mutexCache) = [];
 
     // Tell the server that we finished
-    GVAR(mutexLock) = false;
-    publicVariableServer QGVAR(mutexLock);
+    GVAR(currentMutexClient) = 0;
+    publicVariableServer QGVAR(currentMutexClient);
 }] call CFUNC(addEventHandler);
