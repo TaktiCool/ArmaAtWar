@@ -12,6 +12,9 @@
     1: Delay <Number>
     2: Arguments <Any>
 
+    Remarks:
+    Never call This in scheduled Environment
+
     Returns:
     None
 */
