@@ -28,7 +28,7 @@ GVAR(mutexQueue) = [];
         GVAR(currentMutexClient) = 0;
     };
 
-    // Remove the
+    // Clean the queue
     GVAR(mutexQueue) = GVAR(mutexQueue) select {_x != _owner};
 }] call BIS_fnc_addStackedEventHandler;
 
@@ -41,7 +41,7 @@ GVAR(mutexQueue) = [];
 // We check on each frame if we can switch the mutex client
 [{
     // Check if mutex lock is open and client in the queue
-    if (GVAR(currentMutexObject) == 0 && !(GVAR(mutexQueue) isEqualTo [])) then {
+    if (GVAR(currentMutexClient) == 0 && !(GVAR(mutexQueue) isEqualTo [])) then {
         // Tell the client that he can start and remove him from the queue
         GVAR(currentMutexClient) = GVAR(mutexQueue) deleteAt 0;
         [QGVAR(mutexLock), GVAR(currentMutexClient)] call CFUNC(targetEvent);
