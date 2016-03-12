@@ -8,11 +8,11 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=216;
+		nextID=218;
 	};
 	class MarkerIDProvider
 	{
-		nextID=25;
+		nextID=27;
 	};
 	class LayerIndexProvider
 	{
@@ -20,7 +20,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3030.4749,195.44348,1883.8606};
+		pos[]={3104.7502,274.33878,1833.0652};
 		dir[]={-0.66536039,-0.51481682,0.54066014};
 		up[]={-0.39954799,0.85729563,0.3246657};
 		aside[]={0.63064712,-4.2561442e-007,0.7761066};
@@ -135,7 +135,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=29;
+		items=31;
 		class Item0
 		{
 			dataType="Group";
@@ -1765,6 +1765,22 @@ class Mission
 			};
 			id=215;
 			type="O_MBT_02_cannon_F";
+		};
+		class Item29
+		{
+			dataType="Marker";
+			position[]={3243.9636,3.1694722,6862.2642};
+			name="respawn_west";
+			type="Empty";
+			id=216;
+		};
+		class Item30
+		{
+			dataType="Marker";
+			position[]={2981.2397,171.39999,1867.5107};
+			name="respawn_east";
+			type="Empty";
+			id=217;
 		};
 	};
 };
