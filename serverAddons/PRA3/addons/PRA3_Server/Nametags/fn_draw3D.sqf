@@ -29,7 +29,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
         private _distance = _targetPos distance _playerPos;
         private _headPosition = _target modelToWorldVisual (_target selectionPosition "pilot");
         //private _icon = format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", rank _x];
-        private _icon = _x getVariable ["PRA3_Loadout_classIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
+        private _icon = _x getVariable [QEGVAR(Kit,classIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
         private _alpha = ((1 - 0.2 * (_distance - 8) min 1) * 0.8) max 0;
 
         if (lineIntersects [_playerPos, (getPos _target) vectorAdd [0,0,1], vehicle player, _target]) exitWith {};
@@ -48,7 +48,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
             [0.77, 0.51, 0.08, _alpha]
         };
 
-        // Unit is in group than get Loadout Class
+        // Unit is in group than get Kit Class
 
         private _text = _target call CFUNC(name);
         private _textAddinfo = call {
@@ -57,7 +57,7 @@ private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
                 //_icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
                 " Unconscious"
             };
-            private _name = (_target getVariable [QEGVAR(Loadout,class),""]);
+            private _name = (_target getVariable [QEGVAR(Kit,class),""]);
             if (_isInGroup) exitWith {
                 _name
             };

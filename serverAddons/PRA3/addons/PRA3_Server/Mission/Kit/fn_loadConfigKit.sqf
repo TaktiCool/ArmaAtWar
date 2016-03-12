@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Load Loadouts from mission Config
+    Load Kits from mission Config
 
     Parameter(s):
     0: Config Path <Config>
@@ -19,7 +19,7 @@ private [
     "_primaryMagazine", "_primaryMagazineTracer", "_primaryMagazineCount", "_primaryMagazineTracerCount",
     "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount", "_handgunWeapon", "_handgunMagazine",
     "_handgunMagazineCount", "_uniform", "_vest", "_backpack", "_headGear", "_assignedItems",
-    "_attributes", "_realLoadout", "_loadoutVar", "_loadout", "_condition", "_maxCount", "_uiIcon"
+    "_attributes", "_realKit", "_KitVar", "_Kit", "_condition", "_maxCount", "_uiIcon"
 ];
 params ["_cfg", "_sideName"];
 
@@ -81,6 +81,6 @@ _maxCountGlobal = getNumber (_cfg >> "globalMaxCount");
 _condition = compile getText (_cfg >> "condition");
 
 _attributes = [_isMedic, _isEngineer, _isPilot, _isVehicleCrew, _isLeader];
-_realLoadout = [_primaryWeapon,_primaryAttachments,_primaryMagazine,_primaryMagazineTracer,_primaryMagazineCount,_primaryMagazineTracerCount,_secondaryWeapon,_secondaryMagazine,_secondaryMagazineCount,_handgunWeapon,_handgunMagazine,_handgunMagazineCount,_uniform,_vest,_backpack,_headGear,_assignedItems,_items];
-_loadoutVar = [_name, [[_displayName, _icon, _uiIcon], _realLoadout, _attributes, [_maxCountGroup, _maxCountGlobal, _condition]]];
-["saveLoadout", _loadoutVar, true] call CFUNC(localEvent);
+_realKit = [_primaryWeapon,_primaryAttachments,_primaryMagazine,_primaryMagazineTracer,_primaryMagazineCount,_primaryMagazineTracerCount,_secondaryWeapon,_secondaryMagazine,_secondaryMagazineCount,_handgunWeapon,_handgunMagazine,_handgunMagazineCount,_uniform,_vest,_backpack,_headGear,_assignedItems,_items];
+_KitVar = [_name, [[_displayName, _icon, _uiIcon], _realKit, _attributes, [_maxCountGroup, _maxCountGlobal, _condition]]];
+["saveKit", _KitVar, true] call CFUNC(localEvent);

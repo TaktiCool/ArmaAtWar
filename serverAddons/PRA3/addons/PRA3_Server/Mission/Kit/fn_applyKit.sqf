@@ -5,11 +5,11 @@
     Author: joko // Jonas
 
     Description:
-    Apply Loadout to Unit
+    Apply Kit to Unit
 
     Parameter(s):
-    0: Loadout Name <String>
-    1: Loadout Side <String>
+    0: Kit Name <String>
+    1: Kit Side <String>
     2: Unit <Object>
 
     Returns:
@@ -17,14 +17,14 @@
 */
 params ["_name", "_side", "_unit"];
 
-private _loadoutVar = format ["%1_%2", _side, _name];
-private _var = GVAR(LoadoutCache) getVariable _loadoutVar;
+private _KitVar = format ["%1_%2", _side, _name];
+private _var = GVAR(KitCache) getVariable _KitVar;
 
 if (isNil "_var") exitWith {};
 
-_var params ["_display", "_realLoadout", "_attributes"];
+_var params ["_display", "_realKit", "_attributes"];
 _display params ["_displayName", "_icon"];
-_realLoadout params [
+_realKit params [
     "_primaryWeapon", "_primaryAttachments", "_primaryMagazine", "_primaryMagazineTracer",
     "_primaryMagazineCount", "_primaryMagazineTracerCount","_secondaryWeapon",
     "_secondaryMagazine", "_secondaryMagazineCount", "_handgunWeapon","_handgunMagazine",
@@ -37,13 +37,13 @@ removeallWeapons _unit;
 removeHeadgear _unit;
 {_unit removeMagazine _x; nil} count magazines _unit;
 
-_unit setVariable ["PRA3_Loadout_className", _displayName, true];
-_unit setVariable ["PRA3_Loadout_classIcon", _icon, true];
-_unit setVariable ["PRA3_Loadout_class", _loadoutVar, true];
+_unit setVariable ["PRA3_Kit_className", _displayName, true];
+_unit setVariable ["PRA3_Kit_classIcon", _icon, true];
+_unit setVariable ["PRA3_Kit_class", _KitVar, true];
 
 private _names = ["isMedic", "isEngineer", "isPilot", "isVehicleCrew", "isLeader"];
 {
-    _unit setVariable [format ["PRA3_Loadout_classInfo_%1", _names select _forEachIndex], _x, true];
+    _unit setVariable [format ["PRA3_Kit_classInfo_%1", _names select _forEachIndex], _x, true];
 } forEach _attributes;
 
 // add Uniform

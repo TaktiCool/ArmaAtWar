@@ -156,11 +156,11 @@ GVAR(squadIds) = [
 
     lnbClear 303;
     {
-        private _loadout = GVAR(LoadoutCache) getVariable _x;
-        private _rowNumber = lnbAddRow [303, ["", _loadout select 0 select 0, "? / ?"]];
-        lnbSetPicture [303, [_rowNumber, 0], _loadout select 0 select 2];
+        private _Kit = GVAR(KitCache) getVariable _x;
+        private _rowNumber = lnbAddRow [303, ["", _Kit select 0 select 0, "? / ?"]];
+        lnbSetPicture [303, [_rowNumber, 0], _Kit select 0 select 2];
         nil
-    } count ([side group PRA3_Player] call FUNC(getAllLoadouts));
+    } count ([side group PRA3_Player] call FUNC(getAllKits));
 
     //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

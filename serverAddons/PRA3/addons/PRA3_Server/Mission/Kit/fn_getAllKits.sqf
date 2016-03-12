@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    get All Loadouts from a Side
+    get All Kit from a Side
 
     Parameter(s):
     0: Side <Side>
@@ -21,6 +21,6 @@ private _ret = [];
         _ret pushBack _x;
     };
     nil
-} count allVariables GVAR(LoadoutCache);
+} count allVariables GVAR(KitCache);
 
 _ret
