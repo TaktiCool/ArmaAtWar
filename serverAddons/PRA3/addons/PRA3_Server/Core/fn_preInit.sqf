@@ -63,6 +63,7 @@ PREP(cachedCall)
 PREP(addPerformanceCounter)
 PREP(blurScreen)
 PREP(fixFloating)
+PREP(name)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);
