@@ -18,3 +18,4 @@
 
 ### RPT log file:
 + Add a link ([pastebin](http://pastebin.com/)) to the client and/or server RPT file.
++ You do not know where you can find your RPT? Find the answer [here](https://community.bistudio.com/wiki/Crash_Files#Arma_3).
