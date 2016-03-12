@@ -74,7 +74,7 @@
             GVAR(lastSectorTicketBleedPFH) = [{
                 (_this select 0) params ["_side"];
                 private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _side];
-                _tickets = _tickets - GVAR(TicketLostLastFlag) select 0;
+                _tickets = _tickets - GVAR(TicketLostLastFlag) select 1;
                 missionNamespace setVariable [format [QGVAR(sideTickets_%1), str(_currentSide)], _tickets];
                 publicVariable (format [QGVAR(sideTickets_%1), str(_currentSide)]);
                 ["ticketsChanged"] call CFUNC(globalEvent);
