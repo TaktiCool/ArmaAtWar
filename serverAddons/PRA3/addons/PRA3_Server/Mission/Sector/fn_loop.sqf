@@ -39,7 +39,9 @@ private _lastAttackerSide = str _attackerSide;
 (_cSector getVariable ["captureTime",[30,60]]) params ["_captureTimeMin","_captureTimeMax"];
 
 if !(_cSector getVariable ["firstCaptureDone", false]) then {
-    (_cSector getVariable ["firstCaptureTime",[5,15]]) params ["_captureTimeMin","_captureTimeMax"];
+    private _temp = (_cSector getVariable ["firstCaptureTime",[5,15]]);
+    _captureTimeMin = _temp select 0;
+    _captureTimeMax = _temp select 1;
 };
 
 private _activeSides = _cSector getVariable ["activeSides",[]];

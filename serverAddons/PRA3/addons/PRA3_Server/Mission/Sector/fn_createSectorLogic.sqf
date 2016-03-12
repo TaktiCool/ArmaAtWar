@@ -18,7 +18,7 @@
     Returns:
     None
 */
-params ["_marker", ["_dependency", []], ["_ticketBleed", 5], ["_minUnits", 1], ["_captureTime",[30,60]], ["_firstCaptureTime",[5,15]], ["_designator","A"], ["_isLastSector",""]];
+params ["_marker", ["_dependency", []], ["_ticketBleed", 5], ["_minUnits", 1], ["_captureTime",[30,60]], ["_firstCaptureTime",[5,15]], ["_designator","A"]];
 
 
 private _size = getMarkerSize _marker;

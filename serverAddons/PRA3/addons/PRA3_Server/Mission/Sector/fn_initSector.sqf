@@ -31,12 +31,11 @@ if (isServer) then {
         GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
         publicVariable QGVAR(allSectors);
         GVAR(allSectorsArray) = [];
-        GVAR(FirstCaptureTime) = getArray (missionConfigFile >> "PRA3" >> "CfgSectors" >> "firstCaptureTime");
         private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
 
         {
             if ((configName _x find "base") >= 0) then {
-                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"),getArray(_x >> "firstCaptureTime"), getText(_x >> "designator"), getText(_x >> "isLastSector")] call FUNC(createSectorLogic);
+                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText(_x >> "designator")] call FUNC(createSectorLogic);
             };
             nil;
         } count _sectors;
@@ -44,7 +43,7 @@ if (isServer) then {
         private _path = selectRandom ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors" >> "CfgSectorPath"));
 
         {
-            [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
+            [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             nil;
         } count ("true" configClasses _path);
 
