@@ -18,7 +18,7 @@
     Returns:
     None
 */
-params ["_marker", ["_dependency", []], ["_ticketBleed", 5], ["_minUnits", 1], ["_captureTime",60], ["_designator","A"], ["_isLastSector",""]];
+params ["_marker", ["_dependency", []], ["_ticketBleed", 5], ["_minUnits", 1], ["_captureTime",[30,60]], ["_firstCaptureTime",[5,15]], ["_designator","A"], ["_isLastSector",""]];
 
 
 private _size = getMarkerSize _marker;
@@ -56,6 +56,7 @@ _logic setVariable ["ticketBleed",_ticketBleed,true];
 _logic setVariable ["minUnits",_minUnits,true];
 _logic setVariable ["captureRate",0, true];
 _logic setVariable ["captureTime",_captureTime, true];
+_logic setVariable ["firstCaptureTime",_firstCaptureTime, true];
 _logic setVariable ["isLastSector", _isLastSector, true];
 if (_side == sideUnknown) then {
     _logic setVariable ["captureProgress",0, true];

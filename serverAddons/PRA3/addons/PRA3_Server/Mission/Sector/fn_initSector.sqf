@@ -36,7 +36,7 @@ if (isServer) then {
 
         {
             if ((configName _x find "base") >= 0) then {
-                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"), getText(_x >> "designator"), getText(_x >> "isLastSector")] call FUNC(createSectorLogic);
+                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"),getArray(_x >> "firstCaptureTime"), getText(_x >> "designator"), getText(_x >> "isLastSector")] call FUNC(createSectorLogic);
             };
             nil;
         } count _sectors;

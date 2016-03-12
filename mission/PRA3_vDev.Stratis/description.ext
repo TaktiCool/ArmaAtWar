@@ -27,18 +27,137 @@ respawnDialog = 0;
 
 
 class PRA3 {
-    class sides {
-        class west {
+    tickets = 1000; // number of tickets per team
+    ticketBleed = {10,5}; // time, tickets
+
+    playerTicketValue = 1; // Ticket value of a player
+
+    class Sides {
+        class West {
             name = "NATO";
             flag = "a3\data_f\Flags\flag_nato_co.paa";
             color[] = {0, 0.3, 0.8, 1};
+            squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
+
+            class Kits {
+
+                class Rifleman {
+                    condition = "true";
+                    groupMaxCount = 99;
+                    globalMaxCount = 99;
+                    scope = 1;
+                    displayName = "Rifleman";
+                    icon = "";
+                    UIicon = "";
+
+                    // Special attributes
+                    isMedic = 0;
+                    isEngineer = 0;
+                    isPilot = 0;
+                    isVehicleCrew = 0;
+                    isLeader = 0;
+
+                    // Primary weapon
+                    primaryWeapon = "arifle_MX_F";
+                    primaryAttachments[] = {"optic_Aco","acc_pointer_IR"};
+                    primaryMagazine = "30Rnd_65x39_caseless_mag";
+                    primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
+                    primaryMagazineCount = 5;
+                    primaryMagazineTracerCount = 3;
+                    primarySecondMagazine = "";
+                    primarySecondMagazineCount = 0;
+
+                    // Secondary weapon
+                    secondaryWeapon = "";
+                    secondaryMagazine = "";
+                    secondaryMagazineCount = 0;
+
+                    // Handgun weapon
+                    handgunWeapon = "hgun_Pistol_heavy_01_F";
+                    handgunMagazine = "11Rnd_45ACP_Mag";
+                    handgunMagazineCount = 2;
+
+                    // Uniform
+                    uniform = "U_B_CombatUniform_mcam";
+                    vest = "V_PlateCarrier2_rgr";
+                    backpack = "";
+                    headGear = "H_HelmetB";
+
+                    // Items
+                    assignedItems[] = {"ItemWatch", "ItemCompass", "ItemRadio", "ItemMap", "ItemGPS"};
+                    items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
+                };
+                class Leader: Rifleman {
+                    condition = "_unit == leader _unit";
+                    groupMaxCount = 1;
+                    globalMaxCount = 99;
+                    isLeader = 1;
+                    assignedItems[] += {"Binocular"};
+                    primaryAttachments[] = {"optic_Hamr","acc_pointer_IR"};
+                    backpack = "B_AssaultPack_rgr";
+                    items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
+                    icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
+
+                };
+                class AutomaticRifleman: Rifleman {
+                    condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
+                    groupMaxCount = 2;
+                    globalMaxCount = 99;
+                    primaryWeapon = "LMG_Mk200_F";
+                    primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
+                    primaryMagazine = "200Rnd_65x39_cased_Box";
+                    primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
+                    primaryMagazineCount = 2;
+                    primaryMagazineTracerCount = 3;
+                    backpack = "B_AssaultPack_rgr";
+                    items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
+                };
+                class Grenadier: Rifleman {
+                    condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
+                    groupMaxCount = 2;
+                    globalMaxCount = 99;
+                    primaryWeapon = "arifle_MX_GL_F";
+                    primarySecondMagazine = "1Rnd_HE_Grenade_shell";
+                    primarySecondMagazineCount = 6;
+                };
+                class Medic: Rifleman {
+                    condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
+                    groupMaxCount = 2;
+                    globalMaxCount = 99;
+                    isMedic = 1;
+                    primaryWeapon = "arifle_MXC_F";
+                    backpack = "";
+                    assignedItems[] += {};
+                    icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                };
+                class AntiTank: Rifleman {
+                    condition = "({_x getVariable ['PRA3_loadout_class'] == _loadoutName} count (units _unit)) < _maxCountGroup";
+                    groupMaxCount = 2;
+                    globalMaxCount = 99;
+                    isLeader = 1;
+                    assignedItems[] += {};
+                };
+            };
         };
-        class east {
+        class East {
             name = "CSAT";
             flag = "a3\data_f\Flags\flag_csat_co.paa";
             color[] = {0.5, 0, 0, 1};
+            squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
+            class Kits {
+            };
         };
     };
+
+    class CfgSquadRallyPoint {
+        waitTime = 300;
+        minDistance = 100;
+        spawnCount = 9;
+        nearPlayerToBuild = 2;
+        maxEnemyCount = 3;
+        firstCaptureTime[] = {5,15};
+    };
+
 
     class sector {
         dependency[] = {};
@@ -47,47 +166,55 @@ class PRA3 {
         minUnits = 1;
         isLastSector = "";
     };
-
     class CfgSectors {
         #include "cfgSectors.hpp"
-        firstCaptureTime[] = {5,15};
     };
 
-    #include "cfgLoadouts.hpp"
-
-    class CfgRally {
-        waitTime = 300;
-        minDistance = 100;
-        spawnCount = 9;
-        nearPlayerToBuild = 2;
-        maxEnemyCount = 3;
-        class East {
-            objects[] = {{"Land_Campfire_F", {0,0,0}}};
+    class CfgVehicles {
+        // abstact classes
+        class defaultVehicle {
+            scope = 0; // abstact class
+            condition = "true";
+            side = "UNKNOWN";
+            respawnTime = -1; // disabled
+            ticketValue = 5;
         };
-        class West {
-            objects[] = {{"Land_Campfire_F", {0,0,0}}};
+
+        class defaultWest : defaultVehicle {
+            side = "WEST";
         };
-    };
 
-    class CfgTicketBleed {
-        Tickets = 1000;
-
-        // 0: Time 1: Tickets
-        TicketLostLastFlag[] = {10,5};
-
-        // Seperate Player from Vehilces
-        PlayerDead = 1;
-
-        TicketBleed[] = {
-            {"0_MRAP_02_F", 5, "east"},
-            {"O_MBT_02_cannon_F", 20, "east"},
-            {"B_MRAP_01_F", 5, "west"},
-            {"B_MBT_01_cannon_F", 20, "west"}
+        class defaultEast : defaultVehicle {
+            scope = 0; //abstact class
+            side = "EAST";
         };
-    };
 
-    class CfgVehicleRespawn {
-        #include "cfgVehicleRespawn.hpp"
+        class defaultIndependent : defaultVehicle {
+            scope = 0; //abstact class
+            side = "INDEPENDENT";
+        };
+
+        // mission objects
+        class vr_hunter_0 : defaultWest {
+            scope = 1;
+        };
+
+        class vr_slammer_0 : defaultWest {
+            scope = 1;
+            condition = "time > 60";
+            ticketValue = 20;
+        };
+
+        class vr_ifrit_0 : defaultEast {
+            scope = 1;
+        };
+
+        class vr_varsuk_0 : defaultEast {
+            scope = 1;
+            condition = "time > 60";
+            ticketValue = 20;
+        };
+
 
     };
 };
