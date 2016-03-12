@@ -35,7 +35,6 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 };
                 nil
             } count allVariables _vehicle;
-            hint format ["%1", _varNames];
 
             [_vehicle, typeOf _vehicle, _varNames, _varValues] call FUNC(performVehicleRespawn);
         };

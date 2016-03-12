@@ -19,15 +19,13 @@
 
 params ["_vehicle", "_type", "_varNames", "_varValues"];
 
-hint "perform Vehicle Respawn";
-
 if (!isNull _vehicle) then {
     deleteVehicle _vehicle;
 };
 
 [{
     params ["_type", "_varNames", "_varValues"];
-    hint format ["waitUntil %1", _varNames];
+
     private _condition = _varValues select (_varNames find toLower QGVAR(RespawnCondition));
 
     [{
