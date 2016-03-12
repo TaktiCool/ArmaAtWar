@@ -19,3 +19,4 @@ private _ret = _unit getVariable QGVAR(playerName);
 if (isNil "_ret") then {
     _ret = name _unit;
 };
+_ret
