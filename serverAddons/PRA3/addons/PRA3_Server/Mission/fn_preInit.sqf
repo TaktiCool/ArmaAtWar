@@ -33,7 +33,7 @@ EPREP(Kit,postInitKit)
 EPREP(Kit,addContainer)
 EPREP(Kit,applyKit)
 EPREP(Kit,loadConfigKit)
-EPREP(Kit,getAllKit)
+EPREP(Kit,getAllKits)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)
