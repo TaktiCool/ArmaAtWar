@@ -153,7 +153,6 @@ class PRA3 {
         spawnCount = 9;
         nearPlayerToBuild = 2;
         maxEnemyCount = 3;
-        firstCaptureTime[] = {5,15};
     };
 
 
@@ -163,6 +162,7 @@ class PRA3 {
         captureTime[] = {30,60};
         minUnits = 1;
         isLastSector = "";
+        firstCaptureTime[] = {5,15};
     };
     class CfgSectors {
         #include "cfgSectors.hpp"
@@ -195,9 +195,10 @@ class PRA3 {
         // mission objects
         class vr_hunter_0 : defaultWest {
             scope = 1;
+            respawnTime = 10; // 10 seconds
         };
 
-        class vr_slammer_0 : defaultWest {
+        class vr_slammer_0 : vr_hunter_0 {
             scope = 1;
             condition = "time > 60";
             ticketValue = 20;
@@ -205,9 +206,10 @@ class PRA3 {
 
         class vr_ifrit_0 : defaultEast {
             scope = 1;
+            respawnTime = 10; // 10 seconds
         };
 
-        class vr_varsuk_0 : defaultEast {
+        class vr_varsuk_0 : vr_ifrit_0 {
             scope = 1;
             condition = "time > 60";
             ticketValue = 20;
