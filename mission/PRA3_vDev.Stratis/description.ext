@@ -168,7 +168,7 @@ class PRA3 {
         #include "cfgSectors.hpp"
     };
 
-    class CfgVehicles {
+    class CfgEntities {
         // abstact classes
         class defaultVehicle {
             scope = 0; // abstact class

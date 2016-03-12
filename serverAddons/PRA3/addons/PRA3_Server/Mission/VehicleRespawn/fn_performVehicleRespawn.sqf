@@ -26,7 +26,7 @@ if (!isNull _vehicle) then {
 [{
     params ["_type", "_varNames", "_varValues"];
 
-    private _condition = _varValues select (_varNames find toLower QGVAR(RespawnCondition));
+    private _condition = compile (_varValues select (_varNames find toLower QGVAR(condition)));
 
     [{
         params ["_type", "_varNames", "_varValues"];
