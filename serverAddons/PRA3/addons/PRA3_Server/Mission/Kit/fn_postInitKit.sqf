@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Init Loadout Module
+    Init Kit Module
 
     Parameter(s):
     None
@@ -57,17 +57,17 @@ DFUNC(addItem) = {
     hint format ["Item %1 can't added because Gear is Full", _className];
 };
 
-GVAR(LoadoutCache) = call CFUNC(createNamespace);
-["saveLoadout", {
-    (_this select 0) params ["_loadoutVar", "_value"];
-    GVAR(LoadoutCache) setVariable [_loadoutVar, _value];
+GVAR(KitCache) = call CFUNC(createNamespace);
+["saveKit", {
+    (_this select 0) params ["_KitVar", "_value"];
+    GVAR(KitCache) setVariable [_KitVar, _value];
 }] call CFUNC(addEventhandler);
 
 {
     private _sideName = configName _x;
     {
-        [_x, _sideName] call FUNC(Loadout_loadConfig);
+        [_x, _sideName] call FUNC(loadConfigKit);
         nil
-    } count ("true" configClasses (_x));
+    } count ("true" configClasses (_x >> "Kits"));
     nil
-} count ("true" configClasses (missionConfigFile >> "PRA3" >>"Loadouts"));
+} count ("true" configClasses (missionConfigFile >> "PRA3" >>"Sides"));

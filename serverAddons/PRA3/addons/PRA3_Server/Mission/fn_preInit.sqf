@@ -28,12 +28,12 @@ EPREP(Respawn,joinLeave)
 EPREP(Respawn,kick)
 EPREP(Respawn,promote)
 
-// Loadouts
-EPREP(Loadouts,postInitLoadout)
-EPREP(Loadouts,addContainer)
-EPREP(Loadouts,applyLoadout)
-EPREP(Loadouts,Loadout_loadConfig)
-EPREP(Loadouts,getAllLoadouts)
+// Kit
+EPREP(Kit,postInitKit)
+EPREP(Kit,addContainer)
+EPREP(Kit,applyKit)
+EPREP(Kit,loadConfigKit)
+EPREP(Kit,getAllKit)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)
