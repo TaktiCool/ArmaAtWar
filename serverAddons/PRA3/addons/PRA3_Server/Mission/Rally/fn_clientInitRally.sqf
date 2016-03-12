@@ -13,7 +13,7 @@
     Returns:
     None
 */
-private _cfg = (missionConfigFile >> "PRA3" >> "CfgRally");
+private _cfg = (missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint");
 private _minDistance = getNumber (_cfg >> "minDistance");
 private _spawnCount = getNumber (_cfg >> "spawnCount");
 private _nearPlayerToBuild = getNumber (_cfg >> "nearPlayerToBuild");
@@ -22,9 +22,9 @@ private _side = [];
 private _objects = [];
 {
     _side pushBack toLower(configName _x);
-    _objects pushBack getArray(_x >> "objects");
+    _objects pushBack getArray(_x >> "squadRallyPointObjects");
     nil
-} count ("isClass _x" configClasses _cfg);
+} count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
 
 private _sides = [_side, _objects];
 

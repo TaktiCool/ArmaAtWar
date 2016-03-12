@@ -15,12 +15,12 @@
 */
 
 [{
-    GVAR(MissionTicketBleed) = getArray(missionConfigFile >> "PRA3" >> "CfgTicketBleed" >> "TicketBleed");
-    GVAR(MissionTicketBleedMan) = getNumber(missionConfigFile >> "PRA3" >> "CfgTicketBleed" >> "PlayerDead");
+    GVAR(MissionTicketBleed) = [];
+    GVAR(MissionTicketBleedMan) = getNumber(missionConfigFile >> "PRA3" >> "playerTicketValue");
     GVAR(lastSectorTicketBleedPFH) = -1;
     GVAR(TicketLostLastFlag) = getArray(missionConfigFile >> "PRA3" >> "CfgTicketBleed" >> "TicketLostLastFlag");
 
-    private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "CfgTicketBleed" >> "Tickets");
+    private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
     {
         missionNamespace setVariable [format [QGVAR(sideTickets_%1), _x], _startTickets];
         publicVariable (format [QGVAR(sideTickets_%1), _x]);
