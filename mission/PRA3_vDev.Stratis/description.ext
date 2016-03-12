@@ -28,7 +28,7 @@ respawnDialog = 0;
 
 class PRA3 {
     tickets = 1000; // number of tickets per team
-    ticketBleed = {10,5}; // time, tickets
+    ticketBleed[] = {10,5}; // time, tickets
 
     playerTicketValue = 1; // Ticket value of a player
 
@@ -139,13 +139,11 @@ class PRA3 {
                 };
             };
         };
-        class East {
+        class East : West {
             name = "CSAT";
             flag = "a3\data_f\Flags\flag_csat_co.paa";
             color[] = {0.5, 0, 0, 1};
             squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
-            class Kits {
-            };
         };
     };
 
