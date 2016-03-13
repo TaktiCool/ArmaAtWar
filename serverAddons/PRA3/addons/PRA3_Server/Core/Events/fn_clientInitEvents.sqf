@@ -93,7 +93,6 @@ PRA3_Player = player;
         _params set [2, _currentPlayer addEventHandler [_name, _code]];
     }, [_x, _code, _index]] call FUNC(addEventHandler);
 } count [
-    "HandleDamage",
     "InventoryOpened",
     "Killed",
     "Respawn"
