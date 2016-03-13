@@ -16,9 +16,7 @@
 */
 disableSerialization;
 params ["_idc", "_rowAndColum"];
-private _hashes = GVAR(lnbDataStorage) getVariable QGVAR(allVariablesCache);
-private _hash = lnbData [_idc,_rowAndColum];
-
-if !(_hash in _hashes) exitWith {""};
-
-GVAR(lnbDataStorage) getVariable (format [QGVAR(%1), _hash]);
+private _hash = lnbValue [_idc,_rowAndColum];
+if (count GVAR(allVariablesCache) >= _hash) then {
+    GVAR(allVariablesCache) select _hash;
+};
