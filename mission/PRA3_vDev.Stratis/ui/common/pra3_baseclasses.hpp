@@ -65,3 +65,30 @@ class PRA3_RscText : RscText {
 class PRA3_RscTextSmall : PRA3_RscText {
     sizeEx = PY(2);
 };
+
+class PRA3_mission_DisableMouse_Dialog {
+    idd = -1;
+    movingEnable = false;
+    onLoad = "uiNamespace setVariable ['PRA3_mission_dlgDisableMouse',_this select 0];";
+    objects[] = {};
+    class controlsBackground {
+        class Background {
+            idc = -1;
+            moving = 0;
+            font = "TahomaB";
+            text = "";
+            sizeEx = 0;
+            lineSpacing = 0;
+            access = 0;
+            type = 0;
+            style = 0;
+            size = 1;
+            colorBackground[] = {0, 0, 0, 0};//0.5
+            colorText[] = {0, 0, 0, 0};
+            x = "safezoneX";
+            y = "safezoneY";
+            w = "safezoneW";
+            h = "safezoneH";
+        };
+    };
+};
