@@ -17,4 +17,5 @@ class cfgFunctions {
     #include "Logistic\cfgFunctions.hpp"
     #include "Mission\cfgFunctions.hpp"
 	#include "Nametags\cfgFunctions.hpp"
+    #include "Revive\cfgFunctions.hpp"
 };
