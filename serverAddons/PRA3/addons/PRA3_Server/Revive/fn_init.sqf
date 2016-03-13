@@ -88,62 +88,6 @@ DFUNC(translateSelections) = {
 };
 
 
-// ToDo write it with HodKeyEH @BadGuy
-// Todo write it Function based
-[
-    "Stop Bleeding",
-    "CAManBase",
-    {
-        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
-        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
-        {"FirstAidKit" in (items PRA3_Player) || {"FirstAidKit" in (items _target)}}
-    }, {
-        private _healSpeed = 60;
-        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-            private _healSpeed = 10;
-        };
-        [{(_this select 0) setVariable [QGVAR(bloodLoss), 0, true];}, _healSpeed, cursorObject] call CFUNC(wait);
-    }
-] call CFUNC(addAction);
-
-[
-    "Heal Unit",
-    "CAManBase",
-    {
-        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
-        {!(_target getVariable [QGVAR(isUnconscious), false])} &&
-        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
-        {"Medikit" in (items PRA3_Player) || {"Medikit" in (items _target)}}
-    }, {
-        private _maxHeal = 0.75;
-        private _healSpeed = 60;
-        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-            private _maxHeal = 1;
-            private _healSpeed = 10;
-        };
-        [{(_this select 0) setDamage 1 - (_this select 1);}, _healSpeed, [cursorObject, _maxHeal]] call CFUNC(wait);
-    }
-] call CFUNC(addAction);
-
-[
-    "Revive Unit",
-    "CAManBase",
-    {
-        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
-        _target getVariable [QGVAR(isUnconscious), false] &&
-        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])}
-    }, {
-        private _reviveSpeed = 60;
-        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-            _reviveSpeed = 20;
-        };
-        [{
-            PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
-        }, _reviveSpeed, cursorObject] call CFUNC(wait);
-    }
-] call CFUNC(addAction);
-
 
 // Bleedout Timer
 [{
@@ -173,7 +117,7 @@ DFUNC(translateSelections) = {
             ["UnconsciousnessChanged", false] call CFUNC(localEvent);
         };
     };
-}, 0] CFUNC(addPerFrameHandler);
+}, 0] call CFUNC(addPerFrameHandler);
 
 DFUNC(HandleDamage) = {
     params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];

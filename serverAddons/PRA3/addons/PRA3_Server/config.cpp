@@ -569,3 +569,8 @@ class CfgPatches {
 };
 
 #include "cfgFunctions.hpp"
+
+
+class PRA3_Extension {
+    version = "0.1";
+};

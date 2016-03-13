@@ -1,7 +1,11 @@
 #include "macros.hpp"
 
+#ifndef isDev
+    private _extRet = "PRA3_server" callExtension "version";
+    GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3_Extension" >> "version") == _extRet};
+#endif
 
-GVAR(importentNamespaces) = [missionNamespace,uiNamespace/*,parsingNamespace*/];
+GVAR(importentNamespaces) = [missionNamespace, uiNamespace, parsingNamespace];
 // The autoloader uses this array to get all function names.
 GVAR(functionCache) = [];
 
