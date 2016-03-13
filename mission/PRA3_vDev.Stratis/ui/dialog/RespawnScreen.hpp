@@ -301,7 +301,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class RolesList : RscListNBox {
+                class SpawnPointList : RscListNBox {
                     idc = 403;
                     x = PX(0);
                     y = PY(4);

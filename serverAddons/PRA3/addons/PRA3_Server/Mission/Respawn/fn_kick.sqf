@@ -27,5 +27,6 @@ private _selectedUnit = objectFromNetId (lnbData [209, [_currentSelection, 0]]);
     if (PRA3_Player == leader _this) then {
         [_this] join grpNull;
         [QGVAR(updateSquadList), side group PRA3_Player] call CFUNC(targetEvent);
+        [QGVAR(updateDeploymentList), _this] call CFUNC(targetEvent);
     };
 }, _selectedUnit] call CFUNC(mutex);

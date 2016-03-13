@@ -27,4 +27,5 @@ private _currentSide = side group PRA3_Player;
     [PRA3_Player] join _newSquad;
 
     [QGVAR(updateSquadList), _currentSide] call CFUNC(targetEvent);
+    [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
 }, [_currentSide]] call CFUNC(mutex);

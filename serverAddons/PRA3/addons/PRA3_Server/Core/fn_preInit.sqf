@@ -57,6 +57,11 @@ EPREP(Mutex,mutex)
 // Notification System
 EPREP(Notification,clientInitNotification)
 
+// Settings
+EPREP(Settings,initSettings)
+EPREP(Settings,loadSettings)
+EPREP(Settings,getSetting)
+
 // Init
 PREP(init)
 

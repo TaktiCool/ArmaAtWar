@@ -13,15 +13,15 @@ EPREP(Sector,showCaptureStatus)
 //EPREP(Sector,renderIcons)
 
 // Rally System
+EPREP(Rally,serverInitRally)
 EPREP(Rally,clientInitRally)
-EPREP(Rally,isRallyPlaceable)
+EPREP(Rally,canPlaceRally)
 
 // TicketBleed
 EPREP(TicketBleed,postInitTicketBleed)
 
 // Respawn
 EPREP(Respawn,clientInitRespawn)
-EPREP(Respawn,initRespawn)
 EPREP(Respawn,changeSide)
 EPREP(Respawn,createSquad)
 EPREP(Respawn,joinLeave)

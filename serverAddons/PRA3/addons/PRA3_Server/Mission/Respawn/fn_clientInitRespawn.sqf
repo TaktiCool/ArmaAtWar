@@ -45,12 +45,14 @@ GVAR(squadIds) = [
 ["Killed", {
     params ["_args"];
     _args params ["_unit"];
+    DUMP(_unit)
 
     setPlayerRespawnTime 10e10;
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
     [QGVAR(updateSquadList)] call CFUNC(localEvent);
     [QGVAR(updateRoleList)] call CFUNC(localEvent);
+    [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateSquadMemberButtons), {
@@ -149,18 +151,33 @@ GVAR(squadIds) = [
     ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), _currentSide], ""])];
 }] call CFUNC(addEventHandler);
 
-[QGVAR(updateRoleList), {
+//[QGVAR(updateRoleList), {
+//    disableSerialization;
+//
+//    if (!dialog) exitWith {};
+//
+//    lnbClear 303;
+//    {
+//        private _Kit = GVAR(KitCache) getVariable _x;
+//        private _rowNumber = lnbAddRow [303, ["", _Kit select 0 select 0, "? / ?"]];
+//        lnbSetPicture [303, [_rowNumber, 0], _Kit select 0 select 2];
+//        nil
+//    } count ([side group PRA3_Player] call FUNC(getAllKits));
+//
+//    //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
+//}] call CFUNC(addEventHandler);
+
+[QGVAR(updateDeploymentList), {
     disableSerialization;
 
     if (!dialog) exitWith {};
 
-    lnbClear 303;
-    {
-        private _Kit = GVAR(KitCache) getVariable _x;
-        private _rowNumber = lnbAddRow [303, ["", _Kit select 0 select 0, "? / ?"]];
-        lnbSetPicture [303, [_rowNumber, 0], _Kit select 0 select 2];
-        nil
-    } count ([side group PRA3_Player] call FUNC(getAllKits));
+    lnbClear 403;
 
-    //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
+    private _rallyPoint = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [0, [], [], 0]];
+    _rallyPoint params ["_placedTime", "_position", "_objects", "_spawnCount"];
+    if (!(_position isEqualTo []) && _spawnCount > 0) then { // if spawnCount is zero the rally point should not exist (handle this on spawn)
+        private _rowNumber = lnbAddRow [403, ["Rallypoint " + ((group PRA3_Player) getVariable [QGVAR(Id), ""])]];
+        lnbSetData [403, [_rowNumber, 0], str _position];
+    };
 }] call CFUNC(addEventHandler);
