@@ -102,7 +102,7 @@ if (hasInterface) then {
             }, _reviveSpeed, cursorObject] call CFUNC(wait);
         }
     ] call CFUNC(addAction);
-
+    /*
     [{
         hint "TEST";
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
@@ -123,4 +123,5 @@ if (hasInterface) then {
             false;
         }];
     }, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
+    */
 };

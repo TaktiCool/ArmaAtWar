@@ -18,7 +18,7 @@ EPREP(Rally,clientInitRally)
 EPREP(Rally,canPlaceRally)
 
 // TicketBleed
-EPREP(TicketBleed,postInitTicketBleed)
+EPREP(Tickets,postInitTickets)
 
 // Respawn
 EPREP(Respawn,clientInitRespawn)
