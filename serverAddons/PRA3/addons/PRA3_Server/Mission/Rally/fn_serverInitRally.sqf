@@ -28,7 +28,7 @@ GVAR(rallyCache) = [];
                 deleteVehicle _x;
                 nil
             } count _objects;
-            _invalidRallyIndices pushBack _forEachIndex;
+            GVAR(rallyCache) deleteAt _forEachIndex;
         } else {
             private _rallySide = side _group;
             private _enemyCount = {(side group _x) != _rallySide} count (nearestObjects [_position, ["CAManBase"], 10]);
@@ -39,15 +39,10 @@ GVAR(rallyCache) = [];
                 } count _objects;
 
                 _group setVariable [QGVAR(rallyPoint), [_placedTime, [], []], true];
-                _invalidRallyIndices pushBack _forEachIndex;
+                GVAR(rallyCache) deleteAt _forEachIndex;
             };
         };
     } forEach GVAR(rallyCache);
-
-    {
-        GVAR(rallyCache) deleteAt _x;
-        nil
-    } count _invalidRallyIndices;
 }, 0.2] call CFUNC(addPerFrameHandler);
 
 [QGVAR(rallyPlaced), {
