@@ -62,6 +62,11 @@ EPREP(Settings,initSettings)
 EPREP(Settings,loadSettings)
 EPREP(Settings,getSetting)
 
+// lnbData
+EPREP(lnbData,initlnbData)
+EPREP(lnbData,lnbLoad)
+EPREP(lnbData,lnbSave)
+
 // Init
 PREP(init)
 
