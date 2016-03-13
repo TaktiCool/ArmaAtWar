@@ -63,8 +63,13 @@
                 ["ticketsChanged"] call CFUNC(globalEvent);
             };
 
+            private _looserSide = sideUnknown;
             private _nbrOwnedSectors = {
-                (_x getVariable ["side",sideUnknown]) in [_oldSide, sideUnknown];
+                private _condition = !((_x getVariable ["side",sideUnknown]) in [_newSide]);
+                if (_condition) then {
+                    _looserSide = _x getVariable ["side",sideUnknown];
+                };
+                _condition
             } count GVAR(allSectorsArray);
 
 
@@ -74,17 +79,19 @@
                     (_this select 0) params ["_side"];
                     private _id = (_this select 0);
                     private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), str _side];
-                    _tickets = _tickets - GVAR(ticketBleed) select 1;
+                    _tickets = _tickets - (GVAR(ticketBleed) select 1);
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), str _side], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), str _side]);
                     ["ticketsChanged"] call CFUNC(globalEvent);
+
                     private _nbrOwnedSectors = {
-                        (_x getVariable ["side",sideUnknown]) in [_side, sideUnknown];
+                        !((_x getVariable ["side",sideUnknown]) in [_newSide]);
                     } count GVAR(allSectorsArray);
+
                     if (_nbrOwnedSectors > 1) then {
                         [_id] call CFUNC(removePerFrameHandler);
                     };
-                }, _oldSector, GVAR(ticketBleed) select 0] call CFUNC(addPerFrameHandler);
+                }, GVAR(ticketBleed) select 0, [_looserSide]] call CFUNC(addPerFrameHandler);
             };
         }] call CFUNC(addEventhandler);
     };
