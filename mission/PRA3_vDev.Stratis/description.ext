@@ -32,6 +32,8 @@ class PRA3 {
 
     playerTicketValue = 1; // Ticket value of a player
 
+
+
     class Sides {
         class West {
             name = "NATO";
@@ -155,7 +157,6 @@ class PRA3 {
         maxEnemyCount = 3;
     };
 
-
     class sector {
         dependency[] = {};
         ticketBleed = 30;
@@ -166,6 +167,12 @@ class PRA3 {
     };
     class CfgSectors {
         #include "cfgSectors.hpp"
+    };
+
+    class CfgRevive {
+        // Revive Settings
+        reviveBleedingTime = 100;
+        reviveBleedOutTime = 200;
     };
 
     class CfgEntities {

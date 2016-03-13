@@ -38,7 +38,7 @@ if (_state) then {
     _dlg displayAddEventHandler ["KeyDown", {
         params ["", "_key"];
 
-        if (_key == 1 && {PRA3_call FUNC(isAlive)}) then {
+        if (_key == 1 && {alive PRA3_Player}) then {
             createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
 
             disableSerialization;

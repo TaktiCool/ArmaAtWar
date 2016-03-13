@@ -21,6 +21,8 @@ GVAR(PFHhandles) = [];
 GVAR(nextFrameBufferA) = [];
 GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
+GVAR(deltaTime) = 0;
+GVAR(lastFrameTime) = diag_tickTime;
 [QGVAR(OnEachFrameID), "onEachFrame", {
     PERFORMANCECOUNTER_START(PFHCounter)
 
@@ -61,6 +63,9 @@ GVAR(nextFrameNo) = diag_frameno;
     GVAR(nextFrameBufferB) = [];
     GVAR(nextFrameNo) = diag_frameno + 1;
 
+    // Delta time Describe the time that the last Frame needed to calculate this is required for some One Each Frame Balance Math Calculations
+    GVAR(deltaTime) = diag_tickTime - GVAR(lastFrameTime);
+    GVAR(lastFrameTime) = diag_tickTime;
 
     PERFORMANCECOUNTER_END(PFHCounter)
 }] call BIS_fnc_addStackedEventHandler;

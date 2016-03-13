@@ -66,6 +66,7 @@ PREP(fixFloating)
 PREP(name)
 PREP(codeToString)
 PREP(disalbeUserInput)
+PREP(setVariablePublic)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);

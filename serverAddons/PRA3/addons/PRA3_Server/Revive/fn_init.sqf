@@ -1,6 +1,10 @@
 #include "macros.hpp"
 
 GVAR(SELECTIONS) = ["head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
+GVAR(lastDamageSelection) = [0,0,0,0,0,0];
+private _cfg = missionConfigFile >> "PRA3" >> "CfgRevive";
+GVAR(reviveBleedingTime) = getNumber (_cfg >> "reviveBleedingTime");
+GVAR(reviveBleedOutTime) = getNumber (_cfg >> "reviveBleedOutTime");
 
 /*
  * Author: Glowbal ported by joko // Jonas && BadGuy
@@ -84,25 +88,119 @@ DFUNC(translateSelections) = {
 };
 
 
+// ToDo write it with HodKeyEH @BadGuy
+// Todo write it Function based
+[
+    "Stop Bleeding",
+    "CAManBase",
+    {
+        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
+        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
+        {"FirstAidKit" in (items PRA3_Player) || {"FirstAidKit" in (items _target)}}
+    }, {
+        private _healSpeed = 60;
+        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+            private _healSpeed = 10;
+        };
+        [{(_this select 0) setVariable [QGVAR(bloodLoss), 0, true];}, _healSpeed, cursorObject] call CFUNC(wait);
+    }
+] call CFUNC(addAction);
+
+[
+    "Heal Unit",
+    "CAManBase",
+    {
+        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
+        {!(_target getVariable [QGVAR(isUnconscious), false])} &&
+        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
+        {"Medikit" in (items PRA3_Player) || {"Medikit" in (items _target)}}
+    }, {
+        private _maxHeal = 0.75;
+        private _healSpeed = 60;
+        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+            private _maxHeal = 1;
+            private _healSpeed = 10;
+        };
+        [{(_this select 0) setDamage 1 - (_this select 1);}, _healSpeed, [cursorObject, _maxHeal]] call CFUNC(wait);
+    }
+] call CFUNC(addAction);
+
+[
+    "Revive Unit",
+    "CAManBase",
+    {
+        _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
+        _target getVariable [QGVAR(isUnconscious), false] &&
+        {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])}
+    }, {
+        private _reviveSpeed = 60;
+        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+            _reviveSpeed = 20;
+        };
+        [{
+            PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
+            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
+        }, _reviveSpeed, cursorObject] call CFUNC(wait);
+    }
+] call CFUNC(addAction);
+
+
+// Bleedout Timer
+[{
+    if (PRA3_player getVariable [QGVAR(medicalActionIsInProgress), false]) exitWith {};
+    private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+    if (_bloodLoss == 0) exitWith {};
+    private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
+
+    _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) * 2);
+
+    [PRA3_Player, QGVAR(bleedOutTime), _bleedOutTime] call CFUNC(setVariablePublic);
+
+    // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
+    if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
+        if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
+            // Force Player to Respawn
+            PRA3_Player setDamage 1;
+            PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
+            PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
+            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
+        };
+    } else {
+        // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
+        if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
+            PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
+            PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
+            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
+        };
+    };
+}, 0] CFUNC(addPerFrameHandler);
 
 DFUNC(HandleDamage) = {
     params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
     _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 
-    if (!(_unit getVariable [QGVAR(isUnconscious), false]) && _unit == vehicle _unit) then {
-        if (_selectionName in ["head", "body", ""]) then {
-            if (_damage > 0.9) then {
-                _damage = 0.9;
-                [{
-                    if !(_this getVariable [QGVAR(isUnconscious), false]) then {
-                        _this setVariable [QGVAR(isUnconscious), true, true];
-                        ["UnconsciousnessChanged", true] call CFUNC(localEvent);
-                    };
-                }, _unit] call CFUNC(execNextFrame);
-            };
+    private _newDamage = _damage - (GVAR(lastDamageSelection) select GVAR(SELECTIONS) find _selectionName);
+
+    if (_newDamage > 0.3) then {
+        private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
+        _bloodLoss = _bloodLoss + _newDamage;
+        _unit setVariable [QGVAR(bloodLoss), _bloodLoss];
+    };
+
+    if (_selectionName in ["head", "body", ""]) then {
+        if (_damage > 0.9) then {
+            _damage = 0.9;
+            [{
+                if !(_this getVariable [QGVAR(isUnconscious), false]) then {
+                    _this setVariable [QGVAR(isUnconscious), true, true];
+                    ["UnconsciousnessChanged", true] call CFUNC(localEvent);
+                };
+            }, _unit] call CFUNC(execNextFrame);
         };
     };
 
+
+    GVAR(lastDamageSelection) set [GVAR(SELECTIONS) find _selectionName, _damage];
     _damage;
 };
 
@@ -114,8 +212,23 @@ DFUNC(HandleDamage) = {
 PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];
 ["playerChanged", {PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
 
-
-
+/*
+Vanilla HandleDamage Calles
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"head",0,<NULL-object>,"B_65x39_Caseless",2]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"",0.421437,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",-1]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"",0.421437,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",-1]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"face_hub",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",0]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"neck",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",1]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"head",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",2]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"pelvis",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",3]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"spine1",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",4]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"spine2",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",5]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"spine3",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",6]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"body",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",7]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"arms",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",8]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"hands",0,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",9]]
+2:53:46 ["HandleDamage",[B Alpha 1-2:1,"legs",0.260238,B Alpha 1-1:1 (jokoho482),"B_65x39_Caseless",10]]
+*/
 
 /*
 Animations:
