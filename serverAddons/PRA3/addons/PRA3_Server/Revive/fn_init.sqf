@@ -5,7 +5,6 @@ GVAR(lastDamageSelection) = [0,0,0,0,0,0];
 private _cfg = missionConfigFile >> "PRA3" >> "CfgRevive";
 GVAR(reviveBleedingTime) = getNumber (_cfg >> "reviveBleedingTime");
 GVAR(reviveBleedOutTime) = getNumber (_cfg >> "reviveBleedOutTime");
-
 /*
  * Author: Glowbal ported by joko // Jonas && BadGuy
  * Translate selection names into medical usable hit selection names.
@@ -87,8 +86,6 @@ DFUNC(translateSelections) = {
     _selection;
 };
 
-
-
 // Bleedout Timer
 [{
     if (PRA3_player getVariable [QGVAR(medicalActionIsInProgress), false]) exitWith {};
@@ -107,14 +104,14 @@ DFUNC(translateSelections) = {
             PRA3_Player setDamage 1;
             PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
             PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
+            ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
         };
     } else {
         // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
         if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
             PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
             PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-            ["UnconsciousnessChanged", false] call CFUNC(localEvent);
+            ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
         };
     };
 }, 0] call CFUNC(addPerFrameHandler);
@@ -137,7 +134,7 @@ DFUNC(HandleDamage) = {
             [{
                 if !(_this getVariable [QGVAR(isUnconscious), false]) then {
                     _this setVariable [QGVAR(isUnconscious), true, true];
-                    ["UnconsciousnessChanged", true] call CFUNC(localEvent);
+                    ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
                 };
             }, _unit] call CFUNC(execNextFrame);
         };
@@ -147,7 +144,6 @@ DFUNC(HandleDamage) = {
     GVAR(lastDamageSelection) set [GVAR(SELECTIONS) find _selectionName, _damage];
     _damage;
 };
-
 
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 

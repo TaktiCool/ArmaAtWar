@@ -47,3 +47,7 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
     (_this select 0) params ["_group", "_unit"];
     _group selectLeader _unit;
 }] call FUNC(addEventHandler);
+["switchMove", {
+    (_this select 0) params ["_unit", "_move"];
+    _unit switchmove _move;
+}] call FUNC(addEventHandler);

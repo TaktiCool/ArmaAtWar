@@ -71,6 +71,7 @@ PREP(name)
 PREP(codeToString)
 PREP(disalbeUserInput)
 PREP(setVariablePublic)
+PREP(createPPEffect)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);
