@@ -45,9 +45,9 @@ if (isServer) then {
             //@todo progress is not correct if we keep the server files server only
             //if (_x find "_fnc_serverInit" < 0) then {
             // Extract the code out of the function.
-            private _functionCode = str (uiNamespace getVariable [_x, {}]);
+            private _functionCode = str (parsingNamespace getVariable [_x, {}]);
             // Remove leading and trailing braces from the code.
-            _functionCode = _functionCode select [1, count _functionCode - 2];
+            _functionCode = _functionCode call FUNC(codeToString);
 
             // Transfer the function name, code and progress to the client.
             GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / (count GVAR(requiredFunctions) - 1)];

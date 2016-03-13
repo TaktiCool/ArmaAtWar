@@ -64,6 +64,8 @@ PREP(addPerformanceCounter)
 PREP(blurScreen)
 PREP(fixFloating)
 PREP(name)
+PREP(codeToString)
+PREP(disalbeUserInput)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);

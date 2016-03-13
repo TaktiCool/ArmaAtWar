@@ -31,7 +31,7 @@ private _fncCode = compile _funcString;
 {
     _x setVariable [_functionVarName, _fncCode];
     nil
-} count [missionNamespace,uiNamespace/*,parsingNamespace*/];
+} count [missionNamespace, uiNamespace, parsingNamespace];
 
 GVAR(functionCache) pushBack _functionVarName;
 nil
