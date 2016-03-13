@@ -1937,3 +1937,4 @@ class PRA3_mission_DisableMouse_Dialog {
             h = "safezoneH";
         };
     };
+};

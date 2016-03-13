@@ -19,14 +19,14 @@ params ["_state"];
 if (_state) then {
     disableSerialization;
 
-    if (!isNull (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull])) exitWith {};
+    if (!isNull (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull])) exitWith {};
     if (!isNil QGVAR(disableInputPFH)) exitWith {};
 
     // end TFAR and ACRE2 radio transmissions
     // call FUNC(endRadioTransmission);
 
     // Close map
-    if (visibleMap && {!(player getVariable ["ACE_canSwitchUnits", false])}) then {
+    if (visibleMap) then {
         openMap false;
     };
 
@@ -49,7 +49,7 @@ if (_state) then {
                 (_dlg displayCtrl _index) ctrlEnable false;
             };
             private _code = {
-                while {!isNull (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse),displayNull])} do {
+                while {!isNull (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse),displayNull])} do {
                     closeDialog 0
                 };
                 failMission 'LOSER';
@@ -72,7 +72,7 @@ if (_state) then {
         };
 
         if (_key in actionKeys "TeamSwitch" && {teamSwitchEnabled}) then {
-            (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
 
             private _acc = accTime;
             teamSwitch;
@@ -80,12 +80,12 @@ if (_state) then {
         };
 
         if (_key in actionKeys "CuratorInterface" && {getAssignedCuratorLogic player in allCurators}) then {
-            (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
             openCuratorInterface;
         };
 
         if (_key in actionKeys "ShowMap") then {
-            (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
             openMap true;
         };
 
@@ -101,7 +101,7 @@ if (_state) then {
     _dlg displayAddEventHandler ["KeyUp", {true}];
 
     GVAR(disableInputPFH) = [{
-        if (isNull (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull]) && {!visibleMap && isNull findDisplay 49 && isNull findDisplay 312 && isNull findDisplay 632}) then {
+        if (isNull (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) && {!visibleMap && isNull findDisplay 49 && isNull findDisplay 312 && isNull findDisplay 632}) then {
             [GVAR(disableInputPFH)] call FUNC(removePerFrameHandler);
             GVAR(disableInputPFH) = nil;
             [true] call FUNC(disableUserInput);
@@ -113,5 +113,5 @@ if (_state) then {
         GVAR(disableInputPFH) = nil;
     };
 
-    (uiNamespace getVariable [QGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+    (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
 };
