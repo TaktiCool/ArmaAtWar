@@ -31,3 +31,19 @@ lnbSetData [_idc, _rowAndColum, _hash];
 
 _hashes pushBack _hash;
 GVAR(lnbDataStorage) setVariable [QGVAR(allVariablesCache), _hashes];
+
+if (isNil QGVAR(lnbDataPFHID)) then {
+    // PFH for Flushing Data
+    GVAR(lnbDataPFHID) = [{
+        if (!dialog) then {
+            private _allVars = GVAR(lnbDataStorage) getVariable QGVAR(allVariablesCache);
+            // Flush Data
+            {
+                GVAR(lnbDataStorage) setVariable [_x, nil];
+            } count _allVars;
+            GVAR(lnbDataStorage) setVariable [QGVAR(allVariablesCache), []];
+            [GVAR(lnbDataPFHID)] call CFUNC(removePerFrameHandler);
+            GVAR(lnbDataPFHID) = nil;
+        };
+    }, 1] call CFUNC(addPerFrameHandler);
+};
