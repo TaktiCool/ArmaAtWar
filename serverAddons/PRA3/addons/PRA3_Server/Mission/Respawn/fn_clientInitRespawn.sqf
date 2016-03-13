@@ -177,7 +177,7 @@ GVAR(squadIds) = [
     private _rallyPoint = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [0, [], [], 0]];
     _rallyPoint params ["_placedTime", "_position", "_objects", "_spawnCount"];
     if (!(_position isEqualTo []) && _spawnCount > 0) then { // if spawnCount is zero the rally point should not exist (handle this on spawn)
-        private _rowNumber = lnbAddRow [403, ["Rallypoint " + ((group PRA3_Player) getVariable [QGVAR(Id), ""])]];
+        private _rowNumber = lnbAddRow [403, ["RALLYPOINT " + ((group PRA3_Player) getVariable [QGVAR(Id), ""])]];
         lnbSetData [403, [_rowNumber, 0], str _position];
     };
 }] call CFUNC(addEventHandler);
