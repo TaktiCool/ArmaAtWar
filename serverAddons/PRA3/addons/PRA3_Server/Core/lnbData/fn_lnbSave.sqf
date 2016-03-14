@@ -17,33 +17,15 @@
 */
 disableSerialization;
 params ["_idc", "_rowAndColum", "_data"];
-private _hashes = GVAR(lnbDataStorage) getVariable QGVAR(allVariablesCache);
 
-private _hash = format ["%1%2%3%4%5%6%7%8%9%10", random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100];
+private _hash = GVAR(allVariablesCache) pushBack _data;
 
-while {_hash in _hashes} do {
-    _hash = format ["%1%2%3%4%5%6%7%8%9%10", random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100, random 100];
-};
-
-GVAR(lnbDataStorage) setVariable [format [QGVAR(%1), _hash], _data];
-
-lnbSetData [_idc, _rowAndColum, _hash];
-
-_hashes pushBack _hash;
-GVAR(lnbDataStorage) setVariable [QGVAR(allVariablesCache), _hashes];
-
+lnbSetValue [_idc, _rowAndColum, _hash];
 if (isNil QGVAR(lnbDataPFHID)) then {
     // PFH for Flushing Data
     GVAR(lnbDataPFHID) = [{
         if (!dialog) then {
-            private _allVars = GVAR(lnbDataStorage) getVariable QGVAR(allVariablesCache);
-            // Flush Data
-            {
-                GVAR(lnbDataStorage) setVariable [_x, nil];
-            } count _allVars;
-            GVAR(lnbDataStorage) setVariable [QGVAR(allVariablesCache), []];
-            [GVAR(lnbDataPFHID)] call CFUNC(removePerFrameHandler);
-            GVAR(lnbDataPFHID) = nil;
+            GVAR(allVariablesCache) = [];
         };
     }, 1] call CFUNC(addPerFrameHandler);
 };

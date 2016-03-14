@@ -13,5 +13,4 @@
     Returns:
     None
 */
-GVAR(lnbDataStorage) = call FUNC(createNamespace);
-GVAR(lnbDataStorage) setVariable [QGVAR(allVariablesCache), []];
+missionNamespace setVariable [QGVAR(allVariablesCache), []];
