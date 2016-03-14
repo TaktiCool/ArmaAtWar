@@ -28,7 +28,6 @@
 
         addMissionEventHandler ["EntityKilled", {
             params ["_killedEntity", "_killer"];
-            hint format ["Entity Killed: %1",_killedEntity getVariable [QGVAR(ticketValue),0]];
             if (_killedEntity getVariable [QGVAR(ticketValue),0] > 0) exitWith {
                 private _ticketValue = _killedEntity getVariable [QGVAR(ticketValue),0];
                 private _currentSide = _killedEntity getVariable [QGVAR(side),"unknown"];
