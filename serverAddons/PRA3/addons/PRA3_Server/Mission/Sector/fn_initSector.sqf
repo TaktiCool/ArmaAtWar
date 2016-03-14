@@ -35,7 +35,7 @@ if (isServer) then {
 
         {
             if ((configName _x find "base") >= 0) then {
-                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketBleed"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText(_x >> "designator")] call FUNC(createSectorLogic);
+                [configName _x, getArray(_x >> "dependency"), getNumber(_x >> "ticketValue"), getNumber(_x >> "minUnits"), getArray(_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText(_x >> "designator")] call FUNC(createSectorLogic);
             };
             nil;
         } count _sectors;
@@ -43,7 +43,7 @@ if (isServer) then {
         private _path = selectRandom ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors" >> "CfgSectorPath"));
 
         {
-            [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketBleed"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
+            [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketValue"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
             nil;
         } count ("true" configClasses _path);
 
@@ -94,9 +94,17 @@ if (isServer) then {
                 ["PRA3_SectorLost", [format["Your team lost sector %1", _sectorName]]] call BIS_fnc_showNotification;
             } else {
                 if (GVAR(currentSector) isEqualTo _sector) then {
-                    ["PRA3_SectorCaptured", [format["You captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    if ((side player) isEqualTo _oldSide) then {
+                        ["PRA3_SectorCaptured", [format["You captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    } else {
+                        ["PRA3_SectorCaptured", [format["You neutralized sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    };
                 } else {
-                    ["PRA3_SectorCaptured", [format["Your team captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    if ((side player) isEqualTo _oldSide) then {
+                        ["PRA3_SectorCaptured", [format["Your team captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    } else {
+                        ["PRA3_SectorCaptured", [format["Yout team neutralized sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    };
                 };
             };
 

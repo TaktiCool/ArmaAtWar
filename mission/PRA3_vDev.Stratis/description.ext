@@ -158,7 +158,7 @@ class PRA3 {
 
     class sector {
         dependency[] = {};
-        ticketBleed = 30;
+        ticketValue = 30;
         captureTime[] = {30,60};
         minUnits = 1;
         isLastSector = "";

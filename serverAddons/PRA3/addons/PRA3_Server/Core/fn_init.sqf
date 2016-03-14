@@ -8,7 +8,7 @@ PRA3_Player setVariable [QGVAR(playerName), profileName, true];
 if (hasInterface) then {
     [{
         disableSerialization;
-        private _pauseMenuDisplay = findDisplay 12;
+        private _pauseMenuDisplay = findDisplay 49;
 
         _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
         _gX = (((safezoneW / safezoneH) min 1.2) / 40);

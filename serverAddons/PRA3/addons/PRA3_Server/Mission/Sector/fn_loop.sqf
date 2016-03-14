@@ -32,7 +32,7 @@ private _captureProgress = _cSector getVariable ["captureProgress",1];
 private _lastCaptureProgress = _captureProgress;
 private _minUnits = _cSector getVariable ["minUnits",1];
 private _side = _cSector getVariable ["side",sideUnknown];
-private _lastSide = str _side;
+private _lastSide = _side;
 private _attackerSide = _cSector getVariable ["attackerSide",sideUnknown];
 private _lastAttackerSide = str _attackerSide;
 
@@ -110,7 +110,7 @@ if (_captureProgress != _lastCaptureProgress) then {
 if ((str _attackerSide) != _lastAttackerSide) then {
     _cSector setVariable ["attackerSide",_attackerSide, true];
 };
-if ((str _side) != _lastSide) then {
+if (str _side != str _lastSide) then {
     _cSector setVariable ["side",_side,true];
     ["sector_side_changed",[_cSector,_lastSide,_side]] call CFUNC(globalEvent);
     _cSector setVariable ["firstCaptureDone", true, true];
