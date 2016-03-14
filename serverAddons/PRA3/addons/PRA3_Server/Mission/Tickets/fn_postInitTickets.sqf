@@ -54,11 +54,11 @@
 
         ["sector_side_changed", {
             (_this select 0) params ["_sector", "_oldSide", "_newSide"];
-            private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), str(_oldSide)];
+            private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), str _oldSide];
             if !(isNil "_tickets") then {
                 _tickets = _tickets - (_sector getVariable "ticketBleed");
-                missionNamespace setVariable [format [QGVAR(sideTickets_%1), str(_currentSide)], _tickets];
-                publicVariable (format [QGVAR(sideTickets_%1), str(_currentSide)]);
+                missionNamespace setVariable [format [QGVAR(sideTickets_%1), str _oldSide], _tickets];
+                publicVariable (format [QGVAR(sideTickets_%1), str _oldSide]);
                 ["ticketsChanged"] call CFUNC(globalEvent);
             };
 
@@ -76,7 +76,7 @@
             if (_nbrOwnedSectors == 1) then {
                 [{
                     (_this select 0) params ["_side"];
-                    private _id = (_this select 0);
+                    private _id = (_this select 1);
                     private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), str _side];
                     _tickets = _tickets - (GVAR(ticketBleed) select 1);
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), str _side], _tickets];
