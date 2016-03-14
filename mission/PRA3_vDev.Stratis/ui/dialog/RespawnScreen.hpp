@@ -1,5 +1,5 @@
 class PRA3_UI_RespawnScreen {
-    idd = -1;
+    idd = 1000;
     onLoad = "[""PRA3_UI_RespawnScreen"", true] call PRA3_Core_fnc_blurScreen;";
     onUnLoad = "[""PRA3_UI_RespawnScreen"", false] call PRA3_Core_fnc_blurScreen;";
 
@@ -310,6 +310,8 @@ class PRA3_UI_RespawnScreen {
 
                     rowHeight = PY(3);
                     columns[] = {0,0.075,0.875};
+
+                    onLBSelChanged = "[""PRA3_mission_updateMapControl""] call PRA3_Core_fnc_localEvent;";
                 };
             };
         };

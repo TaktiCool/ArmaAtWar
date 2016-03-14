@@ -50,7 +50,6 @@ GVAR(squadIds) = [
     setPlayerRespawnTime 10e10;
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
-    [QGVAR(updateSquadList)] call CFUNC(localEvent);
     [QGVAR(updateRoleList)] call CFUNC(localEvent);
     [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
@@ -64,8 +63,8 @@ GVAR(squadIds) = [
     private _currentMemberSelection = lnbCurSelRow 209;
 
     if (_currentSquadSelection >= 0 && _currentMemberSelection >= 0) then {
-        private _selectedGroup = groupFromNetId (lnbData [206, [_currentSquadSelection, 0]]);
-        private _selectedUnit = objectFromNetId (lnbData [209, [_currentMemberSelection, 0]]);
+        private _selectedGroup = [206, [_currentSquadSelection, 0]] call CFUNC(lnbLoad);
+        private _selectedUnit = [209, [_currentMemberSelection, 0]] call CFUNC(lnbLoad);
 
         private _isVisible = (PRA3_Player == leader _selectedGroup && PRA3_Player != _selectedUnit);
         ctrlShow [211, _isVisible];
@@ -84,7 +83,7 @@ GVAR(squadIds) = [
     private _currentSelection = lnbCurSelRow 206;
     private _selectedGroup = grpNull;
     if (_currentSelection >= 0) then {
-        _selectedGroup = groupFromNetId (lnbData [206, [_currentSelection, 0]]);
+        _selectedGroup = [206, [_currentSelection, 0]] call CFUNC(lnbLoad);
     };
 
     lnbClear 209;
@@ -93,7 +92,7 @@ GVAR(squadIds) = [
 
         private _unitCount = {
             private _rowNumber = lnbAddRow [209, ["", (_x call CFUNC(name))]];
-            lnbSetData [209, [_rowNumber, 0], netId _x];
+            [209, [_rowNumber, 0], _x] call CFUNC(lnbSave);
             true
         } count units _selectedGroup;
 
@@ -115,7 +114,7 @@ GVAR(squadIds) = [
     private _currentSelection = lnbCurSelRow 206;
     private _selectedGroup = grpNull;
     if (_currentSelection >= 0) then {
-        _selectedGroup = groupFromNetId (lnbData [206, [_currentSelection, 0]]);
+        _selectedGroup = [206, [_currentSelection, 0]] call CFUNC(lnbLoad);
     };
 
     lnbClear 206;
@@ -124,7 +123,7 @@ GVAR(squadIds) = [
             private _groupId = _x getVariable [QGVAR(Id), ""];
             if (_groupId != "") then {
                 private _rowNumber = lnbAddRow [206, [_groupId select [0, 1], _x getVariable [QGVAR(Description), str _x], str (count units _x) + " / 9"]];
-                lnbSetData [206, [_rowNumber, 0], netId _x];
+                [206, [_rowNumber, 0], _x] call CFUNC(lnbSave);
                 if (_x == group PRA3_Player) then {
                     lnbSetColor [206, [_rowNumber, 0], [1, 0.4, 0, 1]];
                 };
@@ -149,6 +148,8 @@ GVAR(squadIds) = [
     private _currentSide = side group PRA3_Player;
     ctrlSetText [102, (missionNamespace getVariable [format [QGVAR(Flag_%1), _currentSide], ""])];
     ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), _currentSide], ""])];
+
+    [QGVAR(updateSquadList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 //[QGVAR(updateRoleList), {
@@ -167,6 +168,20 @@ GVAR(squadIds) = [
 //    //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
 //}] call CFUNC(addEventHandler);
 
+[QGVAR(updateMapControl), {
+    disableSerialization;
+
+    if (!dialog) exitWith {};
+
+    private _map = (findDisplay 1000) displayCtrl 700;
+    private _currentSelection = lnbCurSelRow 403;
+
+    if (_currentSelection >= 0) then {
+        _map ctrlMapAnimAdd [0.5, 0.15, [403, [_currentSelection, 0]] call CFUNC(lnbLoad)];
+        ctrlMapAnimCommit _map;
+    };
+}] call CFUNC(addEventHandler);
+
 [QGVAR(updateDeploymentList), {
     disableSerialization;
 
@@ -174,10 +189,18 @@ GVAR(squadIds) = [
 
     lnbClear 403;
 
+    private _base = ["base_" + (str side group PRA3_Player)] call FUNC(getSector);
+    private _rowNumber = lnbAddRow [403, ["BASE"]];
+    [403, [_rowNumber, 0], getPos _base] call CFUNC(lnbSave);
+
     private _rallyPoint = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [0, [], [], 0]];
     _rallyPoint params ["_placedTime", "_position", "_objects", "_spawnCount"];
     if (!(_position isEqualTo []) && _spawnCount > 0) then { // if spawnCount is zero the rally point should not exist (handle this on spawn)
-        private _rowNumber = lnbAddRow [403, ["RALLYPOINT " + ((group PRA3_Player) getVariable [QGVAR(Id), ""])]];
-        lnbSetData [403, [_rowNumber, 0], str _position];
+        _rowNumber = lnbAddRow [403, ["RALLYPOINT " + ((group PRA3_Player) getVariable [QGVAR(Id), ""])]];
+        [403, [_rowNumber, 0], _position] call CFUNC(lnbSave);
     };
+
+    lnbSetCurSelRow [403, 0];
+
+    [QGVAR(updateMapControl)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
 }] call CFUNC(addEventHandler);

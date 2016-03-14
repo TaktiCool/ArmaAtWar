@@ -21,7 +21,7 @@ private _currentSelection = lnbCurSelRow 209;
 
 if (_currentSelection < 0) exitWith {}; // This should never happen. Safety check.
 
-private _selectedUnit = objectFromNetId (lnbData [209, [_currentSelection, 0]]);
+private _selectedUnit = [209, [_currentSelection, 0]] call CFUNC(lnbLoad);
 
 [{
     if (PRA3_Player == leader _this) then {
