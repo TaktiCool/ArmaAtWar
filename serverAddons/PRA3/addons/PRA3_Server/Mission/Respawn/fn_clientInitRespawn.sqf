@@ -246,8 +246,9 @@ GVAR(squadIds) = [
     if (_currentDeploymentSelection < 0) exitWith {systemChat "Select spawn point!"};
     private _deployPosition = [403, [_currentDeploymentSelection, 0]] call CFUNC(lnbLoad);
 
-    DUMP(_deployPosition)
-    PRA3_Player setPos _deployPosition;
+    [{
+        PRA3_Player setPos _this;
+    }, _deployPosition] call CFUNC(execNextFrame);
 
     setPlayerRespawnTime 0;
     closeDialog 2;
