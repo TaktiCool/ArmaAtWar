@@ -101,7 +101,7 @@ DFUNC(translateSelections) = {
     if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
         if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
             // Force Player to Respawn
-            PRA3_Player setDamage 1;
+            forceRespawn PRA3_Player;
             PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
             PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
             ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
@@ -119,15 +119,16 @@ DFUNC(translateSelections) = {
 DFUNC(HandleDamage) = {
     params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
     _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
+    private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
+    if (_selectionIndex != -1) then {
+        private _newDamage = _damage - (GVAR(lastDamageSelection) select GVAR(SELECTIONS) find _selectionName);
 
-    private _newDamage = _damage - (GVAR(lastDamageSelection) select GVAR(SELECTIONS) find _selectionName);
-
-    if (_newDamage > 0.3) then {
-        private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
-        _bloodLoss = _bloodLoss + _newDamage;
-        _unit setVariable [QGVAR(bloodLoss), _bloodLoss];
+        if (_newDamage > 0.3) then {
+            private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
+            _bloodLoss = _bloodLoss + _newDamage;
+            _unit setVariable [QGVAR(bloodLoss), _bloodLoss];
+        };
     };
-
     if (_selectionName in ["head", "body", ""]) then {
         if (_damage > 0.9) then {
             _damage = 0.9;
@@ -140,8 +141,10 @@ DFUNC(HandleDamage) = {
         };
     };
 
+    if (_selectionIndex != -1) then {
+        GVAR(lastDamageSelection) set [GVAR(SELECTIONS) find _selectionName, _damage];
+    };
 
-    GVAR(lastDamageSelection) set [GVAR(SELECTIONS) find _selectionName, _damage];
     _damage;
 };
 
