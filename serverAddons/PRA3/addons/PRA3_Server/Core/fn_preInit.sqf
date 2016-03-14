@@ -5,7 +5,28 @@
     GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3_Extension" >> "version") == _extRet};
 #endif
 
-GVAR(importentNamespaces) = [missionNamespace, uiNamespace, parsingNamespace];
+// Version Informations
+private _missionVersionStr = "";
+private _missionVersionAr = getArray(missionConfigFile >> "PRA3" >> "Version");
+
+private _serverVersionStr = "";
+private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_server" >> "versionAr");
+
+{
+    _missionVersionStr = _missionVersionStr + str(_x) + ".";
+    nil
+} count _missionVersionAr;
+
+{
+    _serverVersionStr = _serverVersionStr + str(_x) + ".";
+    nil
+} count _serverVersionAr;
+_serverVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 2)];
+_serverVersionStr = _serverVersionStr select [0, (count _serverVersionStr - 2)];
+GVAR(VersionInfo) = [[_missionVersionStr,_missionVersionAr], [_serverVersionStr, _serverVersionAr]];
+publicVariable QGVAR(VersionInfo);
+
+
 // The autoloader uses this array to get all function names.
 GVAR(functionCache) = [];
 

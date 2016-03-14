@@ -21,6 +21,9 @@ private _serverInit = [];
 private _postInit = [];
 private _clientInit = [];
 private _hcInit = [];
+
+diag_log format["[PRA3 - Version]: Server Version %1", (GVAR(VersionInfo) select 1) select 0];
+diag_log format["[PRA3 - Version]: Mission Version %1", (GVAR(VersionInfo) select 0) select 0];
 // Cycle through all available functions and determine whether to call them or not.
 {
     // Client only functions.
