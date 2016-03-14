@@ -14,6 +14,7 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
+disableAI = 1;
 author = "NetFusion, Hoeginson, BadGuy, joko // Jonas, PRA3 Team";
 onLoadName = "Project Reality:Arma 3";
 onLoadMission = "Project Reality: Arma III";
@@ -172,7 +173,7 @@ class PRA3 {
     class CfgRevive {
         // Revive Settings
         reviveBleedingTime = 100;
-        reviveBleedOutTime = 200;
+        reviveBleedOutTime = 1500;
     };
 
     class CfgEntities {
