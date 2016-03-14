@@ -24,30 +24,31 @@ private _hcInit = [];
 // Cycle through all available functions and determine whether to call them or not.
 {
     // Client only functions.
-    if (_x find "_fnc_clientInit" > 0) then {
+    if (toLower(_x) find "_fnc_clientinit" > 0) then {
         _clientInit pushBack _x;
     };
     // Server only functions.
-    if (_x find "_fnc_serverInit" > 0) then {
+    if (toLower(_x) find "_fnc_serverinit" > 0) then {
         _serverInit pushBack _x;
     };
     // HC only functions.
-    if (_x find "_fnc_hcInit" > 0) then {
+    if (toLower(_x) find "_fnc_hcinit" > 0) then {
         _hcInit pushBack _x;
     };
     // Functions for both.
-    if (_x find "_fnc_init" > 0) then {
+    if (toLower(_x) find "_fnc_init" > 0) then {
         _init pushBack _x;
     };
-    if (_x find "_fnc_postInit" > 0) then {
+    if (toLower(_x) find "_fnc_postinit" > 0) then {
         _postInit pushBack _x;
     };
+    DUMP("Read requiredFunctions: " + _x)
     nil
 } count GVAR(requiredFunctions);
 
 {
     private _time = diag_tickTime;
-    call compile ("call "+ _x);
+    call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
     _time = diag_tickTime - _time;
     DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
@@ -56,7 +57,7 @@ private _hcInit = [];
 if (isServer) then {
     {
         private _time = diag_tickTime;
-        call compile ("call "+ _x);
+        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -66,7 +67,7 @@ if (isServer) then {
 if (hasInterface) then {
     {
         private _time = diag_tickTime;
-        call compile ("call "+ _x);
+        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -76,7 +77,7 @@ if (hasInterface) then {
 if (!hasInterface && !isServer) then {
     {
         private _time = diag_tickTime;
-        call compile ("call "+ _x);
+        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -85,7 +86,7 @@ if (!hasInterface && !isServer) then {
 
 {
     private _time = diag_tickTime;
-    call compile ("call "+ _x);
+    call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
     _time = diag_tickTime - _time;
     DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil

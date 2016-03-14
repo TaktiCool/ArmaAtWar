@@ -45,7 +45,7 @@ if (isServer) then {
             //@todo progress is not correct if we keep the server files server only
             //if (_x find "_fnc_serverInit" < 0) then {
             // Extract the code out of the function.
-            private _functionCode = str (parsingNamespace getVariable [_x, {}]);
+            private _functionCode = parsingNamespace getVariable [_x, {}];
             // Remove leading and trailing braces from the code.
             _functionCode = _functionCode call FUNC(codeToString);
 
