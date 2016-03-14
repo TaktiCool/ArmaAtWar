@@ -11,7 +11,6 @@ class CfgSectorPath {
         class sector_0 : sector {
             dependency[] = {"base_west","sector_1"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_1 : sector {
@@ -27,7 +26,6 @@ class CfgSectorPath {
         class sector_3 : sector {
             dependency[] = {"sector_2","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -35,7 +33,6 @@ class CfgSectorPath {
         class sector_5 : sector {
             dependency[] = {"base_west","sector_9"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_9 : sector {
@@ -51,7 +48,6 @@ class CfgSectorPath {
         class sector_3 : sector {
             dependency[] = {"sector_6","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -59,7 +55,6 @@ class CfgSectorPath {
         class sector_4 : sector {
             dependency[] = {"base_west","sector_8"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_8 : sector {
@@ -75,7 +70,6 @@ class CfgSectorPath {
         class sector_10 : sector {
             dependency[] = {"sector_13","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -83,7 +77,6 @@ class CfgSectorPath {
         class sector_12 : sector {
             dependency[] = {"base_west","sector_11"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_11 : sector {
@@ -99,7 +92,6 @@ class CfgSectorPath {
         class sector_7 : sector {
             dependency[] = {"sector_2","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -107,7 +99,6 @@ class CfgSectorPath {
         class sector_4 : sector {
             dependency[] = {"base_west","sector_9"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_9 : sector {
@@ -123,7 +114,6 @@ class CfgSectorPath {
         class sector_3 : sector {
             dependency[] = {"sector_6","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -131,7 +121,6 @@ class CfgSectorPath {
         class sector_0 : sector {
             dependency[] = {"base_west","sector_9"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_9 : sector {
@@ -147,7 +136,6 @@ class CfgSectorPath {
         class sector_3 : sector {
             dependency[] = {"sector_2","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 
@@ -155,7 +143,6 @@ class CfgSectorPath {
         class sector_4 : sector {
             dependency[] = {"base_west","sector_9"};
             designator = "A";
-            isLastSector = "east";
         };
 
         class sector_9 : sector {
@@ -171,7 +158,6 @@ class CfgSectorPath {
         class sector_10 : sector {
             dependency[] = {"sector_3","base_east"};
             designator = "D";
-            isLastSector = "west";
         };
     };
 };
