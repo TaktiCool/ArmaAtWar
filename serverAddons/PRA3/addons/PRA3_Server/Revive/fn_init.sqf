@@ -93,7 +93,7 @@ DFUNC(translateSelections) = {
     if (_bloodLoss == 0) exitWith {};
     private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
 
-    _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) * 2);
+    _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 
     [PRA3_Player, QGVAR(bleedOutTime), _bleedOutTime] call CFUNC(setVariablePublic);
 
@@ -121,12 +121,12 @@ DFUNC(HandleDamage) = {
     _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
     private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
     if (_selectionIndex != -1) then {
-        private _newDamage = _damage - (GVAR(lastDamageSelection) select GVAR(SELECTIONS) find _selectionName);
+        private _newDamage = _damage - (GVAR(lastDamageSelection) select _selectionIndex);
 
         if (_newDamage > 0.3) then {
             private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
             _bloodLoss = _bloodLoss + _newDamage;
-            _unit setVariable [QGVAR(bloodLoss), _bloodLoss];
+            [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
         };
     };
     if (_selectionName in ["head", "body", ""]) then {
@@ -142,7 +142,7 @@ DFUNC(HandleDamage) = {
     };
 
     if (_selectionIndex != -1) then {
-        GVAR(lastDamageSelection) set [GVAR(SELECTIONS) find _selectionName, _damage];
+        GVAR(lastDamageSelection) set [_selectionIndex, _damage];
     };
 
     _damage;

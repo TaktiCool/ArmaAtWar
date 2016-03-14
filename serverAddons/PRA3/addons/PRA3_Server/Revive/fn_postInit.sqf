@@ -20,7 +20,7 @@ if (hasInterface) then {
                 } count GVAR(PPEffects);
                 GVAR(ppEffectPFHID) = [{
                     if (alive PRA3_Player) then {
-                        private _bloodLevel = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
+                        private _bloodLevel = (PRA3_Player getVariable [QGVAR(bloodLoss), 0]);
                         _bright = 0.2 + (0.1 * _bloodLevel);
                         _intense = 0.6 + (0.4 * _bloodLevel);
                         {
@@ -37,7 +37,7 @@ if (hasInterface) then {
                     };
                 }, 1] call CFUNC(addPerFrameHandler);
             };
-            ["switchMove",["acts_InjuredLyingRifle02",_unit]] call CFUNC(globalEvent);
+            ["switchMove", [_unit, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
         } else {
             if (_unit isEqualTo PRA3_Player) then {
                 {
@@ -46,7 +46,7 @@ if (hasInterface) then {
                 } count GVAR(PPEffects);
 
             };
-            ["switchMove",["AmovPpneMstpSnonWnonDnon",_unit]] call CFUNC(globalEvent);
+            ["switchMove", [_unit, "AmovPpneMstpSnonWnonDnon"]] call CFUNC(globalEvent);
         };
     }] call CFUNC(addEventhandler);
 
