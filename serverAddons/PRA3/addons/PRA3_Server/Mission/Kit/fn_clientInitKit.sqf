@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
     Init Kit Module
@@ -13,6 +13,11 @@
     Returns:
     None
 */
+{
+    [format [QGVAR(Kit_%1), configName _x], _x >> "Kits"] call CFUNC(loadSettings);
+    nil
+} count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
+
 
 DFUNC(addMagazine) = {
     params ["_unit", "_className", "_count"];
@@ -62,12 +67,3 @@ GVAR(KitCache) = call CFUNC(createNamespace);
     (_this select 0) params ["_KitVar", "_value"];
     GVAR(KitCache) setVariable [_KitVar, _value];
 }] call CFUNC(addEventhandler);
-
-{
-    private _sideName = configName _x;
-    {
-        [_x, _sideName] call FUNC(loadConfigKit);
-        nil
-    } count ("true" configClasses (_x >> "Kits"));
-    nil
-} count ("true" configClasses (missionConfigFile >> "PRA3" >>"Sides"));

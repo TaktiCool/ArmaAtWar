@@ -247,6 +247,8 @@ class PRA3_UI_RespawnScreen {
 
                     rowHeight = PY(3.5);
                     columns[] = {0,0.075,0.85};
+
+                    onLBSelChanged = "[""PRA3_mission_updateWeaponList""] call PRA3_Core_fnc_localEvent;";
                 };
 
                 class WeaponTabs : RscToolbox {
@@ -260,6 +262,8 @@ class PRA3_UI_RespawnScreen {
                     rows = 1;
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
+
+                    onToolBoxSelChanged = "[""PRA3_mission_updateWeaponList""] call PRA3_Core_fnc_localEvent;"
                 }
 
                 class WeaponBackground : RscPicture {
@@ -269,6 +273,25 @@ class PRA3_UI_RespawnScreen {
                     y = PY(GHEIGHT-13);
                     w = PX(GWIDTH);
                     h = PY(13);
+                };
+
+                class WeaponPicture : RscPicture {
+                    idc = 306;
+                    text = "";
+                    x = PX(7);
+                    y = PY(GHEIGHT-13);
+                    w = PX(GWIDTH-14);
+                    h = PY(10);
+                };
+
+                class WeaponName : PRA3_RscTextSmall {
+                    idc = 307;
+                    style = ST_CENTER;
+                    text = "MX";
+                    x = PX(0);
+                    y = PY(GHEIGHT-3);
+                    w = PX(GWIDTH);
+                    h = PY(3);
                 };
             }
         }
@@ -318,7 +341,7 @@ class PRA3_UI_RespawnScreen {
 
         #define GWIDTH 26
         #define GHEIGHT 5
-        class DeployBtn : PRA3_RscButtonMenu {
+        class DeployButton : PRA3_RscButtonMenu {
             idc = 500;
             text = "DEPLOY";
             colorBackground[] = {1,0.4,0,1};
@@ -326,6 +349,8 @@ class PRA3_UI_RespawnScreen {
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
+
+            action = "[""PRA3_mission_requestSpawn""] call PRA3_Core_fnc_localEvent;";
         }
     };
 };

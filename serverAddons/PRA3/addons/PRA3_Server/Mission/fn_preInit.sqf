@@ -29,11 +29,13 @@ EPREP(Respawn,kick)
 EPREP(Respawn,promote)
 
 // Kit
-EPREP(Kit,postInitKit)
+EPREP(Kit,clientInitKit)
+EPREP(Kit,getAllKits)
+EPREP(Kit,getKitDetails)
+EPREP(Kit,canUseKit)
 EPREP(Kit,addContainer)
 EPREP(Kit,applyKit)
 EPREP(Kit,loadConfigKit)
-EPREP(Kit,getAllKits)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)

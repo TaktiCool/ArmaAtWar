@@ -42,12 +42,13 @@ GVAR(squadIds) = [
     "ZULU"
 ];
 
-["Killed", {
-    params ["_args"];
-    _args params ["_unit"];
-    DUMP(_unit)
-
+["Respawn", {
     setPlayerRespawnTime 10e10;
+}] call CFUNC(addEventHandler);
+
+["Killed", {
+    setPlayerRespawnTime 10e10;
+
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
     [QGVAR(updateRoleList)] call CFUNC(localEvent);
@@ -152,21 +153,42 @@ GVAR(squadIds) = [
     [QGVAR(updateSquadList)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-//[QGVAR(updateRoleList), {
-//    disableSerialization;
-//
-//    if (!dialog) exitWith {};
-//
-//    lnbClear 303;
-//    {
-//        private _Kit = GVAR(KitCache) getVariable _x;
-//        private _rowNumber = lnbAddRow [303, ["", _Kit select 0 select 0, "? / ?"]];
-//        lnbSetPicture [303, [_rowNumber, 0], _Kit select 0 select 2];
-//        nil
-//    } count ([side group PRA3_Player] call FUNC(getAllKits));
-//
-//    //[QGVAR(updateSquadMemberList)] call CFUNC(localEvent);
-//}] call CFUNC(addEventHandler);
+[QGVAR(updateWeaponList), {
+    disableSerialization;
+
+    if (!dialog) exitWith {};
+
+    private _currentSelection = lnbCurSelRow 303;
+
+    if (_currentSelection >= 0) then {
+        private _kitName = [303, [_currentSelection, 0]] call CFUNC(lnbLoad);
+        DUMP(ctrlText 304)
+        private _kitDetails = [_kitName, [["primaryWeapon", ""]]] call FUNC(getKitDetails);
+        ctrlSetText [306, getText (configFile >> "CfgWeapons" >> _kitDetails select 0 >> "picture")];
+        ctrlSetText [307, getText (configFile >> "CfgWeapons" >> _kitDetails select 0 >> "displayName")];
+    };
+}] call CFUNC(addEventHandler);
+
+[QGVAR(updateRoleList), {
+    disableSerialization;
+
+    if (!dialog) exitWith {};
+
+    private _requiredKitDetails = [["displayName", ""], ["groupMaxCount", -1], ["UIIcon", ""]];
+
+    lnbClear 303;
+    {
+        private _kitDetails = [_x, _requiredKitDetails] call FUNC(getKitDetails);
+        private _rowNumber = lnbAddRow [303, ["", _kitDetails select 0, format ["%1 / %2", 0, _kitDetails select 1]]];
+        lnbSetPicture [303, [_rowNumber, 0], _kitDetails select 2];
+        [303, [_rowNumber, 0], _x] call CFUNC(lnbSave);
+        nil
+    } count (call FUNC(getAllKits));
+
+    lnbSetCurSelRow [303, 0];
+
+    [QGVAR(updateWeaponList)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
+}] call CFUNC(addEventHandler);
 
 [QGVAR(updateMapControl), {
     disableSerialization;
@@ -203,4 +225,30 @@ GVAR(squadIds) = [
     lnbSetCurSelRow [403, 0];
 
     [QGVAR(updateMapControl)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
+}] call CFUNC(addEventHandler);
+
+[QGVAR(requestSpawn), {
+    disableSerialization;
+
+    if (!dialog) exitWith {};
+
+    // Check squad
+    if ((group PRA3_Player) getVariable [QGVAR(Id), ""] == "") exitWith {systemChat "Join a squad!"};
+
+    // Check role
+    private _currentRoleSelection = lnbCurSelRow 303;
+    if (_currentRoleSelection < 0) exitWith {systemChat "Select a role!"};
+    private _kitName = [303, [_currentRoleSelection, 0]] call CFUNC(lnbLoad);
+    if (!([_kitName] call FUNC(canUseKit))) exitWith {systemChat "Select another role!"};
+
+    // Check deployment
+    private _currentDeploymentSelection = lnbCurSelRow 403;
+    if (_currentDeploymentSelection < 0) exitWith {systemChat "Select spawn point!"};
+    private _deployPosition = [403, [_currentDeploymentSelection, 0]] call CFUNC(lnbLoad);
+
+    DUMP(_deployPosition)
+    PRA3_Player setPos _deployPosition;
+
+    setPlayerRespawnTime 0;
+    closeDialog 2;
 }] call CFUNC(addEventHandler);

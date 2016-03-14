@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
     Init for Rally System for Leaders

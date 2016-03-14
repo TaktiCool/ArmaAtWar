@@ -2,25 +2,19 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
-    get All Kit from a Side
+    get All Kit for player side
 
     Parameter(s):
-    0: Side <Side>
+    None
 
     Returns:
     Array With all Strings <Array>
 */
-params ["_side"];
-private _ret = [];
+private _currentSide = side group PRA3_Player;
 
-{
-    if ((toLower _x) find (toLower str _side) == 0) then {
-        _ret pushBack _x;
-    };
-    nil
-} count allVariables GVAR(KitCache);
+//@todo check scope
 
-_ret
+("true" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str _currentSide) >> "Kits")) apply {configName _x}

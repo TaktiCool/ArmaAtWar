@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: BadGuy
+    Author: BadGuy, NetFusion
 
     Description:
     Handles "Create Squad"-Button Events
