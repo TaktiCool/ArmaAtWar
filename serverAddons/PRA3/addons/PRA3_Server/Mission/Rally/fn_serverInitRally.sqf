@@ -40,6 +40,7 @@ GVAR(rallyCache) = [];
 
                 _group setVariable [QGVAR(rallyPoint), [_placedTime, [], []], true];
                 GVAR(rallyCache) deleteAt _forEachIndex;
+                [QGVAR(updateDeploymentList), _group] call CFUNC(targetEvent);
             };
         };
     } forEach GVAR(rallyCache);
