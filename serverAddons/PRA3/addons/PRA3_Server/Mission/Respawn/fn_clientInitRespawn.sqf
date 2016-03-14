@@ -247,7 +247,7 @@ GVAR(squadIds) = [
     private _deployPosition = [403, [_currentDeploymentSelection, 0]] call CFUNC(lnbLoad);
 
     [{
-        PRA3_Player setPos _this;
+        PRA3_Player setPos _this; //@todo randomize position
     }, _deployPosition] call CFUNC(execNextFrame);
 
     setPlayerRespawnTime 0;
