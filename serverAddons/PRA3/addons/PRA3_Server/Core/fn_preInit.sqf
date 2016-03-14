@@ -21,11 +21,10 @@ private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_server" 
     _serverVersionStr = _serverVersionStr + str(_x) + ".";
     nil
 } count _serverVersionAr;
-_serverVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 2)];
+_missionVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 2)];
 _serverVersionStr = _serverVersionStr select [0, (count _serverVersionStr - 2)];
 GVAR(VersionInfo) = [[_missionVersionStr,_missionVersionAr], [_serverVersionStr, _serverVersionAr]];
 publicVariable QGVAR(VersionInfo);
-
 
 // The autoloader uses this array to get all function names.
 GVAR(functionCache) = [];
