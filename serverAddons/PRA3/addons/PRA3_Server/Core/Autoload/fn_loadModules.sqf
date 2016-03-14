@@ -36,7 +36,11 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     (_this select 1) params ["_functionVarName", "_functionCode", "_progress"];
     DUMP("Function: " + _functionVarName + " Recieved")
     // Compile the function code and assign it.
-    _functionCode = compileFinal _functionCode;
+    #ifdef isDev
+        _functionCode = compile _functionCode;
+    #else
+        _functionCode = compileFinal _functionCode;
+    #endif
     {
         _x setVariable [_functionVarName, _functionCode];
         nil
