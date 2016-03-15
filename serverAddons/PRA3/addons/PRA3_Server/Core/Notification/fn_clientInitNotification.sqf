@@ -13,7 +13,11 @@
     Returns:
     None
 */
+
+GVAR(NotificationQueue) = [];
+GVAR(LastNotification) = -1;
+GVAR(NextNotification) = -1;
+
 ["displayNotification",{
-    (_this select 0) params ["_text", "_color", "_time"];
-    hint _text;
+    (_this select 0) call CFUNC(displayNotification)
 }] call FUNC(addEventhandler);

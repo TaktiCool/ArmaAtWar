@@ -5,29 +5,39 @@ class PRA3_UI_Notification {
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 4000;
-            x = 0.5 - PX(20);
+            x = 0.5 - PX(25);
             y = PY(4.5) + safeZoneY;
-            w = PX(40);
-            h = PY(3);
+            w = PX(50);
+            h = PY(3.5);
 
             class Controls {
                 class Background : RscPicture {
                     idc = 4001;
-                    text = "media\notification_gradient.paa";
+                    text = "media\notification_gradient_ca.paa";
                     x = PX(0);
                     y = PY(0);
-                    w = PX(40);
-                    h = PY(3.5);
+                    w = PX(50);
+                    h = PY(4);
+                    colorText[] = {0.8,0.8,0.8,1};
                 };
 
-                class NotificationText : RscText {
+                class NotificationText : RscStructuredText {
                     idc = 4002;
                     shadow = 0;
                     x = PX(0);
-                    y = PY(3);
-                    w = PX(40);
-                    h = PY(0.6);
+                    y = PY(0.2);
+                    w = PX(50);
+                    h = PY(3);
                     style = ST_CENTER;
+                    text = "TEST";
+                    size = PY(2.5);
+                    class Attributes
+                    {
+                        font = "PuristaMedium";
+                        color = "#ffffff";
+                        align = "center";
+                        shadow = 1;
+                    };
                 };
             };
         };
