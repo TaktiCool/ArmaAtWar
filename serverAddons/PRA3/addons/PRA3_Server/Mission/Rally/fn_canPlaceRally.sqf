@@ -16,6 +16,9 @@
 // Check leader
 if (leader PRA3_Player != PRA3_Player) exitWith {false};
 
+// Check vehicle
+if (vehicle PRA3_Player != PRA3_Player) exitWith {false};
+
 // Check time
 private _waitTime = [QGVAR(Rally_waitTime)] call CFUNC(getSetting);
 private _oldRally = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [-_waitTime, [], [], 0]];
