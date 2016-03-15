@@ -45,7 +45,7 @@ if !(_allMarkerLocationsDis isEqualTo []) then {
 {
     if (toLower(className _x) find "hill" >= 0 || toLower(className _x) find "mount" >= 0) then {
         private _posHight = floor(getTerrainHeightASL (getPos _x));
-        private _text = (["Hill", "Mountain"] select (toLower(className _x) find "hill" >= 0)) + str(_posHight);
+        private _text = (["Mountain ", "Hill "] select (toLower(className _x) find "hill" >= 0)) + str(_posHight);
          _text breakOut "Main";
     };
 } count _allLocations;
