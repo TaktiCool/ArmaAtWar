@@ -24,6 +24,17 @@ respawn = 3;
 respawnDelay = 3;
 respawnDialog = 0;
 
+showHUD[] = {
+	true,	// ScrollMenu + BI nametags
+	true,	// Ammunition and stance
+	true,	// Vehicle radar
+	true,	// Vehicle compass
+	true,	// Tank direction indicator (not present in vanilla Arma 3)
+	false,	// Commanding menu
+	false,	// Squad management bar
+	true	// HUD Weapon Cursors
+};
+
 #include "cfgNotifications.hpp"
 
 
