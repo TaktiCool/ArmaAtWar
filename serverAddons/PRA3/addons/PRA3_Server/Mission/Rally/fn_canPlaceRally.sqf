@@ -25,8 +25,25 @@ private _oldRally = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [-_waitT
 if (time - (_oldRally select 0) < _waitTime) exitWith {false};
 
 // Check near players
+private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild)] call CFUNC(getSetting);
 private _count = {(side group _x) == playerSide} count (nearestObjects [PRA3_Player, ["CAManBase"], 10]);
+if (_count >= _nearPlayerToBuild) exitWith {false};
 
-//@todo check minDistance
+// Check near rallies
+private _minDistance = [QGVAR(Rally_minDistance)] call CFUNC(getSetting);
+private _rallyNearPlayer = false;
+{
+    private _rally = _x getVariable QGVAR(rallyPoint);
+    if (!isNil "_rally") then {
+        private _rallyPosition = _rally select 1;
+        if (!(_rallyPosition isEqualTo [])) then {
+            if ((PRA3_Player distance _rallyPosition) < _minDistance) exitWith {
+                _rallyNearPlayer = true;
+            };
+        };
+    };
+    nil
+} count allGroups;
+if (_rallyNearPlayer) exitWith {false};
 
-_count >= [QGVAR(Rally_nearPlayerToBuild)] call CFUNC(getSetting)
+true
