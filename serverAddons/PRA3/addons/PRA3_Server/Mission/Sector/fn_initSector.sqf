@@ -91,24 +91,22 @@ if (isServer) then {
             // Dont use playerSide the player side dont change if chaning the side
             private _sectorName = _sector getVariable ["fullName", ""];
             if ((side player) isEqualTo _oldSide) then {
-                ["PRA3_SectorLost", [format["Your team lost sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                [format["You lost sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
             } else {
                 if (GVAR(currentSector) isEqualTo _sector) then {
-                    if ((side player) isEqualTo _oldSide) then {
-                        ["PRA3_SectorCaptured", [format["You captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    if ((side group player) isEqualTo _newSide) then {
+                        [format["You captured sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1),_newSide],[0,1,0,1]]] call CFUNC(displayNotification);
                     } else {
-                        ["PRA3_SectorCaptured", [format["You neutralized sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                        [format["You neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1),side group player],[0,1,0,1]]] call CFUNC(displayNotification);
                     };
                 } else {
-                    if ((side player) isEqualTo _oldSide) then {
-                        ["PRA3_SectorCaptured", [format["Your team captured sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                    if ((side group player) isEqualTo _newSide) then {
+                        [format["Your team captured sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1),_newSide],[0,1,0,1]]] call CFUNC(displayNotification);
                     } else {
-                        ["PRA3_SectorCaptured", [format["Yout team neutralized sector %1", _sectorName]]] call BIS_fnc_showNotification;
+                        [format["You neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1),side group player],[0,1,0,1]]] call CFUNC(displayNotification);
                     };
                 };
             };
-
-            //hint format ["SECTOR %1 SIDE CHANGED FROM %2 TO %3",_this select 0 select 0,_this select 0 select 1,_this select 0 select 2];
 
         }] call CFUNC(addEventHandler);
 
