@@ -22,8 +22,7 @@ private _oldRally = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [-_waitT
 if (time - (_oldRally select 0) < _waitTime) exitWith {false};
 
 // Check near players
-private _currentSide = side group PRA3_Player;
-private _count = {(side group _x) == _currentSide} count (nearestObjects [PRA3_Player, ["CAManBase"], 10]);
+private _count = {(side group _x) == playerSide} count (nearestObjects [PRA3_Player, ["CAManBase"], 10]);
 
 //@todo check minDistance
 

@@ -42,17 +42,27 @@ GVAR(squadIds) = [
     "ZULU"
 ];
 
-["Respawn", {
-    setPlayerRespawnTime 10e10;
-}] call CFUNC(addEventHandler);
-
 ["Killed", {
     setPlayerRespawnTime 10e10;
 
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
+    [QGVAR(updateSquadList)] call CFUNC(localEvent);
     [QGVAR(updateRoleList)] call CFUNC(localEvent);
     [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+["groupChanged", {
+    [QGVAR(updateSquadList)] call CFUNC(globalEvent);
+    [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+["playerSideChanged", {
+    [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+["leaderChanged", {
+    [QGVAR(updateSquadMemberButtons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateSquadMemberButtons), {
@@ -120,7 +130,7 @@ GVAR(squadIds) = [
 
     lnbClear 206;
     {
-        if (side _x == side group PRA3_Player) then {
+        if (side _x == playerSide) then {
             private _groupId = _x getVariable [QGVAR(Id), ""];
             if (_groupId != "") then {
                 private _rowNumber = lnbAddRow [206, [_groupId select [0, 1], _x getVariable [QGVAR(Description), str _x], str (count units _x) + " / 9"]];
@@ -136,7 +146,7 @@ GVAR(squadIds) = [
         nil
     } count allGroups;
 
-    ctrlSetText [203, (GVAR(squadIds) - (allGroups select {side _x == side group PRA3_Player} apply {_x getVariable QGVAR(Id)})) select 0 select [0, 1]];
+    ctrlSetText [203, (GVAR(squadIds) - (allGroups select {side _x == playerSide} apply {_x getVariable QGVAR(Id)})) select 0 select [0, 1]];
 
     [QGVAR(updateSquadMemberList)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
 }] call CFUNC(addEventHandler);
@@ -146,11 +156,8 @@ GVAR(squadIds) = [
 
     if (!dialog) exitWith {};
 
-    private _currentSide = side group PRA3_Player;
-    ctrlSetText [102, (missionNamespace getVariable [format [QGVAR(Flag_%1), _currentSide], ""])];
-    ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), _currentSide], ""])];
-
-    [QGVAR(updateSquadList)] call CFUNC(localEvent);
+    ctrlSetText [102, (missionNamespace getVariable [format [QGVAR(Flag_%1), playerSide], ""])];
+    ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), playerSide], ""])];
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateWeaponList), {
@@ -186,8 +193,6 @@ GVAR(squadIds) = [
     } count (call FUNC(getAllKits));
 
     lnbSetCurSelRow [303, 0];
-
-    [QGVAR(updateWeaponList)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateMapControl), {
@@ -211,7 +216,7 @@ GVAR(squadIds) = [
 
     lnbClear 403;
 
-    private _base = ["base_" + (str side group PRA3_Player)] call FUNC(getSector);
+    private _base = ["base_" + (str playerSide)] call FUNC(getSector);
     private _rowNumber = lnbAddRow [403, ["BASE"]];
     [403, [_rowNumber, 0], getPos _base] call CFUNC(lnbSave);
 
@@ -223,8 +228,6 @@ GVAR(squadIds) = [
     };
 
     lnbSetCurSelRow [403, 0];
-
-    [QGVAR(updateMapControl)] call CFUNC(localEvent); //@todo may be called twice due to lnbSetCurSelRow
 }] call CFUNC(addEventHandler);
 
 [QGVAR(requestSpawn), {
@@ -246,10 +249,13 @@ GVAR(squadIds) = [
     if (_currentDeploymentSelection < 0) exitWith {systemChat "Select spawn point!"};
     private _deployPosition = [403, [_currentDeploymentSelection, 0]] call CFUNC(lnbLoad);
 
-    [{
-        PRA3_Player setPos _this; //@todo randomize position
-    }, _deployPosition] call CFUNC(execNextFrame);
+    private _oldUnit = PRA3_Player;
+    private _newUnit = (group PRA3_Player) createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "playerClass"), _deployPosition, [], 0, "NONE"]; //@todo randomize position
+    selectPlayer _newUnit;
 
-    setPlayerRespawnTime 0;
+    ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
+
+    deleteVehicle _oldUnit;
+
     closeDialog 2;
 }] call CFUNC(addEventHandler);

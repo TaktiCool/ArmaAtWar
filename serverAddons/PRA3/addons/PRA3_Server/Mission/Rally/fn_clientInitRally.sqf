@@ -23,7 +23,7 @@
     [{
         if (!(call FUNC(canPlaceRally))) exitWith {};
 
-        private _squadRallyPointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str side group PRA3_Player) >> "squadRallyPointObjects");
+        private _squadRallyPointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
         private _position = PRA3_Player modelToWorld [0,1,0];
 
         private _oldRally = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [0, [], [], 0]];

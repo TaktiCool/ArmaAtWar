@@ -18,6 +18,7 @@
 PRA3_Player = player;
 GVAR(oldGear) = PRA3_Player call CFUNC(getAllGear);
 GVAR(OldVisibleMap) = false;
+GVAR(OldPLayerSide) = playerSide;
 [{
     // There is no command to get the current player but BI has an variable in mission namespace we can use.
     private _currentPlayer = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
@@ -34,11 +35,16 @@ GVAR(OldVisibleMap) = false;
     };
 
     _data = visibleMap;
-    if (!_data isEqualTo GVAR(OldVisibleMap)) then {
+    if (!(_data isEqualTo GVAR(OldVisibleMap))) then {
+        ["visibleMapChanged", [_data, GVAR(OldVisibleMap)]] call FUNC(localEvent);
         GVAR(OldVisibleMap) = _data;
-        ["visibleMapChanged", [PRA3_Player, _data]] call FUNC(localEvent);
     };
 
+    _data = playerSide;
+    if (!(_data isEqualTo GVAR(OldPLayerSide))) then {
+        ["playerSideChanged", [_data, GVAR(OldPLayerSide)]] call FUNC(localEvent);
+        GVAR(OldPLayerSide) = _data;
+    };
 }] call CFUNC(addPerFrameHandler);
 
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.
@@ -67,7 +73,7 @@ GVAR(OldVisibleMap) = false;
 
         // If the value changed trigger the event and update the value in out variable.
         _currentValue = call _code;
-        if (!(_oldValue isEqualTo _currentValue) && {alive PRA3_Player}) then {
+        if (!(_oldValue isEqualTo _currentValue)) then {
             [_name + "Changed", [_currentValue, _oldValue]] call FUNC(localEvent);
             GVAR(EventNamespace) setVariable [_name, _currentValue];
         };
@@ -80,6 +86,7 @@ GVAR(OldVisibleMap) = false;
     "vehicle",
     "side",
     "group",
+    "leader",
     "getConnectedUAV",
     "currentVisionMode"
 ];

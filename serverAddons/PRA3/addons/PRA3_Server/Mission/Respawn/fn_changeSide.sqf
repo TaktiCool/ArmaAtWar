@@ -13,18 +13,17 @@
     Returns:
     -
 */
-private _currentSide = side group PRA3_Player;
-private _otherSide = call compile ((GVAR(competingSides) select { _x != str _currentSide }) select 0);
+private _newSide = call compile ((GVAR(competingSides) select { _x != str playerSide }) select 0);
 
 [{
-    params ["_currentSide", "_otherSide"];
-
     //@todo think about restrictions
 
-    // This does not update playerSide (at least until next spawn)
-    [PRA3_Player] join (createGroup _otherSide);
+    private _oldUnit = PRA3_Player;
+    private _newUnit = (createGroup _this) createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _this) >> "playerClass"), [-1000, -1000, 0], [], 0, "NONE"];
+    selectPlayer _newUnit;
+    _newUnit setDamage 1;
+    ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
+    ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 
-    [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
-    [QGVAR(updateSquadList), str _currentSide] call CFUNC(targetEvent);
-    [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
-}, [_currentSide, _otherSide]] call CFUNC(mutex);
+    deleteVehicle _oldUnit;
+}, _newSide] call CFUNC(mutex);

@@ -26,12 +26,8 @@ if (_selectedGroup != group PRA3_Player) then {
     [{
         if ((count units _this) < 9) then {
             [PRA3_Player] join _this;
-            [QGVAR(updateSquadList), str side group PRA3_Player] call CFUNC(targetEvent);
-            [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
         };
     }, _selectedGroup] call CFUNC(mutex);
 } else {
     [PRA3_Player] join grpNull;
-    [QGVAR(updateSquadList), str side group PRA3_Player] call CFUNC(targetEvent);
-    [QGVAR(updateDeploymentList)] call CFUNC(localEvent);
 };

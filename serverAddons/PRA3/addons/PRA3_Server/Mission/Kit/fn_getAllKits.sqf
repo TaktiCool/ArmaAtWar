@@ -13,8 +13,6 @@
     Returns:
     Array With all Strings <Array>
 */
-private _currentSide = side group PRA3_Player;
-
 //@todo check scope
 
-("true" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str _currentSide) >> "Kits")) apply {configName _x}
+("true" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}

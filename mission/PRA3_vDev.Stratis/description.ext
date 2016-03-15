@@ -57,6 +57,7 @@ class PRA3 {
     class Sides {
         class West {
             name = "NATO";
+            playerClass = "B_Soldier_F";
             flag = "a3\data_f\Flags\flag_nato_co.paa";
             color[] = {0, 0.3, 0.8, 1};
             squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
@@ -161,6 +162,7 @@ class PRA3 {
         };
         class East : West {
             name = "CSAT";
+            playerClass = "O_Soldier_F";
             flag = "a3\data_f\Flags\flag_csat_co.paa";
             color[] = {0.5, 0, 0, 1};
             squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
