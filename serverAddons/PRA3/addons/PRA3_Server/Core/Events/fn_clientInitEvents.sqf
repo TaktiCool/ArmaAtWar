@@ -16,6 +16,9 @@
 
 // This is needed to provide a player object for zeus controlled units. Important to ensure that player is not null here (which is done in autoload).
 PRA3_Player = player;
+GVAR(oldGear) = PRA3_Player call CFUNC(getAllGear);
+GVAR(OldPlayerVehicle) = vehicle PRA3_Player;
+GVAR(OldVisibleMap) = false;
 [{
     // There is no command to get the current player but BI has an variable in mission namespace we can use.
     private _currentPlayer = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
@@ -24,6 +27,28 @@ PRA3_Player = player;
         ["playerChanged", [_currentPlayer, PRA3_Player]] call FUNC(localEvent);
         PRA3_Player = _currentPlayer;
     };
+
+    private _current = PRA3_Player call CFUNC(getAllGear);
+    if !(_current isEqualTo GVAR(oldGear)) then {
+        ["playerChanged"] call FUNC(localEvent);
+        GVAR(oldGear) = _current;
+    };
+
+    // "playerVehicleChanged" event
+    _data = vehicle PRA3_Player;
+    if !(_data isEqualTo GVAR(OldPlayerVehicle)) then {
+        // Raise ACE event locally
+        GVAR(OldPlayerVehicle) = _data;
+        ["playerVehicleChanged", [PRA3_Player, _data]] call FUNC(localEvent);
+    };
+
+    _data = visibleMap;
+    if (!_data isEqualTo GVAR(OldVisibleMap)) then {
+        // Raise ACE event locally
+        GVAR(OldVisibleMap) = _data;
+        ["visibleMapChanged", [PRA3_Player, _data]] call FUNC(localEvent);
+    };
+
 }] call CFUNC(addPerFrameHandler);
 
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.

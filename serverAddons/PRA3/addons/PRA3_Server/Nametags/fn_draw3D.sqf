@@ -14,16 +14,16 @@
     None
 */
 PERFORMANCECOUNTER_START(Nametags)
-if ((isNull PRA3_Player) || {!alive PRA3_Player} || {!isNull (findDisplay 49)}) exitWith {};
+if ((isNull PRA3_Player) || !alive PRA3_Player || !isNull (findDisplay 49)) exitWith {};
 private _playerPos = positionCameraToWorld [0, 0, 0];
 private _targets = _playerPos nearObjects ["CAManBase", 13.3];
 if (!surfaceIsWater _playerPos) then {
     _playerPos = ATLtoASL _playerPos;
 };
-private _playerSide = PRA3_Player getVariable [QCGVAR(side), civilian];
+private _playerSide = side (group PRA3_Player);
 {
     private _target = effectiveCommander _x;
-    private _targetSide = (_target getVariable [QCGVAR(side), civilian]);
+    private _targetSide = side (group _target);
     if (!(_x in allUnitsUAV) && (isPlayer _target || _target isKindOf "CAManBase") && (_target != PRA3_Player) && alive _target && alive PRA3_Player && _playerSide == _targetSide || civilian == _targetSide || _playerSide == civilian) then {
         private _targetPos = visiblePositionASL _target;
         private _distance = _targetPos distance _playerPos;
