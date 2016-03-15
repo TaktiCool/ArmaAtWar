@@ -18,6 +18,13 @@
 params ["_show","_sector"];
 
 if (_show) then {
+    if !(isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull])) exitWith {
+        [{
+            [true, _this select 1] call FUNC(showCaptureStatus);
+        }, {
+            (isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull]))
+        }, _this] call CFUNC(waitUntil);
+    };
     _sectorObject = [_sector] call FUNC(getSector);
     ([QEGVAR(UI,CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QEGVAR(UI,CaptureStatus),"PLAIN"];
     if (GVAR(captureStatusPFH) != -1) then {
@@ -31,7 +38,7 @@ if (_show) then {
         private _side = _sector getVariable ["side",sideUnknown];
         private _progress = _sector getVariable ["captureProgress",0];
         private _rate = _sector getVariable ["captureRate",0];
-        private _lastTick = _sector getVariable ["lastCaptureTick",serverTime];
+        private _lastTick = _sector getVariable ["lastCaptureTick", serverTime];
 
         private _dialog = uiNamespace getVariable QEGVAR(UI,CaptureStatus);
 
