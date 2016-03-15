@@ -18,7 +18,7 @@ disableAI = 1;
 author = "NetFusion, Hoeginson, BadGuy, joko // Jonas, PRA3 Team";
 onLoadName = "Project Reality:Arma 3";
 onLoadMission = "Project Reality: Arma III";
-loadScreen =  "media\prlogoBLACK.paa";
+loadScreen =  "media\LoadingScreen.jpg";
 
 respawn = 3;
 respawnDelay = 3;
