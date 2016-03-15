@@ -39,6 +39,8 @@ if (!isNull _vehicle) then {
 
         GVAR(VehicleRespawnAllVehicles) pushBack _vehicle;
 
+        private _side = _vehicle getVariable [QGVAR(side),sideUnknown];
+
         [QGVAR(vehicleRespawnAvailable), _side, _vehicle] call CFUNC(targetEvent);
 
     }, _condition, _this] call CFUNC(waitUntil);

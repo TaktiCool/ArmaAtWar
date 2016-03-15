@@ -18,6 +18,6 @@
     _args params ["_vehicle"];
 
     private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
-    ["PRA3_VehicleRespawnAvailable", [ getText (_vehicleConfig >> "displayName"), getText (_vehicleConfig >> "picture") ]] call BIS_fnc_showNotification;
+    [format["New vehicle available: <img size='0.7' color='#ffffff' image='%2'/> %1", getText (_vehicleConfig >> "displayName"), getText (_vehicleConfig >> "picture") ]] call CFUNC(displayNotification);
 
 }] call CFUNC(addEventHandler);
