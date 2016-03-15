@@ -66,8 +66,8 @@ EPREP(Events,serverEvent)
 
 // Base Eventhandler
 EPREP(Events,clientInitEvents)
-EPREP(Events,serverInit)
-EPREP(Events,hcInit)
+EPREP(Events,serverInitEvents)
+EPREP(Events,hcInitEvents)
 
 // Interaction
 EPREP(Interaction,addAction)
