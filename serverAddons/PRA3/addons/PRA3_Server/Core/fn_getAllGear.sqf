@@ -44,7 +44,6 @@ if (isNull _unit) exitWith {[
     "", ["","","",""], [],
     "", ["","","",""], [],
     [],
-    "",
     ""
 ]};
 
@@ -58,5 +57,5 @@ if (isNull _unit) exitWith {[
     secondaryWeapon _unit, secondaryWeaponItems _unit, secondaryWeaponMagazine _unit,
     handgunWeapon _unit, handgunItems _unit, handgunMagazine _unit,
     assignedItems _unit,
-    binocular _unit,
+    binocular _unit
 ]
