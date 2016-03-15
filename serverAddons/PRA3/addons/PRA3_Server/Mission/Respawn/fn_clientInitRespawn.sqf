@@ -161,7 +161,12 @@ GVAR(squadIds) = [
     ctrlSetText [103, (missionNamespace getVariable [format [QGVAR(SideName_%1), playerSide], ""])];
 }] call CFUNC(addEventHandler);
 
+GVAR(selectWeaponTabIndex) = 0;
 [QGVAR(updateWeaponList), {
+    (_this select 0) params ["_control", "_entryIndex"];
+    if (!isNil "_entryIndex") then {
+        GVAR(selectWeaponTabIndex) = _entryIndex;
+    };
     disableSerialization;
 
     if (!dialog) exitWith {};
@@ -170,8 +175,7 @@ GVAR(squadIds) = [
 
     if (_currentSelection >= 0) then {
         private _kitName = [303, [_currentSelection, 0]] call CFUNC(lnbLoad);
-        DUMP(ctrlText 304)
-        private _kitDetails = [_kitName, [["primaryWeapon", ""]]] call FUNC(getKitDetails);
+        private _kitDetails = [_kitName, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select GVAR(selectWeaponTabIndex), ""]]] call FUNC(getKitDetails);
         ctrlSetText [306, getText (configFile >> "CfgWeapons" >> _kitDetails select 0 >> "picture")];
         ctrlSetText [307, getText (configFile >> "CfgWeapons" >> _kitDetails select 0 >> "displayName")];
     };
@@ -253,7 +257,9 @@ GVAR(squadIds) = [
     private _oldUnit = PRA3_Player;
     private _newUnit = (group PRA3_Player) createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "playerClass"), _deployPosition, [], 0, "NONE"]; //@todo randomize position
     selectPlayer _newUnit;
+    ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
     PRA3_Player = _newUnit;
+
     [_kitName] call FUNC(applyKit);
 
     ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
@@ -261,5 +267,6 @@ GVAR(squadIds) = [
     deleteVehicle _oldUnit;
 
     closeDialog 2;
+    GVAR(selectWeaponTabIndex) = 0;
     showHUD [true,true,true,true,true,true,true,true];
 }] call CFUNC(addEventHandler);

@@ -263,7 +263,7 @@ class PRA3_UI_RespawnScreen {
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
 
-                    onToolBoxSelChanged = "[""PRA3_mission_updateWeaponList""] call PRA3_Core_fnc_localEvent;"
+                    onToolBoxSelChanged = "[""PRA3_mission_updateWeaponList"", _this] call PRA3_Core_fnc_localEvent;"
                 }
 
                 class WeaponBackground : RscPicture {

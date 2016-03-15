@@ -21,6 +21,8 @@ private _newSide = call compile ((GVAR(competingSides) select { _x != str player
     private _oldUnit = PRA3_Player;
     private _newUnit = (createGroup _this) createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _this) >> "playerClass"), [-1000, -1000, 0], [], 0, "NONE"];
     selectPlayer _newUnit;
+    ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
+
     _newUnit setDamage 1;
     ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
