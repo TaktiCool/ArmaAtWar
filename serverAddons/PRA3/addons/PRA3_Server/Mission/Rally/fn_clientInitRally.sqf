@@ -45,7 +45,7 @@
 
         (group PRA3_Player) setVariable [QGVAR(rallyPoint), [time, _position, _spawnedObjects, [QGVAR(Rally_spawnCount)] call CFUNC(getSetting)], true];
         [QGVAR(rallyPlaced), group PRA3_Player] call CFUNC(serverEvent);
-        ["", group PRA3_Player, [format["Your Team Leader Placed a Rally Near %1", text (nearestLocation [PRA3_Player, ""])], [1,1,1,1]]] call CFUNC(targetEvent);
+        ["displayNotification", group PRA3_Player, [format["Your Team Leader Placed a Rally Near %1", text (nearestLocation [PRA3_Player, ""])], [1,1,1,1]]] call CFUNC(targetEvent);
         [QGVAR(updateDeploymentList), group PRA3_Player] call CFUNC(targetEvent);
     }] call CFUNC(mutex);
 }] call CFUNC(addAction);
