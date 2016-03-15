@@ -75,7 +75,7 @@ if (hasInterface) then {
         "CAManBase",
         5,
         {
-            _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
+            _target getVariable [QGVAR(bloodLoss), 0] == 0 &&
             {!(_target getVariable [QGVAR(isUnconscious), false])} &&
             {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
             {"Medikit" in (items PRA3_Player) || {"Medikit" in (items _target)}}
@@ -95,7 +95,7 @@ if (hasInterface) then {
         "CAManBase",
         5,
         {
-            _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
+            _target getVariable [QGVAR(bloodLoss), 0] == 0 &&
             _target getVariable [QGVAR(isUnconscious), false] &&
             {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])}
         }, {
@@ -109,6 +109,9 @@ if (hasInterface) then {
             }, _reviveSpeed, cursorObject] call CFUNC(wait);
         }
     ] call CFUNC(addAction);
+
+
+
     /*
     [{
         hint "TEST";
