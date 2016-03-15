@@ -44,50 +44,19 @@ removeGoggles PRA3_Player;
 [PRA3_Player, _backpack] call FUNC(addContainer);
 PRA3_Player addHeadgear _headGear;
 
-// Helper functions
-private _addMagazineFnc = {
-    params ["_className", "_count"];
-    if (_className != "" && _count > 0) then {
-        for "_i" from 1 to _count do {
-            PRA3_Player addMagazine _className;
-        };
-    };
-};
-
-private _addWeaponFnc = {
-    params ["_className", "_magazine", "_count"];
-    if (_className != "") then {
-        PRA3_Player addWeapon _className;
-        [_magazine, _count] call _addMagazineFnc;
-    };
-};
-
-private _addItemFnc = {
-    params ["_className", ["_count", 1]];
-    if (_className != "" && _count > 0) then {
-        for "_i" from 1 to _count do {
-            if (PRA3_Player canAdd _className) then {
-                PRA3_Player addItem _className;
-            } else {
-                hint format ["Item %1 can't added because Gear is Full", _className];
-            };
-        };
-    };
-};
-
 // Primary Weapon
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call _addWeaponFnc;
-[_primaryMagazineTracer, _primaryMagazineTracerCount] call _addMagazineFnc;
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call DFUNC(addWeapon);
+[_primaryMagazineTracer, _primaryMagazineTracerCount] call DFUNC(addMagazine);
 {
     PRA3_Player addPrimaryWeaponItem _x;
     nil
 } count (_primaryAttachments select {_x != ""});
 
 // Secondary Weapon
-[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call _addWeaponFnc;
+[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call DFUNC(addWeapon);
 
 // Handgun Weapon
-[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call _addWeaponFnc;
+[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call DFUNC(addWeapon);
 
 // Assigned items
 {
@@ -97,7 +66,7 @@ private _addItemFnc = {
 
 // Items
 {
-    _x call _addItemFnc;
+    _x call DFUNC(addItem);
     nil
 } count _items;
 
