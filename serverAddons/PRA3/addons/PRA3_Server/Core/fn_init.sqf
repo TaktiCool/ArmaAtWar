@@ -5,6 +5,14 @@ GVAR(cachedCall) = call FUNC(createNamespace);
 PRA3_Player setVariable [QGVAR(side), playerSide];
 PRA3_Player setVariable [QGVAR(playerName), profileName, true];
 
+GVAR(allLocationTypes) = [];
+{
+    GVAR(allLocationTypes) pushBack (configName _x);
+    nil
+} count ("true" configClasses (configFile >> "CfgLocationTypes"));
+
+GVAR(markerLocations) = getArray (missionConfigFile >> "PRA3" >> "markerLocation");
+GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, markerText _x]};
 if (hasInterface) then {
     [{
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
