@@ -29,7 +29,7 @@ if (_target isEqualType "") exitWith {
     // if the string a Class in CfgVehicles then get all objects of the kind and send the code it them
     if ((toLower _target) in ["west", "east", "resistance", "civilian"]) then {
         {
-            if (_target isEqualTo (str (side _x))) then {
+            if (_target isEqualTo (str (side (group _x)))) then {
                 _targets pushBack _x;
             };
             nil
