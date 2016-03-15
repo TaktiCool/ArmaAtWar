@@ -44,6 +44,7 @@ GVAR(squadIds) = [
 
 ["Killed", {
     setPlayerRespawnTime 10e10;
+    showHUD [true,true,true,true,true,true,false,true];
 
     createDialog QEGVAR(UI,RespawnScreen);
     [QGVAR(updateTeamInfo)] call CFUNC(localEvent);
@@ -252,10 +253,13 @@ GVAR(squadIds) = [
     private _oldUnit = PRA3_Player;
     private _newUnit = (group PRA3_Player) createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "playerClass"), _deployPosition, [], 0, "NONE"]; //@todo randomize position
     selectPlayer _newUnit;
+    PRA3_Player = _newUnit;
+    [_kitName] call FUNC(applyKit);
 
     ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
 
     deleteVehicle _oldUnit;
 
     closeDialog 2;
+    showHUD [true,true,true,true,true,true,true,true];
 }] call CFUNC(addEventHandler);

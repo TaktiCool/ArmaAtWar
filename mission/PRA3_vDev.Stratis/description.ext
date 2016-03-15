@@ -24,17 +24,6 @@ respawn = 3;
 respawnDelay = 3;
 respawnDialog = 0;
 
-showHUD[] = {
-	true,	// ScrollMenu + BI nametags
-	true,	// Ammunition and stance
-	true,	// Vehicle radar
-	true,	// Vehicle compass
-	true,	// Tank direction indicator (not present in vanilla Arma 3)
-	false,	// Commanding menu
-	false,	// Squad management bar
-	true	// HUD Weapon Cursors
-};
-
 #include "cfgNotifications.hpp"
 
 
@@ -94,11 +83,9 @@ class PRA3 {
                     primaryWeapon = "arifle_MX_F";
                     primaryAttachments[] = {"optic_Aco","acc_pointer_IR"};
                     primaryMagazine = "30Rnd_65x39_caseless_mag";
-                    primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
                     primaryMagazineCount = 5;
+                    primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
                     primaryMagazineTracerCount = 3;
-                    primarySecondMagazine = "";
-                    primarySecondMagazineCount = 0;
 
                     // Secondary weapon
                     secondaryWeapon = "";
@@ -139,8 +126,8 @@ class PRA3 {
                     primaryWeapon = "LMG_Mk200_F";
                     primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
                     primaryMagazine = "200Rnd_65x39_cased_Box";
-                    primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
                     primaryMagazineCount = 2;
+                    primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
                     primaryMagazineTracerCount = 3;
                     backpack = "B_AssaultPack_rgr";
                     items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
@@ -150,8 +137,7 @@ class PRA3 {
                     globalMaxCount = 99;
                     displayName = "Grenadier";
                     primaryWeapon = "arifle_MX_GL_F";
-                    primarySecondMagazine = "1Rnd_HE_Grenade_shell";
-                    primarySecondMagazineCount = 6;
+                    items[] += {{"1Rnd_HE_Grenade_shell", 6}};
                 };
                 class Medic: Rifleman {
                     groupMaxCount = 2;

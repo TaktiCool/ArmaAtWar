@@ -2,83 +2,104 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
-    Apply Kit to Unit
+    Apply Kit to player
 
     Parameter(s):
     0: Kit Name <String>
-    1: Kit Side <String>
-    2: Unit <Object>
 
     Returns:
     None
 */
-params ["_name", "_side", "_unit"];
+params ["_kitName"];
 
-private _KitVar = format ["%1_%2", _side, _name];
-private _var = GVAR(KitCache) getVariable _KitVar;
-
-if (isNil "_var") exitWith {};
-
-_var params ["_display", "_realKit", "_attributes"];
-_display params ["_displayName", "_icon"];
-_realKit params [
-    "_primaryWeapon", "_primaryAttachments", "_primaryMagazine", "_primaryMagazineTracer",
-    "_primaryMagazineCount", "_primaryMagazineTracerCount","_secondaryWeapon",
-    "_secondaryMagazine", "_secondaryMagazineCount", "_handgunWeapon","_handgunMagazine",
-    "_handgunMagazineCount", "_uniform", "_vest", "_backpack", "_headGear","_assignedItems", "_items"
+private _kitDetails = [_kitName, [
+    ["uniform", ""], ["vest", ""], ["backpack", ""], ["headGear", ""],
+    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineCount", 0],
+    ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
+    ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
+    ["assignedItems", []],
+    ["items", []]
+]] call FUNC(getKitDetails);
+_kitDetails params [
+    "_uniform", "_vest", "_backpack", "_headGear",
+    "_primaryWeapon", "_primaryAttachments", "_primaryMagazine", "_primaryMagazineCount", "_primaryMagazineTracer", "_primaryMagazineTracerCount",
+    "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount",
+    "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
+    "_assignedItems",
+    "_items"
 ];
 
 // remove all Items
-removeAllAssignedItems _unit;
-removeallWeapons _unit;
-removeHeadgear _unit;
-{_unit removeMagazine _x; nil} count magazines _unit;
+removeAllAssignedItems PRA3_Player;
+removeAllWeapons PRA3_Player;
+removeHeadgear PRA3_Player;
+removeGoggles PRA3_Player;
 
-_unit setVariable ["PRA3_Kit_className", _displayName, true];
-_unit setVariable ["PRA3_Kit_classIcon", _icon, true];
-_unit setVariable ["PRA3_Kit_class", _KitVar, true];
+// add container
+[PRA3_Player, _uniform] call FUNC(addContainer);
+[PRA3_Player, _vest] call FUNC(addContainer);
+[PRA3_Player, _backpack] call FUNC(addContainer);
+PRA3_Player addHeadgear _headGear;
 
-private _names = ["isMedic", "isEngineer", "isPilot", "isVehicleCrew", "isLeader"];
-{
-    _unit setVariable [format ["PRA3_Kit_classInfo_%1", _names select _forEachIndex], _x, true];
-} forEach _attributes;
+// Helper functions
+private _addMagazineFnc = {
+    params ["_className", "_count"];
+    if (_className != "" && _count > 0) then {
+        for "_i" from 1 to _count do {
+            PRA3_Player addMagazine _className;
+        };
+    };
+};
 
-// add Uniform
-[_unit, _uniform] call FUNC(addContainer);
-[_unit, _vest] call FUNC(addContainer);
-[_unit, _backpack] call FUNC(addContainer);
-_unit addHeadgear _headGear;
+private _addWeaponFnc = {
+    params ["_className", "_magazine", "_count"];
+    if (_className != "") then {
+        PRA3_Player addWeapon _className;
+        [_magazine, _count] call _addMagazineFnc;
+    };
+};
+
+private _addItemFnc = {
+    params ["_className", ["_count", 1]];
+    if (_className != "" && _count > 0) then {
+        for "_i" from 1 to _count do {
+            if (PRA3_Player canAdd _className) then {
+                PRA3_Player addItem _className;
+            } else {
+                hint format ["Item %1 can't added because Gear is Full", _className];
+            };
+        };
+    };
+};
 
 // Primary Weapon
-[_unit, _primaryWeapon, _primaryMagazine, _primaryMagazineCount] call FUNC(addWeapon);
-[_unit, _primaryMagazineTracer, _primaryMagazineTracerCount] call FUNC(addMagazine);
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call _addWeaponFnc;
+[_primaryMagazineTracer, _primaryMagazineTracerCount] call _addMagazineFnc;
 {
-    [_unit, _x] call FUNC(addPrimaryAttachment);
+    PRA3_Player addPrimaryWeaponItem _x;
     nil
-} count _primaryAttachments;
+} count (_primaryAttachments select {_x != ""});
 
 // Secondary Weapon
-[_unit, _secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call FUNC(addWeapon);
+[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call _addWeaponFnc;
 
 // Handgun Weapon
-[_unit, _handgunWeapon, _handgunMagazine, _handgunMagazineCount] call FUNC(addWeapon);
+[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call _addWeaponFnc;
+
+// Assigned items
 {
-    _unit linkItem _x;
+    PRA3_Player linkItem _x;
     nil
 } count _assignedItems;
 
+// Items
 {
-    if (_x isEqualType "") then {
-        [_unit, _x] call FUNC(addItem);
-    } else {
-        _x params ["_className", "_count"];
-        [_unit, _className, _count] call FUNC(addItem);
-    };
+    _x call _addItemFnc;
     nil
 } count _items;
 
 // reload Weapon
-reload _unit;
+reload PRA3_Player;

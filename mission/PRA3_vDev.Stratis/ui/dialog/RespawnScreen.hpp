@@ -162,7 +162,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class SquadMemberList : RscListNBox { //@todo move down
+                class SquadMemberList : RscListNBox {
                     idc = 209;
                     x = PX(0);
                     y = PY(GHEIGHT-18.3);
