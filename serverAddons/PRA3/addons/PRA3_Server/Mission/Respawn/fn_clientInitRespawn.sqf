@@ -281,6 +281,12 @@ GVAR(selectWeaponTabIndex) = 0;
         ["selectLeader", [_oldGroup, _newUnit]] call CFUNC(serverEvent);
     };
 
+    // Copy all variables to the new object
+    {
+        _newUnit setVariable [_x, PRA3_Player getVariable _x];
+        nil
+    } count (allVariables PRA3_Player);
+
     // Move the player to the unit
     selectPlayer _newUnit;
     ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);

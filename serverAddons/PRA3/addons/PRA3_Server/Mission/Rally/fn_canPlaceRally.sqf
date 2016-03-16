@@ -27,7 +27,7 @@ if (time - (_oldRally select 0) < _waitTime) exitWith {false};
 // Check near players
 private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild)] call CFUNC(getSetting);
 private _count = {(side group _x) == playerSide} count (nearestObjects [PRA3_Player, ["CAManBase"], 10]);
-if (_count >= _nearPlayerToBuild) exitWith {false};
+if (_count < _nearPlayerToBuild) exitWith {false};
 
 // Check near rallies
 private _minDistance = [QGVAR(Rally_minDistance)] call CFUNC(getSetting);
