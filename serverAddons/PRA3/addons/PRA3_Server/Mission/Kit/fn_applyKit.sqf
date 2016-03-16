@@ -72,3 +72,5 @@ PRA3_Player addHeadgear _headGear;
 
 // reload Weapon
 reload PRA3_Player;
+
+PRA3_Player setVariable [QGVAR(Kit), _kitName];

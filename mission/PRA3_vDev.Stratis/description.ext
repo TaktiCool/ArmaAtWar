@@ -54,6 +54,54 @@ class PRA3 {
         "sector_13"
     };
 
+    class GroupTypes {
+        class Rifle {
+            displayName = "Rifle";
+            groupSize = 9;
+            requiredGroups = 0;
+            requiredPlayers = 1;
+        };
+        class Weapon: Rifle {
+            displayName = "Heavy";
+            requiredGroups = 2;
+            requiredPlayers = 15;
+        };
+        class Recon {
+            displayName = "Recon";
+            groupSize = 4;
+            requiredGroups = 3;
+            requiredPlayers = 20;
+        };
+        class Vehicle {
+            displayName = "Crew";
+            groupSize = 4;
+            requiredGroups = 1;
+            requiredPlayers = 10;
+        };
+        class Helicopter: Vehicle {
+            displayName = "Heli";
+            requiredPlayers = 15;
+        };
+        class Mortar {
+            displayName = "Mortar";
+            groupSize = 3;
+            requiredGroups = 3;
+            requiredPlayers = 20;
+        };
+    };
+
+    class KitGroups {
+        class Unlimited {
+            requiredGroupMembersPerKit = 1;
+        };
+        class Limited {
+            requiredGroupMembersPerKit = 2;
+        };
+        class Specialized {
+            requiredGroupMembersPerKit = 4;
+        };
+    };
+
     class Sides {
         class West {
             name = "NATO";
@@ -63,21 +111,21 @@ class PRA3 {
             squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
 
             class Kits {
-
                 class Rifleman {
-                    groupMaxCount = 99;
-                    globalMaxCount = 99;
                     scope = 1;
+                    kitGroup = "Common";
+
+                    // Display
                     displayName = "Rifleman";
                     icon = "";
                     UIIcon = "";
 
                     // Special attributes
+                    isLeader = 0;
                     isMedic = 0;
                     isEngineer = 0;
                     isPilot = 0;
                     isVehicleCrew = 0;
-                    isLeader = 0;
 
                     // Primary weapon
                     primaryWeapon = "arifle_MX_F";
@@ -107,22 +155,26 @@ class PRA3 {
                     assignedItems[] = {"ItemWatch", "ItemCompass", "ItemRadio", "ItemMap", "ItemGPS"};
                     items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
                 };
-                class Leader: Rifleman {
-                    groupMaxCount = 1;
-                    globalMaxCount = 99;
+                class Officer: Rifleman {
+                    kitGroup = "Common";
+
                     displayName = "Squad Leader";
+
+                    requiredGroupMembersPerKit = 2;
+
                     isLeader = 1;
+
                     assignedItems[] += {"Binocular"};
                     primaryAttachments[] = {"optic_Hamr","acc_pointer_IR"};
                     backpack = "B_AssaultPack_rgr";
                     items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
                     icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
-
                 };
                 class AutomaticRifleman: Rifleman {
-                    groupMaxCount = 2;
-                    globalMaxCount = 99;
+                    kitGroup = "Enhanced";
+
                     displayName = "Automatic Rifleman";
+
                     primaryWeapon = "LMG_Mk200_F";
                     primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
                     primaryMagazine = "200Rnd_65x39_cased_Box";
@@ -133,27 +185,59 @@ class PRA3 {
                     items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
                 };
                 class Grenadier: Rifleman {
-                    groupMaxCount = 2;
-                    globalMaxCount = 99;
+                    kitGroup = "Enhanced";
+
                     displayName = "Grenadier";
+
                     primaryWeapon = "arifle_MX_GL_F";
                     items[] += {{"1Rnd_HE_Grenade_shell", 6}};
                 };
                 class Medic: Rifleman {
-                    groupMaxCount = 2;
-                    globalMaxCount = 99;
                     displayName = "Medic";
+
+                    requiredGroupMembersPerKit = 2;
+
                     isMedic = 1;
+
                     primaryWeapon = "arifle_MXC_F";
                     backpack = "";
                     assignedItems[] += {};
                     icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
                 };
-                class AntiTank: Rifleman {
-                    groupMaxCount = 2;
-                    globalMaxCount = 99;
-                    displayName = "AT Rifleman";
-                    assignedItems[] += {};
+                class LightAntiTank: Rifleman {
+                    kitGroup = "Enhanced";
+
+                    displayName = "LAT Rifleman";
+                };
+                class Engineer: Rifleman {
+                    kitGroup = "Specialized";
+
+                    displayName = "Engineer";
+
+                    isEngineer = 1;
+                };
+                class AntiAir: Rifleman {
+                    kitGroup = "Specialized";
+
+                    displayName = "AA Rifleman";
+                };
+                class HeavyAntiTank: Rifleman {
+                    kitGroup = "Specialized";
+
+                    displayName = "HAT Rifleman";
+                };
+                class Sniper: Rifleman {
+                    displayName = "Sniper";
+                };
+                class Crewman: Rifleman {
+                    displayName = "Crewman";
+
+                    isVehicleCrew = 1;
+                };
+                class Pilot: Rifleman {
+                    displayName = "Pilot";
+
+                    isPilot = 1;
                 };
             };
         };

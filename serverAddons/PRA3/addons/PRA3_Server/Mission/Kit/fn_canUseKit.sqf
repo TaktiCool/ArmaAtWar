@@ -18,8 +18,9 @@
 */
 params ["_kitName"];
 
-private _kitDetails = [_kitName, [["isLeader", 0]]] call FUNC(getKitDetails);
+private _kitDetails = [_kitName, []] call FUNC(getKitDetails);
+_kitDetails params [];
 
-// Check leader
+// Check group count
 
 true

@@ -186,13 +186,28 @@ GVAR(selectWeaponTabIndex) = 0;
 
     if (!dialog) exitWith {};
 
-    private _requiredKitDetails = [["displayName", ""], ["groupMaxCount", -1], ["UIIcon", ""]];
+    private _kitGroups = ("true" configClasses (missionConfigFile >> "PRA3" >> "KitGroups")) apply {configName _x};
+    private _kitGroupSettings = _kitGroups apply {
+        private _prefix = format [QGVAR(KitGroups_%1_), _x];
+        [[_prefix + "requiredPlayersPerKit", 0] call CFUNC(getSetting), [_prefix + "requiredGroupMembersPerKit", 0] call CFUNC(getSetting)]
+    };
+    private _requiredKitDetails = [["displayName", ""], ["kitGroup", ""], ["isLeader", 0], ["UIIcon", ""]];
+    private _playerCount = {(side group _x) == playerSide} count allUnits;
+    private _groupMembersCount = count units group PRA3_Player;
 
     lnbClear 303;
     {
-        private _kitDetails = [_x, _requiredKitDetails] call FUNC(getKitDetails);
-        private _rowNumber = lnbAddRow [303, ["", _kitDetails select 0, format ["%1 / %2", 0, _kitDetails select 1]]];
-        lnbSetPicture [303, [_rowNumber, 0], _kitDetails select 2];
+        private _kitName = _x;
+        private _kitDetails = [_kitName, _requiredKitDetails] call FUNC(getKitDetails);
+        _kitDetails params ["_displayName", "_kitGroupName", "_isLeader", "_UIIcon"];
+
+        private _requiredPlayersPerKit = _kitGroupSettings select (_kitGroups find _kitGroupName) select 0;
+        private _requiredGroupMembersPerKit = _kitGroupSettings select (_kitGroups find _kitGroupName) select 1;
+        private _availableKits = floor ((_playerCount / _requiredPlayersPerKit) min (_groupMembersCount / _requiredGroupMembersPerKit));
+        private _usedKits = {(_x getVariable [QGVAR(Kit), ""]) == _kitName} count units group PRA3_Player;
+
+        private _rowNumber = lnbAddRow [303, ["", _displayName, format ["%1 / %2", _usedKits, [_availableKits, 1] select _isLeader]]];
+        lnbSetPicture [303, [_rowNumber, 0], _UIIcon];
         [303, [_rowNumber, 0], _x] call CFUNC(lnbSave);
         nil
     } count (call FUNC(getAllKits));
