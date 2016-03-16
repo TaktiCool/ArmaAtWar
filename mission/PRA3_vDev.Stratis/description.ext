@@ -113,7 +113,8 @@ class PRA3 {
             class Kits {
                 class Rifleman {
                     scope = 1;
-                    kitGroup = "Common";
+                    kitGroup = "Unlimited";
+                    availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
 
                     // Display
                     displayName = "Rifleman";
@@ -125,6 +126,7 @@ class PRA3 {
                     isMedic = 0;
                     isEngineer = 0;
                     isPilot = 0;
+                    isDriver = 0;
                     isVehicleCrew = 0;
 
                     // Primary weapon
@@ -156,7 +158,7 @@ class PRA3 {
                     items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
                 };
                 class Officer: Rifleman {
-                    kitGroup = "Common";
+                    availableInGroups[] = {"Rifle", "Weapon"};
 
                     displayName = "Squad Leader";
 
@@ -170,8 +172,24 @@ class PRA3 {
                     items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
                     icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
                 };
+                class Medic: Rifleman {
+                    kitGroup = "Specialized";
+                    availableInGroups[] = {"Rifle", "Weapon"};
+
+                    displayName = "Medic";
+
+                    requiredGroupMembersPerKit = 2;
+
+                    isMedic = 1;
+
+                    primaryWeapon = "arifle_MXC_F";
+                    backpack = "";
+                    assignedItems[] += {};
+                    icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                };
                 class AutomaticRifleman: Rifleman {
-                    kitGroup = "Enhanced";
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
 
                     displayName = "Automatic Rifleman";
 
@@ -185,59 +203,100 @@ class PRA3 {
                     items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
                 };
                 class Grenadier: Rifleman {
-                    kitGroup = "Enhanced";
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
 
                     displayName = "Grenadier";
 
                     primaryWeapon = "arifle_MX_GL_F";
                     items[] += {{"1Rnd_HE_Grenade_shell", 6}};
                 };
-                class Medic: Rifleman {
-                    displayName = "Medic";
+                class Marksman: Rifleman {
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
 
-                    requiredGroupMembersPerKit = 2;
-
-                    isMedic = 1;
-
-                    primaryWeapon = "arifle_MXC_F";
-                    backpack = "";
-                    assignedItems[] += {};
-                    icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
-                };
-                class LightAntiTank: Rifleman {
-                    kitGroup = "Enhanced";
-
-                    displayName = "LAT Rifleman";
+                    displayName = "Marksman";
                 };
                 class Engineer: Rifleman {
-                    kitGroup = "Specialized";
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
 
                     displayName = "Engineer";
 
                     isEngineer = 1;
                 };
                 class AntiAir: Rifleman {
-                    kitGroup = "Specialized";
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
 
                     displayName = "AA Rifleman";
                 };
+                class LightAntiTank: Rifleman {
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Rifle"};
+
+                    displayName = "LAT Rifleman";
+                };
                 class HeavyAntiTank: Rifleman {
-                    kitGroup = "Specialized";
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Weapon"};
 
                     displayName = "HAT Rifleman";
                 };
-                class Sniper: Rifleman {
-                    displayName = "Sniper";
+                class HeavyMachineGun: Rifleman {
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Weapon"};
+
+                    displayName = "HMG Rifleman";
+                };
+                class AmmoBearer: Rifleman {
+                    availableInGroups[] = {"Weapon"};
+
+                    displayName = "Ammo Bearer";
+                };
+                class Driver: Rifleman {
+                    kitGroup = "Specialized";
+                    availableInGroups[] = {"Vehicle"};
+
+                    displayName = "Driver";
+
+                    isDriver = 1;
                 };
                 class Crewman: Rifleman {
+                    availableInGroups[] = {"Vehicle", "Helicopter"};
+
                     displayName = "Crewman";
 
                     isVehicleCrew = 1;
                 };
                 class Pilot: Rifleman {
+                    availableInGroups[] = {"Helicopter"};
+
                     displayName = "Pilot";
 
                     isPilot = 1;
+                };
+                class Sniper: Rifleman {
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Recon"};
+
+                    displayName = "Sniper";
+                };
+                class Spotter: Rifleman {
+                    availableInGroups[] = {"Recon"};
+
+                    displayName = "Spotter";
+                };
+                class Specialist: Rifleman {
+                    availableInGroups[] = {"Recon"};
+
+                    displayName = "Specialist";
+                };
+                class MortarOperator: Rifleman {
+                    kitGroup = "Limited";
+                    availableInGroups[] = {"Mortar"};
+
+                    displayName = "Mortar Operator";
                 };
             };
         };

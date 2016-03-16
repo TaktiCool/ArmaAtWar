@@ -189,7 +189,7 @@ GVAR(selectWeaponTabIndex) = 0;
     private _kitGroups = ("true" configClasses (missionConfigFile >> "PRA3" >> "KitGroups")) apply {configName _x};
     private _kitGroupSettings = _kitGroups apply {
         private _prefix = format [QGVAR(KitGroups_%1_), _x];
-        [[_prefix + "requiredPlayersPerKit", 0] call CFUNC(getSetting), [_prefix + "requiredGroupMembersPerKit", 0] call CFUNC(getSetting)]
+        [[_prefix + "requiredPlayersPerKit", 1] call CFUNC(getSetting), [_prefix + "requiredGroupMembersPerKit", 1] call CFUNC(getSetting)]
     };
     private _requiredKitDetails = [["displayName", ""], ["kitGroup", ""], ["isLeader", 0], ["UIIcon", ""]];
     private _playerCount = {(side group _x) == playerSide} count allUnits;
