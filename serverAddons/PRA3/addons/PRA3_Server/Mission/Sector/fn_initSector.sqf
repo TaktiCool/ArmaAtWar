@@ -90,7 +90,7 @@ if (isServer) then {
             _args params ["_sector", "_oldSide", "_newSide"];
             // Dont use playerSide the player side dont change if chaning the side
             private _sectorName = _sector getVariable ["fullName", ""];
-            if !((side PRA3_Player) isEqualTo _newSide && !(_oldSide isEqualTo sideUnknown)) then {
+            if !((side group PRA3_Player) isEqualTo _newSide && !(_oldSide isEqualTo sideUnknown)) then {
                 [format["You lost sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
             } else {
                 if (GVAR(currentSector) isEqualTo _sector) then {
