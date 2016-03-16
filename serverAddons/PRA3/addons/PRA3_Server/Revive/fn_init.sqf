@@ -153,7 +153,7 @@ DFUNC(HandleDamage) = {
 
 // Client Init
 PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];
-["playerChanged", {PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
+["playerChanged", {(_this select 0) addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
 
 /*
 Vanilla HandleDamage Calles
