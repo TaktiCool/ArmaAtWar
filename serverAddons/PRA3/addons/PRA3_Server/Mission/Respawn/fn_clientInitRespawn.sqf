@@ -269,32 +269,7 @@ GVAR(selectWeaponTabIndex) = 0;
     if (_currentDeploymentSelection < 0) exitWith {systemChat "Select spawn point!"};
     private _deployPosition = [403, [_currentDeploymentSelection, 0]] call CFUNC(lnbLoad);
 
-    // Respawn procedure
-    private _oldUnit = PRA3_Player;
-    private _wasLeader = (PRA3_Player == leader PRA3_Player);
-    private _oldGroup = group PRA3_Player;
-
-    // Make the exact group slot available and create a new unit
-    [PRA3_Player] join grpNull;
-    private _newUnit = _oldGroup createUnit [getText (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "playerClass"), _deployPosition, [], 0, "NONE"]; //@todo randomize position
-    if (_wasLeader) then {
-        ["selectLeader", [_oldGroup, _newUnit]] call CFUNC(serverEvent);
-    };
-
-    // Copy all variables to the new object
-    {
-        _newUnit setVariable [_x, PRA3_Player getVariable _x];
-        nil
-    } count (allVariables PRA3_Player);
-
-    // Move the player to the unit
-    selectPlayer _newUnit;
-    ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
-    PRA3_Player = _newUnit;
-
-    if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
-        deleteVehicle _oldUnit;
-    };
+    [playerSide, group PRA3_Player, _deployPosition] call FUNC(respawn);
 
     // Apply selected kit
     [_kitName] call FUNC(applyKit);
@@ -302,6 +277,4 @@ GVAR(selectWeaponTabIndex) = 0;
     closeDialog 2;
     GVAR(selectWeaponTabIndex) = 0;
     showHUD [true,true,true,true,true,true,true,true];
-
-    ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

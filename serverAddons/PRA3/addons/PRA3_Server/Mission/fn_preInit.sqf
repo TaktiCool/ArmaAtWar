@@ -27,6 +27,7 @@ EPREP(Respawn,createSquad)
 EPREP(Respawn,joinLeave)
 EPREP(Respawn,kick)
 EPREP(Respawn,promote)
+EPREP(Respawn,respawn)
 
 // Kit
 EPREP(Kit,clientInitKit)
