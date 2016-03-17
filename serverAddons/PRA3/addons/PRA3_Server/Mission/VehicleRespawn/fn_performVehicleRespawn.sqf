@@ -31,7 +31,7 @@ if (!isNull _vehicle) then {
     [{
         params ["_type", "_varNames", "_varValues"];
         private _position = (_varValues select (_varNames find toLower QGVAR(RespawnPosition)));
-        _position = [_position, 0, 10] call CFUNC(findSavePosition);
+        _position = [_position, 10, _type] call CFUNC(findSavePosition);
         private _vehicle = _type createVehicle _position;
         _vehicle setDir (_varValues select (_varNames find toLower QGVAR(RespawnDirection)));
 
