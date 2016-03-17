@@ -59,7 +59,7 @@ GVAR(VehicleRespawnAllVehicles) = [];
     nil
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
 
-addMissionEventHandler ["EntityKilled",{
+addMissionEventHandler ["EntityKilled", {
     params["_killedEntity","_killer"];
     if (_killedEntity in GVAR(VehicleRespawnAllVehicles)) then {
         private _type = typeOf _killedEntity;

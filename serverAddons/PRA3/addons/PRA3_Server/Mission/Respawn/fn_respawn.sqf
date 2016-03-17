@@ -55,7 +55,8 @@ missionNamespace setVariable [_oldVarName, _newUnit];
 
 // Handle position
 _newUnit setDir (random 360);
-_newUnit setPos (_targetPosition findEmptyPosition [0, 5, _className]);
+
+_newUnit setPos ([_targetPosition, 0, 5, _className] call CFUNC(findSavePosition));
 
 // Move the player to the unit
 selectPlayer _newUnit;

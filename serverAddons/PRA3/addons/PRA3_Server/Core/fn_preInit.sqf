@@ -111,6 +111,7 @@ PREP(setVariablePublic)
 PREP(createPPEffect)
 PREP(getAllGear)
 PREP(getNearestLocationName)
+PREP(findSavePosition)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);

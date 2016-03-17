@@ -26,28 +26,6 @@ respawnDialog = 0;
 
 #include "cfgNotifications.hpp"
 
-class CfgMarkers
-{
-    class PRA3_FOB {
-        name = "FOB";
-        icon = "ui\media\fob_ca.paa";
-        color[] = {1, 1, 1, 1};
-        size = 32;
-        shadow = true;
-        scope = 2;
-    };
-    class PRA3_Rally: PRA3_FOB {
-        name = "FOB";
-        icon = "ui\media\rally_ca.paa";
-    };
-    class PRA3_Base: PRA3_FOB {
-        name = "FOB";
-        icon = "ui\media\base_ca.paa";
-    };
-};
-
-
-
 class PRA3 {
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets

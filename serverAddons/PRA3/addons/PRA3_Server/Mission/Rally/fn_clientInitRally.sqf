@@ -25,7 +25,7 @@
 
         private _squadRallyPointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
         private _position = PRA3_Player modelToWorld [0,1,0];
-
+        _position = [_position, 0, 2] call CFUNC(findSavePosition);
         private _oldRally = (group PRA3_Player) getVariable [QGVAR(rallyPoint), [0, [], [], 0]];
         {
             deleteVehicle _x;
