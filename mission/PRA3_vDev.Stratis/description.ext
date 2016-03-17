@@ -183,8 +183,6 @@ class PRA3 {
 
                     displayName = "Squad Leader";
 
-                    requiredGroupMembersPerKit = 2;
-
                     isLeader = 1;
 
                     assignedItems[] += {"Binocular"};
@@ -198,8 +196,6 @@ class PRA3 {
                     availableInGroups[] = {"Rifle", "Weapon"};
 
                     displayName = "Medic";
-
-                    requiredGroupMembersPerKit = 2;
 
                     isMedic = 1;
 
