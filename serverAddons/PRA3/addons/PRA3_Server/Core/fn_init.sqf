@@ -32,7 +32,7 @@ if (hasInterface) then {
 
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscPicture",-1,_controlGroup];
                     _ctrl ctrlSetPosition [0,0,8*_gX,8*_gY];
-                    _ctrl ctrlSetText "media\PRA3Logo_ca.paa";
+                    _ctrl ctrlSetText "ui\media\PRA3Logo_ca.paa";
                     _ctrl ctrlCommit 0;
 
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];

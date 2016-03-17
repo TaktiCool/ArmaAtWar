@@ -13,7 +13,7 @@ class PRA3_UI_Notification {
             class Controls {
                 class Background : RscPicture {
                     idc = 4001;
-                    text = "media\notification_gradient_ca.paa";
+                    text = "ui\media\notification_gradient_ca.paa";
                     x = PX(0);
                     y = PY(0);
                     w = PX(50);
