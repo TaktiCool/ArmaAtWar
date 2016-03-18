@@ -118,7 +118,7 @@ class PRA3 {
                     // Display
                     displayName = "Rifleman";
                     icon = "";
-                    UIIcon = "";
+                    UIIcon = "a3\ui_f\data\map\Markers\Military\box_ca.paa";
 
                     // Special attributes
                     isLeader = 0;

@@ -253,13 +253,7 @@ class RscCombo
         1,
         1
     };
-    colorBackground[] =
-    {
-        0,
-        0,
-        0,
-        1
-    };
+    colorBackground[] = {0.4,0.4,0.4,1};
     colorScrollbar[] =
     {
         1,

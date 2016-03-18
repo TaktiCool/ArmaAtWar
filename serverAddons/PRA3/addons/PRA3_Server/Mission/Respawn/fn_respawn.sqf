@@ -15,7 +15,7 @@
     Returns:
     None
 */
-params ["_targetSide", "_targetGroup", "_targetPosition"];
+params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", false]];
 
 // Make the exact group slot available and create a new unit
 private _wasLeader = (PRA3_Player == leader PRA3_Player);
@@ -44,6 +44,13 @@ if (_wasLeader) then {
     nil
 } count (allVariables PRA3_Player);
 
+// Mark as temporary if necessary
+if (_isTemporaryUnit) then {
+    _newUnit setVariable [QGVAR(tempUnit), true];
+    ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
+    ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
+};
+
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName PRA3_Player;
 PRA3_Player setVehicleVarName "";
@@ -56,7 +63,7 @@ missionNamespace setVariable [_oldVarName, _newUnit];
 // Handle position
 _newUnit setDir (random 360);
 
-_newUnit setPos ([_targetPosition, 0, 5, _className] call CFUNC(findSavePosition));
+_newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 
 // Move the player to the unit
 selectPlayer _newUnit;
