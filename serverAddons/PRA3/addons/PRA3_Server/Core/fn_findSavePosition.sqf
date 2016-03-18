@@ -27,9 +27,9 @@ private _retPos = if (_haveType) then {
 
 if (_retPos isEqualTo []) exitWith {
     if (_haveType) then {
-        [_pos, _radius + 10] call SEN_fnc_findSavePosition;
+        [_pos, _radius + 10] call (missionNamespace getVariable [_fnc_scriptName, {}]);
     } else {
-        [_pos, _radius + 10, _type] call SEN_fnc_findSavePosition;
+        [_pos, _radius + 10, _type] call (missionNamespace getVariable [_fnc_scriptName, {}]);
     };
 };
 
