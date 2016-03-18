@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    Find a location with a name and if in 500m Radius is no Location or Marker from the Sector Module try to build a Name from Location Type and Position
+    Find a location with a name and if in 800m Radius is no Location or Marker from the Sector Module try to build a Name from Location Type and Position
 
     Remark:
     !!!This Function is Very Heavy Dont call to Often!!!
@@ -17,7 +17,7 @@
     None
 */
 params ["_position"];
-_allLocations = nearestLocations [_position, GVAR(allLocationTypes), 500];
+_allLocations = nearestLocations [_position, GVAR(allLocationTypes), 800];
 
 // try to Find a Location with Text
 {
@@ -31,7 +31,7 @@ _allLocations = nearestLocations [_position, GVAR(allLocationTypes), 500];
 private _allMarkerLocationsDis = [];
 {
     private _dis = (_x select 1) distance2D _position;
-    if (_dis <= 500) then {
+    if (_dis <= 800) then {
         _allMarkerLocationsDis pushBack [(_x select 1) distance2D _position, _x select 2];
     };
     nil
