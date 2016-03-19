@@ -71,7 +71,8 @@
         private _currentDeploymentPointSelection = lnbCurSelRow 403;
         if (_currentDeploymentPointSelection < 0) exitWith {systemChat "Select spawn point!"};
         _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
-        private _pointDetails = GVAR(deploymentLogic) getVariable [_currentDeploymentPointSelection, []];
+        GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+        private _pointDetails = _pointData select (_pointIds find _currentDeploymentPointSelection);
         private _tickets = _pointDetails select 2;
         private _deployPosition = _pointDetails select 3;
         if (_tickets == 0) exitWith {

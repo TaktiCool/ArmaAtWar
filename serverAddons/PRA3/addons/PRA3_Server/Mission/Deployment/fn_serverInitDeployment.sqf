@@ -19,8 +19,9 @@
 ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "base_east", {playerSide == east}] call FUNC(addDeploymentPoint);
 
 [{
+    GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
     {
-        private _pointDetails = GVAR(deploymentLogic) getVariable [_x, []];
+        private _pointDetails = _pointData select (_pointIds find _x);
         _pointDetails params ["_name", "_icon", "_tickets", "_position", "_condition", "_args", "_objects"];
 
         if (_args isEqualType grpNull) then {
@@ -29,7 +30,7 @@
                     deleteVehicle _x;
                     nil
                 } count _objects;
-                GVAR(deploymentLogic) setVariable [_x, nil, true];
+                [_x] call FUNC(removeDeploymentPoint);
             } else {
                 private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
                 private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
@@ -39,11 +40,11 @@
 
                 if (_enemyCount >= _maxEnemyCount) then {
                     [_args] call FUNC(destroyRally);
-                    GVAR(deploymentLogic) setVariable [_x, nil, true];
+                    [_x] call FUNC(removeDeploymentPoint);
                     [UIVAR(RespawnScreen_DeploymentManagement_update), _args] call CFUNC(targetEvent);
                 };
             };
         };
         nil
-    } count (allVariables GVAR(deploymentLogic));
+    } count _pointIds;
 }, 0.2] call CFUNC(addPerFrameHandler);

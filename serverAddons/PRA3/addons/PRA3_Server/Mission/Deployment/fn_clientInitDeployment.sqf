@@ -40,13 +40,14 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
 #define IDC 403
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedPoint = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
-    private _visiblePoints = allVariables GVAR(deploymentLogic) select {
-        private _pointDetails = GVAR(deploymentLogic) getVariable [_x, []];
+    GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+    private _visiblePoints = _pointIds select {
+        private _pointDetails = _pointData select (_pointIds find _x);
         (_pointDetails select 5) call (_pointDetails select 4)
     };
     lnbClear IDC;
     {
-        private _pointDetails = GVAR(deploymentLogic) getVariable [_x, []];
+        private _pointDetails = _pointData select (_pointIds find _x);
         _pointDetails params ["_name", "_icon", "_tickets"];
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
@@ -75,7 +76,7 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
 #define IDC 700
     if (_selectedPoint != "") then {
         private _map = (findDisplay 1000) displayCtrl IDC;
-        private _pointDetails = GVAR(deploymentLogic) getVariable [_selectedPoint, []];
+        private _pointDetails = _pointData select (_pointIds find _selectedPoint);
 
         _map ctrlMapAnimAdd [0.5, 0.15, _pointDetails select 3]; //@todo check if dialog syntax can be used
         ctrlMapAnimCommit _map;

@@ -31,16 +31,17 @@ private _count = {(side group _x) == playerSide} count (nearestObjects [PRA3_Pla
 if (_count < _nearPlayerToBuild) exitWith {false};
 
 // Check near rallies
+GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
 private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
 {
-    private _pointDetails = GVAR(deploymentLogic) getVariable [_x, []];
+    private _pointDetails = _pointData select (_pointIds find _x);
     private _pointPosition = _pointDetails select 3;
     if ((PRA3_Player distance _pointPosition) < _minDistance) exitWith {
         _rallyNearPlayer = true;
     };
     nil
-} count (allVariables GVAR(deploymentLogic));
+} count _pointIds;
 if (_rallyNearPlayer) exitWith {false};
 
 true

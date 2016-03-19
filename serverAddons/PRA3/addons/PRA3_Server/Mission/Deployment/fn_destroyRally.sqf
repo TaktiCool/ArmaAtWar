@@ -15,10 +15,11 @@
 */
 params ["_group"];
 
+GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
 private _pointId = _group getVariable [QGVAR(rallyId), ""];
 if (_pointId == "") exitWith {};
 
-private _pointDetails = GVAR(deploymentLogic) getVariable [_pointId, []];
+private _pointDetails = _pointData select (_pointIds find _pointId);
 private _rallyObjects = _pointDetails select 6;
 
 {
@@ -26,5 +27,5 @@ private _rallyObjects = _pointDetails select 6;
     nil
 } count _rallyObjects;
 
-GVAR(deploymentLogic) setVariable [_pointId, nil, true];
+[_pointId] call FUNC(removeDeploymentPoint);
 _group setVariable [QGVAR(rallyId), nil, true];

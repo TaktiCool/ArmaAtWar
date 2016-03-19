@@ -20,13 +20,20 @@
 */
 params ["_name", "_icon", "_spawnTickets", "_position", "_spawnCondition", ["_args", []], ["_pointObjects", []]];
 
-if (isNil QGVAR(deploymentLogic)) then {
+if (isNil QGVAR(deploymentPoints)) then {
     // Create deployment logic for everyone
-    GVAR(deploymentLogic) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [-1000, -1000, 0], [], 0, "NONE"];
-    publicVariable QGVAR(deploymentLogic);
+    GVAR(deploymentPoints) = [[], []];
 };
 
+GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+
 private _id = format ["%1_%2", _name, _position];
-GVAR(deploymentLogic) setVariable [_id, [_name, _icon, _spawnTickets, _position, _spawnCondition, _args, _pointObjects], true];
+_pointIds pushBack _id;
+_pointData pushBack [_name, _icon, _spawnTickets, _position, _spawnCondition, _args, _pointObjects];
+
+GVAR(deploymentPoints) set [0, _pointIds];
+GVAR(deploymentPoints) set [1, _pointData];
+
+publicVariable QGVAR(deploymentPoints);
 
 _id
