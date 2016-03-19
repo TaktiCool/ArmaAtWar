@@ -46,7 +46,7 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 ["selectLeader", {
     (_this select 0) params ["_group", "_unit"];
 
-    if (isServer && !(local _group)) exitWith {
+    if (isServer && !(isNull _group) && !(local _group)) exitWith {
         ["selectLeader", groupOwner _group, [_group, _unit]] call FUNC(targetEvent);
     };
     _group selectLeader _unit;
