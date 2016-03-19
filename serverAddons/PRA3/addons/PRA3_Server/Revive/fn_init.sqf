@@ -1,7 +1,6 @@
 #include "macros.hpp"
 
-GVAR(SELECTIONS) = ["head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
-GVAR(lastDamageSelection) = [0,0,0,0,0,0];
+GVAR(SELECTIONS) = ["", "head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
 private _cfg = missionConfigFile >> "PRA3" >> "CfgRevive";
 GVAR(reviveBleedingTime) = getNumber (_cfg >> "reviveBleedingTime");
 GVAR(reviveBleedOutTime) = getNumber (_cfg >> "reviveBleedOutTime");
@@ -48,6 +47,7 @@ DFUNC(translateSelections) = {
             case ("body"): {TORSO_HITPOINTS};
             default {[]};
         };
+
         {
             if (!isNil {_unit getHitPointDamage _x}) exitWith {
                 _returnHitPoint = _x;
@@ -120,18 +120,27 @@ DFUNC(HandleDamage) = {
     params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
     _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
     private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
-    if (_selectionIndex != -1) then {
-        private _newDamage = _damage - (GVAR(lastDamageSelection) select _selectionIndex);
 
-        if (_newDamage > 0.3) then {
-            private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
-            _bloodLoss = _bloodLoss + _newDamage;
-            [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
-        };
+    // fixes issue with Various Mods that not have standart selection Names
+    if (_selectionIndex == -1) then {
+        _selectionName = "body";
+        _selectionIndex = GVAR(SELECTIONS) find _selectionName;
     };
+
+    if (_selectionName != "" && _damage > 0.3) then {
+        private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
+        _bloodLoss = _bloodLoss + _damage;
+        [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
+    };
+
+    private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
+    _damage = (_allDamage select _selectionIndex) + _damage;
+    _allDamage set [_selectionIndex, _damage];
+    PRA3_Player setVariable [QGVAR(DamageSelection), _allDamage];
+
+
     if (_selectionName in ["head", "body", ""]) then {
-        if (_damage > 0.9) then {
-            _damage = 0.9;
+        if (_damage >= 1) then {
             [{
                 if !(_this getVariable [QGVAR(isUnconscious), false]) then {
                     _this setVariable [QGVAR(isUnconscious), true, true];
@@ -141,18 +150,34 @@ DFUNC(HandleDamage) = {
         };
     };
 
-    if (_selectionIndex != -1) then {
-        GVAR(lastDamageSelection) set [_selectionIndex, _damage];
+    // @todo replace with Fatigue Framework
+    if (_selectionName in ["leg_l", "leg_r"] && _damage > 0.7) then {
+        if !(isForcedWalk _unit) then {
+            _unit forceWalk true;
+        };
     };
 
-    _damage;
+    0;
 };
 
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 
 
-// Client Init
+["biHitPart", {
+    DUMP("hitPart: " + str _this);
+}] call CFUNC(addEventhandler);
+
+["biHit", {
+    DUMP("hit: " + str _this);
+}] call CFUNC(addEventhandler);
+
 PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];
+PRA3_player addEventHandler ["HitPart", {
+    ["biHitPart", _this select 0, _this] call CFUNC(targetEvent);
+}];
+PRA3_player addEventHandler ["Hit", {
+    ["biHit", _this select 0, _this] call CFUNC(targetEvent);
+}];
 ["playerChanged", {(_this select 0 select 0) addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
 
 /*

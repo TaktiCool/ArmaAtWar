@@ -86,7 +86,7 @@ if (hasInterface) then {
                 private _maxHeal = 1;
                 private _healSpeed = 10;
             };
-            [{(_this select 0) setDamage (_this select 1);}, _healSpeed, [cursorObject, 1 - _maxHeal]] call CFUNC(wait);
+            [{(_this select 0) setDamage (_this select 1); (_this select 0) forceWalk false;}, _healSpeed, [cursorObject, 1 - _maxHeal]] call CFUNC(wait);
         }
     ] call CFUNC(addAction);
 
