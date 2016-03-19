@@ -34,6 +34,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
 #define IDC 303
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedKit = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
+    private _currentKit = PRA3_Player getVariable [QGVAR(Kit), ""];
     private _visibleKits = call FUNC(getAllKits) select {[_x] call FUNC(getUsableKitCount) > 0};
     lnbClear IDC;
     {
@@ -47,6 +48,12 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
         lnbSetPicture [IDC, [_rowNumber, 0], _UIIcon];
+
+        if (_x == _currentKit) then {
+            for "_i" from 0 to 4 do {
+                lnbSetColor [IDC, [_rowNumber, _i], [1, 0.4, 0, 1]];
+            };
+        };
 
         if (_x == _selectedKit) then {
             lnbSetCurSelRow [IDC, _rowNumber];
