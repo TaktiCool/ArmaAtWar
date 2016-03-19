@@ -162,22 +162,11 @@ DFUNC(HandleDamage) = {
 
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 
-
-["biHitPart", {
-    DUMP("hitPart: " + str _this);
-}] call CFUNC(addEventhandler);
-
-["biHit", {
-    DUMP("hit: " + str _this);
-}] call CFUNC(addEventhandler);
-
 PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];
-PRA3_player addEventHandler ["HitPart", {
-    ["biHitPart", _this select 0, _this] call CFUNC(targetEvent);
-}];
-PRA3_player addEventHandler ["Hit", {
-    ["biHit", _this select 0, _this] call CFUNC(targetEvent);
-}];
+
+// disalbe Healing
+PRA3_player addEventHandler ["HitPart", {0}];
+PRA3_player addEventHandler ["Hit", {0}];
 ["playerChanged", {(_this select 0 select 0) addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
 
 /*
