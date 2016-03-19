@@ -2,3 +2,4 @@
 
 PREP(init)
 PREP(postInit)
+PREP(bloodEffect)
