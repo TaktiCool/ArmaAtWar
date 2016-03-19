@@ -53,8 +53,6 @@ if (_firstInit) then {
     _texUpper ctrlCommit 0;
 };
 
-hint format["texLower: %1", ctrlFade _texLower];
-
 if (GVAR(PPBloodEffectIntensity) > _intensity) exitWith {};
 
 GVAR(PPBloodEffectIntensity) = _intensity;
