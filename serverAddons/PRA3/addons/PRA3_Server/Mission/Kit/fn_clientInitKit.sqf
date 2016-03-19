@@ -66,8 +66,15 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
         _selectedKit = "";
     } else {
         if (_selectedKit == "" || !(_selectedKit in _visibleKits)) then {
-            lnbSetCurSelRow [IDC, 0];
-            _selectedKit = [IDC, [0, 0]] call CFUNC(lnbLoad);
+            if (_currentKit in _visibleKits) then {
+                private _index = _visibleKits find _currentKit;
+                lnbSetCurSelRow [IDC, _index];
+                _selectedKit = [IDC, [_index, 0]] call CFUNC(lnbLoad);
+            } else {
+                lnbSetCurSelRow [IDC, 0];
+                _selectedKit = [IDC, [0, 0]] call CFUNC(lnbLoad);
+            };
+
         };
     };
 
