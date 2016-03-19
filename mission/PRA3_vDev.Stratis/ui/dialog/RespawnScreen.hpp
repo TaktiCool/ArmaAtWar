@@ -254,7 +254,7 @@ class PRA3_UI_RespawnScreen {
                     rowHeight = PY(3.5);
                     columns[] = {0,0.85};
 
-                    onLBSelChanged = "[""PRA3_mission_updateWeaponList""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_RoleList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
                 };
 
                 class WeaponTabs : RscToolbox {
@@ -269,7 +269,7 @@ class PRA3_UI_RespawnScreen {
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
 
-                    onToolBoxSelChanged = "[""PRA3_mission_updateWeaponList"", _this] call PRA3_Core_fnc_localEvent;"
+                    onToolBoxSelChanged = "[""PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged""] call PRA3_Core_fnc_localEvent;"
                 }
 
                 class WeaponBackground : RscPicture {
@@ -340,7 +340,7 @@ class PRA3_UI_RespawnScreen {
                     rowHeight = PY(3);
                     columns[] = {0,0.075,0.875};
 
-                    onLBSelChanged = "[""PRA3_mission_updateMapControl""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
                 };
             };
         };
@@ -356,7 +356,7 @@ class PRA3_UI_RespawnScreen {
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
 
-            action = "[""PRA3_mission_requestSpawn""] call PRA3_Core_fnc_localEvent;";
+            action = "[""PRA3_UI_RespawnScreen_DeployButton_action""] call PRA3_Core_fnc_localEvent;";
         }
     };
 };

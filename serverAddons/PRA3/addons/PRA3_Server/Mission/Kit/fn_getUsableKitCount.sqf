@@ -14,7 +14,7 @@
     _kitName: Current Kit
 
     Returns:
-    is Selectable <Bool>
+    availableKits <Number>
 */
 params ["_kitName"];
 
@@ -23,13 +23,11 @@ _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 
 // Check squad type
 private _squadType = (group PRA3_Player) getVariable [QGVAR(Type), ""];
-if (!(_squadType in _availableInGroups)) exitWith {false};
+if (!(_squadType in _availableInGroups)) exitWith {0};
 
 // Check group member count
 private _groupMembersCount = count units group PRA3_Player;
 private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSetting);
 
 private _availableKits = [floor (_groupMembersCount / _requiredGroupMembersPerKit), 1] select _isLeader;
-private _usedKits = {(_x getVariable [QGVAR(Kit), ""]) == _kitName} count units group PRA3_Player;
-
-_availableKits > _usedKits
+_availableKits

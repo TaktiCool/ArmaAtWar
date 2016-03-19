@@ -47,7 +47,7 @@ GVAR(squadIds) = [
 /*
  * UI STUFF
  */
-GVAR(lastUIUpdateFrameNumber) = 0;
+GVAR(lastSquadManagementUIUpdateFrame) = 0;
 
 // TeamInfo
 [UIVAR(RespawnScreen_TeamInfo_update), {
@@ -92,9 +92,14 @@ GVAR(lastUIUpdateFrameNumber) = 0;
         };
         nil
     } count _visibleGroupTypes;
-    if (lbSize IDC > 0 && (_selectedGroupType == "" || !(_selectedGroupType in _visibleGroupTypes))) then {
-        lbSetCurSel [IDC, 0];
-        _selectedGroupType = lbData [IDC, 0];
+    if (lbSize IDC == 0) then {
+        lbSetCurSel [IDC, -1];
+        _selectedGroupType = "";
+    } else {
+        if (_selectedGroupType == "" || !(_selectedGroupType in _visibleGroupTypes)) then {
+            lbSetCurSel [IDC, 0];
+            _selectedGroupType = lbData [IDC, 0];
+        };
     };
 
     // SquadList
@@ -124,9 +129,14 @@ GVAR(lastUIUpdateFrameNumber) = 0;
         };
         nil
     } count _visibleGroups;
-    if ((lnbSize IDC select 0) > 0 && (isNull _selectedGroup || !(_selectedGroup in _visibleGroups))) then {
-        lnbSetCurSelRow [IDC, 0];
-        _selectedGroup = [IDC, [0, 0]] call CFUNC(lnbLoad);
+    if ((lnbSize IDC select 0) == 0) then {
+        lnbSetCurSelRow [IDC, -1];
+        _selectedGroup = grpNull;
+    } else {
+        if (isNull _selectedGroup || !(_selectedGroup in _visibleGroups)) then {
+            lnbSetCurSelRow [IDC, 0];
+            _selectedGroup = [IDC, [0, 0]] call CFUNC(lnbLoad);
+        };
     };
 
     // HeadingSquadDetails
@@ -144,11 +154,10 @@ GVAR(lastUIUpdateFrameNumber) = 0;
     private _visibleGroupMembers = units _selectedGroup;
     lnbClear IDC;
     {
-        private _selectedKit = _x getVariable [QGVAR(Kit), ""];
-
         private _rowNumber = lnbAddRow [IDC, [[_x] call CFUNC(name)]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
+        private _selectedKit = _x getVariable [QGVAR(Kit), ""];
         private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call FUNC(getKitDetails)) select 0;
         lnbSetPicture [IDC, [_rowNumber, 0], _kitIcon];
 
@@ -156,9 +165,14 @@ GVAR(lastUIUpdateFrameNumber) = 0;
             lnbSetCurSelRow [IDC, _rowNumber];
         };
     } count _visibleGroupMembers;
-    if ((lnbSize IDC select 0) > 0 && (isNull _selectedGroupMember || !(_selectedGroupMember in _visibleGroupMembers))) then {
-        lnbSetCurSelRow [IDC, 0];
-        _selectedGroupMember = [IDC, [0, 0]] call CFUNC(lnbLoad);
+    if ((lnbSize IDC select 0) == 0) then {
+        lnbSetCurSelRow [IDC, -1];
+        _selectedGroupMember = objNull;
+    } else {
+        if (isNull _selectedGroupMember || !(_selectedGroupMember in _visibleGroupMembers)) then {
+            lnbSetCurSelRow [IDC, 0];
+            _selectedGroupMember = [IDC, [0, 0]] call CFUNC(lnbLoad);
+        };
     };
 
     // JoinLeaveBtn
