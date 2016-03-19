@@ -17,18 +17,9 @@
 */
 params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", false]];
 
-// Make the exact group slot available and create a new unit
-private _wasLeader = (PRA3_Player == leader PRA3_Player);
-[PRA3_Player] join grpNull;
-
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
 private _newUnit = _targetGroup createUnit [_className, [0, 0, 0], [], 0, "NONE"];
-
-// Restore old leader status
-if (_wasLeader) then {
-    ["selectLeader", [_targetGroup, _newUnit]] call CFUNC(serverEvent);
-};
 
 // Reattach all triggers
 {
@@ -55,7 +46,20 @@ if (_isTemporaryUnit) then {
 private _oldVarName = vehicleVarName PRA3_Player;
 PRA3_Player setVehicleVarName "";
 _newUnit setVehicleVarName _oldVarName;
-missionNamespace setVariable [_oldVarName, _newUnit];
+missionNamespace setVariable [_oldVarName, _newUnit, true];
+
+// Save old leader status
+private _wasLeader = (PRA3_Player == leader PRA3_Player);
+
+// Make the exact group slot available
+private _positionId = parseNumber ((str PRA3_Player) select [((str PRA3_Player) find ":") + 1]);
+[PRA3_Player] join grpNull;
+_newUnit joinAsSilent [group _newUnit, _positionId];
+
+// Restore old leader status
+if (_wasLeader) then {
+    ["selectLeader", [_targetGroup, _newUnit]] call CFUNC(serverEvent);
+};
 
 // Copy event handlers
 // This should be done by our awesome event system in core on playerChanged event
