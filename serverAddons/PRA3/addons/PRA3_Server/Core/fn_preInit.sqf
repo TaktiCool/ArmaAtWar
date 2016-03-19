@@ -83,6 +83,7 @@ EPREP(Mutex,mutex)
 // Notification System
 EPREP(Notification,clientInitNotification)
 EPREP(Notification,displayNotification)
+EPREP(Notification,handleNotificationQueue)
 
 // Settings
 EPREP(Settings,initSettings)

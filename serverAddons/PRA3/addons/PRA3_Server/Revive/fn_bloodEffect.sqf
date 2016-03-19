@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: BadGuy, joko // Jonas
+    Author: BadGuy
 
     Description:
     Visualization of Blood
@@ -55,7 +55,7 @@ _texLower ctrlCommit 0.2;
 _texMiddle ctrlCommit 0.2;
 _texUpper ctrlCommit 0.2;
 
-DFUNC(fadeOut) = {
+private _fadeOut = {
     disableSerialization;
     params ["_tex", "_time"];
     _tex ctrlsetfade 1;
@@ -63,13 +63,13 @@ DFUNC(fadeOut) = {
 };
 
 if (_upperIntensity > 0) then {
-    [DFUNC(fadeOut), 1.5, [_texUpper,1.5]] call CFUNC(wait);
+    [_fadeOut, 1.5, [_texUpper,1.5]] call CFUNC(wait);
 };
 
 if (_middleIntensity > 0) then {
-    [DFUNC(fadeOut), 2, [_texMiddle,1]] call CFUNC(wait);
+    [_fadeOut, 2, [_texMiddle,1]] call CFUNC(wait);
 };
 
 if (_lowerIntensity > 0) then {
-    [DFUNC(fadeOut), 2.5, [_texLower,0.8]] call CFUNC(wait);
+    [_fadeOut, 2.5, [_texLower,0.8]] call CFUNC(wait);
 };
