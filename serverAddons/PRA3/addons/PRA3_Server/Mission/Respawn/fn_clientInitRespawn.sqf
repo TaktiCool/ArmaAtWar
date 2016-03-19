@@ -81,10 +81,10 @@
         if (_tickets > 0) then {
             _tickets = _tickets - 1;
             _pointDetails set [2, _tickets];
-            GVAR(deploymentLogic) setVariable [_currentDeploymentPointSelection, _pointDetails, true];
             if (_tickets == 0) then {
                 [group PRA3_Player] call FUNC(destroyRally);
-                DUMP(allVariables GVAR(deploymentLogic))
+            } else {
+                publicVariable QGVAR(deploymentPoints);
             };
             [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
         };
