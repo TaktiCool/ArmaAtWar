@@ -167,7 +167,11 @@ PRA3_player addEventHandler ["handleDamage", DFUNC(HandleDamage)];
 // disalbe Healing
 PRA3_player addEventHandler ["HitPart", {0}];
 PRA3_player addEventHandler ["Hit", {0}];
-["playerChanged", {(_this select 0 select 0) addEventHandler ["handleDamage", DFUNC(HandleDamage)];}] call CFUNC(addEventhandler);
+["playerChanged", {
+    ((_this select 0) select 0) addEventHandler ["handleDamage", DFUNC(HandleDamage)];
+    ((_this select 0) select 0) addEventHandler ["HitPart", {0}];
+    ((_this select 0) select 0) addEventHandler ["Hit", {0}];
+}] call CFUNC(addEventhandler);
 
 /*
 Vanilla HandleDamage Calles
