@@ -24,7 +24,7 @@ private _display = uinamespace getVariable "RscHealthTextures";
 private _x = ((0 * safezoneW) + safezoneX) + ((safezoneW - (2.125 * safezoneW * 3/4)) / 2);
 private _y = (-0.0625 * safezoneH) + safezoneY;
 private _w = 2.125 * safezoneW * 3/4;
-_h = 1.125 * safezoneH;
+private _h = 1.125 * safezoneH;
 
 
 private _texLower = _display displayctrl 1211;
