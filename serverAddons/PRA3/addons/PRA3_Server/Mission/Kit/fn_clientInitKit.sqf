@@ -74,7 +74,6 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
                 lnbSetCurSelRow [IDC, 0];
                 _selectedKit = [IDC, [0, 0]] call CFUNC(lnbLoad);
             };
-
         };
     };
 

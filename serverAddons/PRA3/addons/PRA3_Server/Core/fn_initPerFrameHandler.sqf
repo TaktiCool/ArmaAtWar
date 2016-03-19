@@ -67,5 +67,9 @@ GVAR(lastFrameTime) = diag_tickTime;
     GVAR(deltaTime) = diag_tickTime - GVAR(lastFrameTime);
     GVAR(lastFrameTime) = diag_tickTime;
 
+    if (getClientState == "GAME FINISHED") then {
+        [QGVAR(OnEachFrameID), "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+    };
+
     PERFORMANCECOUNTER_END(PFHCounter)
 }] call BIS_fnc_addStackedEventHandler;

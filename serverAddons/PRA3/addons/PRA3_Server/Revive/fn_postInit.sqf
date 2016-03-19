@@ -37,7 +37,9 @@ if (hasInterface) then {
                     };
                 }, 1] call CFUNC(addPerFrameHandler);
             };
-            ["switchMove", [_unit, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
+            if (alive _unit) then {
+                ["switchMove", [_unit, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
+            };
         } else {
             if (_unit isEqualTo PRA3_Player) then {
                 {
@@ -46,7 +48,9 @@ if (hasInterface) then {
                 } count GVAR(PPEffects);
 
             };
-            ["switchMove", [_unit, "AmovPpneMstpSnonWnonDnon"]] call CFUNC(globalEvent);
+            if (alive _unit) then {
+                ["switchMove", [_unit, "AmovPpneMstpSnonWnonDnon"]] call CFUNC(globalEvent);
+            };
         };
     }] call CFUNC(addEventhandler);
 
