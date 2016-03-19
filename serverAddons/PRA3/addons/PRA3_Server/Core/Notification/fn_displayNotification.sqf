@@ -21,5 +21,5 @@ disableSerialization;
 GVAR(NotificationQueue) pushBack [_priority, time, _text, _color, _time];
 GVAR(NotificationQueue) sort true;
 if (isNull (uiNamespace getVariable [UIVAR(Notification),displayNull])) then {
-    ["handleNotificationQueue"] call CFUNC(localEvent);
+    call CFUNC(handleNotificationQueue);
 };
