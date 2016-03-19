@@ -47,8 +47,6 @@ private _lowerIntensity = 0 max ((_intensity*3) min 1);
 private _middleIntensity = 0 max ((_intensity*3-1) min 1);
 private _upperIntensity = 0 max ((_intensity*3-2) min 1);
 
-hint format ["%1, %2, %3", _lowerIntensity, _middleIntensity, _upperIntensity];
-
 _texLower ctrlSetFade (1 - 0.8 * _lowerIntensity);
 _texMiddle ctrlSetFade (1 - 0.8 * _middleIntensity);
 _texUpper ctrlSetFade (1 - 0.8 * _upperIntensity);
