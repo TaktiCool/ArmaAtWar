@@ -1,5 +1,5 @@
 #include "macros.hpp"
 
-PREP(init)
+PREP(clientInit)
 PREP(postInit)
 PREP(bloodEffect)
