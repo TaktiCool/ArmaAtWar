@@ -42,6 +42,9 @@ if (_isTemporaryUnit) then {
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 };
 
+// Move the player to the unit before changing anything
+selectPlayer _newUnit;
+
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName PRA3_Player;
 PRA3_Player setVehicleVarName "";
@@ -69,8 +72,7 @@ _newUnit setDir (random 360);
 
 _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 
-// Move the player to the unit
-selectPlayer _newUnit;
+// Broadcast the change after everything is changed
 ["playerChanged", [_newUnit, PRA3_Player]] call CFUNC(localEvent);
 private _oldUnit = PRA3_Player;
 PRA3_Player = _newUnit;
