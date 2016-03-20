@@ -74,9 +74,9 @@ if (hasInterface) then {
     GVAR(actionKeyPressed) = false;
     [{
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
-        	params ["_ctrl","_key"];
+            params ["_ctrl","_key"];
 
-        	if (_key == 57 && !GVAR(actionKeyPressed) && {typeOf cursorObject isKindOf "CAManBase" && (PRA3_Player distance cursorObject) < 3}) then {
+            if (_key == 57 && !GVAR(actionKeyPressed) && {typeOf cursorObject isKindOf "CAManBase" && (PRA3_Player distance cursorObject) < 3}) then {
                 GVAR(actionKeyPressed) = true;
                 [{
                     (_this select 0) params ["_target"];
@@ -86,29 +86,28 @@ if (hasInterface) then {
 
                     if (!isNull GVAR(actions)) then {
                         {
-                            _x params ["_condition", "_code"];
-
-                            if (_condition) then _code;
+                            _x params ["_condition", "_code", "_args"];
+                            if (_args call _condition) then {_args call _code};
                         } count GVAR(actions);
 
                     };
 
                 }, 0, [cursorObject]] call CFUNC(addPerFrameHandler);
 
-        		hint "SPACE DOWN";
+                hint "SPACE DOWN";
                 true;
-        	};
+            };
             false;
         }];
 
         (findDisplay 46) displayAddEventHandler ["KeyUp", {
-        	params ["_ctrl","_key"];
+            params ["_ctrl","_key"];
 
-        	if (_key == 57) then {
+            if (_key == 57) then {
                 GVAR(actionKeyPressed) = false;
 
-        		hint "SPACE UP";
-        	};
+                hint "SPACE UP";
+            };
             false;
         }];
     }, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
