@@ -115,15 +115,32 @@ if (hasInterface) then {
     ] call CFUNC(addAction);
 
 
-
-    /*
+    GVAR(actionKeyPressed) = false;
     [{
-        hint "TEST";
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
         	params ["_ctrl","_key"];
 
-        	if (_key == 57) then {
+        	if (_key == 57 && !GVAR(actionKeyPressed) && {typeOf cursorObject isKindOf "CAManBase" && (PRA3_Player distance cursorObject) < 3}) then {
+                GVAR(actionKeyPressed) = true;
+                [{
+                    (_this select 0) params ["_target"];
+                    if (cursorObject != _target || !GVAR(actionKeyPressed)) exitWith {
+                        [_this select 1] call CFUNC(removePerFrameHandler);
+                    };
+
+                    if (!isNull GVAR(actions)) then {
+                        {
+                            _x params ["_condition", "_code"];
+
+                            if (_condition) then _code;
+                        } count GVAR(actions);
+
+                    };
+
+                }, 0, [cursorObject]] call CFUNC(addPerFrameHandler);
+
         		hint "SPACE DOWN";
+                true;
         	};
             false;
         }];
@@ -132,10 +149,12 @@ if (hasInterface) then {
         	params ["_ctrl","_key"];
 
         	if (_key == 57) then {
+                GVAR(actionKeyPressed) = false;
+
         		hint "SPACE UP";
         	};
             false;
         }];
     }, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
-    */
+
 };
