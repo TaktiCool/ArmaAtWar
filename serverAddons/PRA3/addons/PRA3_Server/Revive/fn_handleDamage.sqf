@@ -34,7 +34,8 @@ if (_selectionName != "" && _damage > 0.3) then {
 private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
 _damage = (_allDamage select _selectionIndex) + _damage;
 _allDamage set [_selectionIndex, _damage];
-PRA3_Player setVariable [QGVAR(DamageSelection), _allDamage];
+// use setVariablePublic to Improve performance and not publish multible times the damage variable
+[PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
 
 if (_selectionName in ["head", "body", ""]) then {
     if (_damage >= 1) then {

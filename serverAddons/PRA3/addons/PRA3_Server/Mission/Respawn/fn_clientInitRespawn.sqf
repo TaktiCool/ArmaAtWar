@@ -63,9 +63,9 @@
     [{
         private _currentRoleSelection = lnbCurSelRow 303;
         if (_currentRoleSelection < 0) exitWith {systemChat "Select a role!"};
-        private _currentKitName = PRA3_Player getVariable [QGVAR(Kit), ""];
+        private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
         private _kitName = [303, [_currentRoleSelection, 0]] call CFUNC(lnbLoad);
-        private _usedKits = {(_x getVariable [QGVAR(Kit), ""]) == _kitName} count units group PRA3_Player;
+        private _usedKits = {(_x getVariable [QGVAR(kit), ""]) == _kitName} count units group PRA3_Player;
         if ([_kitName] call FUNC(getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {systemChat "Select another role!"};
 
         // Check deployment

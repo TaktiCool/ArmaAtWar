@@ -26,6 +26,7 @@ GVAR(reviveBleedOutTime) = getNumber (_cfg >> "reviveBleedOutTime");
     };
     PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
     PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
+    [PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
     ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 }] call CFUNC(addEventhandler);
 

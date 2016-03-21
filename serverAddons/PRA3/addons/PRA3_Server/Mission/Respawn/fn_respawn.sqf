@@ -42,18 +42,23 @@ if (_isTemporaryUnit) then {
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 };
 
+private _oldUnit = PRA3_Player;
+
+// Move the player to the unit before changing anything
+selectPlayer _newUnit;
+
 // Handle the vehicleVarName
-private _oldVarName = vehicleVarName PRA3_Player;
-PRA3_Player setVehicleVarName "";
+private _oldVarName = vehicleVarName _oldUnit;
+_oldUnit setVehicleVarName "";
 _newUnit setVehicleVarName _oldVarName;
 missionNamespace setVariable [_oldVarName, _newUnit, true];
 
 // Save old leader status
-private _wasLeader = (PRA3_Player == leader PRA3_Player);
+private _wasLeader = (_oldUnit == leader _oldUnit);
 
 // Make the exact group slot available
-private _positionId = parseNumber ((str PRA3_Player) select [((str PRA3_Player) find ":") + 1]);
-[PRA3_Player] join grpNull;
+private _positionId = parseNumber ((str _oldUnit) select [((str _oldUnit) find ":") + 1]);
+[_oldUnit] join grpNull;
 _newUnit joinAsSilent [group _newUnit, _positionId];
 
 // Restore old leader status
@@ -66,13 +71,10 @@ if (_wasLeader) then {
 
 // Handle position
 _newUnit setDir (random 360);
-
 _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 
-// Move the player to the unit
-selectPlayer _newUnit;
-["playerChanged", [_newUnit, PRA3_Player]] call CFUNC(localEvent);
-private _oldUnit = PRA3_Player;
+// Broadcast the change after everything is changed
+["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
 PRA3_Player = _newUnit;
 
 // Trigger respawn event

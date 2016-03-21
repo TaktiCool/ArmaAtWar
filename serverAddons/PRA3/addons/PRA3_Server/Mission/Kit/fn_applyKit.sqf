@@ -21,7 +21,8 @@ private _kitDetails = [_kitName, [
     ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
-    ["items", []]
+    ["items", []],
+    ["displayName", ""], ["icon", ""]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -29,7 +30,8 @@ _kitDetails params [
     "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount",
     "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
     "_assignedItems",
-    "_items"
+    "_items",
+    "_displayName", "_icon"
 ];
 
 // remove all Items
@@ -45,18 +47,18 @@ removeGoggles PRA3_Player;
 PRA3_Player addHeadgear _headGear;
 
 // Primary Weapon
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call DFUNC(addWeapon);
-[_primaryMagazineTracer, _primaryMagazineTracerCount] call DFUNC(addMagazine);
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call FUNC(addWeapon);
+[_primaryMagazineTracer, _primaryMagazineTracerCount] call FUNC(addMagazine);
 {
     PRA3_Player addPrimaryWeaponItem _x;
     nil
 } count (_primaryAttachments select {_x != ""});
 
 // Secondary Weapon
-[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call DFUNC(addWeapon);
+[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call FUNC(addWeapon);
 
 // Handgun Weapon
-[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call DFUNC(addWeapon);
+[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call FUNC(addWeapon);
 
 // Assigned items
 {
@@ -66,11 +68,13 @@ PRA3_Player addHeadgear _headGear;
 
 // Items
 {
-    _x call DFUNC(addItem);
+    _x call FUNC(addItem);
     nil
 } count _items;
 
 // reload Weapon
 reload PRA3_Player;
 
-PRA3_Player setVariable [QGVAR(Kit), _kitName];
+PRA3_Player setVariable [QGVAR(kit), _kitName];
+PRA3_Player setVariable [QGVAR(displayName), _displayName];
+PRA3_Player setVariable [QGVAR(icon), _icon];
