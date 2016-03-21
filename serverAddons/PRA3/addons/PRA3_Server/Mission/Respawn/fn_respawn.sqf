@@ -71,7 +71,6 @@ if (_wasLeader) then {
 
 // Handle position
 _newUnit setDir (random 360);
-
 _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 
 // Broadcast the change after everything is changed
