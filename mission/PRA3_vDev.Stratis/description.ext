@@ -24,8 +24,6 @@ respawn = 3;
 respawnDelay = 3;
 respawnDialog = 0;
 
-#include "cfgNotifications.hpp"
-
 class PRA3 {
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets
@@ -177,8 +175,9 @@ class PRA3 {
                     isMedic = 1;
 
                     primaryWeapon = "arifle_MXC_F";
-                    backpack = "";
+                    backpack = "B_AssaultPack_rgr";
                     assignedItems[] += {};
+                    items[] = {{"FirstAidKit", 10}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "Medikit"};
                     icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
                 };
                 class AutomaticRifleman: Rifleman {
@@ -568,5 +567,6 @@ class PRA3 {
 class RscTitles {
     #include "ui\hud\CaptureStatus.hpp"
     #include "ui\hud\TicketStatus.hpp"
+    #include "ui\hud\MedicalProgress.hpp"
     #include "ui\hud\Notification.hpp"
 };
