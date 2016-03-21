@@ -11,76 +11,206 @@ if (hasInterface) then {
 	["UnconsciousnessChanged", FUNC(UnconsciousnessChanged)] call CFUNC(addEventhandler);
 
 	GVAR(MedicItemSelected) = "";
+	GVAR(MedicItemActivated) = -1;
 	GVAR(MedicItemHolder) = objNull;
+	GVAR(MedicItemProgress) = 0;
+	GVAR(CancelAction) = -1;
+	GVAR(beginTickTime) = -1;
+	GVAR(reviveKeyPressed) = false;
+
+	private _itemAction = {
+		(_this select 3) params ["_item"];
+		hint format ["%1",_this];
+
+		if (GVAR(MedicItemSelected) == "") then {
+			PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
+		};
+
+		GVAR(MedicItemSelected) = _item;
+
+
+		// Create a weapon holder and fill it with the dummy item.
+		private _weaponHolder = createVehicle ["GroundWeaponHolder", [0, 0, 0], [], 0, "NONE"];
+		_weaponHolder addItemCargoGlobal [_item, 1];
+
+		// Attach it to the right hand.
+		_weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
+		_weaponHolder setVectorDirAndUp [[0, 0, -1], [0, 1, 0]];
+		//[[_weaponHolder, [[0, 0, -1], [0, 1, 0]]], "setVectorDirAndUp"] call CFNC(execRemoteFnc);
+
+		// And prevent it from being accessed.
+		_weaponHolder enableSimulationGlobal false;
+
+		_config = configFile >> "CfgActions" >> "SwitchWeapon";
+		if ((primaryWeapon PRA3_Player != "") && getNumber (_config >> "show") == 1) then {
+	        // Add the action and store the id to remove it on grenade mode exit.
+	        GVAR(CancelAction) = PRA3_Player addAction [format [getText (_config >> "text"), getText (configFile >> "CfgWeapons" >> primaryWeapon PRA3_Player >> "displayName")], {
+	            // Switch back to the primary weapon.
+	            PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
+	        }, nil, getNumber (_config >> "priority"), getNumber (_config >> "showWindow") == 1, getNumber (_config >> "hideOnUse") == 1, getText (_config >> "shortcut")];
+	    };
+
+
+		// Store the weapon holder to remove it on grenade mode exit.
+		GVAR(MedicItemHolder) = _weaponHolder;
+	};
 
 	// ToDo write it with HodKeyEH @BadGuy
 	// Todo write it Function based
 	[
-		"First Aid Kit",
-		"CAManBase",
-		5,
-		{
-			"FirstAidKit" in (items PRA3_Player) && GVAR(MedicItemSelected) != "FirstAidKit"
-		}, {
-			if (GVAR(MedicItemSelected) == "") then {
-				PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
-			};
-			GVAR(MedicItemSelected) == "FirstAidKit";
-
-			// Create a weapon holder and fill it with the dummy item.
-		    private _weaponHolder = createVehicle ["GroundWeaponHolder", [0, 0, 0], [], 0, "NONE"];
-		    _weaponHolder addItemCargoGlobal ["FirstAidKit", 1];
-
-		    // Attach it to the right hand.
-		    _weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-			_weaponHolder setVectorDirAndUp [[0, 0, -1], [0, 1, 0]]];
-		    //[[_weaponHolder, [[0, 0, -1], [0, 1, 0]]], "setVectorDirAndUp"] call CFNC(execRemoteFnc);
-
-		    // And prevent it from being accessed.
-		    _weaponHolder enableSimulationGlobal false;
-
-		    // Store the weapon holder to remove it on grenade mode exit.
-			GVAR(MedicItemHolder) = _weaponHolder;
-		}
+		"First Aid Kit", PRA3_Player,	0, {
+			"FirstAidKit" in (items PRA3_Player) && {GVAR(MedicItemSelected) != "FirstAidKit"} && !(PRA3_Player getVariable [QGVAR(isUnconscious), false])
+		},
+		_itemAction, ["FirstAidKit"]
 	] call CFUNC(addAction);
 
 	[
-		"Medikit",
-		"CAManBase",
-		5,
-		{
-			"Medikit" in (items PRA3_Player) && GVAR(MedicItemSelected) != "Medikit"
-		}, {
-			if (GVAR(MedicItemSelected) == "") then {
-				PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
-			};
-			GVAR(MedicItemSelected) == "Medikit";
-
-			// Create a weapon holder and fill it with the dummy item.
-		    private _weaponHolder = createVehicle ["GroundWeaponHolder", [0, 0, 0], [], 0, "NONE"];
-		    _weaponHolder addItemCargoGlobal ["Medikit", 1];
-
-		    // Attach it to the right hand.
-		    _weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-			_weaponHolder setVectorDirAndUp [[0, 0, -1], [0, 1, 0]]];
-		    //[[_weaponHolder, [[0, 0, -1], [0, 1, 0]]], "setVectorDirAndUp"] call CFNC(execRemoteFnc);
-
-		    // And prevent it from being accessed.
-		    _weaponHolder enableSimulationGlobal false;
-
-		    // Store the weapon holder to remove it on grenade mode exit.
-			GVAR(MedicItemHolder) = _weaponHolder;
-		}
+		"Medikit", PRA3_Player,	0, {
+			"Medikit" in (items PRA3_Player) && {GVAR(MedicItemSelected) != "Medikit"} && !(PRA3_Player getVariable [QGVAR(isUnconscious), false])
+		},
+		_itemAction, ["Medikit"]
 	] call CFUNC(addAction);
 
 	// To exit the grenade mode if the weapon is changed use currentWeaponChanged EH.
 	["currentWeaponChanged", {
-		if (GVAR(MedicItemSelected) != "") then {
+		(_this select 0) params ["_currentWeapon", "_oldWeapon"];
+		hint "currentWeaponChanged";
+		if (_currentWeapon != "" && GVAR(MedicItemSelected) != "") then {
 			GVAR(MedicItemSelected) = "";
 			deleteVehicle GVAR(MedicItemHolder);
+			PRA3_Player removeAction GVAR(CancelAction);
+			GVAR(MedicItemActivated) = -1;
+			GVAR(MedicItemProgress) = 0;
 		};
 
-	}] call CFNC(bindEventHandler);
+	}] call CFUNC(addEventhandler);
+
+	[{
+		// MOUSE EVENTS (FAK & Medikit)
+		(findDisplay 46) displayAddEventHandler ["MouseButtonDown", {
+			if (GVAR(MedicItemSelected) == "") exitWith {false};
+			params ["_display", "_button"];
+			if (_button > 1) exitWith {false};
+			scopeName "MAIN";
+			if (GVAR(MedicItemActivated) < 0) then {
+				GVAR(MedicItemActivated) = _button;
+
+				private _target = objNull;
+				if (_button == 0) then {
+					_target = cursorObject;
+					if (!(typeOf _target isKindOf "CAManBase") || (PRA3_Player distance _target) > 3) then {breakTo "MAIN"};
+				} else {
+					_target = PRA3_Player;
+				};
+				GVAR(beginTickTime) = diag_tickTime;
+
+
+				[{
+					(_this select 0) params ["_target"];
+					if (!(_target in [cursorObject, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+						GVAR(MedicItemProgress) = 0;
+						[_this select 1] call CFUNC(removePerFrameHandler);
+					};
+
+
+					if (GVAR(MedicItemSelected) == "Medikit") then {
+						private _maxHeal = 0.75;
+						private _healSpeed = 60;
+						if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+							private _maxHeal = 1;
+							private _healSpeed = 10;
+						};
+
+						GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
+
+						if (GVAR(MedicItemProgress)>= 1) then {
+							_target setDamage _maxHeal;
+							_target forceWalk false;
+							GVAR(MedicItemActivated) = -1;
+						};
+
+					} else {
+						private _healSpeed = 60;
+						if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+							private _healSpeed = 10;
+						};
+
+						GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
+
+						if (GVAR(MedicItemProgress)>= 1) then {
+							_target setVariable [QGVAR(bloodLoss), 0, true];
+							PRA3_Player removeItem GVAR(MedicItemSelected);
+							GVAR(MedicItemActivated) = -1;
+						};
+					};
+
+					hintSilent format ["%1 PROGRESS: %2", GVAR(MedicItemSelected),GVAR(MedicItemProgress)];
+
+
+				}, 0, [_target]] call CFUNC(addPerFrameHandler);
+
+				true;
+			};
+			false;
+		}];
+
+		(findDisplay 46) displayAddEventHandler ["MouseButtonUp", {
+			if (GVAR(MedicItemSelected) == "") exitWith {};
+			params ["_display", "_button"];
+			if (_button == GVAR(MedicItemActivated)) exitWith {
+				GVAR(MedicItemActivated) = -1;
+			};
+			false;
+		}];
+
+		//SPACE REVIVE
+		(findDisplay 46) displayAddEventHandler ["KeyDown", {
+			params ["_ctrl","_key"];
+			if (_key != 57 && GVAR(reviveKeyPressed)) exitWith {false};
+
+			private _target = cursorObject;
+
+			if (!(typeOf _target isKindOf "CAManBase") || {(PRA3_Player distance _target) > 3}) exitWith {false};
+
+			GVAR(reviveKeyPressed) = true;
+
+			GVAR(beginTickTime) = diag_tickTime;
+
+			[{
+				(_this select 0) params ["_target"];
+				if (cursorObject != _target || !GVAR(actionKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+					[_this select 1] call CFUNC(removePerFrameHandler);
+				};
+
+				private _reviveSpeed = 60;
+				if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+					_reviveSpeed = 20;
+				};
+
+				GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _reviveSpeed;
+
+				if (GVAR(MedicItemProgress)>= 1) then {
+					_this setVariable [QGVAR(isUnconscious), false, true];
+					["UnconsciousnessChanged", _this, [false, _this]] call CFUNC(targetEvent);
+					GVAR(actionKeyPressed) = false;
+				};
+
+				hintSilent format ["REVIVE PROGRESS: %1",GVAR(MedicItemProgress)];
+
+			}, 0, [_target]] call CFUNC(addPerFrameHandler);
+
+			true;
+		}];
+
+		(findDisplay 46) displayAddEventHandler ["KeyUp", {
+			params ["_ctrl","_key"];
+
+			if (_key == 57) then {
+				GVAR(reviveKeyPressed) = false;
+			};
+			false;
+		}];
+	}, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
 
 
 	/*

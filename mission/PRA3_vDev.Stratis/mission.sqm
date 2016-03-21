@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=218;
+		nextID=222;
 	};
 	class MarkerIDProvider
 	{
@@ -36,7 +36,8 @@ addons[]=
 	"A3_Soft_F_MRAP_01",
 	"A3_Armor_F_Slammer",
 	"A3_Soft_F_MRAP_02",
-	"A3_Armor_F_T100K"
+	"A3_Armor_F_T100K",
+	"A3_Characters_F_Mark"
 };
 randomSeed=13778806;
 class ScenarioData
@@ -49,24 +50,6 @@ class CustomAttributes
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnButton";
 			expression="true";
@@ -82,6 +65,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -135,7 +136,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=31;
+		items=33;
 		class Item0
 		{
 			dataType="Group";
@@ -1781,6 +1782,62 @@ class Mission
 			name="respawn_east";
 			type="Empty";
 			id=217;
+		};
+		class Item31
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={2877.1531,160.03709,1858.4125};
+					};
+					side="West";
+					flags=3;
+					class Attributes
+					{
+					};
+					id=219;
+					type="B_Soldier_TL_F";
+				};
+			};
+			class Attributes
+			{
+			};
+			id=218;
+		};
+		class Item32
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={3141.9519,124.32708,1987.687};
+					};
+					side="West";
+					flags=3;
+					class Attributes
+					{
+					};
+					id=221;
+					type="B_HeavyGunner_F";
+				};
+			};
+			class Attributes
+			{
+			};
+			id=220;
 		};
 	};
 };
