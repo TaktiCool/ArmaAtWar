@@ -1,4 +1,18 @@
 #include "macros.hpp"
+/*
+    Project Reality ArmA 3
+
+    Author: BadGuy, joko // Jonas
+
+    Description:
+    Initialize the Medical Actions
+
+    Parameter(s):
+    -
+
+    Returns:
+    -
+*/
 if (hasInterface) then {
 	GVAR(colorEffectCC) = ["colorCorrections", 1632, [1, 1, 0.15, [0.3, 0.3, 0.3, 0], [0.3, 0.3, 0.3, 0.3], [1, 1, 1, 1]]] call CFUNC(createPPEffect);
 	GVAR(vigEffectCC) = ["colorCorrections", 1633, [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [1, 1, 0, 0, 0, 0.2, 1]]] call CFUNC(createPPEffect);
