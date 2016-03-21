@@ -125,8 +125,7 @@ class PRA3 {
                     isMedic = 0;
                     isEngineer = 0;
                     isPilot = 0;
-                    isDriver = 0;
-                    isVehicleCrew = 0;
+                    isCrew = 0;
 
                     // Primary weapon
                     primaryWeapon = "arifle_MX_F";
@@ -249,20 +248,12 @@ class PRA3 {
 
                     displayName = "Ammo Bearer";
                 };
-                class Driver: Rifleman {
-                    kitGroup = "Specialized";
-                    availableInGroups[] = {"Vehicle"};
-
-                    displayName = "Driver";
-
-                    isDriver = 1;
-                };
                 class Crewman: Rifleman {
                     availableInGroups[] = {"Vehicle", "Helicopter"};
 
                     displayName = "Crewman";
 
-                    isVehicleCrew = 1;
+                    isCrew = 1;
                 };
                 class Pilot: Rifleman {
                     availableInGroups[] = {"Helicopter"};
@@ -317,8 +308,7 @@ class PRA3 {
                     isMedic = 0;
                     isEngineer = 0;
                     isPilot = 0;
-                    isDriver = 0;
-                    isVehicleCrew = 0;
+                    isCrew = 0;
 
                     // Primary weapon
                     primaryWeapon = "arifle_Katiba_F";
@@ -441,20 +431,12 @@ class PRA3 {
 
                     displayName = "Ammo Bearer";
                 };
-                class Driver: Rifleman {
-                    kitGroup = "Specialized";
-                    availableInGroups[] = {"Vehicle"};
-
-                    displayName = "Driver";
-
-                    isDriver = 1;
-                };
                 class Crewman: Rifleman {
                     availableInGroups[] = {"Vehicle", "Helicopter"};
 
                     displayName = "Crewman";
 
-                    isVehicleCrew = 1;
+                    isCrew = 1;
                 };
                 class Pilot: Rifleman {
                     availableInGroups[] = {"Helicopter"};
