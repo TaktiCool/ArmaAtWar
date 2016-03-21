@@ -84,6 +84,7 @@ GVAR(OldPLayerSide) = playerSide;
     "currentThrowable",
     "currentWeapon",
     "vehicle",
+    "assignedVehicleRole", // This has to be after "vehicle"
     "side",
     "group",
     "leader",
@@ -119,3 +120,12 @@ GVAR(OldPLayerSide) = playerSide;
     "Killed",
     "Respawn"
 ];
+
+// Fix an Arma bug
+["vehicleChanged", {
+    (_this select 0) params ["_newVehicle"];
+
+    if (_newVehicle == PRA3_Player) then {
+        unAssignVehicle PRA3_Player;
+    };
+}] call CFUNC(addEventHandler);
