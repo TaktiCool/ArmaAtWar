@@ -229,6 +229,10 @@ class PRA3 {
                     kitGroup = "Limited";
                     availableInGroups[] = {"Rifle"};
 
+                    secondaryWeapon = "launch_NLAW_F";
+                    secondaryMagazine = "NLAW_F";
+                    secondaryMagazineCount = 1;
+                    backpack = "B_AssaultPack_rgr";
                     displayName = "LAT Rifleman";
                 };
                 class HeavyAntiTank: Rifleman {
@@ -412,6 +416,10 @@ class PRA3 {
                     kitGroup = "Limited";
                     availableInGroups[] = {"Rifle"};
 
+                    secondaryWeapon = "launch_RPG32_F";
+                    secondaryMagazine = "RPG32_F";
+                    secondaryMagazineCount = 1;
+                    backpack = "B_FieldPack_cbr_AT";
                     displayName = "LAT Rifleman";
                 };
                 class HeavyAntiTank: Rifleman {
