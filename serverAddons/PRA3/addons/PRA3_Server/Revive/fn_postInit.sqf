@@ -64,6 +64,29 @@ if (hasInterface) then {
 	        }, nil, getNumber (_config >> "priority"), getNumber (_config >> "showWindow") == 1, getNumber (_config >> "hideOnUse") == 1, getText (_config >> "shortcut")];
 	    };
 
+		private _helpText = "";
+
+		if (_item == "FirstAidKit") then {
+			_helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to bandage yourself";
+		} else {
+			_helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to heal yourself";
+		};
+
+		disableSerialization;
+
+		([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
+		private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+
+		{
+			(_display displayCtrl _x) ctrlSetFade 1;
+			(_display displayCtrl _x) ctrlCommit 0;
+			false;
+		} count [3001, 3002, 3003];
+
+		(_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
+		(_display displayCtrl 3004) ctrlSetFade 0;
+		(_display displayCtrl 3004) ctrlCommit 0;
+
 
 		// Store the weapon holder to remove it on grenade mode exit.
 		GVAR(MedicItemHolder) = _weaponHolder;
@@ -88,8 +111,10 @@ if (hasInterface) then {
 	// To exit the grenade mode if the weapon is changed use currentWeaponChanged EH.
 	["currentWeaponChanged", {
 		(_this select 0) params ["_currentWeapon", "_oldWeapon"];
-		hint "currentWeaponChanged";
+
 		if (_currentWeapon != "" && GVAR(MedicItemSelected) != "") then {
+			disableSerialization;
+			([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
 			GVAR(MedicItemSelected) = "";
 			deleteVehicle GVAR(MedicItemHolder);
 			PRA3_Player removeAction GVAR(CancelAction);
@@ -118,11 +143,35 @@ if (hasInterface) then {
 				};
 				GVAR(beginTickTime) = diag_tickTime;
 
+				disableSerialization;
+
+				private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+
+				private _progressText = "Bandaging %1 ...";
+				if (GVAR(MedicItemSelected) == "Medikit") then {
+					private _progressText = "Healing %1 ...";
+				};
+
+				(_display displayCtrl 3003) ctrlSetStructuredText parseText format [_progressText, name _target];
+				(_display displayCtrl 3002) progressSetPosition 0;
+
+				{
+					(_display displayCtrl _x) ctrlSetFade 0;
+					(_display displayCtrl _x) ctrlCommit 0;
+					false;
+				} count [3001, 3002, 3003];
+
 
 				[{
 					(_this select 0) params ["_target"];
+					private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
 					if (!(_target in [cursorObject, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
 						GVAR(MedicItemProgress) = 0;
+						{
+							(_display displayCtrl _x) ctrlSetFade 1;
+							(_display displayCtrl _x) ctrlCommit 0.5;
+							false;
+						} count [3001, 3002, 3003];
 						[_this select 1] call CFUNC(removePerFrameHandler);
 					};
 
@@ -158,7 +207,8 @@ if (hasInterface) then {
 						};
 					};
 
-					hintSilent format ["%1 PROGRESS: %2", GVAR(MedicItemSelected),GVAR(MedicItemProgress)];
+
+					(_display displayCtrl 3002) progressSetPosition GVAR(MedicItemProgress);
 
 
 				}, 0, [_target]] call CFUNC(addPerFrameHandler);
@@ -186,13 +236,37 @@ if (hasInterface) then {
 
 			if (!(typeOf _target isKindOf "CAManBase") || {(PRA3_Player distance _target) > 3}) exitWith {false};
 
+			if !(_target getVariable [QGVAR(isUnconscious), false]) exitWith {false};
+
 			GVAR(reviveKeyPressed) = true;
 
 			GVAR(beginTickTime) = diag_tickTime;
 
+			disableSerialization;
+
+			([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
+			private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+
+			(_display displayCtrl 3002) ctrlSetStructuredText parseText format ["Reviving %1 ...", name _target];
+
+
+			{
+				(_display displayCtrl _x) ctrlSetFade 0;
+				(_display displayCtrl _x) ctrlCommit 0;
+				false;
+			} count [3001, 3002, 3003];
+
+			(_display displayCtrl 3004) ctrlSetFade 1;
+			(_display displayCtrl 3004) ctrlCommit 0;
+
+
+
+
 			[{
 				(_this select 0) params ["_target"];
+
 				if (cursorObject != _target || !GVAR(actionKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+					([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
 					[_this select 1] call CFUNC(removePerFrameHandler);
 				};
 
@@ -208,8 +282,10 @@ if (hasInterface) then {
 					["UnconsciousnessChanged", _this, [false, _this]] call CFUNC(targetEvent);
 					GVAR(actionKeyPressed) = false;
 				};
+				disableSerialization;
+				private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
 
-				hintSilent format ["REVIVE PROGRESS: %1",GVAR(MedicItemProgress)];
+				(_display displayCtrl 3002) progressSetPosition GVAR(MedicItemProgress);
 
 			}, 0, [_target]] call CFUNC(addPerFrameHandler);
 

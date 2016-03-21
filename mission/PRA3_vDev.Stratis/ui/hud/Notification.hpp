@@ -28,7 +28,6 @@ class PRA3_UI_Notification {
                     y = PY(0.2);
                     w = PX(50);
                     h = PY(3);
-                    style = ST_CENTER;
                     text = "TEST";
                     size = PY(2.5);
                     class Attributes
