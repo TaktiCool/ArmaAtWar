@@ -118,8 +118,7 @@ GVAR(OldPLayerSide) = playerSide;
 } count [
     "InventoryOpened",
     "Killed",
-    "Respawn",
-    "GetInMan"
+    "Respawn"
 ];
 
 // Fix an Arma bug
