@@ -20,11 +20,11 @@
         PERFORMANCECOUNTER_START(Nametags)
         if (!alive PRA3_Player || !isNull (findDisplay 49)) exitWith {};
 
-        private _nearestObjects = [QGVAR(nearestObjects), {(_this select 0) nearObjects ["CAManBase", 13.3]}, _cameraPos, 1, QGVAR(clearNearestObjects)] call CFUNC(cachedCall);
         // Use the camera position as center for nearby player detection.
         private _cameraPos = positionCameraToWorld [0, 0, 0];
 
         // Cycle through all nearby players and display their nameTag.
+        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 13.3]}, _cameraPos, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
         {
             private _targetSide = side (group _x);
 
@@ -64,7 +64,7 @@
                 };
             };
             nil
-        } count _nearestObjects;
+        } count _nearUnits;
         PERFORMANCECOUNTER_END(Nametags)
     }];
 }] call CFUNC(addEventHandler);
