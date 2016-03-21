@@ -19,6 +19,25 @@
     nil
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
 
+["vehicleChanged", {
+    (_this select 0) params ["_newVehicle", "_oldVehicle"];
+
+    // Check restrictions if player entered a vehicle
+    if (_newVehicle != PRA3_Player) then {
+        call FUNC(checkVehicleRestrictions);
+    };
+}] call CFUNC(addEventHandler);
+
+// SeatSwitchedMan ist not working because we need the old position
+["assignedVehicleRoleChanged", {
+    (_this select 0) params ["_newVehicleRole", "_oldVehicleRole"];
+
+    // Check restriction if player switched the seat
+    if (!(_oldVehicleRole isEqualTo [])) then {
+        [_oldVehicleRole] call FUNC(checkVehicleRestrictions);
+    };
+}] call CFUNC(addEventHandler);
+
 /*
  * UI STUFF
  */

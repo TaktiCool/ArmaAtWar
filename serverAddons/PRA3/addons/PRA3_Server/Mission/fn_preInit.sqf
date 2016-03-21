@@ -49,6 +49,7 @@ EPREP(Kit,addContainer)
 EPREP(Kit,addWeapon)
 EPREP(Kit,addMagazine)
 EPREP(Kit,addItem)
+EPREP(Kit,checkVehicleRestrictions)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)
