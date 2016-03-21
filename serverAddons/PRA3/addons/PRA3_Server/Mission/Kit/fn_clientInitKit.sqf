@@ -34,7 +34,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
 #define IDC 303
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedKit = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
-    private _currentKit = PRA3_Player getVariable [QGVAR(Kit), ""];
+    private _currentKit = PRA3_Player getVariable [QGVAR(kit), ""];
     private _visibleKits = call FUNC(getAllKits) select {[_x] call FUNC(getUsableKitCount) > 0};
     lnbClear IDC;
     {
@@ -42,7 +42,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
         private _kitDetails = [_kitName, [["displayName", ""], ["UIIcon", ""]]] call FUNC(getKitDetails);
         _kitDetails params ["_displayName", "_UIIcon"];
 
-        private _usedKits = {(_x getVariable [QGVAR(Kit), ""]) == _kitName} count units group PRA3_Player;
+        private _usedKits = {(_x getVariable [QGVAR(kit), ""]) == _kitName} count units group PRA3_Player;
 
         private _rowNumber = lnbAddRow [IDC, [_displayName, format ["%1 / %2", _usedKits, [_kitName] call FUNC(getUsableKitCount)]]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);

@@ -29,7 +29,7 @@ if (!(_squadType in _availableInGroups)) exitWith {0};
 private _groupMembersCount = count units group PRA3_Player;
 private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSetting);
 private _usedKitsFromGroup = {
-    private _usedKitName = _x getVariable [QGVAR(Kit), ""];
+    private _usedKitName = _x getVariable [QGVAR(kit), ""];
     private _usedKitGroupName = ([_usedKitName, [["kitGroup", ""]]] call FUNC(getKitDetails)) select 0;
     _usedKitGroupName == _kitGroupName
 } count ((units group PRA3_Player) - [PRA3_Player]);

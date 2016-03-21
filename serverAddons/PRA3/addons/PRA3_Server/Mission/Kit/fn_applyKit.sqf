@@ -21,7 +21,8 @@ private _kitDetails = [_kitName, [
     ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
-    ["items", []]
+    ["items", []],
+    ["displayName", ""], ["icon", ""]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -29,7 +30,8 @@ _kitDetails params [
     "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount",
     "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
     "_assignedItems",
-    "_items"
+    "_items",
+    "_displayName", "_icon"
 ];
 
 // remove all Items
@@ -73,4 +75,6 @@ PRA3_Player addHeadgear _headGear;
 // reload Weapon
 reload PRA3_Player;
 
-PRA3_Player setVariable [QGVAR(Kit), _kitName];
+PRA3_Player setVariable [QGVAR(kit), _kitName];
+PRA3_Player setVariable [QGVAR(displayName), _displayName];
+PRA3_Player setVariable [QGVAR(icon), _icon];
