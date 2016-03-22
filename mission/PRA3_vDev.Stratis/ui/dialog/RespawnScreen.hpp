@@ -24,6 +24,7 @@ class PRA3_UI_RespawnScreen {
     };
 
     class Controls {
+        #undef GHEIGHT
         #define GWIDTH 40
         #define GHEIGHT 3
         class TeamInfo : RscControlsGroupNoScollbars {
@@ -72,7 +73,7 @@ class PRA3_UI_RespawnScreen {
                 };
             };
         };
-
+        #undef GHEIGHT
         #define GHEIGHT 44.5
         class SquadManagement : RscControlsGroupNoScollbars {
             idc = 200;
@@ -216,7 +217,7 @@ class PRA3_UI_RespawnScreen {
                 };
             };
         };
-
+        #undef GHEIGHT
         #define GHEIGHT 38.5
         class RoleManagement : RscControlsGroupNoScollbars {
             idc = 300;
@@ -302,6 +303,8 @@ class PRA3_UI_RespawnScreen {
             };
         };
 
+        #undef GHEIGHT
+        #undef GWIDTH
         #define GWIDTH 25
         #define GHEIGHT 26.5
         class DeploymentManagement : RscControlsGroupNoScollbars {
@@ -345,6 +348,8 @@ class PRA3_UI_RespawnScreen {
             };
         };
 
+        #undef GHEIGHT
+        #undef GWIDTH
         #define GWIDTH 26
         #define GHEIGHT 5
         class DeployButton : PRA3_RscButtonMenu {
