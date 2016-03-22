@@ -43,6 +43,15 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
     (_this select 0) params ["_object", "_value"];
     _object allowDamage !_value;
 }] call FUNC(addEventHandler);
+["deleteGroup", {
+    (_this select 0) params ["_group"];
+
+    if (isServer && !(isNull _group) && !(local _group)) exitWith {
+        ["deleteGroup", groupOwner _group, _group] call FUNC(targetEvent);
+    };
+
+    deleteGroup _group;
+}] call FUNC(addEventHandler);
 ["selectLeader", {
     (_this select 0) params ["_group", "_unit"];
 
