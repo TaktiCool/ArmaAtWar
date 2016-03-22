@@ -95,6 +95,8 @@
                 }, GVAR(ticketBleed) select 0, [_looserSide, _newSide]] call CFUNC(addPerFrameHandler);
             };
         }] call CFUNC(addEventhandler);
+
+
     };
 
     if (hasInterface) then {
@@ -114,6 +116,16 @@
             (_dialog displayCtrl 2002) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 0],0]);
             (_dialog displayCtrl 2003) ctrlSetText (missionNamespace getVariable [format [QGVAR(Flag_%1),GVAR(competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
             (_dialog displayCtrl 2004) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1],0]);
+
+            if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), GVAR(competingSides) select 0], 1000]) == 0
+                || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1], 1000]) == 0) then {
+                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group PRA3_Player], 1000]) == 0) then {
+                    ["WINNER", true] spawn BIS_fnc_endMission;
+                } else {
+                    ["LOOSER", false] spawn BIS_fnc_endMission;
+                }
+
+            };
         }] call CFUNC(addEventHandler);
 
     };
