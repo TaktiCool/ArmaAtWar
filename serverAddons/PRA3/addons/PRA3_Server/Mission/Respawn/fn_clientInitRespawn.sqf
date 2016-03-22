@@ -57,7 +57,7 @@
 
 [UIVAR(RespawnScreen_DeployButton_action), {
     // Check squad
-    if ((group PRA3_Player) getVariable [QGVAR(Id), ""] == "") exitWith {systemChat "Join a squad!"};
+    if (!((groupId group PRA3_Player) in GVAR(squadIds))) exitWith {systemChat "Join a squad!"};
 
     // Check role
     [{

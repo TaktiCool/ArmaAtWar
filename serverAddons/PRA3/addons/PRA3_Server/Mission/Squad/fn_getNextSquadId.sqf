@@ -13,4 +13,4 @@
     Returns:
     Next available squad id <STRING>
 */
-(GVAR(squadIds) - (allGroups select {side _x == playerSide} apply {_x getVariable QGVAR(Id)})) select 0
+(GVAR(squadIds) - (allGroups select {side _x == playerSide} apply {groupId _x})) select 0

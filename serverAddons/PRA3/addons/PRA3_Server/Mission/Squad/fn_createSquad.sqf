@@ -18,14 +18,15 @@
     params ["_description", "_type"];
 
     // Check conditions for creation
-    if (alive PRA3_Player || _description == "" || !([_type] call FUNC(canUseSquadType))) exitWith {};
+    if (_description == "" || !([_type] call FUNC(canUseSquadType))) exitWith {};
 
     // Leave old squad first
     call FUNC(leaveSquad);
 
     // Create new squad
     private _newGroup = createGroup playerSide;
-    _newGroup setVariable [QGVAR(Id), call FUNC(getNextSquadId), true];
+    private _groupId = call FUNC(getNextSquadId);
+    _newGroup setGroupIdGlobal [_groupId];
     _newGroup setVariable [QGVAR(Description), _description, true];
     _newGroup setVariable [QGVAR(Type), _type, true];
 

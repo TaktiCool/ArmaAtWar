@@ -15,34 +15,7 @@
 */
 [QGVAR(GroupTypes), missionConfigFile >> "PRA3" >> "GroupTypes"] call CFUNC(loadSettings);
 
-GVAR(squadIds) = [
-    "ALPHA",
-    "BRAVO",
-    "CHARLIE",
-    "DELTA",
-    "ECHO",
-    "FOXTROTT",
-    "GOLF",
-    "HOTEL",
-    "INDIA",
-    "JULIET",
-    "KILO",
-    "LIMA",
-    "MIKE",
-    "NOVEMBER",
-    "OSCAR",
-    "PAPA",
-    "QUEBEC",
-    "ROMEO",
-    "SIERRA",
-    "TANGO",
-    "UNIFORM",
-    "VICTOR",
-    "WHISKEY",
-    "XRAY",
-    "YANKEE",
-    "ZULU"
-];
+GVAR(squadIds) = ("true" configClasses (configFile >> "CfgWorlds" >> "GroupCompany")) apply {getText (_x >> "name")};
 
 /*
  * UI STUFF
@@ -106,16 +79,15 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 #define IDC 207
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedGroup = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), grpNull] select (_selectedLnbRow == -1);
-    private _visibleGroups = allGroups select {side _x == playerSide && _x getVariable [QGVAR(Id), ""] != ""};
+    private _visibleGroups = allGroups select {side _x == playerSide && (groupId _x) in GVAR(squadIds)};
     lnbClear IDC;
     {
-        private _groupId = _x getVariable [QGVAR(Id), ""];
         private _description = _x getVariable [QGVAR(Description), str _x];
         private _groupType = _x getVariable [QGVAR(Type), ""];
         private _groupTypeName = [format [QGVAR(GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
         private _groupSize = [format [QGVAR(GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
 
-        private _rowNumber = lnbAddRow [IDC, [_groupId select [0, 1], _description, _groupTypeName, format ["%1 / %2", count units _x, _groupSize]]];
+        private _rowNumber = lnbAddRow [IDC, [(groupId _x) select [0, 1], _description, _groupTypeName, format ["%1 / %2", count units _x, _groupSize]]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
         if (_x == group PRA3_Player) then {
@@ -144,7 +116,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     if (isNull _selectedGroup) then {
         ctrlSetText [IDC, "SELECT A SQUAD"];
     } else {
-        ctrlSetText [IDC, _selectedGroup getVariable [QGVAR(Id), ""]];
+        ctrlSetText [IDC, groupId _selectedGroup];
     };
 
     // SquadMemberList
