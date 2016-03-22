@@ -53,7 +53,7 @@ class Kits {
 
         assignedItems[] += {"Binocular"};
         primaryAttachments[] = {"optic_Arco","acc_pointer_IR"};
-        backpack = "B_FieldPack_cbr_AT";
+        backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
         icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
     };
@@ -69,6 +69,8 @@ class Kits {
         backpack = "";
         assignedItems[] += {};
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+        backpack = "B_TacticalPack_ocamo";
+        items[] = {{"FirstAidKit", 3}, {"Medikit", 1}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
     };
     class AutomaticRifleman: Rifleman {
         kitGroup = "Limited";
@@ -78,11 +80,11 @@ class Kits {
 
         primaryWeapon = "LMG_Zafir_F";
         primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
-        primaryMagazine = "200Rnd_65x39_cased_Box";
+        primaryMagazine = "150Rnd_762x54_Box";
         primaryMagazineCount = 2;
-        primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
+        primaryMagazineTracer = "150Rnd_762x54_Box_Tracer";
         primaryMagazineTracerCount = 3;
-        backpack = "B_FieldPack_cbr_AT";
+        backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
     };
     class Grenadier: Rifleman {
@@ -121,7 +123,7 @@ class Kits {
         secondaryWeapon = "launch_RPG32_F";
         secondaryMagazine = "RPG32_F";
         secondaryMagazineCount = 1;
-        backpack = "B_FieldPack_cbr_AT";
+        backpack = "B_TacticalPack_ocamo";
         displayName = "LAT Rifleman";
     };
     class HeavyAntiTank: Rifleman {
