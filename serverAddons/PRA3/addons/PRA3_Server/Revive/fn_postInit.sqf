@@ -137,7 +137,7 @@ if (hasInterface) then {
                 private _target = objNull;
                 if (_button == 0) then {
                     _target = cursorObject;
-                    if (!(typeOf _target isKindOf "CAManBase") || (PRA3_Player distance _target) > 3) then {breakTo "MAIN"};
+                    if (!(typeOf _target isKindOf "CAManBase") || (PRA3_Player distance _target) > 3 || _target !alive) then {breakTo "MAIN"};
                 } else {
                     _target = PRA3_Player;
                 };
