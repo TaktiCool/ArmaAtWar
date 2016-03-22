@@ -25,15 +25,17 @@ _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
+    hintSilent format ["Bleedout Timer: %1, %2", _bleedOutTime,  GVAR(reviveBleedOutTime) - _bleedOutTime];
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
         // Force Player to Respawn
         forceRespawn PRA3_Player;
     };
 } else {
     // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
+    hintSilent format ["Bleedout Timer: %1, %2", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime];
     if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
         PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
         PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-        ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+        ["UnconsciousnessChanged", [true, PRA3_Player]] call CFUNC(localEvent);
     };
 };

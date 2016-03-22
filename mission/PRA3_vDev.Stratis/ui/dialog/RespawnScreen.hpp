@@ -269,8 +269,8 @@ class PRA3_UI_RespawnScreen {
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
 
-                    onToolBoxSelChanged = "[""PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged""] call PRA3_Core_fnc_localEvent;"
-                }
+                    onToolBoxSelChanged = "[""PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged""] call PRA3_Core_fnc_localEvent;";
+                };
 
                 class WeaponBackground : RscPicture {
                     idc = 305;
@@ -299,8 +299,8 @@ class PRA3_UI_RespawnScreen {
                     w = PX(GWIDTH);
                     h = PY(3);
                 };
-            }
-        }
+            };
+        };
 
         #define GWIDTH 25
         #define GHEIGHT 26.5
@@ -357,6 +357,6 @@ class PRA3_UI_RespawnScreen {
             h = PY(GHEIGHT);
 
             action = "[""PRA3_UI_RespawnScreen_DeployButton_action""] call PRA3_Core_fnc_localEvent;";
-        }
+        };
     };
 };

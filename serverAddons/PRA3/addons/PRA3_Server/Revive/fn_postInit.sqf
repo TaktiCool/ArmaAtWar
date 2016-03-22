@@ -278,8 +278,8 @@ if (hasInterface) then {
 				GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _reviveSpeed;
 
 				if (GVAR(MedicItemProgress)>= 1) then {
-					_this setVariable [QGVAR(isUnconscious), false, true];
-					["UnconsciousnessChanged", _this, [false, _this]] call CFUNC(targetEvent);
+					_target setVariable [QGVAR(isUnconscious), false, true];
+					["UnconsciousnessChanged", _target, [false, _target]] call CFUNC(targetEvent);
 					GVAR(actionKeyPressed) = false;
 				};
 				disableSerialization;
