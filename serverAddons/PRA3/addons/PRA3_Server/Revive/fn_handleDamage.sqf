@@ -26,7 +26,7 @@ if (_selectionIndex == -1) then {
 };
 
 private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
-_damage = (_allDamage select _selectionIndex) + (_damage / GVAR(damageCoef));
+_damage = (_allDamage select _selectionIndex) + (_damage / (GVAR(damageCoef) select _selectionIndex));
 private _newDamage = _damage - (_allDamage select _selectionIndex);
 _allDamage set [_selectionIndex, _damage];
 
@@ -48,7 +48,6 @@ if (_selectionName in ["head", "body", ""]) then {
     if (_damage >= 1) then {
         [{
             if !(_this getVariable [QGVAR(isUnconscious), false]) then {
-                _this setVariable [QGVAR(isUnconscious), true, true];
                 ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
             };
         }, _unit] call CFUNC(execNextFrame);

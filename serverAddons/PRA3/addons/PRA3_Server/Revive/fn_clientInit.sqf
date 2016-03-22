@@ -22,24 +22,37 @@ GVAR(bandageCoef) = getNumber (_cfg >> "bandageCoef");
 // Damage Coefs
 GVAR(unconBleedCoef) = getNumber (_cfg >> "unconBleedCoef");
 GVAR(bleedCoef) = getNumber (_cfg >> "bleedCoef");
-GVAR(damageCoef) = getNumber (_cfg >> "damageCoef");
+GVAR(damageCoef) = getArray (_cfg >> "damageCoef");
 
-
-// Bleedout Timer
-[FUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
-
-["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
-
-["killed", {
+DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
         {
             _x ppEffectEnable false;
             nil
         } count GVAR(PPEffects);
     };
-    PRA3_Player setVariable [QGVAR(bleedOutTime), 0, true];
-    PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-    [PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
+
+    if !(isNil QGVAR(ppEffectPFHID)) then {
+        [GVAR(ppEffectPFHID)] call CFUNC(removePerFrameHandler);
+        GVAR(ppEffectPFHID) = nil;
+    };
+};
+
+DFUNC(resetMedicalVars) = {
+    _this setVariable [QGVAR(bleedOutTime), 0, true];
+    _this setVariable [QGVAR(isUnconscious), false, true];
+    [_this, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
+    [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+};
+
+// Bleedout Timer
+[FUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
+
+["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
+
+["respawn", {
+    (_this select 0) select 0call FUNC(resetMedicalVars);
+    call FUNC(resetPPEffects);
     ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 }] call CFUNC(addEventhandler);
 
@@ -48,6 +61,8 @@ PRA3_player addEventHandler ["handleDamage", FUNC(handleDamage)];
 // disable Healing
 PRA3_player addEventHandler ["HitPart", {0}];
 PRA3_player addEventHandler ["Hit", {0}];
+
+// reset all Eventhandler on player Changed Event
 ["playerChanged", {
     ((_this select 0) select 0) addEventHandler ["handleDamage", FUNC(handleDamage)];
     ((_this select 0) select 0) addEventHandler ["HitPart", {0}];

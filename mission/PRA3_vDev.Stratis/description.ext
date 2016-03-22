@@ -14,7 +14,7 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
-disableAI = 1;
+disabledAI = 1;
 author = "NetFusion, Hoeginson, BadGuy, joko // Jonas, PRA3 Team";
 onLoadName = "Project Reality:Arma 3";
 onLoadMission = "Project Reality: Arma III";
@@ -116,7 +116,7 @@ class PRA3 {
 
         unconBleedCoef = 0.4; // Uncon Damage Coef
         bleedCoef = 1; // Normal Damage Coef
-        damageCoef = 1;
+        damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
     };
 
     class CfgEntities {
