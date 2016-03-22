@@ -73,6 +73,7 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
     };
 
     // Map
+#undef IDC
 #define IDC 700
     if (_selectedPoint != "") then {
         private _map = (findDisplay 1000) displayCtrl IDC;

@@ -97,14 +97,17 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     };
 
     // WeaponTabs
+#undef IDC
 #define IDC 304
     private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select (lbCurSel IDC), ""]]] call FUNC(getKitDetails);
 
     // WeaponPicture
+#undef IDC
 #define IDC 306
     ctrlSetText [IDC, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture")];
 
     // WeaponName
+#undef IDC
 #define IDC 307
     ctrlSetText [IDC, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName")];
 }] call CFUNC(addEventHandler);
