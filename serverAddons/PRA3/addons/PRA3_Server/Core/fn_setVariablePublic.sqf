@@ -42,4 +42,4 @@ _object setVariable [format ["PRA3_onEmbargo_%1", _varName], _object];
     if (!(_value isEqualTo _curValue)) then {
         _this call FUNC(setVariablePublic);
     };
-}, _this, _delay] call FUNC(waitAndExecute);
+}, _delay, _this] call FUNC(wait);

@@ -15,6 +15,8 @@
 */
 
 if (PRA3_player getVariable [QGVAR(medicalActionIsInProgress), false]) exitWith {};
+if !(alive PRA3_player) exitWith {};
+
 private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
 if (_bloodLoss == 0) exitWith {};
 private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
@@ -25,16 +27,14 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedOutTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
         // Force Player to Respawn
-        [_unit, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
-        PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
         forceRespawn PRA3_Player;
+        ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
     };
 } else {
     // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
     hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
         [_unit, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
-        PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
         ["UnconsciousnessChanged", [true, PRA3_Player]] call CFUNC(localEvent);
     };
 };

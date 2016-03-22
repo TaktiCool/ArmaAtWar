@@ -80,14 +80,10 @@ if (hasInterface) then {
         };
 
         [{
+            params [["_item", ""]];
             disableSerialization;
-            private _helpText = "";
-
-            if (_item == "FirstAidKit") then {
-                _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to bandage yourself";
-            } else {
-                _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to heal yourself";
-            };
+            hint "show Heal/Bandage Action";
+            private _helpText = format ["<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself", ["heal", "banadge"] select (_item == "FirstAidKit")];
 
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
             private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
@@ -101,7 +97,7 @@ if (hasInterface) then {
             (_display displayCtrl 3004) ctrlSetFade 0;
             (_display displayCtrl 3004) ctrlCommit 0;
 
-        }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}] call CFUNC(waitUntil);
+        }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}, [_item]] call CFUNC(waitUntil);
 
 
         // Store the weapon holder to remove it on grenade mode exit.
@@ -211,7 +207,7 @@ if (hasInterface) then {
                         GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
 
                         if (GVAR(MedicItemProgress)>= 1) then {
-                            _target setVariable [QGVAR(bloodLoss), 0, true];
+                            [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
                             PRA3_Player removeItem GVAR(MedicItemSelected);
                             GVAR(MedicItemActivated) = -1;
                         };
@@ -316,117 +312,5 @@ if (hasInterface) then {
             false;
         }];
     }, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
-
-
-    /*
-
-    // ToDo write it with HodKeyEH @BadGuy
-    // Todo write it Function based
-    [
-        "Stop Bleeding",
-        "CAManBase",
-        5,
-        {
-            _target getVariable [QGVAR(bloodLoss), 0] != 0 &&
-            {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
-            {"FirstAidKit" in (items PRA3_Player) || {"FirstAidKit" in (items _target)}}
-        }, {
-            private _healSpeed = 60;
-            if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                private _healSpeed = 10;
-            };
-            [{(_this select 0) setVariable [QGVAR(bloodLoss), 0, true];}, _healSpeed, cursorObject] call CFUNC(wait);
-        }
-    ] call CFUNC(addAction);
-
-    [
-        "Heal Unit",
-        "CAManBase",
-        5,
-        {
-            _target getVariable [QGVAR(bloodLoss), 0] == 0 &&
-            {!(_target getVariable [QGVAR(isUnconscious), false])} &&
-            {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])} &&
-            {"Medikit" in (items PRA3_Player) || {"Medikit" in (items _target)}}
-        }, {
-            private _maxHeal = 0.75;
-            private _healSpeed = 60;
-            if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                private _maxHeal = 1;
-                private _healSpeed = 10;
-            };
-            [{(_this select 0) setDamage (_this select 1); (_this select 0) forceWalk false;}, _healSpeed, [cursorObject, 1 - _maxHeal]] call CFUNC(wait);
-        }
-    ] call CFUNC(addAction);
-
-    [
-        "Revive Unit",
-        "CAManBase",
-        5,
-        {
-            _target getVariable [QGVAR(bloodLoss), 0] == 0 &&
-            _target getVariable [QGVAR(isUnconscious), false] &&
-            {!(_target getVariable [QGVAR(medicalActionIsInProgress), false])}
-        }, {
-            private _reviveSpeed = 60;
-            if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                _reviveSpeed = 20;
-            };
-            [{
-                _this setVariable [QGVAR(isUnconscious), false, true];
-                ["UnconsciousnessChanged", _this, [false, _this]] call CFUNC(targetEvent);
-            }, _reviveSpeed, cursorObject] call CFUNC(wait);
-        }
-    ] call CFUNC(addAction);
-
-    ["FirstAidKit", PRA3_Player, 0, {
-        "FirstAidKit" in (items PRA3_Player)
-    }, {
-        PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
-    }] call CFUNC(addAction);
-
-
-
-
-    GVAR(actionKeyPressed) = false;
-    [{
-        (findDisplay 46) displayAddEventHandler ["KeyDown", {
-            params ["_ctrl","_key"];
-
-            if (_key == 57 && !GVAR(actionKeyPressed) && {typeOf cursorObject isKindOf "CAManBase" && (PRA3_Player distance cursorObject) < 3}) then {
-                GVAR(actionKeyPressed) = true;
-                [{
-                    (_this select 0) params ["_target"];
-                    if (cursorObject != _target || !GVAR(actionKeyPressed)) exitWith {
-                        [_this select 1] call CFUNC(removePerFrameHandler);
-                    };
-
-                    if (!isNull GVAR(actions)) then {
-                        {
-                            _x params ["_condition", "_code"];
-
-                            if (_condition) then _code;
-                        } count GVAR(actions);
-                    };
-                }, 0, [cursorObject]] call CFUNC(addPerFrameHandler);
-
-                hint "SPACE DOWN";
-                true;
-            };
-            false;
-        }];
-
-        (findDisplay 46) displayAddEventHandler ["KeyUp", {
-            params ["_ctrl","_key"];
-
-            if (_key == 57) then {
-                GVAR(actionKeyPressed) = false;
-
-                hint "SPACE UP";
-            };
-            false;
-        }];
-    }, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
-    */
 
 };
