@@ -230,7 +230,7 @@ if (hasInterface) then {
 		//SPACE REVIVE
 		(findDisplay 46) displayAddEventHandler ["KeyDown", {
 			params ["_ctrl","_key"];
-			if (_key != 57 && GVAR(reviveKeyPressed)) exitWith {false};
+			if (_key != 57 || GVAR(reviveKeyPressed)) exitWith {false};
 
 			private _target = cursorObject;
 
@@ -265,7 +265,7 @@ if (hasInterface) then {
 			[{
 				(_this select 0) params ["_target"];
 
-				if (cursorObject != _target || !GVAR(actionKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+				if (cursorObject != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
 					([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
 					[_this select 1] call CFUNC(removePerFrameHandler);
 				};
@@ -280,7 +280,7 @@ if (hasInterface) then {
 				if (GVAR(MedicItemProgress)>= 1) then {
 					_this setVariable [QGVAR(isUnconscious), false, true];
 					["UnconsciousnessChanged", _this, [false, _this]] call CFUNC(targetEvent);
-					GVAR(actionKeyPressed) = false;
+					GVAR(reviveKeyPressed) = false;
 				};
 				disableSerialization;
 				private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
