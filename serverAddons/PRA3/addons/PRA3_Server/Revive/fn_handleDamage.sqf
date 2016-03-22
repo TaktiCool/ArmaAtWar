@@ -15,6 +15,7 @@
 */
 
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
+if !(alive _unit) exitWith {0};
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
 
@@ -35,9 +36,9 @@ _allDamage set [_selectionIndex, _damage];
 if (_selectionName != "" && _newDamage > 0.3) then {
     private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
     if (_unit getVariable [QGVAR(isUnconscious), false]) then {
-        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(unconDamageCoefBleed);
+        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(unconBleedCoef);
     } else {
-        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(damageCoefBleed);
+        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(bleedCoef);
     };
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
     [_newDamage] call FUNC(bloodEffect);

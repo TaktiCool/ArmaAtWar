@@ -32,13 +32,28 @@ if (hasInterface) then {
     GVAR(beginTickTime) = -1;
     GVAR(reviveKeyPressed) = false;
 
-    private _itemAction = {
+    DFUNC(removeOldAction) = {
+        if (GVAR(MedicItemSelected) != "" && !isNull GVAR(MedicItemHolder)) then {
+            disableSerialization;
+            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+            GVAR(MedicItemSelected) = "";
+            deleteVehicle GVAR(MedicItemHolder);
+            PRA3_Player removeAction GVAR(CancelAction);
+            GVAR(MedicItemActivated) = -1;
+            GVAR(MedicItemProgress) = 0;
+        };
+    };
+
+    private _fnc_itemAction = {
         (_this select 3) params ["_item"];
         hint format ["%1",_this];
 
         if (GVAR(MedicItemSelected) == "") then {
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
+        } else {
+            call FUNC(removeOldAction);
         };
+
 
         GVAR(MedicItemSelected) = _item;
 
@@ -64,62 +79,57 @@ if (hasInterface) then {
             }, nil, getNumber (_config >> "priority"), getNumber (_config >> "showWindow") == 1, getNumber (_config >> "hideOnUse") == 1, getText (_config >> "shortcut")];
         };
 
-        private _helpText = "";
+        [{
+            disableSerialization;
+            private _helpText = "";
 
-        if (_item == "FirstAidKit") then {
-            _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to bandage yourself";
-        } else {
-            _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to heal yourself";
-        };
+            if (_item == "FirstAidKit") then {
+                _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to bandage yourself";
+            } else {
+                _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to heal yourself";
+            };
 
-        disableSerialization;
+            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
+            private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+            {
+                (_display displayCtrl _x) ctrlSetFade 1;
+                (_display displayCtrl _x) ctrlCommit 0;
+                false;
+            } count [3001, 3002, 3003];
 
-        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
-        private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+            (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
+            (_display displayCtrl 3004) ctrlSetFade 0;
+            (_display displayCtrl 3004) ctrlCommit 0;
 
-        {
-            (_display displayCtrl _x) ctrlSetFade 1;
-            (_display displayCtrl _x) ctrlCommit 0;
-            false;
-        } count [3001, 3002, 3003];
-
-        (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
-        (_display displayCtrl 3004) ctrlSetFade 0;
-        (_display displayCtrl 3004) ctrlCommit 0;
+        }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}] call CFUNC(waitUntil);
 
 
         // Store the weapon holder to remove it on grenade mode exit.
         GVAR(MedicItemHolder) = _weaponHolder;
     };
 
-    // ToDo write it with HodKeyEH @BadGuy
-    // Todo write it Function based
+    // @Todo write it Function based
     [
-        "First Aid Kit", PRA3_Player,    0, {
+        "First Aid Kit", PRA3_Player, 0, {
             "FirstAidKit" in (items PRA3_Player) && {GVAR(MedicItemSelected) != "FirstAidKit"} && !(PRA3_Player getVariable [QGVAR(isUnconscious), false])
         },
-        _itemAction, ["FirstAidKit"]
+        _fnc_itemAction, ["FirstAidKit"]
     ] call CFUNC(addAction);
 
     [
-        "Medikit", PRA3_Player,    0, {
+        "Medikit", PRA3_Player, 0, {
             "Medikit" in (items PRA3_Player) && {GVAR(MedicItemSelected) != "Medikit"} && !(PRA3_Player getVariable [QGVAR(isUnconscious), false])
         },
-        _itemAction, ["Medikit"]
+        _fnc_itemAction, ["Medikit"]
     ] call CFUNC(addAction);
+
 
     // To exit the grenade mode if the weapon is changed use currentWeaponChanged EH.
     ["currentWeaponChanged", {
         (_this select 0) params ["_currentWeapon", "_oldWeapon"];
 
-        if (_currentWeapon != "" && GVAR(MedicItemSelected) != "") then {
-            disableSerialization;
-            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
-            GVAR(MedicItemSelected) = "";
-            deleteVehicle GVAR(MedicItemHolder);
-            PRA3_Player removeAction GVAR(CancelAction);
-            GVAR(MedicItemActivated) = -1;
-            GVAR(MedicItemProgress) = 0;
+        if (_currentWeapon != "") then {
+            call FUNC(removeOldAction);
         };
 
     }] call CFUNC(addEventhandler);
@@ -233,6 +243,10 @@ if (hasInterface) then {
             if (_key != 57 || GVAR(reviveKeyPressed)) exitWith {false};
 
             private _target = cursorObject;
+
+            if (_target getVariable [QGVAR(bloodLoss), 0] != 0) exitWith {
+                hintSilent "You must First Bandage the Unit to Revive him!";
+            };
 
             if (!(typeOf _target isKindOf "CAManBase") || {(PRA3_Player distance _target) > 3}) exitWith {false};
 

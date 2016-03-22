@@ -20,8 +20,8 @@ GVAR(bandageSpeed) = getNumber (_cfg >> "bandageSpeed");
 GVAR(bandageCoef) = getNumber (_cfg >> "bandageCoef");
 
 // Damage Coefs
-GVAR(bleedCoef) = getNumber (_cfg >> "damageCoefBleed");
 GVAR(unconBleedCoef) = getNumber (_cfg >> "unconBleedCoef");
+GVAR(bleedCoef) = getNumber (_cfg >> "bleedCoef");
 GVAR(damageCoef) = getNumber (_cfg >> "damageCoef");
 
 
