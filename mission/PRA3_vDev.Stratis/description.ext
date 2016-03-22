@@ -502,8 +502,8 @@ class PRA3 {
 
     class CfgRevive {
         // Revive Settings
-        reviveBleedingTime = 100;
-        reviveBleedOutTime = 1500;
+        reviveBleedingTime = 500;
+        reviveBleedOutTime = 300;
     };
 
     class CfgEntities {

@@ -4,13 +4,6 @@ GVAR(SELECTIONS) = ["", "head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
 private _cfg = missionConfigFile >> "PRA3" >> "CfgRevive";
 GVAR(reviveBleedingTime) = getNumber (_cfg >> "reviveBleedingTime");
 GVAR(reviveBleedOutTime) = getNumber (_cfg >> "reviveBleedOutTime");
-/*
- * Author: Glowbal ported by joko // Jonas && BadGuy
- * Translate selection names into medical usable hit selection names.
- * 0: Unit <OBJECT>
- * 1: selection name <STRING>
- * 2: HitPoint Index/True to get hitpoint <NUMBER><BOOL>
-*/
 
 // Bleedout Timer
 [FUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
