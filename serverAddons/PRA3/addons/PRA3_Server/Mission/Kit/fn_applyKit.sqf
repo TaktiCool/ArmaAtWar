@@ -76,5 +76,5 @@ PRA3_Player addHeadgear _headGear;
 reload PRA3_Player;
 
 PRA3_Player setVariable [QGVAR(kit), _kitName];
-PRA3_Player setVariable [QGVAR(displayName), _displayName];
-PRA3_Player setVariable [QGVAR(icon), _icon];
+PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName];
+PRA3_Player setVariable [QGVAR(kitIcon), _icon];

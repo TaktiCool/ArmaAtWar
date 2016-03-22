@@ -27,3 +27,4 @@ if !(isNil "_eventArray") then {
         nil
     } count _eventArray;
 };
+nil
