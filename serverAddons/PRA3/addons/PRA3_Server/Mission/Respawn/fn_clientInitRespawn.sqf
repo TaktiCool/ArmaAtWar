@@ -55,12 +55,15 @@
     [UIVAR(RespawnScreen_SquadManagement_update)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
+GVAR(lastRespawnFrame) = 0;
 [UIVAR(RespawnScreen_DeployButton_action), {
     // Check squad
     if (!((groupId group PRA3_Player) in GVAR(squadIds))) exitWith {systemChat "Join a squad!"};
 
     // Check role
     [{
+        if (diag_frameNo == GVAR(lastRespawnFrame)) exitWith {};
+
         private _currentRoleSelection = lnbCurSelRow 303;
         if (_currentRoleSelection < 0) exitWith {systemChat "Select a role!"};
         private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
@@ -96,6 +99,8 @@
         // Apply selected kit
         [_kitName] call FUNC(applyKit);
         [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+
+        GVAR(lastRespawnFrame) = diag_frameNo;
 
         closeDialog 2;
     }] call CFUNC(mutex);
