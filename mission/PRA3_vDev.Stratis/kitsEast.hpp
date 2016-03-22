@@ -66,7 +66,6 @@ class Kits {
         isMedic = 1;
 
         primaryWeapon = "arifle_Katiba_C_F";
-        backpack = "";
         assignedItems[] += {};
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
         backpack = "B_TacticalPack_ocamo";
