@@ -156,7 +156,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""ALPHA"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Alpha""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=113;
@@ -308,7 +308,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""BRAVO"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Bravo""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=122;
@@ -460,7 +460,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""CHARLIE"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Charlie""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=131;
@@ -612,7 +612,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""DELTA"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Delta""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=140;
@@ -874,7 +874,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""ALPHA"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Alpha""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayer=1;
 						isPlayable=1;
 					};
@@ -1035,7 +1035,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""BRAVO"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Bravo""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=159;
@@ -1195,7 +1195,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""CHARLIE"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Charlie""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=168;
@@ -1355,7 +1355,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						init="(group this) setVariable [""PRA3_mission_Id"",""DELTA"",true];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
+						init="(group this) setGroupIdGlobal [""Delta""];(group this) setVariable [""PRA3_mission_Type"",""Rifle"",true];";
 						isPlayable=1;
 					};
 					id=177;
