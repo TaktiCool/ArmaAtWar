@@ -52,12 +52,12 @@
                         [0.77, 0.51, 0.08, _alpha]
                     };
 
-                    private _icon = [_x getVariable [QEGVAR(Kit,icon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"], "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa"] select (isBleeding _x); //@todo replace later by own medical system
+                    private _icon = [_x getVariable [QEGVAR(Mission,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"], "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa"] select (isBleeding _x); //@todo replace later by own medical system
 
                     private _text = format ["%1 (%2)", _x call CFUNC(name), call {
                         if (isBleeding _x) exitWith {"Unconscious"}; //@todo replace later by own medical system
                         if (group _x != group PRA3_Player) exitWith {groupID group _x};
-                        _x getVariable [QEGVAR(Kit,displayName), ""]
+                        _x getVariable [QEGVAR(Mission,kitDisplayName), ""]
                     }];
 
                     drawIcon3D [_icon, _color, _tagPosition, 0.8, 0.8, 0, _text, 2, 0.033, "PuristaMedium"];
