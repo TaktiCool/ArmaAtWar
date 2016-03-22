@@ -149,10 +149,10 @@ if (hasInterface) then {
 
                 private _progressText = "Bandaging %1 ...";
                 if (GVAR(MedicItemSelected) == "Medikit") then {
-                    private _progressText = "Healing %1 ...";
+                    _progressText = "Healing %1 ...";
                 };
 
-                (_display displayCtrl 3003) ctrlSetStructuredText parseText format [_progressText, name _target];
+                (_display displayCtrl 3003) ctrlSetStructuredText parseText format [_progressText, _target call CFUNC(name)];
                 (_display displayCtrl 3002) progressSetPosition 0;
 
                 {
@@ -177,25 +177,25 @@ if (hasInterface) then {
 
 
                     if (GVAR(MedicItemSelected) == "Medikit") then {
-                        private _maxHeal = 0.75;
-                        private _healSpeed = 60;
-                        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                            private _maxHeal = 1;
-                            private _healSpeed = 10;
+                        private _maxHeal = 1;
+                        private _healSpeed = GVAR(healSpeed);
+                        if !(PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+                            _maxHeal = GVAR(maxHeal);
+                            _healSpeed = _healSpeed / GVAR(healCoef);
                         };
 
                         GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
 
-                        if (GVAR(MedicItemProgress)>= 1) then {
+                        if (GVAR(MedicItemProgress) >= 1) then {
                             _target setDamage _maxHeal;
                             _target forceWalk false;
                             GVAR(MedicItemActivated) = -1;
                         };
 
                     } else {
-                        private _healSpeed = 60;
-                        if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                            private _healSpeed = 10;
+                        private _healSpeed = GVAR(bandageSpeed);
+                        if !(PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+                            _healSpeed = _healSpeed / GVAR(bandageCoef);
                         };
 
                         GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
@@ -261,29 +261,30 @@ if (hasInterface) then {
 
 
 
-
+            _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
             [{
                 (_this select 0) params ["_target"];
 
                 if (cursorObject != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                     ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
                     [_this select 1] call CFUNC(removePerFrameHandler);
+                    _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
                 };
 
-                private _reviveSpeed = 60;
-                if (PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                    _reviveSpeed = 20;
+                private _reviveSpeed = GVAR(reviveSpeed);
+                if !(PRA3_Player getVariable [QGVAR(isMedic), false]) then {
+                    _reviveSpeed = _reviveSpeed / GVAR(reviveCoef);
                 };
 
                 GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _reviveSpeed;
 
-                if (GVAR(MedicItemProgress)>= 1) then {
+                if (GVAR(MedicItemProgress) >= 1) then {
                     _target setVariable [QGVAR(isUnconscious), false, true];
                     ["UnconsciousnessChanged", _target, [false, _target]] call CFUNC(targetEvent);
                     GVAR(reviveKeyPressed) = false;
                 };
                 disableSerialization;
-                private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+                private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
 
                 (_display displayCtrl 3002) progressSetPosition GVAR(MedicItemProgress);
 

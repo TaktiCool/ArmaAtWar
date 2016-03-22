@@ -18,10 +18,7 @@ if (PRA3_player getVariable [QGVAR(medicalActionIsInProgress), false]) exitWith 
 private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
 if (_bloodLoss == 0) exitWith {};
 private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
-
 _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
-
-[PRA3_Player, QGVAR(bleedOutTime), _bleedOutTime] call CFUNC(setVariablePublic);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
@@ -41,3 +38,4 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
         ["UnconsciousnessChanged", [true, PRA3_Player]] call CFUNC(localEvent);
     };
 };
+[PRA3_Player, QGVAR(bleedOutTime), _bleedOutTime] call CFUNC(setVariablePublic);

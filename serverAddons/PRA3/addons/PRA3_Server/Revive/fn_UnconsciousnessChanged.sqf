@@ -23,7 +23,7 @@ if (_state) then {
         } count GVAR(PPEffects);
         GVAR(ppEffectPFHID) = [{
             if (alive PRA3_Player) then {
-                private _bloodLevel = (PRA3_Player getVariable [QGVAR(bloodLoss), 0]);
+                private _bloodLevel = ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) min 3) max 0;
                 _bright = 0.2 + (0.1 * _bloodLevel);
                 _intense = 0.6 + (0.4 * _bloodLevel);
                 {

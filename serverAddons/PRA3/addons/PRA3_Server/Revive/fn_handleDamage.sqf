@@ -24,18 +24,24 @@ if (_selectionIndex == -1) then {
     _selectionIndex = GVAR(SELECTIONS) find _selectionName;
 };
 
-if (_selectionName != "" && _damage > 0.3) then {
-    private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
-    _bloodLoss = _bloodLoss + _damage;
-    [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
-    [_damage] call FUNC(bloodEffect);
-};
-
 private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
-_damage = (_allDamage select _selectionIndex) + _damage;
+_damage = (_allDamage select _selectionIndex) + (_damage / GVAR(damageCoef));
+private _newDamage = _damage - (_allDamage select _selectionIndex);
 _allDamage set [_selectionIndex, _damage];
+
 // use setVariablePublic to Improve performance and not publish multible times the damage variable
 [PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
+
+if (_selectionName != "" && _newDamage > 0.3) then {
+    private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
+    if (_unit getVariable [QGVAR(isUnconscious), false]) then {
+        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(unconDamageCoefBleed);
+    } else {
+        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(damageCoefBleed);
+    };
+    [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
+    [_newDamage] call FUNC(bloodEffect);
+};
 
 if (_selectionName in ["head", "body", ""]) then {
     if (_damage >= 1) then {
