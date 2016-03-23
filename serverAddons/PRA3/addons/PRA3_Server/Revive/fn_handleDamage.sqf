@@ -30,9 +30,6 @@ _damage = (_allDamage select _selectionIndex) + (_damage / (GVAR(damageCoef) sel
 private _newDamage = _damage - (_allDamage select _selectionIndex);
 _allDamage set [_selectionIndex, _damage];
 
-// use setVariablePublic to Improve performance and not publish multible times the damage variable
-[PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
-
 if (_selectionName != "" && _newDamage > 0.3) then {
     private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
     if (_unit getVariable [QGVAR(isUnconscious), false]) then {
@@ -40,8 +37,8 @@ if (_selectionName != "" && _newDamage > 0.3) then {
     } else {
         _bloodLoss = (_bloodLoss + _newDamage) / GVAR(bleedCoef);
     };
-    [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
     [_newDamage] call FUNC(bloodEffect);
+    [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
 };
 
 if (_selectionName in ["head", "body", ""]) then {
@@ -65,6 +62,9 @@ if (_selectionName in ["leg_l", "leg_r"] && _damage > 0.7) then {
         _unit forceWalk true;
     };
 };
+
+// use setVariablePublic to Improve performance and not publish multible times the damage variable
+[PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
 
 0
 
