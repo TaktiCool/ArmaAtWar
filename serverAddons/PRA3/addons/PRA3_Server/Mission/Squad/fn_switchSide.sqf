@@ -22,5 +22,5 @@
     call FUNC(leaveSquad);
 
     // Respawn as new unit
-    [_newSide, createGroup _newSide, [-1000, -1000, 0], true] call FUNC(respawn);
+    [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
 }] call CFUNC(mutex);

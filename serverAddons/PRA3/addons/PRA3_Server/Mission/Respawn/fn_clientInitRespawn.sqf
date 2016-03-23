@@ -13,7 +13,28 @@
     Returns:
     -
 */
+["missionStarted", {
+    private _sidePlayerCount = GVAR(competingSides) apply {
+        private _side = call compile _x;
+        [{side group _x == _side} count (allUnits + allDeadMen), _side] //@todo use allPlayers when no AI needed
+    };
+    _sidePlayerCount sort true;
+    private _newSide = _sidePlayerCount select 0 select 1;
 
+    PRA3_Player setVariable [QGVAR(tempUnit), true];
+    [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
+
+    createDialog UIVAR(RespawnScreen);
+}] call CFUNC(addEventHandler);
+
+["Killed", {
+    setPlayerRespawnTime 10e10;
+    createDialog UIVAR(RespawnScreen);
+}] call CFUNC(addEventHandler);
+
+/*
+ * UI STUFF
+ */
 [UIVAR(RespawnScreen_onLoad), {
     showHUD [true,true,true,true,true,true,false,true];
 
@@ -32,11 +53,6 @@
     showHUD [true,true,true,true,true,true,true,true];
 
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
-}] call CFUNC(addEventHandler);
-
-["Killed", {
-    setPlayerRespawnTime 10e10;
-    createDialog UIVAR(RespawnScreen);
 }] call CFUNC(addEventHandler);
 
 ["groupChanged", {
