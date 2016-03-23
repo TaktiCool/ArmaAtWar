@@ -24,6 +24,10 @@ GVAR(unconBleedCoef) = getNumber (_cfg >> "unconBleedCoef");
 GVAR(bleedCoef) = getNumber (_cfg >> "bleedCoef");
 GVAR(damageCoef) = getArray (_cfg >> "damageCoef");
 
+// Damage Values
+GVAR(preventInstandDeath) = getNumber (_cfg >> "preventInstandDeath") == 1;
+GVAR(maxDamage) = getArray (_cfg >> "maxDamage");
+
 DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
         {

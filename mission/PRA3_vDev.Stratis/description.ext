@@ -117,6 +117,10 @@ class PRA3 {
         unconBleedCoef = 0.4; // Uncon Damage Coef
         bleedCoef = 1; // Normal Damage Coef
         damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
+
+        // Damage Values
+        preventInstandDeath = 0;
+        maxDamage = 3;
     };
 
     class CfgEntities {

@@ -45,12 +45,17 @@ if (_selectionName != "" && _newDamage > 0.3) then {
 };
 
 if (_selectionName in ["head", "body", ""]) then {
-    if (_damage >= 1) then {
-        [{
-            if !(_this getVariable [QGVAR(isUnconscious), false]) then {
-                ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
-            };
-        }, _unit] call CFUNC(execNextFrame);
+
+    if (!GVAR(preventInstandDeath) && {newDamage >= GVAR(maxDamage)}) then {
+        forceRespawn _unit;
+    } else {
+        if (_damage >= 1) then {
+            [{
+                if !(_this getVariable [QGVAR(isUnconscious), false]) then {
+                    ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
+                };
+            }, _unit] call CFUNC(execNextFrame);
+        };
     };
 };
 
