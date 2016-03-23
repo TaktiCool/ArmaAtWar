@@ -33,9 +33,9 @@ _allDamage set [_selectionIndex, _damage];
 if (_selectionName != "" && _newDamage > 0.3) then {
     private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
     if (_unit getVariable [QGVAR(isUnconscious), false]) then {
-        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(unconBleedCoef);
+        _bloodLoss = _bloodLoss + (_newDamage / GVAR(unconBleedCoef));
     } else {
-        _bloodLoss = (_bloodLoss + _newDamage) / GVAR(bleedCoef);
+        _bloodLoss = _bloodLoss + (_newDamage / GVAR(bleedCoef));
     };
     [_newDamage] call FUNC(bloodEffect);
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
