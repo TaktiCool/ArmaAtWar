@@ -39,7 +39,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_ChangeSideBtn_onButtonClick), {
-    call FUNC(changeSide);
+    call FUNC(switchSide);
 }] call CFUNC(addEventHandler);
 
 // SquadManagement

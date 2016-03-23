@@ -24,5 +24,6 @@
 
     if (count units _group >= _groupSize) exitWith {};
 
+    call FUNC(leaveSquad);
     [PRA3_Player] join _group;
 }, _this] call CFUNC(mutex);
