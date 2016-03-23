@@ -46,7 +46,7 @@ if (_selectionName != "" && _newDamage > 0.3) then {
 
 if (_selectionName in ["head", "body", ""]) then {
 
-    if (!GVAR(preventInstandDeath) && {newDamage >= GVAR(maxDamage)}) then {
+    if (!GVAR(preventInstandDeath) && {_newDamage >= GVAR(maxDamage)}) then {
         forceRespawn _unit;
     } else {
         if (_damage >= 1) then {
