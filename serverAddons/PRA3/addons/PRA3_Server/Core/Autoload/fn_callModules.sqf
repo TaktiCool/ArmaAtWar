@@ -94,3 +94,22 @@ if (!hasInterface && !isServer) then {
     DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
 } count _postInit;
+
+if (didJip) then {
+    ["loadJIPQuery", PRA3_Player] call CFUNC(serverEvent);
+    QGVAR(jipQuery) addPublicVariableEventHandler {
+        {
+            _x params ["_persistent", "_args", "_event"];
+            if ((typeName _persistent) in ["STRING", "BOOL"]) then {
+                if (_persistent isEqualType false && {_persistent}) then {
+                    [_event, _args] call CFUNC(localEvent);
+                } else {
+                    if (_persistent isEqualTo (getPlayerUID PRA3_Player)) then {
+                        [_event, _args] call CFUNC(localEvent);
+                    };
+                };
+            };
+            nil
+        } count (_this select 1);
+    };
+};

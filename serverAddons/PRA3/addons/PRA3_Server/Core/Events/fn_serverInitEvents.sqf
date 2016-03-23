@@ -15,6 +15,8 @@
 */
 
 // To ensure that the briefing is done during briefings we trigger an event if the mission starts.
+GVAR(jipQuerry) = [];
+
 if (isDedicated) then {
     [{
         // If time is greater than zero trigger the event and remove the OEF EH to ensure that the event is only triggered once.
@@ -24,3 +26,11 @@ if (isDedicated) then {
         };
     }] call CFUNC(addPerFrameHandler);
 };
+
+["registerJIPQuery", {
+    GVAR(jipQuerry) pushBack (_this select 0);
+}] call CFUNC(addEventhandler);
+
+["loadJIPQuery", {
+    owner (_this select 0) publicVariableClient QGVAR(jipQuerry);
+}] call CFUNC(addEventhandler);

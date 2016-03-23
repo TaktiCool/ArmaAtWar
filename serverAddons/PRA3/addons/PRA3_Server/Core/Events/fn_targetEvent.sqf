@@ -11,12 +11,11 @@
     0: Event Name <String>
     1: Traget <Object, Number, String, Array>
     2: Arguments <Any> (default: nil)
-    3: is Persistent <String, Bool>
 
     Returns:
     None
 */
-params [["_event", "EventError", [""]], ["_target", objNull, ["", objNull, 0,[], grpNull, sideUnknown]], ["_args", []], ["_persistent", false, ["", false]]];
+params [["_event", "EventError", [""]], ["_target", objNull, ["", objNull, 0,[], grpNull, sideUnknown]], ["_args", []]];
 
 // exit if the Unit is Local
 if (_target isEqualType objNull && {local _target}) exitWith {
@@ -48,7 +47,7 @@ if (_target isEqualType "") exitWith {
         };
     };
     if (count _targets != 0) then {
-        [_event, _args] remoteExecCall [QFUNC(localEvent), _targets, _persistent];
+        [_event, _args] remoteExecCall [QFUNC(localEvent), _targets];
     };
 };
-[_event, _args] remoteExecCall [QFUNC(localEvent), _target, _persistent];
+[_event, _args] remoteExecCall [QFUNC(localEvent), _target];
