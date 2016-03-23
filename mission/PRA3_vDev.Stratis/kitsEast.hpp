@@ -100,6 +100,14 @@ class Kits {
         availableInGroups[] = {"Rifle"};
 
         displayName = "Marksman";
+
+        primaryWeapon = "srifle_DMR_01_F";
+        primaryAttachments[] = {"optic_DMS","bipod_01_F_blk",""};
+
+        primaryMagazine = "150Rnd_762x54_Box";
+        primaryMagazineCount = 2;
+        primaryMagazineTracer = "150Rnd_762x54_Box_Tracer";
+        primaryMagazineTracerCount = 3;
     };
     class Engineer: Rifleman {
         kitGroup = "Limited";
@@ -108,22 +116,30 @@ class Kits {
         displayName = "Engineer";
 
         isEngineer = 1;
+        items[] += {"ToolKit"};
     };
     class AntiAir: Rifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Rifle"};
 
         displayName = "AA Rifleman";
+
+        secondaryWeapon = "launch_O_Titan_F";
+        secondaryMagazine = "Titan_AA";
+        secondaryMagazineCount = 1;
+        backpack = "B_TacticalPack_ocamo";
     };
     class LightAntiTank: Rifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Rifle"};
 
+        displayName = "LAT Rifleman";
+
         secondaryWeapon = "launch_RPG32_F";
         secondaryMagazine = "RPG32_F";
         secondaryMagazineCount = 1;
         backpack = "B_TacticalPack_ocamo";
-        displayName = "LAT Rifleman";
+
     };
     class HeavyAntiTank: Rifleman {
         kitGroup = "Limited";
