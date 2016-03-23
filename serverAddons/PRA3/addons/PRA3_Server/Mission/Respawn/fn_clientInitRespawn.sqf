@@ -112,6 +112,9 @@ GVAR(lastRespawnFrame) = 0;
         // Spawn
         [playerSide, group PRA3_Player, _deployPosition] call FUNC(respawn);
 
+        // fix issue that player spawn Prone
+        ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
+
         // Apply selected kit
         [_kitName] call FUNC(applyKit);
         [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
