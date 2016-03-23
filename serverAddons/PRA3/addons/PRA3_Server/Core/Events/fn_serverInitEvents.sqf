@@ -15,7 +15,7 @@
 */
 
 // To ensure that the briefing is done during briefings we trigger an event if the mission starts.
-GVAR(jipQuerry) = [];
+GVAR(jipQueue) = [];
 
 if (isDedicated) then {
     [{
@@ -27,10 +27,10 @@ if (isDedicated) then {
     }] call CFUNC(addPerFrameHandler);
 };
 
-["registerJIPQuery", {
-    GVAR(jipQuerry) pushBack (_this select 0);
+["registerJIPQueue", {
+    GVAR(jipQueue) pushBack (_this select 0);
 }] call CFUNC(addEventhandler);
 
-["loadJIPQuery", {
-    owner (_this select 0) publicVariableClient QGVAR(jipQuerry);
+["loadJIPQueue", {
+    owner (_this select 0) publicVariableClient QGVAR(jipQueue);
 }] call CFUNC(addEventhandler);

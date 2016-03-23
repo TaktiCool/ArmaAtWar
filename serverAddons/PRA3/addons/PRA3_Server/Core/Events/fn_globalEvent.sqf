@@ -19,5 +19,5 @@ params [["_event", "EventError", [""]], ["_args", []], "_persistent"];
 
 [_event, _args] remoteExecCall [QFUNC(localEvent), 0];
 if !(isNil "_persistent") then {
-    ["registerJIPQuery", [_persistent, _args, _event]] call CFUNC(serverEvent);
+    ["registerJIPQueue", [_persistent, _args, _event]] call CFUNC(serverEvent);
 };

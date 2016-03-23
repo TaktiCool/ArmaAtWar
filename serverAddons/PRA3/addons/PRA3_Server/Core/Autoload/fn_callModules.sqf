@@ -96,8 +96,8 @@ if (!hasInterface && !isServer) then {
 } count _postInit;
 
 if (didJip) then {
-    ["loadJIPQuery", PRA3_Player] call CFUNC(serverEvent);
-    QGVAR(jipQuery) addPublicVariableEventHandler {
+    ["loadJIPQueue", PRA3_Player] call CFUNC(serverEvent);
+    QGVAR(jipQueue) addPublicVariableEventHandler {
         {
             _x params ["_persistent", "_args", "_event"];
             if ((typeName _persistent) in ["STRING", "BOOL"]) then {
