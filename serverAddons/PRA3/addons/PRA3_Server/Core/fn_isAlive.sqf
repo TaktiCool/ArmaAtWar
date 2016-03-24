@@ -15,4 +15,4 @@
 */
 
 params ["_unit"];
-alive _unit;
+alive _unit && !(_unit getVariable [QEGVAR(Revive,isUnconscious), false])

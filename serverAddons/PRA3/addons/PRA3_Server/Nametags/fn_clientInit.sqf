@@ -55,7 +55,7 @@
                     private _icon = _x getVariable [QEGVAR(Mission,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
 
                     private _text = format ["%1 (%2)", _x call CFUNC(name), call {
-                        if (_x getVariable [QEGVAR(Revive,isUnconscious)]) exitWith {"Unconscious"};
+                        if (_x getVariable [QEGVAR(Revive,isUnconscious), false]) exitWith {"Unconscious"};
                         if (group _x != group PRA3_Player) exitWith {groupID group _x};
                         _x getVariable [QEGVAR(Mission,kitDisplayName), ""]
                     }];
