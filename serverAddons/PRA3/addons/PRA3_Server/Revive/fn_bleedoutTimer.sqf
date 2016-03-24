@@ -34,7 +34,6 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
     hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
-        [_unit, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
         ["UnconsciousnessChanged", [true, PRA3_Player]] call CFUNC(localEvent);
     };
 };

@@ -26,7 +26,7 @@ GVAR(damageCoef) = getArray (_cfg >> "damageCoef");
 
 // Damage Values
 GVAR(preventInstandDeath) = getNumber (_cfg >> "preventInstandDeath") == 1;
-GVAR(maxDamage) = getArray (_cfg >> "maxDamage");
+GVAR(maxDamage) = getNumber (_cfg >> "maxDamage");
 
 DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
@@ -51,6 +51,14 @@ DFUNC(resetMedicalVars) = {
 
 // Bleedout Timer
 [FUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
+
+["healUnit", {
+    [PRA3_Player, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
+}] call CFUNC(addEventhandler);
+
+["stopBleeding", {
+    [PRA3_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+}] call CFUNC(addEventhandler);
 
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 

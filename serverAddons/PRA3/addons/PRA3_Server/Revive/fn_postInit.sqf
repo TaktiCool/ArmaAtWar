@@ -147,6 +147,7 @@ if (hasInterface) then {
                 } else {
                     _target = PRA3_Player;
                 };
+                if (_target getVariable [QGVAR(bloodLoss), 0] != 0 || !(_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
                 disableSerialization;
@@ -193,7 +194,8 @@ if (hasInterface) then {
                         GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
 
                         if (GVAR(MedicItemProgress) >= 1) then {
-                            _target setDamage _maxHeal;
+                            //_target setDamage _maxHeal;
+                            ["healUnit", _target] call CFUNC(targetEvent);
                             _target forceWalk false;
                             GVAR(MedicItemActivated) = -1;
                         };
@@ -207,7 +209,7 @@ if (hasInterface) then {
                         GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
 
                         if (GVAR(MedicItemProgress)>= 1) then {
-                            [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+                            ["stopBleeding", _target] call CFUNC(targetEvent);
                             PRA3_Player removeItem GVAR(MedicItemSelected);
                             GVAR(MedicItemActivated) = -1;
                         };
@@ -240,11 +242,12 @@ if (hasInterface) then {
 
             private _target = cursorObject;
 
-            if (_target getVariable [QGVAR(bloodLoss), 0] != 0) exitWith {
-                hintSilent "You must First Bandage the Unit to Revive him!";
-            };
-
             if (!(typeOf _target isKindOf "CAManBase") || {(PRA3_Player distance _target) > 3}) exitWith {false};
+
+            if (_target getVariable [QGVAR(bloodLoss), 0] != 0) exitWith {
+                systemChat "You must First Bandage the Unit to Revive him!";
+                false
+            };
 
             if !(_target getVariable [QGVAR(isUnconscious), false]) exitWith {false};
 

@@ -40,6 +40,6 @@ _object setVariable [format ["PRA3_onEmbargo_%1", _varName], _object];
 
     //If value at start of embargo doesn't equal current, then broadcast and start new embargo
     if (!(_value isEqualTo _curValue)) then {
-        _this call FUNC(setVariablePublic);
+        [_object, _varName, _curValue] call FUNC(setVariablePublic);
     };
 }, _delay, _this] call FUNC(wait);

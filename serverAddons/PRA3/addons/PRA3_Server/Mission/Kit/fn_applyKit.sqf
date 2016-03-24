@@ -22,7 +22,7 @@ private _kitDetails = [_kitName, [
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
     ["items", []],
-    ["displayName", ""], ["icon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]
+    ["displayName", ""], ["icon", ""]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -71,7 +71,9 @@ PRA3_Player addHeadgear _headGear;
     _x call FUNC(addItem);
     nil
 } count _items;
-
-PRA3_Player setVariable [QGVAR(kit), _kitName];
-PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName];
-PRA3_Player setVariable [QGVAR(kitIcon), _icon];
+if (_icon == "") then {
+    _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
+};
+PRA3_Player setVariable [QGVAR(kit), _kitName, true];
+PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
+PRA3_Player setVariable [QGVAR(kitIcon), _icon, true];

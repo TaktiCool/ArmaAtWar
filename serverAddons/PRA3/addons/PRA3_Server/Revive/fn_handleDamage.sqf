@@ -32,10 +32,10 @@ _allDamage set [_selectionIndex, _damage];
 
 if (_selectionName != "" && _newDamage > 0.3) then {
     private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
-    if (_unit getVariable [QGVAR(isUnconscious), false]) then {
-        _bloodLoss = _bloodLoss + (_newDamage / GVAR(unconBleedCoef));
+    _bloodLoss = if (_unit getVariable [QGVAR(isUnconscious), false]) then {
+        _bloodLoss + (_newDamage / GVAR(unconBleedCoef));
     } else {
-        _bloodLoss = _bloodLoss + (_newDamage / GVAR(bleedCoef));
+        _bloodLoss + (_newDamage / GVAR(bleedCoef));
     };
     [_newDamage] call FUNC(bloodEffect);
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
@@ -46,7 +46,7 @@ if (_selectionName in ["head", "body", ""]) then {
     if (!GVAR(preventInstandDeath) && {_newDamage >= GVAR(maxDamage)}) then {
         forceRespawn _unit;
     } else {
-        if (_damage >= 1) then {
+        if (_damage >= GVAR(maxDamage)) then {
             [{
                 if !(_this getVariable [QGVAR(isUnconscious), false]) then {
                     ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
