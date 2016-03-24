@@ -51,6 +51,7 @@ if (_state) then {
     };
     if (alive _unit) then {
         ["switchMove", [_unit, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
+        [true] call CFUNC(disalbeUserInput);
     };
 } else {
     if (_unit isEqualTo PRA3_Player) then {
@@ -63,6 +64,7 @@ if (_state) then {
     };
     if (alive _unit) then {
         ["switchMove", [_unit, "AmovPpneMstpSnonWnonDnon"]] call CFUNC(globalEvent);
+        [false] call CFUNC(disalbeUserInput);
     };
 };
 
