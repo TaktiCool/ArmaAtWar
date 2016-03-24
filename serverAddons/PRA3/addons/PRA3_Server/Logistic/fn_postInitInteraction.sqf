@@ -18,7 +18,7 @@
 if (isDedicated || !hasInterface) exitWith {};
 
 [
-    {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
+    {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     ["StaticWeapon", "ReammoBox_F"],
     3,
     {
@@ -62,7 +62,7 @@ if (isDedicated || !hasInterface) exitWith {};
 ] call CFUNC(addAction);
 
 [
-    {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
+    {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship"],
     10,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
@@ -84,7 +84,7 @@ if (isDedicated || !hasInterface) exitWith {};
 ] call CFUNC(addAction);
 
 [
-    {format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorObject getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
+    {format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     ["AllVehicles"],
     10,
     {isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])},

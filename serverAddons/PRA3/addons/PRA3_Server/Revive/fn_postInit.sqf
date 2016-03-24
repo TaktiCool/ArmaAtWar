@@ -83,20 +83,37 @@ if (hasInterface) then {
             params [["_item", ""]];
             disableSerialization;
             hint "show Heal/Bandage Action";
-            private _helpText = format ["<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br /><img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself", ["heal", "banadge"] select (_item == "FirstAidKit")];
-
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
+
             private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
             {
                 (_display displayCtrl _x) ctrlSetFade 1;
                 (_display displayCtrl _x) ctrlCommit 0;
-                false;
+                nil
             } count [3001, 3002, 3003];
+            [{
+                disableSerialization;
+                (_this select 0) params ["_item"];
+                private _helpText = "";
+                if ((_item == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
+                    _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />";
+                };
+                if ((_item == "FirstAidKit" && {(PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
+                    _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself";
+                };
+                _helpText = format [_helpText, ["heal", "banadge"] select (_item == "FirstAidKit")];
 
-            (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
-            (_display displayCtrl 3004) ctrlSetFade 0;
-            (_display displayCtrl 3004) ctrlCommit 0;
+                private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+                if (isNull _display) exitWith {
+                    [_this select 1] call CFUNC(removePerFrameHandler);
+                };
 
+                if (_helpText != ctrlText (_display displayCtrl 3004)) then {
+                    (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
+                    (_display displayCtrl 3004) ctrlSetFade 0;
+                    (_display displayCtrl 3004) ctrlCommit 0;
+                };
+            }, 1, [_item]] call CFUNC(addPerFrameHandler);
         }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}, [_item]] call CFUNC(waitUntil);
 
 
@@ -140,13 +157,19 @@ if (hasInterface) then {
             if (GVAR(MedicItemActivated) < 0) then {
                 GVAR(MedicItemActivated) = _button;
 
-                private _target = objNull;
-                if (_button == 0) then {
-                    _target = cursorObject;
-                    if (!(typeOf _target isKindOf "CAManBase") || (PRA3_Player distance _target) > 3 || !alive _target) then {breakTo "MAIN"};
+                private _target = if (_button == 0) then {
+                    if (!(typeOf cursorTarget isKindOf "CAManBase") || (PRA3_Player distance cursorTarget) > 3 || !alive cursorTarget) then {breakTo "MAIN"};
+                    cursorTarget
                 } else {
-                    _target = PRA3_Player;
+                    PRA3_Player
                 };
+
+                // exit Only One Player can Bandage a Bleeding Unit
+                if (_target getVariable [QGVAR(medicalActionIsInProgress), false] && GVAR(MedicItemSelected) == "FirstAidKit") then {
+                    breakTo "MAIN";
+                };
+
+
                 if (_target getVariable [QGVAR(bloodLoss), 0] == 0 && (_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
@@ -168,11 +191,12 @@ if (hasInterface) then {
                     false;
                 } count [3001, 3002, 3003];
 
-
+                _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
                 [{
                     (_this select 0) params ["_target"];
+
                     private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
-                    if (!(_target in [cursorObject, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+                    if (!(_target in [cursorTarget, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                         GVAR(MedicItemProgress) = 0;
                         {
                             (_display displayCtrl _x) ctrlSetFade 1;
@@ -180,6 +204,7 @@ if (hasInterface) then {
                             false;
                         } count [3001, 3002, 3003];
                         [_this select 1] call CFUNC(removePerFrameHandler);
+                        _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
                     };
 
 
@@ -240,7 +265,7 @@ if (hasInterface) then {
             params ["_ctrl","_key"];
             if (_key != 57 || GVAR(reviveKeyPressed)) exitWith {false};
 
-            private _target = cursorObject;
+            private _target = cursorTarget;
 
             if (!(typeOf _target isKindOf "CAManBase") || {(PRA3_Player distance _target) > 3}) exitWith {false};
 
@@ -278,7 +303,7 @@ if (hasInterface) then {
             [{
                 (_this select 0) params ["_target"];
 
-                if (cursorObject != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
+                if (cursorTarget != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                     ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
                     [_this select 1] call CFUNC(removePerFrameHandler);
                     _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
