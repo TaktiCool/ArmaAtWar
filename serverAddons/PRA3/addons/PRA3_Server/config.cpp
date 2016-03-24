@@ -1,6 +1,6 @@
 #include "macros.hpp"
 class CfgPatches {
-    class PRA3_server {
+    class PRA3_Server {
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.56;

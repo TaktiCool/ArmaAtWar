@@ -10,7 +10,7 @@ private _missionVersionStr = "";
 private _missionVersionAr = getArray(missionConfigFile >> "PRA3" >> "Version");
 
 private _serverVersionStr = "";
-private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_server" >> "versionAr");
+private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" >> "versionAr");
 
 {
     _missionVersionStr = _missionVersionStr + str(_x) + ".";
