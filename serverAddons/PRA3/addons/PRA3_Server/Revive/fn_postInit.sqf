@@ -147,7 +147,7 @@ if (hasInterface) then {
                 } else {
                     _target = PRA3_Player;
                 };
-                if (_target getVariable [QGVAR(bloodLoss), 0] != 0 || !(_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])) exitWith {};
+                if (_target getVariable [QGVAR(bloodLoss), 0] == 0 && (_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
                 disableSerialization;
