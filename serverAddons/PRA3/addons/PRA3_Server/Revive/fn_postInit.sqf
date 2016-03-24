@@ -177,10 +177,8 @@ if (hasInterface) then {
 
                 private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
 
-                private _progressText = "Bandaging %1 ...";
-                if (GVAR(MedicItemSelected) == "Medikit") then {
-                    _progressText = "Healing %1 ...";
-                };
+                private _progressText = ["Bandaging %1 ...", "Healing %1 ..."] select (GVAR(MedicItemSelected) == "Medikit");
+
 
                 (_display displayCtrl 3003) ctrlSetStructuredText parseText format [_progressText, _target call CFUNC(name)];
                 (_display displayCtrl 3002) progressSetPosition 0;
