@@ -31,7 +31,10 @@ private _newUnit = _targetGroup createUnit [_className, [0, 0, 0], [], 0, "NONE"
 
 // Copy all variables to the new object
 {
-    _newUnit setVariable [_x, PRA3_Player getVariable _x, true];
+    private _var = PRA3_Player getVariable _x;
+    if !(isNil "_var") then {
+        _newUnit setVariable [_x, _var, true];
+    };
     nil
 } count (allVariables PRA3_Player);
 

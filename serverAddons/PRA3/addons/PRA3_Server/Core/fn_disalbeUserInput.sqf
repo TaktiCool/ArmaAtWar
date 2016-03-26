@@ -19,7 +19,7 @@ params ["_state"];
 if (_state) then {
     disableSerialization;
 
-    if (!isNull (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull])) exitWith {};
+    if (!isNull (uiNamespace getVariable [UIVAR(dlgDisableMouse), displayNull])) exitWith {};
     if (!isNil QGVAR(disableInputPFH)) exitWith {};
 
     // end TFAR and ACRE2 radio transmissions
@@ -31,9 +31,9 @@ if (_state) then {
     };
 
     closeDialog 0;
-    createDialog QEGVAR(mission,DisableMouse_Dialog);
+    createDialog UIVAR(DisableMouse_Dialog);
 
-    private _dlg = uiNamespace getVariable QEGVAR(mission,dlgDisableMouse);
+    private _dlg = uiNamespace getVariable UIVAR(dlgDisableMouse);
 
     _dlg displayAddEventHandler ["KeyDown", {
         params ["", "_key"];
@@ -48,31 +48,24 @@ if (_state) then {
             for "_index" from 100 to 2000 do {
                 (_dlg displayCtrl _index) ctrlEnable false;
             };
-            private _code = {
-                while {!isNull (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse),displayNull])} do {
-                    closeDialog 0
-                };
-                failMission 'LOSER';
-                [false] call FUNC(disableUserInput);
-            };
 
-            _code = _code call FUNC(codeToString);
+
 
             private _ctrl = _dlg displayctrl 103;
-            _ctrl ctrlSetEventHandler ["buttonClick", _code];
+            _ctrl ctrlSetEventHandler ["buttonClick", DFUNC(onButtonClickEndStr)];
             _ctrl ctrlEnable true;
             _ctrl ctrlSetText "ABORT";
             _ctrl ctrlSetTooltip "Abort.";
 
             _ctrl = _dlg displayctrl ([104, 1010] select isMultiplayer);
-            _ctrl ctrlSetEventHandler ["buttonClick", QUOTE(closeDialog 0; player setDamage 1; [false] call FUNC(disableUserInput);)];
+            _ctrl ctrlSetEventHandler ["buttonClick", DFUNC(onButtonClickRespawnStr)];
             _ctrl ctrlEnable (call {private _config = missionConfigFile >> "respawnButton"; !isNumber _config || {getNumber _config == 1}});
             _ctrl ctrlSetText "RESPAWN";
             _ctrl ctrlSetTooltip "Respawn.";
         };
 
         if (_key in actionKeys "TeamSwitch" && {teamSwitchEnabled}) then {
-            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [UIVAR(dlgDisableMouse), displayNull]) closeDisplay 0;
 
             private _acc = accTime;
             teamSwitch;
@@ -80,12 +73,12 @@ if (_state) then {
         };
 
         if (_key in actionKeys "CuratorInterface" && {getAssignedCuratorLogic player in allCurators}) then {
-            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [UIVAR(dlgDisableMouse), displayNull]) closeDisplay 0;
             openCuratorInterface;
         };
 
         if (_key in actionKeys "ShowMap") then {
-            (uiNamespace getVariable [QEGVAR(mission,dlgDisableMouse), displayNull]) closeDisplay 0;
+            (uiNamespace getVariable [UIVAR(dlgDisableMouse), displayNull]) closeDisplay 0;
             openMap true;
         };
 

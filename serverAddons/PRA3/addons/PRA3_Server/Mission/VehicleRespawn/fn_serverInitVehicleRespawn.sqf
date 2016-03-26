@@ -46,8 +46,11 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 private _varValues = [];
                 {
                     if ((_x find "pra3") == 0) then {
-                        _varNames pushBack _x;
-                        _varValues pushBack (_vehicle getVariable _x);
+                        private _var = (_vehicle getVariable _x);
+                        if (isNil "_var") then {
+                            _varNames pushBack _x;
+                            _varValues pushBack _var;
+                        };
                     };
                     nil
                 } count allVariables _vehicle;

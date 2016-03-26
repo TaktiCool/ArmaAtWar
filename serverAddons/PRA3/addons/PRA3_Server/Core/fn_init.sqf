@@ -12,6 +12,23 @@ GVAR(allLocationTypes) = [];
 
 GVAR(markerLocations) = getArray (missionConfigFile >> "PRA3" >> "markerLocation");
 GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, markerText _x]};
+
+// functions for Disable User Input
+DFUNC(onButtonClickEndStr) = {
+    while {!isNull (uiNamespace getVariable [UIVAR(dlgDisableMouse),displayNull])} do {
+        closeDialog 0
+    };
+    failMission 'LOSER';
+    [false] call FUNC(disableUserInput);
+} call FUNC(codeToString);
+
+DFUNC(onButtonClickRespawnStr) = {
+    closeDialog 0;
+    forceRespawn PRA3_Player;
+    [false] call FUNC(disableUserInput);
+} call FUNC(codeToString);
+
+
 if (hasInterface) then {
     [{
         (findDisplay 46) displayAddEventHandler ["KeyDown", {

@@ -66,10 +66,10 @@ class PRA3_RscTextSmall : PRA3_RscText {
     sizeEx = PY(2);
 };
 
-class PRA3_mission_DisableMouse_Dialog {
+class PRA3_UI_DisableMouse_Dialog {
     idd = -1;
     movingEnable = false;
-    onLoad = "uiNamespace setVariable ['PRA3_mission_dlgDisableMouse',_this select 0];";
+    onLoad = "uiNamespace setVariable ['PRA3_UI_dlgDisableMouse',_this select 0];";
     objects[] = {};
     class controlsBackground {
         class Background {
