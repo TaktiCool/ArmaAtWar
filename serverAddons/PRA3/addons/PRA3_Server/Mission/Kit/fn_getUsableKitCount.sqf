@@ -21,6 +21,9 @@ params ["_kitName"];
 private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], ["isLeader", 0]]] call FUNC(getKitDetails);
 _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 
+// Check leader
+if (_isLeader && !(PRA3_Player == leader PRA3_Player)) exitWith {0};
+
 // Check squad type
 private _squadType = (group PRA3_Player) getVariable [QGVAR(Type), ""];
 if (!(_squadType in _availableInGroups)) exitWith {0};
@@ -34,5 +37,5 @@ private _usedKitsFromGroup = {
     _usedKitGroupName == _kitGroupName
 } count ((units group PRA3_Player) - [PRA3_Player]);
 
-private _availableKits = [floor (_groupMembersCount / _requiredGroupMembersPerKit), 1] select _isLeader;
-_availableKits - _usedKitsFromGroup
+private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit;
+[_availableKits - _usedKitsFromGroup, 1] select _isLeader
