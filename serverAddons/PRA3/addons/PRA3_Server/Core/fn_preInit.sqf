@@ -2,7 +2,7 @@
 
 #ifndef isDev
     private _extRet = "PRA3_server" callExtension "version";
-    GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3_Extension" >> "version") == _extRet};
+    GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3" >> "PRA3_Extension" >> "version") == _extRet};
 #endif
 
 // Version Informations
@@ -31,6 +31,15 @@ _missionVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 1
 _serverVersionStr = _serverVersionStr select [0, (count _serverVersionStr - 1)];
 GVAR(VersionInfo) = [[_missionVersionStr,_missionVersionAr], [_serverVersionStr, _serverVersionAr]];
 publicVariable QGVAR(VersionInfo);
+
+private _tempName = [];
+private _tempRequires = [];
+{
+    _tempName pushBack (configName _x);
+    _tempRequires pushBack (getArray (_x >> "require"));
+    nil
+} count ("true" configClasses (configFile >> "PRA3" >> "Dependencies"));
+GVAR(Dependencies) = [_tempName,_tempRequires];
 
 // The autoloader uses this array to get all function names.
 GVAR(functionCache) = [];

@@ -34,7 +34,7 @@ disableUserInput true;
 GVAR(requiredFunctions) = [];
 QGVAR(receiveFunction) addPublicVariableEventHandler {
     (_this select 1) params ["_functionVarName", "_functionCode", "_progress"];
-    DUMP("Function: " + _functionVarName + " Recieved")
+    DUMP("Function Recieved: " + _functionVarName)
     // Compile the function code and assign it.
     #ifdef isDev
         _functionCode = compile _functionCode;
@@ -57,7 +57,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
         // End the loading screen and enable input for the user.
         endLoadingScreen;
         disableUserInput false;
-        DUMP("All Function Recieved now call then")
+        DUMP("All Function Recieved, now call then")
         // Call all modules.
         call FUNC(callModules);
     };

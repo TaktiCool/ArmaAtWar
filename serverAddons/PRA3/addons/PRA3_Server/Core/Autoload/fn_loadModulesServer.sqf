@@ -20,15 +20,29 @@
 
 // Find all functions which are part of the requested modules and store them in an array.
 GVAR(requiredFunctions) = [];
+
+private _modules = +_this;
+
+{
+    if (_x in (GVAR(Dependencies) select 0)) then {
+        private _index = (GVAR(Dependencies) select 0) find _x;
+        {
+            _modules pushBackUnique _x;
+            nil
+        } count ((GVAR(Dependencies) select 1) select _index);
+    };
+    nil
+} count _this;
+
 {
     // Extract the module name out of the full function name.
-    // 1: Remove "AME_" prefix
+    // 1: Remove "PRA3_" prefix
     private _functionModuleName = _x select [5, count _x - 6];
     // 2: All characters until the next "_" are the module name.
     _functionModuleName = _functionModuleName select [0, _functionModuleName find "_"];
 
     // Push the function name on the array if its in the requested module list.
-    if (_functionModuleName in _this) then {
+    if (_functionModuleName in _modules) then {
         GVAR(requiredFunctions) pushBack _x;
     };
     true

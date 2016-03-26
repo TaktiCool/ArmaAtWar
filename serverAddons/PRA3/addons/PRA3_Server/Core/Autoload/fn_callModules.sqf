@@ -51,7 +51,7 @@ diag_log format["[PRA3 - Version]: Mission Version %1", (GVAR(VersionInfo) selec
 
 {
     private _time = diag_tickTime;
-    call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
+    _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
     _time = diag_tickTime - _time;
     DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
@@ -60,7 +60,7 @@ diag_log format["[PRA3 - Version]: Mission Version %1", (GVAR(VersionInfo) selec
 if (isServer) then {
     {
         private _time = diag_tickTime;
-        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
+        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -70,7 +70,7 @@ if (isServer) then {
 if (hasInterface) then {
     {
         private _time = diag_tickTime;
-        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
+        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -80,7 +80,7 @@ if (hasInterface) then {
 if (!hasInterface && !isServer) then {
     {
         private _time = diag_tickTime;
-        call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
+        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
         DUMP("Call: " + _x + " (" + str(_time) +" ms)")
         nil
@@ -89,7 +89,7 @@ if (!hasInterface && !isServer) then {
 
 {
     private _time = diag_tickTime;
-    call (missionNamespace getVariable [_x, {hint "fail to Call Function"}]);
+    _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
     _time = diag_tickTime - _time;
     DUMP("Call: " + _x + " (" + str(_time) +" ms)")
     nil
