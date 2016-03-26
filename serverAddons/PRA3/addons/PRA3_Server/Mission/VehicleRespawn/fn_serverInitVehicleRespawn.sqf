@@ -47,7 +47,7 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 {
                     if ((_x find "pra3") == 0) then {
                         private _var = (_vehicle getVariable _x);
-                        if (isNil "_var") then {
+                        if !(isNil "_var") then {
                             _varNames pushBack _x;
                             _varValues pushBack _var;
                         };
@@ -63,7 +63,7 @@ GVAR(VehicleRespawnAllVehicles) = [];
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
 
 addMissionEventHandler ["EntityKilled", {
-    params["_killedEntity","_killer"];
+    params ["_killedEntity","_killer"];
     if (_killedEntity in GVAR(VehicleRespawnAllVehicles)) then {
         private _type = typeOf _killedEntity;
         private _respawnTime = _killedEntity getVariable [QGVAR(RespawnTime), 0];

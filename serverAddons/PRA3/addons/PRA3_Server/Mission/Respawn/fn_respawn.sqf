@@ -19,7 +19,8 @@ params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", f
 
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
-private _newUnit = _targetGroup createUnit [_className, [0, 0, 0], [], 0, "NONE"];
+// Unit need to created at this far because in some map the center is 0,0,0 (for example Fallujah)
+private _newUnit = _targetGroup createUnit [_className, [-10000, -10000, 1000], [], 0, "NONE"];
 
 // Reattach all triggers
 {

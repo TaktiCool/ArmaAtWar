@@ -99,7 +99,11 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     // WeaponTabs
 #undef IDC
 #define IDC 304
-    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select (lbCurSel IDC), ""]]] call FUNC(getKitDetails);
+    private _index = (lbCurSel IDC);
+    if !(_index in [0,1,2]) then {
+        _index = 0;
+    };
+    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select _index, ""]]] call FUNC(getKitDetails);
 
     // WeaponPicture
 #undef IDC
