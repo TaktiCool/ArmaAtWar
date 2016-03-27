@@ -37,5 +37,5 @@ private _usedKitsFromGroup = {
     _usedKitGroupName == _kitGroupName
 } count ((units group PRA3_Player) - [PRA3_Player]);
 
-private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit;
+private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit);
 [_availableKits - _usedKitsFromGroup, 1] select _isLeader
