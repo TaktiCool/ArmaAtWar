@@ -22,7 +22,7 @@ private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], [
 _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 
 // Check leader
-if (_isLeader && PRA3_Player != leader PRA3_Player) exitWith {0};
+if (_isLeader == 1 && PRA3_Player != leader PRA3_Player) exitWith {0};
 
 // Check squad type
 private _squadType = (group PRA3_Player) getVariable [QGVAR(Type), ""];
