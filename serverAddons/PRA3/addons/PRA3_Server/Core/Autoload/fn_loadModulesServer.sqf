@@ -61,7 +61,7 @@ if (isServer) then {
             // Extract the code out of the function.
             private _functionCode = parsingNamespace getVariable [_x, {}];
             // Remove leading and trailing braces from the code.
-            _functionCode = _functionCode call FUNC(codeToString);
+            _functionCode = _functionCode call CFUNC(codeToString);
 
             // Transfer the function name, code and progress to the client.
             GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / (count GVAR(requiredFunctions) - 1)];
