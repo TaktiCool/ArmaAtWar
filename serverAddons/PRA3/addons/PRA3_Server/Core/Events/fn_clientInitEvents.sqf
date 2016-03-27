@@ -52,6 +52,7 @@ GVAR(OldPLayerSide) = playerSide;
     // If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
     if (!isNull (findDisplay 46)) then {
         ["missionStarted"] call FUNC(localEvent);
+        ["playerJoined", PRA3_Player] call FUNC(globalEvent);
         (_this select 1) call CFUNC(removePerFrameHandler);
     };
 }] call CFUNC(addPerFrameHandler);
