@@ -146,13 +146,6 @@ DFUNC(resetMedicalVars) = {
 
 }] call CFUNC(addEventhandler);
 
-["healingStatus", {
-    params ["_timestamp","_progress","_progressRate"];
-    GVAR(healingTimestamp) = _timestamp;
-    GVAR(healingProgress) = _progress;
-    GVAR(healingRate) = _rate;
-}] call CFUNC(addEventhandler);
-
 ["stopBleeding", {
     [PRA3_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventhandler);

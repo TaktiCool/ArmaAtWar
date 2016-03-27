@@ -24,13 +24,36 @@ _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
+    if (isnull (uinamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
+        ([QGVAR(MedicalProgress)] call bis_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"plain", 0.2];
+        private _display =  uinamespace getVariable [UIVAR(MedicalProgress), displayNull];
+        (_display displayCtrl 3003) ctrlSetStructuredText parseText "YOU ARE UNCONSCIOUS AND BLEEDING";
+        (_display displayCtrl 3003) ctrlSetFade 0;
+        (_display displayCtrl 3003) ctrlCommit 0;
+
+        (_display displayCtrl 3004) ctrlSetStructuredText parseText "Wait for help or respawn ...";
+        (_display displayCtrl 3004) ctrlSetFade 0;
+        (_display displayCtrl 3004) ctrlCommit 0;
+
+        (_display displayCtrl 3002) progressSetPosition ((GVAR(reviveBleedOutTime) - _bleedOutTime)/GVAR(reviveBleedOutTime));
+    } else {
+        private _display =  uinamespace getVariable [UIVAR(MedicalProgress), displayNull];
+        (_display displayCtrl 3002) progressSetPosition ((GVAR(reviveBleedOutTime) - _bleedOutTime)/GVAR(reviveBleedOutTime));
+    };
+
+
     hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedOutTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
+        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
         // Force Player to Respawn
         forceRespawn PRA3_Player;
         ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+
     };
 } else {
+    if (!isnull (uinamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
+        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+    };
     // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
     hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedingTime)) then {
