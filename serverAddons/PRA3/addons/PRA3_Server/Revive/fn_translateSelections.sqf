@@ -33,43 +33,10 @@ params ["_unit", "_selection", "_hitPointIndex"];
 
 if (_selection == "") exitWith {""};
 
-//Get Selection from standard selection ["head","body","hand_l","hand_r","leg_l","leg_r"]
-if (_hitPointIndex isEqualTo true) exitWith {
-    private _returnHitPoint = GVAR(HITPOINTS) select (GVAR(SELECTIONS) find _selection);
-    //If the selection is a valid hitpoint just return it:
-    if (!isNil {_unit getHitPointDamage _returnHitPoint}) exitWith {
-        _returnHitPoint;
-    };
-
-    //Those VR fuckers have weird limb hitpoints
-    private _hitPoints = switch (_selection) do {
-        case ("hand_l"): {L_ARM_HITPOINTS};
-        case ("hand_r"): {R_ARM_HITPOINTS};
-        case ("leg_l"): {L_LEG_HITPOINTS};
-        case ("leg_r"): {R_LEG_HITPOINTS};
-        case ("head"): {HEAD_HITPOINTS};
-        case ("body"): {TORSO_HITPOINTS};
-        default {[]};
-    };
-
-    {
-        if (!isNil {_unit getHitPointDamage _x}) exitWith {
-            _returnHitPoint = _x;
-        };
-    } forEach _hitPoints;
-    _returnHitPoint
-};
-
 //Get Selection from Selection/HitIndex:
 
 if (_selection in HEAD_SELECTIONS) exitWith {"head"};
 if (_selection in TORSO_SELECTIONS) exitWith {"body"};
-
-// Not necessary unless we get more hitpoints variants in an next arma update
-/*if (_selection in L_ARM_SELECTIONS) exitWith {"hand_l"};
-if (_selection in R_ARM_SELECTIONS) exitWith {"hand_r"};
-if (_selection in L_LEG_SELECTIONS) exitWith {"leg_l"};
-if (_selection in R_LEG_SELECTIONS) exitWith {"leg_r"};*/
 
 //Backup method to detect weird selections/hitpoints
 if ((_selection == "?") || {!(_selection in GVAR(SELECTIONS))}) exitWith {
@@ -84,7 +51,12 @@ if ((_selection == "?") || {!(_selection in GVAR(SELECTIONS))}) exitWith {
     if (_hitPoint in L_LEG_HITPOINTS) exitWith {"leg_l"};
     if (_hitPoint in R_LEG_HITPOINTS) exitWith {"leg_r"};
 
-    _selection
+    switch (_selection) do {
+        case "legs": { selectRandom ["leg_r", "leg_l"]; };
+        case "arms": { selectRandom ["hand_l", "hand_r"]; };
+        case "hands": { selectRandom ["hand_l", "hand_r"]; };
+        default { _selection };
+    };
 };
 
 _selection;

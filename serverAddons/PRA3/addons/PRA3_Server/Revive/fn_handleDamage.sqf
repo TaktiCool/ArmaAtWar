@@ -14,8 +14,8 @@
     0
 */
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
-DUMP(_this)
-if !(alive _unit) exitWith {0};
+if (!(alive _unit) || (_damage == 0)) exitWith {0};
+
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
 
