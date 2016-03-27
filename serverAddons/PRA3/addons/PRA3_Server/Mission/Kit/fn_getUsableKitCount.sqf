@@ -34,7 +34,7 @@ private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupM
 private _usedKitsFromGroup = {
     private _usedKitName = _x getVariable [QGVAR(kit), ""];
     private _usedKitGroupName = ([_usedKitName, [["kitGroup", ""]]] call FUNC(getKitDetails)) select 0;
-    _usedKitGroupName == _kitGroupName
+    _usedKitGroupName != "Unlimited" && _usedKitGroupName == _kitGroupName
 } count ((units group PRA3_Player) - [PRA3_Player]);
 
 private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit);
