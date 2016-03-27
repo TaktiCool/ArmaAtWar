@@ -14,7 +14,7 @@
     Returns:
     Return of the Function <Any>
 */
-params [["_code", {0}, [{}]], ["_args", []]];
+params [["_code", {}, [{}]], ["_arguments", []]];
 private "_return";
-"_return = (_args call _code); false" configClasses (missionConfigFile >> "PRA3" >> "dummy");
+"_return = _arguments call _code" configClasses (missionConfigFile >> "PRA3" >> "dummy");
 if !(isNil "_return") then {_return};
