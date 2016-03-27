@@ -189,6 +189,10 @@ if (hasInterface) then {
                     false;
                 } count [3001, 3002, 3003];
 
+                if (GVAR(MedicItemSelected) == "Medikit") then {
+                    ["registerHealer", _target, PRA3_Player] call CFUNC(targetEvent);
+                };
+
                 _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
                 [{
                     (_this select 0) params ["_target"];
@@ -196,6 +200,7 @@ if (hasInterface) then {
                     private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
                     if (!(_target in [cursorTarget, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                         GVAR(MedicItemProgress) = 0;
+                        ["unregisterHealer", _target, [PRA3_Player]] call CFUNC(targetEvent);
                         {
                             (_display displayCtrl _x) ctrlSetFade 1;
                             (_display displayCtrl _x) ctrlCommit 0.5;
@@ -207,20 +212,16 @@ if (hasInterface) then {
 
 
                     if (GVAR(MedicItemSelected) == "Medikit") then {
-                        private _maxHeal = 1;
-                        private _healSpeed = GVAR(healSpeed);
-                        if !(PRA3_Player getVariable [QGVAR(isMedic), false]) then {
-                            _maxHeal = GVAR(maxHeal);
-                            _healSpeed = _healSpeed / GVAR(healCoef);
-                        };
 
-                        GVAR(MedicItemProgress) = (diag_tickTime - GVAR(beginTickTime)) / _healSpeed;
+                        private _healingProgress = _target getVariable [QGVAR(healingProgress),0];
+                        private _healingRate = _target getVariable [QGVAR(healingRate),0];
+                        private _timestamp = _target getVariable [QGVAR(healingTimestamp),-1];
 
-                        if (GVAR(MedicItemProgress) >= 1) then {
-                            //_target setDamage _maxHeal;
-                            ["healUnit", _target] call CFUNC(targetEvent);
-                            _target forceWalk false;
-                            GVAR(MedicItemActivated) = -1;
+                        if (_timestamp > 0) then {
+                            GVAR(MedicItemProgress) = _healingProgress + (serverTime - _timestamp) * _healingRate;
+                            if (_healingProgress>=1) then {
+                                GVAR(MedicItemActivated) = -1;
+                            };
                         };
 
                     } else {

@@ -28,6 +28,9 @@ GVAR(damageCoef) = getArray (_cfg >> "damageCoef");
 GVAR(preventInstandDeath) = getNumber (_cfg >> "preventInstandDeath") isEqualTo 1;
 GVAR(maxDamage) = getNumber (_cfg >> "maxDamage");
 
+GVAR(currentHealers) = [];
+GVAR(healingPFH) = -1;
+
 DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
         {
@@ -47,6 +50,9 @@ DFUNC(resetMedicalVars) = {
     _this setVariable [QGVAR(isUnconscious), false, true];
     [_this, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
     [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+    [_this, QGVAR(HealingProgress), 0] call CFUNC(setVariablePublic);
+    [_this, QGVAR(HealingRate), 0] call CFUNC(setVariablePublic);
+    [_this, QGVAR(HealingTimestamp), -1] call CFUNC(setVariablePublic);
 };
 
 // Bleedout Timer
@@ -56,6 +62,97 @@ DFUNC(resetMedicalVars) = {
     [PRA3_Player, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventhandler);
 
+["unregisterHealer", {
+    params ["_healer"];
+    GVAR(currentHealers) = GVAR(currentHealers) - _healer;
+}] call CFUNC(addEventhandler);
+
+["registerHealer", {
+    params ["_healer"];
+    GVAR(currentHealers) pushBackUnique _healer;
+
+    if (GVAR(healingPFH) < 0) then {
+        [{
+            private _updateHealingStatus = false;
+            private _damageSelection = PRA3_Player getVariable QGVAR(DamageSelection);
+
+            private _oldHealingProgress = PRA3_Player getVariable [QGVAR(healingProgress),0];
+            private _oldHealingRate = PRA3_Player getVariable [QGVAR(healingRate),0];
+            private _lastTimestamp = PRA3_Player getVariable [QGVAR(healingTimestamp),-1];
+
+
+
+            private _currentTime = serverTime;
+
+            if (_lastTimestamp< 0) exitWith {
+                PRA3_Player setVariable [QGVAR(healingTimestamp), _currentTime];
+            };
+
+            private _maxValue = 0;
+            private _nbrHealers = {
+                private _healer = _x;
+                {
+                    if (_x>_maxValue) then {
+                        _maxValue = _x;
+                    };
+                    nil;
+                } count _damageSelection;
+
+                private _healSpeed = GVAR(healSpeed);
+                private _maxHeal = 1;
+                if !(_healer getVariable [QGVAR(isMedic), false]) then {
+                    _maxHeal = GVAR(maxHeal);
+                    _healSpeed = _healSpeed / GVAR(healCoef);
+                };
+                _maxValue = _maxValue  - (_currentTime - _lastTimestamp) * (_maxHeal / _healSpeed);
+
+
+                _maxValue = _maxValue max 0;
+
+                 _damageSelection = _damageSelection apply {
+                     [_x, _maxValue] select (_x > _maxValue);
+                 };
+                true;
+            } count GVAR(currentHealers);
+
+            private _healingProgress = 1 - _maxValue / GVAR(maxDamage);
+
+            private _healingRate = 0;
+            if (_lastTimestamp != -1)  then {
+                _healingRate = _healingProgress - _oldHealingProgress;
+                _updateHealingStatus = true;
+            };
+
+
+            if (_oldHealingRate != _healingRate || _maxValue == 0) then {
+                _updateHealingStatus = true;
+            };
+
+            [PRA3_Player, QGVAR(DamageSelection), _damageSelection] call CFUNC(setVariablePublic);
+
+            PRA3_Player setVariable [QGVAR(healingProgress), _healingProgress, _updateHealingStatus];
+            PRA3_Player setVariable [QGVAR(healingRate), _healingRate, _updateHealingStatus];
+            PRA3_Player setVariable [QGVAR(healingTimestamp), _currentTime, _updateHealingStatus];
+
+            if (_nbrHealers == 0) exitWith {
+                GVAR(healingPFH) = -1;
+                PRA3_Player setVariable [QGVAR(healingTimestamp),-1, true];
+                [_this select 1] call CFUNC(removePerFrameHandler);
+            };
+
+
+        }, 0, []] call CFUNC(addPerFrameHandler);
+    };
+
+}] call CFUNC(addEventhandler);
+
+["healingStatus", {
+    params ["_timestamp","_progress","_progressRate"];
+    GVAR(healingTimestamp) = _timestamp;
+    GVAR(healingProgress) = _progress;
+    GVAR(healingRate) = _rate;
+}] call CFUNC(addEventhandler);
+
 ["stopBleeding", {
     [PRA3_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventhandler);
@@ -63,7 +160,7 @@ DFUNC(resetMedicalVars) = {
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 
 ["respawn", {
-    (_this select 0) select 0call FUNC(resetMedicalVars);
+    (_this select 0) select 0 call FUNC(resetMedicalVars);
     call FUNC(resetPPEffects);
     ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 }] call CFUNC(addEventhandler);
