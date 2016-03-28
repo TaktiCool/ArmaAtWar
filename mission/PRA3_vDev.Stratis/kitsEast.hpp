@@ -115,6 +115,7 @@ class Kits {
         primaryMagazine = "10Rnd_762x54_Mag";
         primaryMagazineCount = 10;
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
+        assignedItems[] += {"Rangefinder"};
     };
     class Engineer: Rifleman {
         kitGroup = "Limited";

@@ -108,11 +108,11 @@ class Kits {
 
         displayName = "Marksman";
 
-        primaryWeapon = "20Rnd_762x51_Mag";
+        primaryWeapon = "srifle_EBR_F";
         primaryAttachments[] = {"optic_DMS","bipod_01_F_blk"};
-        primaryMagazine = "srifle_EBR_F";
+        primaryMagazine = "20Rnd_762x51_Mag";
         primaryMagazineCount = 5;
-
+        assignedItems[] += {"Rangefinder"};
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class Engineer: Rifleman {
