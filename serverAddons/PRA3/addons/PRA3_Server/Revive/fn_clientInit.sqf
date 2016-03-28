@@ -67,7 +67,7 @@ DFUNC(resetMedicalVars) = {
 
     if (_healer in GVAR(currentHealers)) then {
         private _index = GVAR(currentHealers) find _healer;
-        GVAR(currentHealers) = GVAR(currentHealers) deleteAt _index;
+        GVAR(currentHealers) deleteAt _index;
     };
 }] call CFUNC(addEventhandler);
 
