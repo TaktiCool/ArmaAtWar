@@ -51,7 +51,8 @@ class Kits {
 
         isLeader = 1;
 
-        assignedItems[] += {"Binocular"};
+        secondaryWeapon = "Binocular";
+
         primaryAttachments[] = {"optic_Arco","acc_pointer_IR"};
         backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
@@ -114,6 +115,9 @@ class Kits {
 
         primaryMagazine = "10Rnd_762x54_Mag";
         primaryMagazineCount = 10;
+
+        secondaryWeapon = "Rangefinder";
+
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
         assignedItems[] += {"Rangefinder"};
     };

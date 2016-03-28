@@ -51,7 +51,8 @@ class Kits {
 
         isLeader = 1;
 
-        assignedItems[] += {"Binocular"};
+        secondaryWeapon = "Binocular";
+
         primaryAttachments[] = {"optic_Hamr","acc_pointer_IR"};
         backpack = "B_AssaultPack_rgr";
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
@@ -112,7 +113,9 @@ class Kits {
         primaryAttachments[] = {"optic_DMS","bipod_01_F_blk"};
         primaryMagazine = "20Rnd_762x51_Mag";
         primaryMagazineCount = 5;
-        assignedItems[] += {"Rangefinder"};
+
+        secondaryWeapon = "Rangefinder";
+
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class Engineer: Rifleman {
