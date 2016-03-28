@@ -28,7 +28,7 @@ if (_selectionIndex == -1) then {
 private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
 _damage = (_allDamage select _selectionIndex) + (_damage / (GVAR(damageCoef) select _selectionIndex));
 private _newDamage = _damage - (_allDamage select _selectionIndex);
-_allDamage set [_selectionIndex, _damage];
+_allDamage set [_selectionIndex, _damage min GVAR(maxDamage)];
 
 
 if (_selectionName != "" && _newDamage > 0.2) then {
