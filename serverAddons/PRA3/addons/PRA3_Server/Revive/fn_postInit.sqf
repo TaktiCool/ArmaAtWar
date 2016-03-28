@@ -64,11 +64,12 @@ if (hasInterface) then {
 
         // Attach it to the right hand.
         _weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-        _weaponHolder setVectorDirAndUp [[0, 0, -1], [0, 1, 0]];
+        ["setVectorDirAndUp", [_weaponHolder, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
+
         //[[_weaponHolder, [[0, 0, -1], [0, 1, 0]]], "setVectorDirAndUp"] call CFNC(execRemoteFnc);
 
         // And prevent it from being accessed.
-        _weaponHolder enableSimulationGlobal false;
+        ["enableSimulation", [_weaponHolder, false]] call CFUNC(serverEvent);
 
         _config = configFile >> "CfgActions" >> "SwitchWeapon";
         if ((primaryWeapon PRA3_Player != "") && getNumber (_config >> "show") == 1) then {
