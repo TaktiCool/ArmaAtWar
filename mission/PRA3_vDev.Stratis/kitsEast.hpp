@@ -7,7 +7,7 @@ class Kits {
         // Display
         displayName = "Rifleman";
         icon = "";
-        UIIcon = "a3\ui_f\data\map\Markers\Military\box_ca.paa";
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
 
         // Special attributes
         isLeader = 0;
@@ -56,6 +56,7 @@ class Kits {
         backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
         icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
+        UIIcon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
     };
     class Medic: Rifleman {
         kitGroup = "Specialized";
@@ -67,7 +68,10 @@ class Kits {
 
         primaryWeapon = "arifle_Katiba_C_F";
         assignedItems[] += {};
+
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+        UIIcon = "a3\ui_f\data\Revive\medikit_ca.paa";
+
         backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 3}, {"Medikit", 1}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
     };
@@ -85,6 +89,8 @@ class Kits {
         primaryMagazineTracerCount = 3;
         backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
+
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
     };
     class Grenadier: Rifleman {
         kitGroup = "Limited";
@@ -94,6 +100,8 @@ class Kits {
 
         primaryWeapon = "arifle_Katiba_GL_F";
         items[] += {{"1Rnd_HE_Grenade_shell", 6}};
+
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
     class Marksman: Rifleman {
         kitGroup = "Limited";
@@ -108,6 +116,7 @@ class Kits {
         primaryMagazineCount = 2;
         primaryMagazineTracer = "150Rnd_762x54_Box_Tracer";
         primaryMagazineTracerCount = 3;
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class Engineer: Rifleman {
         kitGroup = "Limited";
@@ -117,6 +126,7 @@ class Kits {
 
         isEngineer = 1;
         items[] += {"ToolKit"};
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\repair_ca.paa";
     };
     class AntiAir: Rifleman {
         kitGroup = "Limited";
@@ -128,6 +138,7 @@ class Kits {
         secondaryMagazine = "Titan_AA";
         secondaryMagazineCount = 1;
         backpack = "B_TacticalPack_ocamo";
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\aa_ca.paa";
     };
     class LightAntiTank: Rifleman {
         kitGroup = "Limited";
@@ -140,6 +151,7 @@ class Kits {
         secondaryMagazineCount = 1;
         backpack = "B_TacticalPack_ocamo";
 
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\at_ca.paa";
     };
     class HeavyAntiTank: Rifleman {
         kitGroup = "Limited";
