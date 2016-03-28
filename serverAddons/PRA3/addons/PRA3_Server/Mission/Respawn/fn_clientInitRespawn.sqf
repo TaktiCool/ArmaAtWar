@@ -25,12 +25,28 @@ DFUNC(escapeFnc) =  {
 
         private _dlg = findDisplay 49;
 
+        for "_index" from 100 to 2000 do {
+            (_dlg displayCtrl _index) ctrlEnable false;
+        };
+
+        private _ctrl = _dlg displayctrl 103;
+        _ctrl ctrlSetEventHandler ["buttonClick", {
+            closeDialog 0;
+            failMission "LOSER";
+        }];
+        _ctrl ctrlEnable true;
+        _ctrl ctrlSetText "ABORT";
+        _ctrl ctrlSetTooltip "Abort.";
+
+
+        /*
         _ctrl = _dlg displayctrl ([104, 1010] select isMultiplayer);
         _ctrl ctrlEnable false;
         _ctrl ctrlSetText "RESPAWN";
         _ctrl ctrlSetTooltip "Respawn.";
         _ret = true;
-
+*/
+        _ret = true;
     };
 
     _ret;
