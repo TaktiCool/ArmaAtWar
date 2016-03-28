@@ -193,7 +193,7 @@ if (hasInterface) then {
                 } count [3001, 3002, 3003];
 
                 if (GVAR(MedicItemSelected) == "Medikit") then {
-                    ["registerHealer", _target, PRA3_Player] call CFUNC(targetEvent);
+                    ["registerHealer", [_target], PRA3_Player] call CFUNC(targetEvent);
                 };
 
                 _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
@@ -203,7 +203,7 @@ if (hasInterface) then {
                     private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
                     if (!(_target in [cursorTarget, PRA3_Player]) || GVAR(MedicItemActivated) < 0 || GVAR(MedicItemSelected) == "" || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                         GVAR(MedicItemProgress) = 0;
-                        ["unregisterHealer", _target, [PRA3_Player]] call CFUNC(targetEvent);
+                        ["unregisterHealer", [_target], [PRA3_Player]] call CFUNC(targetEvent);
                         {
                             (_display displayCtrl _x) ctrlSetFade 1;
                             (_display displayCtrl _x) ctrlCommit 0.5;

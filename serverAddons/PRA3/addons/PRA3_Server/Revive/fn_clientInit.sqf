@@ -63,7 +63,7 @@ DFUNC(resetMedicalVars) = {
 }] call CFUNC(addEventhandler);
 
 ["unregisterHealer", {
-    params ["_healer"];
+    (_this select 0) params ["_healer"];
 
     if (_healer in GVAR(currentHealers)) then {
         private _index = GVAR(currentHealers) find _healer;
@@ -72,7 +72,7 @@ DFUNC(resetMedicalVars) = {
 }] call CFUNC(addEventhandler);
 
 ["registerHealer", {
-    params ["_healer"];
+    (_this select 0) params ["_healer"];
     GVAR(currentHealers) pushBackUnique _healer;
 
     if (GVAR(healingPFH) < 0) then {
