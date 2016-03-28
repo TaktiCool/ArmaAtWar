@@ -38,14 +38,6 @@ DFUNC(escapeFnc) =  {
         _ctrl ctrlSetText "ABORT";
         _ctrl ctrlSetTooltip "Abort.";
 
-
-        /*
-        _ctrl = _dlg displayctrl ([104, 1010] select isMultiplayer);
-        _ctrl ctrlEnable false;
-        _ctrl ctrlSetText "RESPAWN";
-        _ctrl ctrlSetTooltip "Respawn.";
-        _ret = true;
-*/
         _ret = true;
     };
 
@@ -53,15 +45,20 @@ DFUNC(escapeFnc) =  {
 };
 
 ["missionStarted", {
-    private _sidePlayerCount = GVAR(competingSides) apply {
-        private _side = call compile _x;
-        [{side group _x == _side} count (allUnits + allDeadMen), _side] //@todo use allPlayers when no AI needed
-    };
-    _sidePlayerCount sort true;
-    private _newSide = _sidePlayerCount select 0 select 1;
 
-    PRA3_Player setVariable [QGVAR(tempUnit), true];
-    [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
+    [{
+        params ["_group"];
+
+        private _sidePlayerCount = GVAR(competingSides) apply {
+            private _side = call compile _x;
+            [{side group _x == _side} count (allPlayers), _side]
+        };
+        _sidePlayerCount sort true;
+        private _newSide = _sidePlayerCount select 0 select 1;
+
+        PRA3_Player setVariable [QGVAR(tempUnit), true];
+        [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
+    }, []] call CFUNC(mutex);
 
     createDialog UIVAR(RespawnScreen);
     (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
@@ -81,8 +78,6 @@ DFUNC(escapeFnc) =  {
 [UIVAR(RespawnScreen_onLoad), {
     showHUD [true,true,true,true,true,true,false,true];
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
-
-
 
     // The dialog needs one frame until access to controls via IDC is possible
     [{
