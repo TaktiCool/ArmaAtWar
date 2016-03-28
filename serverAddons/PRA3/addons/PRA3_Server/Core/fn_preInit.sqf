@@ -1,9 +1,11 @@
 #include "macros.hpp"
 
+/*
 #ifndef isDev
     private _extRet = "PRA3_server" callExtension "version";
     GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3" >> "PRA3_Extension" >> "version") == _extRet};
 #endif
+*/
 
 // Version Informations
 private _missionVersionStr = "";

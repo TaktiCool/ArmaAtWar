@@ -22,8 +22,10 @@ private _postInit = [];
 private _clientInit = [];
 private _hcInit = [];
 
+
 diag_log format["[PRA3 - Version]: Server Version %1", (GVAR(VersionInfo) select 1) select 0];
 diag_log format["[PRA3 - Version]: Mission Version %1", (GVAR(VersionInfo) select 0) select 0];
+
 // Cycle through all available functions and determine whether to call them or not.
 {
     // Client only functions.
@@ -51,18 +53,18 @@ diag_log format["[PRA3 - Version]: Mission Version %1", (GVAR(VersionInfo) selec
 
 {
     private _time = diag_tickTime;
-    _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
+    _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
     _time = diag_tickTime - _time;
-    DUMP("Call: " + _x + " (" + str(_time) +" ms)")
+    LOG("Call: " + _x + " (" + str(_time) +" ms)")
     nil
 } count _init;
 
 if (isServer) then {
     {
         private _time = diag_tickTime;
-        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
+        _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
-        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
+        LOG("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _serverInit;
 };
@@ -70,9 +72,9 @@ if (isServer) then {
 if (hasInterface) then {
     {
         private _time = diag_tickTime;
-        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
+        _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
-        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
+        LOG("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _clientInit;
 };
@@ -80,18 +82,18 @@ if (hasInterface) then {
 if (!hasInterface && !isServer) then {
     {
         private _time = diag_tickTime;
-        _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
+        _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
         _time = diag_tickTime - _time;
-        DUMP("Call: " + _x + " (" + str(_time) +" ms)")
+        LOG("Call: " + _x + " (" + str(_time) +" ms)")
         nil
     } count _hcInit;
 };
 
 {
     private _time = diag_tickTime;
-    _x call (missionNamespace getVariable [_x, {DUMP("fail to Call Function: " + _this)}]);
+    _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
     _time = diag_tickTime - _time;
-    DUMP("Call: " + _x + " (" + str(_time) +" ms)")
+    LOG("Call: " + _x + " (" + str(_time) +" ms)")
     nil
 } count _postInit;
 
