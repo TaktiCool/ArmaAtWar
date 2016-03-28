@@ -13,6 +13,45 @@
     Returns:
     -
 */
+
+DFUNC(escapeFnc) =  {
+    params ["", "_key"];
+    private _ret = false;
+
+    if (_key == 1) then {
+        createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
+
+        disableSerialization;
+
+        private _dlg = findDisplay 49;
+
+        for "_index" from 100 to 2000 do {
+            (_dlg displayCtrl _index) ctrlEnable false;
+        };
+
+        private _ctrl = _dlg displayctrl 103;
+        _ctrl ctrlSetEventHandler ["buttonClick", "
+            closeDialog 0;
+            failMission ""LOSER"";
+        "];
+        _ctrl ctrlEnable true;
+        _ctrl ctrlSetText "ABORT";
+        _ctrl ctrlSetTooltip "Abort.";
+
+
+        /*
+        _ctrl = _dlg displayctrl ([104, 1010] select isMultiplayer);
+        _ctrl ctrlEnable false;
+        _ctrl ctrlSetText "RESPAWN";
+        _ctrl ctrlSetTooltip "Respawn.";
+        _ret = true;
+*/
+        _ret = true;
+    };
+
+    _ret;
+};
+
 ["missionStarted", {
     private _sidePlayerCount = GVAR(competingSides) apply {
         private _side = call compile _x;
@@ -25,11 +64,15 @@
     [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
 
     createDialog UIVAR(RespawnScreen);
+    (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
+
+
 }] call CFUNC(addEventHandler);
 
 ["Killed", {
     setPlayerRespawnTime 10e10;
     createDialog UIVAR(RespawnScreen);
+    (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
 }] call CFUNC(addEventHandler);
 
 /*
@@ -37,16 +80,18 @@
  */
 [UIVAR(RespawnScreen_onLoad), {
     showHUD [true,true,true,true,true,true,false,true];
-
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
+
+
 
     // The dialog needs one frame until access to controls via IDC is possible
     [{
+
         [UIVAR(RespawnScreen_TeamInfo_update)] call CFUNC(localEvent);
         [UIVAR(RespawnScreen_SquadManagement_update)] call CFUNC(localEvent);
         [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
         [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(localEvent);
-    }] call CFUNC(execNextFrame);
+    }, _display] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {

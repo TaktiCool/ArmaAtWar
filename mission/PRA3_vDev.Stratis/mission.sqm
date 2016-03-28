@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=426;
+		nextID=428;
 	};
 	class MarkerIDProvider
 	{
@@ -35,7 +35,8 @@ addons[]=
 	"A3_Soft_F_MRAP_02",
 	"A3_Armor_F_T100K",
 	"A3_Characters_F_INDEP",
-	"a3_characters_f"
+	"a3_characters_f",
+	"A3_Characters_F_BLUFOR"
 };
 randomSeed=13778806;
 class ScenarioData
@@ -134,7 +135,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=123;
+		items=124;
 		class Item0
 		{
 			dataType="Logic";
@@ -5832,6 +5833,34 @@ class Mission
 			{
 			};
 			id=422;
+		};
+		class Item123
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={1414.7749,103.2504,10438.286};
+					};
+					side="West";
+					flags=3;
+					class Attributes
+					{
+					};
+					id=427;
+					type="B_medic_F";
+				};
+			};
+			class Attributes
+			{
+			};
+			id=426;
 		};
 	};
 };
