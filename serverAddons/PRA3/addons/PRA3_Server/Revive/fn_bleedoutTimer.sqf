@@ -30,7 +30,7 @@ _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     if (isnull (uiNamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
         ([UIVAR(MedicalProgress)] call bis_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"plain", 0];
-        private _display =  uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
+        private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
 
         (_display displayCtrl 3003) ctrlSetStructuredText parseText "YOU ARE UNCONSCIOUS AND BLEEDING";
         (_display displayCtrl 3003) ctrlSetFade 0;
