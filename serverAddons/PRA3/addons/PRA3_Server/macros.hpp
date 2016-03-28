@@ -7,7 +7,7 @@
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
 
 // dont release with this setting enabled
-//#define isDev
+#define isDev
 
 #define QUOTE(var) #var
 
