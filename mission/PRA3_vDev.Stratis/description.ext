@@ -114,7 +114,7 @@ class PRA3 {
         bandageCoef = 2; // Coef that a non Medic need
 
 
-        unconBleedCoef = 0.05; // Uncon Damage Coef
+        unconBleedCoef = 0.5; // Uncon Damage Coef
         bleedCoef = 1; // Normal Damage Coef
         damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
 
