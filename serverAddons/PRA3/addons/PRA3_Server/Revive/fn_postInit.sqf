@@ -35,7 +35,8 @@ if (hasInterface) then {
     DFUNC(removeOldAction) = {
         if (GVAR(MedicItemSelected) != "" && !isNull GVAR(MedicItemHolder)) then {
             disableSerialization;
-            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+
+            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
             GVAR(MedicItemSelected) = "";
             deleteVehicle GVAR(MedicItemHolder);
             PRA3_Player removeAction GVAR(CancelAction);
@@ -84,16 +85,22 @@ if (hasInterface) then {
             disableSerialization;
             hint "show Heal/Bandage Action";
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
-
             private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
             {
                 (_display displayCtrl _x) ctrlSetFade 1;
                 (_display displayCtrl _x) ctrlCommit 0;
                 nil
             } count [3001, 3002, 3003];
+
+            (_display displayCtrl 3004) ctrlSetFade 0;
+            (_display displayCtrl 3004) ctrlCommit 0;
+
             [{
                 disableSerialization;
                 (_this select 0) params ["_item"];
+                hint "TEST";
+                DUMP(_this)
+
                 private _helpText = "";
                 if ((_item == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
                     _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />";
@@ -101,7 +108,7 @@ if (hasInterface) then {
                 if ((_item == "FirstAidKit" && {(PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
                     _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself";
                 };
-                _helpText = format [_helpText, ["heal", "banadge"] select (_item == "FirstAidKit")];
+                _helpText = format [_helpText, ["heal", "bandage"] select (_item == "FirstAidKit")];
 
                 private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
                 if (isNull _display) exitWith {
@@ -110,10 +117,9 @@ if (hasInterface) then {
 
                 if (_helpText != ctrlText (_display displayCtrl 3004)) then {
                     (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
-                    (_display displayCtrl 3004) ctrlSetFade 0;
                     (_display displayCtrl 3004) ctrlCommit 0;
                 };
-            }, 1, [_item]] call CFUNC(addPerFrameHandler);
+            }, 0.1, [_item]] call CFUNC(addPerFrameHandler);
         }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}, [_item]] call CFUNC(waitUntil);
 
 
@@ -303,7 +309,8 @@ if (hasInterface) then {
                 (_this select 0) params ["_target"];
 
                 if (cursorTarget != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
-                    ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+                    DUMP("Item Removed")
+                    ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     [_this select 1] call CFUNC(removePerFrameHandler);
                     _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
                 };

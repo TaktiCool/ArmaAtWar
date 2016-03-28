@@ -19,8 +19,8 @@ if !(alive PRA3_player) exitWith {};
 
 private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
 if (_bloodLoss == 0) exitWith {
-    if (!isnull (uinamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
-        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+    if (!isnull (uinamespace getVariable [UIVAR(BleedOutProgress), displayNull])) then {
+        ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
     };
 };
 private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
@@ -28,9 +28,9 @@ _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
-    if (isnull (uiNamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
-        ([UIVAR(MedicalProgress)] call bis_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"plain", 0];
-        private _display =  uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
+    if (isnull (uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull])) then {
+        ([UIVAR(BleedOutProgress)] call bis_fnc_rscLayer) cutRsc [UIVAR(BleedOutProgress),"plain", 0];
+        private _display =  uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull];
 
         (_display displayCtrl 3003) ctrlSetStructuredText parseText "YOU ARE UNCONSCIOUS AND BLEEDING";
         (_display displayCtrl 3003) ctrlSetFade 0;
@@ -42,22 +42,22 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
 
         (_display displayCtrl 3002) progressSetPosition ((GVAR(reviveBleedOutTime) - _bleedOutTime)/GVAR(reviveBleedOutTime));
     } else {
-        private _display =  uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
+        private _display =  uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull];
         (_display displayCtrl 3002) progressSetPosition ((GVAR(reviveBleedOutTime) - _bleedOutTime)/GVAR(reviveBleedOutTime));
     };
 
 
     //hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedOutTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
-        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+        ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
         // Force Player to Respawn
         forceRespawn PRA3_Player;
         ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 
     };
 } else {
-    if (!isnull (uiNamespace getVariable [UIVAR(MedicalProgress), displayNull])) then {
-        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+    if (!isnull (uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull])) then {
+        ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
     };
     // if Player is not Uncon chech if maxBleedingTime is reach and than toggle Uncon
     //hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI

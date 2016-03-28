@@ -2,6 +2,7 @@ class PRA3_UI_MedicalProgress {
     idd = -1;
     duration = 1e11;
     onLoad = "uiNamespace setVariable [""PRA3_UI_MedicalProgress"", _this select 0];";
+    onUnLoad = "hint ""test""";
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 3000;
@@ -69,4 +70,9 @@ class PRA3_UI_MedicalProgress {
             };
         };
     };
+};
+
+class PRA3_UI_BleedOutProgress : PRA3_UI_MedicalProgress {
+    onLoad = "uiNamespace setVariable [""PRA3_UI_BleedOutProgress"", _this select 0];";
+
 };
