@@ -35,7 +35,6 @@ if (hasInterface) then {
     DFUNC(removeOldAction) = {
         if (GVAR(MedicItemSelected) != "" && !isNull GVAR(MedicItemHolder)) then {
             disableSerialization;
-
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
             GVAR(MedicItemSelected) = "";
             deleteVehicle GVAR(MedicItemHolder);
@@ -47,7 +46,6 @@ if (hasInterface) then {
 
     private _fnc_itemAction = {
         (_this select 3) params ["_item"];
-        hint format ["%1",_this];
 
         if (GVAR(MedicItemSelected) == "") then {
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
@@ -65,11 +63,12 @@ if (hasInterface) then {
 
         // Attach it to the right hand.
         _weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-        _weaponHolder setVectorDirAndUp [[0, 0, -1], [0, 1, 0]];
+        ["setVectorDirAndUp", [_weaponHolder, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
+
         //[[_weaponHolder, [[0, 0, -1], [0, 1, 0]]], "setVectorDirAndUp"] call CFNC(execRemoteFnc);
 
         // And prevent it from being accessed.
-        _weaponHolder enableSimulationGlobal false;
+        ["enableSimulation", [_weaponHolder, false]] call CFUNC(serverEvent);
 
         _config = configFile >> "CfgActions" >> "SwitchWeapon";
         if ((primaryWeapon PRA3_Player != "") && getNumber (_config >> "show") == 1) then {
@@ -83,7 +82,7 @@ if (hasInterface) then {
         [{
             params [["_item", ""]];
             disableSerialization;
-            hint "show Heal/Bandage Action";
+
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
             private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
             {
@@ -98,8 +97,6 @@ if (hasInterface) then {
             [{
                 disableSerialization;
                 (_this select 0) params ["_item"];
-                hint "TEST";
-                DUMP(_this)
 
                 private _helpText = "";
                 if ((_item == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
@@ -309,7 +306,6 @@ if (hasInterface) then {
                 (_this select 0) params ["_target"];
 
                 if (cursorTarget != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
-                    DUMP("Item Removed")
                     ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     [_this select 1] call CFUNC(removePerFrameHandler);
                     _target setVariable [QGVAR(medicalActionIsInProgress), false, true];

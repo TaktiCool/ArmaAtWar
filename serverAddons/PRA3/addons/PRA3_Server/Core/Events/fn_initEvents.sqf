@@ -64,3 +64,8 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
     (_this select 0) params ["_unit", "_move"];
     _unit switchmove _move;
 }] call FUNC(addEventHandler);
+
+["setVectorDirAndUp", {
+    (_this select 0) params ["_obj", "_pos"];
+    _obj setVectorDirAndUp _pos;
+}] call FUNC(addEventHandler);
