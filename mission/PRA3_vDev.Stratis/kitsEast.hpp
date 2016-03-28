@@ -82,7 +82,7 @@ class Kits {
         displayName = "Automatic Rifleman";
 
         primaryWeapon = "LMG_Zafir_F";
-        primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
+        primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk"};
         primaryMagazine = "150Rnd_762x54_Box";
         primaryMagazineCount = 2;
         primaryMagazineTracer = "150Rnd_762x54_Box_Tracer";
@@ -110,12 +110,10 @@ class Kits {
         displayName = "Marksman";
 
         primaryWeapon = "srifle_DMR_01_F";
-        primaryAttachments[] = {"optic_DMS","bipod_01_F_blk",""};
+        primaryAttachments[] = {"optic_DMS","bipod_01_F_blk"};
 
-        primaryMagazine = "150Rnd_762x54_Box";
-        primaryMagazineCount = 2;
-        primaryMagazineTracer = "150Rnd_762x54_Box_Tracer";
-        primaryMagazineTracerCount = 3;
+        primaryMagazine = "10Rnd_762x54_Mag";
+        primaryMagazineCount = 10;
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class Engineer: Rifleman {

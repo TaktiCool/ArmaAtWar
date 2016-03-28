@@ -81,7 +81,7 @@ class Kits {
         displayName = "Automatic Rifleman";
 
         primaryWeapon = "LMG_Mk200_F";
-        primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk",""};
+        primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk"};
         primaryMagazine = "200Rnd_65x39_cased_Box";
         primaryMagazineCount = 2;
         primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
@@ -108,6 +108,11 @@ class Kits {
 
         displayName = "Marksman";
 
+        primaryWeapon = "20Rnd_762x51_Mag";
+        primaryAttachments[] = {"optic_DMS","bipod_01_F_blk"};
+        primaryMagazine = "srifle_EBR_F";
+        primaryMagazineCount = 5;
+
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class Engineer: Rifleman {
@@ -125,6 +130,11 @@ class Kits {
         availableInGroups[] = {"Rifle"};
 
         displayName = "AA Rifleman";
+
+        secondaryWeapon = "launch_B_Titan_F";
+        secondaryMagazine = "Titan_AA";
+        secondaryMagazineCount = 1;
+        backpack = "B_AssaultPack_rgr";
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\aa_ca.paa";
     };
