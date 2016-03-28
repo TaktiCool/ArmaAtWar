@@ -15,9 +15,7 @@ GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, marke
 
 // functions for Disable User Input
 DFUNC(onButtonClickEndStr) = {
-    while {!isNull (uiNamespace getVariable [UIVAR(dlgDisableMouse),displayNull])} do {
-        closeDialog 0
-    };
+    closeDialog 0;
     failMission 'LOSER';
     [false] call FUNC(disableUserInput);
 } call FUNC(codeToString);

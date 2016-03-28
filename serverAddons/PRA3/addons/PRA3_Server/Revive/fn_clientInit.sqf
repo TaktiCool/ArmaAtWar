@@ -152,7 +152,13 @@ DFUNC(resetMedicalVars) = {
 
 ["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 
-["respawn", {
+["Killed", {
+    PRA3_Player call FUNC(resetMedicalVars);
+    call FUNC(resetPPEffects);
+    ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+}] call CFUNC(addEventhandler);
+
+["Respawn", {
     (_this select 0) select 0 call FUNC(resetMedicalVars);
     call FUNC(resetPPEffects);
     ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);

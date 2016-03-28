@@ -74,29 +74,37 @@
 GVAR(lastRespawnFrame) = 0;
 [UIVAR(RespawnScreen_DeployButton_action), {
     // Check squad
-    if (!((groupId group PRA3_Player) in GVAR(squadIds))) exitWith {systemChat "Join a squad!"};
+    if (!((groupId group PRA3_Player) in GVAR(squadIds))) exitWith {
+        ["Join a squad!"] call CFUNC(displayNotification);
+    };
 
     // Check role
     [{
         if (diag_frameNo == GVAR(lastRespawnFrame)) exitWith {};
 
         private _currentRoleSelection = lnbCurSelRow 303;
-        if (_currentRoleSelection < 0) exitWith {systemChat "Select a role!"};
+        if (_currentRoleSelection < 0) exitWith {
+            ["Select a role!"] call CFUNC(displayNotification);
+        };
         private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
         private _kitName = [303, [_currentRoleSelection, 0]] call CFUNC(lnbLoad);
         private _usedKits = {(_x getVariable [QGVAR(kit), ""]) == _kitName} count units group PRA3_Player;
-        if ([_kitName] call FUNC(getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {systemChat "Select another role!"};
+        if ([_kitName] call FUNC(getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {
+            ["Select another role!"] call CFUNC(displayNotification);
+        };
 
         // Check deployment
         private _currentDeploymentPointSelection = lnbCurSelRow 403;
-        if (_currentDeploymentPointSelection < 0) exitWith {systemChat "Select spawn point!"};
+        if (_currentDeploymentPointSelection < 0) exitWith {
+            ["Select spawn point!"] call CFUNC(displayNotification);
+        };
         _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
         GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
         private _pointDetails = _pointData select (_pointIds find _currentDeploymentPointSelection);
         private _tickets = _pointDetails select 2;
         private _deployPosition = _pointDetails select 3;
         if (_tickets == 0) exitWith {
-            systemChat "Spawn point has no tickets left!";
+            ["Spawn point has no tickets left!"] call CFUNC(displayNotification);
         };
         if (_tickets > 0) then {
             _tickets = _tickets - 1;

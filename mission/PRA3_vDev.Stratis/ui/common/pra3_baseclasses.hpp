@@ -65,7 +65,7 @@ class PRA3_RscText : RscText {
 class PRA3_RscTextSmall : PRA3_RscText {
     sizeEx = PY(2);
 };
-
+/*
 class PRA3_UI_DisableMouse_Dialog {
     idd = -1;
     movingEnable = false;
@@ -92,3 +92,4 @@ class PRA3_UI_DisableMouse_Dialog {
         };
     };
 };
+*/
