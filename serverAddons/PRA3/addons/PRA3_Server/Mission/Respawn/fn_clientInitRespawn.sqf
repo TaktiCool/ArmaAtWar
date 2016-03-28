@@ -30,10 +30,10 @@ DFUNC(escapeFnc) =  {
         };
 
         private _ctrl = _dlg displayctrl 103;
-        _ctrl ctrlSetEventHandler ["buttonClick", {
+        _ctrl ctrlSetEventHandler ["buttonClick", "
             closeDialog 0;
-            failMission "LOSER";
-        }];
+            failMission ""LOSER"";
+        "];
         _ctrl ctrlEnable true;
         _ctrl ctrlSetText "ABORT";
         _ctrl ctrlSetTooltip "Abort.";
