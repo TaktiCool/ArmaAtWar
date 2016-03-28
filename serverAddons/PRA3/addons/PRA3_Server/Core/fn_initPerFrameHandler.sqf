@@ -34,7 +34,7 @@ GVAR(lastFrameTime) = diag_tickTime;
             [_args, _handle] call _function;
             false
         };
-    } count +GVAR(perFrameHandlerArray);
+    } count GVAR(perFrameHandlerArray);
 
 
     // Code Ported from ACE changed by joko // Jonas
