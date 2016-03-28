@@ -35,7 +35,7 @@ if (hasInterface) then {
     DFUNC(removeOldAction) = {
         if (GVAR(MedicItemSelected) != "" && !isNull GVAR(MedicItemHolder)) then {
             disableSerialization;
-            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+
             GVAR(MedicItemSelected) = "";
             deleteVehicle GVAR(MedicItemHolder);
             PRA3_Player removeAction GVAR(CancelAction);
@@ -145,6 +145,7 @@ if (hasInterface) then {
         (_this select 0) params ["_currentWeapon", "_oldWeapon"];
 
         if (_currentWeapon != "") then {
+            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
             call FUNC(removeOldAction);
         };
 
