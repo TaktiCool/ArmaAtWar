@@ -25,12 +25,18 @@
 
 #define UIVAR(var1) QEGVAR(UI,var1)
 
-#ifdef PRA3_DEBUGFULL
-    #define DUMP(var) diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)];\
-        systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
+#ifdef isDev
+    #define DUMP(var) diag_log format ["[PRA3 DUMP - %1]: %2", #MODULE, str (var)]; systemChat format ["[PRA3 - %1]: %2", #MODULE, str (var)];
 #else
-    #define DUMP(var) if(CGVAR(allowFunctionsLog)) then {diag_log format ["[PRA3 - %1]: %2", #MODULE, str (var)]};
+    #define DUMP(var) /* disabled */
 #endif
+
+#ifdef PRA3_DEBUGFULL
+    #define LOG(var) diag_log format ["[PRA3 LOG - %1]: %2", #MODULE, str (var)]; systemChat format ["[PRA3 LOG - %1]: %2", #MODULE, str (var)];
+#else
+    #define LOG(var) diag_log format ["[PRA3 LOG - %1]: %2", #MODULE, str (var)];
+#endif
+
 
 #define DFUNC(var) PRA3_##MODULE##_fnc##_##var
 
