@@ -18,6 +18,11 @@
 _unit setVariable [QGVAR(isUnconscious), _state, true];
 
 if (_state) then {
+    _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+    if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) < 1) then {
+        [_unit, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
+    };
+    
     if (_unit isEqualTo PRA3_Player) then {
         {
             _x ppEffectEnable true;

@@ -93,6 +93,7 @@ if (hasInterface) then {
             (_display displayCtrl 3004) ctrlSetFade 0;
             (_display displayCtrl 3004) ctrlCommit 0;
 
+
             if (isNil QGVAR(mouseActionPFHID)) then {
                 GVAR(mouseActionPFHID) = [{
                     disableSerialization;
@@ -116,7 +117,7 @@ if (hasInterface) then {
                         (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
                         (_display displayCtrl 3004) ctrlCommit 0;
                     };
-                }, 1] call CFUNC(addPerFrameHandler);
+                }, 0.5] call CFUNC(addPerFrameHandler);
             };
         }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}] call CFUNC(waitUntil);
 
