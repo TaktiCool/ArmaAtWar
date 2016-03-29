@@ -23,21 +23,29 @@
         // Use the camera position as center for nearby player detection.
         private _cameraPos = positionCameraToWorld [0, 0, 0];
 
+        private _fov = (call CFUNC(getFOV)) * 3;
+
         // Cycle through all nearby players and display their nameTag.
-        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 13.3]}, _cameraPos, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPos, 2, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
         {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
             if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
                 // The position of the nameTag is above the head.
+
                 private _tagPosition = (_x modelToWorldVisual (_x selectionPosition "pilot")) vectorAdd [0, 0, 0.4];
+                private _wts = worldToScreen _tagPosition;
 
                 // Check if there is something between camera and head position. Exit if there is something to make the nameTag invisible.
-                if (!lineIntersects [_cameraPos, _tagPosition, vehicle PRA3_Player, _x]) then {
+                if (!(_wts isEqualTo []) && {!(lineIntersectsSurfaces [_cameraPos, _tagPosition, PRA3_Player, _x] isEqualTo [])}) then {
                     // Calculate the alpha value of the display color based on the distance to player object.
                     private _distance = _cameraPos distance _tagPosition;
-                    private _alpha = ((1 - 0.2 * (_distance - 8)) min 1) * 0.8;
+                    private _alpha = ((1 - 0.2 * (_distance - 25)) min 1) * 0.8;
+
+                    private _size =_fov * 1/_distance;
+
+                    _alpha = _alpha * ((1 - ( abs ((_wts select 0) - 0.5) min 0.7)) max 0);
 
                     // The color depends whether the unit is in the group of the player or not.
                     private _color = if (group _x == group PRA3_Player) then {
@@ -60,7 +68,7 @@
                         _x getVariable [QEGVAR(Mission,kitDisplayName), ""]
                     }];
 
-                    drawIcon3D [_icon, _color, _tagPosition, 0.8, 0.8, 0, _text, 2, 0.033, "PuristaMedium"];
+                    drawIcon3D [_icon, _color, _tagPosition, 3 * _size, 3 * _size, 0, _text, 2, 0.15 * _size, "PuristaMedium"];
                 };
             };
             nil

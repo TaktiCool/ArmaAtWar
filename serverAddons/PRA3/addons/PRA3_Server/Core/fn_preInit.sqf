@@ -125,6 +125,7 @@ PREP(getAllGear)
 PREP(getNearestLocationName)
 PREP(findSavePosition)
 PREP(directCall)
+PREP(getFOV)
 
 // We call the autoloader here. This starts the mod work.
 call FUNC(autoloadEntryPoint);
