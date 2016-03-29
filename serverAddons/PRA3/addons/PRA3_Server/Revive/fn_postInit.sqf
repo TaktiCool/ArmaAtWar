@@ -153,6 +153,14 @@ if (hasInterface) then {
 
     }] call CFUNC(addEventhandler);
 
+    ["vehicleChanged", {
+        call FUNC(removeOldAction);
+    }] call CFUNC(addEventhandler);
+
+    ["assignedVehicleRoleChanged", {
+        call FUNC(removeOldAction);
+    }] call CFUNC(addEventhandler);
+
     [{
         // MOUSE EVENTS (FAK & Medikit)
         (findDisplay 46) displayAddEventHandler ["MouseButtonDown", {

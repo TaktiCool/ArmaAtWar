@@ -144,6 +144,7 @@ DFUNC(resetMedicalVars) = {
 
             if (_nbrHealers == 0) exitWith {
                 GVAR(healingPFH) = -1;
+                PRA3_Player forceWalk false;    // @Todo replace with Fatigue Framework
                 PRA3_Player setVariable [QGVAR(healingTimestamp),-1, true];
                 [_this select 1] call CFUNC(removePerFrameHandler);
             };
