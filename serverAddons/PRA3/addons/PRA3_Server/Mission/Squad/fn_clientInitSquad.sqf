@@ -58,7 +58,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 #undef IDC
 #define IDC 205
     private _selectedGroupType = lbData [IDC, lbCurSel IDC];
-    private _visibleGroupTypes = "true" configClasses (missionConfigFile >> "PRA3" >> "GroupTypes") apply {configName _x} select {[_x] call FUNC(canUseSquadType)};
+    private _visibleGroupTypes = ("true" configClasses (missionConfigFile >> "PRA3" >> "GroupTypes") apply {configName _x}) select {[_x] call FUNC(canUseSquadType)};
     lbClear IDC;
     {
         private _rowNumber = lbAdd [IDC, [format [QGVAR(GroupTypes_%1_displayName), _x], ""] call CFUNC(getSetting)];
