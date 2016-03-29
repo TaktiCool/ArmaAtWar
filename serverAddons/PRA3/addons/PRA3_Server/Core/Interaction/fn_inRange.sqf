@@ -14,9 +14,9 @@
     Example:
     [object, 10] call JK_Core_fnc_inRange;
 */
-params["_object","_distance"];
+params["_object", "_distance"];
 
-if (_object isKindOf "Man") exitWith {PRA3_Player distance _object < _distance};
+if (_object isKindOf "CAManBase") exitWith {PRA3_Player distance _object < _distance};
 
 private _playerPos = eyePos PRA3_Player;
 private _viewDirection = eyeDirection PRA3_Player;

@@ -20,7 +20,9 @@ params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", f
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
 // Unit need to created at this far because in some map the center is 0,0,0 (for example Fallujah)
-private _newUnit = _targetGroup createUnit [_className, [-10000, -10000, 1000], [], 0, "NONE"];
+private _newUnit = _targetGroup createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
+
+_newUnit attachTo [GVAR(attachPoint)];
 
 // Reattach all triggers
 {
@@ -32,9 +34,11 @@ private _newUnit = _targetGroup createUnit [_className, [-10000, -10000, 1000], 
 
 // Copy all variables to the new object
 {
-    private _var = PRA3_Player getVariable _x;
-    if !(isNil "_var") then {
-        _newUnit setVariable [_x, _var, true];
+    if !(_x in GVAR(ignoreVariables)) then {
+        private _var = PRA3_Player getVariable _x;
+        if !(isNil "_var") then {
+            _newUnit setVariable [_x, _var];
+        };
     };
     nil
 } count (allVariables PRA3_Player);
@@ -72,6 +76,8 @@ if (_wasLeader) then {
 
 // Copy event handlers
 // This should be done by our awesome event system in core on playerChanged event
+
+detach _newUnit;
 
 // Handle position
 _newUnit setDir (random 360);

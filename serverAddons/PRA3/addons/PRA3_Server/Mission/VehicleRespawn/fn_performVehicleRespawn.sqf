@@ -36,7 +36,7 @@ if (!isNull _vehicle) then {
         _vehicle setDir (_varValues select (_varNames find toLower QGVAR(RespawnDirection)));
 
         {
-            _vehicle setVariable [_x, _varValues select _forEachIndex, true];
+            _vehicle setVariable [_x, _varValues select _forEachIndex];
         } forEach _varNames;
 
         GVAR(VehicleRespawnAllVehicles) pushBack _vehicle;

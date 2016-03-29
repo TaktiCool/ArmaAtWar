@@ -45,11 +45,13 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 private _varNames = [];
                 private _varValues = [];
                 {
-                    if ((_x find "pra3") == 0) then {
-                        private _var = (_vehicle getVariable _x);
-                        if !(isNil "_var") then {
-                            _varNames pushBack _x;
-                            _varValues pushBack _var;
+                    if !(_x in GVAR(ignoreVariables)) then {
+                        if ((_x find "pra3") == 0) then {
+                            private _var = (_vehicle getVariable _x);
+                            if !(isNil "_var") then {
+                                _varNames pushBack _x;
+                                _varValues pushBack _var;
+                            };
                         };
                     };
                     nil

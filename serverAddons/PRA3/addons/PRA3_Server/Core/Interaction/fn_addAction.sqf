@@ -45,13 +45,7 @@ if (_onObject isEqualType objNull) then {
     if (_onObject == PRA3_Player) then {
         _text = (call _text);
         _onObject addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
-        ["playerChanged", {
-            params ["_data", "_params"];
-            _data params ["_currentPlayer", "_oldPlayer"];
-            _params params ["_text", "_callback", "_args", "_condition"];
-
-            _currentPlayer addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
-        }, [_text, _callback, _args, _condition]] call FUNC(addEventhandler);
+        GVAR(PlayerInteraction_Actions) pushBackUnique [_text, _callback, _args, _condition];
     } else {
         GVAR(Interaction_Actions) pushBackUnique [_onObject, _text, _condition, _callback, _args];
     };

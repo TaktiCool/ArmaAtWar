@@ -26,6 +26,7 @@ EPREP(Tickets,postInitTickets)
 
 // Respawn
 EPREP(Respawn,clientInitRespawn)
+EPREP(Respawn,serverInitRespawn)
 EPREP(Respawn,respawn)
 
 // Squad system
