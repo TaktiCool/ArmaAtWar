@@ -34,9 +34,11 @@ _newUnit attachTo [GVAR(attachPoint)];
 
 // Copy all variables to the new object
 {
-    private _var = PRA3_Player getVariable _x;
-    if !(isNil "_var") then {
-        _newUnit setVariable [_x, _var, true];
+    if !(_x in GVAR(ignoreVariables)) then {
+        private _var = PRA3_Player getVariable _x;
+        if !(isNil "_var") then {
+            _newUnit setVariable [_x, _var];
+        };
     };
     nil
 } count (allVariables PRA3_Player);

@@ -16,4 +16,16 @@
 
 if !(hasInterface) exitWith {};
 GVAR(Interaction_Actions) = [];
+GVAR(PlayerInteraction_Actions) = [];
 PRA3_Player call FUNC(loop);
+
+["playerChanged", {
+    params ["_data", "_params"];
+    _data params ["_currentPlayer", "_oldPlayer"];
+
+    {
+        _x params ["_text", "_callback", "_args", "_condition"];
+        _currentPlayer addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
+        nil
+    } count GVAR(PlayerInteraction_Actions);
+}] call FUNC(addEventhandler);
