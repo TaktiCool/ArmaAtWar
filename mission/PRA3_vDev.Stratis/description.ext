@@ -192,3 +192,14 @@ class RscTitles {
     #include "ui\hud\MedicalProgress.hpp"
     #include "ui\hud\Notification.hpp"
 };
+
+class CfgRemoteExec {
+    class Functions {
+        mode = 1; // only whitelisted functions/commands are allowed for remote execution
+        jip = 0; //no functions can use jip
+
+        class PRA3_Core_fnc_localEvent {
+            allowedTargets = 1; //execute only on clients, server execution denied
+        };
+    };
+};
