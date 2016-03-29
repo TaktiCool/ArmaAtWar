@@ -44,22 +44,27 @@ if (hasInterface) then {
                     _gX0 = SafeZoneX;
 
                     private _controlGroup  = _pauseMenuDisplay ctrlCreate ["RscControlsGroupNoScrollbars",-1];
-                    _controlGroup ctrlSetPosition [_gX0+safezoneW-9*_gX,_gY0+safezoneH-12*_gY,9*_gX,11*_gY];
+                    _controlGroup ctrlSetPosition [_gX0+safezoneW-10*_gX,_gY0+safezoneH-14*_gY,14*_gX,12*_gY];
                     _controlGroup ctrlCommit 0;
 
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscPicture",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0,0,8*_gX,8*_gY];
+                    _ctrl ctrlSetPosition [0.25*_gX,0,8*_gX,8*_gY];
                     _ctrl ctrlSetText "ui\media\PRA3Logo_ca.paa";
                     _ctrl ctrlCommit 0;
 
-                    private _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0*_gX,8*_gY,8*_gX,1*_gY];
+                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
+                    _ctrl ctrlSetPosition [0.5*_gX,8*_gY,8*_gX,1*_gY];
                     _ctrl ctrlSetText format ["Mission Version: %1", (GVAR(VersionInfo) select 0) select 0];
                     _ctrl ctrlCommit 0;
 
-                    private _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0*_gX,8.8*_gY,8*_gX,1*_gY];
+                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
+                    _ctrl ctrlSetPosition [0.7*_gX,8.8*_gY,8*_gX,1*_gY];
                     _ctrl ctrlSetText format ["Server Version: %1", (GVAR(VersionInfo) select 1) select 0];
+                    _ctrl ctrlCommit 0;
+
+                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText",-1,_controlGroup];
+                    _ctrl ctrlSetPosition [0*_gX,10*_gY,12*_gX,1*_gY];
+                    _ctrl ctrlSetStructuredText parseText "<t size='1.2' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>";
                     _ctrl ctrlCommit 0;
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
             };
