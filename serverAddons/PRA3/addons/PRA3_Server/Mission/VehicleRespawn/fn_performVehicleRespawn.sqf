@@ -26,10 +26,14 @@ if (!isNull _vehicle) then {
 [{
     params ["_type", "_varNames", "_varValues"];
 
-    private _condition = compile (_varValues select (_varNames find toLower QGVAR(condition)));
+    private _respawnCounter = _varValues select (_varNames find toLower QGVAR(RespawnCounter));
+
+    private _paramsString = "params [""_respawnCounter""];";
+
+    private _condition = compile (_paramsString + (_varValues select (_varNames find toLower QGVAR(condition))));
 
     [{
-        params ["_type", "_varNames", "_varValues"];
+        (_this select 1) params ["_type", "_varNames", "_varValues"];
         private _position = (_varValues select (_varNames find toLower QGVAR(RespawnPosition)));
         _position = [_position, 10, _type] call CFUNC(findSavePosition);
         private _vehicle = _type createVehicle _position;
@@ -45,5 +49,5 @@ if (!isNull _vehicle) then {
 
         [QGVAR(vehicleRespawnAvailable), _side, _vehicle] call CFUNC(targetEvent);
 
-    }, _condition, _this] call CFUNC(waitUntil);
+    }, _condition, [_respawnCounter, _this]] call CFUNC(waitUntil);
 }, 3, [_type, _varNames, _varValues]] call CFUNC(wait);

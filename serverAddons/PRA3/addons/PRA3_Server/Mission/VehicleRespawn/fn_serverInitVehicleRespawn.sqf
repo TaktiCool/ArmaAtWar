@@ -45,13 +45,11 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 private _varNames = [];
                 private _varValues = [];
                 {
-                    if !(_x in CGVAR(ignoreVariables)) then {
-                        if ((_x find "pra3") == 0) then {
-                            private _var = (_vehicle getVariable _x);
-                            if !(isNil "_var") then {
-                                _varNames pushBack _x;
-                                _varValues pushBack _var;
-                            };
+                    if ((_x find "pra3") == 0 && {!(_x in CGVAR(ignoreVariables))}) then {
+                        private _var = (_vehicle getVariable _x);
+                        if !(isNil "_var") then {
+                            _varNames pushBack _x;
+                            _varValues pushBack _var;
                         };
                     };
                     nil
@@ -69,11 +67,14 @@ addMissionEventHandler ["EntityKilled", {
     if (_killedEntity in GVAR(VehicleRespawnAllVehicles)) then {
         private _type = typeOf _killedEntity;
         private _respawnTime = _killedEntity getVariable [QGVAR(RespawnTime), 0];
+        private _respawnCounter = _killedEntity getVariable [QGVAR(RespawnCounter), 0];
+
+        _killedEntity setVariable [QGVAR(RespawnCounter), _respawnCounter + 1];
 
         private _varNames = [];
         private _varValues = [];
         {
-            if ((_x find "pra3") == 0) then {
+            if ((_x find "pra3") == 0 && {!(_x in CGVAR(ignoreVariables))}) then {
                 _varNames pushBack _x;
                 _varValues pushBack (_killedEntity getVariable _x);
             };
