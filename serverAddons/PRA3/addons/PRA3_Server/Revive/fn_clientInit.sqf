@@ -96,7 +96,7 @@ DFUNC(resetMedicalVars) = {
             if (objNull in GVAR(currentHealers)) then {
                 GVAR(currentHealers) = GVAR(currentHealers) select {!isNull _x};
             };
-            
+
             private _nbrHealers = {
                 private _healer = _x;
                 {
@@ -127,7 +127,7 @@ DFUNC(resetMedicalVars) = {
 
             private _healingRate = 0;
             if (_lastTimestamp != -1)  then {
-                _healingRate = _healingProgress - _oldHealingProgress;
+                _healingRate = (_healingProgress - _oldHealingProgress) / (_currentTime - _lastTimestamp);
                 _updateHealingStatus = true;
             };
 
