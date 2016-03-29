@@ -34,7 +34,7 @@ _newUnit attachTo [GVAR(attachPoint)];
 
 // Copy all variables to the new object
 {
-    if !(_x in GVAR(ignoreVariables)) then {
+    if !(_x in CGVAR(ignoreVariables)) then {
         private _var = PRA3_Player getVariable _x;
         if !(isNil "_var") then {
             _newUnit setVariable [_x, _var];
