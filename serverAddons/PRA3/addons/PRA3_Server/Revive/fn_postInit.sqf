@@ -80,7 +80,6 @@ if (hasInterface) then {
         };
 
         [{
-            params [["_item", ""]];
             disableSerialization;
 
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
@@ -94,30 +93,32 @@ if (hasInterface) then {
             (_display displayCtrl 3004) ctrlSetFade 0;
             (_display displayCtrl 3004) ctrlCommit 0;
 
-            [{
-                disableSerialization;
-                (_this select 0) params ["_item"];
+            if (isNil QGVAR(mouseActionPFHID)) then {
+                GVAR(mouseActionPFHID) = [{
+                    disableSerialization;
 
-                private _helpText = "";
-                if ((_item == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
-                    _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />";
-                };
-                if ((_item == "FirstAidKit" && {(PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
-                    _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself";
-                };
-                _helpText = format [_helpText, ["heal", "bandage"] select (_item == "FirstAidKit")];
+                    private _helpText = "";
+                    if ((GVAR(MedicItemSelected) == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(GVAR(MedicItemSelected) == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
+                        _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />";
+                    };
+                    if ((GVAR(MedicItemSelected) == "FirstAidKit" && {(PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(GVAR(MedicItemSelected) == "Medikit" && {!((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
+                        _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself";
+                    };
+                    _helpText = format [_helpText, ["heal", "bandage"] select (GVAR(MedicItemSelected) == "FirstAidKit")];
 
-                private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
-                if (isNull _display) exitWith {
-                    [_this select 1] call CFUNC(removePerFrameHandler);
-                };
+                    private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
+                    if (isNull _display) exitWith {
+                        [_this select 1] call CFUNC(removePerFrameHandler);
+                        GVAR(mouseActionPFHID) = nil;
+                    };
 
-                if (_helpText != ctrlText (_display displayCtrl 3004)) then {
-                    (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
-                    (_display displayCtrl 3004) ctrlCommit 0;
-                };
-            }, 0.1, [_item]] call CFUNC(addPerFrameHandler);
-        }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}, [_item]] call CFUNC(waitUntil);
+                    if (_helpText != ctrlText (_display displayCtrl 3004)) then {
+                        (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
+                        (_display displayCtrl 3004) ctrlCommit 0;
+                    };
+                }, 1] call CFUNC(addPerFrameHandler);
+            };
+        }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}] call CFUNC(waitUntil);
 
 
         // Store the weapon holder to remove it on grenade mode exit.
