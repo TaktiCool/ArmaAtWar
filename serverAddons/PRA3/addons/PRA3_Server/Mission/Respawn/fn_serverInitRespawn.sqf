@@ -14,6 +14,6 @@
     None
 */
 GVAR(attachPoint) = "Land_HelipadEmpty_F" createVehicle [-10000, -10000, 50];
-GVAR(attachPoint) enableSimulationGlobal false
+GVAR(attachPoint) enableSimulationGlobal false;
 GVAR(attachPoint) hideObjectGlobal true;
 publicVariable QGVAR(attachPoint);
