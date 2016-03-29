@@ -171,12 +171,11 @@ if (hasInterface) then {
                 };
 
                 // exit Only One Player can Bandage a Bleeding Unit
-                if (_target getVariable [QGVAR(medicalActionIsInProgress), false] && GVAR(MedicItemSelected) == "FirstAidKit") then {
-                    breakTo "MAIN";
-                };
+                if (_target getVariable [QGVAR(medicalActionIsInProgress), false] && GVAR(MedicItemSelected) == "FirstAidKit") exitWith {};
 
 
-                if (_target getVariable [QGVAR(bloodLoss), 0] == 0 && (_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])) exitWith {};
+                if (GVAR(MedicItemSelected) == "FirstAidKit" && {_target getVariable [QGVAR(bloodLoss), 0] == 0}) exitWith {};
+                if (GVAR(MedicItemSelected) == "Medikit" && {_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]}) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
                 disableSerialization;

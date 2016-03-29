@@ -76,7 +76,7 @@ DFUNC(resetMedicalVars) = {
     GVAR(currentHealers) pushBackUnique _healer;
 
     if (GVAR(healingPFH) < 0) then {
-        [{
+        GVAR(healingPFH) = [{
             private _updateHealingStatus = false;
             private _damageSelection = PRA3_Player getVariable QGVAR(DamageSelection);
 
@@ -93,6 +93,10 @@ DFUNC(resetMedicalVars) = {
             };
 
             private _maxValue = 0;
+            if (objNull in GVAR(currentHealers)) then {
+                GVAR(currentHealers) = GVAR(currentHealers) select {!isNull _x};
+            };
+            
             private _nbrHealers = {
                 private _healer = _x;
                 {
