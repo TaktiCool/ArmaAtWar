@@ -159,6 +159,12 @@ class PRA3 {
             ticketValue = 20;
         };
 
+        class vr_ghosthawk_0 : defaultWest {
+            scope = 1;
+            respawnTime = 60; // 10 seconds
+            ticketValue = 50;
+        };
+
         class vr_ifrit_0 : defaultEast {
             scope = 1;
             respawnTime = 10; // 10 seconds
@@ -169,6 +175,13 @@ class PRA3 {
             condition = "time > 60";
             ticketValue = 20;
         };
+
+        class vr_orca_0 : defaultEast {
+            scope = 1;
+            respawnTime = 60; // 10 seconds
+            ticketValue = 50;
+        };
+
     };
 
     // DO NOT CHANGE this Value
