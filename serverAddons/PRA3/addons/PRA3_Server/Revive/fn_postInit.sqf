@@ -96,7 +96,7 @@ if (hasInterface) then {
 
             [{
                 disableSerialization;
-                (_this select 0) params ["_item"];
+                private _item = GVAR(MedicItemSelected);
 
                 private _helpText = "";
                 if ((_item == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(_item == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
@@ -116,7 +116,7 @@ if (hasInterface) then {
                     (_display displayCtrl 3004) ctrlSetStructuredText parseText _helpText;
                     (_display displayCtrl 3004) ctrlCommit 0;
                 };
-            }, 0.1, [_item]] call CFUNC(addPerFrameHandler);
+            }, 0.5] call CFUNC(addPerFrameHandler);
         }, {isNull (uiNamespace getVariable [UIVAR(MedicalProgress),displayNull])}, [_item]] call CFUNC(waitUntil);
 
 
