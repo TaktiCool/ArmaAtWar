@@ -17,7 +17,7 @@
     None
 */
 params ["_position"];
-_allLocations = nearestLocations [_position, GVAR(allLocationTypes), 800];
+private _allLocations = nearestLocations [_position, GVAR(allLocationTypes), 800];
 
 // try to Find a Location with Text
 {
