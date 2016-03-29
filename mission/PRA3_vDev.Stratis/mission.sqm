@@ -35,8 +35,7 @@ addons[]=
 	"A3_Soft_F_MRAP_02",
 	"A3_Armor_F_T100K",
 	"A3_Characters_F_INDEP",
-	"a3_characters_f",
-	"A3_Characters_F_BLUFOR"
+	"a3_characters_f"
 };
 randomSeed=13778806;
 class ScenarioData
@@ -49,24 +48,6 @@ class CustomAttributes
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnButton";
 			expression="true";
@@ -82,6 +63,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -135,7 +134,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=126;
+		items=123;
 		class Item0
 		{
 			dataType="Logic";
@@ -5833,90 +5832,6 @@ class Mission
 			{
 			};
 			id=422;
-		};
-		class Item123
-		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1414.7749,103.2504,10438.286};
-					};
-					side="West";
-					flags=3;
-					class Attributes
-					{
-					};
-					id=427;
-					type="B_medic_F";
-				};
-			};
-			class Attributes
-			{
-			};
-			id=426;
-		};
-		class Item124
-		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={18.309822,0.0014083385,8371.5049};
-					};
-					side="West";
-					flags=3;
-					class Attributes
-					{
-					};
-					id=429;
-					type="B_medic_F";
-				};
-			};
-			class Attributes
-			{
-			};
-			id=428;
-		};
-		class Item125
-		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={304.00278,0.0014388561,7944.5518};
-					};
-					side="West";
-					flags=3;
-					class Attributes
-					{
-					};
-					id=431;
-					type="B_crew_F";
-				};
-			};
-			class Attributes
-			{
-			};
-			id=430;
 		};
 	};
 };
