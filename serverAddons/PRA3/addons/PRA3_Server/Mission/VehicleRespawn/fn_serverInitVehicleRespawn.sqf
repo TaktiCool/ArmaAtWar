@@ -45,7 +45,7 @@ GVAR(VehicleRespawnAllVehicles) = [];
                 private _varNames = [];
                 private _varValues = [];
                 {
-                    if !(_x in GVAR(ignoreVariables)) then {
+                    if !(_x in CGVAR(ignoreVariables)) then {
                         if ((_x find "pra3") == 0) then {
                             private _var = (_vehicle getVariable _x);
                             if !(isNil "_var") then {
