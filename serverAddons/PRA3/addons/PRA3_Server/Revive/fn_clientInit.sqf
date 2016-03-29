@@ -25,7 +25,7 @@ GVAR(bleedCoef) = getNumber (_cfg >> "bleedCoef");
 GVAR(damageCoef) = getArray (_cfg >> "damageCoef");
 
 // Damage Values
-GVAR(preventInstandDeath) = getNumber (_cfg >> "preventInstandDeath") isEqualTo 1;
+GVAR(preventInstantDeath) = getNumber (_cfg >> "preventInstantDeath") isEqualTo 1;
 GVAR(maxDamage) = getNumber (_cfg >> "maxDamage");
 
 GVAR(currentHealers) = [];
