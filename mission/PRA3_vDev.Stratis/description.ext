@@ -114,7 +114,7 @@ class PRA3 {
         bandageCoef = 2; // Coef that a non Medic need
 
 
-        unconBleedCoef = 0.5; // Uncon Damage Coef
+        unconBleedCoef = 10; // Uncon Damage Coef
         bleedCoef = 1; // Normal Damage Coef
         damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
 
@@ -191,4 +191,15 @@ class RscTitles {
     #include "ui\hud\TicketStatus.hpp"
     #include "ui\hud\MedicalProgress.hpp"
     #include "ui\hud\Notification.hpp"
+};
+
+class CfgRemoteExec {
+    class Functions {
+        mode = 1; // only whitelisted functions/commands are allowed for remote execution
+        jip = 0; //no functions can use jip
+
+        class PRA3_Core_fnc_localEvent {
+            allowedTargets = 2; //can target only server, execution on clients is denied
+        };
+    };
 };
