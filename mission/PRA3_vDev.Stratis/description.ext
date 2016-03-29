@@ -199,7 +199,7 @@ class CfgRemoteExec {
         jip = 0; //no functions can use jip
 
         class PRA3_Core_fnc_localEvent {
-            allowedTargets = 1; //execute only on clients, server execution denied
+            allowedTargets = 2; //can target only server, execution on clients is denied
         };
     };
 };
