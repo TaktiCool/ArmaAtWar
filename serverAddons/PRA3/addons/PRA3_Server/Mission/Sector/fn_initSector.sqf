@@ -13,6 +13,11 @@
     Returns:
     None
 */
+
+if (isServer) then {
+    {_x setMarkerAlpha 0} count allMapMarkers;
+};
+
 ["missionStarted", {
     GVAR(competingSides) = [];
     GVAR(captureStatusPFH) = -1;
@@ -26,7 +31,6 @@
     } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 
     if (isServer) then {
-        {_x setMarkerAlpha 0} count allMapMarkers;
         [{
             GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
             publicVariable QGVAR(allSectors);
