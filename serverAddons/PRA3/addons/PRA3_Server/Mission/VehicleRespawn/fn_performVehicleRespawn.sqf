@@ -26,7 +26,10 @@ if (!isNull _vehicle) then {
 [{
     params ["_type", "_varNames", "_varValues"];
 
-    private _respawnCounter = _varValues select (_varNames find toLower QGVAR(RespawnCounter));
+    private _respawnCounter = 0;
+    if ((toLower QGVAR(RespawnCounter)) in _varNames) then {
+        _respawnCounter = _varValues select (_varNames find toLower QGVAR(RespawnCounter));
+    };
 
     private _paramsString = "params [""_respawnCounter""];";
 

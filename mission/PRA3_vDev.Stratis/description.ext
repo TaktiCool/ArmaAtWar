@@ -120,7 +120,7 @@ class PRA3 {
         damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
 
         // Damage Values
-        preventInstandDeath = 1;
+        preventInstantDeath = 1;
         maxDamage = 3;
     };
 
