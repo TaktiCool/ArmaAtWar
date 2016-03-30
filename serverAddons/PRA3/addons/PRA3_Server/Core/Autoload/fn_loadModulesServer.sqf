@@ -20,7 +20,6 @@
 
 // Find all functions which are part of the requested modules and store them in an array.
 GVAR(requiredFunctions) = [];
-
 private _modules = +_this;
 
 {
@@ -54,22 +53,23 @@ if (isServer) then {
 
         // Determine client id by provided object (usually the player object).
         private _clientID = owner (_this select 1);
-
+        // Count requiredFunctions array and filter serverinit they dont need to sendet
+        private _count = {toLower(_x) find "_fnc_serverinit" < 0} count GVAR(requiredFunctions);
         {
-            //@todo progress is not correct if we keep the server files server only
-            //if (_x find "_fnc_serverInit" < 0) then {
-            // Extract the code out of the function.
-            private _functionCode = parsingNamespace getVariable [_x, {}];
-            // Remove leading and trailing braces from the code.
-            _functionCode = _functionCode call CFUNC(codeToString);
+            // check if this is a serverInit and dont share it
+            if (toLower(_x) find "_fnc_serverinit" < 0) then {
+                // Extract the code out of the function.
+                private _functionCode = parsingNamespace getVariable [_x, {}];
+                // Remove leading and trailing braces from the code.
+                _functionCode = _functionCode call CFUNC(codeToString);
 
-            // Transfer the function name, code and progress to the client.
-            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / (count GVAR(requiredFunctions) - 1)];
-            _clientID publicVariableClient QGVAR(receiveFunction);
-            //};
+                // Transfer the function name, code and progress to the client.
+                GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / _count];
+                _clientID publicVariableClient QGVAR(receiveFunction);
+            };
         } forEach GVAR(requiredFunctions);
     };
 };
-
+GVAR(requiredFunctions)
 // Call all required function on the server.
 call FUNC(callModules);

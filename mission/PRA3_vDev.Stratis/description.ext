@@ -25,6 +25,7 @@ respawnDelay = 3;
 respawnDialog = 0;
 
 class PRA3 {
+    loadModules[] = {"Mission", "Logistic", "Nametags","Revive"};
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets
 
@@ -213,6 +214,10 @@ class CfgRemoteExec {
 
         class PRA3_Core_fnc_localEvent {
             allowedTargets = 0; // all targets
+        };
+        class BIS_fnc_call {
+            allowedTargets = 0;
+            jip = 1;
         };
     };
 };

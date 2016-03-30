@@ -16,4 +16,4 @@
 */
 
 // Transfers entry function from server to all clients.
-if (isServer) then { publicVariable QFUNC(loadModules); };
+if (isServer) then { [getArray (missionConfigFile >> "PRA3" >> "loadModules"), FUNC(loadModules)] remoteExec ["BIS_fnc_call", 0, true]; };
