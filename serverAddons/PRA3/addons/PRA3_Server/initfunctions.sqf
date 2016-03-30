@@ -14,7 +14,7 @@
 */
 
 #define VERSION    3.0
-diag_log "initFunctions.sqf Loaded: " + str diag_tickTime;
+diag_log "initFunctions.sqf Loaded: " + str(diag_tickTime);
 //--- Fake header
 private _fnc_scriptName = if (isNil "_fnc_scriptName") then {"Functions Init"} else {_fnc_scriptName};
 
@@ -272,7 +272,7 @@ private _compileFinal =
 
 {
     private _cfg = _cfgSettings select _x;
-    _cfg params ["_pathConfig","_pathFile","_pathAccess"];
+    _cfg params ["_pathConfig", "_pathFile", "_pathAccess"];
     private _cfgFunctions = (_pathConfig >> "cfgfunctions");
     {
         private _currentTag = _x;
@@ -366,4 +366,4 @@ private _recompileNames = [
     "Mission/Campaign Only"
 ];
 ["Initialized: %1.",_recompileNames select _recompile] call (uiNamespace getVariable "bis_fnc_logFormat");
-diag_log "initFunctions.sqf Done: " + str diag_tickTime;
+diag_log "initFunctions.sqf Done: " + str(diag_tickTime);

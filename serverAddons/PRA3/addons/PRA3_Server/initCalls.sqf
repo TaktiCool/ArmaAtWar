@@ -1,15 +1,16 @@
 
-diag_log "Call Functions: " + str diag_tickTime;
+diag_log ("Call Functions: " + str(diag_tickTime));
+diag_log ("Recompile: " + str(_recompile));
 //--- Not core
 if (_recompile in [0,1,3,4]) then {
     {
-        _allowRecompile = (_x call (uiNamespace getVariable "bis_fnc_functionMeta")) select 5;
+        private _allowRecompile = (_x call (uiNamespace getVariable "bis_fnc_functionMeta")) select 5;
 
         private _xCode = uiNamespace getVariable _x;
         if (_allowRecompile || !_compileFinal) then {
             _xCode = call compile str (uiNamespace getVariable _x);
         };
-        missionNamespace setVariable [_x,_xCode];
+        missionNamespace setVariable [_x, _xCode];
         nil
     } count _functions_list;
 };
@@ -34,7 +35,7 @@ if (_recompile == 3) then {
     RscDisplayLoading_progressMission = true;
 
     //--- Execute script preload
-    [] call bis_fnc_preload;
+    [] call BIS_fnc_preLoad;
 
     //--- Create functions logic (cannot be created when game is launching; server only)
     if (isServer && isNull (missionNamespace getVariable ["bis_functions_mainscope",objNull]) && !isNil {uiNamespace getVariable "bis_fnc_init"} && worldname != "") then {
@@ -42,7 +43,7 @@ if (_recompile == 3) then {
         createcenter sidelogic;
         _grpLogic = creategroup sidelogic;
         bis_functions_mainscope = _grpLogic createunit ["Logic",[9,9,9],[],0,"none"];
-        bis_functions_mainscope setVariable ["isDedicated", isDedicated,true];
+        bis_functions_mainscope setVariable ["isDedicated", isDedicated, true];
         publicvariable "bis_functions_mainscope";
     };
     (group bis_functions_mainscope) setGroupID [localize "str_dn_modules"]; //--- Name the group for curator
@@ -119,7 +120,6 @@ if (_recompile == 3) then {
             //--- Run mission scripts
             if !(isDedicated) then {
                 [player,didJIP] call compile preprocessFileLineNumbers "initPlayerLocal.sqf";
-
                 [[[player,didJIP],"initPlayerServer.sqf"], "bis_fnc_execvm",false,false] call bis_fnc_mp;
                 "initPlayerLocal.sqf" call bis_fnc_logFormat;
                 "initPlayerServer.sqf" call bis_fnc_logFormat;
@@ -150,4 +150,4 @@ if (_recompile == 3) then {
         };
     };
 };
-diag_log "Call Functions: Done " + str diag_tickTime;
+diag_log ("Call Functions: Done " + str(diag_tickTime));

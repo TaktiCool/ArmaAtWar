@@ -19,6 +19,8 @@ class basePreStartFNC: baseFNC {
 
 class cfgFunctions {
 
+    createShortcuts = 1;
+
     //init = "pr\PRA3\addons\PRA3_Server\init.sqf";
 
     #include "Core\cfgFunctions.hpp"

@@ -12,6 +12,6 @@
     Returns:
     0: Return Name <TYPE>
 */
-diag_log "init.sqf Loaded";
-call compile preprocessFileLineNumbers "pr\PRA3\addons\PRA3_Server\initFunctions.sqf";
+_this call compile preprocessFileLineNumbers "pr\PRA3\addons\PRA3_Server\initFunctions.sqf";
+//call compile preprocessFileLineNumbers "pr\PRA3\addons\PRA3_Server\initOld.sqf";
 //call compile preprocessFileLineNumbers "A3\functions_f\initFunctions.sqf";

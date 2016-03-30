@@ -22,15 +22,15 @@ private _itemPath = if (_itemPathItem != "") then {
     ""
 };
 if (_itemPath == "") then {
-    _itemPath = if (_itemPathCat != "") then {format ["%1\fn_%2%3", _itemPathCat, _itemName, _itemExt} else {
-        if (_itemPathTag != "") then {format ["%1\fn_%2,%3",_itemPathTag, _itemName, _itemExt} else {""};
+    _itemPath = if (_itemPathCat != "") then {_itemPathCat + "\fn_" + _itemName + _itemExt} else {
+        if (_itemPathTag != "") then {_itemPathTag + "\fn_" + _itemName + _itemExt} else {""};
     };
 };
 
 private _itemHeader = getNumber (_currentItem >> "headerType");
 
 //--- Compile function
-if (_itemPath == "") then {_itemPath = format ["%1\%2\fn_%3%4%5", _pathFile, _categoryName, _itemName, _itemExt};
+if (_itemPath == "") then {_itemPath = _pathFile + _categoryName + "\fn_" + _itemName + _itemExt};
 private _itemVar = _tagName + "_fnc_" + _itemName;
 private _itemMeta = [_itemPath, _itemExt, _itemHeader, _itemPreInit > 0, _itemPostInit > 0, _itemRecompile> 0, _tag, _categoryName, _itemName];
 private _itemCompile = if (_itemCheatsEnabled == 0 || (_itemCheatsEnabled > 0 && cheatsEnabled)) then {
@@ -73,7 +73,7 @@ if (_itemCompile isEqualType {}) then {
             if !(isNil "_errorFnc") then {
                 [_errorText,_itemVar] call _errorFnc;
             } else {
-                diag_log format ["Log: [Functions]: " + _errorText,_itemVar];
+                diag_log format ["Log: [Functions]: " + _errorText, _itemVar];
             };
         };
     };
@@ -93,3 +93,4 @@ if (_itemCompile isEqualType {}) then {
         };
     };
 };
+diag_log format ["Compile Function: %1 Path: %2 Exist: %3", _itemVar, _itemPath, !(isNil (uiNamespace getVariable (_itemVar + "_meta")))];
