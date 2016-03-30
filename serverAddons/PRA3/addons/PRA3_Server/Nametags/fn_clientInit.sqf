@@ -21,12 +21,12 @@
         if (!alive PRA3_Player || !isNull (findDisplay 49)) exitWith {};
 
         // Use the camera position as center for nearby player detection.
-        private _cameraPos = positionCameraToWorld [0, 0, 0];
-
+        private _cameraPosAGL = positionCameraToWorld [0, 0, 0];
+        private _cameraPosASL = AGLToASL _cameraPosAGL;
         private _fov = (call CFUNC(getFOV)) * 3;
 
         // Cycle through all nearby players and display their nameTag.
-        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPos, 2, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 2, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
         {
             private _targetSide = side (group _x);
 
@@ -34,16 +34,21 @@
             if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
                 // The position of the nameTag is above the head.
 
-                private _tagPosition = (_x modelToWorldVisual (_x selectionPosition "pilot")) vectorAdd [0, 0, 0.4];
-                private _wts = worldToScreen _tagPosition;
+                private _tagPositionAGL = (_x modelToWorldVisual (_x selectionPosition "pilot")) vectorAdd [0, 0, 0.4];
+                private _tagPositionASL = AGLtoASL _tagPositionAGL;
+                private _wts = worldToScreen _tagPositionAGL;
 
+                #ifdef PRA3_DEBUGFULL
+                    drawLine3D [_cameraPosASL, _tagPositionASL, [[0,1,0,1],[1,0,0,1]] select (lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])];
+                #endif
                 // Check if there is something between camera and head position. Exit if there is something to make the nameTag invisible.
-                if (!(_wts isEqualTo []) && {lineIntersects [_cameraPos, _tagPosition, PRA3_Player, _x]}) then {
+                if (!(_wts isEqualTo []) && {(lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])}) then {
                     // Calculate the alpha value of the display color based on the distance to player object.
-                    private _distance = _cameraPos distance _tagPosition;
+                    private _distance = _cameraPosAGL distance _tagPositionAGL;
+                    if (_distance <= 0 || _distance > 31) exitWith {};
                     private _alpha = ((1 - 0.2 * (_distance - 25)) min 1) * 0.8;
 
-                    private _size =_fov * 1/_distance;
+                    private _size =_fov * 1 / _distance;
 
                     _alpha = _alpha * ((1 - ( abs ((_wts select 0) - 0.5) min 0.7)) max 0);
 
@@ -68,7 +73,7 @@
                         _x getVariable [QEGVAR(Mission,kitDisplayName), ""]
                     }];
 
-                    drawIcon3D [_icon, _color, _tagPosition, 3 * _size, 3 * _size, 0, _text, 2, 0.15 * _size, "PuristaMedium"];
+                    drawIcon3D [_icon, _color, _tagPositionAGL, 3 * _size, 3 * _size, 0, _text, 2, 0.15 * _size, "PuristaMedium"];
                 };
             };
             nil
