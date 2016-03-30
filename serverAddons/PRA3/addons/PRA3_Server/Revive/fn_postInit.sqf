@@ -99,13 +99,25 @@ if (hasInterface) then {
                     disableSerialization;
 
                     private _helpText = "";
-                    if ((GVAR(MedicItemSelected) == "FirstAidKit" && {(cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(GVAR(MedicItemSelected) == "Medikit" && {!((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
-                        _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />";
+
+                    if ((GVAR(MedicItemSelected) == "FirstAidKit") then {
+                        if (cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0) then {
+                            _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br />";
+                        };
+                        if (PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0) then {
+                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage yourself<br />";
+                        };
                     };
-                    if ((GVAR(MedicItemSelected) == "FirstAidKit" && {(PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0}) || {(GVAR(MedicItemSelected) == "Medikit" && {!((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])})}) then {
-                        _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself";
+
+                    if ((GVAR(MedicItemSelected) == "Medikit") then {
+                        if ((cursorTarget getVariable [QGVAR(bloodLoss), 0]) == 0) && !((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
+                            _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br />";
+                        };
+                        if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) == 0) && !((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
+                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal yourself<br />";
+                        };
                     };
-                    _helpText = format [_helpText, ["heal", "bandage"] select (GVAR(MedicItemSelected) == "FirstAidKit")];
+
 
                     private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
                     if (isNull _display) exitWith {
@@ -183,7 +195,7 @@ if (hasInterface) then {
 
 
                 if (GVAR(MedicItemSelected) == "FirstAidKit" && {_target getVariable [QGVAR(bloodLoss), 0] == 0}) exitWith {};
-                if (GVAR(MedicItemSelected) == "Medikit" && {_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]}) exitWith {};
+                if (GVAR(MedicItemSelected) == "Medikit" && {(_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]) || (_target getVariable [QGVAR(bloodLoss), 0] == 0)}) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
                 disableSerialization;
