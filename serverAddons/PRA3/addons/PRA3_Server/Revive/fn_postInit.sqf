@@ -100,20 +100,20 @@ if (hasInterface) then {
 
                     private _helpText = "";
 
-                    if ((GVAR(MedicItemSelected) == "FirstAidKit") then {
-                        if (cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0) then {
+                    if (GVAR(MedicItemSelected) == "FirstAidKit") then {
+                        if ((cursorTarget getVariable [QGVAR(bloodLoss), 0]) != 0) then {
                             _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br />";
                         };
-                        if (PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0) then {
+                        if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0) then {
                             _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage yourself<br />";
                         };
                     };
 
-                    if ((GVAR(MedicItemSelected) == "Medikit") then {
-                        if ((cursorTarget getVariable [QGVAR(bloodLoss), 0]) == 0) && !((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
+                    if (GVAR(MedicItemSelected) == "Medikit") then {
+                        if (((cursorTarget getVariable [QGVAR(bloodLoss), 0]) == 0) && !((cursorTarget getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
                             _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br />";
                         };
-                        if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) == 0) && !((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
+                        if (((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) == 0) && !((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
                             _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal yourself<br />";
                         };
                     };
