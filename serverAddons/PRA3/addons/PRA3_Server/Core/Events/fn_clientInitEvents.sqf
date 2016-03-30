@@ -17,21 +17,22 @@
 // This is needed to provide a player object for zeus controlled units. Important to ensure that player is not null here (which is done in autoload).
 PRA3_Player = player;
 GVAR(oldGear) = PRA3_Player call CFUNC(getAllGear);
-GVAR(OldVisibleMap) = false;
-GVAR(OldPLayerSide) = playerSide;
+GVAR(oldVisibleMap) = false;
+GVAR(oldPLayerSide) = playerSide;
+GVAR(oldCursorTarget) = objNull;
 [{
     // There is no command to get the current player but BI has an variable in mission namespace we can use.
-    private _currentPlayer = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
+    private _data = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
     // If the player changed we trigger an event and update the global variable.
-    if (PRA3_Player != _currentPlayer) then {
-        ["playerChanged", [_currentPlayer, PRA3_Player]] call FUNC(localEvent);
-        PRA3_Player = _currentPlayer;
+    if (PRA3_Player != _data) then {
+        ["playerChanged", [_data, PRA3_Player]] call FUNC(localEvent);
+        PRA3_Player = _data;
     };
 
-    private _current = PRA3_Player call CFUNC(getAllGear);
-    if !(_current isEqualTo GVAR(oldGear)) then {
+    _data = PRA3_Player call CFUNC(getAllGear);
+    if !(_data isEqualTo GVAR(oldGear)) then {
         ["playerInventoryChanged"] call FUNC(localEvent);
-        GVAR(oldGear) = _current;
+        GVAR(oldGear) = _data;
     };
 
     _data = visibleMap;
@@ -44,6 +45,12 @@ GVAR(OldPLayerSide) = playerSide;
     if (!(_data isEqualTo GVAR(OldPLayerSide))) then {
         ["playerSideChanged", [_data, GVAR(OldPLayerSide)]] call FUNC(localEvent);
         GVAR(OldPLayerSide) = _data;
+    };
+
+    _data = cursorTarget;
+    if (!(_data isEqualTo GVAR(oldCursorTarget))) then {
+        ["cursorTargetChanged", _data] call FUNC(localEvent);
+        GVAR(oldCursorTarget) = _data;
     };
 }] call CFUNC(addPerFrameHandler);
 
