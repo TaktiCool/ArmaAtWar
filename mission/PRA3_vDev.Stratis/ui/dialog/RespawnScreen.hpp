@@ -285,6 +285,7 @@ class PRA3_UI_RespawnScreen {
                 class WeaponPicture : RscPicture {
                     idc = 306;
                     text = "";
+                    style = ST_KEEP_ASPECT_RATIO + ST_PICTURE;
                     x = PX(7);
                     y = PY(GHEIGHT-13);
                     w = PX(GWIDTH-14);
