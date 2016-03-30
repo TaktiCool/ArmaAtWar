@@ -195,7 +195,7 @@ if (hasInterface) then {
 
 
                 if (GVAR(MedicItemSelected) == "FirstAidKit" && {_target getVariable [QGVAR(bloodLoss), 0] == 0}) exitWith {};
-                if (GVAR(MedicItemSelected) == "Medikit" && {(_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]) || (_target getVariable [QGVAR(bloodLoss), 0] == 0)}) exitWith {};
+                if (GVAR(MedicItemSelected) == "Medikit" && {(_target getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]) || (_target getVariable [QGVAR(bloodLoss), 0] != 0)}) exitWith {};
                 GVAR(beginTickTime) = diag_tickTime;
 
                 disableSerialization;
@@ -241,6 +241,13 @@ if (hasInterface) then {
                         private _healingProgress = _target getVariable [QGVAR(healingProgress),0];
                         private _healingRate = _target getVariable [QGVAR(healingRate),0];
                         private _timestamp = _target getVariable [QGVAR(healingTimestamp),-1];
+
+
+                        DUMP(serverTime)
+                        DUMP(_healingTimestamp)
+                        DUMP(_healingProgress)
+                        DUMP(_healingRate)
+
 
                         if (_timestamp > 0) then {
                             GVAR(MedicItemProgress) = _healingProgress + (serverTime - _timestamp) * _healingRate;
