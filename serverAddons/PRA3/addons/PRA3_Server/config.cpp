@@ -593,3 +593,11 @@ class PRA3 {
         version = "0.1";
     };
 };
+
+class CfgAddons {
+	class PreloadAddons {
+		class PRA3_Server {
+			list[] = {"A3_Functions_F"};
+		};
+	};
+};

@@ -28,6 +28,7 @@ class PRA3 {
     loadModules[] = {"Mission", "Logistic", "Nametags","Revive"};
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets
+    musicStart = 100; // tickets to start the music
 
     playerTicketValue = 1; // Ticket value of a player
 

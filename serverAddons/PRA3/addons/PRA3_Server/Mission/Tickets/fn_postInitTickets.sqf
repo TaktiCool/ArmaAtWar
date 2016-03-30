@@ -14,12 +14,39 @@
     None
 */
 
+
 GVAR(deactivateTicketSystem) = false;
+["playEndMusic", {
+    playMusic (selectRandom (GVAR(availableTracks)));
+    addMusicEventHandler ["MusicStop", {
+        playMusic (selectRandom (GVAR(availableTracks)));
+    }];
+}] call CFUNC(addEventHandler);
+
 
 [{
+    GVAR(availableTracks) = getArray(missionConfigFile >> "PRA3" >> "tracks");
+
+    if (GVAR(availableTracks) isEqualTo []) then {
+        {
+            GVAR(availableTracks) pushBackUnique (configName _x);
+            nil
+        } count ("true" configClasses (configFile >> "CfgMusic"));
+
+        if (isClass (missionConfigFile >> "CfgMusic")) then {
+            {
+                GVAR(availableTracks) pushBackUnique (configName _x);
+                nil
+            } count ("true" configClasses (missionConfigFile >> "CfgMusic"));
+        };
+    };
+
+    GVAR(musicStartTickets) = getNumber(missionConfigFile >> "PRA3" >> "musicStart");
+
     if (isServer) then {
         GVAR(playerTicketValue) = getNumber(missionConfigFile >> "PRA3" >> "playerTicketValue");
         GVAR(ticketBleed) = getArray(missionConfigFile >> "PRA3" >> "ticketBleed");
+
 
         private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
         {
@@ -119,6 +146,12 @@ GVAR(deactivateTicketSystem) = false;
             (_dialog displayCtrl 2002) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 0],0]);
             (_dialog displayCtrl 2003) ctrlSetText (missionNamespace getVariable [format [QGVAR(Flag_%1),GVAR(competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
             (_dialog displayCtrl 2004) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1],0]);
+
+            if (isNil QGVAR(musicPlay) && {(missionNamespace getVariable [format [QGVAR(sideTickets_%1), GVAR(competingSides) select 0], 1000]) <= GVAR(musicStartTickets) ||
+               (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1], 1000]) <= GVAR(musicStartTickets)}) then {
+                ["playEndMusic"] call CFUNC(localEvent);
+                GVAR(musicPlay) = true;
+            };
 
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), GVAR(competingSides) select 0], 1000]) <= 0
                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1], 1000]) <= 0) then {
