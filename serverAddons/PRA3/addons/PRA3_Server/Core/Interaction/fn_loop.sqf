@@ -19,11 +19,10 @@
     Example:
     true call FUNC(loop);
 */
-
-private _lastTarget = cursorTarget;
+(_this select 0) params ["_lastTarget"];
 
 private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
-
+if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
 {
     _x params ["_onObject", "_text", "_condition", "_code", "_args"];
     _text = call (_text);
@@ -32,14 +31,14 @@ private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
         if (_onObject isEqualType "") then {
             if (_lastTarget isKindOf _onObject) then {
                 _lastTarget addAction [_text, _code, _args, 1.5, true, true, "", _condition];
-                _objActions pushBack _x;
+                _objActions pushBackUnique _x;
             };
         };
 
         if (_onObject isEqualType objNull) then {
             if ([_lastTarget] find _onObject > -1) then {
                 _lastTarget addAction [_text, _code, _args, 1.5, true, true, "", _condition];
-                _objActions pushBack _x;
+                _objActions pushBackUnique _x;
             };
         };
     };
@@ -47,5 +46,3 @@ private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
 } count GVAR(Interaction_Actions);
 
 _lastTarget setVariable [QGVAR(Interaction_Actions), _objActions];
-
-[FUNC(loop),{!isNull cursorTarget && cursorTarget != _this}, _lastTarget] call CFUNC(waitUntil);
