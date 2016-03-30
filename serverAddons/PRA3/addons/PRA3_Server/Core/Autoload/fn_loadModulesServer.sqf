@@ -68,7 +68,7 @@ if (isServer) then {
             _functionCode = _functionCode call CFUNC(codeToString);
 
             // Transfer the function name, code and progress to the client.
-            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / _count];
+            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / GVAR(countRequiredFnc)];
             _clientID publicVariableClient QGVAR(receiveFunction);
         } forEach GVAR(RequiredFncClient);
     };
