@@ -14,12 +14,15 @@
     None
 */
 
+
+GVAR(deactivateTicketSystem) = false;
 ["playEndMusic", {
     playMusic (selectRandom (GVAR(availableTracks)));
     addMusicEventHandler ["MusicStop", {
         playMusic (selectRandom (GVAR(availableTracks)));
     }];
 }] call CFUNC(addEventHandler);
+
 
 [{
     GVAR(availableTracks) = getArray(missionConfigFile >> "PRA3" >> "tracks");
@@ -137,6 +140,7 @@
         missionNamespace getVariable format [QGVAR(sideTickets_%1), str(_currentSide)];
         ["ticketsChanged", {
             disableSerialization;
+            if (GVAR(deactivateTicketSystem)) exitWith {};
             private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
             (_dialog displayCtrl 2001) ctrlSetText (missionNamespace getVariable [format [QGVAR(Flag_%1),GVAR(competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
             (_dialog displayCtrl 2002) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 0],0]);
@@ -152,10 +156,12 @@
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), GVAR(competingSides) select 0], 1000]) <= 0
                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),GVAR(competingSides) select 1], 1000]) <= 0) then {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group PRA3_Player], 1000]) <= 0) then {
-                    ["WINNER", true] spawn BIS_fnc_endMission;
-                } else {
                     ["LOOSER", false] spawn BIS_fnc_endMission;
-                }
+                } else {
+                    ["WINNER", true] spawn BIS_fnc_endMission;
+                };
+
+                GVAR(deactivateTicketSystem) = true;
 
             };
         }] call CFUNC(addEventHandler);
