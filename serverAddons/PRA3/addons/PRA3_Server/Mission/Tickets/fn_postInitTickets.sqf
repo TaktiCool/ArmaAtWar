@@ -15,6 +15,7 @@
 */
 
 ["playEndMusic", {
+    playMusic (selectRandom (GVAR(availableTracks)));
     addMusicEventHandler ["MusicStop", {
         playMusic (selectRandom (GVAR(availableTracks)));
     }];
@@ -25,13 +26,13 @@
 
     if (GVAR(availableTracks) isEqualTo []) then {
         {
-            GVAR(availableTracks) pushBackUnique _x;
+            GVAR(availableTracks) pushBackUnique (configName _x);
             nil
         } count ("true" configClasses (configFile >> "CfgMusic"));
 
         if (isClass (missionConfigFile >> "CfgMusic")) then {
             {
-                GVAR(availableTracks) pushBackUnique _x;
+                GVAR(availableTracks) pushBackUnique (configName _x);
                 nil
             } count ("true" configClasses (missionConfigFile >> "CfgMusic"));
         };
