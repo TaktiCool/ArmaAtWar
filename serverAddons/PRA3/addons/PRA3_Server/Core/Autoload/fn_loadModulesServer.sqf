@@ -54,7 +54,7 @@ if (isServer) then {
     GVAR(RequiredFncClient) = GVAR(requiredFunctions) select {(toLower(_x) find "_fnc_serverinit" < 0)};
 
     // Count requiredFunctions array and filter serverinit they dont need to sendet
-    GVAR(countRequiredFnc) = count GVAR(RequiredFncClient);
+    GVAR(countRequiredFnc) = count GVAR(RequiredFncClient) - 1;
 
     QGVAR(registerClient) addPublicVariableEventHandler {
 
