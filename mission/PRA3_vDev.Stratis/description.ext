@@ -106,7 +106,7 @@ class PRA3 {
         reviveCoef = 2; // Coef that a non medic need
 
         // time what a medic need to Heal
-        healSpeed = 20;
+        healingTime = 20;
         healCoef = 2; // Coef that a non medic need
         maxHeal = 0.75; // max heal that a non medic need
 
