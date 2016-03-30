@@ -105,7 +105,7 @@ if (hasInterface) then {
                             _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage a comrade<br />";
                         };
                         if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) != 0) then {
-                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to bandage yourself<br />";
+                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to bandage yourself<br />";
                         };
                     };
 
@@ -114,7 +114,7 @@ if (hasInterface) then {
                             _helpText = "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal a comrade<br />";
                         };
                         if (((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) == 0) && !((PRA3_Player getVariable [QGVAR(DamageSelection), [0,0,0,0,0,0,0]]) isEqualTo [0,0,0,0,0,0,0])) then {
-                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to heal yourself<br />";
+                            _helpText = _helpText + "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to heal yourself<br />";
                         };
                     };
 
