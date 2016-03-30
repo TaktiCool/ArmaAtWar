@@ -27,7 +27,7 @@ if (_itemPath == "") then {
     };
 };
 
-_itemHeader = getNumber (_currentItem >> "headerType");
+private _itemHeader = getNumber (_currentItem >> "headerType");
 
 //--- Compile function
 if (_itemPath == "") then {_itemPath = format ["%1\%2\fn_%3%4%5", _pathFile, _categoryName, _itemName, _itemExt};
