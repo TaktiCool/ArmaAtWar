@@ -85,7 +85,7 @@ if (isServer) then {
         };
 
         if (hasInterface) then {
-            ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus); GVAR(currentSector) = [_this select 0] call FUNC(getSector);}] call CFUNC(addEventHandler);
+            ["sector_entered", {[true,_this select 0] call FUNC(showCaptureStatus); GVAR(currentSector) = ([_this select 0] call FUNC(getSector));}] call CFUNC(addEventHandler);
 
             ["sector_leaved", {[false,_this select 0] call FUNC(showCaptureStatus); GVAR(currentSector) = objNull;}] call CFUNC(addEventHandler);
 
