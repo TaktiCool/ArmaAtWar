@@ -126,7 +126,7 @@ DFUNC(resetMedicalVars) = {
             private _healingProgress = 1 - _maxValue / GVAR(maxDamage);
 
             private _healingRate = 0;
-            if (_lastTimestamp != -1)  then {
+            if (_lastTimestamp != -1 && (_currentTime - _lastTimestamp) > 0)  then {
                 _healingRate = (_healingProgress - _oldHealingProgress) / (_currentTime - _lastTimestamp);
                 _updateHealingStatus = true;
             };
