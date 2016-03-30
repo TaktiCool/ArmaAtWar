@@ -155,8 +155,9 @@ DFUNC(updateHealingStatus) = {
                 PRA3_Player setVariable [QGVAR(healingTimestamp), serverTime, true];
                 [_this select 1] call CFUNC(removePerFrameHandler);
             };
-
+            PRA3_Player setVariable [QGVAR(healingProgress), 1 - _maxDamage / GVAR(maxDamage)];
             PRA3_Player setVariable [QGVAR(healingTimestamp), serverTime];
+
 
 
         }, 0.1, []] call CFUNC(addPerFrameHandler);
