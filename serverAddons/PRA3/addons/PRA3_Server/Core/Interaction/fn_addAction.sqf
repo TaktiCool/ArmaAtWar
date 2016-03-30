@@ -23,8 +23,6 @@ params ["_text", "_onObject", "_distance", "_condition", "_callback", ["_args",[
 // Convert Condition to String
 _condition = _condition call FUNC(codeToString);
 
-_condition = if (_distance > 0) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange && " + _condition} else {_condition};
-
 /* @TODO
 _callback = _callback call FUNC(codeToString);
 _callback = "[{" + _callback +"}, _this] call " + QFUNC(directCall) + ";";
@@ -35,6 +33,7 @@ if (_text isEqualType "") then {_text = compile ("format ['" + _text + "']")};
 if (_onObject isEqualType "") then {_onObject = [_onObject];};
 
 if (_onObject isEqualType []) then {
+    _condition = if (_distance > 0) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange && " + _condition} else {_condition};
     {
         GVAR(Interaction_Actions) pushBackUnique [_x, _text, _condition, _callback, _args];
         false
@@ -42,7 +41,7 @@ if (_onObject isEqualType []) then {
 };
 
 if (_onObject isEqualType objNull) then {
-    if (_onObject == PRA3_Player) then {
+    if (_onObject isEqualTo PRA3_Player) then {
         _text = (call _text);
         _onObject addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
         GVAR(PlayerInteraction_Actions) pushBackUnique [_text, _callback, _args, _condition];

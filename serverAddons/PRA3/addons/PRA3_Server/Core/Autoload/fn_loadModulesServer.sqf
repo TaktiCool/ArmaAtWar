@@ -49,27 +49,29 @@ private _modules = +_this;
 
 // EH for client registration. Starts transmission of function code.
 if (isServer) then {
+
+    // required Function that the Client needed
+    GVAR(RequiredFncClient) = GVAR(requiredFunctions) select {(toLower(_x) find "_fnc_serverinit" < 0)};
+
+    // Count requiredFunctions array and filter serverinit they dont need to sendet
+    GVAR(countRequiredFnc) = count GVAR(RequiredFncClient);
+
     QGVAR(registerClient) addPublicVariableEventHandler {
 
         // Determine client id by provided object (usually the player object).
         private _clientID = owner (_this select 1);
-        // Count requiredFunctions array and filter serverinit they dont need to sendet
-        private _count = {toLower(_x) find "_fnc_serverinit" < 0} count GVAR(requiredFunctions);
-        {
-            // check if this is a serverInit and dont share it
-            if (toLower(_x) find "_fnc_serverinit" < 0) then {
-                // Extract the code out of the function.
-                private _functionCode = parsingNamespace getVariable [_x, {}];
-                // Remove leading and trailing braces from the code.
-                _functionCode = _functionCode call CFUNC(codeToString);
 
-                // Transfer the function name, code and progress to the client.
-                GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / _count];
-                _clientID publicVariableClient QGVAR(receiveFunction);
-            };
-        } forEach GVAR(requiredFunctions);
+        {
+            // Extract the code out of the function.
+            private _functionCode = parsingNamespace getVariable [_x, {}];
+            // Remove leading and trailing braces from the code.
+            _functionCode = _functionCode call CFUNC(codeToString);
+
+            // Transfer the function name, code and progress to the client.
+            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / _count];
+            _clientID publicVariableClient QGVAR(receiveFunction);
+        } forEach GVAR(RequiredFncClient);
     };
 };
-GVAR(requiredFunctions)
 // Call all required function on the server.
 call FUNC(callModules);
