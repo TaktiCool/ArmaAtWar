@@ -38,7 +38,7 @@
                 private _wts = worldToScreen _tagPosition;
 
                 // Check if there is something between camera and head position. Exit if there is something to make the nameTag invisible.
-                if (!(_wts isEqualTo []) && {!(lineIntersectsSurfaces [_cameraPos, _tagPosition, PRA3_Player, _x] isEqualTo [])}) then {
+                if (!(_wts isEqualTo []) && {lineIntersects [_cameraPos, _tagPosition, PRA3_Player, _x]}) then {
                     // Calculate the alpha value of the display color based on the distance to player object.
                     private _distance = _cameraPos distance _tagPosition;
                     private _alpha = ((1 - 0.2 * (_distance - 25)) min 1) * 0.8;
