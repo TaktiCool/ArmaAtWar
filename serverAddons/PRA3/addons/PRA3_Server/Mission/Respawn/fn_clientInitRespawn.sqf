@@ -63,14 +63,16 @@ DFUNC(escapeFnc) =  {
     createDialog UIVAR(RespawnScreen);
     (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
 
+    ["Killed", {
+        setPlayerRespawnTime 10e10;
+        createDialog UIVAR(RespawnScreen);
+        (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
+    }] call CFUNC(addEventHandler);
+
 
 }] call CFUNC(addEventHandler);
 
-["Killed", {
-    setPlayerRespawnTime 10e10;
-    createDialog UIVAR(RespawnScreen);
-    (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
-}] call CFUNC(addEventHandler);
+
 
 /*
  * UI STUFF

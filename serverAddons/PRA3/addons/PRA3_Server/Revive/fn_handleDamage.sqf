@@ -46,6 +46,9 @@ if (_selectionName in ["head", "body", ""]) then {
         forceRespawn _unit;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
+            if (vehicle PRA3_Player != PRA3_Player) exitWith {
+                forceRespawn _unit;
+            };
             [{
                 if !(_this getVariable [QGVAR(isUnconscious), false]) then {
                     ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
