@@ -22,7 +22,8 @@ private _kitDetails = [_kitName, [
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
     ["items", []],
-    ["displayName", ""], ["icon", ""]
+    ["displayName", ""], ["icon", ""],
+    ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -31,7 +32,8 @@ _kitDetails params [
     "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
     "_assignedItems",
     "_items",
-    "_displayName", "_icon"
+    "_displayName", "_icon",
+    "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew"
 ];
 
 // remove all Items
@@ -77,3 +79,9 @@ if (_icon == "") then {
 PRA3_Player setVariable [QGVAR(kit), _kitName, true];
 PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
 PRA3_Player setVariable [QGVAR(kitIcon), _icon, true];
+
+PRA3_Player setVariable [QGVAR(isLeader), _isLeader == 1, true];
+PRA3_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];
+PRA3_Player setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
+PRA3_Player setVariable [QGVAR(isPilot), _isPilot == 1, true];
+PRA3_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];
