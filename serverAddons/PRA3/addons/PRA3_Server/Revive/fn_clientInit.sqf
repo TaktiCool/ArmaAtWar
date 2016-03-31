@@ -138,10 +138,6 @@ DFUNC(updateHealingStatus) = {
                 [_x, _maxDamage] select (_x > _maxDamage);
             };
 
-            DUMP(_damageSelection)
-            private _temp = 1 - _maxDamage / GVAR(maxDamage);
-            DUMP(_temp)
-
             [PRA3_Player, QGVAR(DamageSelection), _damageSelection] call CFUNC(setVariablePublic);
 
             if (_maxDamage < 0.7) then {

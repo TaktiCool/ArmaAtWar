@@ -242,13 +242,6 @@ if (hasInterface) then {
                         private _healingRate = _target getVariable [QGVAR(healingRate),0];
                         private _timestamp = _target getVariable [QGVAR(healingTimestamp),-1];
 
-
-                        DUMP(serverTime)
-                        DUMP(_healingTimestamp)
-                        DUMP(_healingProgress)
-                        DUMP(_healingRate)
-
-
                         if (_timestamp > 0) then {
                             GVAR(MedicItemProgress) = _healingProgress + (serverTime - _timestamp) * _healingRate;
                             if (_healingProgress>=1) then {

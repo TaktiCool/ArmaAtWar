@@ -38,7 +38,7 @@ class PRA3_UI_MedicalProgress {
                     y = PY(0);
                     w = PX(50);
                     h = PY(2);
-                    text = "REVIVING in progress ...";
+                    text = "";
                     size = PY(1.8);
                     class Attributes
                     {
@@ -55,7 +55,7 @@ class PRA3_UI_MedicalProgress {
                     y = PY(3);
                     w = PX(50);
                     h = PY(7);
-                    text = "PRESS BLA BLA FOR";
+                    text = "";
                     size = PY(1.8);
                     class Attributes
                     {
