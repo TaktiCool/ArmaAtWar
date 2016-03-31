@@ -23,7 +23,11 @@ private _eventArray = GVAR(EventNamespace) getVariable _eventName;
 if !(isNil "_eventArray") then {
     {
         _x params ["_eventFunctions", "_data"];
-        [_args, _data] call _eventFunctions;
+        if (_eventFunctions isEqualType "") then {
+            [_args, _data] call parsingNamespace getVariable [_eventFunctions, {}];
+        } else {
+            [_args, _data] call _eventFunctions;
+        };
         nil
     } count _eventArray;
 };
