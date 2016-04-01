@@ -14,6 +14,7 @@
     0
 */
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
+DUMP(_this)
 if (!(alive _unit) || (_damage == 0)) exitWith {0};
 
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
@@ -43,10 +44,12 @@ if (_selectionName != "" && _newDamage > 0.2) then {
 if (_selectionName in ["head", "body", ""]) then {
 
     if (!GVAR(preventInstantDeath) && {_newDamage >= GVAR(maxDamage)}) then {
+        _unit setVariable [QGVAR(DeathCause), "INSTANT", true];
         forceRespawn _unit;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
             if !((vehicle _unit) isEqualTo _unit) exitWith {
+                _unit setVariable [QGVAR(DeathCause), "INSTANT", true];
                 forceRespawn _unit;
                 0
             };

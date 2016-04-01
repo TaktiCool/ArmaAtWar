@@ -15,7 +15,6 @@
 */
 
 if (PRA3_player getVariable [QGVAR(medicalActionIsInProgress), false]) exitWith {};
-if !(alive PRA3_player) exitWith {};
 
 private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
 if (_bloodLoss == 0) exitWith {
@@ -51,8 +50,8 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
         // Force Player to Respawn
+        PRA3_Player setVariable [QGVAR(DeathCause), "BLEEDOUT",true];
         forceRespawn PRA3_Player;
-        ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 
     };
 } else {

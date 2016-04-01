@@ -48,6 +48,7 @@ DFUNC(resetPPEffects) = {
 DFUNC(resetMedicalVars) = {
     _this setVariable [QGVAR(bleedOutTime), 0, true];
     _this setVariable [QGVAR(isUnconscious), false, true];
+    _this setVariable [QGVAR(DeathCause), "", true] ;
     [_this, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
     [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
     [_this, QGVAR(HealingProgress), 0] call CFUNC(setVariablePublic);
@@ -165,18 +166,42 @@ DFUNC(updateHealingStatus) = {
     [PRA3_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventhandler);
 
-["UnconsciousnessChanged", {DUMP("UnconsciousnessChanged")}] call CFUNC(addEventhandler);
 
 ["Killed", {
-    PRA3_Player call FUNC(resetMedicalVars);
-    call FUNC(resetPPEffects);
-    ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+    (_this select 0) params ["_unit","_killer"];
+    setPlayerRespawnTime 10e10;
+    if (_unit getVariable [QGVAR(DeathCause), ""] == "") then {
+        _unit setVariable [QGVAR(killer), _killer];
+        ["UnconsciousnessChanged", [true, _unit]] call CFUNC(localEvent);
+
+        [{
+            (_this select 0) params ["_unit"];
+            [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Respawn,respawn);
+            DUMP(damage PRA3_player)
+
+            ["switchMove", [PRA3_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
+
+            {
+                PRA3_Player setVariable [_x, _unit getVariable _x, true];
+            } forEach allVariables _unit;
+
+            [_unit, PRA3_Player] call CFUNC(copyGear);
+
+            deleteVehicle _unit;
+
+        }, 3, [_unit]] call CFUNC(wait);
+    } else {
+        if (!isNull _killer) then {
+            _killer = _unit getVariable [QGVAR(killer), objNull];
+        };
+        [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
+    };
 }] call CFUNC(addEventhandler);
+
 
 ["Respawn", {
     (_this select 0) select 0 call FUNC(resetMedicalVars);
-    call FUNC(resetPPEffects);
-    ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+    //["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
 }] call CFUNC(addEventhandler);
 
 PRA3_player addEventHandler ["handleDamage", FUNC(handleDamage)];

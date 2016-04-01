@@ -62,7 +62,7 @@ DFUNC(escapeFnc) =  {
     createDialog UIVAR(RespawnScreen);
     (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
 
-    ["Killed", {
+    [QEGVAR(Revive,Killed), {
         setPlayerRespawnTime 10e10;
         createDialog UIVAR(RespawnScreen);
         (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];

@@ -309,7 +309,7 @@ if (hasInterface) then {
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress),"PLAIN",0.2];
             private _display = uiNamespace getVariable [UIVAR(MedicalProgress),displayNull];
 
-            (_display displayCtrl 3002) ctrlSetStructuredText parseText format ["Reviving %1 ...", name _target];
+            (_display displayCtrl 3003) ctrlSetStructuredText parseText format ["Reviving %1 ...", name _target];
 
 
             {
