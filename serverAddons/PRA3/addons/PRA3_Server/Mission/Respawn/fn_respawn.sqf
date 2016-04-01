@@ -56,7 +56,7 @@ private _oldUnit = PRA3_Player;
 selectPlayer _newUnit;
 
 // Now we move the new unit to the correct group. This has to be done before the player leaves the group to ensure there is always at least one unit in the group.
-_newUnit joinSilent _targetGroup;
+[_newUnit] joinSilent _targetGroup;
 
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName _oldUnit;
