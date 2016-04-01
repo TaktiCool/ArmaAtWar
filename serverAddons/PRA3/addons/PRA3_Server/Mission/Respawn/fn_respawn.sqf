@@ -50,6 +50,9 @@ if (_isTemporaryUnit) then {
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 };
 
+// Save old leader status
+private _wasLeader = (PRA3_Player == leader PRA3_Player);
+
 private _oldUnit = PRA3_Player;
 
 // Move the player to the unit before changing anything
@@ -63,9 +66,6 @@ private _oldVarName = vehicleVarName _oldUnit;
 _oldUnit setVehicleVarName "";
 _newUnit setVehicleVarName _oldVarName;
 missionNamespace setVariable [_oldVarName, _newUnit, true];
-
-// Save old leader status
-private _wasLeader = (_oldUnit == leader _oldUnit);
 
 // Make the exact group slot available
 private _positionId = parseNumber ((str _oldUnit) select [((str _oldUnit) find ":") + 1]);
