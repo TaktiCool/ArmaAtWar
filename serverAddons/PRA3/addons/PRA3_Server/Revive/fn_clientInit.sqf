@@ -84,7 +84,7 @@ DFUNC(updateHealingStatus) = {
 };
 
 // Bleedout Timer
-[FUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
+[QFUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
 
 ["healUnit", {
     [PRA3_Player, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
@@ -98,14 +98,14 @@ DFUNC(updateHealingStatus) = {
         GVAR(currentHealers) deleteAt _index;
     };
 
-    call DFUNC(updateHealingStatus);
+    call FUNC(updateHealingStatus);
 }] call CFUNC(addEventhandler);
 
 ["registerHealer", {
     (_this select 0) params ["_healer"];
     GVAR(currentHealers) pushBackUnique _healer;
 
-    call DFUNC(updateHealingStatus);
+    call FUNC(updateHealingStatus);
 
     if (GVAR(healingPFH) < 0) then {
         GVAR(healingPFH) = [{
@@ -191,3 +191,57 @@ PRA3_player addEventHandler ["Hit", {0}];
     ((_this select 0) select 0) addEventHandler ["HitPart", {0}];
     ((_this select 0) select 0) addEventHandler ["Hit", {0}];
 }] call CFUNC(addEventhandler);
+
+
+addMissionEventHandler ["Draw3D", {
+    if (!alive PRA3_Player || !isNull (findDisplay 49)) exitWith {};
+
+    // Use the camera position as center for nearby player detection.
+    private _cameraPosAGL = positionCameraToWorld [0, 0, 0];
+    private _cameraPosASL = AGLToASL _cameraPosAGL;
+    private _fov = (call CFUNC(getFOV)) * 3;
+
+    // use Nametags nearObjects to not call it Multible Times
+    private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+
+    {
+        private _targetSide = side (group _x);
+
+        if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && {_x getVariable [QGVAR(isUnconscious), false] || _x getVariable [QGVAR(bloodLoss), 0] != 0 || !(_x getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0])}) then {
+            private _tagPositionAGL = _x modelToWorldVisual (_x selectionPosition "spine2");
+            private _tagPositionASL = AGLtoASL _tagPositionAGL;
+            private _wts = worldToScreen _tagPositionAGL;
+
+            if (!(_wts isEqualTo []) && {(lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])}) then {
+
+                // Calculate the alpha value of the display color based on the distance to player object.
+                private _distance = _cameraPosAGL distance _tagPositionAGL;
+                if (_distance <= 0 || _distance > 31) exitWith {};
+                private _alpha = ((1 - 0.2 * (_distance - 25)) min 1) * 0.8;
+
+                private _size =_fov * 1 / _distance;
+
+                _alpha = _alpha * ((1 - ( abs ((_wts select 0) - 0.5) min 0.7)) max 0);
+
+                private _color = [1, 1, 1, _alpha];
+
+                private _text = "";
+                private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
+                if (_x getVariable [QGVAR(isUnconscious), false] && _x getVariable [QGVAR(bloodLoss), 0] == 0) then {
+                    if (cursorTarget isEqualTo _x && !(_x getVariable [QGVAR(medicalActionIsInProgress), false])) then {
+                        _text = "Press Space to Revive";
+                    };
+                } else {
+                    if (_x getVariable [QGVAR(bloodLoss), 0] != 0) then {
+                        _icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
+                    } else {
+                        if !(_x getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]] isEqualTo [0,0,0,0,0,0,0]) then {
+                            _icon = "\A3\UI_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                        };
+                    };
+                };
+                drawIcon3D [_icon, _color, _tagPositionAGL, 3 * _size, 3 * _size, 0, _text, 2, 0.15 * _size, "PuristaMedium", "center", true];
+            };
+        };
+    } count _nearUnits;
+}];

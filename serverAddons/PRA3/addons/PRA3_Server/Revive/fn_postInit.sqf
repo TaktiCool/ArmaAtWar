@@ -22,7 +22,7 @@ if (hasInterface) then {
 
 
     // Animation Event
-    ["UnconsciousnessChanged", FUNC(UnconsciousnessChanged)] call CFUNC(addEventhandler);
+    ["UnconsciousnessChanged", QFUNC(UnconsciousnessChanged)] call CFUNC(addEventhandler);
 
     GVAR(MedicItemSelected) = "";
     GVAR(MedicItemActivated) = -1;

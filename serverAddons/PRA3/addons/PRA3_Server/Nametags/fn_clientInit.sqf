@@ -26,7 +26,7 @@
         private _fov = (call CFUNC(getFOV)) * 3;
 
         // Cycle through all nearby players and display their nameTag.
-        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 2, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
         {
             private _targetSide = side (group _x);
 

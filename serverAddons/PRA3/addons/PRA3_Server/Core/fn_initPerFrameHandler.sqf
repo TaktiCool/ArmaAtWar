@@ -31,6 +31,9 @@ GVAR(lastFrameTime) = diag_tickTime;
 
         if (diag_tickTime > _delta) then {
             _x set [2, _delta + _delay];
+            if (_function isEqualType "") then {
+                _function = (parsingNamespace getVariable [_function, {}]);
+            };
             [_args, _handle] call _function;
             false
         };

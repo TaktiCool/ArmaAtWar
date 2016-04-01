@@ -66,7 +66,7 @@ if (isServer) then {
         } count GVAR(allSectorsArray);
         if (isServer) then {
             GVAR(sectorLoopCounter) = 0;
-            [FUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
+            [QFUNC(loop), 0.1, []] call CFUNC(addPerFrameHandler);
             ["sector_side_changed", {
                 (_this select 0) params ["_sector", "_oldSide", "_newSide"];
 

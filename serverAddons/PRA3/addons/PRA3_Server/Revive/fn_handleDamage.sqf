@@ -46,8 +46,9 @@ if (_selectionName in ["head", "body", ""]) then {
         forceRespawn _unit;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
-            if (vehicle PRA3_Player != PRA3_Player) exitWith {
+            if !((vehicle _unit) isEqualTo _unit) exitWith {
                 forceRespawn _unit;
+                0
             };
             [{
                 if !(_this getVariable [QGVAR(isUnconscious), false]) then {

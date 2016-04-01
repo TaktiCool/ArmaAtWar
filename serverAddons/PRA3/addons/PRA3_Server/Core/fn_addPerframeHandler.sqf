@@ -19,7 +19,7 @@
     None
 */
 [{
-    params [["_function", {}, [{}]], ["_delay", 0, [0]], ["_args", []]];
+    params [["_function", {}, [{},""]], ["_delay", 0, [0]], ["_args", []]];
 
     if (_function isEqualTo {}) exitWith {-1};
 
