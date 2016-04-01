@@ -19,9 +19,9 @@ params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", f
 
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
-// Unit need to created at this far because in some map the center is 0,0,0 (for example Fallujah)
-private _newUnit = _targetGroup createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
 
+// We need to create a new group otherwise the unit may not be local (looks like its sometimes local to the group owner).
+private _newUnit = (createGroup _targetSide) createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
 _newUnit attachTo [GVAR(attachPoint)];
 
 // Reattach all triggers
@@ -55,6 +55,9 @@ private _oldUnit = PRA3_Player;
 // Move the player to the unit before changing anything
 selectPlayer _newUnit;
 
+// Now we move the new unit to the correct group. This has to be done before the player leaves the group to ensure there is always at least one unit in the group.
+_newUnit joinSilent _targetGroup;
+
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName _oldUnit;
 _oldUnit setVehicleVarName "";
@@ -67,7 +70,7 @@ private _wasLeader = (_oldUnit == leader _oldUnit);
 // Make the exact group slot available
 private _positionId = parseNumber ((str _oldUnit) select [((str _oldUnit) find ":") + 1]);
 [_oldUnit] join grpNull;
-_newUnit joinAsSilent [group _newUnit, _positionId];
+_newUnit joinAsSilent [_targetGroup, _positionId];
 
 // Restore old leader status
 if (_wasLeader) then {
