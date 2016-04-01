@@ -45,7 +45,6 @@ DFUNC(escapeFnc) =  {
 };
 
 ["missionStarted", {
-
     [{
         params ["_group"];
 
@@ -69,10 +68,10 @@ DFUNC(escapeFnc) =  {
         (findDisplay 1000) displayAddEventHandler ["KeyDown", DFUNC(escapeFnc)];
     }] call CFUNC(addEventHandler);
 
-
+    ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
+        createDialog UIVAR(RespawnScreen);
+    }] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
-
-
 
 /*
  * UI STUFF
