@@ -51,6 +51,7 @@ if (_state) then {
             };
         };
         if (alive _unit) then {
+            DUMP("forceRespawn")
             forceRespawn _unit;
             [true] call CFUNC(disableUserInput);
         };

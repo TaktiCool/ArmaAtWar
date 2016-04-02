@@ -31,6 +31,8 @@ GVAR(maxDamage) = getNumber (_cfg >> "maxDamage");
 GVAR(currentHealers) = [];
 GVAR(healingPFH) = -1;
 
+GVAR(playerSwitch) = false;
+
 DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
         {
@@ -171,13 +173,19 @@ DFUNC(updateHealingStatus) = {
     (_this select 0) params ["_unit","_killer"];
     setPlayerRespawnTime 10e10;
     if (_unit getVariable [QGVAR(DeathCause), ""] == "") then {
+        private _gear = [_unit] call CFUNC(saveGear);
         _unit setVariable [QGVAR(killer), _killer];
         ["UnconsciousnessChanged", [true, _unit]] call CFUNC(localEvent);
 
+
+
         [{
-            (_this select 0) params ["_unit"];
-            [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Respawn,respawn);
-            DUMP(damage PRA3_player)
+            (_this select 0) params ["_unit", "_gear"];
+
+            GVAR(playerSwitch) = true;
+            [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Mission,respawn);
+            GVAR(playerSwitch) = false;
+
 
             ["switchMove", [PRA3_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
 
@@ -185,23 +193,28 @@ DFUNC(updateHealingStatus) = {
                 PRA3_Player setVariable [_x, _unit getVariable _x, true];
             } forEach allVariables _unit;
 
-            [_unit, PRA3_Player] call CFUNC(copyGear);
+            [_gear, PRA3_Player] call CFUNC(restoreGear);
+
+            PRA3_Player setDir direction _unit;
 
             deleteVehicle _unit;
 
-        }, 3, [_unit]] call CFUNC(wait);
+        }, 3, [_unit, _gear]] call CFUNC(wait);
     } else {
         if (!isNull _killer) then {
             _killer = _unit getVariable [QGVAR(killer), objNull];
         };
         [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
+        ["UnconsciousnessChanged", [false, _unit]] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventhandler);
 
 
 ["Respawn", {
-    (_this select 0) select 0 call FUNC(resetMedicalVars);
-    //["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+    if (!GVAR(playerSwitch)) then {
+        (_this select 0) select 0 call FUNC(resetMedicalVars);
+        ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
+    };
 }] call CFUNC(addEventhandler);
 
 PRA3_player addEventHandler ["handleDamage", FUNC(handleDamage)];

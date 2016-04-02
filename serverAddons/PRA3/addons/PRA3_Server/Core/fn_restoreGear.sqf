@@ -5,38 +5,49 @@
     Author: BadGuy
 
     Description:
-    Copies gear from source unit to destination
+    Restore gear from saveGear Function to destination
 
     Parameter(s):
-    0: Source Unit <Object>
+    0: Gear <Array>
     1: Destination Unit <Object>
 
     Returns:
     None
 */
+params ["_gear", "_u2"];
+_gear params ["_allGear", "_magazinesAmmoFull"];
 
-params ["_u1", "_u2"];
+_allGear params [
+    "_headgear",
+    "_goggles",
+    "_uniform", "_uniformItems",
+    "_vest", "_vestItems",
+    "_backpack", "_backpackItems",
+    "_primaryWeapon", "_primaryWeaponItems", "_primaryWeaponMagazine",
+    "_secondaryWeapon", "_secondaryWeaponItems", "_secondaryWeaponMagazine",
+    "_handgun", "_handgunItems", "_handgunMagazine",
+    "_assignedItems",
+    "_binocular"
+];
+
+DUMP(_allGear)
+DUMP(_magazinesAmmoFull)
 
 removeAllAssignedItems _u2;
 removeAllWeapons _u2;
 removeHeadgear _u2;
 removeGoggles _u2;
 
-[_u2, uniform _u1] call FUNC(addContainer);
-[_u2, vest _u1] call FUNC(addContainer);
-[_u2, backpack _u1] call FUNC(addContainer);
-_u2 addHeadgear headgear _u1;
+[_u2, _uniform] call FUNC(addContainer);
+[_u2, _vest] call FUNC(addContainer);
+[_u2, _backpack] call FUNC(addContainer);
+_u2 addHeadgear _headgear;
 
 
-_uniformItems = uniformItems _u1;
-_vestItems = vestItems _u1;
-_backpackItems = backpackItems _u1;
+_primaryWeapon = [_primaryWeapon] call BIS_fnc_baseWeapon;
+_secondaryWeapon = [_secondaryWeapon] call BIS_fnc_baseWeapon;
+_handgunWeapon = [_handgunWeapon] call BIS_fnc_baseWeapon;
 
-_primaryWeapon = [primaryWeapon _u1] call BIS_fnc_baseWeapon;
-_secondaryWeapon = [secondaryWeapon _u1] call BIS_fnc_baseWeapon;
-_handgunWeapon = [handgunWeapon _u1] call BIS_fnc_baseWeapon;
-
-_magazinesAmmoFull = magazinesAmmoFull _u1;
 
 {
     _x params ["_magazine", "_count", "_isLoaded", "_type", "_location"];
@@ -103,16 +114,16 @@ _magazinesAmmoFull = magazinesAmmoFull _u1;
 {
     _u2 linkItem _x;
     nil
-} count assignedItems _u1;
+} count _assignedItems;
 
 {
     _u2 addPrimaryWeaponItem _x
-} count primaryWeaponItems _u1;
+} count _primaryWeaponItems;
 
 {
     _u2 addHandgunItem _x
-} count handgunItems _u1;
+} count _handgunItems;
 
 {
     _u2 addSecondaryWeaponItem _x
-} count secondaryWeaponItems _u1;
+} count _secondaryWeaponItems;

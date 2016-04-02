@@ -27,6 +27,7 @@ _bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
+    PRA3_Player setVariable [QGVAR(DeathCause), "BLEEDOUT",true];
     if (isnull (uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull])) then {
         ([UIVAR(BleedOutProgress)] call bis_fnc_rscLayer) cutRsc [UIVAR(BleedOutProgress),"plain", 0];
         private _display =  uiNamespace getVariable [UIVAR(BleedOutProgress), displayNull];
@@ -50,7 +51,7 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     if (_bleedOutTime >= GVAR(reviveBleedOutTime)) then {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
         // Force Player to Respawn
-        PRA3_Player setVariable [QGVAR(DeathCause), "BLEEDOUT",true];
+        DUMP("forceRespawn")
         forceRespawn PRA3_Player;
 
     };

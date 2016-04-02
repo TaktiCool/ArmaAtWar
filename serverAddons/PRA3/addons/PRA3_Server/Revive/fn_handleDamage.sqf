@@ -45,11 +45,13 @@ if (_selectionName in ["head", "body", ""]) then {
 
     if (!GVAR(preventInstantDeath) && {_newDamage >= GVAR(maxDamage)}) then {
         _unit setVariable [QGVAR(DeathCause), "INSTANT", true];
+        DUMP("forceRespawn")
         forceRespawn _unit;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
             if !((vehicle _unit) isEqualTo _unit) exitWith {
                 _unit setVariable [QGVAR(DeathCause), "INSTANT", true];
+                DUMP("forceRespawn")
                 forceRespawn _unit;
                 0
             };
