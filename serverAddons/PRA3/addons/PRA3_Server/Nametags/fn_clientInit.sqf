@@ -18,7 +18,7 @@
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {
         PERFORMANCECOUNTER_START(Nametags)
-        if (!alive PRA3_Player || !isNull (findDisplay 49)) exitWith {};
+        if (!alive PRA3_Player || !isNull (findDisplay 49) || dialog) exitWith {};
 
         // Use the camera position as center for nearby player detection.
         private _cameraPosAGL = positionCameraToWorld [0, 0, 0];
