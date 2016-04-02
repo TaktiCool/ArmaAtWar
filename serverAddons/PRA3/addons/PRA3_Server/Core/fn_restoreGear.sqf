@@ -46,7 +46,7 @@ _u2 addHeadgear _headgear;
 
 _primaryWeapon = [_primaryWeapon] call BIS_fnc_baseWeapon;
 _secondaryWeapon = [_secondaryWeapon] call BIS_fnc_baseWeapon;
-_handgunWeapon = [_handgunWeapon] call BIS_fnc_baseWeapon;
+_handgun = [_handgun] call BIS_fnc_baseWeapon;
 
 
 {
@@ -63,7 +63,7 @@ _handgunWeapon = [_handgunWeapon] call BIS_fnc_baseWeapon;
         _u2 addWeapon _x;
     };
     nil
-} count [_primaryWeapon, _secondaryWeapon, _handgunWeapon];
+} count [_primaryWeapon, _secondaryWeapon, _handgun];
 
 {
     _x params ["_magazine", "_count", "_isLoaded", "_type", "_location"];
@@ -117,13 +117,16 @@ _handgunWeapon = [_handgunWeapon] call BIS_fnc_baseWeapon;
 } count _assignedItems;
 
 {
-    _u2 addPrimaryWeaponItem _x
+    _u2 addPrimaryWeaponItem _x;
+    nil
 } count _primaryWeaponItems;
 
 {
-    _u2 addHandgunItem _x
+    _u2 addHandgunItem _x;
+    nil
 } count _handgunItems;
 
 {
-    _u2 addSecondaryWeaponItem _x
+    _u2 addSecondaryWeaponItem _x;
+    nil
 } count _secondaryWeaponItems;

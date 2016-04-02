@@ -180,7 +180,7 @@ DFUNC(updateHealingStatus) = {
 
 
         [{
-            (_this select 0) params ["_unit", "_gear"];
+            _this params ["_unit", "_gear"];
 
             GVAR(playerSwitch) = true;
             [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Mission,respawn);
