@@ -31,7 +31,8 @@ GVAR(maxDamage) = getNumber (_cfg >> "maxDamage");
 GVAR(currentHealers) = [];
 GVAR(healingPFH) = -1;
 
-GVAR(playerSwitch) = false;
+GVAR(lastKilledFrame) = 0;
+
 
 DFUNC(resetPPEffects) = {
     if !(isNil QGVAR(PPEffects)) then {
@@ -49,8 +50,8 @@ DFUNC(resetPPEffects) = {
 
 DFUNC(resetMedicalVars) = {
     _this setVariable [QGVAR(bleedOutTime), 0, true];
-    _this setVariable [QGVAR(isUnconscious), false, true];
-    _this setVariable [QGVAR(DeathCause), "", true] ;
+    DUMP("resetMedicalVars: UnconChanged")
+    ["UnconsciousnessChanged", [false, _this]] call CFUNC(localEvent);
     [_this, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
     [_this, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
     [_this, QGVAR(HealingProgress), 0] call CFUNC(setVariablePublic);
@@ -172,19 +173,22 @@ DFUNC(updateHealingStatus) = {
 ["Killed", {
     (_this select 0) params ["_unit","_killer"];
     setPlayerRespawnTime 10e10;
-    if (_unit getVariable [QGVAR(DeathCause), ""] == "") then {
+    if (GVAR(lastKilledFrame) == diag_frameNo) exitWith {};
+    GVAR(lastKilledFrame) = diag_frameNo;
+    if ((time - (missionNamespace getVariable ["RscDisplayMPInterrupt_respawnTime",-1])) < 1) exitWith {
+        DUMP("Killed: RESPAWN button pressed")
+        [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
+    };
+
+    if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
+        DUMP("Killed: Go to Uncon mode")
         private _gear = [_unit] call CFUNC(saveGear);
         _unit setVariable [QGVAR(killer), _killer];
-        ["UnconsciousnessChanged", [true, _unit]] call CFUNC(localEvent);
-
-
 
         [{
             _this params ["_unit", "_gear"];
 
-            GVAR(playerSwitch) = true;
             [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Mission,respawn);
-            GVAR(playerSwitch) = false;
 
 
             ["switchMove", [PRA3_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
@@ -192,29 +196,29 @@ DFUNC(updateHealingStatus) = {
             {
                 PRA3_Player setVariable [_x, _unit getVariable _x, true];
             } forEach allVariables _unit;
+            ["UnconsciousnessChanged", [true, PRA3_Player]] call CFUNC(localEvent);
 
             [_gear, PRA3_Player] call CFUNC(restoreGear);
 
             PRA3_Player setDir direction _unit;
 
+            DUMP("KilledWait: deleteVehicle")
             deleteVehicle _unit;
 
         }, 3, [_unit, _gear]] call CFUNC(wait);
     } else {
+        DUMP("Killed: Kill player")
         if (!isNull _killer) then {
             _killer = _unit getVariable [QGVAR(killer), objNull];
         };
-        [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
         ["UnconsciousnessChanged", [false, _unit]] call CFUNC(localEvent);
+        [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventhandler);
 
 
 ["Respawn", {
-    if (!GVAR(playerSwitch)) then {
-        (_this select 0) select 0 call FUNC(resetMedicalVars);
-        ["UnconsciousnessChanged", [false, PRA3_Player]] call CFUNC(localEvent);
-    };
+    (_this select 0) select 0 call FUNC(resetMedicalVars);
 }] call CFUNC(addEventhandler);
 
 PRA3_player addEventHandler ["handleDamage", FUNC(handleDamage)];
