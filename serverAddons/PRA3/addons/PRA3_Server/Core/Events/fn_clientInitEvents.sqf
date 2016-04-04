@@ -126,7 +126,8 @@ GVAR(oldCursorTarget) = objNull;
 } count [
     "InventoryOpened",
     "Killed",
-    "Respawn"
+    "Respawn",
+    "AnimStateChanged"
 ];
 
 // Fix an Arma bug

@@ -13,8 +13,10 @@
     Returns:
     0
 */
+DUMP("HANDLEDAMAGE")
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
 if (!(alive _unit) || (_damage == 0)) exitWith {0};
+DUMP(_this)
 
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
@@ -43,18 +45,22 @@ if (_selectionName != "" && _newDamage > 0.2) then {
 if (_selectionName in ["head", "body", ""]) then {
 
     if (!GVAR(preventInstantDeath) && {_newDamage >= GVAR(maxDamage)}) then {
-        forceRespawn _unit;
+        _unit setVariable [QGVAR(isUnconscious), true, true];
+        DUMP("handleDamage: instantDeath")
+        _unit setDamage 1;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
-            if !((vehicle _unit) isEqualTo _unit) exitWith {
-                forceRespawn _unit;
-                0
-            };
-            [{
-                if !(_this getVariable [QGVAR(isUnconscious), false]) then {
-                    ["UnconsciousnessChanged", [true, _this]] call CFUNC(localEvent);
+            if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
+                if !((vehicle _unit) isEqualTo _unit) then {
+                    _unit setVariable [QGVAR(isUnconscious), true, true];
+                    DUMP("handleDamage: instantDeath in Vehicle")
+                    _unit setDamage 1;
+                } else {
+                    DUMP("handleDamage: forceRespawn")
+                    forceRespawn _unit;
                 };
-            }, _unit] call CFUNC(execNextFrame);
+
+            };
         };
     };
 };

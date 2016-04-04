@@ -15,14 +15,17 @@
 */
 (_this select 0) params ["_state", "_unit"];
 
+private _lastState = _unit getVariable [QGVAR(isUnconscious), _state];
+
 _unit setVariable [QGVAR(isUnconscious), _state, true];
 
 if (_state) then {
-    _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
-    if ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) < 1) then {
+    [true] call CFUNC(disableUserInput);
+    _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
+    if ((_unit getVariable [QGVAR(bloodLoss), 0]) < 1) then {
         [_unit, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
     };
-    
+
     if (_unit isEqualTo PRA3_Player) then {
         {
             _x ppEffectEnable true;
@@ -30,35 +33,23 @@ if (_state) then {
         } count GVAR(PPEffects);
         if (isNil QGVAR(ppEffectPFHID)) then {
             GVAR(ppEffectPFHID) = [{
-                if (alive PRA3_Player) then {
-                    private _bloodLevel = ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) min 3) max 0;
-                    _bright = 0.2 + (0.1 * _bloodLevel);
-                    _intense = 0.6 + (0.4 * _bloodLevel);
-                    {
-                        _effect = GVAR(PPEffects) select _forEachIndex;
-                        _effect ppEffectAdjust _x;
-                        _effect ppEffectCommit 1;
-                    } forEach [
-                        [1, 1, 0.15 * _bloodLevel, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
-                        [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [_intense, _intense, 0, 0, 0, 0.2, 1]],
-                        [0.7 + (1 - _bloodLevel)]
-                    ];
-                } else {
-                    [GVAR(ppEffectPFHID)] call CFUNC(removePerFrameHandler);
-                    GVAR(ppEffectPFHID) = nil;
-                    {
-                        _x ppEffectEnable false;
-                        nil
-                    } count GVAR(PPEffects);
-                };
+
+                private _bloodLevel = ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) min 3) max 0;
+                _bright = 0.2 + (0.1 * _bloodLevel);
+                _intense = 0.6 + (0.4 * _bloodLevel);
+                {
+                    _effect = GVAR(PPEffects) select _forEachIndex;
+                    _effect ppEffectAdjust _x;
+                    _effect ppEffectCommit 1;
+                } forEach [
+                    [1, 1, 0.15 * _bloodLevel, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
+                    [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [_intense, _intense, 0, 0, 0, 0.2, 1]],
+                    [0.7 + (1 - _bloodLevel)]
+                ];
+
             }, 1] call CFUNC(addPerFrameHandler);
         };
     };
-    if (alive _unit) then {
-        ["switchMove", [_unit, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
-        [true] call CFUNC(disableUserInput);
-    };
-
 } else {
     if (_unit isEqualTo PRA3_Player) then {
         {
@@ -68,12 +59,10 @@ if (_state) then {
         [GVAR(ppEffectPFHID)] call CFUNC(removePerFrameHandler);
         GVAR(ppEffectPFHID) = nil;
     };
-    if (alive _unit) then {
+    if (alive _unit || _lastState) then {
         ["switchMove", [_unit, "AmovPpneMstpSnonWnonDnon"]] call CFUNC(globalEvent);
-        [false] call CFUNC(disableUserInput);
     };
-
-
+    [false] call CFUNC(disableUserInput);
 
 };
 
