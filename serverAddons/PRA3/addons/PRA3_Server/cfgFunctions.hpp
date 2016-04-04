@@ -36,6 +36,7 @@ class cfgFunctions {
     #include "Squad\cfgFunctions.hpp"
 
     #include "Sector\cfgFunctions.hpp"
+    #include "Tickets\cfgFunctions.hpp"
 
     #include "VehicleRespawn\cfgFunctions.hpp"
     #include "Nametags\cfgFunctions.hpp"

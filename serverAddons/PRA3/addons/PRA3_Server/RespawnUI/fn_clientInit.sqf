@@ -116,7 +116,7 @@ DFUNC(escapeFnc) =  {
 GVAR(lastRespawnFrame) = 0;
 [UIVAR(RespawnScreen_DeployButton_action), {
     // Check squad
-    if (!((groupId group PRA3_Player) in GVAR(squadIds))) exitWith {
+    if (!((groupId group PRA3_Player) in EGVAR(Squad,squadIds))) exitWith {
         ["Join a squad!"] call CFUNC(displayNotification);
     };
 
@@ -136,7 +136,7 @@ GVAR(lastRespawnFrame) = 0;
             ["Select spawn point!"] call CFUNC(displayNotification);
         };
         _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
-        GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+        EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
         private _pointDetails = _pointData select (_pointIds find _currentDeploymentPointSelection);
         private _tickets = _pointDetails select 2;
         private _deployPosition = _pointDetails select 3;
@@ -271,7 +271,7 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
 #define IDC 403
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedPoint = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
-    GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
     private _visiblePoints = _pointIds select {
         private _pointDetails = _pointData select (_pointIds find _x);
         (_pointDetails select 5) call (_pointDetails select 4)
@@ -386,7 +386,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 #define IDC 207
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedGroup = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), grpNull] select (_selectedLnbRow == -1);
-    private _visibleGroups = allGroups select {side _x == playerSide && (groupId _x) in GVAR(squadIds)};
+    private _visibleGroups = allGroups select {side _x == playerSide && (groupId _x) in EGVAR(Squad,squadIds)};
     lnbClear IDC;
     {
         private _description = _x getVariable [QEGVAR(Squad,Description), str _x];

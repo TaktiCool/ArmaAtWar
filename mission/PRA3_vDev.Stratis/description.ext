@@ -24,7 +24,7 @@ respawnDelay = 3;
 respawnDialog = 0;
 
 class PRA3 {
-    loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment"};
+    loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets"};
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets
     musicStart = 100; // tickets to start the music
