@@ -23,7 +23,7 @@ if (_bloodLoss == 0) exitWith {
     };
 };
 private _bleedOutTime = PRA3_Player getVariable [QGVAR(bleedOutTime), 0];
-_bleedOutTime = _bleedOutTime + ((_bloodLoss * CGVAR(deltaTime)) / 2);
+_bleedOutTime = _bleedOutTime + _bloodLoss * CGVAR(deltaTime);
 
 // if Player is Uncon check if maxBleedoutTime is reached and than force the player to respawn
 if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {

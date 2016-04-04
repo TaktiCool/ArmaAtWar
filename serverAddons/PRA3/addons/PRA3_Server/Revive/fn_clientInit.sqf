@@ -58,6 +58,37 @@ GVAR(PPEffects) = [GVAR(colorEffectCC),GVAR(vigEffectCC),GVAR(blurEffectCC)];
 // Bleedout Timer
 [QFUNC(bleedoutTimer), 0] call CFUNC(addPerFrameHandler);
 
+[{
+    private _action = PRA3_Player getVariable [QGVAR(medicalActionInProgress),""];
+    if (_action == "") exitWith {
+        if (!isnull (uiNamespace getVariable [UIVAR(MedicalInfo), displayNull])) then {
+            ([UIVAR(MedicalInfo)] call bis_fnc_rscLayer) cutFadeOut 0.1;
+        };
+    };
+    private _display =  uiNamespace getVariable [UIVAR(MedicalInfo), displayNull];
+    if (isnull _display) then {
+        ([UIVAR(MedicalInfo)] call bis_fnc_rscLayer) cutRsc [UIVAR(MedicalInfo),"plain", 0];
+        _display =  uiNamespace getVariable [UIVAR(MedicalInfo), displayNull];
+    };
+    private _text = "<img size='1' color='#ffffff' image='\A3\UI_f\data\IGUI\Cfg\Actions\heal_ca.paa'/><br />You'll be ";
+
+    if (_action == "BANDAGE") then {
+        _text = _text + "bandaged!";
+    };
+
+    if (_action == "HEAL") then {
+        _text = _text + "healed!";
+    };
+
+    if (_action == "REVIVE") then {
+        _text = _text + "revived!";
+    };
+
+    (_display displayCtrl 5000) ctrlSetStructuredText parseText _text;
+    (_display displayCtrl 5000) ctrlSetFade 0;
+    (_display displayCtrl 5000) ctrlCommit 0;
+}, 0.2] call CFUNC(addPerFrameHandler);
+
 ["healUnit", {
     [PRA3_Player, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventhandler);

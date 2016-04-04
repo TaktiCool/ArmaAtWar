@@ -205,6 +205,7 @@ class RscTitles {
     #include "ui\hud\TicketStatus.hpp"
     #include "ui\hud\MedicalProgress.hpp"
     #include "ui\hud\Notification.hpp"
+    #include "ui\hud\MedicalInfo.hpp"
 };
 
 class CfgRemoteExec {

@@ -178,7 +178,7 @@ private _fnc_itemAction = {
             };
 
             // exit Only One Player can Bandage a Bleeding Unit
-            if (_target getVariable [QGVAR(medicalActionIsInProgress), false] && GVAR(MedicItemSelected) == "FirstAidKit") exitWith {};
+            if (_target getVariable [QGVAR(medicalActionInProgress), ""] != "" && GVAR(MedicItemSelected) == "FirstAidKit") exitWith {};
 
 
             if (GVAR(MedicItemSelected) == "FirstAidKit" && {_target getVariable [QGVAR(bloodLoss), 0] == 0}) exitWith {};
@@ -205,7 +205,7 @@ private _fnc_itemAction = {
                 ["registerHealer", [_target], PRA3_Player] call CFUNC(targetEvent);
             };
 
-            _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
+            _target setVariable [QGVAR(medicalActionInProgress), ["BANDAGE", "HEAL"] select (GVAR(MedicItemSelected) == "Medikit"), true];
             [{
                 (_this select 0) params ["_target"];
 
@@ -219,7 +219,7 @@ private _fnc_itemAction = {
                         false;
                     } count [3001, 3002, 3003];
                     [_this select 1] call CFUNC(removePerFrameHandler);
-                    _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
+                    _target setVariable [QGVAR(medicalActionInProgress), "", true];
                 };
 
 
@@ -310,14 +310,14 @@ private _fnc_itemAction = {
 
 
 
-        _target setVariable [QGVAR(medicalActionIsInProgress), true, true];
+        _target setVariable [QGVAR(medicalActionInProgress), "REVIVE", true];
         [{
             (_this select 0) params ["_target"];
 
             if (cursorTarget != _target || !GVAR(reviveKeyPressed) || PRA3_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                 ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
                 [_this select 1] call CFUNC(removePerFrameHandler);
-                _target setVariable [QGVAR(medicalActionIsInProgress), false, true];
+                _target setVariable [QGVAR(medicalActionInProgress), "", true];
             };
 
             private _reviveSpeed = GVAR(reviveSpeed);
