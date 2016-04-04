@@ -135,8 +135,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
         private _rowNumber = lnbAddRow [IDC, [[_x] call CFUNC(name)]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
-        private _selectedKit = _x getVariable [QGVAR(kit), ""];
-        private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call FUNC(getKitDetails)) select 0;
+        private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
+        private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
         lnbSetPicture [IDC, [_rowNumber, 0], _kitIcon];
 
         if (_x == _selectedGroupMember) then {

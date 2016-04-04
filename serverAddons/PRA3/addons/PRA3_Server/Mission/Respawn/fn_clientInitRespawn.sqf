@@ -127,10 +127,10 @@ GVAR(lastRespawnFrame) = 0;
         if (_currentRoleSelection < 0) exitWith {
             ["Select a role!"] call CFUNC(displayNotification);
         };
-        private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
+        private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
         private _kitName = [303, [_currentRoleSelection, 0]] call CFUNC(lnbLoad);
-        private _usedKits = {(_x getVariable [QGVAR(kit), ""]) == _kitName} count units group PRA3_Player;
-        if ([_kitName] call FUNC(getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {
+        private _usedKits = {(_x getVariable [QEGVAR(Kit,kit), ""]) == _kitName} count units group PRA3_Player;
+        if ([_kitName] call EFUNC(Kit,getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {
             ["Select another role!"] call CFUNC(displayNotification);
         };
 

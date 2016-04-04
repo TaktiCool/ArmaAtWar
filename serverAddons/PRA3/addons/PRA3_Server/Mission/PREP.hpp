@@ -1,16 +1,6 @@
 
 PREP(init)
 
-// Sector
-EPREP(Sector,createSectorLogic)
-EPREP(Sector,createSectorTrigger)
-EPREP(Sector,getSector)
-EPREP(Sector,initSector)
-EPREP(Sector,isCaptureable)
-EPREP(Sector,loop)
-EPREP(Sector,showCaptureStatus)
-//EPREP(Sector,renderIcons)
-
 // Rally System
 EPREP(Deployment,serverInitDeployment)
 EPREP(Deployment,clientInitDeployment)
@@ -38,18 +28,6 @@ EPREP(Squad,joinSquad)
 EPREP(Squad,leaveSquad)
 EPREP(Squad,kickMember)
 EPREP(Squad,promoteMember)
-
-// Kit
-EPREP(Kit,clientInitKit)
-EPREP(Kit,getAllKits)
-EPREP(Kit,getKitDetails)
-EPREP(Kit,getUsableKitCount)
-EPREP(Kit,applyKit)
-EPREP(Kit,addContainer)
-EPREP(Kit,addWeapon)
-EPREP(Kit,addMagazine)
-EPREP(Kit,addItem)
-EPREP(Kit,checkVehicleRestrictions)
 
 // VehicleRespawn
 EPREP(VehicleRespawn,serverInitVehicleRespawn)

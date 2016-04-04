@@ -570,29 +570,7 @@ class CfgPatches {
 
 #include "cfgFunctions.hpp"
 
-class PRA3 {
-    class Dependencies {
-        class Core {
-            require[] = {};
-        };
-        class Logistic {
-            require[] = {"Core"};
-        };
-        class Mission {
-            require[] = {"Core"};
-        };
-        class Nametags {
-            require[] = {"Core"};
-        };
-        class Revive {
-            require[] = {"Core"};
-        };
-    };
-
-    class PRA3_Extension {
-        version = "0.1";
-    };
-};
+#include "PRA3.hpp"
 
 class CfgAddons {
 	class PreloadAddons {

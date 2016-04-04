@@ -20,16 +20,25 @@
 
 // Find all functions which are part of the requested modules and store them in an array.
 GVAR(requiredFunctions) = [];
-private _modules = +_this;
+private _modules = [];
+
+// Function for Cross Dependencys
+private _fnc_addDependencyModule = {
+    params ["_name"];
+    private _i = _modules pushBackUnique _name;
+    if (_i != -1) then {
+        if (_name in (GVAR(Dependencies) select 0)) then {
+            private _index = (GVAR(Dependencies) select 0) find _name;
+            {
+                _x call _fnc_addDependencyModule;
+                nil
+            } count ((GVAR(Dependencies) select 1) select _index);
+        };
+    };
+};
 
 {
-    if (_x in (GVAR(Dependencies) select 0)) then {
-        private _index = (GVAR(Dependencies) select 0) find _x;
-        {
-            _modules pushBackUnique _x;
-            nil
-        } count ((GVAR(Dependencies) select 1) select _index);
-    };
+    _x call _fnc_addDependencyModule;
     nil
 } count _this;
 
