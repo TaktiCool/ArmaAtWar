@@ -100,7 +100,7 @@ GVAR(deactivateTicketSystem) = false;
                     _looserSide = _x getVariable ["side",sideUnknown];
                 };
                 _condition
-            } count GVAR(allSectorsArray);
+            } count EGVAR(Sector,allSectorsArray);
 
 
 
