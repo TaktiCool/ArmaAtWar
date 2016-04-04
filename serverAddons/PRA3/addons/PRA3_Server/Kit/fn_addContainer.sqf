@@ -17,12 +17,10 @@
 */
 
 
-private ["_returnValue", "_cfg"];
 params [["_unit",objNull,[objNull]],["_containerClassname","",["STRING"]],["_containerNumber", -1, [-1]]];
-_returnValue = false;
 
 if (_containerNumber == -1) then {
-    _cfg = (configFile >> "CfgWeapons");
+    private _cfg = (configFile >> "CfgWeapons");
     if (_containerClassname isKindOf ["Uniform_Base", _cfg]) then {
         _containerNumber = 0;
     };
@@ -34,7 +32,6 @@ if (_containerNumber == -1) then {
     };
 };
 
-_returnValue = true;
 switch (_containerNumber) do {
     case 0 : {
         _uniformName = uniform _unit;
@@ -72,8 +69,4 @@ switch (_containerNumber) do {
             _unit addBackpack _containerClassname;
         };
     };
-    default {
-        _returnValue = false;
-    };
 };
-_returnValue

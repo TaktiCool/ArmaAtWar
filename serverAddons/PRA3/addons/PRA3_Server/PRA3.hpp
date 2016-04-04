@@ -4,7 +4,7 @@ class PRA3 {
             require[] = {};
         };
         class Kit {
-            require[] = {"Core"};
+            require[] = {"Core", "Squad"};
         };
         class Logistic {
             require[] = {"Core"};
@@ -19,6 +19,15 @@ class PRA3 {
             require[] = {"Core"};
         };
         class Sector {
+            require[] = {"Core", "Mission"};
+        };
+        class RespawnUI {
+            require[] = {"Core", "Squad", "Deployment", "Kit"};
+        };
+        class Deployment {
+            require[] = {"Core", "Mission"};
+        };
+        class Squad {
             require[] = {"Core", "Mission"};
         };
     };

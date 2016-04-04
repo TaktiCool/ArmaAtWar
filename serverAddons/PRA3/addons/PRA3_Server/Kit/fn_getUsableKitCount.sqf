@@ -25,7 +25,7 @@ _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 if (_isLeader == 1 && PRA3_Player != leader PRA3_Player) exitWith {0};
 
 // Check squad type
-private _squadType = (group PRA3_Player) getVariable [QGVAR(Type), ""];
+private _squadType = (group PRA3_Player) getVariable [QEGVAR(Squad,Type), ""];
 if (!(_squadType in _availableInGroups)) exitWith {0};
 
 // Check group member count

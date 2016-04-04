@@ -42,6 +42,8 @@ private _fnc_addDependencyModule = {
     nil
 } count _this;
 
+LOG("Loaded Modules: " + str _modules)
+
 {
     // Extract the module name out of the full function name.
     // 1: Remove "PRA3_" prefix

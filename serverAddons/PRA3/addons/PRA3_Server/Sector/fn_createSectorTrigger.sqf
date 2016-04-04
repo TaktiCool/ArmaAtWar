@@ -30,7 +30,7 @@ if (isServer) then {
         //_trig setTriggerStatements ["this","hint 'Entered'", "hint 'Leaved'"];
         _sector setVariable [format["trigger_%1",_x], _trig];
         nil;
-    } count GVAR(competingSides);
+    } count EGVAR(Mission,competingSides);
 };
 
 if (hasInterface) then {

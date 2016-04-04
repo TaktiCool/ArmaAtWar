@@ -14,7 +14,7 @@
     -
 */
 [{
-    private _newSide = call compile ((GVAR(competingSides) select { _x != str playerSide }) select 0);
+    private _newSide = call compile ((EGVAR(Mission,competingSides) select { _x != str playerSide }) select 0);
 
     //@todo think about restrictions
 
@@ -22,5 +22,5 @@
     call FUNC(leaveSquad);
 
     // Respawn as new unit
-    [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call FUNC(respawn);
+    [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
 }] call CFUNC(mutex);
