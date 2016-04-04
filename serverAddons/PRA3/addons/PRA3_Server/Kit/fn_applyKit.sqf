@@ -49,18 +49,18 @@ removeGoggles PRA3_Player;
 PRA3_Player addHeadgear _headGear;
 
 // Primary Weapon
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call FUNC(addWeapon);
-[_primaryMagazineTracer, _primaryMagazineTracerCount] call FUNC(addMagazine);
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
+[_primaryMagazineTracer, _primaryMagazineTracerCount] call CFUNC(addMagazine);
 {
     PRA3_Player addPrimaryWeaponItem _x;
     nil
 } count (_primaryAttachments select {_x != ""});
 
 // Secondary Weapon
-[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call FUNC(addWeapon);
+[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call CFUNC(addWeapon);
 
 // Handgun Weapon
-[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call FUNC(addWeapon);
+[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call CFUNC(addWeapon);
 
 // Assigned items
 {
@@ -70,7 +70,7 @@ PRA3_Player addHeadgear _headGear;
 
 // Items
 {
-    _x call FUNC(addItem);
+    _x call CFUNC(addItem);
     nil
 } count _items;
 if (_icon == "") then {
