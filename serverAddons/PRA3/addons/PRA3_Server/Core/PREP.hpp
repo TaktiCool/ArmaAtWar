@@ -58,6 +58,10 @@ EPREP(lnbData,initlnbData)
 EPREP(lnbData,lnbLoad)
 EPREP(lnbData,lnbSave)
 
+// respawn
+EPREP(Respawn,serverInitRespawn)
+EPREP(Respawn,respawn)
+
 // Init
 PREP(init)
 

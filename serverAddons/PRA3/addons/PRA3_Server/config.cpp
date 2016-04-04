@@ -351,7 +351,6 @@ class CfgPatches {
             "a3_structures_f_epc_items_documents",
             "a3_structures_f_epc_items_electronics",
             "a3_structures_f_epc_walls",
-            "a3_structures_f_exp_a",
             "a3_structures_f_exp_a_vr_blocks",
             "a3_structures_f_exp_a_vr_helpers",
             "a3_structures_f_furniture",
@@ -570,29 +569,7 @@ class CfgPatches {
 
 #include "cfgFunctions.hpp"
 
-class PRA3 {
-    class Dependencies {
-        class Core {
-            require[] = {};
-        };
-        class Logistic {
-            require[] = {"Core"};
-        };
-        class Mission {
-            require[] = {"Core"};
-        };
-        class Nametags {
-            require[] = {"Core"};
-        };
-        class Revive {
-            require[] = {"Core"};
-        };
-    };
-
-    class PRA3_Extension {
-        version = "0.1";
-    };
-};
+#include "PRA3.hpp"
 
 class CfgAddons {
 	class PreloadAddons {

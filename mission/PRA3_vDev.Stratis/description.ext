@@ -14,7 +14,7 @@ debriefing = 0;
 enableDebugConsole = 2;
 
 disabledAI = 1;
-author = "NetFusion, Hoeginson, BadGuy, joko // Jonas, PRA3 Team";
+author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Project Reality:Arma 3";
 onLoadMission = "Project Reality: Arma III";
 loadScreen =  "media\LoadingScreen.jpg";
@@ -24,7 +24,7 @@ respawnDelay = 3;
 respawnDialog = 0;
 
 class PRA3 {
-    loadModules[] = {"Mission", "Logistic", "Nametags","Revive"};
+    loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets"};
     tickets = 1000; // number of tickets per team
     ticketBleed[] = {10,5}; // time, tickets
     musicStart = 100; // tickets to start the music
