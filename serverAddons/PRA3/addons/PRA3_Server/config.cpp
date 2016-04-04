@@ -351,7 +351,6 @@ class CfgPatches {
             "a3_structures_f_epc_items_documents",
             "a3_structures_f_epc_items_electronics",
             "a3_structures_f_epc_walls",
-            "a3_structures_f_exp_a",
             "a3_structures_f_exp_a_vr_blocks",
             "a3_structures_f_exp_a_vr_helpers",
             "a3_structures_f_furniture",
