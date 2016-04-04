@@ -52,9 +52,26 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     // RoleList
 #define IDC 303
     private _selectedLnbRow = lnbCurSelRow IDC;
-    private _selectedKit = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
-    private _currentKit = PRA3_Player getVariable [QGVAR(kit), ""];
+    private _previousSelectedKit = PRA3_Player getVariable [QGVAR(kit), ""];
+    private _selectedKit = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), _previousSelectedKit] select (_selectedLnbRow == -1);
+    PRA3_Player setVariable [QGVAR(kit), _selectedKit, true];
     private _visibleKits = call FUNC(getAllKits) select {[_x] call FUNC(getUsableKitCount) > 0};
+
+    if (_visibleKits isEqualTo []) then {
+        lnbSetCurSelRow [IDC, -1];
+        _selectedKit = "";
+        PRA3_Player setVariable [QGVAR(kit), _selectedKit, true];
+    } else {
+        if (_selectedKit == "" || !(_selectedKit in _visibleKits)) then {
+            _selectedKit = _visibleKits select 0;
+            PRA3_Player setVariable [QGVAR(kit), _selectedKit, true];
+        };
+    };
+
+    if (_previousSelectedKit != _selectedKit) then {
+        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    };
+
     lnbClear IDC;
     {
         private _kitName = _x;
@@ -68,33 +85,12 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
 
         lnbSetPicture [IDC, [_rowNumber, 0], _UIIcon];
 
-        if (_x == _currentKit) then {
-            for "_i" from 0 to 4 do {
-                lnbSetColor [IDC, [_rowNumber, _i], [1, 0.4, 0, 1]];
-            };
-        };
-
         if (_x == _selectedKit) then {
             lnbSetCurSelRow [IDC, _rowNumber];
         };
 
         nil
     } count _visibleKits;
-    if ((lnbSize IDC select 0) == 0) then {
-        lnbSetCurSelRow [IDC, -1];
-        _selectedKit = "";
-    } else {
-        if (_selectedKit == "" || !(_selectedKit in _visibleKits)) then {
-            if (_currentKit in _visibleKits) then {
-                private _index = _visibleKits find _currentKit;
-                lnbSetCurSelRow [IDC, _index];
-                _selectedKit = [IDC, [_index, 0]] call CFUNC(lnbLoad);
-            } else {
-                lnbSetCurSelRow [IDC, 0];
-                _selectedKit = [IDC, [0, 0]] call CFUNC(lnbLoad);
-            };
-        };
-    };
 
     // WeaponTabs
 #undef IDC
