@@ -157,7 +157,7 @@ GVAR(lastRespawnFrame) = 0;
 
         // Apply selected kit
         private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
-        [_currentKitName] call FUNC(applyKit);
+        [_currentKitName] call EFUNC(Kit,applyKit);
 
         GVAR(lastRespawnFrame) = diag_frameNo;
 
