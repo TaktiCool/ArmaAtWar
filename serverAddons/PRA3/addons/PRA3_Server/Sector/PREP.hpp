@@ -7,3 +7,6 @@ PREP(isCaptureable)
 PREP(loop)
 PREP(showCaptureStatus)
 //PREP(renderIcons)
+
+// TicketBleed
+EPREP(Tickets,postInitTickets)

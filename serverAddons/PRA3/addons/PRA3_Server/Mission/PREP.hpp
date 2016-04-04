@@ -10,9 +10,6 @@ EPREP(Deployment,canPlaceRally)
 EPREP(Deployment,placeRally)
 EPREP(Deployment,destroyRally)
 
-// TicketBleed
-EPREP(Tickets,postInitTickets)
-
 // Respawn
 EPREP(Respawn,clientInitRespawn)
 EPREP(Respawn,serverInitRespawn)
