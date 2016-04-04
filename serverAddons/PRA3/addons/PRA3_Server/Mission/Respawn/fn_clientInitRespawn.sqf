@@ -1,15 +1,11 @@
 #include "macros.hpp"
 /*
     Project Reality ArmA 3
-
     Author: NetFusion
-
     Description:
     -
-
     Parameter(s):
     -
-
     Returns:
     -
 */
@@ -123,15 +119,10 @@ GVAR(lastRespawnFrame) = 0;
     [{
         if (diag_frameNo == GVAR(lastRespawnFrame)) exitWith {};
 
+        // Check kit
         private _currentRoleSelection = lnbCurSelRow 303;
         if (_currentRoleSelection < 0) exitWith {
             ["Select a role!"] call CFUNC(displayNotification);
-        };
-        private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-        private _kitName = [303, [_currentRoleSelection, 0]] call CFUNC(lnbLoad);
-        private _usedKits = {(_x getVariable [QEGVAR(Kit,kit), ""]) == _kitName} count units group PRA3_Player;
-        if ([_kitName] call EFUNC(Kit,getUsableKitCount) <= ([_usedKits, _usedKits - 1] select (_kitName == _currentKitName))) exitWith {
-            ["Select another role!"] call CFUNC(displayNotification);
         };
 
         // Check deployment
@@ -165,8 +156,8 @@ GVAR(lastRespawnFrame) = 0;
         ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
 
         // Apply selected kit
-        [_kitName] call FUNC(applyKit);
-        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+        private _currentKitName = PRA3_Player getVariable [QGVAR(kit), ""];
+        [_currentKitName] call FUNC(applyKit);
 
         GVAR(lastRespawnFrame) = diag_frameNo;
 
