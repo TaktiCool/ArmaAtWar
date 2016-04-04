@@ -1,0 +1,11 @@
+// Kit
+PREP(clientInit)
+PREP(getAllKits)
+PREP(getKitDetails)
+PREP(getUsableKitCount)
+PREP(applyKit)
+PREP(addContainer)
+PREP(addWeapon)
+PREP(addMagazine)
+PREP(addItem)
+PREP(checkVehicleRestrictions)

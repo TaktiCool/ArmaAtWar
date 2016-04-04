@@ -1,0 +1,10 @@
+// Squad system
+PREP(clientInitSquad)
+PREP(getNextSquadId)
+PREP(canUseSquadType)
+PREP(switchSide)
+PREP(createSquad)
+PREP(joinSquad)
+PREP(leaveSquad)
+PREP(kickMember)
+PREP(promoteMember)
