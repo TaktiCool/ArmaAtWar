@@ -69,6 +69,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     };
 
     if (_previousSelectedKit != _selectedKit) then {
+        [UIVAR(RespawnScreen_SquadManagement_update), group PRA3_Player] call CFUNC(targetEvent);
         [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
     };
 
