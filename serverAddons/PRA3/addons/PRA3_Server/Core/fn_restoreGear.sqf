@@ -48,6 +48,10 @@ _primaryWeapon = [_primaryWeapon] call BIS_fnc_baseWeapon;
 _secondaryWeapon = [_secondaryWeapon] call BIS_fnc_baseWeapon;
 _handgun = [_handgun] call BIS_fnc_baseWeapon;
 
+_uniformItems = _uniformItems - [_binocular];
+_vestItems = _vestItems - [_binocular];
+_backpackItems = _backpackItems - [_binocular];
+
 
 {
     _x params ["_magazine", "_count", "_isLoaded", "_type", "_location"];

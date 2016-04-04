@@ -13,6 +13,7 @@
     Returns:
     0
 */
+DUMP("HANDLEDAMAGE")
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
 if (!(alive _unit) || (_damage == 0)) exitWith {0};
 DUMP(_this)
