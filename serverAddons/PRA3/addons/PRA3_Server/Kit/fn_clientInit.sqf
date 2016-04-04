@@ -1,17 +1,21 @@
 #include "macros.hpp"
 /*
     Project Reality ArmA 3
+
     Author: joko // Jonas, NetFusion
+
     Description:
     Init Kit Module
+
     Parameter(s):
     None
+
     Returns:
     None
 */
 [QGVAR(KitGroups), missionConfigFile >> "PRA3" >> "KitGroups"] call CFUNC(loadSettings);
 {
-    [format [QGVAR(%1), configName _x], _x >> "Kits"] call CFUNC(loadSettings);
+    [format [QGVAR(Kit_%1), configName _x], _x >> "Kits"] call CFUNC(loadSettings);
     nil
 } count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
 
