@@ -1,4 +1,3 @@
-
 PREP(init)
 
 // Rally System
@@ -25,8 +24,3 @@ EPREP(Squad,joinSquad)
 EPREP(Squad,leaveSquad)
 EPREP(Squad,kickMember)
 EPREP(Squad,promoteMember)
-
-// VehicleRespawn
-EPREP(VehicleRespawn,serverInitVehicleRespawn)
-EPREP(VehicleRespawn,clientInitVehicleRespawn)
-EPREP(VehicleRespawn,performVehicleRespawn)
