@@ -1,1 +1,5 @@
 PREP(clientInit)
+PREP(clientInitDeployment)
+PREP(clientInitRespawn)
+PREP(clientInitRole)
+PREP(clientInitSquad)
