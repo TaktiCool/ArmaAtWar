@@ -42,7 +42,12 @@
 
 #define QFUNC(var) QUOTE(DFUNC(var))
 
+#ifdef isDev
+    #define FUNC(var) (missionNamespace getVariable [QFUNC(var), {DUMP(QFUNC(var) + "Dont Exist")}])
+#endif
+
 #ifdef PRA3_DEBUGFULL
+    #undef FUNC
     #define FUNC(var) {\
         DUMP("Function " + QFUNC(var) + " called with " + str (_this));\
         private _tempRet = _this call DFUNC(var);\
@@ -50,7 +55,9 @@
             _tempRet\
         }\
     }
-#else
+#endif
+
+#ifndef FUNC
     #define FUNC(var) DFUNC(var)
 #endif
 
