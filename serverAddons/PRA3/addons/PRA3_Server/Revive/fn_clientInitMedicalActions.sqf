@@ -157,10 +157,10 @@ private _fnc_itemAction = {
 
 {
     [_x, {call FUNC(removeOldAction);}] call CFUNC(addEventhandler);
+    nil
 } count ["vehicleChanged", "assignedVehicleRoleChanged"];
 
-
-[{
+["missionStarted", {
     // MOUSE EVENTS (FAK & Medikit)
     (findDisplay 46) displayAddEventHandler ["MouseButtonDown", {
         if (GVAR(MedicItemSelected) == "") exitWith {false};
@@ -350,4 +350,5 @@ private _fnc_itemAction = {
         };
         false;
     }];
-}, {!isNull (findDisplay 46)}, _this] call CFUNC(waitUntil);
+
+}] call CFUNC(addEventhandler);

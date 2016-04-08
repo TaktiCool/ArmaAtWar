@@ -30,7 +30,7 @@ DFUNC(onButtonClickRespawnStr) = {
 
 
 if (hasInterface) then {
-    [{
+    ["missionStarted", {
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
                 [{
@@ -69,5 +69,5 @@ if (hasInterface) then {
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
             };
         }];
-    }, {!isNull (findDisplay 46)}, []] call CFUNC(waitUntil);
+    }] call CFUNC(addEventhandler);
 };
