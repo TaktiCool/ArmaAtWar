@@ -78,6 +78,9 @@ EPREP(Gear,getAllGear)
 EPREP(MapIcons,initMapIcons)
 EPREP(MapIcons,addMapIcon)
 EPREP(MapIcons,removeMapIcon)
+EPREP(MapIcons,registerMapControl)
+EPREP(MapIcons,unregisterMapControl)
+EPREP(MapIcons,drawMapIcons)
 
 // Init
 PREP(init)
