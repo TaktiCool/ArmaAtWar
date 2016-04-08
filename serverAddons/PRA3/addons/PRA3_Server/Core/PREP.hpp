@@ -5,12 +5,12 @@ EPREP(Autoload,loadModules)
 EPREP(Autoload,loadModulesServer)
 
 // Per Frame Eventhandler
-EPREP(PreFrame,addPerFrameHandler)
-EPREP(PreFrame,removePerFrameHandler)
-EPREP(PreFrame,initPerFrameHandler)
-EPREP(PreFrame,execNextFrame)
-EPREP(PreFrame,wait)
-EPREP(PreFrame,waitUntil)
+EPREP(PerFrame,addPerFrameHandler)
+EPREP(PerFrame,removePerFrameHandler)
+EPREP(PerFrame,initPerFrameHandler)
+EPREP(PerFrame,execNextFrame)
+EPREP(PerFrame,wait)
+EPREP(PerFrame,waitUntil)
 
 // Namespaces
 EPREP(Namespaces,createNamespace)
