@@ -17,7 +17,7 @@
 */
 params [["_event", "", [""]], ["_function", {}, [{}, ""]], ["_args", []]];
 
-// add This so we get can get sure some events that only gets triggerd once get right
+// add This so we get can get sure some events that only gets triggered once get right
 ["eventAdded", [_event, _function, _args]] call FUNC(localEvent);
 
 _event = format ["PRA3_Event_%1", _event];

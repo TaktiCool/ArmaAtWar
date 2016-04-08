@@ -59,7 +59,6 @@ GVAR(oldCursorTarget) = objNull;
 [{
     // If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
     if (!isNull (findDisplay 46)) then {
-        GVAR(missionStartedTriggerd) = true;
         ["missionStarted"] call FUNC(localEvent);
 
         ["playerJoined", PRA3_Player] call FUNC(globalEvent);
@@ -67,18 +66,18 @@ GVAR(oldCursorTarget) = objNull;
     };
 }] call CFUNC(addPerFrameHandler);
 
-// Eventhandler to get Sure that the mission Started Eventhandler gets trigger if the mission started event allready is callen
+// EventHandler to ensure that missionStarted EH get triggered if the missionStarted event already fired
 ["eventAdded", {
     params ["_arguments", "_data"];
-    _args params ["_event", "_function", "_args"];
-    if (!(isNil QGVAR(missionStartedTriggerd)) && {_event isEqualTo "missionStarted"}) then {
-        DUMP("Mission Started Event get Added After Mission Started: " + _eventName)
+    _arguments params ["_event", "_function", "_args"];
+    if (!(isNil QGVAR(missionStartedTriggered)) && {_event isEqualTo "missionStarted"}) then {
+        DUMP("Mission Started Event get Added After Mission Started")
         if (_function isEqualType "") then {
             _function = parsingNamespace getVariable [_function, {}];
         };
         [nil, _args] call _function;
     };
-}] call FUNC(addEventhandler);
+}] call FUNC(addEventHandler);
 
 // Build a dynamic event system to use it in modules.
 {
