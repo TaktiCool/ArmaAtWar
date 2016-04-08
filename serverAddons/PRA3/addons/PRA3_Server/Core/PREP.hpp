@@ -20,7 +20,7 @@ EPREP(Namespaces,getLogicGroup)
 
 // Events
 EPREP(Events,initEvents)
-EPREP(Events,addEventhandler)
+EPREP(Events,addEventHandler)
 EPREP(Events,removeEventhandler)
 
 // Trigger Events
