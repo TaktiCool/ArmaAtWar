@@ -22,6 +22,7 @@ private _eventArray = [GVAR(EventNamespace), _event, []] call FUNC(getVariableLo
 if (count _eventArray >= _id) then {
     _eventArray set [_id, nil];
     GVAR(EventNamespace) setVariable [_event, _eventArray];
+    true
 } else {
     false
 };
