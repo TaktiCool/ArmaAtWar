@@ -58,19 +58,16 @@ GVAR(oldCursorTarget) = objNull;
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.
 [{
     // If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
-    if (!isNull (findDisplay 46)) then {
-        ["missionStarted"] call FUNC(localEvent);
+    ["missionStarted"] call FUNC(localEvent);
 
-        ["playerJoined", PRA3_Player] call FUNC(globalEvent);
-        (_this select 1) call CFUNC(removePerFrameHandler);
-    };
-}] call CFUNC(addPerFrameHandler);
+    ["playerJoined", PRA3_Player] call FUNC(globalEvent);
+}, {!(isNull (findDisplay 46))}] call FUNC(waitUntil);
 
 // EventHandler to ensure that missionStarted EH get triggered if the missionStarted event already fired
 ["eventAdded", {
     params ["_arguments", "_data"];
     _arguments params ["_event", "_function", "_args"];
-    if (!(isNil QGVAR(missionStartedTriggered)) && {_event isEqualTo "missionStarted"}) then {
+    if ((!(isNil QGVAR(missionStartedTriggered)) || !(isNull (findDisplay 46)))&& {_event isEqualTo "missionStarted"}) then {
         DUMP("Mission Started Event get Added After Mission Started")
         if (_function isEqualType "") then {
             _function = parsingNamespace getVariable [_function, {}];
@@ -88,7 +85,7 @@ GVAR(oldCursorTarget) = objNull;
 
     // Use an OEF EH to detect if the value changes.
     [{
-        params ["_params", "_id"];
+        params ["_params"];
         _params params ["_name", "_code"];
 
         // Read the value we detected earlier.
