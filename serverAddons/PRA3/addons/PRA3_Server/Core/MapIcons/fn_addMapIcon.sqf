@@ -31,4 +31,7 @@
     Returns:
     None
 */
-params ["_id"];
+params ["_id",["_standardIcon",[]],["_hoverIcon",[]],["_selectedIcon",[]],["_autoScale",true]];
+
+GVAR(IconNamespace) setVariable [_id, [0, _standardIcon, _hoverIcon, _selectedIcon, _autoscale]];
+GVAR(MapIconIndex) pushBackUnique _id;

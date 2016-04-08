@@ -77,6 +77,7 @@ EPREP(Gear,getAllGear)
 // Gear
 EPREP(MapIcons,initMapIcons)
 EPREP(MapIcons,addMapIcon)
+EPREP(MapIcons,removeMapIcon)
 
 // Init
 PREP(init)
