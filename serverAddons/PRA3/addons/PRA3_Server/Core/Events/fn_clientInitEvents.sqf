@@ -54,15 +54,31 @@ GVAR(oldCursorTarget) = objNull;
     };
 }] call CFUNC(addPerFrameHandler);
 
+
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.
 [{
     // If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
     if (!isNull (findDisplay 46)) then {
+        GVAR(missionStartedTriggerd) = true;
         ["missionStarted"] call FUNC(localEvent);
+
         ["playerJoined", PRA3_Player] call FUNC(globalEvent);
         (_this select 1) call CFUNC(removePerFrameHandler);
     };
 }] call CFUNC(addPerFrameHandler);
+
+// Eventhandler to get Sure that the mission Started Eventhandler gets trigger if the mission started event allready is callen
+["eventAdded", {
+    params ["_arguments", "_data"];
+    _args params ["_event", "_function", "_args"];
+    if (!(isNil QGVAR(missionStartedTriggerd)) && {_event isEqualTo "missionStarted"}) then {
+        DUMP("Mission Started Event get Added After Mission Started: " + _eventName)
+        if (_function isEqualType "") then {
+            _function = parsingNamespace getVariable [_function, {}];
+        };
+        [nil, _args] call _function;
+    };
+}] call FUNC(addEventhandler);
 
 // Build a dynamic event system to use it in modules.
 {
