@@ -22,11 +22,13 @@ _eventName = format ["PRA3_Event_%1", _eventName];
 private _eventArray = GVAR(EventNamespace) getVariable _eventName;
 if !(isNil "_eventArray") then {
     {
-        _x params ["_eventFunctions", "_data"];
-        if (_eventFunctions isEqualType "") then {
-            _eventFunctions = parsingNamespace getVariable [_eventFunctions, {}];
+        if !(isNil "_x") then {
+            _x params ["_eventFunctions", "_data"];
+            if (_eventFunctions isEqualType "") then {
+                _eventFunctions = parsingNamespace getVariable [_eventFunctions, {}];
+                };
+                [_args, _data] call _eventFunctions;
         };
-        [_args, _data] call _eventFunctions;
         nil
     } count _eventArray;
 };
