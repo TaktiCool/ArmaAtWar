@@ -13,11 +13,16 @@
     2: Arguments <Any>
 
     Returns:
-    None
+    the ID of the Current Eventhandler <Number>
 */
 params [["_event", "", [""]], ["_function", {}, [{}, ""]], ["_args", []]];
 
+// add This so we get can get sure some events that only gets triggerd once get right
+["eventAdded", [_event, _function, _args]] call FUNC(localEvent);
+
 _event = format ["PRA3_Event_%1", _event];
 private _eventArray = [GVAR(EventNamespace), _event, []] call FUNC(getVariableLoc);
-_eventArray pushBack [_function, _args];
+private _id = _eventArray pushBack [_function, _args];
 GVAR(EventNamespace) setVariable [_event, _eventArray];
+
+_id
