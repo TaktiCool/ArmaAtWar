@@ -74,6 +74,10 @@ EPREP(Gear,addMagazine)
 EPREP(Gear,addWeapon)
 EPREP(Gear,getAllGear)
 
+// Gear
+EPREP(MapIcons,initMapIcons)
+EPREP(MapIcons,addMapIcon)
+
 // Init
 PREP(init)
 
