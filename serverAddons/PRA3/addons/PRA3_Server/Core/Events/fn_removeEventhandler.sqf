@@ -14,7 +14,7 @@
     Returns:
     is Removed <Bool>
 */
-params [["_eventName", "", [""]], ["_id", -1, [-1]];
+params [["_eventName", "", [""]], ["_id", -1, [-1]]];
 
 DUMP("Eventhandler Removed: "+ _eventName)
 _event = format ["PRA3_Event_%1", _eventName];
