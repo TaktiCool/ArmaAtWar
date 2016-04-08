@@ -138,6 +138,7 @@ GVAR(oldCursorTarget) = objNull;
         // Bind a new one and update the index in the params.
         _params set [2, _currentPlayer addEventHandler [_name, _code]];
     }, [_x, _code, _index]] call FUNC(addEventHandler);
+    nil
 } count [
     "InventoryOpened",
     "Killed",
