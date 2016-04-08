@@ -20,5 +20,11 @@ params ["_map"];
 
 private _idx = GVAR(MapIconMapControls) find _map;
 if (_idx >= 0) then {
+    private _drawId = _map getVariable [QGVAR(DrawEHId), -1];
+    private _mmId = _map getVariable [QGVAR(MouseMovingEHId), -1];
+    private _mcId = _map getVariable [QGVAR(MouseButtonClickEHId), -1];
+    _map ctrlRemoveEventHandler ["Draw", _drawId];
+    _map ctrlRemoveEventHandler ["MouseMoving", _mmId];
+    _map ctrlRemoveEventHandler ["MouseButtonClick", _mcId];
     GVAR(MapIconMapControls) deleteAt _idx;
 };

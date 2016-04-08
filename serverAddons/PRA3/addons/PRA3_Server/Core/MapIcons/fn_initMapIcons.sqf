@@ -27,12 +27,3 @@ GVAR(MapIconMapControls) = []; // Array of Map Controls
 GVAR(IconNamespace) = call FUNC(createNamespace); //Namspace for Icons
 GVAR(IconHoveredEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Hover"-Events
 GVAR(IconSelectedEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Selected"-Events
-
-[{
-    {
-        if (ctrlShown _x) then {
-            [_x] call FUNC(drawMapIcons);
-        };
-        nil
-    } count GVAR(MapIconMapControls);
-}] call CFUNC(addPerFrameHandler);

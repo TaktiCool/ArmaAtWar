@@ -16,11 +16,11 @@
     Returns:
     None
 */
-param ["_map"];
+params ["_map"];
 
 {
-    private _icon = GVAR(IconNamespace) getVariable [_x,nil];
-    if (isNull _icon) exitWith {nil};
-    _map drawIcon _icon select (1 + (_icon select 0));
+    private _icon = GVAR(IconNamespace) getVariable _x;
+    if (isNil "_icon") exitWith {nil};
+    _map drawIcon (_icon select (1 + (_icon select 0)));
     nil
 } count GVAR(MapIconIndex);
