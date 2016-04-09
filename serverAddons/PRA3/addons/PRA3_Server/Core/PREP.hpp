@@ -74,7 +74,7 @@ EPREP(Gear,addMagazine)
 EPREP(Gear,addWeapon)
 EPREP(Gear,getAllGear)
 
-// Gear
+// Map Icon Render
 EPREP(MapIcons,clientInitMapIcons)
 EPREP(MapIcons,addMapIcon)
 EPREP(MapIcons,removeMapIcon)
@@ -83,6 +83,11 @@ EPREP(MapIcons,unregisterMapControl)
 EPREP(MapIcons,drawMapIcons)
 EPREP(MapIcons,mouseClickEH)
 EPREP(MapIcons,mouseMovingEH)
+
+// Map Icon Render Events
+EPREP(MapIcons,addMapIconEventHandler)
+EPREP(MapIcons,removeMapIconEventHandler)
+EPREP(MapIcons,triggerMapIconEvent)
 
 // Init
 PREP(init)
