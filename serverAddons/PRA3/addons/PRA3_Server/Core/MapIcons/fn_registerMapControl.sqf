@@ -10,13 +10,13 @@
     Parameter(s):
     0: Map <Control>
 
-    Remarks:
-    None
-
     Returns:
     None
 */
 params ["_map"];
+
+// get sure that the controll not allready have a draw function
+_map call FUNC(unregisterMapControll);
 
 private _drawEHId = _map ctrlAddEventHandler ["Draw",FUNC(drawMapIcons)];
 private _mmEHId = _map ctrlAddEventHandler ["MouseMoving",FUNC(mouseMovingEH)];
@@ -27,3 +27,4 @@ _map setVariable [QGVAR(MouseMovingEHId), _mmEHId];
 _map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
 
 GVAR(MapIconMapControls) pushBackUnique _map;
+nil

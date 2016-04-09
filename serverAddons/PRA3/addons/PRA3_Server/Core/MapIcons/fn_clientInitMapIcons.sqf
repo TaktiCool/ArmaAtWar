@@ -27,3 +27,6 @@ GVAR(MapIconMapControls) = []; // Array of Map Controls
 GVAR(IconNamespace) = call FUNC(createNamespace); //Namspace for Icons
 // GVAR(IconHoveredEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Hover"-Events
 // GVAR(IconSelectedEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Selected"-Events
+[{
+    ((findDisplay 12) displayCtrl 51) call FUNC(registerMapControl);
+}, {!(isNull ((findDisplay 12) displayCtrl 51))}] call FUNC(waitUntil);

@@ -20,9 +20,10 @@
     GVAR(competingSides) = [];
     {
         GVAR(competingSides) pushBack (configName _x);
-        missionNamespace setVariable [format ["%1_%2", QGVAR(Flag), configName _x], getText (_x >> "flag")];
-        missionNamespace setVariable [format ["%1_%2", QGVAR(SideColor), configName _x], getArray (_x >> "color")];
-        missionNamespace setVariable [format ["%1_%2", QGVAR(SideName), configName _x], getText (_x >> "name")];
+        missionNamespace setVariable [format [QGVAR(Flag_%1), configName _x], getText (_x >> "flag")];
+        missionNamespace setVariable [format [QGVAR(SideColor_%1), configName _x], getArray (_x >> "color")];
+        missionNamespace setVariable [format [QGVAR(SideName_%1), configName _x], getText (_x >> "name")];
+        missionNamespace setVariable [format [QGVAR(SideMapIcon_%1), configName _x], getText (_x >> "mapIcon")];
         nil;
     } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 }] call CFUNC(addEventhandler);
