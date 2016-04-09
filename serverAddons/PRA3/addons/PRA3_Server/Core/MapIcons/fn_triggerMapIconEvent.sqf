@@ -15,7 +15,7 @@
     Returns:
     None
 */
-params [["_uid", "", [""]], ["_eventName", "", [""]], ["_args", {}]]];
+params [["_uid", "", [""]], ["_eventName", "", [""]], ["_args", []]];
 
 _eventNameSpace = format [QGVAR(MapIcon_%1_EventNamespace), _eventName];
 private _namespace = missionNamespace getVariable _eventNameSpace;
@@ -35,5 +35,5 @@ if (isNil "_eventArray") exitWith {};
         [_args, _data] call _code;
     };
     nil
-} count _eventArray
+} count _eventArray;
 nil
