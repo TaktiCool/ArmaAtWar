@@ -35,7 +35,7 @@ if !((_icon select 0) isEqualType []) then {
 };
 private _icons = [];
 {
-    _x params [["_texture",""], ["_color",[0, 0, 0, 1]], "_position", ["_size", 25], ["_angle", 0], ["_text",""], ["_shadow", 0], ["_textSize", 0.08], ["_font", "PuristaMedium"], ["_align","right"]];
+    _x params [["_texture",""], ["_color",[0, 0, 0, 1]], "_position", ["_size", 25], ["_angle", 0,[0,""]], ["_text",""], ["_shadow", 0], ["_textSize", 0.08], ["_font", "PuristaMedium"], ["_align","right"]];
     private _width = 25;
     private _height = 25;
     if (_size isEqualType 25) then {

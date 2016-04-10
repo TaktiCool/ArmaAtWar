@@ -36,13 +36,13 @@ private _nearestIcon = "";
             private _pos = _pos select 0;
             private _offset = _pos select 1;
             if (_pos isEqualType objNull) then {
-                _pos = visiblePosition _pos;
+                _pos = getPosVisual _pos;
             };
             _pos = _map ctrlMapWorldToScreen _pos;
             _pos = [(_pos select 0) + (_offset select 0)/640, (_pos select 1) + (_offset select 1)/480];
         } else {
             if (_pos isEqualType objNull) then {
-                _pos = visiblePosition _pos;
+                _pos = getPosVisual _pos;
             };
             _pos = _map ctrlMapWorldToScreen _pos;
         };
