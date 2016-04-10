@@ -15,8 +15,17 @@
 */
 [QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
 
-["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "base_west", {playerSide == west}] call FUNC(addDeploymentPoint);
-["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "base_east", {playerSide == east}] call FUNC(addDeploymentPoint);
+if (getMarkerPos "respawn_west" distance [0,0,0] >= 1) then {
+    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_west", {playerSide == west}] call FUNC(addDeploymentPoint);
+};
+
+if (getMarkerPos "respawn_east" distance [0,0,0] >= 1) then {
+    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_east", {playerSide == east}] call FUNC(addDeploymentPoint);
+};
+
+if (getMarkerPos "respawn_guerrila" distance [0,0,0] >= 1) then {
+    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_guerrila", {playerSide == independent}] call FUNC(addDeploymentPoint);
+};
 
 [{
     GVAR(deploymentPoints) params ["_pointIds", "_pointData"];

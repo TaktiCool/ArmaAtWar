@@ -92,9 +92,23 @@
                     "a3\ui_f\data\Map\Markers\NATO\u_installation.paa"
                 ] select (_newSide isEqualTo sideUnknown);
 
+                private _marker = _sector getVariable ["name", ""];
+                private _designator = _sector getVariable ["designator", ""];
                 [
-                    format [QGVAR(ID_%1), _sector getVariable ["name", ""]],
-                    [_icon, _color, getMarkerPos (_sector getVariable ["name", ""]), 25, 25, 0, ""]
+                    format [QGVAR(ID_%1), _marker],
+                    [
+                        [_icon, _color, getMarkerPos _marker],
+                        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
+                    ]
+                ] call CFUNC(addMapIcon);
+
+                [
+                    format [QGVAR(ID_%1), _marker],
+                    [
+                        [_icon, _color, getMarkerPos _marker],
+                        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [0,0,0,1], getMarkerPos _marker, 25, 0, _designator, 2]
+                    ],
+                    "hover"
                 ] call CFUNC(addMapIcon);
 
                 private _sectorName = _sector getVariable ["fullName", ""];

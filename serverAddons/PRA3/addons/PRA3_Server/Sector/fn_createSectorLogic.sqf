@@ -59,25 +59,21 @@ private _icon = [
 
 [
     format [QGVAR(ID_%1), _marker],
-    [_icon, _color, getMarkerPos _marker]
+    [
+        [_icon, _color, getMarkerPos _marker],
+        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
+    ]
 ] call CFUNC(addMapIcon);
 
 [
     format [QGVAR(ID_%1), _marker],
-    [_icon, [1,1,1,1], getMarkerPos _marker],
+    [
+        [_icon, _color, getMarkerPos _marker],
+        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [0,0,0,1], getMarkerPos _marker, 25, 0, _designator, 2]
+    ],
     "hover"
 ] call CFUNC(addMapIcon);
 
-[
-    format [QGVAR(ID_%1), _marker],
-    [_icon, [0,0,0,1], getMarkerPos _marker],
-    "selected"
-] call CFUNC(addMapIcon);
-
-[
-    format [QGVAR(ID_Text_%1), _marker],
-    ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
-] call CFUNC(addMapIcon);
 
 _marker setMarkerAlpha 1;
 //_logic setVariable ["informationMarker", _infoMarker, true];
