@@ -19,3 +19,25 @@
     None
 */
 params ["_map", "_xPos", "_yPos"];
+
+private _nearestIcon = _this call FUNC(getIconAtPos);
+
+{
+    private _icon = GVAR(IconNamespace) getVariable _x;
+    if ((_icon select 0) == 1 && _nearestIcon != _x) then {
+        _icon set [0, 0];
+        GVAR(IconNamespace) setVariable [_x, _icon];
+        [_nearestIcon, "hoverout", _this] call FUNC(triggerMapIconEvent);
+    };
+    nil;
+} count GVAR(MapIconIndex);
+
+if (_nearestIcon == "") exitWith {};
+
+private _icon = GVAR(IconNamespace) getVariable _nearestIcon;
+
+if ((_icon select 0) < 1) then {
+    _icon set [0, 1];
+    GVAR(IconNamespace) setVariable [_nearestIcon, _icon];
+    [_nearestIcon, "hover", _this] call FUNC(triggerMapIconEvent);
+};

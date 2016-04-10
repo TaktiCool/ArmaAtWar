@@ -16,7 +16,7 @@
 params ["_map"];
 
 // get sure that the controll not allready have a draw function
-_map call FUNC(unregisterMapControll);
+_map call FUNC(unregisterMapControl);
 
 private _drawEHId = _map ctrlAddEventHandler ["Draw",FUNC(drawMapIcons)];
 private _mmEHId = _map ctrlAddEventHandler ["MouseMoving",FUNC(mouseMovingEH)];

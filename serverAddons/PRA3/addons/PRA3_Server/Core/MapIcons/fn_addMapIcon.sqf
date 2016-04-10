@@ -9,10 +9,8 @@
 
     Parameter(s):
     0: Icon Id <String>
-    1: Standard Icon <Array>
-    2: Hover Icon <Array>
-    3: Selected Icon <Array>
-    4: Auto Scale <Boolean>
+    1: Icon definition <Array>
+    2: State <String> Default: "normal"
 
     Remarks:
     Icon <Array>:
@@ -31,7 +29,32 @@
     Returns:
     None
 */
-params ["_id", ["_standardIcon", []], ["_hoverIcon", []], ["_selectedIcon", []], ["_autoScale", true]];
+params ["_id", "_icon", ["_state", "normal"]];
+if !((_icon select 0) isEqualType []) then {
+    _icon = [_icon];
+};
+private _icons = [];
+{
+    _x params [["_texture",""], ["_color",[0, 0, 0, 1]], "_position", ["_size", 25], ["_angle", 0], ["_text",""], ["_shadow", 0], ["_textSize", 0.08], ["_font", "PuristaMedium"], ["_align","right"]];
+    private _width = 25;
+    private _height = 25;
+    if (_size isEqualType 25) then {
+        _width = _size;
+        _height = _size;
+    } else {
+        _width = _size select 0;
+        _height = _size select 1;
+    };
+    _icons pushBack [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
+    nil
+} count _icon;
 
-GVAR(IconNamespace) setVariable [_id, [0, _standardIcon, _hoverIcon, _selectedIcon, _autoscale]];
+private _stateNum = ["normal", "hover", "selected"] find _state;
+if (_stateNum == -1) then {
+    _stateNum = 0;
+};
+
+private _currentIcons = [GVAR(IconNamespace), _id, [0, [],[],[]]] call FUNC(getVariableLoc);
+_currentIcons set [_stateNum + 1, _icons];
+GVAR(IconNamespace) setVariable [_id, _currentIcons];
 GVAR(MapIconIndex) pushBackUnique _id;

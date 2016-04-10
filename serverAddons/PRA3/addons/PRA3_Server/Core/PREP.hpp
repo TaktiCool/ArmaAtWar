@@ -83,6 +83,7 @@ EPREP(MapIcons,unregisterMapControl)
 EPREP(MapIcons,drawMapIcons)
 EPREP(MapIcons,mouseClickEH)
 EPREP(MapIcons,mouseMovingEH)
+EPREP(MapIcons,getIconAtPos)
 
 // Map Icon Render Events
 EPREP(MapIcons,addMapIconEventHandler)
