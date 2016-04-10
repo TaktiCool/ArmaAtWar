@@ -62,14 +62,14 @@
                 private _marker = _sector getVariable ["marker",""];
 
                 if (_marker != "") then {
-                    _marker setMarkerColor format["Color%1",_newSide];
+                    _marker setMarkerColor format["Color%1", _newSide];
                 };
 
-                private _infoMarker = _sector getVariable ["informationMarker", ""];
+                /*private _infoMarker = _sector getVariable ["informationMarker", ""];
                 if (_infoMarker != "") then {
                     _infoMarker setMarkerType SelectSideMarker(_newSide);
                     _infoMarker setMarkerColor format["Color%1",_newSide];
-                };
+                };*/
             }] call CFUNC(addEventHandler);
         };
 
@@ -81,7 +81,22 @@
             ["sector_side_changed", {
                 params ["_args"];
                 _args params ["_sector", "_oldSide", "_newSide"];
-                // Dont use playerSide the player side dont change if chaning the side
+
+                private _color = [
+                    missionNamespace getVariable format [QEGVAR(mission,SideColor_%1), str _newSide],
+                    [(profilenamespace getvariable ['Map_Unknown_R',0]),(profilenamespace getvariable ['Map_Unknown_G',1]),(profilenamespace getvariable ['Map_Unknown_B',1]),(profilenamespace getvariable ['Map_Unknown_A',0.8])]
+                ] select (_newSide isEqualTo sideUnknown);
+
+                private _icon = [
+                    missionNamespace getVariable format [QEGVAR(mission,SideMapIcon_%1), str _newSide],
+                    "a3\ui_f\data\Map\Markers\NATO\u_installation.paa"
+                ] select (_newSide isEqualTo sideUnknown);
+
+                [
+                    format [QGVAR(ID_%1), _sector getVariable ["name", ""]],
+                    [_icon, _color, getMarkerPos (_sector getVariable ["name", ""]), 25, 25, 0, ""]
+                ] call CFUNC(addMapIcon);
+
                 private _sectorName = _sector getVariable ["fullName", ""];
 
                 if ((side group PRA3_Player) isEqualTo _newSide) exitWith {
@@ -102,9 +117,7 @@
                     } else {
                         [format["Your team neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _sector getVariable ["attacker"]],[0,1,0,1]]] call CFUNC(displayNotification);
                     };
-
                 };
-
             }] call CFUNC(addEventHandler);
 
         };
