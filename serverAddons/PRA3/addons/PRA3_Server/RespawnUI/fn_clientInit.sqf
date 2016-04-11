@@ -85,7 +85,7 @@ DFUNC(escapeFnc) =  {
 ["groupChanged", {
     _this select 0 params ["_newGroup", "_oldGroup"];
 
-    [UIVAR(RespawnScreen_SquadManagement_update)] call CFUNC(globalEvent);
     [UIVAR(RespawnScreen_RoleManagement_update), [_newGroup, _oldGroup]] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_SquadManagement_update)] call CFUNC(globalEvent);
     [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
