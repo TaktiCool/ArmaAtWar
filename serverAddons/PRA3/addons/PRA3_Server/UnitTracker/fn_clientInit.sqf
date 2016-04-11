@@ -14,14 +14,49 @@
     None
 */
 GVAR(playerCounter) = 0;
+GVAR(currentIcons) = [];
+GVAR(blockUpdate) = false;
 
-["missionStarted", {
-    {
-        [_x, _x] call FUNC(addUnitToTracker);
-        nil
-    } count allPlayers;
-}] call CFUNC(addEventHandler);
+DFUNC(updateIcons) = {
+    if (GVAR(blockUpdate)) exitWith {};
+    GVAR(blockUpdate) = true;
+    [{
+        {
+            [_x] call CFUNC(removeMapIcon);
+            nil
+        } count GVAR(currentIcons);
+        {
+            [_x, _x] call FUNC(addUnitToTracker);
+            nil
+        } count allPlayers;
+        GVAR(blockUpdate) = false;
+    }, 0.5] call CFUNC(wait);
 
-["MPRespawn", {
-    (_this select 0) call FUNC(addUnitToTracker);
+};
+
+{
+    [_x, {
+        call FUNC(updateIcons);
+    }] call CFUNC(addEventHandler);
+    nil
+} count ["missionStarted", QGVAR(updateIconsEvent)];
+
+{
+    [_x, {
+        [QGVAR(updateIconsEvent), PRA3_Player] call FUNC(globalEvent);
+    }] call CFUNC(addEventHandler);
+    nil
+} count ["leaderChanged", "sideChanged", "groupChanged", "playerChanged"];
+
+
+
+
+
+
+
+
+
+
+["leaderChanged", {
+    call FUNC(updateIcons);
 }] call CFUNC(addEventHandler);

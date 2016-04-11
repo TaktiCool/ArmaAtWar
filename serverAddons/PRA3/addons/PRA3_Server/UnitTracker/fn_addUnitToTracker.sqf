@@ -16,8 +16,9 @@
 */
 params ["_newUnit", "_oldUnit"];
 
-private _color = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
-if (side _newUnit == playerSide && !isHidden _newUnit && simulationEnabled _newUnit) then {
+private _sideColor = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
+private _groupColor = [0, 1, 0, 1];
+if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _newUnit)) then {
     private _iconId = _newUnit getVariable [QGVAR(playerIconId), ""];
     if (_iconId == "") then {
         private _oldIconId = _oldUnit getVariable [QGVAR(playerIconId), ""];
@@ -31,22 +32,27 @@ if (side _newUnit == playerSide && !isHidden _newUnit && simulationEnabled _newU
         _newUnit setVariable [QGVAR(playerIconId), _iconId];
     };
 
+    private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo group _newUnit);
+
     private _manIcon = [_newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, _newUnit, "", 1];
     private _manDescription = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 0, name _newUnit, 2];
 
     [_iconId, [_manIcon]] call CFUNC(addMapIcon);
     [_iconId, [_manIcon, _manDescription], "hover"] call CFUNC(addMapIcon);
+    GVAR(currentIcons) pushBack _iconId;
 
     if (_newUnit == leader _newUnit) then {
         private _groupType = _group getVariable [QGVAR(Type), "Rifle"];
         private _groupMapIcon = [format [QGVAR(GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
+        private _groupIconId = format [QGVAR(Group_%1), groupId group _newUnit];
         [
-            format [QGVAR(Group_%1), groupId group _newUnit],
+            _groupIconId,
             [
                 [_groupMapIcon, _color, [_newUnit, [0, -20]], 25],
                 ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [_newUnit, [0, -20]], 25, 0, (groupId group _newUnit) select [0, 1], 2]
             ]
         ] call CFUNC(addMapIcon);
+        GVAR(currentIcons) pushBack _groupIconId;
     };
 
 };
