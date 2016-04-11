@@ -47,16 +47,3 @@ DFUNC(updateIcons) = {
     }] call CFUNC(addEventHandler);
     nil
 } count ["leaderChanged", "sideChanged", "groupChanged", "playerChanged"];
-
-
-
-
-
-
-
-
-
-
-["leaderChanged", {
-    call FUNC(updateIcons);
-}] call CFUNC(addEventHandler);
