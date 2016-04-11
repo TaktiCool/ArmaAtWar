@@ -46,34 +46,7 @@ _nameMarker setMarkerShape "ICON";
 _nameMarker setMarkerType "EmptyIcon";
 _nameMarker setMarkerText _designator;
 */
-
-private _color = [
-    missionNamespace getVariable format [QEGVAR(mission,SideColor_%1), str _side],
-    [(profilenamespace getvariable ['Map_Unknown_R',0]),(profilenamespace getvariable ['Map_Unknown_G',1]),(profilenamespace getvariable ['Map_Unknown_B',1]),(profilenamespace getvariable ['Map_Unknown_A',0.8])]
-] select (_side isEqualTo sideUnknown);
-
-private _icon = [
-    missionNamespace getVariable format [QEGVAR(mission,SideMapIcon_%1), str _side],
-    "a3\ui_f\data\Map\Markers\NATO\u_installation.paa"
-] select (_side isEqualTo sideUnknown);
-
-[
-    format [QGVAR(ID_%1), _marker],
-    [
-        [_icon, _color, getMarkerPos _marker],
-        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
-    ]
-] call CFUNC(addMapIcon);
-
-[
-    format [QGVAR(ID_%1), _marker],
-    [
-        [_icon, _color, getMarkerPos _marker],
-        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [0,0,0,1], getMarkerPos _marker, 25, 0, _designator, 2]
-    ],
-    "hover"
-] call CFUNC(addMapIcon);
-
+["sectorCreated", [_side, _marker, _designator]] call CFUNC(globalEvent);
 
 _marker setMarkerAlpha 1;
 //_logic setVariable ["informationMarker", _infoMarker, true];
