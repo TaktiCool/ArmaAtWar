@@ -43,7 +43,7 @@ DFUNC(updateIcons) = {
 
 {
     [_x, {
-        [QGVAR(updateIconsEvent), PRA3_Player] call FUNC(globalEvent);
+        [QGVAR(updateIconsEvent)] call CFUNC(globalEvent);
     }] call CFUNC(addEventHandler);
     nil
 } count ["leaderChanged", "sideChanged", "groupChanged", "playerChanged"];
