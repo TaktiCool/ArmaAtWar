@@ -91,7 +91,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 
         if (_x == group PRA3_Player) then {
             for "_i" from 0 to 4 do {
-                lnbSetColor [IDC, [_rowNumber, _i], [1, 0.4, 0, 1]];
+                lnbSetColor [IDC, [_rowNumber, _i], [0.77, 0.51, 0.08, 1]];
             };
         };
 

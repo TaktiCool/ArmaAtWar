@@ -2,7 +2,7 @@ class PRA3_UI_MedicalProgress {
     idd = -1;
     duration = 1e11;
     onLoad = "uiNamespace setVariable [""PRA3_UI_MedicalProgress"", _this select 0];";
-    onUnLoad = "hint ""test""";
+    onUnLoad = "";
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 3000;
@@ -24,7 +24,7 @@ class PRA3_UI_MedicalProgress {
                 class Progress : RscProgress {
                     idc = 3002;
                     colorFrame[] = {0,0,0,0};
-                    colorBar[] = {1,0.4,0,1};
+                    colorBar[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
                     x = PX(0);
                     y = PY(0);
                     w = PX(50);

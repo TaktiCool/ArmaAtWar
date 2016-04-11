@@ -51,6 +51,7 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
         // Force Player to Respawn
         DUMP("BLEEDOUT: setDamage 1")
+        _bleedOutTime = 0;
         PRA3_Player setDamage 1;
 
     };
@@ -62,6 +63,7 @@ if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
     //hintSilent format ["Bleedout Timer: %1, %2; Bloodloss: %3", _bleedOutTime,  GVAR(reviveBleedingTime) - _bleedOutTime, _bloodLoss]; // @Todo replace with Loadingbarish UI
     if (_bleedOutTime >= GVAR(reviveBleedingTime) && alive PRA3_Player) then {
         DUMP("BLEEDOUT: forceRespawn")
+        _bleedOutTime = 0;
         forceRespawn PRA3_Player;
     };
 };

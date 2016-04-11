@@ -118,7 +118,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class SquadTypeCombo : RscCombo {
+                class SquadTypeCombo : PRA3_RscCombo {
                     idc = 205;
                     x = PX(GWIDTH-19.5);
                     y = PY(4);
@@ -137,15 +137,13 @@ class PRA3_UI_RespawnScreen {
                     onButtonClick = "[""PRA3_UI_RespawnScreen_CreateSquadBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
                 };
 
-                class SquadList : RscListNBox {
+                class SquadList : PRA3_RscListNBox {
                     idc = 207;
                     x = PX(0);
                     y = PY(8);
                     w = PX(GWIDTH);
                     h = PY(14.5);
 
-                    sizeEx = PY(2);
-                    rowHeight = PY(3.5);
                     columns[] = {0,0.075,0.5,0.85};
 
                     onLBSelChanged = "[""PRA3_UI_RespawnScreen_SquadManagement_update""] call PRA3_Core_fnc_localEvent;";
@@ -169,15 +167,13 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class SquadMemberList : RscListNBox {
+                class SquadMemberList : PRA3_RscListNBox {
                     idc = 210;
                     x = PX(0);
                     y = PY(GHEIGHT-18.3);
                     w = PX(GWIDTH);
                     h = PY(18.3);
 
-                    sizeEx = PY(2);
-                    rowHeight = PY(3);
                     columns[] = {0};
 
                     onLBSelChanged = "[""PRA3_UI_RespawnScreen_SquadManagement_update""] call PRA3_Core_fnc_localEvent;";
@@ -245,14 +241,13 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class RoleList : RscListNBox {
+                class RoleList : PRA3_RscListNBox {
                     idc = 303;
                     x = PX(0);
                     y = PY(4);
                     w = PX(GWIDTH);
                     h = PY(19);
 
-                    rowHeight = PY(3.5);
                     columns[] = {0,0.85};
 
                     onLBSelChanged = "[""PRA3_UI_RespawnScreen_RoleList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
@@ -334,14 +329,13 @@ class PRA3_UI_RespawnScreen {
                     h = PY(3);
                 };
 
-                class SpawnPointList : RscListNBox {
+                class SpawnPointList : PRA3_RscListNBox {
                     idc = 403;
                     x = PX(0);
                     y = PY(4);
                     w = PX(GWIDTH);
                     h = PY(22.5);
 
-                    rowHeight = PY(3);
                     columns[] = {0,0.075,0.875};
 
                     onLBSelChanged = "[""PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
@@ -353,10 +347,11 @@ class PRA3_UI_RespawnScreen {
         #undef GWIDTH
         #define GWIDTH 26
         #define GHEIGHT 5
-        class DeployButton : PRA3_RscButtonMenu {
+        class DeployButton : PRA3_RscButtonMenu_Colored {
             idc = 500;
             text = "DEPLOY";
-            colorBackground[] = {1,0.4,0,1};
+            sizeEx = PY(4);
+            colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
             x = safeZoneW - PX(GWIDTH+5) + safeZoneX;
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);
