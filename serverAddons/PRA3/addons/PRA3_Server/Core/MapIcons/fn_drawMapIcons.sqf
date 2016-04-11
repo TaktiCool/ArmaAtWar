@@ -69,8 +69,7 @@ private _mapScale = ctrlMapScale _map;
             };
 
             if (_mapScale < 0.1) then {
-                private _fontScale = ((_mapScale/0.1) max 0.5)*1.1;
-                DUMP(_fontScale);
+                private _fontScale = (_mapScale/0.1) max 0.5;
                 _iconPart set [8, (_iconPart select 8)*_fontScale];
             };
 
