@@ -34,17 +34,17 @@ if (_state) then {
         if (isNil QGVAR(ppEffectPFHID)) then {
             GVAR(ppEffectPFHID) = [{
 
-                private _bloodLevel = ((PRA3_Player getVariable [QGVAR(bloodLoss), 0]) min 3) max 0;
-                _bright = 0.2 + (0.1 * _bloodLevel);
-                _intense = 0.6 + (0.4 * _bloodLevel);
+                private _bloodLevelNormalized = 1 - ((PRA3_Player getVariable [QGVAR(bleedOutTime), 0]) / GVAR(reviveBleedOutTime));
+                _bright = 0.2 + (0.1 * _bloodLevelNormalized);
+                _intense = 0.6 + (0.4 * _bloodLevelNormalized);
                 {
                     _effect = GVAR(PPEffects) select _forEachIndex;
                     _effect ppEffectAdjust _x;
                     _effect ppEffectCommit 1;
                 } forEach [
-                    [1, 1, 0.15 * _bloodLevel, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
+                    [1, 1, 0.15 * _bloodLevelNormalized, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
                     [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [_intense, _intense, 0, 0, 0, 0.2, 1]],
-                    [0.7 + (1 - _bloodLevel)]
+                    [0.7 + (1 - _bloodLevelNormalized)]
                 ];
 
             }, 1] call CFUNC(addPerFrameHandler);
