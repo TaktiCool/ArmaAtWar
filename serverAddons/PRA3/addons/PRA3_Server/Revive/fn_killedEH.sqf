@@ -31,7 +31,7 @@ if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
     [{
         _this params ["_unit", "_gear"];
 
-        [side group _unit, group _unit, getPosWorld _unit] call EFUNC(Mission,respawn);
+        [side group _unit, group _unit, getPosWorld _unit] call CFUNC(respawn);
 
 
         ["switchMove", [PRA3_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
