@@ -33,8 +33,8 @@ private _nearestIcon = "";
         if (_pos isEqualType [] && {(_pos select 1) isEqualType []}) then {
             private _offset = _pos select 1;
             private _tempPos = _pos select 0;
-            if (_pos isEqualType objNull) then {
-                _pos = getPosVisual _pos;
+            if (_tempPos isEqualType objNull) then {
+                _tempPos = getPosVisual _tempPos;
             };
             _tempPos = _map ctrlMapWorldToScreen _tempPos;
             _pos = [(_tempPos select 0) + (_offset select 0)/640, (_tempPos select 1) + (_offset select 1)/480];
