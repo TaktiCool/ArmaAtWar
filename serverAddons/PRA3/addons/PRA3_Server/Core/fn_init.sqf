@@ -4,7 +4,7 @@
 GVAR(cachedCall) = call FUNC(createNamespace);
 PRA3_Player setVariable [QGVAR(playerName), profileName, true];
 
-GVAR(ignoreVariables) = [QGVAR(PlayerInteraction_Actions)];
+GVAR(ignoreVariables) = [QGVAR(PlayerInteraction_Actions),QGVAR(tempUnit)];
 
 GVAR(allLocationTypes) = [];
 {

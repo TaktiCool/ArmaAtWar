@@ -33,8 +33,8 @@ private _nearestIcon = "";
         private _width = _x select 3;
         private _height = _x select 4;
         if (_pos isEqualType [] && {(_pos select 1) isEqualType []}) then {
-            private _pos = _pos select 0;
             private _offset = _pos select 1;
+            private _pos = _pos select 0;
             if (_pos isEqualType objNull) then {
                 _pos = getPosVisual _pos;
             };
@@ -46,6 +46,7 @@ private _nearestIcon = "";
             };
             _pos = _map ctrlMapWorldToScreen _pos;
         };
+        DUMP(_pos)
         private _temp1 = (_pos select 0) - (_mousePosition select 0);
         private _temp2 = (_pos select 1) - (_mousePosition select 1);
 
@@ -56,6 +57,7 @@ private _nearestIcon = "";
                 _r = _temp1;
             };
         };
+        nil
     } count _icons;
     nil;
 } count GVAR(MapIconIndex);
