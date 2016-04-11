@@ -92,6 +92,7 @@ PRA3_Player = _newUnit;
 
 // Trigger respawn event
 ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
+["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
 
 if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
     deleteVehicle _oldUnit;

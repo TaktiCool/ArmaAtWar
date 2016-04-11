@@ -65,12 +65,12 @@
                         [0.77, 0.51, 0.08, _alpha]
                     };
 
-                    private _icon = _x getVariable [QEGVAR(Mission,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
+                    private _icon = _x getVariable [QEGVAR(Kit,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
 
                     private _text = format ["%1 (%2)", _x call CFUNC(name), call {
                         if (_x getVariable [QEGVAR(Revive,isUnconscious), false]) exitWith {"Unconscious"};
                         if (group _x != group PRA3_Player) exitWith {groupID group _x};
-                        _x getVariable [QEGVAR(Mission,kitDisplayName), ""]
+                        _x getVariable [QEGVAR(Kit,kitDisplayName), ""]
                     }];
 
                     drawIcon3D [_icon, _color, _tagPositionAGL, 3 * _size, 3 * _size, 0, _text, 2, 0.15 * _size, "PuristaMedium"];

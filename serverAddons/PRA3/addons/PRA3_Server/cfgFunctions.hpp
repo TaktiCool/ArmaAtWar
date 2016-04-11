@@ -40,4 +40,6 @@ class cfgFunctions {
 
     #include "VehicleRespawn\cfgFunctions.hpp"
     #include "Nametags\cfgFunctions.hpp"
+
+    #include "UnitTracker\cfgFunctions.hpp"
 };

@@ -36,6 +36,10 @@ class PRA3 {
         class Squad {
             require[] = {"Core", "Mission"};
         };
+
+        class UnitTracker {
+            require[] = {"Core", "Mission", "Kit", "Squad"};
+        };
     };
 
     class PRA3_Extension {

@@ -36,9 +36,9 @@ params ["_map"];
                     };
 
                     if (_object isEqualType objNull) then {
-                        _iconPart set [2, getDirVisual _object];
+                        _iconPart set [5, getDirVisual _object];
                     } else {
-                        _iconPart set [2, 0];
+                        _iconPart set [5, 0];
                     };
                 };
             };
@@ -53,7 +53,10 @@ params ["_map"];
                 _pos = _map ctrlMapScreenToWorld _pos;
                 _iconPart set [2, _pos];
             };
-            _map drawIcon _iconPart;
+            private _pos = _iconPart select 2;
+            if (!isNil "_pos") then {
+                _map drawIcon _iconPart;
+            };
         } count _icons;
     };
     nil

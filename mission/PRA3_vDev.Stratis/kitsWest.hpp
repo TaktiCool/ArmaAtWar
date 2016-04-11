@@ -8,6 +8,7 @@ class Kits {
         displayName = "Rifleman";
         icon = "";
         UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
+        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
 
         // Special attributes
         isLeader = 0;
@@ -58,6 +59,7 @@ class Kits {
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
         icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
         UIIcon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
+        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManLeader_ca.paa";
     };
     class Medic: Rifleman {
         kitGroup = "Specialized";
@@ -74,6 +76,7 @@ class Kits {
 
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
         UIIcon = "a3\ui_f\data\Revive\medikit_ca.paa";
+        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa";
     };
     class AutomaticRifleman: Rifleman {
         kitGroup = "Limited";
