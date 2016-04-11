@@ -17,7 +17,7 @@
 params ["_newUnit", "_oldUnit"];
 
 private _color = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
-if (side _newUnit == playerSide && !isHidden _newUnit) then {
+if (side _newUnit == playerSide && !isHidden _newUnit && !simulationEnabled _newUnit) then {
     private _iconId = _newUnit getVariable [QGVAR(playerIconId), ""];
     if (_iconId == "") then {
         private _oldIconId = _oldUnit getVariable [QGVAR(playerIconId), ""];

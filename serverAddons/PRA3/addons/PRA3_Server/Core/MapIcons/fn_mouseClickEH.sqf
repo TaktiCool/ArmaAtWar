@@ -20,7 +20,7 @@
 */
 params ["_map", "_button", "_xPos", "_yPos"];
 
-private _nearestIcon = [QGVAR(nearIcons), {_this call FUNC(getIconAtPos)}, [_map, _xPos, _yPos], 0.2, QGVAR(clearNearIcon)] call CFUNC(cachedCall);
+private _nearestIcon = [QGVAR(nearIcons), {_this call FUNC(getIconAtPos)}, [_map, _xPos, _yPos], 0.1, QGVAR(clearNearIcon)] call CFUNC(cachedCall);
 {
     private _icon = GVAR(IconNamespace) getVariable _x;
     if ((_icon select 0) == 2 && _nearestIcon != _x) then {
