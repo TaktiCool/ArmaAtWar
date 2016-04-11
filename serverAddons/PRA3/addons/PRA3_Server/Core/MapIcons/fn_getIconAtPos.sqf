@@ -22,31 +22,29 @@ params ["_map", "_xPos", "_yPos"];
 
 private _mousePosition = [_xPos, _yPos];
 
-private _r = 1000;
+private _r = 100000;
 private _nearestIcon = "";
 {
     private _iconId = _x;
     private _icon = GVAR(IconNamespace) getVariable _iconId;
     private _icons = _icon select 1;
     {
-        private _pos = _x select 2;
-        private _width = _x select 3;
-        private _height = _x select 4;
+        _x params ["", "", "_pos", "_width", "_height"];
         if (_pos isEqualType [] && {(_pos select 1) isEqualType []}) then {
             private _offset = _pos select 1;
-            private _pos = _pos select 0;
+            private _tempPos = _pos select 0;
             if (_pos isEqualType objNull) then {
                 _pos = getPosVisual _pos;
             };
-            _pos = _map ctrlMapWorldToScreen _pos;
-            _pos = [(_pos select 0) + (_offset select 0)/640, (_pos select 1) + (_offset select 1)/480];
+            _tempPos = _map ctrlMapWorldToScreen _tempPos;
+            _pos = [(_tempPos select 0) + (_offset select 0)/640, (_tempPos select 1) + (_offset select 1)/480];
         } else {
             if (_pos isEqualType objNull) then {
                 _pos = getPosVisual _pos;
             };
             _pos = _map ctrlMapWorldToScreen _pos;
         };
-        DUMP(_pos)
+        // DUMP(_pos)
         private _temp1 = (_pos select 0) - (_mousePosition select 0);
         private _temp2 = (_pos select 1) - (_mousePosition select 1);
 

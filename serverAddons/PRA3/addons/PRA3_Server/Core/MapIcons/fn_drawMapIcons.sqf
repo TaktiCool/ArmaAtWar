@@ -34,7 +34,7 @@ params ["_map"];
                     _object = _iconPart select 2 select 0;
                 };
                 if (_object isEqualType objNull) then {
-                    DUMP(getDirVisual _object)
+                    // DUMP(getDirVisual _object)
                     _iconPart set [5, getDirVisual _object];
                 } else {
                     _iconPart set [5, 0];
