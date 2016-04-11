@@ -141,15 +141,13 @@
                 ] call CFUNC(addMapIcon);
             }] call CFUNC(addEventHandler);
 
-            if (didJIP) then {
-                {
-                    private _side = _x getVariable ["side", sideUnknown];
-                    private _marker = _x getVariable ["name", ""];
-                    private _designator = _x getVariable ["designator", "A"];
-                    [_side, _marker, _designator] call CFUNC(localEvent);
-                    nil
-                } count GVAR(allSectorsArray);
-            };
+            {
+                private _side = _x getVariable ["side", sideUnknown];
+                private _marker = _x getVariable ["name", ""];
+                private _designator = _x getVariable ["designator", "A"];
+                ["sectorCreated", [_side, _marker, _designator]] call CFUNC(localEvent);
+                nil
+            } count GVAR(allSectorsArray);
         };
     }, {
         !isNil QGVAR(sectorCreationDone)
