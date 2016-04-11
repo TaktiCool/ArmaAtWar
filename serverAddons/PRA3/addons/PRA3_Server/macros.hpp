@@ -43,7 +43,7 @@
 #define QFUNC(var) QUOTE(DFUNC(var))
 
 #ifdef isDev
-    #define FUNC(var) (missionNamespace getVariable [QFUNC(var), {DUMP(QFUNC(var) + "Dont Exist")}])
+    #define FUNC(var) (missionNamespace getVariable [QFUNC(var), {DUMP(QFUNC(var) + " Dont Exist")}])
 #endif
 
 #ifdef PRA3_DEBUGFULL
