@@ -18,6 +18,8 @@
 */
 params ["_map"];
 
+private _mapScale = ctrlMapScale _map;
+
 {
     private _icon = GVAR(IconNamespace) getVariable _x;
 
@@ -27,19 +29,29 @@ params ["_map"];
             _icons = _icon select 1;
         };
         {
-            private _iconPart = +_x;
-            if ((_iconPart select 5) isEqualType "" && {toUpper (_iconPart select 5) == "AUTO"}) then {
-                private _object = _iconPart select 2;
-                if (_object isEqualType [] && {(_object select 1) isEqualType []}) then {
-                    _object = _iconPart select 2 select 0;
-                };
-                if (_object isEqualType objNull) then {
-                    // DUMP(getDirVisual _object)
-                    _iconPart set [5, getDirVisual _object];
-                } else {
-                    _iconPart set [5, 0];
-                };
+            private _iconPart = _x call {
+                params [
+                    ["_texture",""],
+                    ["_color",[0, 0, 0, 1]],
+                    ["_position", objNull, [[], objNull]],
+                    ["_width", 25],
+                    ["_height", 25],
+                    ["_angle", 0,[0,objNull]],
+                    ["_text",""],
+                    ["_shadow", 0],
+                    ["_textSize", 0.08],
+                    ["_font", "PuristaMedium"],
+                    ["_align","right"],
+                    ["_code", {}]
+                ];
+                call _code;
+                [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
             };
+
+            if ((_iconPart select 5) isEqualType objNull) then {
+                _iconPart set [5, getDirVisual (_iconPart select 5)];
+            };
+
             if ((_iconPart select 2) isEqualType [] && {(_iconPart select 2 select 1) isEqualType []}) then {
                 private _pos = _iconPart select 2 select 0;
                 private _offset = _iconPart select 2 select 1;
@@ -51,15 +63,20 @@ params ["_map"];
                 _pos = _map ctrlMapScreenToWorld _pos;
                 _iconPart set [2, _pos];
             };
+
+            if ((_iconPart select 2) isEqualType objNull) then {
+                _iconPart set [2, getPosVisual (_iconPart select 2)];
+            };
+
+            if (_mapScale < 0.1) then {
+                private _fontScale = ((_mapScale/0.1) max 0.5)*1.1;
+                DUMP(_fontScale);
+                _iconPart set [8, (_iconPart select 8)*_fontScale];
+            };
+
             private _pos = _iconPart select 2;
-            if (_pos isEqualType objNull) then {
-                if (!isNull _pos) then {
-                    _map drawIcon _iconPart;
-                };
-            } else {
-                if (!isNil "_pos") then {
-                    _map drawIcon _iconPart;
-                };
+            if (!isNil "_pos") then {
+                _map drawIcon _iconPart;
             };
             nil
         } count _icons;

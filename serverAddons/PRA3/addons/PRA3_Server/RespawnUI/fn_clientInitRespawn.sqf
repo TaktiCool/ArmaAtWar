@@ -25,10 +25,10 @@
         [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
         [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(localEvent);
         [{
-            (_this displayCtrl 700) call CFUNC(registerMapControl);
-        }, {!(isNull (_this displayCtrl 700))}, _this] call FUNC(waitUntil);
+            [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
+        }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);
 
-    }, _display] call CFUNC(execNextFrame);
+    }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {

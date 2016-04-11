@@ -29,7 +29,25 @@ private _nearestIcon = "";
     private _icon = GVAR(IconNamespace) getVariable _iconId;
     private _icons = _icon select 1;
     {
-        _x params ["", "", "_pos", "_width", "_height"];
+        private _iconPart = _x call {
+            params [
+                ["_texture",""],
+                ["_color",[0, 0, 0, 1]],
+                ["_position", objNull, [[], objNull]],
+                ["_width", 25],
+                ["_height", 25],
+                ["_angle", 0,[0,objNull]],
+                ["_text",""],
+                ["_shadow", 0],
+                ["_textSize", 0.08],
+                ["_font", "PuristaMedium"],
+                ["_align","right"],
+                ["_code", {}]
+            ];
+            call _code;
+            [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
+        };
+        _iconPart params ["", "", "_pos", "_width", "_height"];
         if (_pos isEqualType [] && {(_pos select 1) isEqualType []}) then {
             private _offset = _pos select 1;
             private _tempPos = _pos select 0;

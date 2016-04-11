@@ -17,7 +17,7 @@
 params ["_newUnit", "_oldUnit"];
 
 private _color = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
-if (side _newUnit == playerSide && !isHidden _newUnit && !simulationEnabled _newUnit) then {
+if (side _newUnit == playerSide && !isHidden _newUnit && simulationEnabled _newUnit) then {
     private _iconId = _newUnit getVariable [QGVAR(playerIconId), ""];
     if (_iconId == "") then {
         private _oldIconId = _oldUnit getVariable [QGVAR(playerIconId), ""];
@@ -31,21 +31,11 @@ if (side _newUnit == playerSide && !isHidden _newUnit && !simulationEnabled _new
         _newUnit setVariable [QGVAR(playerIconId), _iconId];
     };
 
-    [
-        _iconId,
-        [
-            [_newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 25, "AUTO"]
-        ]
-    ] call CFUNC(addMapIcon);
+    private _manIcon = [_newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, _newUnit, "", 1];
+    private _manDescription = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 0, name _newUnit, 2];
 
-    [
-        _iconId,
-        [
-            [_newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 25, "AUTO"],
-            ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 25, 0, name _newUnit, 2]
-        ],
-        "hover"
-    ] call CFUNC(addMapIcon);
+    [_iconId, [_manIcon]] call CFUNC(addMapIcon);
+    [_iconId, [_manIcon, _manDescription], "hover"] call CFUNC(addMapIcon);
 
     if (_newUnit == leader _newUnit) then {
         private _groupType = _group getVariable [QGVAR(Type), "Rifle"];
@@ -53,8 +43,8 @@ if (side _newUnit == playerSide && !isHidden _newUnit && !simulationEnabled _new
         [
             format [QGVAR(Group_%1), groupId group _newUnit],
             [
-                [_groupMapIcon, _color, [_newUnit, [0, -25]], 25],
-                ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [_newUnit, [0, -25]], 25, 0, groupId group _newUnit, 2]
+                [_groupMapIcon, _color, [_newUnit, [0, -20]], 25],
+                ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [_newUnit, [0, -20]], 25, 0, (groupId group _newUnit) select [0, 1], 2]
             ]
         ] call CFUNC(addMapIcon);
     };

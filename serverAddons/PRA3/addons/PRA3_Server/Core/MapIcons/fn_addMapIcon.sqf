@@ -25,6 +25,7 @@
         8: Text Size <Number>
         9: Font <String>
         10: Align <String>
+        11: Code <Code> called every draw frame
 
     Returns:
     None
@@ -35,7 +36,19 @@ if !((_icon select 0) isEqualType []) then {
 };
 private _icons = [];
 {
-    _x params [["_texture",""], ["_color",[0, 0, 0, 1]], "_position", ["_size", 25], ["_angle", 0,[0,""]], ["_text",""], ["_shadow", 0], ["_textSize", 0.08], ["_font", "PuristaMedium"], ["_align","right"]];
+    _x params [
+        ["_texture",""],
+        ["_color",[0, 0, 0, 1]],
+        ["_position", objNull, [[], objNull]],
+        ["_size", 25],
+        ["_angle", 0,[0,objNull]],
+        ["_text",""],
+        ["_shadow", 0],
+        ["_textSize", 0.08],
+        ["_font", "PuristaMedium"],
+        ["_align","right"],
+        ["_code", {}]
+    ];
     private _width = 25;
     private _height = 25;
     if (_size isEqualType 25) then {
@@ -45,7 +58,7 @@ private _icons = [];
         _width = _size select 0;
         _height = _size select 1;
     };
-    _icons pushBack [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
+    _icons pushBack [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align, _code];
     nil
 } count _icon;
 
