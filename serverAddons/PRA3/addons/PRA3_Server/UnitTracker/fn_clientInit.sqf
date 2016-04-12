@@ -39,7 +39,7 @@ DFUNC(updateIcons) = {
         call FUNC(updateIcons);
     }] call CFUNC(addEventHandler);
     nil
-} count ["missionStarted", QGVAR(updateIconsEvent)];
+} count ["missionStarted", QGVAR(updateIconsEvent), "visibleMapChanged", UIVAR(RespawnScreen_onLoad)];
 
 {
     [_x, {
