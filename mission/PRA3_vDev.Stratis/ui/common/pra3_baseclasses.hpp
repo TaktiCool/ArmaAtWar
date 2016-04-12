@@ -89,6 +89,12 @@ class PRA3_RscListNBox : RscListNBox {
     columns[] = {0};
     itemSpacing = PY(0.25);
 
+    colorText[] = {0.8,0.8,0.8,1}; // Selected item color
+
+    pictureColor[] = {0.8,0.8,0.8,1}; // Picture color
+	pictureColorSelect[] = {1,1,1,1}; // Selected picture color
+
+
     colorSelectBackground[] = {0.4,0.4,0.4,1}; // Selected item fill color
 	colorSelectBackground2[] = {0.4,0.4,0.4,1}; // Selected item fill color (oscillates between this and colorSelectBackground)
 

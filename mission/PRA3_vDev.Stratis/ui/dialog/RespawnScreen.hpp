@@ -229,7 +229,7 @@ class PRA3_UI_RespawnScreen {
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
-                    h = PY(GHEIGHT);
+                    h = PY(GHEIGHT-15.4);
                 };
 
                 class Heading : PRA3_H2Text {
