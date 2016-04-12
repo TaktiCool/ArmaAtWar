@@ -13,10 +13,10 @@
     Returns:
     0
 */
-DUMP("HANDLEDAMAGE")
-params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
-if (!(alive _unit) || (_damage == 0)) exitWith {0};
 DUMP(_this)
+params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
+if (!(alive _unit) || (_damage == 0)) exitWith {0.01};
+DUMP("HANDLEDAMAGE")
 
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
@@ -75,7 +75,7 @@ if (_selectionName in ["leg_l", "leg_r"] && _damage > 0.7) then {
 // use setVariablePublic to Improve performance and not publish multible times the damage variable
 [PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
 
-0
+0.01
 
 /*
     Vanilla HandleDamage Calles

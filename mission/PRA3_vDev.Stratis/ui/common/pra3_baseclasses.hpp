@@ -21,10 +21,9 @@ class PRA3_RscButtonMenu_Colored : RscButton {
     style = ST_LEFT;
     sizeEx = PY(2);
     shadow = 0;
-    colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-    colorBackgroundActive[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-    colorFocused[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
-    colorText[] = {1,1,1,1};
+    colorBackground[] = {0.77, 0.51, 0.08, 1};
+    colorBackgroundActive[] = {0.77, 0.51, 0.08, 1};
+    colorFocused[] = {0.77, 0.51, 0.08, 1};
     x = PX(0);
     y = PY(0);
     w = PX(9);

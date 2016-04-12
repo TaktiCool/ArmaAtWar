@@ -24,7 +24,7 @@ class PRA3_UI_MedicalProgress {
                 class Progress : RscProgress {
                     idc = 3002;
                     colorFrame[] = {0,0,0,0};
-                    colorBar[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
+                    colorBar[] = {0.77, 0.51, 0.08, 1};
                     x = PX(0);
                     y = PY(0);
                     w = PX(50);
