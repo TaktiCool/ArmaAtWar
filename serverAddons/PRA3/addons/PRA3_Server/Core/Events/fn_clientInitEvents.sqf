@@ -68,7 +68,7 @@ GVAR(oldCursorTarget) = objNull;
     params ["_arguments", "_data"];
     _arguments params ["_event", "_function", "_args"];
     if ((!(isNil QGVAR(missionStartedTriggered)) || !(isNull (findDisplay 46)))&& {_event isEqualTo "missionStarted"}) then {
-        DUMP("Mission Started Event get Added After Mission Started")
+        LOG("Mission Started Event get Added After Mission Started")
         if (_function isEqualType "") then {
             _function = parsingNamespace getVariable [_function, {}];
         };

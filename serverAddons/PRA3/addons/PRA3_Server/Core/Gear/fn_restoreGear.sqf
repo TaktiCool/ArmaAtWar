@@ -30,8 +30,8 @@ _allGear params [
     "_binocular"
 ];
 
-DUMP(_allGear)
-DUMP(_magazinesAmmoFull)
+// DUMP(_allGear)
+// DUMP(_magazinesAmmoFull)
 
 removeAllAssignedItems _u2;
 removeAllWeapons _u2;

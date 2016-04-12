@@ -108,7 +108,7 @@ GVAR(PPEffects) = [GVAR(colorEffectCC),GVAR(vigEffectCC),GVAR(blurEffectCC)];
 ["Respawn", {
     (_this select 0) params ["_unit"];
     _unit setVariable [QGVAR(bleedOutTime), 0, true];
-    DUMP("resetMedicalVars: UnconChanged")
+    // DUMP("resetMedicalVars: UnconChanged")
     ["UnconsciousnessChanged", [false, _unit]] call CFUNC(localEvent);
     [_unit, QGVAR(DamageSelection), [0,0,0,0,0,0,0]] call CFUNC(setVariablePublic);
     [_unit, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);

@@ -13,11 +13,11 @@
     Returns:
     0
 */
-DUMP(_this)
+// DUMP(_this)
+private _ret = 0;
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
-if (!(alive _unit) || (_damage == 0)) exitWith {0.01};
-DUMP("HANDLEDAMAGE")
-
+if (!(alive _unit) || (_damage == 0)) exitWith {_ret};
+// DUMP("HANDLEDAMAGE")
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
 private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
 
@@ -46,18 +46,21 @@ if (_selectionName in ["head", "body", ""]) then {
 
     if (!GVAR(preventInstantDeath) && {_newDamage >= GVAR(maxDamage)}) then {
         _unit setVariable [QGVAR(isUnconscious), true, true];
-        DUMP("handleDamage: instantDeath")
-        _unit setDamage 1;
+        // DUMP("handleDamage: instantDeath")
+        // _unit setDamage 1;
+        _ret = 1;
     } else {
         if (_damage >= GVAR(maxDamage)) then {
             if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
                 if !((vehicle _unit) isEqualTo _unit) then {
                     _unit setVariable [QGVAR(isUnconscious), true, true];
-                    DUMP("handleDamage: instantDeath in Vehicle")
-                    _unit setDamage 1;
+                    // DUMP("handleDamage: instantDeath in Vehicle")
+                    // _unit setDamage 1;
+                    _ret = 1;
                 } else {
-                    DUMP("handleDamage: forceRespawn")
-                    forceRespawn _unit;
+                    // DUMP("handleDamage: forceRespawn")
+                    // forceRespawn _unit;
+                    _ret = 1;
                 };
 
             };
@@ -75,7 +78,7 @@ if (_selectionName in ["leg_l", "leg_r"] && _damage > 0.7) then {
 // use setVariablePublic to Improve performance and not publish multible times the damage variable
 [PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
 
-0.01
+_ret
 
 /*
     Vanilla HandleDamage Calles

@@ -42,7 +42,7 @@ if (_selection in TORSO_SELECTIONS) exitWith {"body"};
 if ((_selection == "?") || {!(_selection in GVAR(SELECTIONS))}) exitWith {
     if (_hitPointIndex < 0) exitWith {_selection};
     private _hitPoint = toLower configName ((configProperties [(configFile >> "CfgVehicles" >> (typeOf _unit) >> "HitPoints")]) select _hitPointIndex);
-    DUMP("Weird sel/hit"+ str(_unit) + " " + str(_selection) + " " + str(_hitPointIndex) + " " + str(_hitPoint));
+    // DUMP("Weird sel/hit"+ str(_unit) + " " + str(_selection) + " " + str(_hitPointIndex) + " " + str(_hitPoint));
 
     if (_hitPoint in HEAD_HITPOINTS) exitWith {"head"};
     if (_hitPoint in TORSO_HITPOINTS) exitWith {"body"};

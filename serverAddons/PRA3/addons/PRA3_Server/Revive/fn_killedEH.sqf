@@ -19,12 +19,12 @@ setPlayerRespawnTime 10e10;
 if (GVAR(lastKilledFrame) == diag_frameNo) exitWith {};
 GVAR(lastKilledFrame) = diag_frameNo;
 if ((time - (missionNamespace getVariable ["RscDisplayMPInterrupt_respawnTime",-1])) < 1) exitWith {
-    DUMP("Killed: RESPAWN button pressed")
+    // DUMP("Killed: RESPAWN button pressed")
     [QGVAR(Killed), [_unit, _killer]] call CFUNC(localEvent);
 };
 
 if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
-    DUMP("Killed: Go to Uncon mode")
+    // DUMP("Killed: Go to Uncon mode")
     private _gear = [_unit] call CFUNC(saveGear);
     _unit setVariable [QGVAR(killer), _killer];
 
@@ -45,12 +45,12 @@ if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
 
         PRA3_Player setDir direction _unit;
 
-        DUMP("KilledWait: deleteVehicle")
+        // DUMP("KilledWait: deleteVehicle")
         deleteVehicle _unit;
 
     }, 3, [_unit, _gear]] call CFUNC(wait);
 } else {
-    DUMP("Killed: Kill player")
+    // DUMP("Killed: Kill player")
     if (!isNull _killer) then {
         _killer = _unit getVariable [QGVAR(killer), objNull];
     };
