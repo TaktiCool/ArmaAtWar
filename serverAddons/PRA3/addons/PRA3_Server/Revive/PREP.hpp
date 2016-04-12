@@ -1,5 +1,6 @@
 PREP(clientInit)
 PREP(clientInitMedicalActions)
+PREP(itemAction)
 PREP(bloodEffect)
 PREP(handleDamage)
 PREP(translateSelections)
