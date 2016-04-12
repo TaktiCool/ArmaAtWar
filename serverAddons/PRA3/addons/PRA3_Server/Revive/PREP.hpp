@@ -10,3 +10,6 @@ PREP(killedEH)
 PREP(registerHealer)
 PREP(unregisterHealer)
 PREP(updateHealingStatus)
+
+PREP(reviveAction)
+PREP(healingAction)
