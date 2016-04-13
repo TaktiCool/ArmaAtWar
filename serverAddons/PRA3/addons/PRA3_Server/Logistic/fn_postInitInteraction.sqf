@@ -58,6 +58,7 @@ if (isDedicated || !hasInterface) exitWith {};
             _draggedObject setPosATL _position;
         };
         ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
+        PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
     }
 ] call CFUNC(addAction);
 
@@ -80,6 +81,7 @@ if (isDedicated || !hasInterface) exitWith {};
         _ItemArray pushBack _draggedObject;
         _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
         PRA3_Player setVariable [QGVAR(Item),objNull, true];
+        PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
     }
 ] call CFUNC(addAction);
 
