@@ -16,6 +16,7 @@
     Returns:
     None
 */
+disableSerialization;
 params ["_map"];
 
 private _idx = GVAR(MapIconMapControls) find _map;

@@ -18,6 +18,7 @@
     Returns:
     Icon ID <String>
 */
+disableSerialization;
 params ["_map", "_xPos", "_yPos"];
 
 private _mousePosition = [_xPos, _yPos];

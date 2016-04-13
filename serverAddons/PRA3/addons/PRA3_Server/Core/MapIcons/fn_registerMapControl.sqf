@@ -13,6 +13,7 @@
     Returns:
     None
 */
+disableSerialization;
 params ["_map"];
 
 // get sure that the controll not allready have a draw function
