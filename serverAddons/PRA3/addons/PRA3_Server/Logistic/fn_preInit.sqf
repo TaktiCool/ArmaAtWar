@@ -17,7 +17,8 @@ private _cfg = configFile >> "PRA3" >> "CfgEntities";
         };
         _obj setVariable [configName _x, _var, true];
         nil
-    } count configProperties [_cfg, "true"];
+    } count configProperties [(_cfg >> typeOf _x), "true"];
     nil
 } count vehicles;
+
 #include "PREP.hpp"
