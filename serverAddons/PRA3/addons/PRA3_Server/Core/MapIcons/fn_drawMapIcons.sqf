@@ -16,6 +16,7 @@
     Returns:
     None
 */
+disableSerialization;
 params ["_map"];
 
 private _mapScale = ctrlMapScale _map;
