@@ -305,12 +305,12 @@ private _compileFinal =
                     // extern File to keep the file more clean
                     #include "compileLoop.sqf";
                     nil
-                } count ("true" configClasses (_currentCategory));
+                } count (configProperties [_currentCategory,"isClass _x"]);
                 nil
-            } count ("true" configClasses (_currentTag));
+            } count (configProperties [_currentTag,"isClass _x"]);
         };
         nil
-    } count ("true" configClasses (_cfgFunctions));
+    } count (configProperties [_cfgFunctions,"isClass _x"]);
     nil
 } count _listConfigs;
 

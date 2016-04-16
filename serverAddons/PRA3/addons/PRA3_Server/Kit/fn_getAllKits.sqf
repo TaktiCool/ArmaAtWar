@@ -13,6 +13,5 @@
     Returns:
     Array With all Strings <Array>
 */
-//@todo check scope
 
-("true" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
+("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
