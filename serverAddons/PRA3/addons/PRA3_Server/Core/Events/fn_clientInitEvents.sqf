@@ -56,7 +56,7 @@ GVAR(entities) = [];
 
     _data = (entities "");
     _data append allUnits;
-    if (!_data isEqualTo GVAR(entities)) then {
+    if (!(_data isEqualTo GVAR(entities))) then {
         {
             ["entityCreated", _x] call FUNC(localEvent);
             nil
