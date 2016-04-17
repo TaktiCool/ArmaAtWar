@@ -20,18 +20,17 @@ GVAR(VehicleRespawnAllVehicles) = [];
     [{
         params ["_entity"];
         private _respawnTime = _entity getVariable ["respawnTime", -1];
-        DUMP(_respawnTime)
+
         if (_respawnTime >= 0) then {
 
             _entity setVariable [QGVAR(respawnPosition), getPos _entity];
             _entity setVariable [QGVAR(respawnDirection), getDir _entity];
 
-            private _side = _entity getVariable ["side",sideUnknown];
+            private _side = _entity getVariable ["side", sideUnknown];
             [QGVAR(vehicleRespawnAvailable), _side, _entity] call CFUNC(targetEvent);
 
-
             private _respawnCounter = _entity getVariable [QGVAR(RespawnCounter), 0];
-            DUMP(_respawnCounter)
+
             if (_respawnCounter == 0) then {
                 private _respawnCondition = _entity getVariable ["respawnCondition", "true"];
                 [_entity, typeOf _entity, vehicleVarName _entity, getPos _entity, getDir _entity, _respawnCondition] call FUNC(performVehicleRespawn);
