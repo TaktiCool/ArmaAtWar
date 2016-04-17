@@ -71,3 +71,21 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 ["missionStarted", {
     GVAR(missionStartedTriggered) = true;
 }] call FUNC(addEventHandler);
+
+
+GVAR(entities) = [];
+[{
+    private _entities = (entities "") + allUnits;
+
+    if !(_entities isEqualTo GVAR(entities)) then {
+        {
+            if !(_x getVariable [QGVAR(isProcessed), false]) then {
+                ["entityCreated", _x] call CFUNC(localEvent);
+                _x getVariable [QGVAR(isProcessed), true];
+            };
+            nil
+        } count (_entities - GVAR(entities));
+
+        GVAR(entities) = _entities;
+    };
+}, 0.1, []] call FUNC(addPerFrameHandler);
