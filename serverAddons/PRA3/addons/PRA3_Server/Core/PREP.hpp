@@ -90,6 +90,9 @@ EPREP(MapIcons,addMapIconEventHandler)
 EPREP(MapIcons,removeMapIconEventHandler)
 EPREP(MapIcons,triggerMapIconEvent)
 
+//Entity Variables
+EPREP(EntityVariables,initServerEntityVariables)
+
 // Init
 PREP(init)
 

@@ -1,32 +1,28 @@
+class defaultVehicle {
+    respawnCondition = "true";
+    side = "UNKNOWN";
+    respawnTime = -1; // disabled
+    ticketValue = 5;
+};
+
+class defaultWest : defaultVehicle {
+    side = "WEST";
+};
+
+class defaultEast : defaultVehicle {
+    side = "EAST";
+};
+
+class defaultIndependent : defaultVehicle {
+    side = "INDEPENDENT";
+};
+
 class CfgEntities {
-    // abstact classes
-    class defaultVehicle {
-        scope = 0; // abstact class
-        condition = "true";
-        side = "UNKNOWN";
-        respawnTime = -1; // disabled
-        ticketValue = 5;
-    };
-
-    class defaultWest : defaultVehicle {
-        side = "WEST";
-    };
-
-    class defaultEast : defaultVehicle {
-        scope = 0; //abstact class
-        side = "EAST";
-    };
-
-    class defaultIndependent : defaultVehicle {
-        scope = 0; //abstact class
-        side = "INDEPENDENT";
-    };
 
     // mission objects
     // -- Blufor -- //
     // Cars
     class vr_hunter_0 : defaultWest {
-        scope = 1;
         respawnTime = 10; // 10 seconds
     };
     class vr_hunter_1: vr_hunter_0 {};
@@ -47,8 +43,7 @@ class CfgEntities {
 
     // Tanks
     class vr_slammer_0 : vr_hunter_0 {
-        scope = 1;
-        condition = "time > 60";
+        respawnCondition = "time > 60";
         ticketValue = 20;
     };
     class vr_slammer_1 : vr_slammer_0 {};
@@ -56,7 +51,6 @@ class CfgEntities {
 
     // Air
     class vr_ghosthawk_0 : defaultWest {
-        scope = 1;
         respawnTime = 60;
         ticketValue = 50;
     };
@@ -65,14 +59,13 @@ class CfgEntities {
     class vr_Huron_0: vr_ghosthawk_0 {
         respawnTime = 60;
         ticketValue = 100;
-        condition = "time > 60";
+        respawnCondition = "time > 60";
     };
 
 
     // -- Opfor -- //
     // Car
     class vr_ifrit_0 : defaultEast {
-        scope = 1;
         respawnTime = 10; // 10 seconds
     };
     class vr_ifrit_1: vr_ifrit_0 {};
@@ -93,15 +86,13 @@ class CfgEntities {
 
     // Tanks
     class vr_varsuk_0 : vr_ifrit_0 {
-        scope = 1;
-        condition = "time > 60";
+        respawnCondition = "time > 60";
         ticketValue = 20;
     };
     class vr_varsuk_1: vr_varsuk_0 {};
 
     // Air
     class vr_orca_0 : defaultEast {
-        scope = 1;
         respawnTime = 60; // 10 seconds
         ticketValue = 50;
     };
@@ -110,31 +101,31 @@ class CfgEntities {
     class vr_Taru_0: vr_orca_0 {
         respawnTime = 60;
         ticketValue = 100;
-        condition = "time > 60";
+        respawnCondition = "time > 60";
     };
 
     // Logistic
     class Land_CargoBox_V1_F {
         isDragable = 1;
         cargoIsLoadable = 1;
-        cargoCapicity = 10;
+        cargoCapacity = 10;
         cargoSize = 20;
     };
 
     class B_Slingload_01_Cargo_F {
         isDragable = 1;
         cargoIsLoadable = 0;
-        cargoCapicity = 30;
+        cargoCapacity = 30;
         cargoSize = 60;
         logisticOffset[] = {0,0,5};
     };
 
     class B_Heli_Transport_01_F {
-        cargoCapicity = 50;
+        cargoCapacity = 50;
     };
 
     class B_Heli_Transport_03_F {
-        cargoCapicity = 100;
+        cargoCapacity = 100;
     };
 
 };
