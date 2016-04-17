@@ -34,7 +34,6 @@ DFUNC(removeOldAction) = {
     };
 };
 
-// @Todo write it Function based
 [
     "First Aid Kit", PRA3_Player, 0, {
         "FirstAidKit" in (items PRA3_Player) && {GVAR(MedicItemSelected) != "FirstAidKit"} && !(PRA3_Player getVariable [QGVAR(isUnconscious), false]) && PRA3_Player isEqualTo vehicle PRA3_Player

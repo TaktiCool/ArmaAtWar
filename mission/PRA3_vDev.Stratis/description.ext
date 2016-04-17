@@ -24,256 +24,22 @@ respawnDelay = 3;
 respawnDialog = 0;
 
 class PRA3 {
-    loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker"};
-    tickets = 1000; // number of tickets per team
-    ticketBleed[] = {10,5}; // time, tickets
-    musicStart = 100; // tickets to start the music
 
-    playerTicketValue = 1; // Ticket value of a player
+    #include "cfgBaseSettings.hpp"
 
+    #include "cfgGroupTypes.hpp"
 
-    // Optional ConfigValue used if no Near Location can be found
-    markerLocation[] = {
-        "base_east",
-        "base_west",
-        "sector_0",
-        "sector_1",
-        "sector_2",
-        "sector_3",
-        "sector_4",
-        "sector_5",
-        "sector_6",
-        "sector_7",
-        "sector_8",
-        "sector_9",
-        "sector_10",
-        "sector_11",
-        "sector_12",
-        "sector_13"
-    };
+    #include "cfgSides.hpp"
 
-    #include "GroupTypes.hpp"
+    #include "cfgSquadRallyPoint.hpp"
 
-    class Sides {
-        class West {
-            name = "NATO";
-            playerClass = "B_Soldier_F";
-            flag = "a3\data_f\Flags\flag_nato_co.paa";
-            mapIcon = "a3\ui_f\data\Map\Markers\NATO\b_installation.paa";
-            color[] = {0, 0.3, 0.8, 1};
-            squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
-            #include "kitsWest.hpp"
-        };
+    #include "cfgSectors.hpp"
 
-        class East : West {
-            name = "CSAT";
-            playerClass = "O_Soldier_F";
-            flag = "a3\data_f\Flags\flag_csat_co.paa";
-            mapIcon = "a3\ui_f\data\Map\Markers\NATO\o_installation.paa";
-            color[] = {0.5, 0, 0, 1};
-            squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
-            #include "kitsEast.hpp"
-        };
-    };
+    #include "cfgRevive.hpp"
 
-    class CfgSquadRallyPoint {
-        waitTime = 300;
-        minDistance = 100;
-        spawnCount = 9;
-        nearPlayerToBuild = 2;
-        nearPlayerToBuildRadius = 10;
-        maxEnemyCount = 3;
-        maxEnemyCountRadius = 50;
-    };
+    #include "cfgEntities.hpp"
 
-    class sector {
-        dependency[] = {};
-        ticketValue = 30;
-        captureTime[] = {30,60};
-        minUnits = 1;
-        isLastSector = "";
-        firstCaptureTime[] = {5,15};
-    };
-    class CfgSectors {
-        #include "cfgSectors.hpp"
-    };
-
-    class CfgRevive {
-        // Revive Settings
-        reviveBleedingTime = 500;
-        reviveBleedOutTime = 300;
-
-        // time what a medic need to Revive
-        reviveSpeed = 20;
-        reviveCoef = 2; // Coef that a non medic need
-
-        // time what a medic need to Heal
-        healingTime = 20;
-        healCoef = 2; // Coef that a non medic need
-        maxHeal = 0.75; // max heal that a non medic need
-
-        // time what a medic need to banage
-        bandageSpeed = 20;
-        bandageCoef = 2; // Coef that a non Medic need
-
-
-        unconBleedCoef = 10; // Uncon Damage Coef
-        bleedCoef = 1; // Normal Damage Coef
-        damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
-
-        // Damage Values
-        preventInstantDeath = 1;
-        maxDamage = 3;
-    };
-
-    class CfgEntities {
-        // abstact classes
-        class defaultVehicle {
-            scope = 0; // abstact class
-            condition = "true";
-            side = "UNKNOWN";
-            respawnTime = -1; // disabled
-            ticketValue = 5;
-        };
-
-        class defaultWest : defaultVehicle {
-            side = "WEST";
-        };
-
-        class defaultEast : defaultVehicle {
-            scope = 0; //abstact class
-            side = "EAST";
-        };
-
-        class defaultIndependent : defaultVehicle {
-            scope = 0; //abstact class
-            side = "INDEPENDENT";
-        };
-
-        // mission objects
-        // -- Blufor -- //
-        // Cars
-        class vr_hunter_0 : defaultWest {
-            scope = 1;
-            respawnTime = 10; // 10 seconds
-        };
-        class vr_hunter_1: vr_hunter_0 {};
-
-        // Trucks
-        class vr_HEMMTTrans_0: vr_hunter_0 {
-            ticketValue = 10;
-            respawnTime = 20;
-        };
-        class vr_HEMMTTrans_1: vr_HEMMTTrans_0 {};
-
-        class vr_HEMMTRep_0: vr_HEMMTTrans_0 {};
-        class vr_HEMMTFuel_0: vr_HEMMTTrans_0 {};
-        class vr_HEMMTAmmo_0: vr_HEMMTTrans_0 {};
-
-        class vr_HEMMTLog_0: vr_HEMMTTrans_0 {};
-        class vr_HEMMTLog_1: vr_HEMMTTrans_0 {};
-
-        // Tanks
-        class vr_slammer_0 : vr_hunter_0 {
-            scope = 1;
-            condition = "time > 60";
-            ticketValue = 20;
-        };
-        class vr_slammer_1 : vr_slammer_0 {};
-
-
-        // Air
-        class vr_ghosthawk_0 : defaultWest {
-            scope = 1;
-            respawnTime = 60;
-            ticketValue = 50;
-        };
-        class vr_ghosthawk_1: vr_ghosthawk_0 {};
-
-        class vr_Huron_0: vr_ghosthawk_0 {
-            respawnTime = 60;
-            ticketValue = 100;
-            condition = "time > 60";
-        };
-
-
-        // -- Opfor -- //
-        // Car
-        class vr_ifrit_0 : defaultEast {
-            scope = 1;
-            respawnTime = 10; // 10 seconds
-        };
-        class vr_ifrit_1: vr_ifrit_0 {};
-
-        // Trucks
-        class vr_ZamakTrans_0: vr_ifrit_0 {
-            ticketValue = 10;
-            respawnTime = 20;
-        };
-        class vr_ZamakTrans_1: vr_ZamakTrans_0 {};
-
-        class vr_ZamakRep_0: vr_ZamakTrans_0 {};
-        class vr_ZamakFuel_0: vr_ZamakTrans_0 {};
-        class vr_ZamakAmmo_0: vr_ZamakTrans_0 {};
-
-        class vr_ZamakLog_0: vr_ZamakTrans_0 {};
-        class vr_ZamakLog_1: vr_ZamakTrans_0 {};
-
-        // Tanks
-        class vr_varsuk_0 : vr_ifrit_0 {
-            scope = 1;
-            condition = "time > 60";
-            ticketValue = 20;
-        };
-        class vr_varsuk_1: vr_varsuk_0 {};
-
-        // Air
-        class vr_orca_0 : defaultEast {
-            scope = 1;
-            respawnTime = 60; // 10 seconds
-            ticketValue = 50;
-        };
-        class vr_orca_1: vr_orca_0 {};
-
-        class vr_Taru_0: vr_orca_0 {
-            respawnTime = 60;
-            ticketValue = 100;
-            condition = "time > 60";
-        };
-
-        // Logistic
-        class Land_CargoBox_V1_F {
-            isDragable = 1;
-            cargoIsLoadable = 1;
-            cargoCapicity = 10;
-            cargoSize = 20;
-        };
-
-        class B_Slingload_01_Cargo_F {
-            isDragable = 1;
-            cargoIsLoadable = 0;
-            cargoCapicity = 30;
-            cargoSize = 60;
-            logisticOffset[] = {0,5,0};
-        };
-
-        class B_Heli_Transport_01_F {
-            cargoCapicity = 50;
-        };
-
-        class B_Heli_Transport_03_F {
-            cargoCapicity = 100;
-        };
-
-    };
-
-    // DO NOT CHANGE this Value
-    Version[] = {0,3,0,90};
-
-    // Do Not Remove this is for DirectCall
-    class dummy {
-        class dummy;
-    };
+    #include "ui\common\pra3Core.hpp"
 
 };
 
@@ -291,6 +57,7 @@ class RscTitles {
     #include "ui\hud\MedicalInfo.hpp"
 };
 
+/* disable CfgRemoteExec Until BI fix it
 class CfgRemoteExec {
     class Functions {
         mode = 1; // only whitelisted functions/commands are allowed for remote execution
@@ -305,3 +72,4 @@ class CfgRemoteExec {
         };
     };
 };
+*/

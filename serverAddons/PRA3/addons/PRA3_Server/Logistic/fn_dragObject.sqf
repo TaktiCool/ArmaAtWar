@@ -40,10 +40,13 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
     _unit playActionNow "grabDrag";
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2)];
 } else {
-    _unit action ["WeaponOnBack",_unit];
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2) + 0.5];
+    _unit action ["SwitchWeapon", _unit, _unit, 0];
     ["forceWalk", [_unit, true]] call CFUNC(localEvent);
 };
+
+
+_attachPoint = _attachPoint vectorAdd (_draggedObject getVariable ["logisticOffset", [0,0,0]]);
 _draggedObject attachTo [_unit, _attachPoint];
 
 [{

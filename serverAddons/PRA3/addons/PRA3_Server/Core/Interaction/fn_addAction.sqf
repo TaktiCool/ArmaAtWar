@@ -26,7 +26,7 @@ _condition = _condition call FUNC(codeToString);
 _condition = if (_distance > 0 && !(_onObject isEqualTo PRA3_Player)) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange && " + _condition} else {_condition};
 
 
-/* @TODO
+/* @TODO #113
 _callback = _callback call FUNC(codeToString);
 _callback = "[{" + _callback +"}, _this] call " + QFUNC(directCall) + ";";
 _callback = compile _callback;

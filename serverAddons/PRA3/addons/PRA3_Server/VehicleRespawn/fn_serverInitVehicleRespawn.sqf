@@ -15,74 +15,45 @@
 */
 GVAR(VehicleRespawnAllVehicles) = [];
 
-{
-    if (getNumber (_x >> "scope") > 0) then {
-        private _vehicle = missionNamespace getVariable [configName _x, objNull];
-        if (!isNull _vehicle) then {
-            {
-                if (isNumber _x) then {
-                    _vehicle setVariable [format [QGVAR(%1), configName _x], getNumber (_x)];
-                };
+["entityCreated", {
+    (_this select 0) params ["_entity"];
+    [{
+        params ["_entity"];
+        private _respawnTime = _entity getVariable ["respawnTime", -1];
 
-                if (isText _x) then {
-                    _vehicle setVariable [format [QGVAR(%1), configName _x], getText (_x)];
-                };
+        if (_respawnTime >= 0) then {
 
-                if (isArray _x) then {
-                    _vehicle setVariable [format [QGVAR(%1), configName _x], getArray (_x)];
-                };
-                nil;
-            } count configProperties [_x];
+            _entity setVariable [QGVAR(respawnPosition), getPos _entity];
+            _entity setVariable [QGVAR(respawnDirection), getDir _entity];
 
+            private _side = _entity getVariable ["side", sideUnknown];
+            [QGVAR(vehicleRespawnAvailable), _side, _entity] call CFUNC(targetEvent);
 
-            if (getNumber (_x >> "respawnTime") >= 0) then {
+            private _respawnCounter = _entity getVariable [QGVAR(RespawnCounter), 0];
 
-                _vehicle setVariable [QGVAR(respawnPosition), getPos _vehicle];
-                _vehicle setVariable [QGVAR(respawnDirection), getDir _vehicle];
-
-
-
-                private _varNames = [];
-                private _varValues = [];
-                {
-                    if ((_x find "pra3") == 0 && {!(_x in CGVAR(ignoreVariables))}) then {
-                        private _var = (_vehicle getVariable _x);
-                        if !(isNil "_var") then {
-                            _varNames pushBack _x;
-                            _varValues pushBack _var;
-                        };
-                    };
-                    nil
-                } count allVariables _vehicle;
-
-                [_vehicle, typeOf _vehicle, _varNames, _varValues] call FUNC(performVehicleRespawn);
+            if (_respawnCounter == 0) then {
+                private _respawnCondition = _entity getVariable ["respawnCondition", "true"];
+                [_entity, typeOf _entity, vehicleVarName _entity, getPos _entity, getDir _entity, _respawnCondition] call FUNC(performVehicleRespawn);
             };
         };
-    };
-    nil
-} count ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+    }, [_entity]] call CFUNC(execNextFrame);
+}] call CFUNC(addEventHandler);
+
 
 addMissionEventHandler ["EntityKilled", {
     params ["_killedEntity","_killer"];
     if (_killedEntity in GVAR(VehicleRespawnAllVehicles)) then {
         private _type = typeOf _killedEntity;
-        private _respawnTime = _killedEntity getVariable [QGVAR(RespawnTime), 0];
+        private _respawnTime = _killedEntity getVariable ["respawnTime", 0];
+        private _respawnCondition = _killedEntity getVariable ["respawnCondition", "true"];
         private _respawnCounter = _killedEntity getVariable [QGVAR(RespawnCounter), 0];
+        private _respawnPosition = _entity getVariable [QGVAR(respawnPosition), getPos _killedEntity];
+        private _respawnDirection = _entity getVariable [QGVAR(respawnDirection), getDir _killedEntity];
 
-        _killedEntity setVariable [QGVAR(RespawnCounter), _respawnCounter + 1];
-
-        private _varNames = [];
-        private _varValues = [];
-        {
-            if ((_x find "pra3") == 0 && {!(_x in CGVAR(ignoreVariables))}) then {
-                _varNames pushBack _x;
-                _varValues pushBack (_killedEntity getVariable _x);
-            };
-            nil;
-        } count allVariables _killedEntity;
+        _respawnCounter = _respawnCounter + 1;
 
         GVAR(VehicleRespawnAllVehicles) deleteAt (GVAR(VehicleRespawnAllVehicles) find _killedEntity);
 
-        [FUNC(performVehicleRespawn), _respawnTime, [_killedEntity, _type, _varNames, _varValues]] call CFUNC(wait);
+        [FUNC(performVehicleRespawn), _respawnTime, [_killedEntity, _type, vehicleVarName _killedEntity, _respawnPosition, _respawnDirection, _respawnCondition, _respawnCounter]] call CFUNC(wait);
     };
 }];

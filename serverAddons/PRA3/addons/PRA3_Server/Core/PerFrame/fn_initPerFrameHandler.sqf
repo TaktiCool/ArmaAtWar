@@ -35,8 +35,8 @@ GVAR(lastFrameTime) = diag_tickTime;
                 _function = (parsingNamespace getVariable [_function, {}]);
             };
             [_args, _handle] call _function;
-            false
         };
+        nil
     } count GVAR(perFrameHandlerArray);
 
 
@@ -46,19 +46,18 @@ GVAR(lastFrameTime) = diag_tickTime;
         (_entry select 2) call (_entry select 1);
     };
 
-    GVAR(waitUntilArray) = GVAR(waitUntilArray) select {
+     {
         if ((_x select 2) call (_x select 1)) then {
             (_x select 2) call (_x select 0);
-            false
-        } else {
-            true
+            GVAR(waitUntilArray) deleteAt (GVAR(waitUntilArray) find _x);
         };
-    };
+        nil
+    } count +GVAR(waitUntilArray);
 
     //Handle the execNextFrame array:
     {
         (_x select 0) call (_x select 1);
-        false
+        nil
     } count GVAR(nextFrameBufferA);
 
     //Swap double-buffer:

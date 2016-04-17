@@ -17,40 +17,28 @@
     None
 */
 
-params ["_vehicle", "_type", "_varNames", "_varValues"];
+params ["_vehicle", "_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
 
 if (!isNull _vehicle) then {
     deleteVehicle _vehicle;
 };
 
 [{
-    params ["_type", "_varNames", "_varValues"];
-
-    private _respawnCounter = 0;
-    if ((toLower QGVAR(RespawnCounter)) in _varNames) then {
-        _respawnCounter = _varValues select (_varNames find toLower QGVAR(RespawnCounter));
-    };
+    params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
 
     private _paramsString = "params [""_respawnCounter""];";
 
-    private _condition = compile (_paramsString + (_varValues select (_varNames find toLower QGVAR(condition))));
+    private _condition = compile (_paramsString + _respawnCondition);
 
     [{
-        (_this select 1) params ["_type", "_varNames", "_varValues"];
-        private _position = (_varValues select (_varNames find toLower QGVAR(RespawnPosition)));
+        (_this select 1) params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
         _position = [_position, 10, _type] call CFUNC(findSavePosition);
         private _vehicle = _type createVehicle _position;
-        _vehicle setDir (_varValues select (_varNames find toLower QGVAR(RespawnDirection)));
-
-        {
-            _vehicle setVariable [_x, _varValues select _forEachIndex];
-        } forEach _varNames;
+        _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1, true];
+        _vehicle setDir _direction;
+        _vehicle setVehicleVarName _varName;
+        missionNamespace setVariable [_varName, _vehicle];
 
         GVAR(VehicleRespawnAllVehicles) pushBack _vehicle;
-
-        private _side = _vehicle getVariable [QGVAR(side),sideUnknown];
-
-        [QGVAR(vehicleRespawnAvailable), _side, _vehicle] call CFUNC(targetEvent);
-
     }, _condition, [_respawnCounter, _this]] call CFUNC(waitUntil);
-}, 3, [_type, _varNames, _varValues]] call CFUNC(wait);
+}, 3, [_type, _varName, _position, _direction, _respawnCondition, _respawnCounter]] call CFUNC(wait);
