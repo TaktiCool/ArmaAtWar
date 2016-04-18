@@ -22,8 +22,11 @@
         3: Selected Icon <Array>
         4: Auto Scale <Boolean>
 */
+with uiNamespace do {
+    GVAR(MapIconMapControls) = []; // Array of Map Controls
+};
+
 GVAR(MapIconIndex) = [];
-GVAR(MapIconMapControls) = []; // Array of Map Controls
 GVAR(IconNamespace) = call FUNC(createNamespace); //Namspace for Icons
 // GVAR(IconHoveredEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Hover"-Events
 // GVAR(IconSelectedEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Selected"-Events

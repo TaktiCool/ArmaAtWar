@@ -18,8 +18,9 @@
 */
 disableSerialization;
 params ["_map"];
-
-private _idx = GVAR(MapIconMapControls) find _map;
+with uiNamespace do {
+    private _idx = GVAR(MapIconMapControls) find _map;
+};
 if (_idx >= 0) then {
     private _drawId = _map getVariable [QGVAR(DrawEHId), -1];
     private _mmId = _map getVariable [QGVAR(MouseMovingEHId), -1];
@@ -27,5 +28,7 @@ if (_idx >= 0) then {
     _map ctrlRemoveEventHandler ["Draw", _drawId];
     _map ctrlRemoveEventHandler ["MouseMoving", _mmId];
     _map ctrlRemoveEventHandler ["MouseButtonClick", _mcId];
-    GVAR(MapIconMapControls) deleteAt _idx;
+    with uiNamespace do {
+        GVAR(MapIconMapControls) deleteAt _idx;
+    };
 };

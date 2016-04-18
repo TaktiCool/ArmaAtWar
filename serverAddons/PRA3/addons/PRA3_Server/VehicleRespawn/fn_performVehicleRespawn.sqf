@@ -41,7 +41,5 @@ if (!isNull _vehicle) then {
         _vehicle setDir _direction;
         _vehicle setVehicleVarName _varName;
         missionNamespace setVariable [_varName, _vehicle];
-
-        GVAR(VehicleRespawnAllVehicles) pushBack _vehicle;
     }, _condition, [_respawnCounter, _this]] call CFUNC(waitUntil);
 }, 3, [_type, _varName, _position, _direction, _respawnCondition, _respawnCounter]] call CFUNC(wait);

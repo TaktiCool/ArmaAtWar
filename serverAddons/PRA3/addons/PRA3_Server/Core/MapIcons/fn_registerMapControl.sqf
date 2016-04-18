@@ -27,5 +27,8 @@ _map setVariable [QGVAR(DrawEHId), _drawEHId];
 _map setVariable [QGVAR(MouseMovingEHId), _mmEHId];
 _map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
 
-GVAR(MapIconMapControls) pushBackUnique _map;
+with uiNamespace do {
+    GVAR(MapIconMapControls) pushBackUnique _map;
+}:
+
 nil
