@@ -16,10 +16,13 @@
     None
 */
 params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", false]];
-
+DUMP(_this)
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
-
+DUMP(_className)
+if (_className == "") then {
+    _className = "O_Soldier_F";
+};
 // We need to create a new group otherwise the unit may not be local (looks like its sometimes local to the group owner).
 private _newUnit = (createGroup _targetSide) createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
 _newUnit attachTo [GVAR(attachPoint)];
