@@ -33,7 +33,7 @@
                     getArray _x;
                 };
             };
-            _entity setVariable [configName _x, _var, true];
+            _entity setVariable [configName _x, _var];
             nil
         } count configProperties [(missionConfigFile >> "PRA3" >> "CfgEntities" >> _x), "true"];
         nil
