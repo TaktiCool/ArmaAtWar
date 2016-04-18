@@ -57,7 +57,7 @@ if (isDedicated || !hasInterface) exitWith {};
             ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
-            _this setPos [-10000,-10000,100000];
+            _draggedObject setPos [-10000,-10000,100000];
             private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
             _ItemArray pushBack _draggedObject;
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
