@@ -29,6 +29,6 @@ _map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
 
 with uiNamespace do {
     GVAR(MapIconMapControls) pushBackUnique _map;
-}:
+};
 
 nil
