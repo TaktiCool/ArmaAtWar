@@ -49,17 +49,19 @@ if (isDedicated || !hasInterface) exitWith {};
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         params ["_vehicle"];
+        [{
+            params ["_vehicle"];
+            private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
 
-        [PRA3_Player] call FUNC(dropObject);
-
-        private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
-        ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
-        ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
-        ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
-        _draggedObject setPos [-10000,-10000,100000];
-        private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
-        _ItemArray pushBack _draggedObject;
-        _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
+            [PRA3_Player] call FUNC(dropObject);
+            ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
+            ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
+            ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
+            _this setPos [-10000,-10000,100000];
+            private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
+            _ItemArray pushBack _draggedObject;
+            _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
+        }, [_vehicle]] call CFUNC(mutex);
         PRA3_Player setVariable [QGVAR(Item),objNull, true];
         PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
     }
@@ -74,13 +76,15 @@ if (isDedicated || !hasInterface) exitWith {};
         isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])
     },
     {
-        params ["_vehicle"];
-        private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
-        private _draggedObject = _draggedObjectArray deleteAt 0;
-        ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
-        ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
-        ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
-        [_draggedObject, PRA3_Player] call FUNC(dragObject);
-        _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
+        [{
+            params["_vehicle"];
+            private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
+            private _draggedObject = _draggedObjectArray deleteAt 0;
+            ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
+            ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
+            ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
+            [_draggedObject, PRA3_Player] call FUNC(dragObject);
+            _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
+        }, _vehicle] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
