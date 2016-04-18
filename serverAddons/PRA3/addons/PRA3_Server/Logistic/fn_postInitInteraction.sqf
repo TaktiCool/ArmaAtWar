@@ -98,5 +98,6 @@ if (isDedicated || !hasInterface) exitWith {};
         ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
         ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
         [_draggedObject, PRA3_Player] call FUNC(dragObject);
+        _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
     }
 ] call CFUNC(addAction);
