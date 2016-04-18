@@ -140,7 +140,7 @@
                     "hover"
                 ] call CFUNC(addMapIcon);
             }] call CFUNC(addEventHandler);
-
+            
             {
                 private _side = _x getVariable ["side", sideUnknown];
                 private _marker = _x getVariable ["name", ""];

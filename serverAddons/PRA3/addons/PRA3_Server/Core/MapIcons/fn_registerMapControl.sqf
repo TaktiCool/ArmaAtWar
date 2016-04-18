@@ -20,12 +20,12 @@ params ["_map"];
 _map call FUNC(unregisterMapControl);
 
 private _drawEHId = _map ctrlAddEventHandler ["Draw", FUNC(drawMapIcons)];
-private _mmEHId = _map ctrlAddEventHandler ["MouseMoving", FUNC(mouseMovingEH)];
-private _mcEHId = _map ctrlAddEventHandler ["MouseButtonClick", FUNC(mouseClickEH)];
+//private _mmEHId = _map ctrlAddEventHandler ["MouseMoving", FUNC(mouseMovingEH)];
+//private _mcEHId = _map ctrlAddEventHandler ["MouseButtonClick", FUNC(mouseClickEH)];
 
 _map setVariable [QGVAR(DrawEHId), _drawEHId];
-_map setVariable [QGVAR(MouseMovingEHId), _mmEHId];
-_map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
+//_map setVariable [QGVAR(MouseMovingEHId), _mmEHId];
+//_map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
 
 with uiNamespace do {
     GVAR(MapIconMapControls) pushBackUnique _map;
