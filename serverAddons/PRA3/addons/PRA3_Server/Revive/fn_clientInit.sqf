@@ -100,7 +100,10 @@ GVAR(PPEffects) = [GVAR(colorEffectCC),GVAR(vigEffectCC),GVAR(blurEffectCC)];
 ["unregisterHealer", QFUNC(unregisterHealer)] call CFUNC(addEventhandler);
 ["registerHealer", QFUNC(registerHealer)] call CFUNC(addEventhandler);
 
-["Killed", QFUNC(killedEH)] call CFUNC(addEventhandler);
+["missionStarted", {
+    // The draw3D event triggers on each frame if the client window has focus.
+    ["Killed", QFUNC(killedEH)] call CFUNC(addEventhandler);
+}] call CFUNC(addEventHandler);
 
 ["UnconsciousnessChanged", QFUNC(UnconsciousnessChanged)] call CFUNC(addEventhandler);
 
