@@ -38,7 +38,7 @@ if (isDedicated || !hasInterface) exitWith {};
     0,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
-        [PRA3_Player] call FUNC(dropObject)
+        [PRA3_Player] call FUNC(dropObject);
     }
 ] call CFUNC(addAction);
 
@@ -49,12 +49,11 @@ if (isDedicated || !hasInterface) exitWith {};
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         params ["_vehicle"];
-        private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
 
         [PRA3_Player] call FUNC(dropObject);
 
+        private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
         ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
-        ["forceWalk", [PRA3_Player, false]] call CFUNC(localEvent);
         ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
         ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
         _draggedObject setPos [-10000,-10000,100000];

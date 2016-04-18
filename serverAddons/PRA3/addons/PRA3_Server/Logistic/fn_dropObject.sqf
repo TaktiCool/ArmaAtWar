@@ -14,7 +14,6 @@
     None
 */
 params ["_unit"];
-if (_unit == vehicle _unit) exitWith {};
 private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
 detach _draggedObject;
 _unit playAction "released";
