@@ -18,8 +18,9 @@
 */
 disableSerialization;
 params ["_map"];
+private _idx = 0;
 with uiNamespace do {
-    private _idx = GVAR(MapIconMapControls) find _map;
+    _idx = GVAR(MapIconMapControls) find _map;
 };
 if (_idx >= 0) then {
     private _drawId = _map getVariable [QGVAR(DrawEHId), -1];
