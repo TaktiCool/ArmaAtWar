@@ -52,6 +52,7 @@ _draggedObject attachTo [_unit, _attachPoint];
 [{
     params ["_args", "_id"];
     _args params ["_unit"];
+    if (_unit == vehicle _unit) exitWith {};
     [_unit] call FUNC(dropObject);
     [_id] call CFUNC(removePerFrameHandler);
 }, 1,_unit] call CFUNC(addPerFrameHandler);
