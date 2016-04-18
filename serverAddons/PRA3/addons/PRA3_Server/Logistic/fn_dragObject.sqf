@@ -31,7 +31,7 @@ if (_draggedObject isKindOf "StaticWeapon") then {
     };
 };
 
-private _position = _unit modelToWorld [0,0,0];
+private _position = getPos _unit;
 _draggedObject setPos _position;
 private _attachPoint = [0,0,0];
 _unit setVariable [QGVAR(Item), _draggedObject, true];
@@ -52,20 +52,6 @@ _draggedObject attachTo [_unit, _attachPoint];
 [{
     params ["_args", "_id"];
     _args params ["_unit"];
-    if (_unit == vehicle _unit) exitWith {};
-    private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
-    detach _draggedObject;
-    if (isNull _draggedObject) exitWith {};
-    _unit setVariable [QGVAR(Item), objNull, true];
-    _draggedObject setVariable [QGVAR(Player), objNull, true];
-    detach _draggedObject;
-    ["forceWalk", [_unit, false]] call CFUNC(localEvent);
-    ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
-    private _position = getPosATL _draggedObject;
-    if (_position select 2 < 0) then {
-        _position set [2, 0];
-        _draggedObject setPosATL _position;
-   };
-   ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
+    [_unit] call FUNC(dropObject);
     [_id] call CFUNC(removePerFrameHandler);
 }, 1,_unit] call CFUNC(addPerFrameHandler);

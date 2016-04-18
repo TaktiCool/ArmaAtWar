@@ -23,8 +23,6 @@ if (isDedicated || !hasInterface) exitWith {};
     3,
     {
         (isNull assignedGunner _target) &&
-        !(_target isKindOf 'Pod_Heli_Transport_04_base_F') &&
-        !(_target isKindOf 'Slingload_base_F') &&
         isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) &&
         isNull (_target getVariable [QGVAR(Player), objNull])
     },
@@ -40,25 +38,7 @@ if (isDedicated || !hasInterface) exitWith {};
     0,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
-        private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
-
-        PRA3_Player playAction "released";
-
-        if (isNull _draggedObject) exitWith {};
-
-        PRA3_Player setVariable [QGVAR(Item), objNull, true];
-        _draggedObject setVariable [QGVAR(Player), objNull, true];
-
-        detach _draggedObject;
-        ["forceWalk", [PRA3_Player, false]] call CFUNC(localEvent);
-        ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
-        private _position = getPosATL _draggedObject;
-        if (_position select 2 < 0) then {
-            _position set [2, 0];
-            _draggedObject setPosATL _position;
-        };
-        ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
-        PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
+        [PRA3_Player] call FUNC(dropObject)
     }
 ] call CFUNC(addAction);
 
@@ -70,8 +50,9 @@ if (isDedicated || !hasInterface) exitWith {};
     {
         params ["_vehicle"];
         private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
-        PRA3_Player playAction "released";
-        detach _draggedObject;
+
+        [PRA3_Player] call FUNC(dropObject);
+
         ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
         ["forceWalk", [PRA3_Player, false]] call CFUNC(localEvent);
         ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
