@@ -69,5 +69,20 @@ if (hasInterface) then {
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
             };
         }];
+
+        // this fix a issue that Static Guns and Cars dont have right Damage on Lower LODs what mean you can not hit a Unit in a Static gun.
+        // this fix the issue until BI fix this issue and prevent False Reports
+        GVAR(staticVehicleFix) = [];
+        ["entityCreated", {
+            params ["_args"];
+            if (_args isKindOf "Car" || _args isKindOf "StaticWeapon") then {
+                private _id = GVAR(staticVehicleFix) pushBackUnique _args;
+                if (_id != -1) then {
+                    [{}, {
+                        1 preloadObject _this;
+                    }, _args] call CFUNC(waitUntil);
+                };
+            };
+        }] call CFUNC(addEventhandler);
     }] call CFUNC(addEventhandler);
 };
