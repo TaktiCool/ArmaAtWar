@@ -19,9 +19,9 @@ params ["_map"];
 // get sure that the controll not allready have a draw function
 _map call FUNC(unregisterMapControl);
 
-private _drawEHId = _map ctrlAddEventHandler ["Draw",FUNC(drawMapIcons)];
-private _mmEHId = _map ctrlAddEventHandler ["MouseMoving",FUNC(mouseMovingEH)];
-private _mcEHId = _map ctrlAddEventHandler ["MouseButtonClick",FUNC(mouseClickEH)];
+private _drawEHId = _map ctrlAddEventHandler ["Draw", FUNC(drawMapIcons)];
+private _mmEHId = _map ctrlAddEventHandler ["MouseMoving", FUNC(mouseMovingEH)];
+private _mcEHId = _map ctrlAddEventHandler ["MouseButtonClick", FUNC(mouseClickEH)];
 
 _map setVariable [QGVAR(DrawEHId), _drawEHId];
 _map setVariable [QGVAR(MouseMovingEHId), _mmEHId];

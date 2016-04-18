@@ -20,9 +20,11 @@ disableSerialization;
 params ["_map"];
 
 private _mapScale = ctrlMapScale _map;
+private _cache = [];
 
 {
-    private _icon = GVAR(IconNamespace) getVariable _x;
+    private _mapIconId = _x;
+    private _icon = GVAR(IconNamespace) getVariable _mapIconId;
 
     if !(isNil "_icon") then {
         private _icons = _icon select (1 + (_icon select 0));
@@ -78,8 +80,11 @@ private _mapScale = ctrlMapScale _map;
             if (!isNil "_pos") then {
                 _map drawIcon _iconPart;
             };
+            _cache pushBack [_mapIconId, _pos, _iconPart select 3, _iconPart select 4];
             nil
         } count _icons;
     };
     nil
 } count GVAR(MapIconIndex);
+
+GVAR(MapIconCache) = _cache;

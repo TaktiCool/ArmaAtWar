@@ -26,6 +26,8 @@ with uiNamespace do {
     GVAR(MapIconMapControls) = []; // Array of Map Controls
 };
 
+GVAR(MapIconCache) = [];
+
 GVAR(MapIconIndex) = [];
 GVAR(IconNamespace) = call FUNC(createNamespace); //Namspace for Icons
 // GVAR(IconHoveredEventNamespace) = call FUNC(createNamespace); // Namespace for Icon "Hover"-Events
