@@ -15,7 +15,6 @@
     None
 */
 
-#define __DRAGANIMSTATE ["amovpercmstpslowwrfldnon_acinpknlmwlkslowwrfldb_2", "amovpercmstpsraswpstdnon_acinpknlmwlksnonwpstdb_2", "amovpercmstpsnonwnondnon_acinpknlmwlksnonwnondb_2", "acinpknlmstpsraswrfldnon", "acinpknlmstpsnonwpstdnon", "acinpknlmstpsnonwnondnon"]
 #define __MAXWEIGHT 800
 
 params ["_draggedObject", "_unit"];
@@ -41,7 +40,7 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2)];
 } else {
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2) + 0.5];
-    _unit action ["SwitchWeapon", _unit, _unit, 0];
+    _unit action ["SwitchWeapon", _unit, _unit, 99];
     ["forceWalk", [_unit, true]] call CFUNC(localEvent);
 };
 
