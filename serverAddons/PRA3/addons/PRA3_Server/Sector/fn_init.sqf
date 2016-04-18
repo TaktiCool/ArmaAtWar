@@ -109,7 +109,7 @@
                     };
                 };
             }] call CFUNC(addEventHandler);
-
+            /*
             ["sectorCreated", {
                 (_this select 0) params ["_side", "_marker", "_designator"];
                 private _color = [
@@ -140,7 +140,7 @@
                     "hover"
                 ] call CFUNC(addMapIcon);
             }] call CFUNC(addEventHandler);
-
+            */
             {
                 private _side = _x getVariable ["side", sideUnknown];
                 private _marker = _x getVariable ["name", ""];
