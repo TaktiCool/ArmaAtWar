@@ -64,7 +64,7 @@ if (isDedicated || !hasInterface) exitWith {};
 
 [
     {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship"],
+    ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
     10,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
@@ -87,7 +87,7 @@ if (isDedicated || !hasInterface) exitWith {};
 
 [
     {format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["AllVehicles"],
+    ["AllVehicles", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
     10,
     {isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])},
     {
