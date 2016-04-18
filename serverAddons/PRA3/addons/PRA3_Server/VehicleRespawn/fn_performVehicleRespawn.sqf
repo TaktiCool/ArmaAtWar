@@ -10,8 +10,11 @@
     Parameter(s):
     0: Old Vehicle <Object>
     1: Vehicle Type <String>
-    2: Object variable names <Array of Strings>
-    3: Object variable valuess <Array of Any>
+    2: Vehicle variable name <String>
+    3: Vehicle Position <Array>
+    4: Vehicle Direction <Array>
+    5: Respawn Condition <String>
+    6: Respawn Counter <Number>
 
     Returns:
     None

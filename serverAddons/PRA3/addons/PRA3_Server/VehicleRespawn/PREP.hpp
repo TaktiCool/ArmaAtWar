@@ -1,4 +1,4 @@
 // VehicleRespawn
-PREP(serverInitVehicleRespawn)
-PREP(clientInitVehicleRespawn)
+PREP(serverInit)
+PREP(clientInit)
 PREP(performVehicleRespawn)
