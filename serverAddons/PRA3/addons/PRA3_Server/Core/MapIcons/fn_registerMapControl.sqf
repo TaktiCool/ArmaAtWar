@@ -21,7 +21,7 @@ with uiNamespace do {
     _exit = _map in GVAR(MapIconMapControls);
 };
 
-if (_exit) exitWith {nil}
+if (_exit) exitWith {nil};
 /*
 private _drawEHId = _map ctrlAddEventHandler ["Draw", FUNC(drawMapIcons)];
 private _mmEHId = _map ctrlAddEventHandler ["MouseMoving", FUNC(mouseMovingEH)];
