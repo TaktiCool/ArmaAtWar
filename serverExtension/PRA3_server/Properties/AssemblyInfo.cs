@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ARMAExtCS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("PRA3_Server")]
+[assembly: AssemblyDescription("Server Extension for ArmA 3 that Support PRA3")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("PRA3 Team")]
 [assembly: AssemblyProduct("ARMAExtCS")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

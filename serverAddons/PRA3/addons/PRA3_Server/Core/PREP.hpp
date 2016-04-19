@@ -110,4 +110,9 @@ PREP(getNearestLocationName)
 PREP(getFOV)
 PREP(isAlive)
 PREP(name)
+PREP(sanitizeString)
 PREP(setVariablePublic)
+
+#ifdef isDev
+    PREP(serverInit)
+#endif

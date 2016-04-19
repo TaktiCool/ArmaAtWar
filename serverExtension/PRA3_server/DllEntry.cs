@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Windows;
+using System.Reflection;
+using System.Linq;
 
 namespace PRA3_server
 {
@@ -43,6 +47,8 @@ namespace PRA3_server
 			DllEntry.dataCallbacks.Add("replaceRegex", DllEntry.regexReplace);
 			//DllEntry.dataCallbacks.Add("matchRegex", DllEntry.regexMatch);
 			//DllEntry.dataCallbacks.Add("splitRegex", DllEntry.regexSplit);
+
+			DllEntry.dataCallbacks.Add("logging", DllEntry.log);
 
 			// register Regex Options
 			DllEntry.regexOptions.Add("Compiled", RegexOptions.Compiled);
@@ -130,6 +136,28 @@ namespace PRA3_server
 			input = rgx.Replace(input, pattern);
 			returnStringBuilder.Append(input);
 		}
+		public static void log(string input)
+		{
+			string[] inputParts = input.Split(new char[] { ':' }, 2);
+			string extensionPath = (
+				new System.Uri(Assembly.GetExecutingAssembly().CodeBase)
+			).AbsolutePath;
 
+			extensionPath = Path.GetDirectoryName(extensionPath);
+
+			string filePath = extensionPath + string.Format(@"\@PRA3\Logs\{0}.{1}", "test", "log");
+			List<String> oldText = new List<string>();
+
+			if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+			{
+				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+			}
+			if (File.Exists(filePath))
+			{
+				oldText = File.ReadAllLines(filePath).ToList<string>();
+			}
+			oldText.Add(inputParts[1]);
+			File.WriteAllLines(filePath, oldText);
+		}
 	}
 }
