@@ -21,6 +21,7 @@ namespace PRA3_server
 		// regex Pattern
 		private static string pattern = "";
 		private static RegexOptions rgxOpt = RegexOptions.None;
+		private static string startTime = "";
 		static DllEntry()
 		{
 			DllEntry.voidCallbacks.Add("version", versionFuncion);
@@ -60,7 +61,7 @@ namespace PRA3_server
 			DllEntry.regexOptions.Add("Multiline", RegexOptions.Multiline);
 			DllEntry.regexOptions.Add("RightToLeft", RegexOptions.RightToLeft);
 			DllEntry.regexOptions.Add("Singleline", RegexOptions.Singleline);
-
+			startTime = currentDate("{0}-{1}-{2}_{3}-{4}-{5}");
 		}
 
 		[DllExport("_RVExtension@12", CallingConvention = System.Runtime.InteropServices.CallingConvention.Winapi)]
@@ -145,7 +146,7 @@ namespace PRA3_server
 
 			extensionPath = Path.GetDirectoryName(extensionPath);
 
-			string filePath = extensionPath + string.Format(@"\@PRA3\Logs\{0}.{1}", "test", "log");
+			string filePath = @extensionPath + string.Format(@"\Logs\{0}_{1}.{2}", inputParts[0], startTime, "log");
 			List<String> oldText = new List<string>();
 
 			if (!Directory.Exists(Path.GetDirectoryName(filePath)))
@@ -156,8 +157,16 @@ namespace PRA3_server
 			{
 				oldText = File.ReadAllLines(filePath).ToList<string>();
 			}
-			oldText.Add(inputParts[1]);
+			oldText.Add(currentDate("{3}:{4}:{5}") + inputParts[1]);
 			File.WriteAllLines(filePath, oldText);
+		}
+		private static string currentDate(string formating)
+		{
+			string output = "";
+
+			output = string.Format(formating, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+			return output;
 		}
 	}
 }
