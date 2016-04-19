@@ -19,7 +19,7 @@ if (isDedicated || !hasInterface) exitWith {};
 
 [
     {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["StaticWeapon", "ReammoBox_F"],
+    ["StaticWeapon", "ReammoBox_F", "Land_CargoBox_V1_F"],
     3,
     {
         (isNull assignedGunner _target) &&
@@ -28,7 +28,7 @@ if (isDedicated || !hasInterface) exitWith {};
     },
     {
         params ["_draggedObject"];
-        [_draggedObject, PRA3_Player] call FUNC(dragObject);
+        [FUNC(dragObject), [_draggedObject, PRA3_Player]] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -46,24 +46,33 @@ if (isDedicated || !hasInterface) exitWith {};
     {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
     10,
-    {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
+    {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull])) && !((PRA3_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target) },
     {
         params ["_vehicle"];
         [{
             params ["_vehicle"];
             private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
 
-            [PRA3_Player] call FUNC(dropObject);
+            detach _draggedObject;
+            PRA3_Player playAction "released";
+
             ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
+
             _draggedObject setPos [-10000,-10000,100000];
+
             private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
             _ItemArray pushBack _draggedObject;
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
-        }, [_vehicle]] call CFUNC(mutex);
-        PRA3_Player setVariable [QGVAR(Item),objNull, true];
-        PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
+
+            PRA3_Player setVariable [QGVAR(Item), objNull, true];
+            _draggedObject setVariable [QGVAR(Player), objNull, true];
+
+            ["forceWalk", [PRA3_Player, false]] call CFUNC(localEvent);
+
+            PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
+        }, _vehicle] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -72,12 +81,14 @@ if (isDedicated || !hasInterface) exitWith {};
     ["AllVehicles", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
     10,
     {
+        // @TODO we need to find a Idea how to change this action name
         // _target setUserActionText [_id, format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]];
         isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])
     },
     {
+        params ["_vehicle"];
         [{
-            params["_vehicle"];
+            params ["_vehicle"];
             private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
             private _draggedObject = _draggedObjectArray deleteAt 0;
             ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
