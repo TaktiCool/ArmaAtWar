@@ -5,9 +5,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
-using System.Windows;
-using System.Reflection;
-using System.Linq;
 
 namespace PRA3_server
 {
@@ -81,6 +78,7 @@ namespace PRA3_server
 			}
 
 			output.Append(returnStringBuilder.ToString());
+			returnStringBuilder.Clear();
 		}
 
 		public static void cleanUpCodeForCompile(string input)
@@ -137,29 +135,22 @@ namespace PRA3_server
 			input = rgx.Replace(input, pattern);
 			returnStringBuilder.Append(input);
 		}
+
 		public static void log(string input)
 		{
 			string[] inputParts = input.Split(new char[] { ':' }, 2);
-			string extensionPath = (
-				new System.Uri(Assembly.GetExecutingAssembly().CodeBase)
-			).AbsolutePath;
 
-			extensionPath = Path.GetDirectoryName(extensionPath);
-
-			string filePath = @extensionPath + string.Format(@"\Logs\{0}_{1}.{2}", inputParts[0], startTime, "log");
-			List<String> oldText = new List<string>();
-
-			if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+			string path = Environment.CurrentDirectory + @"\@PRA3\Logs";
+			if (!File.Exists(path))
 			{
-				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+				Directory.CreateDirectory(path);
 			}
-			if (File.Exists(filePath))
-			{
-				oldText = File.ReadAllLines(filePath).ToList<string>();
-			}
-			oldText.Add(currentDate("{3}:{4}:{5}") + inputParts[1]);
-			File.WriteAllLines(filePath, oldText);
+			// @Todo let the user define the File format
+			StreamWriter file = new System.IO.StreamWriter(path + string.Format(@"\PRA3Log_{0}_{1}.{2}", startTime, inputParts[0], "log"), true);
+			file.WriteLine(currentDate("[{3}:{4}:{5}]") + inputParts[1]);
+			file.Close();
 		}
+
 		private static string currentDate(string formating)
 		{
 			string output = "";
