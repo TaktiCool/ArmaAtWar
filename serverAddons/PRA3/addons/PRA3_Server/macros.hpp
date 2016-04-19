@@ -25,6 +25,8 @@
 
 #define UIVAR(var1) QEGVAR(UI,var1)
 
+
+
 #ifdef isDev
     #define DUMP(var) \
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
@@ -33,11 +35,26 @@
             sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["PRA3Log_%1_%2", profileName, getPlayerUID PRA3_player]];\
             publicVariableServer "sendlogfile";\
         };
-#else
-    #define DUMP(var) /* disabled */
 #endif
 
 #ifdef PRA3_DEBUGFULL
+    #undef DUMP
+    #define DUMP(var) \
+        diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
+        systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
+        if (hasInterface) then {\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["PRA3Log_%1_%2", profileName, getPlayerUID PRA3_player]];\
+            publicVariableServer "sendlogfile";\
+        };
+#endif
+
+#ifndef DUMP
+    #define DUMP(var) /* disabled */
+#endif
+
+
+
+#ifdef isDev
     #define LOG(var) \
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
@@ -45,7 +62,20 @@
             sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["PRA3Log_%1_%2", profileName, getPlayerUID player]];\
             publicVariableServer "sendlogfile";\
         };
-#else
+#endif
+
+#ifdef PRA3_DEBUGFULL
+    #undef LOG
+    #define LOG(var) \
+        diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
+        systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
+        if (hasInterface) then {\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["PRA3Log_%1_%2", profileName, getPlayerUID player]];\
+            publicVariableServer "sendlogfile";\
+        };
+#endif
+
+#ifndef LOG
     #define LOG(var) diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];
 #endif
 
