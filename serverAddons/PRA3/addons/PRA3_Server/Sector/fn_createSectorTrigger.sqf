@@ -39,7 +39,8 @@ if (hasInterface) then {
         _trig = createTrigger ["EmptyDetector", getMarkerPos _marker, false];
         _trig setTriggerArea [_size select 0, _size select 1, markerDir _marker, (markerShape _marker) == "RECTANGLE"];
         _trig setTriggerActivation ["ANY", "PRESENT", true];
-        _trig setTriggerStatements ["this && {PRA3_Player in thisList}", format ["['sector_entered','%1'] call PRA3_Core_fnc_localEvent;",_marker], format ["['sector_leaved','%1'] call PRA3_Core_fnc_localEvent;",_marker]];
+        private _triggerCode = "[{['%1','%2'] call PRA3_Core_fnc_localEvent;}] call PRA3_Core_fnc_directCall;";
+        _trig setTriggerStatements ["this && {PRA3_Player in thisList}", format [_triggerCode, "sector_entered", _marker], format [_triggerCode, "sector_leaved", _marker]];
         _sector setVariable ["trigger",_trig];
     };
     _trig triggerAttachVehicle [PRA3_Player];

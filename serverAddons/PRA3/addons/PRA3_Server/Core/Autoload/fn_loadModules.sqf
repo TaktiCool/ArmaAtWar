@@ -24,7 +24,7 @@ if (hasInterface) then {
 };
 GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") isEqualTo 1);
 // If the machine has AME running exit and call all requested modules.
-if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { _this call FUNC(loadModulesServer); };
+if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { [FUNC(loadModulesServer), _this] call FUNC(directCall) };
 
 // Start the loading screen on the client to prevent a drawing lag while loading. Disable input too to prevent unintended movement after spawn.
 ["pra3_core_fnc_loadModules"] call bis_fnc_startLoadingScreen;
