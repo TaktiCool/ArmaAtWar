@@ -116,6 +116,7 @@ class PRA3_UI_RespawnScreen {
                     y = PY(4);
                     w = PX(GWIDTH-23);
                     h = PY(3);
+                    onChar = "'PRA3_UI_RespawnScreen_SquadDescriptionInput_TextChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class SquadTypeCombo : PRA3_RscCombo {

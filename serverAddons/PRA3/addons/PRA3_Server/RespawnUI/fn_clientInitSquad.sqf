@@ -185,10 +185,29 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 }] call CFUNC(addEventHandler);
 
+// Create Squad Description Limit
+[UIVAR(RespawnScreen_SquadDescriptionInput_TextChanged), {
+    private _description = ctrlText 204;
+    if (count _description > 14) then {
+        ctrlSetText [204, (_description select [0, 14])];
+        if (isNil QGVAR(maxCharCountReachedNotification)) then {
+            ["Maximal Char Count Reached in Squad Name (max 14 Chars)"] call CFUNC(displayNotification);
+            GVAR(maxCharCountReachedNotification) = true;
+            [{
+                GVAR(maxCharCountReachedNotification) = nil;
+            }, 10] call CFUNC(wait);
+        };
+
+    };
+}] call CFUNC(addEventHandler);
+
 [UIVAR(RespawnScreen_CreateSquadBtn_onButtonClick), {
     disableSerialization;
+    private _description = ctrlText 204;
+    if (count _description > 14) then {
+        _description = _description select [0, 14];
+    };
 
-    private _description = (ctrlText 204) select [0, 14];
     private _type = lbData [205, lbCurSel 205];
 
     [_description, _type] call EFUNC(Squad,createSquad);
