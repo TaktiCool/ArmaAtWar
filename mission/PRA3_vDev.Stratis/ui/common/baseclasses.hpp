@@ -412,7 +412,7 @@ class RscListBox
     access = 0;
     style = 16;
     font = "PuristaMedium";
-    sizeEx = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
     shadow = 0;
     colorShadow[] = {0,0,0,0.5};
     colorText[] = {1,1,1,1.0};
@@ -446,7 +446,7 @@ class RscListNBox : RscListBox
     type = 102;
     shadow = 0;
     font = "PuristaMedium";
-    sizeEx = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
     color[] = {0.95,0.95,0.95,1};
     colorText[] = {1,1,1,1.0};
     colorDisabled[] = {1,1,1,0.25};
@@ -1395,7 +1395,7 @@ class RscTree {
     multiselectEnabled = 0;
     rowHeight = 0.0439091;
     shadow = 0;
-    sizeEx = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
     style = 0;
     type = 12;
     w = 0.1;
@@ -1496,7 +1496,7 @@ class RscMapControl {
     fontLevel = "TahomaB";
     fontNames = "EtelkaNarrowMediumPro";
     fontUnits = "TahomaB";
-    h = "SafeZoneH - 1.5 *                     (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+    h = "SafeZoneH - 1.5 *((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     idc = 51;
     maxSatelliteAlpha = 0.5;
     moveOnEdges = 1;
@@ -1516,11 +1516,11 @@ class RscMapControl {
     showCountourInterval = 1;
     sizeEx = 0.04;
     sizeExGrid = 0.032;
-    sizeExInfo = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-    sizeExLabel = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+    sizeExInfo = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+    sizeExLabel = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
     sizeExLevel = 0.03;
-    sizeExNames = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8) * 2";
-    sizeExUnits = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+    sizeExNames = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8) * 2";
+    sizeExUnits = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
     stickX[] = {0.2,["Gamma",1,1.5]};
     stickY[] = {0.2,["Gamma",1,1.5]};
     style = 48;
@@ -1528,7 +1528,7 @@ class RscMapControl {
     type = 101;
     w = "SafeZoneWAbs";
     x = "SafeZoneXAbs";
-    y = "SafeZoneY + 1.5 *                     (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+    y = "SafeZoneY + 1.5 *((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 
     class ActiveMarker {
         color[] = {0.3,0.1,0.9,1};
@@ -1647,11 +1647,11 @@ class RscMapControl {
         color[] = {0,0,0,1};
         colorBackground[] = {1,1,1,0.5};
         font = "PuristaMedium";
-        h = "3.5 *                     (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-        sizeEx = "(            (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-        w = "10 *                     (            ((safezoneW / safezoneH) min 1.2) / 40)";
-        x = "SafeZoneX +                     (            ((safezoneW / safezoneH) min 1.2) / 40)";
-        y = "SafeZoneY + safezoneH - 4.5 *                     (            (            ((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+        h = "3.5 *((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+        sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+        w = "10 *(((safezoneW / safezoneH) min 1.2) / 40)";
+        x = "SafeZoneX + (((safezoneW / safezoneH) min 1.2) / 40)";
+        y = "SafeZoneY + safezoneH - 4.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     };
 
     class Lighthouse {
