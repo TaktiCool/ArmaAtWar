@@ -72,5 +72,5 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(localEvent);
+    UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

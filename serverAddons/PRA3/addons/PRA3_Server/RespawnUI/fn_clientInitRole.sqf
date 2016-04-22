@@ -87,9 +87,9 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_RoleList_onLBSelChanged), {
-    [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
+    UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_WeaponTabs_onToolBoxSelChanged), {
-    [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
+    UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

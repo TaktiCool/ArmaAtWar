@@ -65,7 +65,7 @@ GVAR(deactivateTicketSystem) = false;
                     _tickets = _tickets - _ticketValue;
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _currentSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _currentSide]);
-                    ["ticketsChanged"] call CFUNC(globalEvent);
+                    "ticketsChanged" call CFUNC(globalEvent);
                 };
             };
 
@@ -76,7 +76,7 @@ GVAR(deactivateTicketSystem) = false;
                     _tickets = _tickets - GVAR(playerTicketValue);
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _currentSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _currentSide]);
-                    ["ticketsChanged"] call CFUNC(globalEvent);
+                    "ticketsChanged" call CFUNC(globalEvent);
                 };
             };
         }];
@@ -89,7 +89,7 @@ GVAR(deactivateTicketSystem) = false;
                     _tickets = _tickets - (_sector getVariable "ticketValue");
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _oldSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _oldSide]);
-                    ["ticketsChanged"] call CFUNC(globalEvent);
+                    "ticketsChanged" call CFUNC(globalEvent);
                 };
             };
 
@@ -112,7 +112,7 @@ GVAR(deactivateTicketSystem) = false;
                     _tickets = _tickets - (GVAR(ticketBleed) select 1);
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _side], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _side]);
-                    ["ticketsChanged"] call CFUNC(globalEvent);
+                    "ticketsChanged" call CFUNC(globalEvent);
 
                     private _nbrOwnedSectors = {
                         !((_x getVariable ["side",sideUnknown]) in [_opposingSide]);
@@ -149,7 +149,7 @@ GVAR(deactivateTicketSystem) = false;
 
             if (isNil QGVAR(musicPlay) && {(missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Mission,competingSides) select 0], 1000]) <= GVAR(musicStartTickets) ||
                (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Mission,competingSides) select 1], 1000]) <= GVAR(musicStartTickets)}) then {
-                ["playEndMusic"] call CFUNC(localEvent);
+                "playEndMusic" call CFUNC(localEvent);
                 GVAR(musicPlay) = true;
             };
 
