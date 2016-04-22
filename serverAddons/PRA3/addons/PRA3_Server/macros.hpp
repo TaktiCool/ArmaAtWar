@@ -59,7 +59,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, getPlayerUID player]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, getPlayerUID PRA3_player]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
@@ -70,7 +70,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, getPlayerUID player]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, getPlayerUID PRA3_player]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
