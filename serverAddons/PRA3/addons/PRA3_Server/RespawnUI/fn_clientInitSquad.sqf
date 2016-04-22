@@ -188,7 +188,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 [UIVAR(RespawnScreen_CreateSquadBtn_onButtonClick), {
     disableSerialization;
 
-    private _description = ctrlText 204;
+    private _description = (ctrlText 204) select [0, 14];
     private _type = lbData [205, lbCurSel 205];
 
     [_description, _type] call EFUNC(Squad,createSquad);
