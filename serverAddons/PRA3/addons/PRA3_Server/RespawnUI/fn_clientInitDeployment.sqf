@@ -23,8 +23,8 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
     disableSerialization;
 
     // SpawnPointList
-#undef IDC
-#define IDC 403
+    #undef IDC
+    #define IDC 403
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedPoint = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
     EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
@@ -60,8 +60,8 @@ GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
     };
 
     // Map
-#undef IDC
-#define IDC 700
+    #undef IDC
+    #define IDC 700
     if (_selectedPoint != "") then {
         private _map = (findDisplay 1000) displayCtrl IDC;
         private _pointDetails = _pointData select (_pointIds find _selectedPoint);

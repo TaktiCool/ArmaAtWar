@@ -23,13 +23,13 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     disableSerialization;
 
     // TeamFlag
-#undef IDC
-#define IDC 102
+    #undef IDC
+    #define IDC 102
     ctrlSetText [IDC, (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), playerSide], ""])];
 
     // TeamName
-#undef IDC
-#define IDC 103
+    #undef IDC
+    #define IDC 103
     ctrlSetText [IDC, (missionNamespace getVariable [format [QEGVAR(Mission,SideName_%1), playerSide], ""])];
 }] call CFUNC(addEventHandler);
 
@@ -45,13 +45,13 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     disableSerialization;
 
     // NewSquadDesignator
-#undef IDC
-#define IDC 203
+    #undef IDC
+    #define IDC 203
     ctrlSetText [IDC, (call EFUNC(Squad,getNextSquadId)) select [0, 1]];
 
     // SquadTypeCombo
-#undef IDC
-#define IDC 205
+    #undef IDC
+    #define IDC 205
     private _selectedGroupType = lbData [IDC, lbCurSel IDC];
     private _visibleGroupTypes = ("true" configClasses (missionConfigFile >> "PRA3" >> "GroupTypes") apply {configName _x}) select {[_x] call EFUNC(Squad,canUseSquadType)};
     lbClear IDC;
@@ -74,8 +74,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // SquadList
-#undef IDC
-#define IDC 207
+    #undef IDC
+    #define IDC 207
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedGroup = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), grpNull] select (_selectedLnbRow == -1);
     private _visibleGroups = allGroups select {side _x == playerSide && (groupId _x) in EGVAR(Squad,squadIds)};
@@ -111,8 +111,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // HeadingSquadDetails
-#undef IDC
-#define IDC 209
+    #undef IDC
+    #define IDC 209
     if (isNull _selectedGroup) then {
         ctrlSetText [IDC, "SELECT A SQUAD"];
     } else {
@@ -120,8 +120,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // SquadMemberList
-#undef IDC
-#define IDC 210
+    #undef IDC
+    #define IDC 210
     _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedGroupMember = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), objNull] select (_selectedLnbRow == -1);
     private _visibleGroupMembers = units _selectedGroup;
@@ -149,8 +149,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // JoinLeaveBtn
-#undef IDC
-#define IDC 211
+    #undef IDC
+    #define IDC 211
     if (isNull _selectedGroup) then {
         ctrlShow [IDC, false];
     } else {
@@ -167,8 +167,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // KickBtn
-#undef IDC
-#define IDC 212
+    #undef IDC
+    #define IDC 212
     if (isNull _selectedGroupMember) then {
         ctrlShow [IDC, false];
     } else {
@@ -176,8 +176,8 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     };
 
     // PromoteBtn
-#undef IDC
-#define IDC 213
+    #undef IDC
+    #define IDC 213
     if (isNull _selectedGroupMember) then {
         ctrlShow [IDC, false];
     } else {

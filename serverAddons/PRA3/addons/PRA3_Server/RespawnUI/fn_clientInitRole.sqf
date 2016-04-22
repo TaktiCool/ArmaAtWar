@@ -23,7 +23,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     disableSerialization;
 
     // RoleList
-#define IDC 303
+    #define IDC 303
     private _selectedLnbRow = lnbCurSelRow IDC;
     private _previousSelectedKit = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
     private _selectedKit = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), _previousSelectedKit] select (_selectedLnbRow == -1);
@@ -67,8 +67,8 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     } count _visibleKits;
 
     // WeaponTabs
-#undef IDC
-#define IDC 304
+    #undef IDC
+    #define IDC 304
     private _index = (lbCurSel IDC);
     if !(_index in [0,1,2]) then {
         _index = 0;
@@ -76,13 +76,13 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
     private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select _index, ""]]] call EFUNC(Kit,getKitDetails);
 
     // WeaponPicture
-#undef IDC
-#define IDC 306
+    #undef IDC
+    #define IDC 306
     ctrlSetText [IDC, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture")];
 
     // WeaponName
-#undef IDC
-#define IDC 307
+    #undef IDC
+    #define IDC 307
     ctrlSetText [IDC, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName")];
 }] call CFUNC(addEventHandler);
 
