@@ -13,72 +13,35 @@
     Returns:
     0
 */
-// DUMP(_this)
-private _ret = 0;
-params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
-if (!(alive _unit) || (_damage == 0)) exitWith {_ret};
-// DUMP("HANDLEDAMAGE")
-_selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelections);
-private _selectionIndex = GVAR(SELECTIONS) find _selectionName;
+params ["_unit", "_selectionName", "_newDamage", "_source", "_projectile", "_hitPartIndex"];
 
-// fixes issue with Various Mods that not have standart selection Names
-if (_selectionIndex == -1) then {
-    _selectionName = "body";
-    _selectionIndex = GVAR(SELECTIONS) find _selectionName;
+if (!(alive _unit) || _newDamage == 0 || _unit != PRA3_Player) exitWith {0};
+
+// Get the correct selection name
+_selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelection);
+private _selectionIndex = GVAR(selections) find _selectionName;
+
+// Calculate the correct damage
+private _damageCoefficients = [QGVAR(Settings_damageCoefficients), GVAR(selections) apply {1}] call CFUNC(getSetting);
+_newDamage = _newDamage / (_damageCoefficients select _selectionIndex);
+
+//@todo try to move this into unconscious hit effect
+if (_unit getVariable [QGVAR(isUnconscious), false]) then {
+    private _unconsciousDamageCoefficient = [QGVAR(Settings_unconsciousDamageCoefficient), 1] call CFUNC(getSetting);
+    _newDamage = _newDamage * _unconsciousDamageCoefficient;
 };
 
-private _allDamage = _unit getVariable [QGVAR(DamageSelection),[0,0,0,0,0,0,0]];
-_damage = (_allDamage select _selectionIndex) + (_damage / (GVAR(damageCoef) select _selectionIndex));
-private _newDamage = _damage - (_allDamage select _selectionIndex);
-_allDamage set [_selectionIndex, _damage min GVAR(maxDamage)];
+// Add the damage to the previous
+private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
+private _previousDamage = _unit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+private _totalDamage = (_previousDamage select _selectionIndex) + _newDamage;
+_previousDamage set [_selectionIndex, _totalDamage];
+[_unit, QGVAR(selectionDamage), _previousDamage] call CFUNC(setVariablePublic); // Use setVariablePublic to improve performance and not publish multiple times
 
+// Broadcast to hit locally
+[QGVAR(Hit), [_unit, _selectionName, _newDamage, _totalDamage]] call CFUNC(localEvent);
 
-if (_selectionName != "" && _newDamage > 0.2) then {
-    private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
-
-    _bloodLoss = _bloodLoss + (_newDamage * ([GVAR(bleedCoef), GVAR(unconBleedCoef)] select (_unit getVariable [QGVAR(isUnconscious), false])));
-
-    [_newDamage] call FUNC(bloodEffect);
-    [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
-};
-
-if (_selectionName in ["head", "body", ""]) then {
-
-    if (!GVAR(preventInstantDeath) && {_newDamage >= GVAR(maxDamage)}) then {
-        _unit setVariable [QGVAR(isUnconscious), true, true];
-        // DUMP("handleDamage: instantDeath")
-        // _unit setDamage 1;
-        _ret = 1;
-    } else {
-        if (_damage >= GVAR(maxDamage)) then {
-            if !(_unit getVariable [QGVAR(isUnconscious), false]) then {
-                if !((vehicle _unit) isEqualTo _unit) then {
-                    _unit setVariable [QGVAR(isUnconscious), true, true];
-                    // DUMP("handleDamage: instantDeath in Vehicle")
-                    // _unit setDamage 1;
-                    _ret = 1;
-                } else {
-                    // DUMP("handleDamage: forceRespawn")
-                    // forceRespawn _unit;
-                    _ret = 1;
-                };
-
-            };
-        };
-    };
-};
-
-// @todo replace with Fatigue Framework
-if (_selectionName in ["leg_l", "leg_r"] && _damage > 0.7) then {
-    if !(isForcedWalk _unit) then {
-        _unit forceWalk true;
-    };
-};
-
-// use setVariablePublic to Improve performance and not publish multible times the damage variable
-[PRA3_Player, QGVAR(DamageSelection), _allDamage] call CFUNC(setVariablePublic);
-
-_ret
+[0, 1] select (_selectionName in ["head", "body", ""] && _totalDamage >= _maxDamage)
 
 /*
     Vanilla HandleDamage Calles
