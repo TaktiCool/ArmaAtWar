@@ -140,7 +140,7 @@ namespace PRA3_server
 		{
 			string[] inputParts = input.Split(new char[] { ':' }, 2);
 
-			string path = Environment.CurrentDirectory + @"\@PRA3\Logs";
+			string path = Environment.CurrentDirectory + @"\PRA3_Logs";
 			if (!File.Exists(path))
 			{
 				Directory.CreateDirectory(path);
