@@ -16,10 +16,10 @@
     None
 */
 params ["_targetSide", "_targetGroup", "_targetPosition", ["_isTemporaryUnit", false]];
-DUMP(_this)
+
 // Create new body
 private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
-DUMP(_className)
+
 if (_className == "") then {
     _className = "O_Soldier_F";
 };
