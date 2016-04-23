@@ -26,6 +26,18 @@
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventHandler);
 
+// You have to bleed when falling unconscious
+["UnconsciousnessChanged", {
+    (_this select 0) params ["_state"];
+
+    if (_state) then {
+        private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+        if (_bloodLoss < 1) then {
+            [_unit, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
+        };
+    };
+}] call CFUNC(addEventHandler);
+
 // Broadcast variable again on respawn
 ["Respawn", {
     (_this select 0) params ["_newUnit"];
