@@ -53,4 +53,4 @@ call FUNC(revive);
     (_this select 0) params ["_newUnit"];
 
     _newUnit setVariable [QGVAR(selectionDamage), _newUnit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}], true];
-}] call CFUNC(addEventHandler):
+}] call CFUNC(addEventHandler);
