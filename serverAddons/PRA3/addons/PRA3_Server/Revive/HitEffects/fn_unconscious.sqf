@@ -125,42 +125,50 @@ GVAR(unconsciousPPEffects) = [
         (_display displayCtrl 3003) ctrlSetStructuredText parseText "YOU ARE UNCONSCIOUS AND BLEEDING";
         (_display displayCtrl 3004) ctrlSetStructuredText parseText "Wait for help or respawn ...";
 
-        [{
-            params ["_display", "_id"];
+        if (isNil GVAR(unconsciousPFH)) then {
+            GVAR(unconsciousPFH) = [{
+                params ["_display", "_id"];
 
-            private _unconsciousTimer = PRA3_Player getVariable [QGVAR(unconsciousTimer), 0];
-            private _unconsciousDuration = [QGVAR(Settings_unconsciousDuration), 100] call CFUNC(getSetting);
+                private _unconsciousTimer = PRA3_Player getVariable [QGVAR(unconsciousTimer), 0];
+                private _unconsciousDuration = [QGVAR(Settings_unconsciousDuration), 100] call CFUNC(getSetting);
 
-            private _progressPercentage = 1 - (_unconsciousTimer / _unconsciousDuration);
+                private _progressPercentage = 1 - (_unconsciousTimer / _unconsciousDuration);
 
-            if (_progressPercentage > 0.99) then {
-                {
-                    _x ppEffectEnable false;
-                    nil
-                } count GVAR(unconsciousPPEffects);
-            } else {
-                private _bright = 0.2 + (0.1 * _progressPercentage);
-                private _intense = 0.6 + (0.4 * _progressPercentage);
+                if (_progressPercentage > 0.99) then {
+                    {
+                        _x ppEffectEnable false;
+                        nil
+                    } count GVAR(unconsciousPPEffects);
+                } else {
+                    private _bright = 0.2 + (0.1 * _progressPercentage);
+                    private _intense = 0.6 + (0.4 * _progressPercentage);
 
-                {
-                    _effect = GVAR(unconsciousPPEffects) select _forEachIndex;
-                    _effect ppEffectEnable true;
-                    _effect ppEffectAdjust _x;
-                    _effect ppEffectCommit 1;
-                } forEach [
-                    [1, 1, 0.15 * _progressPercentage, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
-                    [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [_intense, _intense, 0, 0, 0, 0.2, 1]],
-                    [0.7 + (1 - _progressPercentage)]
-                ];
-            };
+                    {
+                        _effect = GVAR(unconsciousPPEffects) select _forEachIndex;
+                        _effect ppEffectEnable true;
+                        _effect ppEffectAdjust _x;
+                        _effect ppEffectCommit 1;
+                    } forEach [
+                        [1, 1, 0.15 * _progressPercentage, [0.3, 0.3, 0.3, 0], [_bright, _bright, _bright, _bright], [1, 1, 1, 1]],
+                        [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [_intense, _intense, 0, 0, 0, 0.2, 1]],
+                        [0.7 + (1 - _progressPercentage)]
+                    ];
+                };
 
-            if (isNull _display) exitWith {
-                _id call CFUNC(removePerFrameHandler);
-            };
+                if (isNull _display) exitWith {
+                    _id call CFUNC(removePerFrameHandler);
+                };
 
-            (_display displayCtrl 3002) progressSetPosition _progressPercentage;
-        }, 0, _display] call CFUNC(addPerFrameHandler);
+                (_display displayCtrl 3002) progressSetPosition _progressPercentage;
+            }, 0, _display] call CFUNC(addPerFrameHandler);
+        };
     } else {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+        GVAR(unconsciousPFH) call CFUNC(removePerFrameHandler);
+        GVAR(unconsciousPFH) = nil;
+        {
+            _x ppEffectEnable false;
+            nil
+        } count GVAR(unconsciousPPEffects);
     };
 }] call CFUNC(addEventHandler);
