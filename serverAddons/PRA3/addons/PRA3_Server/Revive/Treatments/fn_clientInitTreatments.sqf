@@ -27,7 +27,11 @@
     PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
 
     // Create a simple object
-    private _fakeWeapon = createSimpleObject [getText (configFile >> "CfGWeapons" >> _item >> "model"), [0, 0, 0]];
+    private _modelName = getText (configFile >> "CfGWeapons" >> _item >> "model");
+    if ((_modelName select [count _modelName - 4, 3]) != "p3d") then {
+        _modelName = _modelName + ".p3d";
+    };
+    private _fakeWeapon = createSimpleObject [_modelName, [0, 0, 0]];
 
     // Attach it to the right hand
     _fakeWeapon attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
