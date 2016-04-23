@@ -154,10 +154,13 @@ GVAR(unconsciousPPEffects) = [
                 ];
             };
 
+            if (isNull _display) exitWith {
+                _id call CFUNC(removePerFrameHandler);
+            };
+
             (_display displayCtrl 3002) progressSetPosition _progressPercentage;
         }, 0, _display] call CFUNC(addPerFrameHandler);
     } else {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
-        _id call CFUNC(removePerFrameHandler);
     };
 }] call CFUNC(addEventHandler);
