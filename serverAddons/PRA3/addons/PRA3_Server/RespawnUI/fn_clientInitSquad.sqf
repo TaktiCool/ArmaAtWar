@@ -198,15 +198,6 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
         }, 1] call CFUNC(wait);
 
         ctrlSetText [204, (_description select [0, 14])];
-        /*
-        if (isNil QGVAR(maxCharCountReachedNotification)) then {
-            ["Maximal Char Count Reached in Squad Name (max 14 Chars)"] call CFUNC(displayNotification);
-            GVAR(maxCharCountReachedNotification) = true;
-            [{
-                GVAR(maxCharCountReachedNotification) = nil;
-            }, 10] call CFUNC(wait);
-        };
-        */
     };
 }] call CFUNC(addEventHandler);
 
