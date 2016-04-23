@@ -35,17 +35,6 @@ private _side = switch (markerColor _marker) do {
     default {sideUnknown};
 };
 
-/*
-private _infoMarker = createMarker [format ["InformationMarker_%1", _marker], getMarkerPos _marker];
-_infoMarker setMarkerShape "ICON";
-_infoMarker setMarkerType SelectSideMarker(_side);
-_infoMarker setMarkerColor (markerColor _marker);
-_nameMarker = createMarker [format ["InformationMarker2_%1", _marker], getMarkerPos _marker vectorAdd [0, 0, 100]];
-_nameMarker setMarkerColor "ColorBlack";
-_nameMarker setMarkerShape "ICON";
-_nameMarker setMarkerType "EmptyIcon";
-_nameMarker setMarkerText _designator;
-*/
 ["sectorCreated", [_side, _marker, _designator]] call CFUNC(globalEvent);
 
 _marker setMarkerAlpha 1;

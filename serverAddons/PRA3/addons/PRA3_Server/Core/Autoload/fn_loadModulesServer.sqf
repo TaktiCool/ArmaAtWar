@@ -85,4 +85,4 @@ if (isServer) then {
     };
 };
 // Call all required function on the server.
-[FUNC(callModules)] call CFUNC(directCall);
+call FUNC(callModules)

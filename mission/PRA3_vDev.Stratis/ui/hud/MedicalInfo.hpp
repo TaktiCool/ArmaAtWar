@@ -1,7 +1,7 @@
 class PRA3_UI_MedicalInfo {
     idd = -1;
     duration = 1e11;
-    onLoad = "uiNamespace setVariable [""PRA3_UI_MedicalInfo"", _this select 0];";
+    onLoad = "uiNamespace setVariable ['PRA3_UI_MedicalInfo', _this select 0];";
     class Controls {
 
         class Text : RscStructuredText {

@@ -43,7 +43,7 @@ DFUNC(updateIcons) = {
 
 {
     [_x, {
-        [QGVAR(updateIconsEvent)] call CFUNC(globalEvent);
+        QGVAR(updateIconsEvent) call CFUNC(globalEvent);
     }] call CFUNC(addEventHandler);
     nil
 } count ["leaderChanged", "sideChanged", "groupChanged", "playerChanged"];

@@ -31,7 +31,7 @@ GVAR(oldCursorTarget) = objNull;
 
     _data = PRA3_Player call CFUNC(getAllGear);
     if !(_data isEqualTo GVAR(oldGear)) then {
-        ["playerInventoryChanged"] call FUNC(localEvent);
+        "playerInventoryChanged" call FUNC(localEvent);
         GVAR(oldGear) = _data;
     };
 
@@ -58,7 +58,7 @@ GVAR(oldCursorTarget) = objNull;
 // To ensure that the ingame display is available and prevent unnecessary draw3D calls during briefings we trigger an event if the mission starts.
 [{
     // If ingame display is available trigger the event and remove the OEF EH to ensure that the event is only triggered once.
-    ["missionStarted"] call FUNC(localEvent);
+    "missionStarted" call FUNC(localEvent);
 
     ["playerJoined", PRA3_Player] call FUNC(globalEvent);
 }, {!(isNull (findDisplay 46))}] call FUNC(waitUntil);

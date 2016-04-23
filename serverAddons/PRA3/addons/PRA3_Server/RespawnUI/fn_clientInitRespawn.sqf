@@ -20,10 +20,10 @@
 
     // The dialog needs one frame until access to controls via IDC is possible
     [{
-        [UIVAR(RespawnScreen_TeamInfo_update)] call CFUNC(localEvent);
-        [UIVAR(RespawnScreen_SquadManagement_update)] call CFUNC(localEvent);
-        [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
-        [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(localEvent);
+        UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
         [{
             [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
         }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);

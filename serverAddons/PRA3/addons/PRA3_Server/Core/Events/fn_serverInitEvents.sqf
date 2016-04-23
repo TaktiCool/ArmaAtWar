@@ -20,7 +20,7 @@ GVAR(jipQueue) = [];
 if (isDedicated) then {
     [{
         // If time is greater than zero trigger the event and remove the OEF EH to ensure that the event is only triggered once.
-        ["missionStarted"] call FUNC(localEvent);
+        "missionStarted" call FUNC(localEvent);
     }, {(time > 0)}] call FUNC(waitUntil);
 };
 

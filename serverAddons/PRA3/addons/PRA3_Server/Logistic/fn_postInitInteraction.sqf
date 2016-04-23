@@ -17,9 +17,21 @@
 
 if (isDedicated || !hasInterface) exitWith {};
 
+GVAR(DragableClasses) = [];
+{
+    GVAR(DragableClasses) pushBack configName _x;
+    nil
+} count ("getNumber (_x >> ""isDragable"") == 1" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+
+GVAR(CargoClasses) = [];
+{
+    GVAR(CargoClasses) pushBack configName _x;
+    nil
+} count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+
 [
     {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["StaticWeapon", "ReammoBox_F", "Land_CargoBox_V1_F"],
+    GVAR(DragableClasses),
     3,
     {
         (isNull assignedGunner _target) &&
@@ -44,7 +56,7 @@ if (isDedicated || !hasInterface) exitWith {};
 
 [
     {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["Car","Helicopter_Base_H","I_Heli_light_03_base_F ","Ship", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
+    GVAR(CargoClasses),
     10,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull])) && !((PRA3_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target) },
     {
@@ -52,6 +64,18 @@ if (isDedicated || !hasInterface) exitWith {};
         [{
             params ["_vehicle"];
             private _draggedObject = PRA3_Player getVariable [QGVAR(Item), objNull];
+
+            private _cargoSize = _draggedObject getVariable ["cargoSize", 0];
+            private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
+            private _cargoCapacity = _vehicle getVariable ["cargoCapacity", 0];
+            {
+                _cargoCapacity = _cargoCapacity - (_x getVariable ["cargoSize", 0]);
+            } count _ItemArray;
+
+            if (_cargoCapacity < _cargoSize) exitWith {
+                ["No Cargo Space available"] call CFUNC(displayNotification);
+            };
+
 
             detach _draggedObject;
             PRA3_Player playAction "released";
@@ -62,7 +86,6 @@ if (isDedicated || !hasInterface) exitWith {};
 
             _draggedObject setPos [-10000,-10000,100000];
 
-            private _ItemArray = _vehicle getVariable [QGVAR(CargoItems), []];
             _ItemArray pushBack _draggedObject;
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
 
@@ -78,7 +101,7 @@ if (isDedicated || !hasInterface) exitWith {};
 
 [
     {format["Unload Object out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
-    ["AllVehicles", "Land_CargoBox_V1_F", "B_Slingload_01_Cargo_F"],
+    GVAR(CargoClasses),
     10,
     {
         // @TODO we need to find a Idea how to change this action name

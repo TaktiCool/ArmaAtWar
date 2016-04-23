@@ -105,27 +105,69 @@ class CfgEntities {
     };
 
     // Logistic
+    class Box_Nato_Ammo_F {
+        isDragable = 1;
+        isLoadable = 1;
+        cargoCapacity = 3;
+        cargoSize = 5;
+    };
+
+    class Box_East_Ammo_F : Box_Nato_Ammo_F {
+    };
+
     class Land_CargoBox_V1_F {
         isDragable = 1;
-        cargoIsLoadable = 1;
-        cargoCapacity = 10;
-        cargoSize = 20;
+        isLoadable = 1;
+        cargoCapacity = 20;
+        cargoSize = 25;
     };
 
     class B_Slingload_01_Cargo_F {
         isDragable = 1;
-        cargoIsLoadable = 0;
-        cargoCapacity = 30;
+        isLoadable = 0;
+        cargoCapacity = 50;
         cargoSize = 60;
         logisticOffset[] = {0,0,5};
     };
 
-    class B_Heli_Transport_01_F {
+    class Heli_Transport_01_base_F {
+        cargoCapacity = 20;
+    };
+
+    class Heli_Transport_02_base_F : Heli_Transport_01_base_F {
+    };
+
+    class Heli_Transport_03_base_F {
         cargoCapacity = 50;
     };
 
-    class B_Heli_Transport_03_F {
-        cargoCapacity = 100;
+    class Heli_Transport_04_base_F : Heli_Transport_03_base_F {
+    };
+
+
+    class O_Truck_02_covered_F {
+        cargoCapacity = 50;
+    };
+
+    class O_Truck_03_covered_F : O_Truck_02_covered_F {
+    };
+
+    class O_Truck_03_transport_F : O_Truck_02_covered_F {
+    };
+
+    class B_Truck_01_Box_F {
+        cargoCapacity = 80;
+    };
+
+    class B_Truck_01_Covered_F {
+        cargoCapacity = 50;
+    };
+
+    class B_MRAP_01_F {
+        cargoCapacity = 20;
+    };
+
+    class O_MRAP_02_F : B_MRAP_01_F {
     };
 
 };

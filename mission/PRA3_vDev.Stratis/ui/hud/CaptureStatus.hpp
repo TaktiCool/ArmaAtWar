@@ -1,7 +1,7 @@
 class PRA3_UI_CaptureStatus {
     idd = -1;
     duration = 1e11;
-    onLoad = "uiNamespace setVariable [""PRA3_UI_CaptureStatus"", _this select 0];";
+    onLoad = "uiNamespace setVariable ['PRA3_UI_CaptureStatus', _this select 0];";
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 1000;

@@ -21,6 +21,6 @@
 ["Create Rally Point", PRA3_Player, 0, {
     [QGVAR(isRallyPlaceable), FUNC(canPlaceRally), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
 }, {
-    [QGVAR(ClearRallyPlaceable)] call CFUNC(localEvent);
+    QGVAR(ClearRallyPlaceable) call CFUNC(localEvent);
     call FUNC(placeRally);
 }] call CFUNC(addAction);

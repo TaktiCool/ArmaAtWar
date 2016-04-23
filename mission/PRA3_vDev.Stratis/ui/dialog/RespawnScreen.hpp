@@ -1,7 +1,7 @@
 class PRA3_UI_RespawnScreen {
     idd = 1000;
-    onLoad = "[""PRA3_UI_RespawnScreen_onLoad""] call PRA3_Core_fnc_localEvent;";
-    onUnload = "[""PRA3_UI_RespawnScreen_onUnload""] call PRA3_Core_fnc_localEvent;";
+    onLoad = "'PRA3_UI_RespawnScreen_onLoad' call PRA3_Core_fnc_localEvent;";
+    onUnload = "'PRA3_UI_RespawnScreen_onUnload' call PRA3_Core_fnc_localEvent;";
 
     class controlsBackground {
         #define GHEIGHT 82
@@ -69,7 +69,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(9);
                     h = PY(GHEIGHT);
 
-                    onButtonClick = "[""PRA3_UI_RespawnScreen_ChangeSideBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
+                    onButtonClick = "'PRA3_UI_RespawnScreen_ChangeSideBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
                 };
             };
         };
@@ -116,6 +116,7 @@ class PRA3_UI_RespawnScreen {
                     y = PY(4);
                     w = PX(GWIDTH-23);
                     h = PY(3);
+                    onChar = "'PRA3_UI_RespawnScreen_SquadDescriptionInput_TextChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class SquadTypeCombo : PRA3_RscCombo {
@@ -134,7 +135,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(8);
                     h = PY(3);
 
-                    onButtonClick = "[""PRA3_UI_RespawnScreen_CreateSquadBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
+                    onButtonClick = "'PRA3_UI_RespawnScreen_CreateSquadBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class SquadList : PRA3_RscListNBox {
@@ -146,7 +147,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0,0.075,0.5,0.85};
 
-                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_SquadManagement_update""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadManagement_update' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class BackgroundSquadDetails : RscPicture {
@@ -176,7 +177,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0};
 
-                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_SquadManagement_update""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadManagement_update' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class JoinLeaveBtn : PRA3_RscButtonMenu {
@@ -187,7 +188,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(6);
                     h = PY(3);
 
-                    onButtonClick = "[""PRA3_UI_RespawnScreen_JoinLeaveBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
+                    onButtonClick = "'PRA3_UI_RespawnScreen_JoinLeaveBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class KickBtn : PRA3_RscButtonMenu {
@@ -198,7 +199,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(6);
                     h = PY(3);
 
-                    onButtonClick = "[""PRA3_UI_RespawnScreen_KickBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
+                    onButtonClick = "'PRA3_UI_RespawnScreen_KickBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class PromoteBtn : PRA3_RscButtonMenu {
@@ -209,7 +210,7 @@ class PRA3_UI_RespawnScreen {
                     w = PX(9);
                     h = PY(3);
 
-                    onButtonClick = "[""PRA3_UI_RespawnScreen_PromoteBtn_onButtonClick""] call PRA3_Core_fnc_localEvent;";
+                    onButtonClick = "'PRA3_UI_RespawnScreen_PromoteBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
                 };
             };
         };
@@ -250,7 +251,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0,0.85};
 
-                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_RoleList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_RoleList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class WeaponTabs : RscToolbox {
@@ -265,7 +266,7 @@ class PRA3_UI_RespawnScreen {
                     columns = 3;
                     strings[] = {"Primary", "Secondary", "Special"};
 
-                    onToolBoxSelChanged = "[""PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged""] call PRA3_Core_fnc_localEvent;";
+                    onToolBoxSelChanged = "'PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class WeaponBackground : RscPicture {
@@ -338,7 +339,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0,0.075,0.875};
 
-                    onLBSelChanged = "[""PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged""] call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
                 };
             };
         };
@@ -351,13 +352,13 @@ class PRA3_UI_RespawnScreen {
             idc = 500;
             text = "DEPLOY";
             sizeEx = PY(4);
-            colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
+            colorBackground[] = {0.77, 0.51, 0.08, 1};
             x = safeZoneW - PX(GWIDTH+5) + safeZoneX;
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
 
-            action = "[""PRA3_UI_RespawnScreen_DeployButton_action""] call PRA3_Core_fnc_localEvent;";
+            action = "'PRA3_UI_RespawnScreen_DeployButton_action' call PRA3_Core_fnc_localEvent;";
         };
     };
 };
