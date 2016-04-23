@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles bandages.
+    Initializes treatment system
 
     Parameter(s):
-    -
+    None
 
     Returns:
     None
@@ -132,6 +132,7 @@ GVAR(currentTreatingUnits) = [];
 
     GVAR(currentTreatingUnits) pushBackUnique _unit;
 
+    // Publish time
     PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
 
     [QGVAR(PrepareTreatment), _this select 0] call CFUNC(localEvent);

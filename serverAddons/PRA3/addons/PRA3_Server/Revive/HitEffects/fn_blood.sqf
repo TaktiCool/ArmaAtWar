@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Every bloody shit.
+    Every bloody shit
 
     Parameter(s):
-    PFH Return
+    None
 
     Returns:
     None
@@ -45,7 +45,7 @@
     if (!(alive PRA3_Player)) exitWith {};
 
     // Stop bleeding while treated
-    if (PRA3_player getVariable [QGVAR(medicalActionRunning), ""] == "BANDAGE") exitWith {};
+    if (PRA3_player getVariable [QGVAR(medicalActionRunning), ""] in ["BANDAGE", "REVIVE"]) exitWith {};
 
     private _bleedCoefficient = [QGVAR(Settings_bleedCoefficient), 1] call CFUNC(getSetting);
     private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
@@ -69,6 +69,6 @@
     private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
 
     if (_bloodLoss > 0) then {
-        [600 * _bloodLoss] call BIS_fnc_bloodEffect;
+        [600 * _bloodLoss] call FUNC(bloodEffect);
     };
 }, 3.5] call CFUNC(addPerFrameHandler);

@@ -8,10 +8,10 @@
     Client Init of Revive Module
 
     Parameter(s):
-    -
+    None
 
     Returns:
-    -
+    None
 */
 [QGVAR(Settings), missionConfigFile >> "PRA3" >> "CfgRevive"] call CFUNC(loadSettings);
 

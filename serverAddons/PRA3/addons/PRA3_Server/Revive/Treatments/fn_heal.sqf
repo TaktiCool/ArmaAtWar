@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles unconsciousness.
+    Handles healing
 
     Parameter(s):
-    PFH Return
+    None
 
     Returns:
     None
@@ -44,8 +44,6 @@
     private _highestDamage = _selectionDamageSorted select 0;
 
     PRA3_Player setVariable [QGVAR(treatmentProgress), 1 - (_highestDamage / _maxDamage), true];
-
-    // Publish time
 }] call CFUNC(addEventHandler);
 
 // Handle incoming heal

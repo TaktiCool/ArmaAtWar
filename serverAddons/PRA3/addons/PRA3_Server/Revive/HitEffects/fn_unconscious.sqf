@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles unconsciousness.
+    Handles unconsciousness
 
     Parameter(s):
-    PFH Return
+    None
 
     Returns:
     None
@@ -65,10 +65,11 @@
     [_state] call CFUNC(disableUserInput);
 
     if (_state) then {
-        if ((vehicle PRA3_Player) isKindOf "StaticWeapon") then {
+        if (vehicle PRA3_Player != PRA3_Player) then {
             moveOut PRA3_Player;
         };
 
+        //@todo check if this is possible after ragdoll
         if ((animationState PRA3_Player) in ["ladderriflestatic", "laddercivilstatic"]) then {
             PRA3_Player action ["ladderOff", nearestBuilding PRA3_Player];
         };
@@ -127,10 +128,6 @@ GVAR(unconsciousPPEffects) = [
         [{
             params ["_display", "_id"];
 
-            if (isNull _display) exitWith {
-                _id call CFUNC(removePerFrameHandler);
-            };
-
             private _unconsciousTimer = PRA3_Player getVariable [QGVAR(unconsciousTimer), 0];
             private _unconsciousDuration = [QGVAR(Settings_unconsciousDuration), 100] call CFUNC(getSetting);
 
@@ -161,5 +158,6 @@ GVAR(unconsciousPPEffects) = [
         }, 0, _display] call CFUNC(addPerFrameHandler);
     } else {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
+        _id call CFUNC(removePerFrameHandler);
     };
 }] call CFUNC(addEventHandler);

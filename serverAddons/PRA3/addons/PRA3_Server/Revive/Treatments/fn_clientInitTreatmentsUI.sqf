@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles bandages.
+    Initializes UI for treatments
 
     Parameter(s):
-    -
+    None
 
     Returns:
     None
@@ -56,7 +56,7 @@
         {
             _x params ["_weaponName", "_condition"];
 
-            if (_fakeWeaponName == _weaponName) then {
+            if (_fakeWeaponName == _weaponName) exitWith {
                 {
                     _x params ["_unit", "_additionalText"];
 

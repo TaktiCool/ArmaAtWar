@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles bandages.
+    Handles bandages
 
     Parameter(s):
-    -
+    None
 
     Returns:
     None

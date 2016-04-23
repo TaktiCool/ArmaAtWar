@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles bandages.
+    Handles display of hit effect on players
 
     Parameter(s):
-    -
+    None
 
     Returns:
     None

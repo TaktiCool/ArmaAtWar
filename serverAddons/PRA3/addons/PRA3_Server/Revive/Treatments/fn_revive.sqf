@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handles unconsciousness.
+    Handles reviving
 
     Parameter(s):
-    PFH Return
+    None
 
     Returns:
     None

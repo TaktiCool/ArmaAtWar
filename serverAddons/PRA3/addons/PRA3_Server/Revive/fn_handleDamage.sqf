@@ -11,7 +11,7 @@
     Handle Damage Eventhandler Return
 
     Returns:
-    0
+    0 or 1
 */
 params ["_unit", "_selectionName", "_newDamage", "_source", "_projectile", "_hitPartIndex"];
 

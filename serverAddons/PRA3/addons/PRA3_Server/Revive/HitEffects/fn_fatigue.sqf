@@ -5,10 +5,10 @@
     Author: BadGuy, joko // Jonas, NetFusion
 
     Description:
-    Handle fatigue effects.
+    Handle fatigue effects
 
     Parameter(s):
-    PFH Return
+    None
 
     Returns:
     None
