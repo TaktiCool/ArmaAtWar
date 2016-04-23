@@ -140,7 +140,7 @@ namespace PRA3_server
 		{
 			string[] inputParts = input.Split(new char[] { ':' }, 2);
 
-			string path = Environment.CurrentDirectory + @"\PRA3_Logs";
+			string path = Environment.CurrentDirectory + @"\@PRA3\Logs\" + startTime.ToString().Replace("-", "");
 			if (!File.Exists(path))
 			{
 				Directory.CreateDirectory(path);
@@ -153,11 +153,7 @@ namespace PRA3_server
 
 		private static string currentDate(string formating)
 		{
-			string output = "";
-
-			output = string.Format(formating, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
-			return output;
+			return string.Format(formating, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 		}
 	}
 }

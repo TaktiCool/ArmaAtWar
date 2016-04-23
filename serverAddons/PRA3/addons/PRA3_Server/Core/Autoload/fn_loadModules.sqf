@@ -21,6 +21,10 @@
 if (hasInterface) then {
     waitUntil {!isNull player};
     PRA3_Player = player;
+    GVAR(playerUID) = getPlayerUID player;
+    if (GVAR(playerUID) == "") then {
+        waitUntil {sleep 0.1; GVAR(playerUID) = getPlayerUID player; (GVAR(playerUID) != "")};
+    };
 };
 GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") isEqualTo 1);
 // If the machine has AME running exit and call all requested modules.
