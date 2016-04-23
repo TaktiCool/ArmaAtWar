@@ -83,6 +83,8 @@
     PRA3_Player setVariable [QGVAR(fakeWeapon), nil];
     PRA3_Player setVariable [QGVAR(fakeWeaponName), nil];
     PRA3_Player setVariable [QGVAR(restoreWeaponAction), nil];
+
+    PRA3_Player setVariable [QGVAR(medicalActionRunning), ""];
 }] call CFUNC(addEventHandler);
 
 // To restore default behaviour if the weapon is changed use currentWeaponChanged EH.

@@ -60,7 +60,7 @@
                 {
                     _x params ["_unit", "_additionalText"];
 
-                    if (_unit call _condition) then {
+                    if (PRA3_Player distance _unit < 3 && _unit call _condition) then {
                         _text = _text + _additionalText;
                     };
                     nil
@@ -112,6 +112,10 @@
     [{
         params ["_params", "_id"];
         _params params ["_display", "_target"];
+
+        if (!(_target in [PRA3_Player, cursorTarget])) then {
+            [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
+        };
 
         if (GVAR(medicalActionRunning) == "") exitWith {
             {
