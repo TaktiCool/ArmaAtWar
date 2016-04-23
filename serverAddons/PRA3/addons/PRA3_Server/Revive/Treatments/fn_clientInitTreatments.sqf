@@ -110,6 +110,9 @@ GVAR(medicalActionTarget) = objNull;
     GVAR(medicalActionTarget) = _target;
     _target setVariable [QGVAR(medicalActionRunning), _action, true];
 
+    // Publish time
+    _target setVariable [QGVAR(treatmentStartTime), serverTime, true];
+
     [QGVAR(RegisterTreatment), _target, [PRA3_Player, _action]] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
@@ -127,9 +130,6 @@ GVAR(currentTreatingUnits) = [];
     (_this select 0) params ["_unit"];
 
     GVAR(currentTreatingUnits) pushBackUnique _unit;
-
-    // Publish time
-    PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
 
     [QGVAR(PrepareTreatment), _this select 0] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
