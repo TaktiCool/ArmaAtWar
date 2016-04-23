@@ -22,7 +22,7 @@
     private _bloodLoss = _unit getVariable [QGVAR(bloodLoss), 0];
     _bloodLoss = _bloodLoss + _newDamage;
 
-    [_newDamage] call FUNC(bloodEffect);
+    [20 * _newDamage] call FUNC(bloodEffect);
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventHandler);
 
