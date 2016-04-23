@@ -26,6 +26,13 @@
     [_unit, QGVAR(bloodLoss), _bloodLoss] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventHandler);
 
+// Broadcast variable again on respawn
+["Respawn", {
+    (_this select 0) params ["_newUnit"];
+
+    _newUnit setVariable [QGVAR(bloodLoss), _newUnit getVariable [QGVAR(bloodLoss), 0], true];
+} call CFUNC(localEvent);] call CFUNC(addEventHandler):
+
 // Reset values on death
 [QGVAR(Killed), {
     (_this select 0) params ["_unit"];

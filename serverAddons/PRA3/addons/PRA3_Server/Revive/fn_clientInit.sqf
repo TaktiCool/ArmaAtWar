@@ -47,3 +47,10 @@ call FUNC(revive);
     [_unit, QGVAR(HealingRate), 0] call CFUNC(setVariablePublic);
     [_unit, QGVAR(HealingTimestamp), -1] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventHandler);
+
+// Broadcast variable again on respawn
+["Respawn", {
+    (_this select 0) params ["_newUnit"];
+
+    _newUnit setVariable [QGVAR(selectionDamage), _newUnit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}], true];
+} call CFUNC(localEvent);] call CFUNC(addEventHandler):
