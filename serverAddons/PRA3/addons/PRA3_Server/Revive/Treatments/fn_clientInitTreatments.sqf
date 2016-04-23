@@ -26,19 +26,15 @@
     // Move the weapon on back
     PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 99];
 
-    // Create a weapon holder and fill it with the dummy item
-    private _weaponHolder = createVehicle ["GroundWeaponHolder", [0, 0, 0], [], 0, "NONE"];
-    _weaponHolder addItemCargoGlobal [_item, 1];
+    // Create a simple object
+    private _fakeWeapon = createSimpleObject [getText (configFile >> "CfGWeapons" >> _item >> "model"), [0, 0, 0]];
 
     // Attach it to the right hand
-    _weaponHolder attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-    ["setVectorDirAndUp", [_weaponHolder, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
-
-    // And prevent it from being accessed.
-    ["enableSimulation", [_weaponHolder, false]] call CFUNC(serverEvent);
+    _fakeWeapon attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
+    ["setVectorDirAndUp", [_fakeWeapon, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
 
     // Store the weapon holder to remove it on restoring real weapon.
-    PRA3_Player setVariable [QGVAR(fakeWeapon), _weaponHolder];
+    PRA3_Player setVariable [QGVAR(fakeWeapon), _fakeWeapon];
     PRA3_Player setVariable [QGVAR(fakeWeaponName), _item];
 
     // Create an action to restore main weapon. Use the vanilla switch weapon action data.
@@ -70,8 +66,8 @@
     PRA3_Player setVariable [QGVAR(fakeWeaponName), ""];
 
     // Get the weapon holder and delete it.
-    private _weaponHolder = PRA3_Player getVariable [QGVAR(fakeWeapon), objNull];
-    deleteVehicle _weaponHolder;
+    private _fakeWeapon = PRA3_Player getVariable [QGVAR(fakeWeapon), objNull];
+    deleteVehicle _fakeWeapon;
 
     // Remove the exit action if it exists.
     private _restoreWeaponActionId = PRA3_Player getVariable [QGVAR(restoreWeaponAction), -1];
