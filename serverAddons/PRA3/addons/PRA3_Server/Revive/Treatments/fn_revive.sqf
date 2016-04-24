@@ -54,7 +54,7 @@
 
         // Check the target
         private _target = cursorTarget;
-        if (!(_target isKindOf "CAManBase") || PRA3_Player distance _target > 3) exitWith {false};
+        if (!(_target isKindOf "CAManBase") || PRA3_Player distance _target > 3 || !alive _target) exitWith {false};
 
         // Only one player can use revive on a target at a time
         if (!(_target getVariable [QGVAR(isUnconscious), false]) || _target getVariable [QGVAR(medicalActionRunning), ""] != "") exitWith {false};
