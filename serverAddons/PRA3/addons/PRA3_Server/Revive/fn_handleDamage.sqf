@@ -35,7 +35,7 @@ if (_unit getVariable [QGVAR(isUnconscious), false]) then {
 private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
 private _previousDamage = _unit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
 private _totalDamage = (_previousDamage select _selectionIndex) + _newDamage;
-_previousDamage set [_selectionIndex, _totalDamage];
+_previousDamage set [_selectionIndex, _totalDamage min _maxDamage];
 [_unit, QGVAR(selectionDamage), _previousDamage] call CFUNC(setVariablePublic); // Use setVariablePublic to improve performance and not publish multiple times
 
 // Broadcast to hit locally

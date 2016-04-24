@@ -21,6 +21,6 @@ class CfgRevive {
     reviveCoefficient = 2; // Duration penalty for non medics
 
     // Healing
-    healingActionAmount = 0.05; // Amount a MEDIC heals per second
-    healingCoefficient = 0.5; // Amount penalty for non medics
+    healingActionDuration = 40; // Time a MEDIC needs to heal a unit from maxDamage
+    healingCoefficient = 2; // Duration penalty for non medics
 };

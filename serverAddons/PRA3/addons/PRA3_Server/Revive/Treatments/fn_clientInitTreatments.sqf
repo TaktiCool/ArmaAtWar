@@ -149,7 +149,6 @@ GVAR(currentTreatingUnits) = [];
     (_this select 0) params ["_unit"];
 
     GVAR(currentTreatingUnits) = GVAR(currentTreatingUnits) - [_unit];
-
     if (GVAR(currentTreatingUnits) isEqualTo []) then {
         PRA3_Player setVariable [QGVAR(medicalActionRunning), "", true];
     };
