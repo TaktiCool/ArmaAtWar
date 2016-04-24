@@ -7,6 +7,8 @@ class Sides {
         color[] = {0, 0.3, 0.8, 1};
         squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
         #include "kitsWest.hpp"
+
+        #include "cfgLogisticWest.hpp"
     };
 
     class East : West {
@@ -17,5 +19,8 @@ class Sides {
         color[] = {0.5, 0, 0, 1};
         squadRallyPointObjects[] = {{"Land_Campfire_F", {0,0,0}}};
         #include "kitsEast.hpp"
+
+        #include "cfgLogisticEast.hpp"
+
     };
 };

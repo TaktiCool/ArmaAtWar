@@ -18,7 +18,6 @@ GVAR(VehicleRespawnAllVehicles) = [];
 ["entityCreated", {
     (_this select 0) params ["_entity"];
 
-    params ["_entity"];
     private _respawnTime = _entity getVariable ["respawnTime", -1];
 
     if (_respawnTime >= 0) then {

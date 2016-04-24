@@ -352,7 +352,7 @@ class PRA3_UI_RespawnScreen {
             idc = 500;
             text = "DEPLOY";
             sizeEx = PY(4);
-            colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.77])","(profilenamespace getvariable ['GUI_BCG_RGB_G',0.51])","(profilenamespace getvariable ['GUI_BCG_RGB_B',0.08])","(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])"};
+            colorBackground[] = {0.77, 0.51, 0.08, 1};
             x = safeZoneW - PX(GWIDTH+5) + safeZoneX;
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);

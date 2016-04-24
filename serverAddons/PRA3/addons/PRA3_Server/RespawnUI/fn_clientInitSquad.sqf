@@ -189,15 +189,15 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
 [UIVAR(RespawnScreen_SquadDescriptionInput_TextChanged), {
     private _description = ctrlText 204;
     if (count _description > 14) then {
-        ctrlSetText [204, (_description select [0, 14])];
-        if (isNil QGVAR(maxCharCountReachedNotification)) then {
-            ["Maximal Char Count Reached in Squad Name (max 14 Chars)"] call CFUNC(displayNotification);
-            GVAR(maxCharCountReachedNotification) = true;
-            [{
-                GVAR(maxCharCountReachedNotification) = nil;
-            }, 10] call CFUNC(wait);
-        };
 
+        (findDisplay 1000 displayCtrl 204) ctrlSetBackgroundColor [0.77, 0.51, 0.08, 1];
+        (findDisplay 1000 displayCtrl 204) ctrlCommit 0;
+        [{
+            (findDisplay 1000 displayCtrl 204) ctrlSetBackgroundColor [0.4, 0.4, 0.4, 1];
+            (findDisplay 1000 displayCtrl 204) ctrlCommit 0;
+        }, 1] call CFUNC(wait);
+
+        ctrlSetText [204, (_description select [0, 14])];
     };
 }] call CFUNC(addEventHandler);
 
