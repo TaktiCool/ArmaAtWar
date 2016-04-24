@@ -42,12 +42,15 @@ _newUnit attachTo [GVAR(attachPoint)];
         if !(isNil "_var") then {
             _newUnit setVariable [_x, _var];
         };
+    } else {
+        DUMP(_x)
     };
     nil
 } count (allVariables PRA3_Player);
 
 // Mark as temporary if necessary
 if (_isTemporaryUnit) then {
+    DUMP("RESPAWN AS TEMP")
     _newUnit setVariable [QGVAR(tempUnit), true];
     ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
@@ -98,5 +101,10 @@ PRA3_Player = _newUnit;
 ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
 
 if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
+    DUMP("DELETE UNIT")
+    DUMP(_oldUnit)
     deleteVehicle _oldUnit;
 };
+
+private _test = _newUnit getVariable [QGVAR(tempUnit), false];
+DUMP(_test)

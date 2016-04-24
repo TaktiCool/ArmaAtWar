@@ -46,18 +46,16 @@ DFUNC(escapeFnc) =  {
 
 ["missionStarted", {
     [{
-        [{
-            private _sidePlayerCount = EGVAR(Mission,competingSides) apply {
-                private _side = call compile _x;
-                [{side group _x == _side} count (allPlayers), _side]
-            };
-            _sidePlayerCount sort true;
-            private _newSide = _sidePlayerCount select 0 select 1;
+        private _sidePlayerCount = EGVAR(Mission,competingSides) apply {
+            private _side = call compile _x;
+            [{side group _x == _side} count (allPlayers), _side]
+        };
+        _sidePlayerCount sort true;
+        private _newSide = _sidePlayerCount select 0 select 1;
 
-            PRA3_Player setVariable [CGVAR(tempUnit), true];
-            [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
-        }] call CFUNC(mutex);
-    }, 10] call CFUNC(wait);
+        PRA3_Player setVariable [QCGVAR(tempUnit), true];
+        [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
+    }] call CFUNC(mutex);
 
     createDialog UIVAR(RespawnScreen);
     (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
