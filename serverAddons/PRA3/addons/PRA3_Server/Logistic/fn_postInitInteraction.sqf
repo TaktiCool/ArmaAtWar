@@ -32,7 +32,6 @@ GVAR(CargoClasses) = [];
 ["entityCreated", {
     (_this select 0) params ["_entity"];
 
-    params ["_entity"];
     private _cargoCapacity = _entity getVariable ["cargoCapacity", 0];
 
     if (_cargoCapacity > 0) then {
