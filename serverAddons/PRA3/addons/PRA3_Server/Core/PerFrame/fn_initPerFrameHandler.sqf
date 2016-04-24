@@ -23,7 +23,7 @@ GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
 GVAR(deltaTime) = 0;
 GVAR(lastFrameTime) = diag_tickTime;
-[QGVAR(OnEachFrameID), "onEachFrame", {
+GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     PERFORMANCECOUNTER_START(PFHCounter)
 
     {
@@ -70,8 +70,8 @@ GVAR(lastFrameTime) = diag_tickTime;
     GVAR(lastFrameTime) = diag_tickTime;
 
     if (getClientState == "GAME FINISHED") then {
-        [QGVAR(OnEachFrameID), "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+        removeMissionEventHandler ["onEachFrame", GVAR(OnEachFrameID)];
     };
 
     PERFORMANCECOUNTER_END(PFHCounter)
-}] call BIS_fnc_addStackedEventHandler;
+}];
