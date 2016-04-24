@@ -49,7 +49,7 @@
         private _actionName = switch (_fakeWeaponName) do {
             case "FirstAidKit": {"bandage"};
             case "Medikit": {"heal"};
-            default {"use %1 on"};
+            default {"Dafug?"};
         };
 
         _text = "";
@@ -96,8 +96,7 @@
     private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
     if (isNull _display) then {
         ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.2];
-        private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
-        DUMP(_display)
+        _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
     };
 
     (_display displayCtrl 3003) ctrlSetStructuredText parseText format [_displayText, _target call CFUNC(name)];
@@ -111,6 +110,7 @@
 
     // Track the progress
     [{
+        disableSerialization;
         params ["_target", "_id"];
 
         if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) then {
@@ -166,7 +166,7 @@
         case "BANDAGE": {"bandaged"};
         case "HEAL": {"healed"};
         case "REVIVE": {"revived"};
-        default {"use %1 on"};
+        default {"Dafug?"};
     };
 
     private _text = format ["<img size='1' color='#ffffff' image='\A3\UI_f\data\IGUI\Cfg\Actions\heal_ca.paa'/><br />You are being %1!", _actionName];
