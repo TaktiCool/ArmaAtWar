@@ -152,4 +152,6 @@ GVAR(currentTreatingUnits) = [];
     if (GVAR(currentTreatingUnits) isEqualTo []) then {
         PRA3_Player setVariable [QGVAR(medicalActionRunning), "", true];
     };
+    PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
+    [QGVAR(PrepareTreatment), _this select 0] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
