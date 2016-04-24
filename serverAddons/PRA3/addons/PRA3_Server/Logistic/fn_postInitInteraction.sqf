@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, BadGuy
 
     Description:
     Logistic system
@@ -28,6 +28,43 @@ GVAR(CargoClasses) = [];
     GVAR(CargoClasses) pushBack configName _x;
     nil
 } count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+
+["entityCreated", {
+    (_this select 0) params ["_entity"];
+
+    params ["_entity"];
+    private _cargoCapacity = _entity getVariable ["cargoCapacity", 0];
+
+    if (_cargoCapacity > 0) then {
+
+        private _className = typeOf _entity;
+        private _tb = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxbackpacks");
+        private _tm = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxmagazines");
+        private _tw = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxweapons");
+        private _isCargo = if (_tb > 0  || _tm > 0 || _tw > 0) then {true;} else {false;};
+
+        if (!_isCargo) then {
+            private _weaponHolder = createVehicle ["B_supplyCrate_F", [0, 0, 0], [], 0, "NONE"];
+            _weaponHolder attachTo [_entity];
+            ["hideObject", [_weaponHolder, true]] call CFUNC(serverEvent);
+
+            _entity setVariable ["WeaponHolder", _weaponHolder];
+
+            [
+                getText (configFile >> "CfgActions" >> "Gear" >> "text"),
+                _entity,
+                3,
+                {cursorTarget == _target},
+                {
+                    params ["_object"];
+                    hint str (_object getVariable "WeaponHolder");
+                    PRA3_Player action ["Gear", _object getVariable "WeaponHolder"];
+                }
+            ] call CFUNC(addAction);
+        };
+    };
+
+}] call CFUNC(addEventHandler);
 
 [
     {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
@@ -122,3 +159,72 @@ GVAR(CargoClasses) = [];
         }, _vehicle] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
+
+["InventoryOpened", {
+    (_this select 0) params ["_unit", "_container"];
+    if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
+    [{
+        params ["_unit", "_container"];
+
+        disableSerialization;
+        private _display = (findDisplay 602);
+        private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
+        private _gX = (((safezoneW / safezoneH) min 1.2) / 40);
+
+        {
+            private _pos = ctrlPosition _x;
+
+            _x ctrlSetPosition [
+                (_pos select 0) + 6.25 * _gX,
+                (_pos select 1)
+            ];
+            _x ctrlCommit 0;
+            nil
+        } count allControls _display;
+
+        private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars",-1];
+        _group ctrlSetPosition [-5.25*_gX+(safezoneX +(safezoneW -((safezoneW / safezoneH) min 1.2))/2),_gY+(safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2),12*_gX, 25*_gY];
+        _group ctrlCommit 0;
+
+        private _bg = _display ctrlCreate ["RscBackground", -1, _group];
+        _bg ctrlSetPosition [0, 0, 12*_gX, 23*_gY];
+        _bg ctrlSetBackgroundColor [0.05,0.05,0.05,0.7];
+        _bg ctrlCommit 0;
+
+        private _header = _display ctrlCreate ["RscText", -1, _group];
+        _header ctrlSetPosition [0.5*_gX, 0.5*_gY, 11*_gX, 1.1*_gY];
+        _header ctrlSetBackgroundColor [0,0,0,1];
+        _header ctrlSetText "Cargo";
+        _header ctrlCommit 0;
+
+        with uiNamespace do {
+            private _list = _display ctrlCreate ["RscListBox", -1, _group];
+            _list ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 20*_gY];
+            _list ctrlSetBackgroundColor [0,0,0,0];
+            _list ctrlCommit 0;
+        };
+
+        private _loadBarFrame = _display ctrlCreate ["RscFrame", -1, _group];
+        _loadBarFrame ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
+        _loadBarFrame ctrlSetTextColor [0.9, 0.9, 0.9, 0.5];
+        _loadBarFrame ctrlCommit 0;
+
+        private _loadBar = _display ctrlCreate ["RscProgress", -1, _group];
+        _loadBar ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
+        _loadBar ctrlSetTextColor [0.9, 0.9, 0.9, 0.9];
+        _loadBar progressSetPosition 0;
+        _loadBar ctrlCommit 0;
+
+        private _bg2 = _display ctrlCreate ["RscBackground", -1, _group];
+        _bg2 ctrlSetPosition [0, 23.5*_gY, 12*_gX, 1.5*_gY];
+        _bg2 ctrlSetBackgroundColor [0.05,0.05,0.05,0.7];
+        _bg2 ctrlCommit 0;
+
+        private _unloadBtn = _display ctrlCreate ["RscButton",-1, _group];
+        _unloadBtn ctrlSetPosition [0.25*_gX, 23.75*_gY, 5.5*_gX, 1*_gY];
+        _unloadBtn ctrlSetText "UNLOAD";
+        _unloadBtn ctrlCommit 0;
+
+
+    }, {!isNull (findDisplay 602)}, _this] call CFUNC(waitUntil);
+}] call CFUNC(addEventHandler);

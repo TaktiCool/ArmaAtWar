@@ -409,6 +409,7 @@ class RscCombo
 };
 class RscListBox
 {
+    type = 5;
     access = 0;
     style = 16;
     font = "PuristaMedium";
