@@ -113,7 +113,7 @@
     [{
         params ["_target", "_id"];
 
-        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) exitWith {
+        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) then {
             [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
         };
 
