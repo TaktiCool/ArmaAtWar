@@ -97,6 +97,7 @@
     if (isNull _display) then {
         ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.2];
         private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
+        DUMP(_display)
     };
 
     (_display displayCtrl 3003) ctrlSetStructuredText parseText format [_displayText, _target call CFUNC(name)];
@@ -107,6 +108,9 @@
         (_display displayCtrl _x) ctrlCommit 0;
         nil
     } count [3001, 3002, 3003];
+
+    (_display displayCtrl 3004) ctrlSetFade 1;
+    (_display displayCtrl 3004) ctrlCommit 0;
 
     // Track the progress
     [{
