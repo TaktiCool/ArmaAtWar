@@ -156,11 +156,6 @@ GVAR(unconsciousPFH) = -1;
                     ];
                 };
 
-                if (isNull _display) exitWith {
-                    _id call CFUNC(removePerFrameHandler);
-                };
-
-                DUMP(_progressPercentage)
                 (_display displayCtrl 3002) progressSetPosition _progressPercentage;
             }, 0, _display] call CFUNC(addPerFrameHandler);
         };
