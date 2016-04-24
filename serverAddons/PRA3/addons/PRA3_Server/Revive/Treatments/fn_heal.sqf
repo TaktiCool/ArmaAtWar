@@ -52,6 +52,10 @@
     (_this select 0) params ["_unit", "_action", "_finished"];
 
     if (_action != "HEAL") exitWith {};
+
+    if (_finished) exitWith {
+        PRA3_Player setVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+    };
     PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
     [QGVAR(PrepareTreatment), [_unit, _action]] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
