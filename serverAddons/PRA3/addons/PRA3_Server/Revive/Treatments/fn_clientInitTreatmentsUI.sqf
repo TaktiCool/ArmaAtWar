@@ -109,17 +109,15 @@
         nil
     } count [3001, 3002, 3003];
 
-    (_display displayCtrl 3004) ctrlSetFade 1;
-    (_display displayCtrl 3004) ctrlCommit 0;
-
     // Track the progress
     [{
-        params ["_params", "_id"];
-        _params params ["_display", "_target"];
+        params ["_target", "_id"];
 
-        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) then {
+        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) exitWith {
             [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
         };
+
+        private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
 
         if (GVAR(medicalActionRunning) == "") exitWith {
             {
@@ -140,7 +138,7 @@
         };
 
         (_display displayCtrl 3002) progressSetPosition _treatmentProgress;
-    }, 0, [_display, _target]] call CFUNC(addPerFrameHandler);
+    }, 0, _target] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(StopMedicalAction), {
