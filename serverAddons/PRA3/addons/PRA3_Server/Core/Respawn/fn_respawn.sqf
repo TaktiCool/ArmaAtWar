@@ -42,6 +42,8 @@ _newUnit attachTo [GVAR(attachPoint)];
         if !(isNil "_var") then {
             _newUnit setVariable [_x, _var];
         };
+    } else {
+        DUMP(_x)
     };
     nil
 } count (allVariables PRA3_Player);
@@ -103,3 +105,6 @@ if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
     DUMP(_oldUnit)
     deleteVehicle _oldUnit;
 };
+
+private _test = _newUnit getVariable [QGVAR(tempUnit), false];
+DUMP(_test)
