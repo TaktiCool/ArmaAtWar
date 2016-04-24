@@ -37,3 +37,11 @@
         [_oldVehicleRole] call FUNC(checkVehicleRestrictions);
     };
 }] call CFUNC(addEventHandler);
+
+["playerChanged", {
+    (_this select 0) params ["_newPlayer", "_oldPlayer"];
+    {
+        _newPlayer setVariable [_x, _oldPlayer getVariable _x, true];
+    } count [QGVAR(kit), QGVAR(kitDisplayName), QGVAR(kitIcon), QGVAR(MapIcon), QGVAR(isLeader), QGVAR(isMedic), QGVAR(isEngineer), QGVAR(isPilot), QGVAR(isCrew)];
+
+}] call CFUNC(addEventHandler);
