@@ -30,6 +30,7 @@ GVAR(mutexQueue) = [];
 
     // Clean the queue
     GVAR(mutexQueue) = GVAR(mutexQueue) select {_x != _owner};
+    false
 }] call BIS_fnc_addStackedEventHandler;
 
 // EH which fired if some client requests mutex executing
