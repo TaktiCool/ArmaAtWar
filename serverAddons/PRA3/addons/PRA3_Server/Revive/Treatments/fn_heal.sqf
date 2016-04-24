@@ -81,6 +81,7 @@
     };
 
     [PRA3_Player, QGVAR(selectionDamage), _selectionDamage] call CFUNC(setVariablePublic);
+    PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime];
 }] call CFUNC(addPerFrameHandler);
 
 ["missionStarted", {
