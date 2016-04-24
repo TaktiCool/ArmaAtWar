@@ -33,7 +33,7 @@
     if (_state) then {
         private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
         if (_bloodLoss < 1) then {
-            [_unit, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
+            [PRA3_Player, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
         };
     };
 }] call CFUNC(addEventHandler);
