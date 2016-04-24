@@ -37,8 +37,10 @@
     private _fakeWeapon = createSimpleObject [_modelName, [0, 0, 0]];
 
     // Attach it to the right hand
-    _fakeWeapon attachTo [PRA3_Player, [-0.1, 0.6, -0.15], "rwrist"];
-    ["setVectorDirAndUp", [_fakeWeapon, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
+    _fakeWeapon attachTo [PRA3_Player, [0, 0, -0.2], "rwrist"];
+    if (_item != "medikit") then {
+        ["setVectorDirAndUp", [_fakeWeapon, [[0, 0, -1], [0, 1, 0]]]] call CFUNC(globalEvent);
+    };
 
     // Store the weapon holder to remove it on restoring real weapon.
     PRA3_Player setVariable [QGVAR(fakeWeapon), _fakeWeapon];
