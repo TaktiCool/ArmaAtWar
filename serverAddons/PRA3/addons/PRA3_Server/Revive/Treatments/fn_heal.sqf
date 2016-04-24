@@ -31,7 +31,7 @@
     private _healingCoefficient = [QGVAR(Settings_healingCoefficient), 2] call CFUNC(getSetting);
     private _totalHealingActionAmount = 0;
     {
-        _totalHealingActionAmount = _totalHealingActionAmount + 1/(_healingActionDuration / ([_healingCoefficient, 1] select (_x getVariable [QEGVAR(Kit,isMedic), false])));
+        _totalHealingActionAmount = _totalHealingActionAmount + 1/(_healingActionDuration * ([_healingCoefficient, 1] select (_x getVariable [QEGVAR(Kit,isMedic), false])));
         nil
     } count GVAR(currentTreatingUnits);
 
@@ -51,7 +51,6 @@
 [QGVAR(DeregisterTreatment), {
     (_this select 0) params ["_unit", "_action", "_finished"];
 
-    // Only handle revive here
     if (_action != "HEAL") exitWith {};
     PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
     [QGVAR(PrepareTreatment), [_unit, _action]] call CFUNC(localEvent);
@@ -74,8 +73,8 @@
 
     private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
     private _totalHealingActionAmount = PRA3_Player getVariable [QGVAR(treatmentAmount), 0];
-    private _timestamp = PRA3_Player getVariable [QGVAR(treatmentTimestamp), 0];
-    _highestDamage = (_highestDamage - ((serverTime - _timestamp) * _totalHealingActionAmount * _maxDamage)) max 0;
+    private _startTime = PRA3_Player getVariable [QGVAR(treatmentStartTime), 0];
+    _highestDamage = (_highestDamage - ((serverTime - _startTime) * _totalHealingActionAmount * _maxDamage)) max 0;
 
     _selectionDamage = _selectionDamage apply {
         [_x, _highestDamage] select (_x > _highestDamage)
