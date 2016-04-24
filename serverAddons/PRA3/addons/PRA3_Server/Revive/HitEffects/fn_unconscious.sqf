@@ -115,6 +115,7 @@ GVAR(unconsciousPPEffects) = [
 ];
 
 // Unconscious timer
+GVAR(unconsciousPFH) = -1;
 ["UnconsciousnessChanged", {
     (_this select 0) params ["_state"];
 
@@ -125,7 +126,7 @@ GVAR(unconsciousPPEffects) = [
         (_display displayCtrl 3003) ctrlSetStructuredText parseText "YOU ARE UNCONSCIOUS AND BLEEDING";
         (_display displayCtrl 3004) ctrlSetStructuredText parseText "Wait for help or respawn ...";
 
-        if (isNil GVAR(unconsciousPFH)) then {
+        if (GVAR(unconsciousPFH) == -1) then {
             GVAR(unconsciousPFH) = [{
                 params ["_display", "_id"];
 
@@ -166,7 +167,7 @@ GVAR(unconsciousPPEffects) = [
     } else {
         ([UIVAR(BleedOutProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
         GVAR(unconsciousPFH) call CFUNC(removePerFrameHandler);
-        GVAR(unconsciousPFH) = nil;
+        GVAR(unconsciousPFH) = -1;
         {
             _x ppEffectEnable false;
             nil
