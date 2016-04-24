@@ -28,6 +28,9 @@
 
     // Create a simple object
     private _modelName = getText (configFile >> "CfGWeapons" >> _item >> "model");
+    if ((_modelName select [0, 1]) == "\") then {
+        _modelName = _modelName select [1, count _modelName - 1];
+    };
     if ((_modelName select [count _modelName - 4, 3]) != "p3d") then {
         _modelName = _modelName + ".p3d";
     };
