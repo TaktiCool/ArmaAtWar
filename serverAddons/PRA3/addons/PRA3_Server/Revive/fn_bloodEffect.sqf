@@ -13,8 +13,10 @@
     Returns:
     None
 */
-disableSerialization;
 params ["_intensity"];
+
+disableSerialization;
+
 private _firstInit = false;
 if (isnull (uinamespace getVariable ["RscHealthTextures", displayNull])) then {
     ([QGVAR(PPBloodEffect)] call bis_fnc_rscLayer) cutRsc ["RscHealthTextures","plain"];

@@ -36,6 +36,7 @@ GVAR(mutexQueue) = [];
 [QGVAR(mutexRequest), {
     // We enqueue the value in the queue
     GVAR(mutexQueue) pushBackUnique (owner (_this select 0));
+    DUMP(GVAR(mutexQueue))
 }] call CFUNC(addEventHandler);
 
 // We check on each frame if we can switch the mutex client

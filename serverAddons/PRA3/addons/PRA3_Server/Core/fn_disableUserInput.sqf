@@ -18,7 +18,7 @@ params ["_state"];
 if (_state) then {
     disableSerialization;
 
-    if (!isNil GVAR(disableUserInputKeyEventHandler)) exitWith {};
+    if (!isNil QGVAR(disableUserInputKeyEventHandler)) exitWith {};
 
     // end TFAR and ACRE2 radio transmissions
     // call FUNC(endRadioTransmission);

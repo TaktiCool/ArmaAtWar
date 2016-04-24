@@ -29,20 +29,17 @@
 #define R_LEG_SELECTIONS ["leg_r"]
 #define R_LEG_HITPOINTS ["hitrightleg", "leg_r"]
 
-params ["_unit", "_selection", "_hitPointIndex"];
+params ["_unit", "_selectionName", "_hitPointIndex"];
 
-if (_selection == "") exitWith {""};
-
-//Get Selection from Selection/HitIndex:
-
-if (_selection in HEAD_SELECTIONS) exitWith {"head"};
-if (_selection in TORSO_SELECTIONS) exitWith {"body"};
+if (_selectionName == "") exitWith {""};
+if (_selectionName in HEAD_SELECTIONS) exitWith {"head"};
+if (_selectionName in TORSO_SELECTIONS) exitWith {"body"};
 
 //Backup method to detect weird selections/hitpoints
-if ((_selection == "?") || {!(_selection in GVAR(SELECTIONS))}) exitWith {
-    if (_hitPointIndex < 0) exitWith {_selection};
+if (_selectionName == "?" || {!(_selectionName in GVAR(selections))}) exitWith {
+    if (_hitPointIndex < 0) exitWith {"body"};
+
     private _hitPoint = toLower configName ((configProperties [(configFile >> "CfgVehicles" >> (typeOf _unit) >> "HitPoints")]) select _hitPointIndex);
-    // DUMP("Weird sel/hit"+ str(_unit) + " " + str(_selection) + " " + str(_hitPointIndex) + " " + str(_hitPoint));
 
     if (_hitPoint in HEAD_HITPOINTS) exitWith {"head"};
     if (_hitPoint in TORSO_HITPOINTS) exitWith {"body"};
@@ -51,12 +48,10 @@ if ((_selection == "?") || {!(_selection in GVAR(SELECTIONS))}) exitWith {
     if (_hitPoint in L_LEG_HITPOINTS) exitWith {"leg_l"};
     if (_hitPoint in R_LEG_HITPOINTS) exitWith {"leg_r"};
 
-    switch (_selection) do {
-        case "legs": { selectRandom ["leg_r", "leg_l"]; };
-        case "arms": { selectRandom ["hand_l", "hand_r"]; };
-        case "hands": { selectRandom ["hand_l", "hand_r"]; };
-        default { _selection };
+    switch (_selectionName) do {
+        case "legs": {selectRandom ["leg_r", "leg_l"]};
+        case "arms": {selectRandom ["hand_l", "hand_r"]};
+        case "hands": {selectRandom ["hand_l", "hand_r"]};
+        default {"body"};
     };
 };
-
-_selection;

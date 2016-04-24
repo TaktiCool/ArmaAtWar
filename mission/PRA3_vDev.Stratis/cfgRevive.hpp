@@ -1,27 +1,26 @@
 class CfgRevive {
-    // Revive Settings
-    reviveBleedingTime = 500;
-    reviveBleedOutTime = 300;
+    // Damage handling
+    damageCoefficients[] = {1, 1, 1, 1, 1, 1, 1}; // How the damage effects the different selections
+    unconsciousDamageCoefficient = 10; // An unconscious unit should die fast when hit
+    maxDamage = 3; // Upper limit to prevent unbelievable damage values
 
-    // time what a medic need to Revive
-    reviveSpeed = 20;
-    reviveCoef = 2; // Coef that a non medic need
+    // Bleeding
+    bleedCoefficient = 1; // How fast a unit bleeds
+    bleedOutValue = 300; // Value which determines when a unit is out of blood (and falls unconscious)
 
-    // time what a medic need to Heal
-    healingTime = 20;
-    healCoef = 2; // Coef that a non medic need
-    maxHeal = 0.75; // max heal that a non medic need
+    // Unconsciousness
+    preventInstantDeath = 1; // Enable or disable unconsciousness
+    unconsciousDuration = 500; // Value which determines how long a unit stays unconscious (calculated with bleeding)
 
-    // time what a medic need to banage
-    bandageSpeed = 20;
-    bandageCoef = 2; // Coef that a non Medic need
+    // Bandage
+    bandageActionDuration = 20; // Time a MEDIC needs to bandage
+    bandageCoefficient = 2; // Duration penalty for non medics
 
+    // Revive
+    reviveActionDuration = 20; // Time a MEDIC needs to revive
+    reviveCoefficient = 2; // Duration penalty for non medics
 
-    unconBleedCoef = 10; // Uncon Damage Coef
-    bleedCoef = 1; // Normal Damage Coef
-    damageCoef[] = {1, 1, 1, 1, 1, 1, 1};
-
-    // Damage Values
-    preventInstantDeath = 1;
-    maxDamage = 3;
+    // Healing
+    healingActionDuration = 40; // Time a MEDIC needs to heal a unit from maxDamage
+    healingCoefficient = 2; // Duration penalty for non medics
 };
