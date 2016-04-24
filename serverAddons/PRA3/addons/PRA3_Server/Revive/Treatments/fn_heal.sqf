@@ -54,7 +54,7 @@
     // Only handle revive here
     if (_action != "HEAL") exitWith {};
     PRA3_Player setVariable [QGVAR(treatmentStartTime), serverTime, true];
-    [QGVAR(PrepareTreatment), false] call CFUNC(localEvent);
+    [QGVAR(PrepareTreatment), [_unit, _action]] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 // Handle incoming heal
