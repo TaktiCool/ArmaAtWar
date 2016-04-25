@@ -29,9 +29,7 @@
         private _isCargo = if (_tb > 0  || _tm > 0 || _tw > 0) then {true;} else {false;};
 
         if (!_isCargo) then {
-            private _weaponHolder = createVehicle ["WeaponHolder", [0, 0, 0], [], 0, "NONE"];
-            _weaponHolder attachTo [_entity];
-            _entity setVariable ["WeaponHolder", _weaponHolder, true];
+            _entity setVariable ["hasInventory", false, true];
             /*
             ["hideObject", [_weaponHolder, true]] call CFUNC(serverEvent);
 
@@ -49,6 +47,8 @@
                 }
             ] call CFUNC(addAction);
             */
+        } else {
+            _entity setVariable ["hasInventory", true, true];
         };
     };
 

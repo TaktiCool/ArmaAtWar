@@ -134,6 +134,17 @@ GVAR(CargoClasses) = [];
 ] call CFUNC(addAction);
 
 [
+    {getText (configFile >> "CfgActions" >> "Gear" >> "text")},
+    GVAR(CargoClasses),
+    10,
+    {!(_target getVariable ["hasInventory", true])},
+    {
+        params ["_vehicle"];
+        PRA3_Player action ["Gear", _object];
+    }
+] call CFUNC(addAction);
+
+[
     {format["Unload Object out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(CargoClasses),
     10,
@@ -168,19 +179,12 @@ GVAR(CargoClasses) = [];
         private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
         private _gX = (((safezoneW / safezoneH) min 1.2) / 40);
 
-        {
-            private _pos = ctrlPosition _x;
+        private _xOffset = [1, -11.5] select (_container getVariable ["hasInventory",true]);
 
-            _x ctrlSetPosition [
-                (_pos select 0) + 6.25 * _gX,
-                (_pos select 1)
-            ];
-            _x ctrlCommit 0;
-            nil
-        } count allControls _display;
+
 
         private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars",-1];
-        _group ctrlSetPosition [-5.25*_gX+(safezoneX +(safezoneW -((safezoneW / safezoneH) min 1.2))/2),_gY+(safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2),12*_gX, 25*_gY];
+        _group ctrlSetPosition [_xOffset*_gX+(safezoneX +(safezoneW -((safezoneW / safezoneH) min 1.2))/2),_gY+(safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2),12*_gX, 25*_gY];
         _group ctrlCommit 0;
 
         private _bg = _display ctrlCreate ["RscBackground", -1, _group];
@@ -221,6 +225,24 @@ GVAR(CargoClasses) = [];
         _unloadBtn ctrlSetPosition [0.25*_gX, 23.75*_gY, 5.5*_gX, 1*_gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlCommit 0;
+
+        if (_container getVariable ["hasInventory",true]) then {
+            {
+                private _pos = ctrlPosition _x;
+
+                _x ctrlSetPosition [
+                    (_pos select 0) + 6.25 * _gX,
+                    (_pos select 1)
+                ];
+                _x ctrlCommit 0;
+                nil
+            } count allControls _display;
+        } else {
+            {
+                (_display displayCtrl _x) ctrlSetFade 1;
+                nil
+            } count [1001, 632, 6554, 6307, 6385, 6321];
+        };
 
 
     }, {!isNull (findDisplay 602)}, _this] call CFUNC(waitUntil);
