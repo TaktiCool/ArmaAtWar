@@ -170,14 +170,14 @@ GVAR(CargoClasses) = [];
 
 ["InventoryOpened", {
     (_this select 0) params ["_unit", "_container"];
-
+    DUMP(typeOf _container)
     if (typeOf _container == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
         if (_cursorTarget getVariable ["hasInventory",true] && PRA3_Player distance _cursorTarget < 5) then {
             _container = _cursorTarget;
         };
     };
-    
+
     if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
     [{
         params ["_unit", "_container"];
