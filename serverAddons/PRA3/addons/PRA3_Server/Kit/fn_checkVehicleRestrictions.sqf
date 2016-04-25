@@ -27,7 +27,7 @@ private _kitDetails = [_currentKitName, [["isCrew", 0], ["isPilot", 0]]] call FU
 _kitDetails params ["_isCrew", "_isPilot"];
 
 // Tanks and Air turrets require crew and air driver requires pilot
-if ((_vehicle isKindOf "Tank" && _isCrew == 0) || (_vehicle isKindOf "Air" && ([_isCrew, _isPilot] select (_newPosition == "driver")) == 0)) then {
+if ((_vehicle isKindOf "Tank" && _isCrew == 0) || (_vehicle isKindOf "Air" && ([_isCrew, _isPilot] select (_newPosition == "driver")) == 0) || (_newPosition == "Turret" && isNull (driver _vehicle))) then {
     private _oldPosition = _oldVehicleRole select 0;
     switch (_oldPosition) do {
         case "cargo": {
