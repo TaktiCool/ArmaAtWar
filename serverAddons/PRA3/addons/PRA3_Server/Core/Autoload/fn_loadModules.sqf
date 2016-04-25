@@ -31,7 +31,7 @@ GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") 
 if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { [FUNC(loadModulesServer), _this] call FUNC(directCall) };
 
 // Start the loading screen on the client to prevent a drawing lag while loading. Disable input too to prevent unintended movement after spawn.
-["pra3_core_fnc_loadModules"] call bis_fnc_startLoadingScreen;
+[QGVAR(loadModules)] call bis_fnc_startLoadingScreen;
 disableUserInput true;
 
 // Bind EH on client to compile the received function code. Collect all functions names to determine which need to be called later in an array.
@@ -59,7 +59,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     // If the progress is 1 the last function code is received.
     if (_progress >= 1) then {
         // End the loading screen and enable input for the user.
-        ["pra3_core_fnc_loadModules"] call bis_fnc_endLoadingScreen;
+        [QGVAR(loadModules)] call bis_fnc_endLoadingScreen;
         disableUserInput false;
         DUMP("All Function Recieved, now call then")
         // Call all modules.

@@ -43,9 +43,11 @@ DFUNC(escapeFnc) =  {
 
     _ret;
 };
-
+[UIVAR(SideSelection)] call bis_fnc_startLoadingScreen;
 ["missionStarted", {
+    50 call bis_fnc_progressloadingscreen;
     [{
+        75 call bis_fnc_progressloadingscreen;
         private _sidePlayerCount = EGVAR(Mission,competingSides) apply {
             private _side = call compile _x;
             [{side group _x == _side} count (allPlayers), _side]
@@ -55,6 +57,7 @@ DFUNC(escapeFnc) =  {
 
         PRA3_Player setVariable [QCGVAR(tempUnit), true];
         [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
+        [UIVAR(SideSelection)] call bis_fnc_endLoadingScreen;
     }] call CFUNC(mutex);
 
     createDialog UIVAR(RespawnScreen);
