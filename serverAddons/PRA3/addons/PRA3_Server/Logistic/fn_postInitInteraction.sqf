@@ -238,9 +238,12 @@ GVAR(CargoClasses) = [];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             [{
+                disableSerialization;
                 params ["_vehicle"];
-                if (lbCurSel GVAR(CargoListBox) == -1) exitWith {};
-                private _index = lbCurSel GVAR(CargoListBox);
+                private _index = lbCurSel (uiNamespace getVariable QGVAR(CargoListBox));
+                if (_index == -1) exitWith {};
+
+
                 closeDialog 602;
                 private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
                 private _draggedObject = _draggedObjectArray deleteAt _index;
@@ -268,6 +271,7 @@ GVAR(CargoClasses) = [];
 
         // UPDATE LOOP
         [{
+            disableSerialization;
             params ["_args", "_id"];
 
             if (isNull GVAR(CargoListBox)) exitWith {
@@ -275,13 +279,14 @@ GVAR(CargoClasses) = [];
             };
             _args params ["_container"];
             private _cargoItems = _container getVariable [QGVAR(CargoItems), []];
+            with uiNamespace do {
+                lbClear GVAR(CargoListBox);
 
-            lbClear GVAR(CargoListBox);
-
-            {
-                GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
-                nil
-            } count _cargoItems;
+                {
+                    GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+                    nil
+                } count _cargoItems;
+            };
 
 
         }, 1,[_container]] call CFUNC(addPerFrameHandler);
