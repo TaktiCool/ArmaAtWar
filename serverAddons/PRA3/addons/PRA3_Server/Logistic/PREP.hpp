@@ -1,4 +1,5 @@
 PREP(getWeight)
+PREP(serverInit)
 PREP(postInitInteraction)
 PREP(dragObject)
 PREP(dropObject)
