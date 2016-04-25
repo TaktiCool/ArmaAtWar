@@ -99,4 +99,6 @@ PRA3_Player = _newUnit;
 
 if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
     deleteVehicle _oldUnit;
+} else {
+    _oldUnit setDamage 1;
 };
