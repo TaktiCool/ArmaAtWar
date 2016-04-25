@@ -118,7 +118,7 @@ GVAR(CargoClasses) = [];
             ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
 
-            _draggedObject setPos [-10000,-10000,100000];
+            _draggedObject setPos [0,0,0];
 
             _ItemArray pushBack _draggedObject;
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
