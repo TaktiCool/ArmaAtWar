@@ -179,9 +179,26 @@ GVAR(CargoClasses) = [];
         private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
         private _gX = (((safezoneW / safezoneH) min 1.2) / 40);
 
-        private _xOffset = [1, -11.5] select (_container getVariable ["hasInventory",true]);
+        private _xOffset = [1, -5.25] select (_container getVariable ["hasInventory",true]);
 
+        if (_container getVariable ["hasInventory",true]) then {
+            {
+                private _pos = ctrlPosition _x;
 
+                _x ctrlSetPosition [
+                    (_pos select 0) + 6.25 * _gX,
+                    (_pos select 1)
+                ];
+                _x ctrlCommit 0;
+                nil
+            } count allControls _display;
+        } else {
+            {
+                (_display displayCtrl _x) ctrlSetFade 1;
+                (_display displayCtrl _x) ctrlCommit 0;
+                nil
+            } count [1001, 632, 6554, 6307, 6385, 6321];
+        };
 
         private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars",-1];
         _group ctrlSetPosition [_xOffset*_gX+(safezoneX +(safezoneW -((safezoneW / safezoneH) min 1.2))/2),_gY+(safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2),12*_gX, 25*_gY];
@@ -226,23 +243,7 @@ GVAR(CargoClasses) = [];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlCommit 0;
 
-        if (_container getVariable ["hasInventory",true]) then {
-            {
-                private _pos = ctrlPosition _x;
 
-                _x ctrlSetPosition [
-                    (_pos select 0) + 6.25 * _gX,
-                    (_pos select 1)
-                ];
-                _x ctrlCommit 0;
-                nil
-            } count allControls _display;
-        } else {
-            {
-                (_display displayCtrl _x) ctrlSetFade 1;
-                nil
-            } count [1001, 632, 6554, 6307, 6385, 6321];
-        };
 
 
     }, {!isNull (findDisplay 602)}, (_this select 0)] call CFUNC(waitUntil);
