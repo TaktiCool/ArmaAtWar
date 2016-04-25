@@ -17,6 +17,11 @@
 
 GVAR(selections) = ["", "head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
 
+// Varaibles for Cached Damage handler
+
+GVAR(damageWaitIsRunning) = false;
+GVAR(cachedDamage) = GVAR(selections) apply {[0]};;
+GVAR(killPlayerInNextFrame) = false;
 // HitEffects
 call FUNC(blood);
 call FUNC(fatigue);

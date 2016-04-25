@@ -1,5 +1,6 @@
 PREP(clientInit)
 PREP(handleDamage)
+PREP(handleDamageCached)
 PREP(translateSelection)
 PREP(bloodEffect)
 

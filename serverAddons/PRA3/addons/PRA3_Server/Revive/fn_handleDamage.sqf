@@ -16,7 +16,11 @@
 params ["_unit", "_selectionName", "_newDamage", "_source", "_projectile", "_hitPartIndex"];
 
 if (!(alive _unit) || _newDamage == 0 || _unit != PRA3_Player) exitWith {0};
-
+// if HandleDamage Cached Report Kill reset Variable and Kill player
+if (GVAR(killPlayerInNextFrame)) exitWith {
+    GVAR(killPlayerInNextFrame) = false;
+    1
+};
 // Get the correct selection name
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelection);
 private _selectionIndex = GVAR(selections) find _selectionName;
@@ -25,24 +29,17 @@ private _selectionIndex = GVAR(selections) find _selectionName;
 private _damageCoefficients = [QGVAR(Settings_damageCoefficients), GVAR(selections) apply {1}] call CFUNC(getSetting);
 _newDamage = _newDamage / (_damageCoefficients select _selectionIndex);
 
+
+
 //@todo try to move this into unconscious hit effect
 if (_unit getVariable [QGVAR(isUnconscious), false]) then {
     private _unconsciousDamageCoefficient = [QGVAR(Settings_unconsciousDamageCoefficient), 1] call CFUNC(getSetting);
     _newDamage = _newDamage * _unconsciousDamageCoefficient;
 };
 
-// Add the damage to the previous
-private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
-private _previousDamage = _unit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
-private _totalDamage = (_previousDamage select _selectionIndex) + _newDamage;
-_previousDamage set [_selectionIndex, _totalDamage min _maxDamage];
-[_unit, QGVAR(selectionDamage), _previousDamage] call CFUNC(setVariablePublic); // Use setVariablePublic to improve performance and not publish multiple times
+[_selectionIndex, _newDamage] call FUNC(handleDamageCached);
 
-// Broadcast to hit locally
-[QGVAR(Hit), [_unit, _selectionName, _newDamage, _totalDamage]] call CFUNC(localEvent);
-
-[0, 1] select (_selectionName in ["head", "body", ""] && _totalDamage >= _maxDamage)
-
+0
 /*
     Vanilla HandleDamage Calles
     ["HandleDamage",[B Alpha 1-2:1,"head",0,<NULL-object>,"B_65x39_Caseless",2]]

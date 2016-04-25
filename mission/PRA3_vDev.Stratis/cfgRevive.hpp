@@ -2,7 +2,7 @@ class CfgRevive {
     // Damage handling
     damageCoefficients[] = {1, 1, 1, 1, 1, 1, 1}; // How the damage effects the different selections
     unconsciousDamageCoefficient = 10; // An unconscious unit should die fast when hit
-    maxDamage = 3; // Upper limit to prevent unbelievable damage values
+    maxDamage = 1.2; // Upper limit to prevent unbelievable damage values
 
     // Bleeding
     bleedCoefficient = 1; // How fast a unit bleeds
