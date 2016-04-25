@@ -170,16 +170,20 @@ GVAR(CargoClasses) = [];
 
 ["InventoryOpened", {
     (_this select 0) params ["_unit", "_container"];
-    DUMP(_container)
-    if (isNull _container) then {
+
+    if ((typeOf _container) == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
-        if (_cursorTarget getVariable ["hasInventory",true] && PRA3_Player distance _cursorTarget < 5) {
+        if (!(_cursorTarget getVariable ["hasInventory", true]) && ((PRA3_Player distance _cursorTarget) < 5)) then {
             _container = _cursorTarget;
         };
     };
+
     if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
+    GVAR(currentContainer) = _container;
     [{
         params ["_unit", "_container"];
+
+
 
         disableSerialization;
         private _display = (findDisplay 602);
@@ -223,11 +227,31 @@ GVAR(CargoClasses) = [];
         _header ctrlCommit 0;
 
         with uiNamespace do {
-            private _list = _display ctrlCreate ["RscListBox", -1, _group];
-            _list ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 20*_gY];
-            _list ctrlSetBackgroundColor [0,0,0,0];
-            _list ctrlCommit 0;
+            GVAR(CargoListBox) = _display ctrlCreate ["RscListBox", -1, _group];
+            GVAR(CargoListBox) ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 17.3*_gY];
+            GVAR(CargoListBox) ctrlSetBackgroundColor [0,0,0,0];
+            GVAR(CargoListBox) ctrlCommit 0;
         };
+
+        private _unloadBtn = _display ctrlCreate ["RscButton", -1, _group];
+        _unloadBtn ctrlSetPosition [0.25*_gX, 19.5*_gY, 5.5*_gX, 1*_gY];
+        _unloadBtn ctrlSetText "UNLOAD";
+        _unloadBtn ctrlAddEventHandler ["ButtonClick", {
+            [{
+                params ["_vehicle"];
+                if (lbCurSel GVAR(CargoListBox) == -1) exitWith {};
+                private _index = lbCurSel GVAR(CargoListBox);
+                closeDialog 602;
+                private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
+                private _draggedObject = _draggedObjectArray deleteAt _index;
+                ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
+                ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
+                ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
+                [_draggedObject, PRA3_Player] call FUNC(dragObject);
+                _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
+            }, GVAR(currentContainer)] call CFUNC(mutex);
+        }];
+        _unloadBtn ctrlCommit 0;
 
         private _loadBarFrame = _display ctrlCreate ["RscFrame", -1, _group];
         _loadBarFrame ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
@@ -240,17 +264,27 @@ GVAR(CargoClasses) = [];
         _loadBar progressSetPosition 0;
         _loadBar ctrlCommit 0;
 
-        private _bg2 = _display ctrlCreate ["RscBackground", -1, _group];
-        _bg2 ctrlSetPosition [0, 23.5*_gY, 12*_gX, 1.5*_gY];
-        _bg2 ctrlSetBackgroundColor [0.05,0.05,0.05,0.7];
-        _bg2 ctrlCommit 0;
-
-        private _unloadBtn = _display ctrlCreate ["RscButton",-1, _group];
-        _unloadBtn ctrlSetPosition [0.25*_gX, 23.75*_gY, 5.5*_gX, 1*_gY];
-        _unloadBtn ctrlSetText "UNLOAD";
-        _unloadBtn ctrlCommit 0;
 
 
+        // UPDATE LOOP
+        [{
+            params ["_args", "_id"];
+
+            if (isNull GVAR(CargoListBox)) exitWith {
+                [_id] call CFUNC(removePerFrameHandler);
+            };
+            _args params ["_container"];
+            private _cargoItems = _container getVariable [QGVAR(CargoItems), []];
+
+            lbClear GVAR(CargoListBox);
+
+            {
+                GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+                nil
+            } count _cargoItems;
+
+
+        }, 1,[_container]] call CFUNC(addPerFrameHandler);
 
 
     }, {!isNull (findDisplay 602)}, [_unit, _container]] call CFUNC(waitUntil);
