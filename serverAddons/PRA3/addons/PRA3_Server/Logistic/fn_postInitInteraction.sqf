@@ -228,13 +228,13 @@ GVAR(CargoClasses) = [];
 
         with uiNamespace do {
             GVAR(CargoListBox) = _display ctrlCreate ["RscListBox", -1, _group];
-            GVAR(CargoListBox) ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 17.3*_gY];
+            GVAR(CargoListBox) ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 17.8*_gY];
             GVAR(CargoListBox) ctrlSetBackgroundColor [0,0,0,0];
             GVAR(CargoListBox) ctrlCommit 0;
         };
 
         private _unloadBtn = _display ctrlCreate ["RscButton", -1, _group];
-        _unloadBtn ctrlSetPosition [0.25*_gX, 19.5*_gY, 5.5*_gX, 1*_gY];
+        _unloadBtn ctrlSetPosition [0.5*_gX, 20*_gY, 5.5*_gX, 1*_gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             [{
