@@ -140,7 +140,7 @@ GVAR(CargoClasses) = [];
     {!(_target getVariable ["hasInventory", true])},
     {
         params ["_vehicle"];
-        PRA3_Player action ["Gear", _object];
+        PRA3_Player action ["Gear", _vehicle];
     }
 ] call CFUNC(addAction);
 
