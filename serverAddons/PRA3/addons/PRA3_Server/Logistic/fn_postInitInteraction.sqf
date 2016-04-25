@@ -261,11 +261,13 @@ GVAR(CargoClasses) = [];
         _loadBarFrame ctrlSetTextColor [0.9, 0.9, 0.9, 0.5];
         _loadBarFrame ctrlCommit 0;
 
-        private _loadBar = _display ctrlCreate ["RscProgress", -1, _group];
-        _loadBar ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
-        _loadBar ctrlSetTextColor [0.9, 0.9, 0.9, 0.9];
-        _loadBar progressSetPosition 0;
-        _loadBar ctrlCommit 0;
+        with uiNamespace do {
+            GVAR(CargoLoadBar) = _display ctrlCreate ["RscProgress", -1, _group];
+            GVAR(CargoLoadBar) ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
+            GVAR(CargoLoadBar) ctrlSetTextColor [0.9, 0.9, 0.9, 0.9];
+            GVAR(CargoLoadBar) progressSetPosition 0;
+            GVAR(CargoLoadBar) ctrlCommit 0;
+        };
 
 
 
@@ -288,6 +290,17 @@ GVAR(CargoClasses) = [];
                     nil
                 } count _cargoItems;
             };
+
+            private _cargoCapacity = _container getVariable ["cargoCapacity", 0];
+            private _usedCargoCapacity = 0;
+            {
+                _usedCargoCapacity = _usedCargoCapacity + (_x getVariable ["cargoSize", 0]);
+            } count _cargoItems;
+
+            with uiNamespace do {
+                GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity/_cargoCapacity);
+            };
+
 
 
         }, 1,[_container]] call CFUNC(addPerFrameHandler);
