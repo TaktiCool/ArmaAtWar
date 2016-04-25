@@ -31,10 +31,11 @@
         if (!_isCargo) then {
             private _weaponHolder = createVehicle ["WeaponHolder", [0, 0, 0], [], 0, "NONE"];
             _weaponHolder attachTo [_entity];
+            _entity setVariable ["WeaponHolder", _weaponHolder, true];
             /*
             ["hideObject", [_weaponHolder, true]] call CFUNC(serverEvent);
 
-            _entity setVariable ["WeaponHolder", _weaponHolder];
+
 
             [
                 getText (configFile >> "CfgActions" >> "Gear" >> "text"),
