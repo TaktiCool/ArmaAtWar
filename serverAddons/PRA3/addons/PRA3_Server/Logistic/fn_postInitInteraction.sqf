@@ -280,6 +280,7 @@ GVAR(CargoClasses) = [];
 
             {
                 GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+                nil
             } count _cargoItems;
 
 
