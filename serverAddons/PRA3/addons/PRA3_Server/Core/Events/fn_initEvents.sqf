@@ -71,7 +71,18 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 ["missionStarted", {
     GVAR(missionStartedTriggered) = true;
 }] call FUNC(addEventHandler);
-
+["moveInCargo", {
+    (_this select 0) params ["_vehicle", "_unit"];
+    _unit moveInCargo _vehicle;
+}] call FUNC(addEventHandler);
+["moveInDriver", {
+    (_this select 0) params ["_vehicle", "_unit"];
+    _unit moveInDriver _vehicle;
+}] call FUNC(addEventHandler);
+["moveInTurret", {
+    (_this select 0) params ["_vehicle", "_unit", "_turretPath"];
+    _unit moveInTurret [_vehicle, _turretPath];
+}] call FUNC(addEventHandler);
 
 GVAR(entities) = [];
 [{

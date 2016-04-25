@@ -32,15 +32,15 @@ if ((_vehicle isKindOf "Tank" && _isCrew == 0) || (_vehicle isKindOf "Air" && ([
     switch (_oldPosition) do {
         case "cargo": {
             moveOut PRA3_Player;
-            PRA3_Player moveInCargo _vehicle;
+            ["moveInCargo", _vehicle, [_vehicle, PRA3_Player]] call CFUNC(targetEvent);
         };
         case "driver": {
             moveOut PRA3_Player;
-            PRA3_Player moveInDriver _vehicle;
+            ["moveInDriver", _vehicle, [_vehicle, PRA3_Player]] call CFUNC(targetEvent);
         };
         case "Turret": {
             moveOut PRA3_Player;
-            PRA3_Player moveInTurret [_vehicle, _oldVehicleRole select 1];
+            ["moveInTurret", _vehicle, [_vehicle, PRA3_Player, _oldVehicleRole select 1]] call CFUNC(targetEvent);
         };
         default {
             // Use action here to have an animation
