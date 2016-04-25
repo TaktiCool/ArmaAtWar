@@ -136,7 +136,7 @@ GVAR(CargoClasses) = [];
 [
     {getText (configFile >> "CfgActions" >> "Gear" >> "text")},
     GVAR(CargoClasses),
-    10,
+    5,
     {!(_target getVariable ["hasInventory", true])},
     {
         params ["_vehicle"];
@@ -170,6 +170,13 @@ GVAR(CargoClasses) = [];
 
 ["InventoryOpened", {
     (_this select 0) params ["_unit", "_container"];
+    DUMP(_container)
+    if (isNull _container) then {
+        private _cursorTarget = cursorTarget;
+        if (_cursorTarget getVariable ["hasInventory",true] && PRA3_Player distance _cursorTarget < 5) {
+            _container = _cursorTarget;
+        };
+    };
     if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
     [{
         params ["_unit", "_container"];
@@ -246,5 +253,5 @@ GVAR(CargoClasses) = [];
 
 
 
-    }, {!isNull (findDisplay 602)}, (_this select 0)] call CFUNC(waitUntil);
+    }, {!isNull (findDisplay 602)}, [_unit, _container]] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
