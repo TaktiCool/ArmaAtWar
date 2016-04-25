@@ -173,7 +173,7 @@ GVAR(CargoClasses) = [];
     DUMP(_container)
     if (isNull _container) then {
         private _cursorTarget = cursorTarget;
-        if (_cursorTarget getVariable ["hasInventory",true] && PRA3_Player distance _cursorTarget < 5) {
+        if (_cursorTarget getVariable ["hasInventory",true] && PRA3_Player distance _cursorTarget < 5) then {
             _container = _cursorTarget;
         };
     };
