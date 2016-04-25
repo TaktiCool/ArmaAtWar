@@ -274,9 +274,10 @@ GVAR(CargoClasses) = [];
             disableSerialization;
             params ["_args", "_id"];
 
-            if (isNull GVAR(CargoListBox)) exitWith {
+            if (isNull GVAR(CargoListBox) || isNull (findDisplay 602)) exitWith {
                 [_id] call CFUNC(removePerFrameHandler);
             };
+
             _args params ["_container"];
             private _cargoItems = _container getVariable [QGVAR(CargoItems), []];
             with uiNamespace do {
