@@ -245,5 +245,5 @@ GVAR(CargoClasses) = [];
         };
 
 
-    }, {!isNull (findDisplay 602)}, _this] call CFUNC(waitUntil);
+    }, {!isNull (findDisplay 602)}, (_this select 0)] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
