@@ -274,7 +274,7 @@ GVAR(CargoClasses) = [];
             disableSerialization;
             params ["_args", "_id"];
 
-            if (isNull GVAR(CargoListBox) || isNull (findDisplay 602)) exitWith {
+            if (isNull (findDisplay 602)) exitWith {
                 [_id] call CFUNC(removePerFrameHandler);
             };
 
