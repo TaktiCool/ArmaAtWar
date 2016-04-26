@@ -43,11 +43,10 @@ DFUNC(escapeFnc) =  {
 
     _ret;
 };
-[UIVAR(SideSelection)] call bis_fnc_startLoadingScreen;
 ["missionStarted", {
-    50 call bis_fnc_progressloadingscreen;
+    [UIVAR(SideSelection)] call bis_fnc_startLoadingScreen;
     [{
-        75 call bis_fnc_progressloadingscreen;
+        50 call bis_fnc_progressloadingscreen;
         private _sidePlayerCount = EGVAR(Mission,competingSides) apply {
             private _side = call compile _x;
             [{side group _x == _side} count (allPlayers), _side]
