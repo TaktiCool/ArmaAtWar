@@ -25,7 +25,7 @@ private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
 if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
 {
     _x params ["_onObject", "_text", "_condition", "_code", "_args"];
-    _text = call (_text);
+    _text = _x call (_text);
 
     if !(_x in _objActions) then {
         if (_onObject isEqualType "") then {
