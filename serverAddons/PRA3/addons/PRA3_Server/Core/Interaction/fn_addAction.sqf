@@ -45,8 +45,7 @@ if (_onObject isEqualType []) then {
 
 if (_onObject isEqualType objNull) then {
     if (_onObject isEqualTo PRA3_Player) then {
-        _text = (call _text);
-        private _id = _onObject addAction [_text, _callback, _args, 1.5, false, true, "", _condition];
+        private _id = _onObject addAction [_onObject call _text, _callback, _args, 1.5, false, true, "", _condition];
         GVAR(PlayerInteraction_Actions) pushBackUnique [_id, _text, _callback, _args, _condition];
     } else {
         GVAR(Interaction_Actions) pushBackUnique [_onObject, _text, _condition, _callback, _args];
