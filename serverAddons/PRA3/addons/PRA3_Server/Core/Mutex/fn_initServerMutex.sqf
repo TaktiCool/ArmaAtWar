@@ -53,4 +53,4 @@ GVAR(mutexQueue) = [];
         // Tell the client that he can start and remove him from the queue
         call FUNC(unlockMutex)
     };
-}] call CFUNC(addEventhandler
+}] call CFUNC(addEventhandler);
