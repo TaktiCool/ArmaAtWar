@@ -30,5 +30,5 @@ GVAR(mutexCache) = [];
     GVAR(mutexCache) = [];
 
     // Tell the server that we finished
-    [] call CFUNC(serverEvent);
+    [QGVAR(unlockMutex)] call CFUNC(serverEvent);
 }] call CFUNC(addEventHandler);
