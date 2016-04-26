@@ -18,7 +18,7 @@
 ["missionStarted", {
     GVAR(captureStatusPFH) = -1;
     GVAR(currentSector) = objNull;
-
+    [QGVAR(SideSelection)] call bis_fnc_startLoadingScreen;
     if (isServer) then {
         [{
             GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
@@ -143,6 +143,7 @@
                 nil
             } count GVAR(allSectorsArray);
         };
+        [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
     }, {
         !isNil QGVAR(sectorCreationDone)
     },[]] call CFUNC(waitUntil);
