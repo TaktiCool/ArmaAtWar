@@ -15,7 +15,10 @@
 */
 // Variable which indicates if some client is currently executing
 GVAR(currentMutexClient) = 0;
-
+DFUNC(unlockMutex) = {
+    GVAR(currentMutexClient) = GVAR(mutexQueue) deleteAt 0;
+    [QGVAR(mutexLock), GVAR(currentMutexClient)] call CFUNC(targetEvent);
+};
 // Queue of clients who requested mutex executing
 GVAR(mutexQueue) = [];
 
@@ -25,7 +28,7 @@ GVAR(mutexQueue) = [];
 
     // If the client is currently executing reset the lock
     if (GVAR(currentMutexClient) == _owner) then {
-        GVAR(currentMutexClient) = 0;
+        call FUNC(unlockMutex);
     };
 
     // Clean the queue
@@ -38,23 +41,16 @@ GVAR(mutexQueue) = [];
     // We enqueue the value in the queue
     GVAR(mutexQueue) pushBackUnique (owner (_this select 0));
     DUMP(GVAR(mutexQueue))
+    if (GVAR(currentMutexClient) == 0) then {
+        // Tell the client that he can start and remove him from the queue
+        call FUNC(unlockMutex);
+    };
 }] call CFUNC(addEventHandler);
 
 [QGVAR(unlockMutex), {
     GVAR(currentMutexClient) = 0;
     if !(GVAR(mutexQueue) isEqualTo []) then {
         // Tell the client that he can start and remove him from the queue
-        GVAR(currentMutexClient) = GVAR(mutexQueue) deleteAt 0;
-        [QGVAR(mutexLock), GVAR(currentMutexClient)] call CFUNC(targetEvent);
+        call FUNC(unlockMutex)
     };
-}] call CFUNC(addEventhandler);
-
-// We check on each frame if we can switch the mutex client
-[{
-    // Check if mutex lock is open and client in the queue
-    if (GVAR(currentMutexClient) == 0 && !(GVAR(mutexQueue) isEqualTo [])) then {
-        // Tell the client that he can start and remove him from the queue
-        GVAR(currentMutexClient) = GVAR(mutexQueue) deleteAt 0;
-        [QGVAR(mutexLock), GVAR(currentMutexClient)] call CFUNC(targetEvent);
-    };
-}] call CFUNC(addPerFrameHandler);
+}] call CFUNC(addEventhandler
