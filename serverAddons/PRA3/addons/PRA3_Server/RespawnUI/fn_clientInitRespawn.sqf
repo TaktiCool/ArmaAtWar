@@ -14,6 +14,71 @@
     None
 */
 
+["playerSideChanged", {
+    if (!dialog) exitWith {};
+
+    [QGVAR(destroyCamera)] call CFUNC(localEvent);
+    [QGVAR(initCamera)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+[QGVAR(initCamera), {
+    [{
+        GVAR(currentCameraTarget) = (format ["base_%1", playerSide]) call EFUNC(Sector,getSector);
+        private _basePosition = getPos GVAR(currentCameraTarget);
+        _basePosition set [2, 10];
+
+        GVAR(camera) = "camera" camCreate _basePosition;
+        GVAR(camera) cameraEffect ["INTERNAL", "BACK"];
+        showCinemaBorder false;
+
+        private _calculateTargetPFH = [{
+            private _possibleTargets = (EGVAR(Sector,allSectorsArray) select {
+                GVAR(currentCameraTarget) in (
+                    (_x getVariable ["dependency", []]) apply {
+                        _x call EFUNC(Sector,getSector)
+                    }
+                )
+            }) select {
+                _x getVariable ["side", sideUnknown] == playerSide
+            };
+
+            if (!(_possibleTargets isEqualTo [])) then {
+                GVAR(currentCameraTarget) = selectRandom _possibleTargets;
+            };
+        }, 60] call CFUNC(addPerFrameHandler);
+
+        private _updatePositionPFH = [{
+            private _targetPosition = getPos GVAR(currentCameraTarget);
+            _targetPosition set [2, 10];
+
+            private _currentPosition = getPos GVAR(camera);
+
+            if (_currentPosition isEqualTo _targetPosition) exitWith {};
+
+            private _vectorDiff = _targetPosition vectorDiff _currentPosition;
+            private _newPosition = _currentPosition vectorAdd (vectorNormalized _vectorDiff);
+            _newPosition set [2, 10];
+
+            GVAR(camera) camSetPos _newPosition;
+            GVAR(camera) camCommit 1;
+        }, 1] call CFUNC(addPerFrameHandler);
+
+        GVAR(cameraPFHs) = [_calculateTargetPFH, _updatePositionPFH];
+    }, {
+        !isNil QEGVAR(Sector,sectorCreationDone)
+    }] call CFUNC(waitUntil);
+}] call CFUNC(addEventHandler);
+
+[QGVAR(destroyCamera), {
+    {
+        _x call CFUNC(removePerFrameHandler);
+        nil
+    } count GVAR(cameraPFHs);
+
+    GVAR(camera) cameraEffect ["TERMINATE", "BACK"];
+    camDestroy GVAR(camera);
+}] call CFUNC(addEventHandler);
+
 [UIVAR(RespawnScreen_onLoad), {
     showHUD [true,true,true,true,true,true,false,true];
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
@@ -29,12 +94,15 @@
         }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);
 
     }] call CFUNC(execNextFrame);
+
+    [QGVAR(initCamera)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {
     showHUD [true,true,true,true,true,true,true,true];
-
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
+
+    [QGVAR(destroyCamera)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 GVAR(lastRespawnFrame) = 0;
