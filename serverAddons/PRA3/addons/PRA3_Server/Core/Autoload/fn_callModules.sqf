@@ -96,13 +96,13 @@ if (!hasInterface && !isServer) then {
         _time = diag_tickTime - _time;
         LOG("Call: " + _x + " (" + str(_time) +" ms)")
         nil
-    } count _postInit;
+    } count _this;
 
     [{
         [QGVAR(loadModules)] call bis_fnc_endLoadingScreen;
     }] call CFUNC(execNextFrame);
 
-}] call CFUNC(execNextFrame);
+}, _postInit] call CFUNC(execNextFrame);
 
 if (didJip) then {
     QGVAR(jipQueue) addPublicVariableEventHandler {
