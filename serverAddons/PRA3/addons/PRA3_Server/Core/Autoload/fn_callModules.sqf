@@ -89,13 +89,20 @@ if (!hasInterface && !isServer) then {
     } count _hcInit;
 };
 
-{
-    private _time = diag_tickTime;
-    _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
-    _time = diag_tickTime - _time;
-    LOG("Call: " + _x + " (" + str(_time) +" ms)")
-    nil
-} count _postInit;
+[{
+    {
+        private _time = diag_tickTime;
+        _x call (missionNamespace getVariable [_x, {LOG("fail to Call Function: " + _this)}]);
+        _time = diag_tickTime - _time;
+        LOG("Call: " + _x + " (" + str(_time) +" ms)")
+        nil
+    } count _postInit;
+
+    [{
+        [QGVAR(loadModules)] call bis_fnc_endLoadingScreen;
+    }] call CFUNC(execNextFrame);
+
+}] call CFUNC(execNextFrame);
 
 if (didJip) then {
     QGVAR(jipQueue) addPublicVariableEventHandler {

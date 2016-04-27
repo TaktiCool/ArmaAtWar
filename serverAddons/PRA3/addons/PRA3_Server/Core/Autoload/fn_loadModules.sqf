@@ -63,7 +63,6 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
         DUMP("All Function Recieved, now call then")
         // Call all modules.
         call FUNC(callModules);
-        [QGVAR(loadModules)] call bis_fnc_endLoadingScreen;
     };
 };
 

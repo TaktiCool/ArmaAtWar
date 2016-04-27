@@ -70,7 +70,7 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     GVAR(lastFrameTime) = diag_tickTime;
 
     if (getClientState == "GAME FINISHED") then {
-        removeMissionEventHandler ["onEachFrame", GVAR(OnEachFrameID)];
+        removeMissionEventHandler ["EachFrame", GVAR(OnEachFrameID)];
     };
 
     PERFORMANCECOUNTER_END(PFHCounter)
