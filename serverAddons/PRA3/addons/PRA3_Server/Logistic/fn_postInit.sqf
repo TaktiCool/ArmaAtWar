@@ -35,7 +35,7 @@ GVAR(CargoClasses) = [];
         private _cfg = (missionConfigFile >> "PRA3" >> "Sides" >> _side >> "cfgLogistic");
         private _objects = getArray (_cfg >> "objectToSpawn");
 
-        _objects apply {
+        _objects = _objects apply {
             private _obj = missionNamespace getVariable [_x, objNull];
             // dont allow Loading in the Create Crate Objects
             _obj setVariable ["cargoCapacity", 0];
