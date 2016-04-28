@@ -52,7 +52,7 @@ GVAR(CargoClasses) = [];
                 3,
                 compile format ["playerside isEqualTo %1", _side],
                 {
-                    params ["_targetPos", "", "_args"];
+                    params ["_targetPos", "", "", "_args"];
                     ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
                 }, [_className, _content]
             ] call CFUNC(addAction);
