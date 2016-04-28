@@ -32,13 +32,15 @@ GVAR(CargoClasses) = [];
 ["missionStarted", {
     {
         private _side = _x;
-        private _cfg = (missionConfigFile >> "PRA3" >> str _side >> "cfgLogistic");
+        private _cfg = (missionConfigFile >> "PRA3" >> _side >> "cfgLogistic");
         private _objects = getArray (_cfg >> "objectToSpawn");
-        {
-            _objects set [_forEachIndex, missionNamespace getVariable [_x, objNull]];
+
+        _objects apply {
+            private _obj = missionNamespace getVariable [_x, objNull];
             // dont allow Loading in the Create Crate Objects
-            (missionNamespace getVariable [_x, objNull]) setVariable ["cargoCapacity", 0];
-        } forEach _objects;
+            _obj setVariable ["cargoCapacity", 0];
+            _obj
+        };
 
         {
             private _content = getArray (_x >> "content");
@@ -59,7 +61,7 @@ GVAR(CargoClasses) = [];
         } count (configProperties [_cfg, "isClass _x"]);
         nil
     } count EGVAR(mission,competingSides);
-}] call CFUNC(addEventhandler);
+}] call CFUNC(addEventHandler);
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
 
