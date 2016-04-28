@@ -21,6 +21,14 @@
     [QGVAR(initCamera)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
+["sector_side_changed", {
+    (_this select 0) params ["_sector"];
+
+    if (_sector isEqualTo GVAR(currentCameraTarget)) then {
+        [QGVAR(updateCameraTarget)] call CFUNC(localEvent);
+    };
+}] call CFUNC(addEventHandler);
+
 [QGVAR(initCamera), {
     [{
         GVAR(currentCameraTarget) = (format ["base_%1", playerSide]) call EFUNC(Sector,getSector);
@@ -31,49 +39,58 @@
         GVAR(camera) cameraEffect ["INTERNAL", "BACK"];
         showCinemaBorder false;
 
-        private _calculateTargetPFH = [{
-            private _possibleTargets = (EGVAR(Sector,allSectorsArray) select {
-                GVAR(currentCameraTarget) in (
-                    (_x getVariable ["dependency", []]) apply {
-                        _x call EFUNC(Sector,getSector)
-                    }
-                )
-            }) select {
-                _x getVariable ["side", sideUnknown] == playerSide
-            };
-
-            if (!(_possibleTargets isEqualTo [])) then {
-                GVAR(currentCameraTarget) = selectRandom _possibleTargets;
-            };
-        }, 60] call CFUNC(addPerFrameHandler);
-
-        private _updatePositionPFH = [{
+        GVAR(updatePositionPFH) = [{
             private _targetPosition = getPos GVAR(currentCameraTarget);
             _targetPosition set [2, 10];
 
             private _currentPosition = getPos GVAR(camera);
 
-            if (_currentPosition isEqualTo _targetPosition) exitWith {};
+            if ((_currentPosition distance _targetPosition) < 5) exitWith {
+                [QGVAR(updateCameraTarget)] call CFUNC(localEvent);
+            };
 
             private _vectorDiff = _targetPosition vectorDiff _currentPosition;
-            private _newPosition = _currentPosition vectorAdd (vectorNormalized _vectorDiff);
+            private _newPosition = _currentPosition vectorAdd ((vectorNormalized _vectorDiff) vectorMultiply 5);
             _newPosition set [2, 10];
 
             GVAR(camera) camSetPos _newPosition;
             GVAR(camera) camCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
-
-        GVAR(cameraPFHs) = [_calculateTargetPFH, _updatePositionPFH];
     }, {
         !isNil QEGVAR(Sector,sectorCreationDone)
     }] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
 
+[QGVAR(updateCameraTarget), {
+    private _possibleTargets = (EGVAR(Sector,allSectorsArray) select {
+        GVAR(currentCameraTarget) in (
+            (_x getVariable ["dependency", []]) apply {
+                _x call EFUNC(Sector,getSector)
+            }
+        )
+    }) select {
+        _x getVariable ["side", sideUnknown] == playerSide
+    };
+
+    if (!(_possibleTargets isEqualTo [])) then {
+        GVAR(currentCameraTarget) = selectRandom _possibleTargets;
+
+        private _currentPosition = getPos GVAR(camera);
+        private _currentCameraTargetPosition = getPos GVAR(currentCameraTarget);
+        private _relativeVectorToTarget = _currentCameraTargetPosition vectorDiff _currentPosition;
+        private _relativeVectorToCenter = [worldSize / 2, worldSize / 2, 0] vectorDiff _currentPosition;
+
+        private _angleToTarget = (_relativeVectorToTarget select 0) atan2 (_relativeVectorToTarget select 1);
+        private _angleToCenter = (_relativeVectorToCenter select 0) atan2 (_relativeVectorToCenter select 1);
+
+        private _angleDiff = _angleToTarget - _angleToCenter;
+
+        GVAR(camera) setDir ([_angleToTarget - 90, _angleToTarget + 90] select (_angleDiff < 0));
+    };
+}] call CFUNC(addEventHandler);
+
 [QGVAR(destroyCamera), {
-    {
-        _x call CFUNC(removePerFrameHandler);
-        nil
-    } count GVAR(cameraPFHs);
+    GVAR(updatePositionPFH) call CFUNC(removePerFrameHandler);
 
     GVAR(camera) cameraEffect ["TERMINATE", "BACK"];
     camDestroy GVAR(camera);
