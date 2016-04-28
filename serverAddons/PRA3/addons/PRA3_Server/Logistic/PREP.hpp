@@ -1,6 +1,6 @@
 PREP(getWeight)
 PREP(serverInit)
-PREP(postInitInteraction)
+PREP(postInit)
 PREP(dragObject)
 PREP(dropObject)
 PREP(spawnCrate)
