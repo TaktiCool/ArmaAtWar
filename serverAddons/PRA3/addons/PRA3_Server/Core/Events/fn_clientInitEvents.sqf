@@ -24,7 +24,7 @@ GVAR(oldCursorTarget) = objNull;
     // There is no command to get the current player but BI has an variable in mission namespace we can use.
     private _data = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
     // If the player changed we trigger an event and update the global variable.
-    if (PRA3_Player != _data) then {
+    if (PRA3_Player != _data && !(isNull _data)) then {
         ["playerChanged", [_data, PRA3_Player]] call FUNC(localEvent);
         PRA3_Player = _data;
     };
@@ -48,7 +48,7 @@ GVAR(oldCursorTarget) = objNull;
     };
 
     _data = cursorTarget;
-    if (!(_data isEqualTo GVAR(oldCursorTarget))) then {
+    if (!(_data isEqualTo GVAR(oldCursorTarget)) && !(isNull _data)) then {
         ["cursorTargetChanged", _data] call FUNC(localEvent);
         GVAR(oldCursorTarget) = _data;
     };
