@@ -77,7 +77,9 @@ _newUnit joinAsSilent [_targetGroup, _positionId];
 
 // Restore old leader status
 if (_wasLeader) then {
-    ["selectLeader", [_targetGroup, _newUnit]] call CFUNC(serverEvent);
+    [{
+        ["selectLeader", [group PRA3_Player, PRA3_Player]] call CFUNC(serverEvent);
+    }] call CFUNC(execNextFrame);
 };
 
 // Copy event handlers
