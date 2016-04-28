@@ -39,6 +39,7 @@ if (_onObject isEqualType "") then {_onObject = [_onObject];};
 if (_onObject isEqualType []) then {
     {
         GVAR(Interaction_Actions) pushBackUnique [_x, _text, _condition, _callback, _args];
+        DUMP("addAction to " + str _x);
         false
     } count _onObject;
 };
@@ -50,4 +51,5 @@ if (_onObject isEqualType objNull) then {
     } else {
         GVAR(Interaction_Actions) pushBackUnique [_onObject, _text, _condition, _callback, _args];
     };
+    DUMP("addAction to " + str _onObject);
 };

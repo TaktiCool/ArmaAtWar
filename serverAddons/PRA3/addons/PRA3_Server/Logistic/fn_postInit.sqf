@@ -32,7 +32,7 @@ GVAR(CargoClasses) = [];
 ["missionStarted", {
     {
         private _side = _x;
-        private _cfg = (missionConfigFile >> "PRA3" >>  "Sides" >> _side >> "cfgLogistic");
+        private _cfg = (missionConfigFile >> "PRA3" >> "Sides" >> _side >> "cfgLogistic");
         private _objects = getArray (_cfg >> "objectToSpawn");
 
         _objects apply {

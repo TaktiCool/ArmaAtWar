@@ -40,6 +40,7 @@ if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
                 _objActions pushBackUnique _x;
             };
         };
+        DUMP("add Real Action to Object " + str _lastTarget)
     };
     nil
 } count GVAR(Interaction_Actions);
