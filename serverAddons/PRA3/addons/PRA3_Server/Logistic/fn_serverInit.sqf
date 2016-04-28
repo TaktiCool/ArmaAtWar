@@ -53,3 +53,5 @@
     };
 
 }] call CFUNC(addEventHandler);
+
+["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);

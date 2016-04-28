@@ -63,8 +63,6 @@ GVAR(CargoClasses) = [];
     } count EGVAR(mission,competingSides);
 }] call CFUNC(addEventHandler);
 
-["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
-
 [
     {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(DragableClasses),
