@@ -86,7 +86,8 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 
 GVAR(entities) = [];
 [{
-    private _entities = (entities "") + allUnits;
+
+    private _entities = ((entities "") - allUnits) + allUnits;
 
     if !(_entities isEqualTo GVAR(entities)) then {
         {
