@@ -31,6 +31,7 @@ if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
             if (_lastTarget isKindOf _onObject) then {
                 _lastTarget addAction [_lastTarget call _text, _code, _args, 1.5, true, true, "", _condition];
                 _objActions pushBackUnique _x;
+                DUMP("add Real Action to Object " + str _lastTarget)
             };
         };
 
@@ -38,9 +39,9 @@ if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
             if ([_lastTarget] find _onObject > -1) then {
                 _lastTarget addAction [_lastTarget call _text, _code, _args, 1.5, true, true, "", _condition];
                 _objActions pushBackUnique _x;
+                DUMP("add Real Action to Object " + str _lastTarget)
             };
         };
-        DUMP("add Real Action to Object " + str _lastTarget)
     };
     nil
 } count GVAR(Interaction_Actions);
