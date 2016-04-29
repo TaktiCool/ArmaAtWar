@@ -48,7 +48,7 @@ GVAR(oldCursorTarget) = objNull;
     };
 
     _data = cursorTarget;
-    if (!(_data isEqualTo GVAR(oldCursorTarget)) && !(isNull _data)) then {
+    if (!(_data isEqualTo GVAR(oldCursorTarget))) then {
         ["cursorTargetChanged", _data] call FUNC(localEvent);
         GVAR(oldCursorTarget) = _data;
     };

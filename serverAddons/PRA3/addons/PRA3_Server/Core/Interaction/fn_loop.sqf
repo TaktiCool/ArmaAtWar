@@ -20,7 +20,7 @@
     true call FUNC(loop);
 */
 (_this select 0) params ["_lastTarget"];
-
+if (isNull _lastTarget) exitWith {};
 private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
 if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
 {
