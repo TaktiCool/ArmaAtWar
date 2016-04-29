@@ -169,5 +169,9 @@ class CfgEntities {
 
     class O_MRAP_02_F : B_MRAP_01_F {
     };
-
+    class B_HMG_01_high_F {
+        isDragable = 1;
+        isLoadable = 1;
+    };
+    class O_HMG_01_high_F: B_HMG_01_high_F {};
 };
