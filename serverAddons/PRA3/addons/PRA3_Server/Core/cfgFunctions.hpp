@@ -4,6 +4,5 @@ class PRA3_Core {
         class preInit: basePreFNC {};
         class preStart: basePreStartFNC {};
         class compile: baseFNC{};
-        class compileCached: baseFNC{};
     };
 };

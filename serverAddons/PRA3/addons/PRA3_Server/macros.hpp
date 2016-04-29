@@ -109,13 +109,8 @@
 #define CFUNC(var1) EFUNC(Core,var1)
 #define QCFUNC(var1) QUOTE(CFUNC(var1))
 
-#ifdef isDev
-    #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
-    #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
-#else
-    #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compileCached;
-    #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compileCached;
-#endif
+#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
+#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
 
 #ifdef PRA3_DEBUGFULL
     #define ENABLEPERFORMANCECOUNTER
