@@ -28,7 +28,7 @@ private _crateObject = _crateType createVehicle _spawnPos;
 
 if !(_content isEqualTo []) then {
 
-    // hideObejct until the Cargo is Filled up
+    // hideObject until the Cargo is Filled up
     _crateObject hideObjectGlobal true;
 
     // clear the Cargo
