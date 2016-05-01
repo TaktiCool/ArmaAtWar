@@ -16,7 +16,7 @@ class PRA3_UI_Compass {
             w = PX(2.2);
             h = PY(0.3);
         };
-      	LINE(02)
+        LINE(02)
         LINE(03)
         LINE(04)
         LINE(05)
