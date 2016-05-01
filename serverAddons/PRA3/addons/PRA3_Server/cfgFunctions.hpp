@@ -42,4 +42,6 @@ class cfgFunctions {
     #include "Nametags\cfgFunctions.hpp"
 
     #include "UnitTracker\cfgFunctions.hpp"
+
+    #include "CompassUI\cfgFunctions.hpp"
 };

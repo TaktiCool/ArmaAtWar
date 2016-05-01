@@ -40,6 +40,10 @@ class PRA3 {
         class UnitTracker {
             require[] = {"Core", "Mission", "Kit", "Squad"};
         };
+
+        class CompassUI {
+            require[] = {"Core"};
+        };
     };
 
     class PRA3_Extension {

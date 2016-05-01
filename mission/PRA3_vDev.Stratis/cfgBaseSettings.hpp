@@ -1,4 +1,4 @@
-loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker"};
+loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker", "CompassUI"};
 tickets = 1000; // number of tickets per team
 ticketBleed[] = {10,5}; // time, tickets
 musicStart = 100; // tickets to start the music
