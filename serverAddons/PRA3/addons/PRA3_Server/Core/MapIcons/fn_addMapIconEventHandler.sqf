@@ -32,6 +32,6 @@ private _eventArray = [_namespace, _uid, []] call FUNC(getVariableLoc);
 
 private _id = _eventArray pushBack [_code, _args];
 
-_namespace setVariable [_eventNameSpace, _eventArray];
+_namespace setVariable [_uid, _eventArray];
 
 _id

@@ -28,7 +28,7 @@ private _nearestIcon = _this call FUNC(getIconAtPos);
     if ((_icon select 0) == 1 && _nearestIcon != _x) then {
         _icon set [0, 0];
         GVAR(IconNamespace) setVariable [_x, _icon];
-        [_nearestIcon, "hoverout", _this] call FUNC(triggerMapIconEvent);
+        [_x, "hoverout", _this] call FUNC(triggerMapIconEvent);
     };
     nil;
 } count GVAR(MapIconIndex);
