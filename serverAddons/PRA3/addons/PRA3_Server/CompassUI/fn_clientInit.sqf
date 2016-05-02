@@ -13,36 +13,79 @@
     Returns:
     None
 */
+
+// 0: MOVE, 1: ATTACK, 2: DEFEND
+GVAR(lineMarkers) = [];
+
+[{
+    GVAR(lineMarkers) set [1, [[0.99, 0.26, 0, 1], [worldSize, worldSize, 0]]]; //@todo wait for sector module rework
+    GVAR(lineMarkers) set [2, [[0.01, 0.67, 0.92, 1], [0, 0, 0]]];
+}, {
+    !isNil QEGVAR(Sector,sectorCreationDone)
+}] call CFUNC(waitUntil);
+
 ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN"];
+
+addMissionEventHandler ["MapSingleClick", {
+    params ["_units", "_position", "_alt", "_shift"];
+
+    if (!_shift) exitWith {};
+
+    GVAR(lineMarkers) set [0, [[0.9, 0.66, 0.01, 1], _position]];
+}];
 
 ["missionStarted", {
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {
+        private _currentPosition = getPosVisual PRA3_Player;
         private _viewDirectionVector = getCameraViewDirection PRA3_Player;
-        private _viewDirection = (_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1);
-        if (_viewDirection < 0) then {
-            _viewDirection = _viewDirection + 360;
-        };
+        private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
 
+
+        private _lineOffset = _viewDirection % 5;
+
+        // Prepare line marker
+        private _preparedLineMarkers = [];
+        _preparedLineMarkers resize 37;
+        {
+            if (!isNil "_x") then {
+                private _markerPosition = _x select 1;
+                private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
+
+                private _angleToMarker = ((_relativeVectorToMarker select 0) atan2 (_relativeVectorToMarker select 1) + 360) % 360;
+                private _relativeAngleToMarker = (_angleToMarker - _viewDirection + 360) % 360;
+
+                _preparedLineMarkers set [(floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72, _x];
+                hint str ((floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72);
+            };
+            nil
+        } count GVAR(lineMarkers);
+
+        /*
+         * DRAWING
+         */
         private _dialog = uiNamespace getVariable UIVAR(Compass);
 
         // Lines
-        private _lineOffset = _viewDirection % 5;
-        for "_i" from 1 to 38 do {
-            (_dialog displayCtrl (7000 + _i)) ctrlSetPosition [PX(2.5) * (_i - 1) - (PX(0.5) * _lineOffset), PY(1)];
-            (_dialog displayCtrl (7000 + _i)) ctrlCommit 0;
+        for "_i" from 0 to 37 do {
+            private _idc = 7001 + _i;
+
+            private _lineMarker = _preparedLineMarkers select _i;
+            if (!(isNil "_lineMarker")) then {
+                (_dialog displayCtrl _idc) ctrlSetTextColor (_lineMarker select 0);
+            } else {
+                (_dialog displayCtrl _idc) ctrlSetTextColor [1, 1, 1, 1];
+            };
+
+            (_dialog displayCtrl _idc) ctrlSetPosition [PX(2.5) * _i - (PX(0.5) * _lineOffset), PY(1)];
+            (_dialog displayCtrl _idc) ctrlCommit 0;
         };
 
         // Bearings
         private _bearingOffset = _viewDirection % 15;
-        for "_i" from 1 to 14 do {
-            private _bearing = _viewDirection - _bearingOffset - 90 + (15 * (_i - 1));
-            if (_bearing < 0) then {
-                _bearing = _bearing + 360;
-            };
-            if (_bearing >= 360) then {
-                _bearing = _bearing - 360;
-            };
+        for "_i" from 0 to 13 do {
+            private _idc = 7101 + _i;
+            private _bearing = (_viewDirection - _bearingOffset - 90 + (15 * _i) + 360) % 360;
 
             private _bearingText = switch (_bearing) do {
                 case 0: {"N"};
@@ -56,9 +99,9 @@
                 default {str _bearing};
             };
 
-            (_dialog displayCtrl (7100 + _i)) ctrlSetPosition [PX(7.5) * (_i - 1) - PX(0.25) - (PX(0.5) * _bearingOffset), PY(2)];
-            (_dialog displayCtrl (7100 + _i)) ctrlSetText _bearingText;
-            (_dialog displayCtrl (7100 + _i)) ctrlCommit 0;
+            (_dialog displayCtrl _idc) ctrlSetPosition [PX(7.5) * _i - PX(0.25) - (PX(0.5) * _bearingOffset), PY(2)];
+            (_dialog displayCtrl _idc) ctrlSetText _bearingText;
+            (_dialog displayCtrl _idc) ctrlCommit 0;
         };
     }];
 }] call CFUNC(addEventHandler);
