@@ -5,9 +5,9 @@ class PRA3_RscButtonMenu : RscButton {
     style = ST_LEFT;
     sizeEx = PY(2);
     shadow = 0;
-    colorBackground[] = {0.4,0.4,0.4,1};
-    colorBackgroundActive[] = {0.4,0.4,0.4,1};
-    colorFocused[] = {0.4,0.4,0.4,1};
+    colorBackground[] = {0.3,0.3,0.3,1};
+    colorBackgroundActive[] = {0.3,0.3,0.3,1};
+    colorFocused[] = {0.3,0.3,0.3,1};
     colorText[] = {1,1,1,1};
     x = PX(0);
     y = PY(0);
@@ -38,7 +38,7 @@ class PRA3_RscEdit : RscEdit {
     style = ST_LEFT+ST_NO_RECT;
     sizeEx = PY(2);
     shadow = 0;
-    colorBackground[] = {0.4,0.4,0.4,1};
+    colorBackground[] = {0.3,0.3,0.3,1};
     colorText[] = {1,1,1,1};
     x = PX(0);
     y = PY(0);
@@ -94,8 +94,8 @@ class PRA3_RscListNBox : RscListNBox {
 	pictureColorSelect[] = {1,1,1,1}; // Selected picture color
 
 
-    colorSelectBackground[] = {0.4,0.4,0.4,1}; // Selected item fill color
-	colorSelectBackground2[] = {0.4,0.4,0.4,1}; // Selected item fill color (oscillates between this and colorSelectBackground)
+    colorSelectBackground[] = {0.3,0.3,0.3,1}; // Selected item fill color
+	colorSelectBackground2[] = {0.3,0.3,0.3,1}; // Selected item fill color (oscillates between this and colorSelectBackground)
 
     colorSelect[] = {1,1,1,1}; // Selected item color
 	colorSelect2[] = {1,1,1,1}; // Selected item color (oscillates between this and colorSelectBackground)
@@ -103,7 +103,7 @@ class PRA3_RscListNBox : RscListNBox {
 };
 
 class PRA3_RscCombo : RscCombo {
-    colorBackground[] = {0.4,0.4,0.4,1};
+    colorBackground[] = {0.3,0.3,0.3,1};
     sizeEx = PY(2);
 };
 /*

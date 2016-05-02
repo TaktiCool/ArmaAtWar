@@ -7,7 +7,7 @@ class PRA3_UI_RespawnScreen {
         #define GHEIGHT 82
         class MapBackground : RscPicture {
             idc = 600;
-            text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+            text = "#(argb,8,8,3)color(0,0,0,0.8)";
             x = PX(72) + safeZoneX;
             y = PY(10) + safeZoneY;
             w = safeZoneW - PX(77);
@@ -37,7 +37,7 @@ class PRA3_UI_RespawnScreen {
             class Controls {
                 class Background : RscPicture {
                     idc = 101;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    text = "#(argb,8,8,3)color(0,0,0,0.8)";
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
@@ -85,7 +85,7 @@ class PRA3_UI_RespawnScreen {
             class Controls {
                 class Background : RscPicture {
                     idc = 201;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    text = "#(argb,8,8,3)color(0,0,0,0.8)";
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
@@ -152,7 +152,7 @@ class PRA3_UI_RespawnScreen {
 
                 class BackgroundSquadDetails : RscPicture {
                     idc = 208;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,1)";
+                    text = "#(argb,8,8,3)color(0.1,0.1,0.1,1)";
                     x = PX(0);
                     y = PY(GHEIGHT-22);
                     w = PX(GWIDTH);
@@ -226,7 +226,7 @@ class PRA3_UI_RespawnScreen {
             class Controls {
                 class Background : RscPicture {
                     idc = 301;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    text = "#(argb,8,8,3)color(0,0,0,0.8)";
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
@@ -261,6 +261,9 @@ class PRA3_UI_RespawnScreen {
                     w = PX(GWIDTH);
                     h = PY(2.5);
 
+                    colorBackground[] = {0.2, 0.2, 0.2, 0.8};
+                    colorSelectedBg[] = {0.1, 0.1, 0.1, 1};
+
                     sizeEx = PY(2);
                     rows = 1;
                     columns = 3;
@@ -271,7 +274,7 @@ class PRA3_UI_RespawnScreen {
 
                 class WeaponBackground : RscPicture {
                     idc = 305;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,1)";
+                    text = "#(argb,8,8,3)color(0.1,0.1,0.1,1)";
                     x = PX(0);
                     y = PY(GHEIGHT-13);
                     w = PX(GWIDTH);
@@ -314,7 +317,7 @@ class PRA3_UI_RespawnScreen {
             class Controls {
                 class Background : RscPicture {
                     idc = 401;
-                    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.8)";
+                    text = "#(argb,8,8,3)color(0,0,0,0.8)";
                     x = PX(0);
                     y = PY(0);
                     w = PX(GWIDTH);
@@ -357,6 +360,8 @@ class PRA3_UI_RespawnScreen {
             y = PY(93) + safeZoneY;
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
+
+            colorText[] = {0,0,0,1};
 
             action = "'PRA3_UI_RespawnScreen_DeployButton_action' call PRA3_Core_fnc_localEvent;";
         };
