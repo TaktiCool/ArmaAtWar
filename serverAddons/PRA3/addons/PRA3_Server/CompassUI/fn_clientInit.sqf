@@ -21,7 +21,6 @@ GVAR(lineMarkers) = call CFUNC(createNamespace);
      //@todo wait for sector module rework
     ["Marker1", [0.99, 0.26, 0, 1], [worldSize, worldSize, 0]] call FUNC(addCompassMarker);
     ["Marker2", [0.01, 0.67, 0.92, 1], [0, 0, 0]] call FUNC(addCompassMarker);
-    GVAR(lineMarkers) set [2, [[0.01, 0.67, 0.92, 1], [0, 0, 0]]];
 }, {
     !isNil QEGVAR(Sector,sectorCreationDone)
 }] call CFUNC(waitUntil);
@@ -52,7 +51,7 @@ addMissionEventHandler ["MapSingleClick", {
         private _preparedLineMarkers = [];
         _preparedLineMarkers resize 37;
         {
-            private _markerVar = GVAR(lineMarkers) getVariable QGVAR(allLineMarkers);
+            private _markerVar = GVAR(lineMarkers) getVariable _x;
             if !(isNil "_markerVar") then {
                 private _markerPosition = _markerVar select 1;
                 private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
