@@ -19,8 +19,8 @@ GVAR(lineMarkers) = call CFUNC(createNamespace);
 
 [{
      //@todo wait for sector module rework
-    ["Marker1", [0.99, 0.26, 0, 1], [worldSize, worldSize, 0]] call FUNC(addCompassMarker);
-    ["Marker2", [0.01, 0.67, 0.92, 1], [0, 0, 0]] call FUNC(addCompassMarker);
+    ["Marker1", [0.99, 0.26, 0, 1], [worldSize, worldSize, 0]] call FUNC(addCompassLineMarker);
+    ["Marker2", [0.01, 0.67, 0.92, 1], [0, 0, 0]] call FUNC(addCompassLineMarker);
 }, {
     !isNil QEGVAR(Sector,sectorCreationDone)
 }] call CFUNC(waitUntil);
@@ -32,7 +32,7 @@ addMissionEventHandler ["MapSingleClick", {
 
     if (!_shift) exitWith {};
 
-    ["Marker2", [[0.9, 0.66, 0.01, 1], _position]] call FUNC(addCompassMarker);
+    ["Marker2", [[0.9, 0.66, 0.01, 1], _position]] call FUNC(addCompassLineMarker);
 }];
 
 ["missionStarted", {
@@ -75,13 +75,17 @@ addMissionEventHandler ["MapSingleClick", {
             private _idc = 7001 + _i;
 
             private _lineMarker = _preparedLineMarkers select _i;
+            private _color = [1, 1, 1, 1];
             if (!(isNil "_lineMarker")) then {
-                (_dialog displayCtrl _idc) ctrlSetTextColor (_lineMarker select 0);
-            } else {
-                (_dialog displayCtrl _idc) ctrlSetTextColor [1, 1, 1, 1];
+                _color =  (_lineMarker select 0);
             };
 
-            (_dialog displayCtrl _idc) ctrlSetPosition [PX(2.5) * _i - (PX(0.5) * _lineOffset), PY(1)];
+            private _xPos = PX(2.5) * _i - (PX(0.5) * _lineOffset);
+            //(_dialog displayCtrl _idc) ctrlSetText format ["#(argb,8,8,3)color(1,1,1,%1)", 0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^2)];
+            _color set [3, 0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^2)];
+            (_dialog displayCtrl _idc) ctrlSetBackgroundColor _color;
+
+            (_dialog displayCtrl _idc) ctrlSetPosition [_xPos, PY(1)];
             (_dialog displayCtrl _idc) ctrlCommit 0;
         };
 
@@ -102,7 +106,8 @@ addMissionEventHandler ["MapSingleClick", {
                 case 315: {"NW"};
                 default {str _bearing};
             };
-
+            private _xPos = PX(7.5) * _i - PX(0.25) - (PX(0.5) * _bearingOffset);
+            (_dialog displayCtrl _idc) ctrlSetTextColor [1,1,1,0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^2)];
             (_dialog displayCtrl _idc) ctrlSetPosition [PX(7.5) * _i - PX(0.25) - (PX(0.5) * _bearingOffset), PY(2)];
             (_dialog displayCtrl _idc) ctrlSetText _bearingText;
             (_dialog displayCtrl _idc) ctrlCommit 0;
