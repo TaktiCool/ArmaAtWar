@@ -21,8 +21,8 @@ if (_this select 0 isEqualType "") then {
 (_this select 0) params ["_id", "_color", "_position"];
 
 private _allMarkers = [GVAR(lineMarkers), QGVAR(allLineMarkers), []] call CFUNC(getVariableLoc);
-
-if !((toLower (_id)) in _allMarkers) then {
+_id = toLower(_id);
+if !(_id in _allMarkers) then {
     _allMarkers pushBack _id;
     GVAR(lineMarkers) setVariable [QGVAR(allLineMarkers), _allMarkers];
 };
