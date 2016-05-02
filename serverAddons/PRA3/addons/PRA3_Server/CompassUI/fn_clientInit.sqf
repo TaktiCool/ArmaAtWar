@@ -15,10 +15,12 @@
 */
 
 // 0: MOVE, 1: ATTACK, 2: DEFEND
-GVAR(lineMarkers) = [];
+GVAR(lineMarkers) = call CFUNC(createNamespace);
 
 [{
-    GVAR(lineMarkers) set [1, [[0.99, 0.26, 0, 1], [worldSize, worldSize, 0]]]; //@todo wait for sector module rework
+     //@todo wait for sector module rework
+    ["Marker1", [0.99, 0.26, 0, 1], [worldSize, worldSize, 0]] call FUNC(addCompassMarker);
+    ["Marker2", [0.01, 0.67, 0.92, 1], [0, 0, 0]] call FUNC(addCompassMarker);
     GVAR(lineMarkers) set [2, [[0.01, 0.67, 0.92, 1], [0, 0, 0]]];
 }, {
     !isNil QEGVAR(Sector,sectorCreationDone)
@@ -31,12 +33,13 @@ addMissionEventHandler ["MapSingleClick", {
 
     if (!_shift) exitWith {};
 
-    GVAR(lineMarkers) set [0, [[0.9, 0.66, 0.01, 1], _position]];
+    ["Marker2", [[0.9, 0.66, 0.01, 1], _position]] call FUNC(addCompassMarker);
 }];
 
 ["missionStarted", {
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {
+        disableSerialization;
         private _currentPosition = getPosVisual PRA3_Player;
         private _viewDirectionVector = getCameraViewDirection PRA3_Player;
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
@@ -45,21 +48,23 @@ addMissionEventHandler ["MapSingleClick", {
         private _lineOffset = _viewDirection % 5;
 
         // Prepare line marker
+        // TODO think about Caching this part
         private _preparedLineMarkers = [];
         _preparedLineMarkers resize 37;
         {
-            if (!isNil "_x") then {
-                private _markerPosition = _x select 1;
+            private _markerVar = GVAR(lineMarkers) getVariable QGVAR(allLineMarkers);
+            if !(isNil "_markerVar") then {
+                private _markerPosition = _markerVar select 1;
                 private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
 
                 private _angleToMarker = ((_relativeVectorToMarker select 0) atan2 (_relativeVectorToMarker select 1) + 360) % 360;
                 private _relativeAngleToMarker = (_angleToMarker - _viewDirection + 360) % 360;
 
-                _preparedLineMarkers set [(floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72, _x];
-                hint str ((floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72);
+                _preparedLineMarkers set [(floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72, _markerVar];
+                hintSilent str ((floor ((_relativeAngleToMarker + 2.5 + _lineOffset) / 5) + 18) % 72);
             };
             nil
-        } count GVAR(lineMarkers);
+        } count ([GVAR(lineMarkers), QGVAR(allLineMarkers), []] call CFUNC(getVariableLoc));
 
         /*
          * DRAWING
@@ -105,3 +110,6 @@ addMissionEventHandler ["MapSingleClick", {
         };
     }];
 }] call CFUNC(addEventHandler);
+
+["addCompassMarker", FUNC(addCompassMarker)] call CFUNC(addEventhandler);
+["removeCompassMarker", FUNC(removeCompassMarker)] call CFUNC(addEventhandler);
