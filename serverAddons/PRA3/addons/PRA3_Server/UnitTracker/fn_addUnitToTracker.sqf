@@ -65,7 +65,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 0) params ["_map", "_xPos", "_yPos"];
                 (_this select 1) params ["_group"];
 
-
+                if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
                 private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
                 _pos set [0, (_pos select 0) + 15/640];
                 _pos set [1, (_pos select 1) - 15/640];
@@ -118,6 +118,12 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                         (_display displayCtrl 6000) ctrlSetPosition _pos;
                         (_display displayCtrl 6000) ctrlCommit 0;
                     } else {
+                        _id call CFUNC(removePerFrameHandler);
+                    };
+                    if (!visibleMap) then {
+                        if (!isNull _display) then {
+                            ([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+                        };
                         _id call CFUNC(removePerFrameHandler);
                     };
                 }, 0, [_group, _map]] call CFUNC(addPerFrameHandler);
