@@ -110,5 +110,5 @@ addMissionEventHandler ["MapSingleClick", {
     }];
 }] call CFUNC(addEventHandler);
 
-["addCompassMarker", FUNC(addCompassMarker)] call CFUNC(addEventhandler);
-["removeCompassMarker", FUNC(removeCompassMarker)] call CFUNC(addEventhandler);
+["addCompassLineMarker", FUNC(addCompassLineMarker)] call CFUNC(addEventhandler);
+["removeCompassLineMarker", FUNC(removeCompassLineMarker)] call CFUNC(addEventhandler);

@@ -1,4 +1,4 @@
 // CompassUI
 PREP(clientInit)
-PREP(removeCompassMarker)
-PREP(addCompassMarker)
+PREP(removeCompassLineMarker)
+PREP(addCompassLineMarker)
