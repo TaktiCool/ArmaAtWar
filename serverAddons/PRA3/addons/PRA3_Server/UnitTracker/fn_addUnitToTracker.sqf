@@ -1,7 +1,4 @@
 #include "macros.hpp"
-#define PYN 105
-#define PX(X) ((X)/PYN*safeZoneH/(4/3))
-#define PY(Y) ((Y)/PYN*safeZoneH)
 /*
     Project Reality ArmA 3
 

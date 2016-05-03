@@ -25,7 +25,9 @@
 
 #define UIVAR(var1) QEGVAR(UI,var1)
 
-
+#define PYN 105
+#define PX(X) ((X)/PYN*safeZoneH/(4/3))
+#define PY(Y) ((Y)/PYN*safeZoneH)
 
 #ifdef isDev
     #define DUMP(var) \
