@@ -54,7 +54,7 @@ class Kits {
 
         secondaryWeapon = "Binocular";
 
-        primaryAttachments[] = {"optic_Hamr","acc_pointer_IR"};
+        primaryAttachments[] = {"optic_Arco","acc_pointer_IR"};
         backpack = "B_AssaultPack_rgr";
         items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 4}, {"SmokeShellGreen", 3}, {"SmokeShellRed", 3}};
         icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";

@@ -16,8 +16,12 @@
     None
 */
 params [["_event", "EventError", [""]], ["_args", []], "_persistent"];
+#ifdef isDev
+    [_event, _args, (if (isDedicated) then {"2"} else {(format ["%1:%2", profileName, CGVAR(playerUID)])})] remoteExecCall [QFUNC(localEvent), 0];
+#else
+    [_event, _args] remoteExecCall [QFUNC(localEvent), 0];
+#endif
 
-[_event, _args] remoteExecCall [QFUNC(localEvent), 0];
 if !(isNil "_persistent") then {
     ["registerJIPQueue", [_persistent, _args, _event]] call CFUNC(serverEvent);
 };

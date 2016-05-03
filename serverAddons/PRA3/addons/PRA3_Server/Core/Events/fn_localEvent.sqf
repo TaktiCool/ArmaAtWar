@@ -15,9 +15,14 @@
     None
 */
 
-params [["_eventName", "", [""]], ["_args", []]];
+#ifdef isDev
+    params [["_eventName", "", [""]], ["_args", []], ["_sender", "Local Called"]];
+#else
+    params [["_eventName", "", [""]], ["_args", []]];
+#endif
 
-DUMP("Local event: " + _eventName + ":" + str _args)
+
+DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName + ":" + str _args)
 _eventName = format ["PRA3_Event_%1", _eventName];
 private _eventArray = GVAR(EventNamespace) getVariable _eventName;
 if !(isNil "_eventArray") then {
