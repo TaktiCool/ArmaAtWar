@@ -57,10 +57,11 @@ DFUNC(escapeFnc) =  {
         PRA3_Player setVariable [QCGVAR(tempUnit), true];
         [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
         createDialog UIVAR(RespawnScreen);
+        (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
     }] call CFUNC(mutex);
 
-    (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
+
 
     [QEGVAR(Revive,Killed), {
         setPlayerRespawnTime 10e10; //@todo make this independent of revive module
