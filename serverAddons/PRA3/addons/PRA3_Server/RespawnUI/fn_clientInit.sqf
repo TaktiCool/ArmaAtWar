@@ -58,9 +58,9 @@ DFUNC(escapeFnc) =  {
         [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
         createDialog UIVAR(RespawnScreen);
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
+        (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
     }] call CFUNC(mutex);
 
-    (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
 
     [QEGVAR(Revive,Killed), {
         setPlayerRespawnTime 10e10; //@todo make this independent of revive module

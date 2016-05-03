@@ -82,7 +82,7 @@ addMissionEventHandler ["MapSingleClick", {
 
             private _xPos = PX(2.5) * _i - (PX(0.5) * _lineOffset);
             //(_dialog displayCtrl _idc) ctrlSetText format ["#(argb,8,8,3)color(1,1,1,%1)", 0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^2)];
-            _color set [3, 0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^2)];
+            _color set [3, 0 max (1-(abs (_xPos - PX(92.5/2))/PX(92.5/2))^3)];
             (_dialog displayCtrl _idc) ctrlSetBackgroundColor _color;
 
             (_dialog displayCtrl _idc) ctrlSetPosition [_xPos, PY(1)];
