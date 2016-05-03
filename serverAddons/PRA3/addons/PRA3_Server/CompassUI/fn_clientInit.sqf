@@ -109,6 +109,8 @@ addMissionEventHandler ["MapSingleClick", {
         // Icon marker
         private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, positionCameraToWorld [0, 0, 0], 1, QEGVAR(Nametags,clearNearUnits)] call CFUNC(cachedCall);
         private _nextIconMarkerControl = 0;
+        private _sideColor = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
+        private _groupColor = [0, 0.87, 0, 1];
 
         {
             private _targetSide = side (group _x);
@@ -125,11 +127,15 @@ addMissionEventHandler ["MapSingleClick", {
                 if (isNil "_control") then {
                     _control = _dialog ctrlCreate ["RscPicture", 7301 + _nextIconMarkerControl, _dialog displayCtrl 7000];
                     _control ctrlSetText "a3\ui_f\data\map\Markers\Military\dot_ca.paa";
-                    _control ctrlSetTextColor [0, 0.87, 0, 1];
                     GVAR(iconMarkerControlPool) set [_nextIconMarkerControl, _control];
                 } else {
                     _control ctrlShow true;
                 };
+
+                private _color = [_sideColor, _groupColor] select (group PRA3_Player == group _x);
+                _color set [3, (1 - 0.2 * ((PRA3_Player distance _x) - 25)) min 1];
+                _control ctrlSetTextColor _color;
+
                 _control ctrlSetPosition [PX(((_relativeAngleToUnit + 90) % 360) * 0.5), PY(1) - PY(1.45), PX(3.2), PY(3.2)];
                 _control ctrlCommit 0;
 
