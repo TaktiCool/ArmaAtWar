@@ -21,10 +21,9 @@ class PRA3_UI_Compass {
             h = PY(4);
 
             class Controls {
-                class Line01 : RscText {
+                class Line01 : RscPicture {
                     idc = 7001;
-                    //text = "#(argb,8,8,3)color(1,1,1,1)";
-                    colorBackground[] = {1,1,1,1};
+                    text = "#(argb,8,8,3)color(1,1,1,1)";
                     x = PX(0);
                     y = PY(1);
                     w = PX(2.2);
