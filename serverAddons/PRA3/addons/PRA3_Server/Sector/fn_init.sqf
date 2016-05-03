@@ -62,7 +62,13 @@
                 private _marker = _sector getVariable ["name", ""];
                 private _designator = _sector getVariable ["designator", ""];
 
-                ["sectorCreated", [_newSide, _marker, _designator]] call CFUNC(globalEvent);
+                {
+                    private _side = _x getVariable ["side", sideUnknown];
+                    private _marker = _x getVariable ["name", ""];
+                    private _designator = _x getVariable ["designator", "A"];
+                    ["sectorCreated", [_side, _marker, _designator]] call CFUNC(localEvent);
+                    nil
+                } count GVAR(allSectorsArray);
 
                 private _marker = _sector getVariable ["marker",""];
 
@@ -106,6 +112,9 @@
 
             ["sectorCreated", {
                 (_this select 0) params ["_side", "_marker", "_designator"];
+
+                private _sector = [_marker] call FUNC(getSector);
+                private _fullname = _sector getVariable ["fullname", ""];
                 private _color = [
                     missionNamespace getVariable format [QEGVAR(mission,SideColor_%1), str _side],
                     [(profilenamespace getvariable ['Map_Unknown_R',0]),(profilenamespace getvariable ['Map_Unknown_G',1]),(profilenamespace getvariable ['Map_Unknown_B',1]),(profilenamespace getvariable ['Map_Unknown_A',0.8])]
@@ -115,8 +124,28 @@
                     missionNamespace getVariable format [QEGVAR(mission,SideMapIcon_%1), str _side],
                     "a3\ui_f\data\Map\Markers\NATO\u_installation.paa"
                 ] select (_side isEqualTo sideUnknown);
-
                 private _id = format [QGVAR(ID_%1), _marker];
+
+                private _activeSides = [];
+                {
+                    _activeSides pushBackUnique (([_x] call FUNC(getSector)) getVariable ["side",sideUnknown]);
+                    nil
+                } count (_sector getVariable ["dependency",[]]);
+
+                if (count _activeSides > 1 && playerSide in _activeSides) then {
+                    if (playerSide == _side) then {
+                        _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
+                        _color = [0.01, 0.67, 0.92, 1];
+                        ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+                    } else {
+                        _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
+                        ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+                        _color = [0.99, 0.26, 0, 1];
+
+                    };
+
+                };
+
                 [
                     _id,
                     [
@@ -125,6 +154,20 @@
                     ]
                 ] call CFUNC(addMapIcon);
 
+
+
+
+                [
+                    _id,
+                    [
+                        [_icon, _color, getMarkerPos _marker],
+                        ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _fullname, 2]
+                    ],
+                    "hover"
+                ] call CFUNC(addMapIcon);
+
+
+                /*
                 [
                     _id,
                     [
@@ -133,6 +176,7 @@
                     ],
                     "hover"
                 ] call CFUNC(addMapIcon);
+                */
             }] call CFUNC(addEventHandler);
 
             {

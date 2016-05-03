@@ -35,7 +35,7 @@ private _side = switch (markerColor _marker) do {
     default {sideUnknown};
 };
 
-["sectorCreated", [_side, _marker, _designator]] call CFUNC(globalEvent);
+
 
 _marker setMarkerAlpha 1;
 //_logic setVariable ["informationMarker", _infoMarker, true];
@@ -57,3 +57,5 @@ if (_side == sideUnknown) then {
 } else {
     _logic setVariable ["captureProgress", 1, true];
 };
+
+["sectorCreated", [_side, _marker, _designator]] call CFUNC(globalEvent);

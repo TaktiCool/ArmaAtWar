@@ -17,14 +17,6 @@
 // 0: MOVE, 1: ATTACK, 2: DEFEND
 GVAR(lineMarkers) = call CFUNC(createNamespace);
 
-[{
-     //@todo wait for sector module rework
-    ["Marker1", [0.99, 0.26, 0, 1], [worldSize, worldSize, 0]] call FUNC(addCompassLineMarker);
-    ["Marker2", [0.01, 0.67, 0.92, 1], [0, 0, 0]] call FUNC(addCompassLineMarker);
-}, {
-    !isNil QEGVAR(Sector,sectorCreationDone)
-}] call CFUNC(waitUntil);
-
 ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN"];
 
 addMissionEventHandler ["MapSingleClick", {
