@@ -47,7 +47,15 @@ if (_target isEqualType "") exitWith {
         };
     };
     if (count _targets != 0) then {
-        [_event, _args] remoteExecCall [QFUNC(localEvent), _targets];
+        #ifdef isDev
+            [_event, _args, (if (isDedicated) then {"2"} else {(format ["%1:%2", profileName, CGVAR(playerUID)])})] remoteExecCall [QFUNC(localEvent), _targets];
+        #else
+            [_event, _args] remoteExecCall [QFUNC(localEvent), _targets];
+        #endif
     };
 };
-[_event, _args] remoteExecCall [QFUNC(localEvent), _target];
+#ifdef isDev
+    [_event, _args, (if (isDedicated) then {"2"} else {(format ["%1:%2", profileName, CGVAR(playerUID)])})] remoteExecCall [QFUNC(localEvent), _target];
+#else
+    [_event, _args] remoteExecCall [QFUNC(localEvent), _target];
+#endif
