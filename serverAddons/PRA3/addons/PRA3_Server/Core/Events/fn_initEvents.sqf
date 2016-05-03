@@ -35,6 +35,14 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
     (_this select 0) params ["_object"];
     [_object] call FUNC(fixFloating);
 }] call FUNC(addEventHandler);
+["fixFloating", {
+    (_this select 0) params ["_object"];
+    [_object] call FUNC(fixFloating);
+}] call FUNC(addEventHandler);
+["fixPosition", {
+    (_this select 0) params ["_object"];
+    [_object] call FUNC(fixPosition);
+}] call FUNC(addEventHandler);
 ["setCaptive", {
     (_this select 0) params ["_object", "_value"];
     _object setCaptive _value;

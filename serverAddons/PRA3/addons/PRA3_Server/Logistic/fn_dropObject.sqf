@@ -28,6 +28,7 @@ if (_position select 2 < 0) then {
     _draggedObject setPosATL _position;
 };
 ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
+["fixPosition", _draggedObject, _draggedObject] call CFUNC(targetEvent);
 if (_unit isEqualTo vehicle _unit) then {
     _unit action ["SwitchWeapon", _unit, _unit, 0];
 };
