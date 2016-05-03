@@ -107,7 +107,7 @@ addMissionEventHandler ["MapSingleClick", {
         };
 
         // Icon marker
-        private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 1, QEGVAR(Nametags,clearNearUnits)] call CFUNC(cachedCall);
+        private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, positionCameraToWorld [0, 0, 0], 1, QEGVAR(Nametags,clearNearUnits)] call CFUNC(cachedCall);
         private _nextIconMarkerControl = 0;
 
         {
@@ -127,6 +127,8 @@ addMissionEventHandler ["MapSingleClick", {
                     _control ctrlSetText "a3\ui_f\data\map\Markers\Military\dot_ca.paa";
                     _control ctrlSetTextColor [0, 0.87, 0, 1];
                     GVAR(iconMarkerControlPool) set [_nextIconMarkerControl, _control];
+                } else {
+                    _control ctrlShow true;
                 };
                 _control ctrlSetPosition [PX(((_relativeAngleToUnit + 90) % 360) * 0.5), PY(1) - PY(1.45), PX(3.2), PY(3.2)];
                 _control ctrlCommit 0;
@@ -136,10 +138,10 @@ addMissionEventHandler ["MapSingleClick", {
             nil
         } count _nearUnits;
 
-        if (_nextIconMarkerControl < count GVAR(iconMarkerControlPool) - 1) then {
+        if (_nextIconMarkerControl < count GVAR(iconMarkerControlPool)) then {
             for "_i" from _nextIconMarkerControl to (count GVAR(iconMarkerControlPool) - 1) do {
-                private _control = GVAR(iconMarkerControlPool) deleteAt _i;
-                ctrlDelete _control;
+                private _control = GVAR(iconMarkerControlPool) select _i;
+                _control ctrlShow false;
             };
         };
     }];
