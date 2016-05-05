@@ -134,9 +134,11 @@
 
                 if (count _activeSides > 1 && playerSide in _activeSides) then {
                     if (playerSide == _side) then {
-                        _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
-                        _color = [0.01, 0.67, 0.92, 1];
-                        ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+                        if (_sector call FUNC(isCaptureable)) then {
+                            _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
+                            _color = [0.01, 0.67, 0.92, 1];
+                            ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+                        };
                     } else {
                         _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
                         ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
