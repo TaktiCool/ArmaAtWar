@@ -15,13 +15,13 @@
     None
 */
 params ["_name", "_enable"];
-private _variableName = format [QGVAR(PerformanceTimerTickTime_%1), _name]
+
+private _variableName = format [QGVAR(PerformanceTimerTickTime_%1), _name];
+
 if (_enable) then {
-    if (isNil _variableName) then {
-        missionNamespace setVariable [_variableName, _name], diag_tickTime];
-    };
+    missionNamespace setVariable [_variableName, diag_tickTime];
 } else {
-    private _oldTime = missionNamespace getVariable [_variableName, _name], -99999];
+    private _oldTime = missionNamespace getVariable [_variableName, -99999];
     private _newTime = diag_tickTime;
     private _diff = _newTime - _oldTime;
     diag_log format ["[PRA3: Performance Counter] %1: Started %2 ms; Ended %3 ms; Run time %4 ms;", _name, _oldTime, _newTime, _diff];

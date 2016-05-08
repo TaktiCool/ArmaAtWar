@@ -291,7 +291,7 @@ class PRA3_UI_RespawnScreen {
                     h = PY(10);
                 };
 
-                class WeaponName : PRA3_RscTextSmall {
+                class WeaponName : PRA3_RscText {
                     idc = 307;
                     style = ST_CENTER;
                     text = "";
