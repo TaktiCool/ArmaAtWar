@@ -6,7 +6,7 @@ if (hasInterface) then {
     PRA3_Player setVariable [QGVAR(playerName), profileName, true];
 };
 
-GVAR(ignoreVariables) = [toLower(QGVAR(PlayerInteraction_Actions)),toLower(QGVAR(tempUnit)), toLower(QGVAR(isProcessed))];
+GVAR(ignoreVariables) = [toLower(QGVAR(PlayerInteraction_Actions)),toLower(QGVAR(tempUnit)), toLower(QGVAR(isProcessed)), toLower(QEGVAR(HandleDamage,reviveEventhandlerAdded))];
 
 GVAR(allLocationTypes) = [];
 {
