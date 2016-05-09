@@ -17,7 +17,7 @@
 [QGVAR(Hit), {
     (_this select 0) params ["_unit", "_selectionName", "_newDamage", "_totalDamage"];
 
-    if (_selectionName in ["leg_l", "leg_r"] && _totalDamage > 0.7) then {
+    if (_selectionName in ["leg_l", "leg_r"] && _totalDamage > ([QGVAR(Settings_maxDamageOnLegsBeforWalking), 0.7] call CFUNC(getSetting))) then {
         if (!isForcedWalk _unit) then {
             _unit forceWalk true;
         };
