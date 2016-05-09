@@ -211,12 +211,14 @@ addMissionEventHandler ["MapSingleClick", {
                     _icon = "a3\ui_f\data\Revive\medikit_ca.paa";
                     _size = [PX(2), PY(2)];
                 };
-                //@todo squad leader icon
+                if (_x == leader _x) then {
+                    _icon = "a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa";
+                    _size = [PX(1.3), PY(1.3)];
+                };
 
                 _control ctrlSetText _icon;
 
                 private _color = [_sideColor, _groupColor] select (group PRA3_Player == group _x);
-                hint str (_compassAngle - _viewDirection);
                 _color set [3, ((1 - 0.2 * ((PRA3_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
                 _control ctrlSetTextColor _color;
 
