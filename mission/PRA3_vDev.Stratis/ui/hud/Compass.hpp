@@ -21,7 +21,7 @@ class PRA3_UI_Compass {
             x = 0.5 - PX(46.25);
             y = PY(103) + safeZoneY;
             w = PX(92.5);
-            h = PY(4);
+            h = PY(5);
 
             class Controls {
                 class Needle : RscPicture {
@@ -38,7 +38,7 @@ class PRA3_UI_Compass {
                     x = 0;
                     y = 0;
                     w = PX(272.5); // 360° + 185°
-                    h = PY(4);
+                    h = PY(5);
 
                     class Controls {
                         class Line1 : RscPicture {
