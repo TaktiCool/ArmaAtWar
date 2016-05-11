@@ -14,26 +14,37 @@
     None
 */
 
-// Varaibles for Cached Damage handler
-GVAR(damageWaitIsRunning) = false;
-GVAR(cachedDamage) = GVAR(selections) apply {[0]};;
-GVAR(killPlayerInNextFrame) = false;
-
-["entityCreated", {
-    (_this select 0) params ["_entity"];
-    if (_entity isKindOf "CABaseMan") then {
-        if !(_entity getVariable [QGVAR(reviveEventhandlerAdded), false]) then {
-            _entity addEventHandler ["HandleDamage", FUNC(handleDamage)];
+DFUNC(addReviveEventhandler) = {
+    params ["_unit"];
+    if (_unit isKindOf "CAManBase") then {
+        if !(_unit getVariable [QGVAR(reviveEventhandlerAdded), false]) then {
+            _unit addEventHandler ["HandleDamage", FUNC(handleDamage)];
 
             // Disable vanilla healing
-            _entity addEventHandler ["HitPart", {0}];
-            _entity addEventHandler ["Hit", {0}];
+            _unit addEventHandler ["HitPart", {
+                params ["_unit", "_source", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_dir", "_radius", "_surface", "_direct"];
+                [_unit, (_selection select 0), (damage _unit), _source, (typeOf _projectile), -1] call FUNC(handleDamage);
+                0
+            }];
+            _unit addEventHandler ["Hit", {
+                params ["_unit", "_source", "_damage"];
+                [_unit, "body", _damage, _source, "", -1] call FUNC(handleDamage);
+                0
+            }];
 
             // register that the player
-            _entity setVariable [QGVAR(reviveEventhandlerAdded), true];
+            _unit setVariable [QGVAR(reviveEventhandlerAdded), true];
+            DUMP("Unit: " + name _unit + " HandleDamage EHs added")
         };
     };
-}] call CFUNC(addEventhandler);
+};
+
+{
+    [_x, {
+        params ["_entity"];
+        _entity call FUNC(addReviveEventhandler);
+    }] call CFUNC(addEventhandler);
+} count ["playerChanged", "MPRespawn", "entityCreated", "Respawn"];
 
 [QGVAR(remoteHandleDamageEvent), {
     (_this select 0) call FUNC(handleDamageCached);

@@ -14,13 +14,18 @@
     0 or 1
 */
 params ["_unit", "_selectionName", "_newDamage", "_source", "_projectile", "_hitPartIndex"];
+DUMP("HandleDamage: " + str _this)
+// this is only Temp
+if (!(local _unit) && {[QGVAR(Settings_enableRemoteDamageHandling), 0] call CFUNC(getSetting) isEqualTo 1}) exitWith {0};
 
-if (!(alive _unit) || _newDamage == 0 || _unit != PRA3_Player) exitWith {0};
+if (!(alive _unit) || _newDamage == 0) exitWith {0};
+
 // if HandleDamage Cached Report Kill reset Variable and Kill player
-if (GVAR(killPlayerInNextFrame)) exitWith {
-    GVAR(killPlayerInNextFrame) = false;
+if (_unit getVariable [QGVAR(killPlayerInNextFrame), false]) exitWith {
+    _unit setVariable [QGVAR(killPlayerInNextFrame), false];
     1
 };
+
 // Get the correct selection name
 _selectionName = [_unit, _selectionName, _hitPartIndex] call FUNC(translateSelection);
 private _selectionIndex = GVAR(selections) find _selectionName;
@@ -35,14 +40,8 @@ if (_unit getVariable [QGVAR(isUnconscious), false]) then {
     _newDamage = _newDamage * _unconsciousDamageCoefficient;
 };
 
-// this is only Temp
-if ([QGVAR(Settings_enableRemoteDamageHandling), 0] call CFUNC(getSetting) isEqualTo 1) then {
-    [QGVAR(remoteHandleDamageEvent), _unit, [_selectionIndex, _newDamage]] call CFUNC(targetEvent);
-} else {
-    if (local _unit) then {
-        [QGVAR(remoteHandleDamageEvent), [_selectionIndex, _newDamage]] call CFUNC(localEvent);
-    };
-};
+
+[QGVAR(remoteHandleDamageEvent), _unit, [_selectionIndex, _newDamage, _unit]] call CFUNC(targetEvent);
 
 0
 /*

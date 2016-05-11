@@ -16,7 +16,7 @@ EPREP(Treatments,heal)
 EPREP(Treatments,revive)
 
 // Handle Damage
-EPREP(HandleDamage,clientInithandleDamage)
+EPREP(HandleDamage,clientInitHandleDamage)
 EPREP(HandleDamage,handleDamage)
 EPREP(HandleDamage,handleDamageCached)
 EPREP(HandleDamage,translateSelection)

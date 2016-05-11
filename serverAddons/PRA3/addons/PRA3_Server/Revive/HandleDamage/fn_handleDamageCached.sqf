@@ -14,18 +14,28 @@
     Returns:
     None
 */
-params ["_selectionIndex", "_newDamage"];
+params ["_selectionIndex", "_newDamage", "_unit"];
+if (isNull _unit) exitWith {};
+DUMP("HandleDamage Cached: "+ str _this);
+private _damageArray = (_unit getVariable [QGVAR(cachedDamage), GVAR(selections) apply {[0]}]);
+private _handleDamageArray = _damageArray select _selectionIndex;
 
-private _damageArray = GVAR(cachedDamage) select _selectionIndex;
-_damageArray pushBack _newDamage;
-GVAR(cachedDamage) set [_selectionIndex, _damageArray];
+_handleDamageArray pushBack _newDamage;
+_damageArray set [_selectionIndex, _handleDamageArray];
+_unit setVariable [QGVAR(cachedDamage), _damageArray];
 
-if !(GVAR(damageWaitIsRunning)) then {
-    // wait 3 Frames and execute the Damage Handling
+if !(_unit getVariable [QGVAR(damageWaitIsRunning), false]) then {
+    // wait 3 Frames and execute the Damage Handling. to Get sure every external Damage Handling reach the Client
     [{
+        params ["_unit"];
+        if (isNull _unit) exitWith {};
         [{
+            params ["_unit"];
+            if (isNull _unit) exitWith {};
             [{
-                private _previousDamage = PRA3_Player getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+                params ["_unit"];
+                if (isNull _unit) exitWith {};
+                private _previousDamage = _unit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
                 private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
                 {
                     // sort to get Highest Value
@@ -35,30 +45,33 @@ if !(GVAR(damageWaitIsRunning)) then {
                     // Add the damage to the previous
                     private _totalDamage = (_previousDamage select _forEachIndex) + _newDamage;
                     _previousDamage set [_forEachIndex, _totalDamage min _maxDamage];
-                    [QGVAR(Hit), [PRA3_Player, GVAR(selections) select _forEachIndex, _newDamage, _totalDamage]] call CFUNC(localEvent);
+                    [QGVAR(Hit), [_unit, GVAR(selections) select _forEachIndex, _newDamage, _totalDamage]] call CFUNC(localEvent);
 
                     // Kill the player if the Damage is Higher than the Max Damage
                     if ((GVAR(selections) select _forEachIndex) in ["", "head", "body"]) then {
                         if (_totalDamage >= _maxDamage) then {
-                            GVAR(killPlayerInNextFrame) = true;
+                            _unit setVariable [QGVAR(killPlayerInNextFrame), false];
                         };
                     };
-                } forEach GVAR(cachedDamage);
+                } forEach (_unit getVariable [QGVAR(cachedDamage), GVAR(selections) apply {[0]}]);
 
-                [PRA3_Player, QGVAR(selectionDamage), _previousDamage] call CFUNC(setVariablePublic); // Use setVariablePublic to improve performance and not publish multiple times
+                [_unit, QGVAR(selectionDamage), _previousDamage] call CFUNC(setVariablePublic); // Use setVariablePublic to improve performance and not publish multiple times
 
                 // Reset Cached Damage Array
-                GVAR(cachedDamage) = GVAR(cachedDamage) apply {[0]};
-                GVAR(damageWaitIsRunning) = false;
+                _unit setVariable [QGVAR(cachedDamage), GVAR(selections) apply {[0]}];
+                _unit setVariable [QGVAR(damageWaitIsRunning), false];
+                if (_unit getVariable [QGVAR(killPlayerInNextFrame), false]) then {
+                    [{
+                        params ["_unit"];
+                        if (_unit getVariable [QGVAR(killPlayerInNextFrame), false]) then {
+                            _unit setDamage 1;
+                            _unit setVariable [QGVAR(killPlayerInNextFrame), false];
+                        };
+                    }, _unit] call CFUNC(execNextFrame);
+                };
 
-                [{
-                    if (GVAR(killPlayerInNextFrame)) then {
-                        PRA3_Player setDamage 1;
-                    };
-                }] call CFUNC(execNextFrame);
-
-            }] call CFUNC(execNextFrame);
-        }] call CFUNC(execNextFrame);
-    }] call CFUNC(execNextFrame);
-    GVAR(damageWaitIsRunning) = true;
+            }, _unit] call CFUNC(execNextFrame);
+        }, _unit] call CFUNC(execNextFrame);
+    }, _unit] call CFUNC(execNextFrame);
+    _unit setVariable [QGVAR(damageWaitIsRunning), true];
 };
