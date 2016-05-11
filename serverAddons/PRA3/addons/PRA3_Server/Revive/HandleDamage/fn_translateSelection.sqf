@@ -34,7 +34,6 @@ params ["_unit", "_selectionName", "_hitPointIndex"];
 if (_selectionName == "") exitWith {""};
 if (_selectionName in HEAD_SELECTIONS) exitWith {"head"};
 if (_selectionName in TORSO_SELECTIONS) exitWith {"body"};
-
 //Backup method to detect weird selections/hitpoints
 if (_selectionName == "?" || {!(_selectionName in GVAR(selections))}) exitWith {
     if (_hitPointIndex < 0) exitWith {"body"};
@@ -50,7 +49,7 @@ if (_selectionName == "?" || {!(_selectionName in GVAR(selections))}) exitWith {
 
     switch (_selectionName) do {
         case "legs": {selectRandom ["leg_r", "leg_l"]};
-        case "arms": {selectRandom ["hand_l", "hand_r"]};
+        case "arms"; // use case Hands
         case "hands": {selectRandom ["hand_l", "hand_r"]};
         default {"body"};
     };

@@ -79,7 +79,7 @@ class PRA3_RscText : RscText {
 };
 
 class PRA3_RscTextSmall : PRA3_RscText {
-    sizeEx = PY(2);
+    sizeEx = PY(1.6);
 };
 
 class PRA3_RscListNBox : RscListNBox {

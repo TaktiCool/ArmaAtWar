@@ -3,6 +3,10 @@ class CfgRevive {
     damageCoefficients[] = {1, 1, 1, 1, 1, 1, 1}; // How the damage effects the different selections
     unconsciousDamageCoefficient = 10; // An unconscious unit should die fast when hit
     maxDamage = 1.2; // Upper limit to prevent unbelievable damage values
+    maxDamageOnLegsBeforWalking = 0.7;
+
+    // Enableing Remote Damange Handling
+    enableRemoteDamageHandling = 1;     // Currently disalbe because its currently just for Testing and WIP
 
     // Bleeding
     bleedCoefficient = 1; // How fast a unit bleeds
