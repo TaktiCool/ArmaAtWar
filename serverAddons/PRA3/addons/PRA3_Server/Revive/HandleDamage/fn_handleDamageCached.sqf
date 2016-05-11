@@ -50,7 +50,7 @@ if !(_unit getVariable [QGVAR(damageWaitIsRunning), false]) then {
                     // Kill the player if the Damage is Higher than the Max Damage
                     if ((GVAR(selections) select _forEachIndex) in ["", "head", "body"]) then {
                         if (_totalDamage >= _maxDamage) then {
-                            _unit setVariable [QGVAR(killPlayerInNextFrame), false];
+                            _unit setVariable [QGVAR(killPlayerInNextFrame), true];
                         };
                     };
                 } forEach (_unit getVariable [QGVAR(cachedDamage), GVAR(selections) apply {[0]}]);
