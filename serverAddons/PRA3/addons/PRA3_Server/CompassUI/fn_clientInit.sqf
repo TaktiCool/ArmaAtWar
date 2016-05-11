@@ -73,7 +73,7 @@ addMissionEventHandler ["MapSingleClick", {
         };
 
         private _bearingOffset = 2.5 - (_viewDirection % 15);
-        for "_i" from 0 to 12 do {
+        for "_i" from 0 to 13 do {
             private _idc = _i + floor (_viewDirection / 15);
             private _control = _dialog displayCtrl (7301 + _idc);
             private _newAlpha = (_i * 15 + _bearingOffset) call FUNC(getAlphaFromX);
