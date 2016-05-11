@@ -44,6 +44,7 @@ DFUNC(addReviveEventhandler) = {
         params ["_entity"];
         _entity call FUNC(addReviveEventhandler);
     }] call CFUNC(addEventhandler);
+    nil
 } count ["playerChanged", "MPRespawn", "entityCreated", "Respawn"];
 
 [QGVAR(remoteHandleDamageEvent), {
