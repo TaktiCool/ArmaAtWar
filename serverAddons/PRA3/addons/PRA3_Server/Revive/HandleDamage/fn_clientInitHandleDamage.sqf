@@ -20,17 +20,23 @@ DFUNC(addReviveEventhandler) = {
         if !(_unit getVariable [QGVAR(reviveEventhandlerAdded), false]) then {
             _unit addEventHandler ["HandleDamage", FUNC(handleDamage)];
 
+            /*
             // Disable vanilla healing
             _unit addEventHandler ["HitPart", {
-                params ["_unit", "_source", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_dir", "_radius", "_surface", "_direct"];
-                [_unit, (_selection select 0), (damage _unit), _source, (typeOf _projectile), -1] call FUNC(handleDamage);
+                {
+                    _x params ["_unit", "_source", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_dir", "_radius", "_surface", "_direct"];
+                    private _damage = _unit getHit _selection;
+                    [_unit, (_selection select 0), (damage _unit), _source, (typeOf _projectile), -1] call FUNC(handleDamage);
+                    nil
+                } count _this;
                 0
             }];
+
             _unit addEventHandler ["Hit", {
                 params ["_unit", "_source", "_damage"];
                 [_unit, "body", _damage, _source, "", -1] call FUNC(handleDamage);
                 0
-            }];
+            }];*/
 
             // register that the player
             _unit setVariable [QGVAR(reviveEventhandlerAdded), true];
