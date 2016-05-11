@@ -14,6 +14,14 @@
     0 or 1
 */
 params ["_unit", "_selectionName", "_newDamage", "_source", "_projectile", "_hitPartIndex"];
+<<<<<<< HEAD:serverAddons/PRA3/addons/PRA3_Server/Revive/fn_handleDamage.sqf
+=======
+DUMP("HandleDamage: " + str _this)
+// this is only Temp
+//if (!(local _unit) && {[QGVAR(Settings_enableRemoteDamageHandling), 0] call CFUNC(getSetting) isEqualTo 1}) exitWith {0};
+
+if (!(alive _unit) || _newDamage == 0) exitWith {0};
+>>>>>>> 699f0f190123f1f76dd14814bb00917f0ecba2b9:serverAddons/PRA3/addons/PRA3_Server/Revive/HandleDamage/fn_handleDamage.sqf
 
 if (!(alive _unit) || _newDamage == 0 || _unit != PRA3_Player) exitWith {0};
 // if HandleDamage Cached Report Kill reset Variable and Kill player

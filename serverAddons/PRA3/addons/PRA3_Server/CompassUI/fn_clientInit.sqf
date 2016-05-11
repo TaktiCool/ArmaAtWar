@@ -37,7 +37,43 @@ addMissionEventHandler ["MapSingleClick", {
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
 
 
+<<<<<<< HEAD
         private _lineOffset = _viewDirection % 5;
+=======
+        // Alpha
+        private _lineAngleOffset = 2.5 - (_viewDirection % 5);
+        private _lineIndexVisibilityOffset = floor (_viewDirection / 5);
+        for "_i" from 0 to 37 do {
+            private _idc = _i + _lineIndexVisibilityOffset;
+            private _control = _dialog displayCtrl (7101 + _idc);
+            private _newAlpha = (_i * 5 + _lineAngleOffset) call FUNC(getAlphaFromX);
+            private _oldAlpha = GVAR(lineAlphaCache) select _idc;
+
+            if (_newAlpha != _oldAlpha) then {
+                GVAR(lineAlphaCache) set [_idc, _newAlpha];
+                _control ctrlSetTextColor [1, 1, 1, _newAlpha];
+                _control ctrlCommit 0;
+            };
+        };
+
+        private _bearingOffset = 2.5 - (_viewDirection % 15);
+        for "_i" from 0 to 13 do {
+            private _idc = _i + floor (_viewDirection / 15);
+            private _control = _dialog displayCtrl (7301 + _idc);
+            private _newAlpha = (_i * 15 + _bearingOffset) call FUNC(getAlphaFromX);
+            private _oldAlpha = GVAR(bearingAlphaCache) select _idc;
+
+            if (_newAlpha != _oldAlpha) then {
+                GVAR(bearingAlphaCache) set [_idc, _newAlpha];
+                _control ctrlSetTextColor [1, 1, 1, _newAlpha];
+                _control ctrlCommit 0;
+            };
+        };
+
+        // Line marker
+        private _nextLineMarkerControl = 0;
+        private _overlapCacheLineIndices = [];
+>>>>>>> 699f0f190123f1f76dd14814bb00917f0ecba2b9
 
         // Prepare line marker
         // TODO think about Caching this part
