@@ -19,7 +19,7 @@ class PRA3_UI_Compass {
         class CtrlGroup : RscControlsGroupNoScollbars {
             idc = 7000;
             x = 0.5 - PX(46.25);
-            y = PY(104) + safeZoneY;
+            y = PY(103) + safeZoneY;
             w = PX(92.5);
             h = PY(4);
 
@@ -157,12 +157,12 @@ class PRA3_UI_Compass {
                         LINE(107)
                         LINE(108)
                         LINE(109)
-                        class Bearing1 : PRA3_RscTextSmall {
+                        class Bearing1 : PRA3_RscText {
                             idc = 7301;
                             text = "W";
                             style = ST_CENTER;
                             x = PX(-0.25);
-                            y = PY(1.2);
+                            y = PY(2);
                             w = PX(3);
                             h = PY(1.5);
                         };
