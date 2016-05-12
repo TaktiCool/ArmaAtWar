@@ -15,9 +15,12 @@
 */
 
 GVAR(objectStorage) = [];
+GVAR(state) = 0;
 // Use an OEF EH to check for new garbage every 10 seconds. We pass an empty array as storage parameter.
-[] spawn {
-    while {true} do {
+[{
+    GVAR(state) = (GVAR(state) + 1) mod 2;
+    if (GVAR(state) == 0) then {
+
         // Cycle through all units to detect near shells and enqueue them for removal.
         {
             // Cycle through all near shells.
@@ -45,14 +48,16 @@ GVAR(objectStorage) = [];
         } count allGroups;
 
         {
-            if !(_x getVariable [QCGVAR(noClean), false]) then {
-                if (!(_x getVariable [QGVAR(queued), false])) then {
+                if !(_x getVariable [QCGVAR(noClean), false]) then {
+                    if (!(_x getVariable [QGVAR(queued), false])) then {
                     _x setVariable [QGVAR(queued), true];
                     GVAR(objectStorage) pushBack [_x, time];
                 };
             };
             nil
         } count allMissionObjects ("WeaponHolder") + allMissionObjects ("GroundWeaponHolder") + allMissionObjects ("WeaponHolderSimulated") + allDead;
+    } else {
+
 
         // Cycle through the storage and check the time. Removal is done with an animation.
         if !(GVAR(objectStorage) isEqualTo []) then {
@@ -95,4 +100,4 @@ GVAR(objectStorage) = [];
             } count +GVAR(objectStorage);
         };
     };
-};
+}, 10] call CFUNC(addPerFrameHandler);
