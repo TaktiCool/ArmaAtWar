@@ -4,19 +4,12 @@ EPREP(Autoload,callModules)
 EPREP(Autoload,loadModules)
 EPREP(Autoload,loadModulesServer)
 
-// Per Frame Eventhandler
-EPREP(PerFrame,addPerFrameHandler)
-EPREP(PerFrame,removePerFrameHandler)
-EPREP(PerFrame,initPerFrameHandler)
-EPREP(PerFrame,execNextFrame)
-EPREP(PerFrame,wait)
-EPREP(PerFrame,waitUntil)
+// Config Caching
+EPREP(ConfigCaching,returnParents)
+EPREP(ConfigCaching,initConfigCaching)
 
-// Namespaces
-EPREP(Namespaces,createNamespace)
-EPREP(Namespaces,deleteNamespace)
-EPREP(Namespaces,getVariableLoc)
-EPREP(Namespaces,getLogicGroup)
+//Entity Variables
+EPREP(EntityVariables,initEntityVariables)
 
 // Events
 EPREP(Events,initEvents)
@@ -34,36 +27,6 @@ EPREP(Events,clientInitEvents)
 EPREP(Events,serverInitEvents)
 EPREP(Events,hcInitEvents)
 
-// Interaction
-EPREP(Interaction,addAction)
-EPREP(Interaction,clientInitInteraction)
-EPREP(Interaction,loop)
-EPREP(Interaction,inRange)
-
-// Mutex
-EPREP(Mutex,initClientMutex)
-EPREP(Mutex,initServerMutex)
-EPREP(Mutex,mutex)
-
-// Notification System
-EPREP(Notification,clientInitNotification)
-EPREP(Notification,displayNotification)
-EPREP(Notification,handleNotificationQueue)
-
-// Settings
-EPREP(Settings,initSettings)
-EPREP(Settings,loadSettings)
-EPREP(Settings,getSetting)
-
-// lnbData
-EPREP(lnbData,initlnbData)
-EPREP(lnbData,lnbLoad)
-EPREP(lnbData,lnbSave)
-
-// respawn
-EPREP(Respawn,serverInitRespawn)
-EPREP(Respawn,respawn)
-
 // Gear
 EPREP(Gear,addContainer)
 EPREP(Gear,copyGear)
@@ -73,6 +36,17 @@ EPREP(Gear,addItem)
 EPREP(Gear,addMagazine)
 EPREP(Gear,addWeapon)
 EPREP(Gear,getAllGear)
+
+// Interaction
+EPREP(Interaction,addAction)
+EPREP(Interaction,clientInitInteraction)
+EPREP(Interaction,loop)
+EPREP(Interaction,inRange)
+
+// lnbData
+EPREP(lnbData,initlnbData)
+EPREP(lnbData,lnbLoad)
+EPREP(lnbData,lnbSave)
 
 // Map Icon Render
 EPREP(MapIcons,clientInitMapIcons)
@@ -90,8 +64,38 @@ EPREP(MapIcons,addMapIconEventHandler)
 EPREP(MapIcons,removeMapIconEventHandler)
 EPREP(MapIcons,triggerMapIconEvent)
 
-//Entity Variables
-EPREP(EntityVariables,initEntityVariables)
+// Mutex
+EPREP(Mutex,initClientMutex)
+EPREP(Mutex,initServerMutex)
+EPREP(Mutex,mutex)
+
+// Namespaces
+EPREP(Namespaces,createNamespace)
+EPREP(Namespaces,deleteNamespace)
+EPREP(Namespaces,getVariableLoc)
+EPREP(Namespaces,getLogicGroup)
+
+// Notification System
+EPREP(Notification,clientInitNotification)
+EPREP(Notification,displayNotification)
+EPREP(Notification,handleNotificationQueue)
+
+// Per Frame Eventhandler
+EPREP(PerFrame,addPerFrameHandler)
+EPREP(PerFrame,removePerFrameHandler)
+EPREP(PerFrame,initPerFrameHandler)
+EPREP(PerFrame,execNextFrame)
+EPREP(PerFrame,wait)
+EPREP(PerFrame,waitUntil)
+
+// respawn
+EPREP(Respawn,serverInitRespawn)
+EPREP(Respawn,respawn)
+
+// Settings
+EPREP(Settings,initSettings)
+EPREP(Settings,loadSettings)
+EPREP(Settings,getSetting)
 
 // Init
 PREP(init)

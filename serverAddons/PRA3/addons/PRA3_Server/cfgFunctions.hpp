@@ -45,5 +45,5 @@ class cfgFunctions {
 
     #include "CompassUI\cfgFunctions.hpp"
 
-    #include "Cleanup\cfgFunctions.hpp"
+    #include "GarbageCollector\cfgFunctions.hpp"
 };
