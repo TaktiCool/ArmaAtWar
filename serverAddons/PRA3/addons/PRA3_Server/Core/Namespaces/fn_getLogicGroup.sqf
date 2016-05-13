@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Project Reality ArmA 3 - Core\fn_createNamespace.sqf
+    Project Reality ArmA 3
 
     Author: BadGuy
 

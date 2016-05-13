@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Project Reality ArmA 3 - Autoload\fn_loadModules.sqf
+    Project Reality ArmA 3
 
     Author: NetFusion
 
@@ -8,13 +8,11 @@
     Entry point for module loading. Must be called within mission script for client and server. Start transfer of functions.
 
     Parameter(s):
-    - ARRAY - the names of the requested modules
+    ARRAY - the names of the requested modules
 
     Returns:
-    -
+    None
 
-    Example:
-    ["Module1", "Module2"] call AME_Core_fnc_loadModules; <= in mission script
 */
 
 // The client waits for the player to be available. This makes sure the player variable is initialized in every script later.

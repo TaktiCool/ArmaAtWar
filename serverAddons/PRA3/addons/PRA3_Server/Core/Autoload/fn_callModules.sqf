@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Project Reality ArmA 3 - Autoload\fn_callModules.sqf
+    Project Reality ArmA 3
 
     Author: NetFusion
 

@@ -8,10 +8,10 @@
     Server side modules loader (used when AME is present on client too). Prepares the functions for transmission to clients. Should run before client register with server.
 
     Parameter(s):
-    - ARRAY - server only: the names of the requested modules
+    ARRAY - server only: the names of the requested modules
 
     Returns:
-    -
+    None
 
     Example:
     ["Module1", "Module2"] call FUNC(loadModulesServer);
