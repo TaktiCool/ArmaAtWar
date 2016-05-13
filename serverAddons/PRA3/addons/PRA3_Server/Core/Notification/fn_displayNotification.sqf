@@ -16,9 +16,9 @@
     Returns:
     None
 */
-params ["_text", ["_color",[0.2,0.2,0.2,0.8]], ["_time",6],["_priority",0]];
+params ["_text", ["_color",[0.2,0.2,0.2,0.8]], ["_time",6],["_priority",0], ["_condition", {true}]];
 disableSerialization;
-GVAR(NotificationQueue) pushBack [_priority, time, _text, _color, _time];
+GVAR(NotificationQueue) pushBack [_priority, time, _text, _color, _time, _condition];
 GVAR(NotificationQueue) sort true;
 if (isNull (uiNamespace getVariable [UIVAR(Notification),displayNull])) then {
     call CFUNC(handleNotificationQueue);
