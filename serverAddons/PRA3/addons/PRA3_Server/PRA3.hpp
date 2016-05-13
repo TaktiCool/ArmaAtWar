@@ -9,7 +9,7 @@ class PRA3 {
         class Logistic {
             require[] = {"Core"};
         };
-        class Cleanup {
+        class GarbageCollector {
             require[] = {"Core"};
         };
 

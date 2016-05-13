@@ -48,8 +48,8 @@ GVAR(state) = 0;
         } count allGroups;
 
         {
-                if !(_x getVariable [QCGVAR(noClean), false]) then {
-                    if (!(_x getVariable [QGVAR(queued), false])) then {
+            if !(_x getVariable [QCGVAR(noClean), false]) then {
+                if (!(_x getVariable [QGVAR(queued), false])) then {
                     _x setVariable [QGVAR(queued), true];
                     GVAR(objectStorage) pushBack [_x, time];
                 };
