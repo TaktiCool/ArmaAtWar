@@ -31,8 +31,9 @@ if (isNil QGVAR(nextFrameBufferA)) then {
 if (isNil QGVAR(nextFrameBufferB)) then {
     GVAR(nextFrameBufferB) = [];
 };
-
-GVAR(nextFrameNo) = diag_frameno;
+if (isNil QGVAR(nextFrameNo)) then {
+    GVAR(nextFrameNo) = diag_frameno;
+};
 GVAR(deltaTime) = 0;
 GVAR(lastFrameTime) = diag_tickTime;
 GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {

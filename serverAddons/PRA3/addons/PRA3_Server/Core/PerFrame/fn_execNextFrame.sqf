@@ -22,7 +22,9 @@ if (isNil QGVAR(nextFrameBufferA)) then {
 if (isNil QGVAR(nextFrameBufferB)) then {
     GVAR(nextFrameBufferB) = [];
 };
-
+if (isNil QGVAR(nextFrameNo)) then {
+    GVAR(nextFrameNo) = diag_frameno;
+};
 if (diag_frameno == GVAR(nextFrameNo)) then {
     GVAR(nextFrameBufferB) pushBack [_params, _func];
 } else {
