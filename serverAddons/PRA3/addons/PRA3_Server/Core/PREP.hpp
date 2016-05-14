@@ -6,19 +6,6 @@ EPREP(PerFrame,execNextFrame)
 EPREP(PerFrame,wait)
 EPREP(PerFrame,waitUntil)
 
-// Autoload
-EPREP(Autoload,autoloadEntryPoint)
-EPREP(Autoload,callModules)
-EPREP(Autoload,loadModules)
-EPREP(Autoload,loadModulesServer)
-
-// Config Caching
-EPREP(ConfigCaching,returnParents)
-EPREP(ConfigCaching,initConfigCaching)
-
-//Entity Variables
-EPREP(EntityVariables,initEntityVariables)
-
 // Events
 EPREP(Events,initEvents)
 EPREP(Events,addEventHandler)
@@ -34,6 +21,19 @@ EPREP(Events,serverEvent)
 EPREP(Events,clientInitEvents)
 EPREP(Events,serverInitEvents)
 EPREP(Events,hcInitEvents)
+
+// Autoload
+EPREP(Autoload,autoloadEntryPoint)
+EPREP(Autoload,callModules)
+EPREP(Autoload,loadModules)
+EPREP(Autoload,loadModulesServer)
+
+// Config Caching
+EPREP(ConfigCaching,returnParents)
+EPREP(ConfigCaching,initConfigCaching)
+
+//Entity Variables
+EPREP(EntityVariables,initEntityVariables)
 
 // Gear
 EPREP(Gear,addContainer)
