@@ -139,7 +139,7 @@ class Kits {
 
         secondaryWeapon = "launch_B_Titan_F";
         secondaryMagazine = "Titan_AA";
-        secondaryMagazineCount = 1;
+        secondaryMagazineCount = 3;
         backpack = "B_AssaultPack_rgr";
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\aa_ca.paa";
@@ -150,7 +150,7 @@ class Kits {
 
         secondaryWeapon = "launch_NLAW_F";
         secondaryMagazine = "NLAW_F";
-        secondaryMagazineCount = 1;
+        secondaryMagazineCount = 2;
         backpack = "B_AssaultPack_rgr";
         displayName = "LAT Rifleman";
 
@@ -161,8 +161,13 @@ class Kits {
         availableInGroups[] = {"Weapon"};
 
         displayName = "HAT Rifleman";
+
+        secondaryWeapon = "launch_B_Titan_F";
+        secondaryMagazine = "Titan_AT";
+        secondaryMagazineCount = 3;
+        backpack = "B_AssaultPack_rgr";
     };
-    class HeavyMachineGun: Rifleman {
+    class HeavyMachineGun: AutomaticRifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Weapon"};
 
@@ -172,11 +177,18 @@ class Kits {
         availableInGroups[] = {"Weapon"};
 
         displayName = "Ammo Bearer";
+
+        backpack = "B_AssaultPack_rgr";
+        items[] = {{"200Rnd_65x39_cased_Box", 4}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle", "Helicopter"};
 
         displayName = "Crewman";
+
+        uniform = "U_O_CombatUniform_ocamo";
+        headGear = "H_HelmetCrew_B";
+        primaryMagazineCount = 2;
 
         isCrew = 1;
     };
@@ -185,6 +197,10 @@ class Kits {
 
         displayName = "Pilot";
 
+        uniform = "U_B_HeliPilotCoveralls";
+        headGear = "H_PilotHelmetHeli_B";
+        primaryMagazineCount = 2;
+
         isPilot = 1;
     };
     class Sniper: Rifleman {
@@ -192,11 +208,30 @@ class Kits {
         availableInGroups[] = {"Recon"};
 
         displayName = "Sniper";
+
+        uniform = "U_B_FullGhillie_lsh";
+        backpack = "B_AssaultPack_rgr";
+
+        primaryWeapon = "srifle_LRR_F";
+        primaryAttachments[] = {"optic_LRPS","bipod_01_F_blk"};
+
+        primaryMagazine = "7Rnd_408_Mag";
+        primaryMagazineCount = 10;
+
+        secondaryWeapon = "Rangefinder";
+
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
+        assignedItems[] += {"Rangefinder"};
     };
     class Spotter: Rifleman {
         availableInGroups[] = {"Recon"};
 
         displayName = "Spotter";
+
+        uniform = "U_B_FullGhillie_lsh";
+        primaryAttachments[] = {"optic_Arco"};
+        secondaryWeapon = "Rangefinder";
+        assignedItems[] += {"Rangefinder"};
     };
     class Specialist: Rifleman {
         availableInGroups[] = {"Recon"};
