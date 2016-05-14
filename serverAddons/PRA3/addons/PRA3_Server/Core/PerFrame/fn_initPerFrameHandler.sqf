@@ -16,7 +16,7 @@
 GVAR(waitArray) = [];
 GVAR(waitUntilArray) = [];
 GVAR(perFrameHandlerArray) = [];
-GVAR(PFHhandles) = []
+GVAR(PFHhandles) = [];
 GVAR(nextFrameBufferA) = [];
 GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
