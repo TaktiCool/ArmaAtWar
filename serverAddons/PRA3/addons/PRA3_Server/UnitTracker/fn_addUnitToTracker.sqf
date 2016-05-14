@@ -82,7 +82,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
                     private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
                     (_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
-                    _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br \>", _kitIcon,  [_x] call CFUNC(name)];
+                    _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
                     true;
                 } count _units;
 
