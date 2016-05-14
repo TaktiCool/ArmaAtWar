@@ -13,13 +13,25 @@
     Returns:
     None
 */
+if (isNil GVAR(waitArray)) then {
+    GVAR(waitArray) = [];
+};
+if (isNil QGVAR(waitUntilArray)) then {
+    GVAR(waitUntilArray) = [];
+};
+if (isNil QGVAR(perFrameHandlerArray)) then {
+    GVAR(perFrameHandlerArray) = [];
+};
+if (isNil QGVAR(PFHhandles)) then {
+    GVAR(PFHhandles) = []
+};
+if (isNil QGVAR(nextFrameBufferA)) then {
+    GVAR(nextFrameBufferA) = [];
+};
+if (isNil QGVAR(nextFrameBufferB)) then {
+    GVAR(nextFrameBufferB) = [];
+};
 
-GVAR(waitArray) = [];
-GVAR(waitUntilArray) = [];
-GVAR(perFrameHandlerArray) = [];
-GVAR(PFHhandles) = [];
-GVAR(nextFrameBufferA) = [];
-GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
 GVAR(deltaTime) = 0;
 GVAR(lastFrameTime) = diag_tickTime;

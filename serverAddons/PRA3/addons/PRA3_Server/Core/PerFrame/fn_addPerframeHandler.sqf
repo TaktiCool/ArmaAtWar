@@ -23,8 +23,11 @@
 
     if (_function isEqualTo {}) exitWith {-1};
 
+    if (isNil QGVAR(perFrameHandlerArray)) then {
+        GVAR(perFrameHandlerArray) = [];
+    };
     if (isNil QGVAR(PFHhandles)) then {
-        GVAR(PFHhandles) = [];
+        GVAR(PFHhandles) = []
     };
 
     if (count GVAR(PFHhandles) >= 999999) exitWith {

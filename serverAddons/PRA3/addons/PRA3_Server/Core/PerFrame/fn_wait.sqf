@@ -15,5 +15,8 @@
  * [{hint "you die"},10,player] call CFUNC(wait);
  */
 params [["_code", {}], ["_time", 0], ["_args", []]];
+if (isNil GVAR(waitArray)) then {
+    GVAR(waitArray) = [];
+};
 GVAR(waitArray) pushBack [_time + time, _code, _args];
 GVAR(waitArray) sort true;
