@@ -32,7 +32,7 @@ if (isNil QGVAR(nextFrameBufferB)) then {
     GVAR(nextFrameBufferB) = [];
 };
 if (isNil QGVAR(nextFrameNo)) then {
-    GVAR(nextFrameNo) = diag_frameno;
+    GVAR(nextFrameNo) = diag_frameno + 1;
 };
 GVAR(deltaTime) = 0;
 GVAR(lastFrameTime) = diag_tickTime;
