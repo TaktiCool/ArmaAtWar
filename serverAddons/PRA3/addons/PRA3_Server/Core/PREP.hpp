@@ -1,3 +1,11 @@
+// Per Frame Eventhandler
+EPREP(PerFrame,addPerFrameHandler)
+EPREP(PerFrame,removePerFrameHandler)
+EPREP(PerFrame,initPerFrameHandler)
+EPREP(PerFrame,execNextFrame)
+EPREP(PerFrame,wait)
+EPREP(PerFrame,waitUntil)
+
 // Autoload
 EPREP(Autoload,autoloadEntryPoint)
 EPREP(Autoload,callModules)
@@ -79,14 +87,6 @@ EPREP(Namespaces,getLogicGroup)
 EPREP(Notification,clientInitNotification)
 EPREP(Notification,displayNotification)
 EPREP(Notification,handleNotificationQueue)
-
-// Per Frame Eventhandler
-EPREP(PerFrame,addPerFrameHandler)
-EPREP(PerFrame,removePerFrameHandler)
-EPREP(PerFrame,initPerFrameHandler)
-EPREP(PerFrame,execNextFrame)
-EPREP(PerFrame,wait)
-EPREP(PerFrame,waitUntil)
 
 // respawn
 EPREP(Respawn,serverInitRespawn)

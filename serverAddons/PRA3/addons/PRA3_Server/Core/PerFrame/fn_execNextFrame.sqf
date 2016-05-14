@@ -16,15 +16,6 @@
 */
 params [["_func",{}], ["_params", []]];
 
-if (isNil QGVAR(nextFrameBufferA)) then {
-    GVAR(nextFrameBufferA) = [];
-};
-if (isNil QGVAR(nextFrameBufferB)) then {
-    GVAR(nextFrameBufferB) = [];
-};
-if (isNil QGVAR(nextFrameNo)) then {
-    GVAR(nextFrameNo) = diag_frameno + 1;
-};
 if (diag_frameno == GVAR(nextFrameNo)) then {
     GVAR(nextFrameBufferB) pushBack [_params, _func];
 } else {
