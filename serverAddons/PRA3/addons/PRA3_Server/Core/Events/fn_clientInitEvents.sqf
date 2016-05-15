@@ -20,6 +20,7 @@ GVAR(oldGear) = PRA3_Player call CFUNC(getAllGear);
 GVAR(oldVisibleMap) = false;
 GVAR(oldPLayerSide) = playerSide;
 GVAR(oldCursorTarget) = objNull;
+GVAR(groupUnits) = [];
 [{
     // There is no command to get the current player but BI has an variable in mission namespace we can use.
     private _data = missionNamespace getVariable ["bis_fnc_moduleRemoteControl_unit", player];
@@ -51,6 +52,12 @@ GVAR(oldCursorTarget) = objNull;
     if (!(_data isEqualTo GVAR(oldCursorTarget))) then {
         ["cursorTargetChanged", _data] call FUNC(localEvent);
         GVAR(oldCursorTarget) = _data;
+    };
+
+    _data = group (units PRA3_Player);
+    if !(GVAR(groupUnits) isEqualTo _data) then {
+        ["groupUnitsChanged", _data] call FUNC(localEvent);
+        GVAR(groupUnits) = _data;
     };
 }] call CFUNC(addPerFrameHandler);
 
