@@ -9,6 +9,7 @@ class Kits {
         icon = "";
         UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
+        compassIcon[] = {"a3\ui_f\data\map\Markers\Military\dot_ca.paa", 3.6};
 
         // Special attributes
         isLeader = 0;
@@ -49,6 +50,8 @@ class Kits {
         availableInGroups[] = {"Rifle", "Weapon"};
 
         displayName = "Squad Leader";
+        compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
+        mapIcon = "a3\ui_f\data\Map\VehicleIcons\iconManLeader_ca.paa";
 
         isLeader = 1;
 
@@ -66,6 +69,8 @@ class Kits {
         availableInGroups[] = {"Rifle", "Weapon"};
 
         displayName = "Medic";
+        mapIcon = "";
+        compassIcon[] = {"a3\ui_f\data\Revive\medikit_ca.paa", 2};
 
         isMedic = 1;
 
@@ -75,6 +80,7 @@ class Kits {
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
         UIIcon = "a3\ui_f\data\Revive\medikit_ca.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa";
+        compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
 
         backpack = "B_TacticalPack_ocamo";
         items[] = {{"FirstAidKit", 3}, {"Medikit", 1}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};

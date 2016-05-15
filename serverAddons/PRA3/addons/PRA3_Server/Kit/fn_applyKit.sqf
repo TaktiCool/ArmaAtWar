@@ -22,7 +22,7 @@ private _kitDetails = [_kitName, [
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
     ["items", []],
-    ["displayName", ""], ["icon", ""], ["mapIcon",""],
+    ["displayName", ""], ["icon", ""], ["mapIcon",""], ["compassIcon", ["", 1]],
     ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
@@ -32,7 +32,7 @@ _kitDetails params [
     "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
     "_assignedItems",
     "_items",
-    "_displayName", "_icon", "_mapIcon",
+    "_displayName", "_icon", "_mapIcon", "_compassIcon",
     "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew"
 ];
 
@@ -79,10 +79,12 @@ if (_icon == "") then {
 if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
+
 PRA3_Player setVariable [QGVAR(kit), _kitName, true];
 PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
 PRA3_Player setVariable [QGVAR(kitIcon), _icon, true];
 PRA3_Player setVariable [QGVAR(MapIcon), _mapIcon, true];
+PRA3_Player setVariable [QGVAR(compassIcon), _compassIcon, true];
 
 PRA3_Player setVariable [QGVAR(isLeader), _isLeader == 1, true];
 PRA3_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];

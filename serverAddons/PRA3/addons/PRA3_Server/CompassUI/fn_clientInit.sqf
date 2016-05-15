@@ -205,16 +205,9 @@ addMissionEventHandler ["MapSingleClick", {
                     _compassAngle = _compassAngle - 360;
                 };
 
-                private _icon = "a3\ui_f\data\map\Markers\Military\dot_ca.paa";
-                private _size = [PX(3.6), PY(3.6)];
-                if (_x getVariable [QEGVAR(Kit,isMedic), false]) then {
-                    _icon = "a3\ui_f\data\Revive\medikit_ca.paa";
-                    _size = [PX(2), PY(2)];
-                };
-                if (_x == leader _x) then {
-                    _icon = "a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa";
-                    _size = [PX(1.3), PY(1.3)];
-                };
+                private _data = _x getVariable [QEGVAR(Kit,CompassIcon), ["a3\ui_f\data\map\Markers\Military\dot_ca.paa", 3.6]];
+                _data params ["_icon", "_size"];
+                _size = [PX(_size), PY(_size)];
 
                 _control ctrlSetText _icon;
 
