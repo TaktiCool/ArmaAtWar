@@ -108,6 +108,14 @@
                         [format["Your team neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _sector getVariable ["attacker"]],[0,1,0,1]]] call CFUNC(displayNotification);
                     };
                 };
+
+                {
+                    private _side = _x getVariable ["side", sideUnknown];
+                    private _marker = _x getVariable ["name", ""];
+                    private _designator = _x getVariable ["designator", "A"];
+                    ["sectorCreated", [_side, _marker, _designator]] call CFUNC(localEvent);
+                    nil
+                } count GVAR(allSectorsArray);
             }] call CFUNC(addEventHandler);
 
             ["sectorCreated", {
