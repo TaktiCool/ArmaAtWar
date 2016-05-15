@@ -177,7 +177,7 @@ addMissionEventHandler ["MapSingleClick", {
         // Icon marker
         private _nextIconMarkerControl = 0;
         private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, positionCameraToWorld [0, 0, 0], 1, QEGVAR(Nametags,clearNearUnits)] call CFUNC(cachedCall);
-        private _sideColor = missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide];
+        private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
         {
