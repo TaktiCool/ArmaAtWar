@@ -89,6 +89,14 @@
 
                 private _sectorName = _sector getVariable ["fullName", ""];
 
+                {
+                    private _side = _x getVariable ["side", sideUnknown];
+                    private _marker = _x getVariable ["name", ""];
+                    private _designator = _x getVariable ["designator", "A"];
+                    ["sectorCreated", [_side, _marker, _designator]] call CFUNC(localEvent);
+                    nil
+                } count GVAR(allSectorsArray);
+
                 if ((side group PRA3_Player) isEqualTo _newSide) exitWith {
                     if (GVAR(currentSector) isEqualTo _sector) then {
                         [format["You captured sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
@@ -109,13 +117,7 @@
                     };
                 };
 
-                {
-                    private _side = _x getVariable ["side", sideUnknown];
-                    private _marker = _x getVariable ["name", ""];
-                    private _designator = _x getVariable ["designator", "A"];
-                    ["sectorCreated", [_side, _marker, _designator]] call CFUNC(localEvent);
-                    nil
-                } count GVAR(allSectorsArray);
+
             }] call CFUNC(addEventHandler);
 
             ["sectorCreated", {
@@ -142,11 +144,11 @@
 
                 if (count _activeSides > 1 && playerSide in _activeSides) then {
                     if (playerSide == _side) then {
-                        //if (_sector call FUNC(isCaptureable)) then {
+                        if (_sector call FUNC(isCaptureable)) then {
                             _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
                             _color = [0.01, 0.67, 0.92, 1];
                             ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
-                        //};
+                        };
                     } else {
                         _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
                         ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
