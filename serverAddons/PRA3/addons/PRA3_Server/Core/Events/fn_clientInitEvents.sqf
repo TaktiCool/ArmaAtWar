@@ -54,7 +54,7 @@ GVAR(groupUnits) = [];
         GVAR(oldCursorTarget) = _data;
     };
 
-    _data = group (units PRA3_Player);
+    _data = units PRA3_Player;
     if !(GVAR(groupUnits) isEqualTo _data) then {
         ["groupUnitsChanged", _data] call FUNC(localEvent);
         GVAR(groupUnits) = _data;
