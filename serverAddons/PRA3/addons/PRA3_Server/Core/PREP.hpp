@@ -97,6 +97,11 @@ EPREP(Settings,initSettings)
 EPREP(Settings,loadSettings)
 EPREP(Settings,getSetting)
 
+// StatusEffects
+EPREP(StatusEffects,initStatusEffectType)
+EPREP(StatusEffects,addStatusEffectType)
+EPREP(StatusEffects,setStatusEffect)
+
 // Init
 PREP(init)
 
