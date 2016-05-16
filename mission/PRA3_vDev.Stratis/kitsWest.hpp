@@ -50,9 +50,6 @@ class Kits {
         availableInGroups[] = {"Rifle", "Weapon"};
 
         displayName = "Squad Leader";
-        compassIcon = "a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa";
-        mapIcon = "a3\ui_f\data\Map\VehicleIcons\iconManLeader_ca.paa";
-        compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
 
         isLeader = 1;
 
@@ -64,6 +61,7 @@ class Kits {
         icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
         UIIcon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManLeader_ca.paa";
+        compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
     };
     class Medic: Rifleman {
         kitGroup = "Specialized";
