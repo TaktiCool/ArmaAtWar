@@ -22,7 +22,7 @@
     private _groupType = _group getVariable [QGVAR(Type), ""];
     private _groupSize = [format [QGVAR(GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
 
-    if (count units _group >= _groupSize) exitWith {};
+    if (count ([_group] call CFUNC(groupPlayers)) >= _groupSize) exitWith {};
 
     call FUNC(leaveSquad);
     [PRA3_Player] join _group;

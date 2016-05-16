@@ -73,21 +73,17 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_display displayCtrl 6001) ctrlSetText toUpper groupId _group;
                 private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
                 private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
-                private _units = units _group;
+                private _units = ([group PRA3_Player] call CFUNC(groupPlayers));
                 (_display displayCtrl 6002) ctrlSetText ((_group getVariable [QEGVAR(Squad,Type), ""])+" Squad");
                 (_display displayCtrl 6003) ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
                 (_display displayCtrl 6004) ctrlSetText format ["%1 / %2",count _units, _groupSize];
                 private _squadUnits = "";
                 private _unitCount = {
-                    if (isPlayer _x) then {
-                        private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
-                        private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-                        (_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
-                        _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
-                        true;
-                    } else {
-                        false;
-                    };
+                    private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
+                    private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+                    (_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
+                    _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
+                    true;
                 } count _units;
 
                 (_display displayCtrl 6006) ctrlSetStructuredText parseText _squadUnits;

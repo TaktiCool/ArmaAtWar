@@ -29,7 +29,7 @@ private _squadType = (group PRA3_Player) getVariable [QEGVAR(Squad,Type), ""];
 if (!(_squadType in _availableInGroups)) exitWith {0};
 
 // Check group member count
-private _groupMembersCount = count units group PRA3_Player;
+private _groupMembersCount = count ([group PRA3_Player] call CFUNC(groupPlayers));
 private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSetting);
 private _usedKitsFromGroup = {
     private _usedKitName = _x getVariable [QGVAR(kit), ""];

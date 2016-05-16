@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: BadGuy
 
     Description:
     Adds a Status Effect Type to the System

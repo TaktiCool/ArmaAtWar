@@ -86,7 +86,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
         private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
         private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
 
-        private _rowNumber = lnbAddRow [IDC, [(groupId _x) select [0, 1], _description, _groupTypeName, format ["%1 / %2", count units _x, _groupSize]]];
+        private _rowNumber = lnbAddRow [IDC, [(groupId _x) select [0, 1], _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
         if (_x == group PRA3_Player) then {
@@ -124,20 +124,18 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
     #define IDC 210
     _selectedLnbRow = lnbCurSelRow IDC;
     private _selectedGroupMember = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), objNull] select (_selectedLnbRow == -1);
-    private _visibleGroupMembers = units _selectedGroup;
+    private _visibleGroupMembers = ([_selectedGroup] call CFUNC(groupPlayers));
     lnbClear IDC;
     {
-        if (isPlayer _x) then {
-            private _rowNumber = lnbAddRow [IDC, [[_x] call CFUNC(name)]];
-            [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
+        private _rowNumber = lnbAddRow [IDC, [[_x] call CFUNC(name)]];
+        [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
 
-            private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
-            private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-            lnbSetPicture [IDC, [_rowNumber, 0], _kitIcon];
+        private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
+        private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+        lnbSetPicture [IDC, [_rowNumber, 0], _kitIcon];
 
-            if (_x == _selectedGroupMember) then {
-                lnbSetCurSelRow [IDC, _rowNumber];
-            };
+        if (_x == _selectedGroupMember) then {
+            lnbSetCurSelRow [IDC, _rowNumber];
         };
         nil;
     } count _visibleGroupMembers;
@@ -165,7 +163,7 @@ GVAR(lastSquadManagementUIUpdateFrame) = 0;
             private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
 
             ctrlSetText [IDC, "JOIN"];
-            ctrlShow [IDC, (count units _selectedGroup) < _groupSize];
+            ctrlShow [IDC, (count ([_selectedGroup] call CFUNC(groupPlayers))) < _groupSize];
         };
     };
 

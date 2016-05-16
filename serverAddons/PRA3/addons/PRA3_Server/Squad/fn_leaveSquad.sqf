@@ -18,6 +18,6 @@ private _oldGroup = group PRA3_Player;
 [PRA3_Player] join grpNull;
 
 // Make sure invalid groups are not in allGroups
-if ((count units _oldGroup) == 0) then {
+if ((count ([_oldGroup] call CFUNC(groupPlayers))) == 0) then {
     ["deleteGroup", _oldGroup] call CFUNC(serverEvent);
 };

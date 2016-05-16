@@ -52,7 +52,7 @@ GVAR(lastRoleManagementUIUpdateFrame) = 0;
         private _kitDetails = [_kitName, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails);
         _kitDetails params ["_displayName", "_UIIcon"];
 
-        private _usedKits = {(_x getVariable [QEGVAR(Kit,kit), ""]) == _kitName} count units group PRA3_Player;
+        private _usedKits = {(_x getVariable [QEGVAR(Kit,kit), ""]) == _kitName} count ([group PRA3_Player] call CFUNC(groupPlayers));
 
         private _rowNumber = lnbAddRow [IDC, [_displayName, format ["%1 / %2", _usedKits, [_kitName] call EFUNC(Kit,getUsableKitCount)]]];
         [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
