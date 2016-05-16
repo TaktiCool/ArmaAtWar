@@ -18,4 +18,4 @@
 */
 params ["_group"];
 
-(units _group) select {isPlayer _x};
+(units _group) select {_x in allPlayers};
