@@ -126,7 +126,7 @@ GVAR(CargoClasses) = [];
             PRA3_Player setVariable [QGVAR(Item), objNull, true];
             _draggedObject setVariable [QGVAR(Player), objNull, true];
 
-            ["forceWalk", [PRA3_Player, false]] call CFUNC(localEvent);
+            ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
 
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
         }, _vehicle] call CFUNC(mutex);

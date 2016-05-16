@@ -41,7 +41,9 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
 } else {
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2) + 0.5];
     _unit action ["SwitchWeapon", _unit, _unit, 99];
-    ["forceWalk", [_unit, true]] call CFUNC(localEvent);
+    if (_unit == PRA3_Player) then {
+        ["forceWalk","Logistic",true] call PRA3_Core_fnc_setStatusEffect;
+    };
 };
 
 

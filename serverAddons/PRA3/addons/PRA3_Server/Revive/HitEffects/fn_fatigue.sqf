@@ -18,9 +18,7 @@
     (_this select 0) params ["_unit", "_selectionName", "_newDamage", "_totalDamage"];
 
     if (_selectionName in ["leg_l", "leg_r"] && _totalDamage > ([QGVAR(Settings_maxDamageOnLegsBeforWalking), 0.7] call CFUNC(getSetting))) then {
-        if (!isForcedWalk _unit) then {
-            _unit forceWalk true;
-        };
+        ["forceWalk","Revive",true] call PRA3_Core_fnc_setStatusEffect;
     };
 }] call CFUNC(addEventHandler);
 
@@ -31,6 +29,6 @@
     if (_action != "HEAL" ||!(isForcedWalk PRA3_Player)) exitWith {};
 
     if (_finished) then { //@todo maybe a value check for legs is better
-        PRA3_Player forceWalk false;
+        ["forceWalk","Revive",false] call PRA3_Core_fnc_setStatusEffect;
     };
 }] call CFUNC(addEventHandler);
