@@ -31,5 +31,5 @@ _allParameters set [_ind, _parameter];
 
 GVAR(StatusEffectsNamespace) setVariable ["Parameter_" + _id, _allParameters];
 GVAR(StatusEffectsNamespace) setVariable ["Reason_" + _id, _allReasons];
-private _code = GVAR(StatusEffectsNamespace) getVariable ["Code_" + _id, []];
+private _code = [GVAR(StatusEffectsNamespace), "Code_" + _id, []] call CFUNC(getVariableLoc);
 _allParameters call _code;
