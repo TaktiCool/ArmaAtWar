@@ -68,8 +68,8 @@ class Kits {
         availableInGroups[] = {"Rifle", "Weapon"};
 
         displayName = "Medic";
-        mapIcon = "";
-        compassIcon[] = {"a3\ui_f\data\Revive\medikit_ca.paa", 2};
+        //mapIcon = "";
+        //compassIcon[] = {"a3\ui_f\data\Revive\medikit_ca.paa", 2};
 
         isMedic = 1;
 

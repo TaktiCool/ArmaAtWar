@@ -14,6 +14,8 @@
     None
 */
 
+GVAR(respawnCountdown) = getNumber(missionConfigFile >> "PRA3" >> "respawnCountdown");
+GVAR(respawnTime) = 0;
 DFUNC(escapeFnc) =  {
     params ["", "_key"];
     private _ret = false;
@@ -63,8 +65,19 @@ DFUNC(escapeFnc) =  {
 
     [QEGVAR(Revive,Killed), {
         setPlayerRespawnTime 10e10; //@todo make this independent of revive module
+        GVAR(respawnTime) = diag_tickTime + GVAR(respawnCountdown);
         createDialog UIVAR(RespawnScreen);
         (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
+        [{
+            if (diag_tickTime >= GVAR(respawnTime)) exitWith {
+                (findDisplay 1000  displayCtrl 500) ctrlSetText "DEPLOY";
+                (findDisplay 1000  displayCtrl 500) ctrlEnable true;
+            };
+
+            (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1 s", GVAR(respawnTime) - diag_tickTime];
+            (findDisplay 1000  displayCtrl 500) ctrlEnable false;
+
+        }, 0.1, []] call CFUNC(addPerFrameHandler);
     }] call CFUNC(addEventHandler);
 
     ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
