@@ -17,8 +17,8 @@
 */
 params ["_id", "_reason", "_parameter"];
 
-private _allParameters = GVAR(StatusEffectsNamespace) getVariable ["Parameter_" + _id, []];
-private _allReasons = GVAR(StatusEffectsNamespace) getVariable ["Reason_" + _id, []];
+private _allParameters = [GVAR(StatusEffectsNamespace), "Parameter_" + _id, []] call CFUNC(getVariableLoc);
+private _allReasons = [GVAR(StatusEffectsNamespace), "Reason_" + _id, []] call CFUNC(getVariableLoc);
 
 private _ind = _allReasons pushBackUnique _reason;
 if (_ind < 0) then {
