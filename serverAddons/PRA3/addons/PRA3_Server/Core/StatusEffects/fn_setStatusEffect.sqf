@@ -29,7 +29,7 @@ if (_ind < 0) exitWith {};
 
 _allParameters set [_ind, _parameter];
 
-GVAR(StatusEffectsNamespace) setVariable ["Parameter_" + _id, _allParameters;
-GVAR(StatusEffectsNamespace) setVariable ["Reason_" + _id, _allReasons;
+GVAR(StatusEffectsNamespace) setVariable ["Parameter_" + _id, _allParameters];
+GVAR(StatusEffectsNamespace) setVariable ["Reason_" + _id, _allReasons];
 private _code = GVAR(StatusEffectsNamespace) getVariable ["Code_" + _id, []];
 _allParameters call _code;
