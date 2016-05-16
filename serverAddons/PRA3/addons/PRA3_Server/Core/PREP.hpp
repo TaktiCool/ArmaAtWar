@@ -98,7 +98,7 @@ EPREP(Settings,loadSettings)
 EPREP(Settings,getSetting)
 
 // StatusEffects
-EPREP(StatusEffects,initStatusEffectsType)
+EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
