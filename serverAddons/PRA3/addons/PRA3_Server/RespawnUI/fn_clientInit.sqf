@@ -82,10 +82,11 @@ DFUNC(escapeFnc) =  {
         }, 0.1, []] call CFUNC(addPerFrameHandler);
         [QGVAR(initCamera)] call CFUNC(localEvent);
     }] call CFUNC(addEventHandler);
-
+    /*
     ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
         createDialog UIVAR(RespawnScreen);
     }] call CFUNC(addAction);
+    */
 }] call CFUNC(addEventHandler);
 
 
