@@ -165,13 +165,13 @@ GVAR(lastRespawnFrame) = 0;
 
         closeDialog 2;
         [{
-            params ["_deployPosition","_currentKitName"]
+            params ["_deployPosition","_currentKitName"];
             // Spawn
             [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
 
             // fix issue that player spawn Prone
             ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
-    
+
             // Apply selected kit
             private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
             [_currentKitName] call EFUNC(Kit,applyKit);
