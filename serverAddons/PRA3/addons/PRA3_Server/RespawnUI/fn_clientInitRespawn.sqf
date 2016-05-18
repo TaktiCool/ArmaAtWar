@@ -112,7 +112,7 @@
 
     }] call CFUNC(execNextFrame);
 
-    
+
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {
@@ -163,18 +163,23 @@ GVAR(lastRespawnFrame) = 0;
             [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
         };
 
-        // Spawn
-        [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
+        closeDialog 2;
+        [{
+            params ["_deployPosition","_currentKitName"]
+            // Spawn
+            [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
 
-        // fix issue that player spawn Prone
-        ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
+            // fix issue that player spawn Prone
+            ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
+    
+            // Apply selected kit
+            private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
+            [_currentKitName] call EFUNC(Kit,applyKit);
+        }, [_deployPosition, _currentKitName]] call CFUNC(execNextFrame);
 
-        // Apply selected kit
-        private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-        [_currentKitName] call EFUNC(Kit,applyKit);
 
         GVAR(lastRespawnFrame) = diag_frameNo;
 
-        closeDialog 2;
+
     }] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
