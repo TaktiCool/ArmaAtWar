@@ -120,7 +120,12 @@
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
 
     [QGVAR(destroyCamera)] call CFUNC(localEvent);
-    PRA3_Player setVariable [QEGVAR(Kit,kit),GVAR(oldKit)];
+    if (PRA3_Player setVariable [QEGVAR(Kit,kit), ""] != GVAR(oldKit)) then {
+        PRA3_Player setVariable [QEGVAR(Kit,kit), GVAR(oldKit), true];
+        [UIVAR(RespawnScreen_SquadManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    };
+
 }] call CFUNC(addEventHandler);
 
 GVAR(lastRespawnFrame) = 0;
