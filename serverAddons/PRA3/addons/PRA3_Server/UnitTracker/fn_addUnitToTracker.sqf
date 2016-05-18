@@ -62,44 +62,115 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 0) params ["_map", "_xPos", "_yPos"];
                 (_this select 1) params ["_group"];
 
-                if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
+
+                if (_group == GVAR(currentHoverGroup)) exitWith {};
+                GVAR(currentHoverGroup) == _group;
+                //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
+
                 private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
                 _pos set [0, (_pos select 0) + 15/640];
                 _pos set [1, (_pos select 1) - 15/640];
 
-                ([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutRsc [UIVAR(GroupInfo),"PLAIN",0.2];
-                private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
-                (_display displayCtrl 6000) ctrlSetPosition _pos;
-                (_display displayCtrl 6001) ctrlSetText toUpper groupId _group;
+                //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutRsc [UIVAR(GroupInfo),"PLAIN",0.2];
+                //private _display = (ctrlParent _map) createDisplay UIVAR(GroupInfo);
+
+                private _display = ctrlParent _map;
+                private _idd = ctrlIDD _display;
+
+                private _ctrlGrp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), _idd], controlNull];
+                private _ctrlSquadName = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_SquadName), _idd], controlNull];
+                private _ctrlSquadType = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_SquadType), _idd], controlNull];
+                private _ctrlSquadDescription = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_SquadDescription), _idd], controlNull];
+                private _ctrlSquadMemberCount = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_SquadMemberCount), _idd], controlNull];
+                private _ctrlBgBottom = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_BgBottom), _idd], controlNull];
+                private _ctrlMemberList = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_MemberList), _idd], controlNull];
+                private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+                if (isNull _ctrlGrp) then {
+                    _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+                    _ctrlGrp ctrlCommit 0;
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_Group), _idd], _ctrlGrp];
+
+                    private _ctrlBg = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
+                    _ctrlBg ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
+                    _ctrlBg ctrlSetPosition [0, 0, PX(17), PY(4)];
+                    _ctrlBg ctrlCommit 0;
+
+                    _ctrlBgBottom = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
+                    _ctrlBgBottom ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
+                    _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(17), PY(12)];
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_BgBottom), _idd], _ctrlBgBottom];
+
+                    _ctrlSquadName = _display ctrlCreate ["RscText", -1, _ctrlGrp];
+                    _ctrlSquadName ctrlSetFontHeight PY(1.8);
+                    _ctrlSquadName ctrlSetPosition [0, 0, PX(8), PY(2)];
+                    _ctrlSquadName ctrlSetFont "PuristaBold";
+                    _ctrlSquadName ctrlSetText "ALPHA";
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadName), _idd], _ctrlSquadName];
+
+                    _ctrlSquadType = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
+                    _ctrlSquadType ctrlSetFontHeight PY(1.8);
+                    _ctrlSquadType ctrlSetPosition [PX(8.5), 0, PX(8.5), PY(2)];
+                    _ctrlSquadType ctrlSetFont "PuristaMedium";
+                    _ctrlSquadType ctrlSetStructuredText parseText "ALPHA";
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadType), _idd], _ctrlSquadType];
+
+                    _ctrlSquadDescription = _display ctrlCreate ["RscText", -1, _ctrlGrp];
+                    _ctrlSquadDescription ctrlSetFontHeight PY(1.8);
+                    _ctrlSquadDescription ctrlSetPosition [0, PY(1.8), PX(12), PY(2)];
+                    _ctrlSquadDescription ctrlSetFont "PuristaMedium";
+                    _ctrlSquadDescription ctrlSetText "ALPHA";
+                    _ctrlSquadDescription ctrlSetTextColor [0.5,0.5,0.5,1];
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadDescription), _idd], _ctrlSquadDescription];
+
+                    _ctrlSquadMemberCount = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
+                    _ctrlSquadMemberCount ctrlSetFontHeight PY(1.8);
+                    _ctrlSquadMemberCount ctrlSetPosition [PX(12.5), PY(1.8), PX(4.5), PY(2)];
+                    _ctrlSquadMemberCount ctrlSetFont "PuristaMedium";
+                    _ctrlSquadMemberCount ctrlSetTextColor [0.5,0.5,0.5,1];
+                    _ctrlSquadMemberCount ctrlSetStructuredText parseText "ALPHA";;
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadMemberCount), _idd], _ctrlSquadMemberCount];
+
+                    _ctrlMemberList = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
+                    _ctrlMemberList ctrlSetFontHeight PY(4);
+                    _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(17), PY(11.9)];
+                    _ctrlMemberList ctrlSetFont "PuristaMedium";
+                    _ctrlMemberList ctrlSetTextColor [1,1,1,1];
+                    _ctrlMemberList ctrlSetText "ALPHA";
+                    uiNamespace setVariable [format [UIVAR(GroupInfo_%1_MemberList), _idd], _ctrlMemberList];
+                };
+
+                _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
+                _ctrlGrp ctrlSetFade 0;
+
+                _ctrlSquadName ctrlSetText toUpper groupId _group;
+
                 private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
                 private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
                 private _units = ([group PRA3_Player] call CFUNC(groupPlayers));
-                (_display displayCtrl 6002) ctrlSetText ((_group getVariable [QEGVAR(Squad,Type), ""])+" Squad");
-                (_display displayCtrl 6003) ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
-                (_display displayCtrl 6004) ctrlSetText format ["%1 / %2",count _units, _groupSize];
+
+                _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""])+" Squad"];
+                _ctrlSquadDescription ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
+                _ctrlSquadMemberCount ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, count _units, _groupSize];
+
                 private _squadUnits = "";
                 private _unitCount = {
                     private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
                     private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-                    (_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
+                    //(_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
                     _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
                     true;
                 } count _units;
 
-                (_display displayCtrl 6006) ctrlSetStructuredText parseText _squadUnits;
+                _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _squadUnits];
 
-                _pos = ctrlPosition (_display displayCtrl 6005);
-                _pos set [3, _unitCount*PY(1.8) + PY(0.4)];
-                (_display displayCtrl 6005) ctrlSetPosition _pos;
+                _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(17), _unitCount*PY(1.8) + PY(0.4)];
 
-                _pos = ctrlPosition (_display displayCtrl 6006);
-                _pos set [3, _unitCount*PY(1.8)];
-                (_display displayCtrl 6006) ctrlSetPosition _pos;
+                _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(17), _unitCount*PY(1.8)];
 
                 {
-                    (_display displayCtrl _x) ctrlCommit 0;
+                    _x ctrlCommit 0;
                     nil;
-                } count [6000, 6001, 6002, 6003, 6004, 6005, 6006];
+                } count [_ctrlGrp, _ctrlSquadName, _ctrlSquadType, _ctrlSquadDescription, _ctrlSquadMemberCount, _ctrlBgBottom, _ctrlMemberList];
 
                 [{
                     disableSerialization;
@@ -110,19 +181,23 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     _pos set [0, (_pos select 0) + 15/640];
                     _pos set [1, (_pos select 1) - 15/640];
 
-                    private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
-                    if (!isNull _display) then {
-                        (_display displayCtrl 6000) ctrlSetPosition _pos;
-                        (_display displayCtrl 6000) ctrlCommit 0;
+                    //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
+                    private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
+                    if (!isNull _grp) then {
+                        _grp ctrlSetPosition _pos;
+                        _grp ctrlCommit 0;
                     } else {
+                        GVAR(currentHoverGroup) = grpNull;
                         _id call CFUNC(removePerFrameHandler);
                     };
+                    /*
                     if (!visibleMap) then {
                         if (!isNull _display) then {
                             ([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
                         };
                         _id call CFUNC(removePerFrameHandler);
                     };
+                    */
                 }, 0, [_group, _map]] call CFUNC(addPerFrameHandler);
             },
             group _newUnit
@@ -133,9 +208,19 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
             "hoverout",
             {
                 disableSerialization;
-                private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
-                if (!isNull _display) then {
-                    ([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+                (_this select 0) params ["_map", "_xPos", "_yPos"];
+                (_this select 1) params ["_group"];
+
+                if (GVAR(currentHoverGroup) == _group) then {
+                    GVAR(currentHoverGroup) = grpNull;
+                };
+
+                //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
+                private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
+                if (!isNull _grp) then {
+                    _grp ctrlSetFade 1;
+                    _grp ctrlCommit 0;
+                    //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
                 };
 
             },

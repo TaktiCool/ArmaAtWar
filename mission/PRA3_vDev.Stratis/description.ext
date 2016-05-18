@@ -55,7 +55,6 @@ class RscTitles {
     #include "ui\hud\MedicalProgress.hpp"
     #include "ui\hud\Notification.hpp"
     #include "ui\hud\MedicalInfo.hpp"
-    #include "ui\hud\GroupInfo.hpp"
     #include "ui\hud\Compass.hpp"
 };
 
