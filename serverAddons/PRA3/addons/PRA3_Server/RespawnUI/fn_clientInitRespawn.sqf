@@ -112,7 +112,7 @@
 
     }] call CFUNC(execNextFrame);
 
-    [QGVAR(initCamera)] call CFUNC(localEvent);
+    
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {

@@ -59,6 +59,7 @@ DFUNC(escapeFnc) =  {
         PRA3_Player setVariable [QCGVAR(tempUnit), true];
         [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
         createDialog UIVAR(RespawnScreen);
+        [QGVAR(initCamera)] call CFUNC(localEvent);
         (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
     }] call CFUNC(mutex);
@@ -78,6 +79,7 @@ DFUNC(escapeFnc) =  {
             (findDisplay 1000  displayCtrl 500) ctrlEnable false;
 
         }, 0.1, []] call CFUNC(addPerFrameHandler);
+        [QGVAR(initCamera)] call CFUNC(localEvent);
     }] call CFUNC(addEventHandler);
 
     ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
