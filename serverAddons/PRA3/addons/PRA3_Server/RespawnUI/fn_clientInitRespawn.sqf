@@ -99,7 +99,7 @@
 [UIVAR(RespawnScreen_onLoad), {
     showHUD [true,true,true,true,true,true,false,true];
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
-
+    GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit),""];
     // The dialog needs one frame until access to controls via IDC is possible
     [{
         UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
@@ -120,6 +120,7 @@
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
 
     [QGVAR(destroyCamera)] call CFUNC(localEvent);
+    PRA3_Player setVariable [QEGVAR(Kit,kit),GVAR(oldKit)];
 }] call CFUNC(addEventHandler);
 
 GVAR(lastRespawnFrame) = 0;
@@ -162,10 +163,11 @@ GVAR(lastRespawnFrame) = 0;
             };
             [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
         };
-
+        GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
         closeDialog 2;
+
         [{
-            params ["_deployPosition","_currentKitName"];
+            params ["_deployPosition"];
             // Spawn
             [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
 
@@ -173,9 +175,9 @@ GVAR(lastRespawnFrame) = 0;
             ["switchMove",[PRA3_Player, ""]] call CFUNC(globalEvent);
 
             // Apply selected kit
-            private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-            [_currentKitName] call EFUNC(Kit,applyKit);
-        }, [_deployPosition, _currentKitName]] call CFUNC(execNextFrame);
+            //private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
+            [GVAR(selectedKit)] call EFUNC(Kit,applyKit);
+        }, [_deployPosition]] call CFUNC(execNextFrame);
 
 
         GVAR(lastRespawnFrame) = diag_frameNo;

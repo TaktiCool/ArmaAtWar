@@ -16,6 +16,7 @@
 
 GVAR(respawnCountdown) = getNumber(missionConfigFile >> "PRA3" >> "respawnCountdown");
 GVAR(respawnTime) = 0;
+GVAR(selectedKit) = "";
 DFUNC(escapeFnc) =  {
     params ["", "_key"];
     private _ret = false;
