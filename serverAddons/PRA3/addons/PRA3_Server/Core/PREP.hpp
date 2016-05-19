@@ -102,6 +102,9 @@ EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
+// Team Color Sync
+EPREP(TeamColorSync,clientInitTeamColorSync)
+
 // Init
 PREP(init)
 
