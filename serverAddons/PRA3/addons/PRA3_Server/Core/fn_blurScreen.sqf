@@ -17,7 +17,7 @@
 
 if (!hasInterface) exitWith {};
 
-params ["_id", ["_show", false]];
+params ["_id", ["_show", false], ["_commitTime", 0.5]];
 
 if (_show isEqualType 0) then {
     _show = _show == 1;
@@ -35,7 +35,7 @@ if (_show) then {
         GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) = ppEffectCreate ["DynamicBlur", 102];
         GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectAdjust [0.9];
         GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectEnable true;
-        GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectCommit 0;
+        GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectCommit _commitTime;
     };
 } else {
     GVAR(SHOW_BLUR_SCREEN_COLLECTION) = GVAR(SHOW_BLUR_SCREEN_COLLECTION) - [_id];

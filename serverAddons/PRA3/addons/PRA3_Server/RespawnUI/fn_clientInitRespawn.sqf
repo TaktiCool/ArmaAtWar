@@ -100,6 +100,8 @@
     showHUD [true,true,true,true,true,true,false,true];
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
     GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit),""];
+
+
     // The dialog needs one frame until access to controls via IDC is possible
     [{
         UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
@@ -109,6 +111,43 @@
         [{
             [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
         }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);
+
+        {
+            private _pos = ctrlPosition (findDisplay 1000  displayCtrl _x);
+            _pos set [0, (_pos select 0) - PX(40)];
+            (findDisplay 1000  displayCtrl _x) ctrlSetPosition _pos;
+            (findDisplay 1000  displayCtrl _x) ctrlCommit 0;
+            nil;
+        } count [100,200,601,603];
+
+        {
+            private _pos = ctrlPosition (findDisplay 1000  displayCtrl _x);
+            _pos set [0, (_pos select 0) + PX(40)];
+            (findDisplay 1000  displayCtrl _x) ctrlSetPosition _pos;
+            (findDisplay 1000  displayCtrl _x) ctrlCommit 0;
+            nil;
+        } count [300,400,500,602];
+
+        [{
+            {
+                private _pos = ctrlPosition (findDisplay 1000  displayCtrl _x);
+                _pos set [0, (_pos select 0) + PX(40)];
+                (findDisplay 1000  displayCtrl _x) ctrlSetPosition _pos;
+                (findDisplay 1000  displayCtrl _x) ctrlSetFade 0;
+                (findDisplay 1000  displayCtrl _x) ctrlCommit 0.5;
+                nil;
+            } count [100,200,601,603];
+
+            {
+                private _pos = ctrlPosition (findDisplay 1000  displayCtrl _x);
+                _pos set [0, (_pos select 0) - PX(40)];
+                (findDisplay 1000  displayCtrl _x) ctrlSetPosition _pos;
+                (findDisplay 1000  displayCtrl _x) ctrlSetFade 0;
+                (findDisplay 1000  displayCtrl _x) ctrlCommit 0.5;
+                nil;
+            } count [300,400,500,602];
+
+        }] call CFUNC(execNextFrame);
 
     }] call CFUNC(execNextFrame);
 
