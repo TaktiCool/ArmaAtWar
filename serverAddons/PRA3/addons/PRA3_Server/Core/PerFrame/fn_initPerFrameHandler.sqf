@@ -59,7 +59,7 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     */
 
     {
-        if (_x select 0 <= diag_tickTime) exitWith {};
+        if (_x select 0 >= diag_tickTime) exitWith {};
         (_x select 2) call (_x select 1);
         _delete = true;
         GVAR(waitArray) set [_forEachIndex, objNull];
@@ -77,7 +77,6 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
             _delete = true;
             GVAR(waitUntilArray) set [_forEachIndex, objNull];
         };
-        nil
     } forEach GVAR(waitUntilArray);
 
 
