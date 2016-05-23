@@ -22,32 +22,33 @@ if (([GVAR(cachedCall), _uid, [-9999999]] call FUNC(getVariableLoc)) select 0 < 
     GVAR(cachedCall) setVariable [_uid, [diag_tickTime + _duration, _args call _fnc]];
 
     // Does the cache needs to be cleared on an event?
-     if (!isNil "_event") then {
-         private _varName = format [QGVAR(clearCache_%1), _event];
-         private _cacheList = GVAR(cachedCall) getVariable _varName;
+    if (!isNil "_event") then {
+        private _varName = format [QGVAR(clearCache_%1), _event];
+        private _cacheList = GVAR(cachedCall) getVariable _varName;
 
-         // If there was no EH to clear these caches, add one
-         if (isNil "_cacheList") then {
-             _cacheList = [];
-             GVAR(cachedCall) setVariable [_varName, _cacheList];
+        // If there was no EH to clear these caches, add one
+        if (isNil "_cacheList") then {
+            _cacheList = [];
+            GVAR(cachedCall) setVariable [_varName, _cacheList];
 
-             [_event, {
-                 // _eventName is defined on the function that calls the event
-                 // Get the list of caches to clear
-                 private _varName = format [QGVAR(clearCache_%1), _eventName];
-                 private _cacheList = [GVAR(cachedCall), _varName, []] call FUNC(getVariableLoc);
-                 // Erase all the cached results
-                 {
-                     GVAR(cachedCall) setVariable [_x, nil];
-                 } forEach _cacheList;
-                 // Empty the list
-                 GVAR(cachedCall) setVariable [_varName, []];
-             }] call FUNC(addEventhandler);
-         };
+            [_event, {
+                // _eventName is defined on the function that calls the event
+                // Get the list of caches to clear
+                private _varName = format [QGVAR(clearCache_%1), _eventName];
+                private _cacheList = [GVAR(cachedCall), _varName, []] call FUNC(getVariableLoc);
+                // Erase all the cached results
+                {
+                    GVAR(cachedCall) setVariable [_x, nil];
+                    nil
+                } count _cacheList;
+                // Empty the list
+                GVAR(cachedCall) setVariable [_varName, []];
+            }] call FUNC(addEventhandler);
+        };
 
-         // Add this cache to the list of the event
-         _cacheList pushBack _uid;
-     };
+        // Add this cache to the list of the event
+        _cacheList pushBack _uid;
+    };
 };
 
 (GVAR(cachedCall) getVariable _uid) select 1

@@ -17,8 +17,8 @@
 if (didJIP) then {
     {
         private _globalTeam = _x getVariable [QGVAR(teamColor_Color), "MAIN"];
-        if (_team != "") then {
-            _x assignTeam _team;
+        if (_globalTeam != "") then {
+            _x assignTeam _globalTeam;
         };
         true
     } count allUnits;
@@ -38,11 +38,11 @@ GVAR(teamColor_currentIndex) = -1;
         ["teamColorChanged", [_localTeamCur, _unit], _units] call CFUNC(targetEvent);
         _unit setVariable [QGVAR(teamColor_prevTeam), _localTeamCur];
         _unit setVariable [QGVAR(teamColor_Color), _localTeamCur, true];
-    } else {
-        if (_localTeamCur != _globalTeam) then {
-            _unit assignTeam _globalTeam;
-            _unit setVariable [QGVAR(teamColor_prevTeam), _globalTeam];
-        };
+        _globalTeam = _localTeamCur;
+    };
+    if (_localTeamCur != _globalTeam) then {
+        _unit assignTeam _globalTeam;
+        _unit setVariable [QGVAR(teamColor_prevTeam), _globalTeam];
     };
 }] call CFUNC(addPerFrameHandler);
 

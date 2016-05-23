@@ -22,7 +22,12 @@ GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
 GVAR(deltaTime) = 0;
 GVAR(lastFrameTime) = diag_tickTime;
+GVAR(sortWaitArray) = false;
 GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
+    if (getClientState == "GAME FINISHED") exitWith {
+        removeMissionEventHandler ["EachFrame", GVAR(OnEachFrameID)];
+    };
+
     PERFORMANCECOUNTER_START(PFHCounter)
 
     {
@@ -39,19 +44,46 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     } count GVAR(perFrameHandlerArray);
 
 
+    if (GVAR(sortWaitArray)) then {
+        GVAR(waitArray) sort true;
+    };
+
+    private _delete = false;
+
+    /*
     // Code Ported from ACE changed by joko // Jonas
     while {!(GVAR(waitArray) isEqualTo []) && {GVAR(waitArray) select 0 select 0 <= time}} do {
         private _entry = GVAR(waitArray) deleteAt 0;
         (_entry select 2) call (_entry select 1);
     };
+    */
+
+    {
+        if (_x select 0 <= diag_tickTime) exitWith {};
+        (_x select 2) call (_x select 1);
+        _delete = true;
+        GVAR(waitArray) set [_forEachIndex, objNull];
+    } forEach GVAR(waitArray);
+
+    if (_delete) then {
+        GVAR(waitArray) = GVAR(waitArray) - [objNull];
+    };
+
+    _delete = false;
 
      {
         if ((_x select 2) call (_x select 1)) then {
             (_x select 2) call (_x select 0);
-            GVAR(waitUntilArray) deleteAt (GVAR(waitUntilArray) find _x);
+            _delete = true;
+            GVAR(waitUntilArray) set [_forEachIndex, objNull];
         };
         nil
-    } count +GVAR(waitUntilArray);
+    } forEach GVAR(waitUntilArray);
+
+
+    if (_delete) then {
+        GVAR(waitUntilArray) = GVAR(waitUntilArray) - [objNull];
+    };
 
     //Handle the execNextFrame array:
     {
@@ -67,10 +99,6 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     // Delta time Describe the time that the last Frame needed to calculate this is required for some One Each Frame Balance Math Calculations
     GVAR(deltaTime) = diag_tickTime - GVAR(lastFrameTime);
     GVAR(lastFrameTime) = diag_tickTime;
-
-    if (getClientState == "GAME FINISHED") then {
-        removeMissionEventHandler ["EachFrame", GVAR(OnEachFrameID)];
-    };
 
     PERFORMANCECOUNTER_END(PFHCounter)
 }];
