@@ -1,6 +1,6 @@
 // Rally System
-PREP(serverInitDeployment)
-PREP(clientInitDeployment)
+PREP(serverInit)
+PREP(clientInit)
 PREP(addDeploymentPoint)
 PREP(removeDeploymentPoint)
 PREP(canPlaceRally)
