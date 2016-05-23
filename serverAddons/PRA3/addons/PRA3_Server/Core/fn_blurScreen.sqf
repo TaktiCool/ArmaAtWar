@@ -39,7 +39,7 @@ if (_show) then {
     };
 } else {
     private _index = (GVAR(SHOW_BLUR_SCREEN_COLLECTION) find _id);
-    if (GVAR(SHOW_BLUR_SCREEN_COLLECTION) count >= _index) then {
+    if (count GVAR(SHOW_BLUR_SCREEN_COLLECTION) >= _index) then {
         GVAR(SHOW_BLUR_SCREEN_COLLECTION) deleteAt _index;
     };
 
