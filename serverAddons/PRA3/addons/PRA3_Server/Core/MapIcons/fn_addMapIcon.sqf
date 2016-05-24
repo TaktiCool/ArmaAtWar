@@ -67,7 +67,7 @@ if (_stateNum == -1) then {
     _stateNum = 0;
 };
 
-private _currentIcons = [GVAR(IconNamespace), _id, [0, [],[],[]]] call FUNC(getVariableLoc);
+private _currentIcons = [GVAR(IconNamespace), _id, [0, [],[],[]]] call FUNC(getVariable);
 _currentIcons set [_stateNum + 1, _icons];
 GVAR(IconNamespace) setVariable [_id, _currentIcons];
 GVAR(MapIconIndex) pushBackUnique _id;

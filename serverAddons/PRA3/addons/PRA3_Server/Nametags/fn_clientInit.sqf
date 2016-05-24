@@ -26,7 +26,7 @@
         private _fov = (call CFUNC(getFOV)) * 3;
 
         // Cycle through all nearby players and display their nameTag.
-        private _nearUnits = [QGVAR(nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+        private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
         {
             private _targetSide = side (group _x);
 
@@ -34,15 +34,14 @@
             if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
                 // The position of the nameTag is above the head.
 
-                private _tagPositionAGL = (_x modelToWorldVisual (_x selectionPosition "pilot")) vectorAdd [0, 0, 0.4];
+                private _facePostionAGL = _x modelToWorldVisual (_x selectionPosition "pilot");
+                private _facePostionASL = AGLtoASL _facePostionAGL;
+                private _tagPositionAGL = _facePostionAGL vectorAdd [0, 0, 0.4];
                 private _tagPositionASL = AGLtoASL _tagPositionAGL;
                 private _wts = worldToScreen _tagPositionAGL;
 
-                #ifdef PRA3_DEBUGFULL
-                    drawLine3D [_cameraPosASL, _tagPositionASL, [[0,1,0,1],[1,0,0,1]] select (lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])];
-                #endif
                 // Check if there is something between camera and head position. Exit if there is something to make the nameTag invisible.
-                if (!(_wts isEqualTo []) && {(lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])}) then {
+                if (!(_wts isEqualTo []) && {((lineIntersectsSurfaces [_cameraPosASL, _facePostionASL, PRA3_Player, _x]) isEqualTo [])}) then {
                     // Calculate the alpha value of the display color based on the distance to player object.
                     private _distance = _cameraPosAGL distance _tagPositionAGL;
                     if (_distance <= 0 || _distance > 31) exitWith {};
@@ -51,7 +50,7 @@
                     private _size =_fov * 1 / _distance;
 
                     _alpha = _alpha * ((1 - ( abs ((_wts select 0) - 0.5) min 0.7)) max 0);
-
+                    if (_alpha == 0) exitWith {};
                     // The color depends whether the unit is in the group of the player or not.
                     private _color = if (group _x == group PRA3_Player) then {
                         [

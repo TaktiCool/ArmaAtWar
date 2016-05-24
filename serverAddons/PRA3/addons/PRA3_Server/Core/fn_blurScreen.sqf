@@ -38,10 +38,7 @@ if (_show) then {
         GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectCommit 0;
     };
 } else {
-    private _index = (GVAR(SHOW_BLUR_SCREEN_COLLECTION) find _id);
-    if (count GVAR(SHOW_BLUR_SCREEN_COLLECTION) >= _index) then {
-        GVAR(SHOW_BLUR_SCREEN_COLLECTION) deleteAt _index;
-    };
+    [GVAR(SHOW_BLUR_SCREEN_COLLECTION), _id] call CFUNC(deleteAtEntry);
 
     if (GVAR(SHOW_BLUR_SCREEN_COLLECTION) isEqualTo []) then {
         // hide blur

@@ -22,7 +22,7 @@ addMissionEventHandler ["Draw3D", {
     private _fov = (call CFUNC(getFOV)) * 3;
 
     // use Nametags nearObjects to not call it Multible Times
-    private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, _cameraPosAGL, 1, QGVAR(clearNearUnits)] call CFUNC(cachedCall);
+    private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
 
     {
         private _targetSide = side (group _x);

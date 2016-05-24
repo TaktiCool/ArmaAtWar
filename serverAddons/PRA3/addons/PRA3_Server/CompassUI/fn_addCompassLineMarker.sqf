@@ -17,7 +17,7 @@
 params ["_id", "_color", "_position"];
 _id = toLower _id;
 
-private _lineMarkerIDs = [GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariableLoc);
+private _lineMarkerIDs = [GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariable);
 
 if (!(_id in _lineMarkerIDs)) then {
     _lineMarkerIDs pushBack _id;

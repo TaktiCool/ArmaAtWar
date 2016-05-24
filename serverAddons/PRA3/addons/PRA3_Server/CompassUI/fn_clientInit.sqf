@@ -152,7 +152,7 @@ addMissionEventHandler ["MapSingleClick", {
                 _nextLineMarkerControl = _nextLineMarkerControl + 1;
             };
             nil
-        } count ([GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariableLoc));
+        } count ([GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariable));
 
         if (_nextLineMarkerControl < count GVAR(lineMarkerControlPool)) then {
             for "_i" from _nextLineMarkerControl to (count GVAR(lineMarkerControlPool) - 1) do {
@@ -176,7 +176,8 @@ addMissionEventHandler ["MapSingleClick", {
 
         // Icon marker
         private _nextIconMarkerControl = 0;
-        private _nearUnits = [QEGVAR(Nametags,nearUnits), {_this nearObjects ["CAManBase", 31]}, positionCameraToWorld [0, 0, 0], 1, QEGVAR(Nametags,clearNearUnits)] call CFUNC(cachedCall);
+
+        private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
         private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
