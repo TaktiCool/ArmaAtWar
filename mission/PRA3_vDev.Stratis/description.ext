@@ -17,7 +17,7 @@ disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";
 onLoadMission = "Project Reality: Arma III";
-loadScreen =  "loadingscreen.paa";
+loadScreen =  "ui\media\loadingscreen.paa";
 
 respawn = 3;
 respawnDelay = 3;
