@@ -43,5 +43,8 @@ call FUNC(revive);
 ["Respawn", {
     (_this select 0) params ["_newUnit"];
 
+    [_newUnit, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+    [_newUnit, QGVAR(selectionDamage), GVAR(selections) apply {0}] call CFUNC(setVariablePublic);
+
     _newUnit setVariable [QGVAR(selectionDamage), _newUnit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}], true];
 }] call CFUNC(addEventHandler);
