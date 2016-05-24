@@ -5,7 +5,7 @@
     Author: Global ported by joko // Jonas
 
     Description:
-    [Description]
+    Blur the Screen
 
     Parameter(s):
     0: ID <NUMBER>
@@ -38,7 +38,7 @@ if (_show) then {
         GVAR(MENU_ppHandle_GUI_BLUR_SCREEN) ppEffectCommit _commitTime;
     };
 } else {
-    GVAR(SHOW_BLUR_SCREEN_COLLECTION) = GVAR(SHOW_BLUR_SCREEN_COLLECTION) - [_id];
+    [GVAR(SHOW_BLUR_SCREEN_COLLECTION), _id] call CFUNC(deleteAtEntry);
 
     if (GVAR(SHOW_BLUR_SCREEN_COLLECTION) isEqualTo []) then {
         // hide blur

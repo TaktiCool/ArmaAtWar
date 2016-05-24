@@ -140,13 +140,13 @@ namespace PRA3_server
 		{
 			string[] inputParts = input.Split(new char[] { ':' }, 2);
 
-			string path = Environment.CurrentDirectory + @"\PRA3_Logs\" + startTime.ToString().Replace("-", "");
+			string path = Environment.CurrentDirectory + "\\PRA3_Logs\\" + startTime.ToString().Replace("-", "");
 			if (!File.Exists(path))
 			{
 				Directory.CreateDirectory(path);
 			}
 			// @Todo let the user define the File format
-			StreamWriter file = new System.IO.StreamWriter(path + string.Format(@"\PRA3Log_{0}_{1}.{2}", startTime, inputParts[0], "log"), true);
+			StreamWriter file = new System.IO.StreamWriter(path + string.Format("\\PRA3Log_{0}_{1}.{2}", startTime, inputParts[0], "log"), true);
 			file.WriteLine(currentDate("[{3}:{4}:{5}]") + inputParts[1]);
 			file.Close();
 		}

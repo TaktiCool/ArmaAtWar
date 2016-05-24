@@ -1,5 +1,5 @@
 // Squad system
-PREP(clientInitSquad)
+PREP(clientInit)
 PREP(getNextSquadId)
 PREP(canUseSquadType)
 PREP(switchSide)

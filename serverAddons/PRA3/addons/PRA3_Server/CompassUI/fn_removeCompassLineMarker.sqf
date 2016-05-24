@@ -16,7 +16,7 @@
 params ["_id"];
 _id = toLower _id;
 
-private _lineMarkerIDs = [GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariableLoc);
+private _lineMarkerIDs = [GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariable);
 
 if (_id in _lineMarkerIDs) then {
     _lineMarkerIDs deleteAt (_lineMarkerIDs find _id);

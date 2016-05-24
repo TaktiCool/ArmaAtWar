@@ -16,10 +16,9 @@
 */
 params [["_code", {}, [{}]], ["_arguments", []]];
 private "_return";
-if (canSuspend) then {
-    "_return = _arguments call _code" configClasses (missionConfigFile >> "PRA3" >> "dummy");
-} else {
-    _return = _arguments call _code;
+if !(canSuspend) exitWith {
+    _arguments call _code;
 };
 
+"_return = _arguments call _code" configClasses (missionConfigFile >> "PRA3" >> "dummy");
 if !(isNil "_return") then {_return};
