@@ -33,7 +33,7 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     {
         _x params ["_function", "_delay", "_delta", "", "_args", "_handle"];
 
-        if (diag_tickTime > _delta) then {
+        if (time > _delta) then {
             _x set [2, _delta + _delay];
             if (_function isEqualType "") then {
                 _function = (parsingNamespace getVariable [_function, {}]);
@@ -59,7 +59,7 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     */
 
     {
-        if (_x select 0 >= diag_tickTime) exitWith {};
+        if (_x select 0 >= time) exitWith {};
         (_x select 2) call (_x select 1);
         _delete = true;
         GVAR(waitArray) set [_forEachIndex, objNull];

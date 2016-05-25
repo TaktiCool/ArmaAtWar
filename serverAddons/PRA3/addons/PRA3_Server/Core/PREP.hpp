@@ -105,6 +105,9 @@ EPREP(StatusEffects,setStatusEffect)
 // Team Color Sync
 EPREP(TeamColorSync,clientInitTeamColorSync)
 
+// Performance Info
+EPREP(PerformanceInfo,postInitPerformance)
+
 // Init
 PREP(init)
 

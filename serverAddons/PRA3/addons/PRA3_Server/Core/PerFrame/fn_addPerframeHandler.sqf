@@ -30,7 +30,7 @@
 
     private _handle = GVAR(PFHhandles) pushBack count GVAR(perFrameHandlerArray);
 
-    GVAR(perFrameHandlerArray) pushBack [_function, _delay, diag_tickTime, diag_tickTime, _args, _handle];
+    GVAR(perFrameHandlerArray) pushBack [_function, _delay, time, time, _args, _handle];
 
     _handle
 }, _this] call CFUNC(directCall);
