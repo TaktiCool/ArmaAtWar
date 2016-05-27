@@ -77,7 +77,7 @@
 
         (_display displayCtrl 3004) ctrlSetStructuredText parseText (format [_text, _actionName]);
         (_display displayCtrl 3004) ctrlCommit 0;
-    }, 0.5] call CFUNC(addPerFrameHandler);
+    }, 0] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(RestoreWeapon), {
