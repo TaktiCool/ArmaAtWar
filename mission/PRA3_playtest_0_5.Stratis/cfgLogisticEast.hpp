@@ -15,4 +15,9 @@ class cfgLogistic {
         displayName = "Advanced Ammo Box";
         content[] = {{"30Rnd_65x39_caseless_green_mag_Tracer", 30}, {"5Rnd_127x108_Mag", 10}, {"SmokeShell", 20}, {"SmokeShellGreen", 10}, {"SmokeShellRed", 10}};
     };
+
+    class HeavyAmmoBox : MedicalBox {
+        displayName = "Heavy Ammo Box";
+        content[] = {{"RPG32_F", 15}, {"Titan_AT", 8}, {"Titan_AA", 8}};
+    };
 };
