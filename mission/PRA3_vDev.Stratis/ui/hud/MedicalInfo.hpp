@@ -12,7 +12,7 @@ class PRA3_UI_MedicalInfo {
             w = PX(50);
             h = PY(6);
             text = "";
-            size = PY(2.5);
+            size = PY(2);
             class Attributes
             {
                 font = "PuristaMedium";
