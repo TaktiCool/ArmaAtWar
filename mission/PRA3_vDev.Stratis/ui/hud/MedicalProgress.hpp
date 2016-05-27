@@ -56,7 +56,7 @@ class PRA3_UI_MedicalProgress {
                     w = PX(50);
                     h = PY(7);
                     text = "";
-                    size = PY(1.8);
+                    size = PY(2.5);
                     class Attributes
                     {
                         font = "PuristaMedium";

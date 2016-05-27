@@ -8,9 +8,9 @@ class PRA3_UI_MedicalInfo {
             idc = 5000;
             shadow = 0;
             x = 0.5 - PX(25);
-            y = 0.5 - PY(2);
+            y = 0.5 - PY(1.5);
             w = PX(50);
-            h = PY(8);
+            h = PY(6);
             text = "";
             size = PY(2.5);
             class Attributes
