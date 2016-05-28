@@ -30,7 +30,7 @@ DFUNC(getAlphaFromX) = {
 DFUNC(showCompass) = {
     GVAR(lineAlphaCache) = GVAR(lineAlphaCache) apply {1};
     GVAR(bearingAlphaCache) = GVAR(bearingAlphaCache) apply {1};
-    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN"];
+    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN", 0, false];
 };
 
 call FUNC(showCompass);
@@ -39,15 +39,6 @@ call FUNC(showCompass);
 }] call CFUNC(addEventHandler);
 [UIVAR(RespawnScreen_onUnLoad), {
     call FUNC(showCompass);
-}] call CFUNC(addEventHandler);
-["visibleMapChanged", {
-    (_this select 0) params ["_visibleMap"];
-
-    if (_visibleMap) then {
-        ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
-    } else {
-        call FUNC(showCompass);
-    };
 }] call CFUNC(addEventHandler);
 
 addMissionEventHandler ["MapSingleClick", {
