@@ -17,7 +17,7 @@ params ["_kitName"];
 
 private _kitDetails = [_kitName, [
     ["uniform", ""], ["vest", ""], ["backpack", ""], ["headGear", ""],
-    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineCount", 0],
+    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineTracerCount", 0],
     ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
