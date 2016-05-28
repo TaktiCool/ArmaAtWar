@@ -19,15 +19,36 @@ GVAR(lineMarkerControlPool) = [];
 GVAR(iconMarkerControlPool) = [];
 
 GVAR(lineAlphaCache) = [];
-for "_i" from 0 to 108 do {GVAR(lineAlphaCache) pushBack 1};
+GVAR(lineAlphaCache) resize 109;
 GVAR(bearingAlphaCache) = [];
-for "_i" from 0 to 36 do {GVAR(bearingAlphaCache) pushBack 1};
+GVAR(bearingAlphaCache) resize 37;
 
 DFUNC(getAlphaFromX) = {
     (3 - (abs (_this - 92.5) / 30)) max 0
 };
 
-([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN"];
+DFUNC(showCompass) = {
+    GVAR(lineAlphaCache) = GVAR(lineAlphaCache) apply {1};
+    GVAR(bearingAlphaCache) = GVAR(bearingAlphaCache) apply {1};
+    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN"];
+};
+
+call FUNC(showCompass);
+[UIVAR(RespawnScreen_onLoad), {
+    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+}] call CFUNC(addEventHandler);
+[UIVAR(RespawnScreen_onUnLoad), {
+    call FUNC(showCompass);
+}] call CFUNC(addEventHandler);
+["visibleMapChanged", {
+    (_this select 0) params ["_visibleMap"];
+
+    if (_visibleMap) then {
+        ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+    } else {
+        call FUNC(showCompass);
+    };
+}] call CFUNC(addEventHandler);
 
 addMissionEventHandler ["MapSingleClick", {
     params ["_units", "_position", "_alt", "_shift"];
@@ -45,6 +66,7 @@ addMissionEventHandler ["MapSingleClick", {
         disableSerialization;
 
         private _dialog = uiNamespace getVariable UIVAR(Compass);
+        if (isNull _dialog) exitWith {};
 
         private _viewDirectionVector = getCameraViewDirection PRA3_Player;
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
