@@ -41,7 +41,7 @@ class CfgEntities {
     };
     class vr_HEMMTTrans_1: vr_HEMMTTrans_0 {};
 
-    class vr_HEMMTRep_0: vr_HEMMTTrans_0 {};
+    class vr_HEMMTRepair_0: vr_HEMMTTrans_0 {};
     class vr_HEMMTFuel_0: vr_HEMMTTrans_0 {};
     class vr_HEMMTAmmo_0: vr_HEMMTTrans_0 {};
 
@@ -76,8 +76,8 @@ class CfgEntities {
     };
     class vr_ZamakTrans_1: vr_ZamakTrans_0 {};
 
-    class vr_TempestRep_0: vr_ZamakTrans_0 {};
-    class vr_TempestFuel_0: vr_ZamakTrans_0 {};
+    class vr_TempestRepair_0: vr_ZamakTrans_0 {};
+    class vr_ZamakFuel_0: vr_ZamakTrans_0 {};
     class vr_TempestAmmo_0: vr_ZamakTrans_0 {};
 
     // APCs
@@ -122,7 +122,11 @@ class CfgEntities {
         cargoCapacity = 20;
     };
 
+
     class Heli_Transport_02_base_F : Heli_Transport_01_base_F {
+    };
+
+    class O_Heli_Light_02_unarmed_F : Heli_Transport_01_base_F {
     };
 
     class Heli_Transport_03_base_F {
@@ -151,12 +155,32 @@ class CfgEntities {
         cargoCapacity = 50;
     };
 
+    class B_Truck_01_transport_F : B_Truck_01_Covered_F {
+        cargoCapacity = 50;
+    };
+
+    class O_Truck_02_transport_F : B_Truck_01_Covered_F {
+    };
+
     class B_MRAP_01_F {
         cargoCapacity = 20;
     };
 
+    class B_MRAP_01_hmg_F : B_MRAP_01_F {
+    };
+
     class O_MRAP_02_F : B_MRAP_01_F {
     };
+
+    class B_MRAP_02_hmg_F : B_MRAP_01_F {
+    };
+
+    class B_APC_Wheeled_01_cannon_F : B_MRAP_01_F {
+    };
+
+    class O_APC_Wheeled_02_rcws_F : B_APC_Wheeled_01_cannon_F {
+    };
+
     class B_HMG_01_high_F {
         isDragable = 1;
         isLoadable = 1;

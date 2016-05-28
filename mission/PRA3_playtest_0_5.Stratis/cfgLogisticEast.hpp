@@ -18,6 +18,6 @@ class cfgLogistic {
 
     class HeavyAmmoBox : MedicalBox {
         displayName = "Heavy Ammo Box";
-        content[] = {{"RPG32_F", 15}, {"Titan_AT", 8}, {"Titan_AA", 8}};
+        content[] = {{"RPG32_F", 6}, {"Titan_AT", 2}, {"Titan_AA", 2}};
     };
 };

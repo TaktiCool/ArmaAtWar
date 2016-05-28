@@ -20,7 +20,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3033.9675,167.14502,1938.351};
+		pos[]={3236.3538,279.47214,1869.7625};
 		dir[]={-0.91017985,-0.35150948,0.21939349};
 		up[]={-0.34170854,0.93619615,0.082366802};
 		aside[]={0.23434308,-9.1921538e-007,0.97221446};
@@ -57,24 +57,6 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
-		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -89,6 +71,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -469,6 +469,7 @@ class Mission
 			};
 			id=209;
 			type="O_MRAP_02_F";
+			atlOffset=-0.034820557;
 		};
 		class Item17
 		{
@@ -6021,6 +6022,7 @@ class Mission
 			};
 			id=462;
 			type="B_MRAP_01_F";
+			atlOffset=-0.017952442;
 		};
 		class Item121
 		{
@@ -6074,6 +6076,7 @@ class Mission
 			};
 			id=487;
 			type="O_MRAP_02_F";
+			atlOffset=-0.088394165;
 		};
 		class Item124
 		{
@@ -6091,7 +6094,7 @@ class Mission
 			};
 			id=502;
 			type="O_Truck_02_transport_F";
-			atlOffset=1.5258789e-005;
+			atlOffset=-0.12231445;
 		};
 		class Item125
 		{
@@ -6109,6 +6112,7 @@ class Mission
 			};
 			id=510;
 			type="O_Truck_02_fuel_F";
+			atlOffset=-0.0027008057;
 		};
 		class Item126
 		{
@@ -6141,6 +6145,7 @@ class Mission
 			};
 			id=573;
 			type="Flag_NATO_F";
+			atlOffset=2.3841858e-007;
 		};
 		class Item128
 		{
@@ -6176,7 +6181,7 @@ class Mission
 			};
 			id=576;
 			type="B_Truck_01_ammo_F";
-			atlOffset=-0.017999887;
+			atlOffset=-0.017999649;
 		};
 		class Item130
 		{
@@ -6211,6 +6216,7 @@ class Mission
 			};
 			id=580;
 			type="B_MRAP_01_F";
+			atlOffset=-0.0058541298;
 		};
 		class Item132
 		{
@@ -6282,6 +6288,7 @@ class Mission
 			};
 			id=591;
 			type="O_Heli_Light_02_unarmed_F";
+			atlOffset=-1.5258789e-005;
 		};
 		class Item136
 		{
@@ -6299,7 +6306,7 @@ class Mission
 			};
 			id=593;
 			type="O_MRAP_02_F";
-			atlOffset=-1.5258789e-005;
+			atlOffset=-0.00045776367;
 		};
 		class Item137
 		{
@@ -6334,6 +6341,7 @@ class Mission
 			};
 			id=595;
 			type="O_Truck_02_transport_F";
+			atlOffset=-0.010559082;
 		};
 		class Item139
 		{
@@ -6385,6 +6393,7 @@ class Mission
 			};
 			id=599;
 			type="O_APC_Wheeled_02_rcws_F";
+			atlOffset=-0.008102417;
 		};
 		class Item142
 		{
@@ -6394,7 +6403,7 @@ class Mission
 			text="CSAT Main Base";
 			markerType="ELLIPSE";
 			type="Empty";
-			colorName="ColorWEST";
+			colorName="ColorEAST";
 			a=150;
 			b=150;
 			id=601;
