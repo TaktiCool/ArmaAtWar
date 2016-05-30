@@ -49,8 +49,8 @@ removeGoggles PRA3_Player;
 PRA3_Player addHeadgear _headGear;
 
 // Primary Weapon
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
 [_primaryMagazineTracer, _primaryMagazineTracerCount] call CFUNC(addMagazine);
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
 {
     PRA3_Player addPrimaryWeaponItem _x;
     nil
