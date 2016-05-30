@@ -111,12 +111,10 @@ addMissionEventHandler ["MapSingleClick", {
                 private _angleToMarker = ((_relativeVectorToMarker select 0) atan2 (_relativeVectorToMarker select 1) + 360) % 360;
 
                 private _control = GVAR(lineMarkerControlPool) select _nextLineMarkerControl;
-                if (isNil "_control") then {
+                if (isNil "_control" || {isNull _control}) then {
                     _control = _dialog ctrlCreate ["RscPicture", 7401 + _nextLineMarkerControl, _dialog displayCtrl 7100];
                     _control ctrlSetText "#(argb,8,8,3)color(1,1,1,1)";
                     GVAR(lineMarkerControlPool) set [_nextLineMarkerControl, _control];
-                } else {
-                    _control ctrlShow true;
                 };
 
                 private _lineIndex = floor (_angleToMarker / 5) + 18;
@@ -169,8 +167,9 @@ addMissionEventHandler ["MapSingleClick", {
 
         if (_nextLineMarkerControl < count GVAR(lineMarkerControlPool)) then {
             for "_i" from _nextLineMarkerControl to (count GVAR(lineMarkerControlPool) - 1) do {
-                private _control = GVAR(lineMarkerControlPool) select _i;
-                _control ctrlShow false; //@todo use ctrlDelete when its fixed by BI
+                private _control = GVAR(lineMarkerControlPool) select _nextLineMarkerControl;
+                ctrlDelete _control;
+                GVAR(lineMarkerControlPool) deleteAt _nextLineMarkerControl;
             };
         };
 
@@ -204,11 +203,9 @@ addMissionEventHandler ["MapSingleClick", {
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
 
                 private _control = GVAR(iconMarkerControlPool) select _nextIconMarkerControl;
-                if (isNil "_control") then {
+                if (isNil "_control" || {isNull _control}) then {
                     _control = _dialog ctrlCreate ["RscPicture", 7501 + _nextIconMarkerControl, _dialog displayCtrl 7100];
                     GVAR(iconMarkerControlPool) set [_nextIconMarkerControl, _control];
-                } else {
-                    _control ctrlShow true;
                 };
 
                 private _compassAngle = _angleToUnit + 90;
@@ -242,8 +239,9 @@ addMissionEventHandler ["MapSingleClick", {
 
         if (_nextIconMarkerControl < count GVAR(iconMarkerControlPool)) then {
             for "_i" from _nextIconMarkerControl to (count GVAR(iconMarkerControlPool) - 1) do {
-                private _control = GVAR(iconMarkerControlPool) select _i;
-                _control ctrlShow false; //@todo use ctrlDelete when its fixed by BI
+                private _control = GVAR(iconMarkerControlPool) select _nextIconMarkerControl;
+                ctrlDelete _control;
+                GVAR(iconMarkerControlPool) deleteAt _nextIconMarkerControl;
             };
         };
 
