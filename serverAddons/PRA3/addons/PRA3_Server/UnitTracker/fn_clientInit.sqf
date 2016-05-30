@@ -17,6 +17,7 @@ GVAR(playerCounter) = 0;
 GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
+GVAR(groupInfoPFH) = -1;
 
 DFUNC(updateIcons) = {
     if (GVAR(blockUpdate)) exitWith {};

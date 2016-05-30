@@ -63,16 +63,13 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 1) params ["_group"];
 
 
-                if (_group == GVAR(currentHoverGroup)) exitWith {};
+                if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
                 GVAR(currentHoverGroup) == _group;
                 //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
                 private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
                 _pos set [0, (_pos select 0) + 15/640];
                 _pos set [1, (_pos select 1) - 15/640];
-
-                //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutRsc [UIVAR(GroupInfo),"PLAIN",0.2];
-                //private _display = (ctrlParent _map) createDisplay UIVAR(GroupInfo);
 
                 private _display = ctrlParent _map;
                 private _idd = ctrlIDD _display;
@@ -156,7 +153,6 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 private _unitCount = {
                     private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
                     private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-                    //(_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
                     _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
                     true;
                 } count _units;
@@ -172,7 +168,11 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     nil;
                 } count [_ctrlGrp, _ctrlSquadName, _ctrlSquadType, _ctrlSquadDescription, _ctrlSquadMemberCount, _ctrlBgBottom, _ctrlMemberList];
 
-                [{
+                if (GVAR(groupInfoPFH) != -1) then {
+                    GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
+                };
+
+                GVAR(groupInfoPFH) = [{
                     disableSerialization;
                     params ["_params", "_id"];
                     _params params ["_group", "_map"];
@@ -181,15 +181,17 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     _pos set [0, (_pos select 0) + 15/640];
                     _pos set [1, (_pos select 1) - 15/640];
 
-                    //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
                     private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
-                    if (!isNull _grp) then {
-                        _grp ctrlSetPosition _pos;
-                        _grp ctrlCommit 0;
-                    } else {
-                        GVAR(currentHoverGroup) = grpNull;
+
+                    if (isNull _grp || (_map == ((findDisplay 12) displayCtrl 51) && !visibleMap) || isNull _map) exitWith {
                         _id call CFUNC(removePerFrameHandler);
+                        _grp ctrlSetFade 1;
+                        _grp ctrlCommit 0;
                     };
+
+                    _grp ctrlSetPosition _pos;
+                    _grp ctrlCommit 0;
+
                     /*
                     if (!visibleMap) then {
                         if (!isNull _display) then {
@@ -211,7 +213,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 0) params ["_map", "_xPos", "_yPos"];
                 (_this select 1) params ["_group"];
 
-                if (GVAR(currentHoverGroup) == _group) then {
+                if (GVAR(currentHoverGroup) isEqualTo _group) then {
                     GVAR(currentHoverGroup) = grpNull;
                 };
 
@@ -221,6 +223,10 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     _grp ctrlSetFade 1;
                     _grp ctrlCommit 0;
                     //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+                };
+
+                if (GVAR(groupInfoPFH) != -1) then {
+                    GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
                 };
 
             },
