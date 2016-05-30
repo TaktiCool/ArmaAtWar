@@ -35,6 +35,8 @@ class PRA3 {
 
     #include "cfgSectors.hpp"
 
+    #include "cfgRespawn.hpp"
+
     #include "cfgRevive.hpp"
 
     #include "cfgEntities.hpp"
