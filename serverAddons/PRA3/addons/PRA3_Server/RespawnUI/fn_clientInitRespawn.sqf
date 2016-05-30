@@ -14,6 +14,12 @@
     None
 */
 
+["groupChanged", {
+    _this select 0 params ["_newGroup", "_oldGroup"];
+
+    UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(globalEvent);
+}] call CFUNC(addEventHandler);
+
 ["playerSideChanged", {
     if (!dialog) exitWith {};
 
@@ -27,6 +33,10 @@
     if (_sector isEqualTo GVAR(currentCameraTarget)) then {
         [QGVAR(updateCameraTarget)] call CFUNC(localEvent);
     };
+}] call CFUNC(addEventHandler);
+
+["playerSideChanged", {
+    UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(initCamera), {
@@ -101,6 +111,10 @@
     [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
     GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit),""];
 
+    if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
+        [QGVAR(initCamera)] call CFUNC(localEvent);
+        (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
+    };
 
     // The dialog needs one frame until access to controls via IDC is possible
     [{
@@ -111,6 +125,24 @@
         [{
             [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
         }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);
+
+        (findDisplay 1000 displayCtrl 500) ctrlEnable false;
+        [{
+            params ["_respawnTime", "_id"];
+
+            if (!dialog) exitWith {
+                _id call CFUNC(removePerFrameHandler);
+            };
+
+            if (diag_tickTime >= _respawnTime) exitWith {
+                (findDisplay 1000 displayCtrl 500) ctrlSetText "DEPLOY";
+                (findDisplay 1000 displayCtrl 500) ctrlEnable true;
+
+                _id call CFUNC(removePerFrameHandler);
+            };
+
+            (findDisplay 1000 displayCtrl 500) ctrlSetText format ["%1s until respawn", ceil (_respawnTime - diag_tickTime)];
+        }, 0.1, diag_tickTime + ([QGVAR(RespawnSettings_respawnCountdown), 0] call CFUNC(getSetting))] call CFUNC(addPerFrameHandler);
 
         {
             private _pos = ctrlPosition (findDisplay 1000  displayCtrl _x);
@@ -159,12 +191,12 @@
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
 
     [QGVAR(destroyCamera)] call CFUNC(localEvent);
+
     if (PRA3_Player getVariable [QEGVAR(Kit,kit), ""] != GVAR(selectedKit)) then {
         PRA3_Player setVariable [QEGVAR(Kit,kit), GVAR(selectedKit), true];
         [UIVAR(RespawnScreen_SquadManagement_update), group PRA3_Player] call CFUNC(targetEvent);
         [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
     };
-
 }] call CFUNC(addEventHandler);
 
 GVAR(lastRespawnFrame) = 0;

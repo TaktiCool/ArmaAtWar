@@ -16,6 +16,10 @@
 
 GVAR(lastSquadManagementUIUpdateFrame) = 0;
 
+["leaderChanged", {
+    UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
 // TeamInfo
 [UIVAR(RespawnScreen_TeamInfo_update), {
     if (!dialog) exitWith {};
