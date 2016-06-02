@@ -185,7 +185,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
 
                     if (isNull _grp || (_map == ((findDisplay 12) displayCtrl 51) && !visibleMap) || isNull _map) exitWith {
                         _id call CFUNC(removePerFrameHandler);
-                        _grp ctrlSetFade 1;
+                        ctrlDelete _grp;
                         _grp ctrlCommit 0;
                     };
 
@@ -220,7 +220,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
                 private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
                 if (!isNull _grp) then {
-                    _grp ctrlSetFade 1;
+                    ctrlDelete _grp;
                     _grp ctrlCommit 0;
                     //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
                 };
