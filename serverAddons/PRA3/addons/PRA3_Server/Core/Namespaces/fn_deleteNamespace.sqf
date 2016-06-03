@@ -14,7 +14,7 @@
     None
 */
 params [["_namespace", locationNull, [locationNull]]];
+
+GVAR(allCustomNamespaces) deleteAt (GVAR(allCustomNamespaces) find _namespace);
 deleteLocation _namespace;
-if !(isNil "JK_debug_fnc_delteNamespace") then {
-    [_namespace] call JK_debug_fnc_delteNamespace;
-};
+nil

@@ -81,7 +81,7 @@ DFUNC(escapeFnc) =  {
             (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2 s", floor(_time), floor((_time mod 1)*10)];
             (findDisplay 1000  displayCtrl 500) ctrlEnable false;
 
-        }, 0.1, []] call CFUNC(addPerFrameHandler);
+        }, 0, []] call CFUNC(addPerFrameHandler);
         [QGVAR(initCamera)] call CFUNC(localEvent);
     }] call CFUNC(addEventHandler);
     /*

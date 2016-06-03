@@ -17,7 +17,11 @@
     -
 */
 private _ret = createLocation ["fakeTown", [-100000,-100000,-100000], 0, 0];
-if !(isNil "JK_debug_fnc_addNewNamespace") then {
-    [_ret, "LocationNamespace"] call JK_debug_fnc_addNewNamespace;
+
+if (isNil QGVAR(allCustomNamespaces)) then {
+    GVAR(allCustomNamespaces) = [];
 };
+
+GVAR(allCustomNamespaces) pushBack _ret;
+
 _ret

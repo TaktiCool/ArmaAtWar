@@ -1,5 +1,5 @@
 #include "macros.hpp"
-
+GVAR(allCustomNamespaces) = [];
 
 GVAR(cachedCall) = call FUNC(createNamespace);
 if (hasInterface) then {

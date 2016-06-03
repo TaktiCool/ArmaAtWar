@@ -107,6 +107,7 @@ EPREP(TeamColorSync,clientInitTeamColorSync)
 
 // Performance Info
 EPREP(PerformanceInfo,postInitPerformance)
+EPREP(PerformanceInfo,dumpPerformanceInformation)
 
 // Init
 PREP(init)
@@ -132,6 +133,4 @@ PREP(name)
 PREP(sanitizeString)
 PREP(setVariablePublic)
 
-#ifdef isDev
-    PREP(serverInit)
-#endif
+PREP(serverInit)
