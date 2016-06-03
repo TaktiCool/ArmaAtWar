@@ -13,6 +13,8 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
+skipLobby = 1;
+
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";

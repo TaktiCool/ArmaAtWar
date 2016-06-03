@@ -72,11 +72,13 @@ DFUNC(escapeFnc) =  {
         (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(escapeFnc)];
         [{
             if (diag_tickTime >= GVAR(respawnTime)) exitWith {
+                (_this select 1) call CFUNC(remotePerFrameHandler);
                 (findDisplay 1000  displayCtrl 500) ctrlSetText "DEPLOY";
                 (findDisplay 1000  displayCtrl 500) ctrlEnable true;
             };
 
-            (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1 s", GVAR(respawnTime) - diag_tickTime];
+            private _time = (floor ((GVAR(respawnTime) - diag_tickTime)*10))/10;
+            (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2 s", floor(_time), floor((_time mod 1)*10)];
             (findDisplay 1000  displayCtrl 500) ctrlEnable false;
 
         }, 0.1, []] call CFUNC(addPerFrameHandler);
