@@ -77,7 +77,7 @@ DFUNC(escapeFnc) =  {
                 (findDisplay 1000  displayCtrl 500) ctrlEnable true;
             };
 
-            private _time = (floor ((GVAR(respawnTime) - diag_tickTime)*10))/10;
+            private _time = GVAR(respawnTime) - diag_tickTime;
             (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2 s", floor(_time), floor((_time mod 1)*10)];
             (findDisplay 1000  displayCtrl 500) ctrlEnable false;
 
