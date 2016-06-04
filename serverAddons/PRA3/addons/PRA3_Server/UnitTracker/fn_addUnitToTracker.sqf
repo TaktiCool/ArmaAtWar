@@ -84,6 +84,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
                 if (isNull _ctrlGrp) then {
                     _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+                    _ctrlGrp ctrlSetFade 0;
                     _ctrlGrp ctrlCommit 0;
                     uiNamespace setVariable [format [UIVAR(GroupInfo_%1_Group), _idd], _ctrlGrp];
 
@@ -137,7 +138,6 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 };
 
                 _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
-                _ctrlGrp ctrlSetFade 0;
                 _ctrlGrp ctrlShow true;
 
                 _ctrlSquadName ctrlSetText toUpper groupId _group;
