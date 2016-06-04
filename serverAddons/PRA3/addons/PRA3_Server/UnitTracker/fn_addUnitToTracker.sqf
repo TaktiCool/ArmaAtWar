@@ -144,7 +144,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
 
                 private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
                 private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
-                private _units = ([group PRA3_Player] call CFUNC(groupPlayers));
+                private _units = ([_group] call CFUNC(groupPlayers));
 
                 _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""])+" Squad"];
                 _ctrlSquadDescription ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
