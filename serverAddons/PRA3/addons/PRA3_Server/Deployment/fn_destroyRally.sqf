@@ -29,3 +29,4 @@ private _rallyObjects = _pointDetails select 6;
 
 [_pointId] call FUNC(removeDeploymentPoint);
 _group setVariable [QGVAR(rallyId), nil, true];
+[QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);

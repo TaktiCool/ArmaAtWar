@@ -36,9 +36,10 @@
     (group PRA3_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
 
     private _spawnCount = [QGVAR(Rally_spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = ["RALLYPOINT " + (toUpper groupId group PRA3_Player), "a3\ui_f\data\map\Markers\Military\dot_ca.paa", _spawnCount, _position, {group PRA3_Player == _this}, group PRA3_Player, _squadRallyPointObjects] call FUNC(addDeploymentPoint);
+    private _pointId = ["RALLYPOINT " + (toUpper groupId group PRA3_Player), "ui\media\rally_ca.paa", _spawnCount, _position, {group PRA3_Player == _this}, group PRA3_Player, _squadRallyPointObjects] call FUNC(addDeploymentPoint);
     (group PRA3_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
     ["displayNotification", group PRA3_Player, [format["Your Team Leader Placed a Rally Near %1", [_position] call CFUNC(getNearestLocationName)]]] call CFUNC(targetEvent);
     [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(mutex);

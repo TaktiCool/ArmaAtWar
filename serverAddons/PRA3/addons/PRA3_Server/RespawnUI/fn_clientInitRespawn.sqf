@@ -167,6 +167,7 @@ GVAR(lastRespawnFrame) = 0;
                 publicVariable QEGVAR(Deployment,deploymentPoints);
             };
             [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+            [QEGVAR(Deployment,updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
         };
         GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
         closeDialog 2;
