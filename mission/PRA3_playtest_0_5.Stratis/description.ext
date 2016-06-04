@@ -6,17 +6,17 @@ class Header {
     minPlayers = 1; //min # of players the mission supports
     maxPlayers = 250; //max # of players the mission supports
 };
-joinUnassigned = 0;
-allowFunctionsRecompile = 1;
-allowFunctionsLog = 1;
+joinUnassigned = 1;
+allowFunctionsRecompile = 0;
+allowFunctionsLog = 0;
 briefing = 0;
 debriefing = 0;
-enableDebugConsole = 2;
+enableDebugConsole = 1;
 
 disabledAI = 1;
-author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
+author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";
-onLoadMission = "Project Reality: Arma III";
+onLoadMission = "Project Reality: Arma 3";
 loadScreen =  "ui\media\loadingscreen.paa";
 
 skipLobby = 1;
