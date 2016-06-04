@@ -89,7 +89,7 @@ GVAR(CargoClasses) = [];
 ] call CFUNC(addAction);
 
 [
-    {format["Load Item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format["Load item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(CargoClasses),
     10,
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull])) && !((PRA3_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target) },

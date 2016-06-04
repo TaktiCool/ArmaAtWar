@@ -132,7 +132,7 @@ GVAR(lastRespawnFrame) = 0;
 [UIVAR(RespawnScreen_DeployButton_action), {
     // Check squad
     if (!((groupId group PRA3_Player) in EGVAR(Squad,squadIds))) exitWith {
-        ["Join a squad!"] call CFUNC(displayNotification);
+        ["You have to join a squad!"] call CFUNC(displayNotification);
     };
 
     // Check role
@@ -142,13 +142,13 @@ GVAR(lastRespawnFrame) = 0;
         // Check kit
         private _currentRoleSelection = lnbCurSelRow 303;
         if (_currentRoleSelection < 0) exitWith {
-            ["Select a role!"] call CFUNC(displayNotification);
+            ["You have to select a role!"] call CFUNC(displayNotification);
         };
 
         // Check deployment
         private _currentDeploymentPointSelection = lnbCurSelRow 403;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            ["Select spawn point!"] call CFUNC(displayNotification);
+            ["You have to select a spawnpoint!"] call CFUNC(displayNotification);
         };
         _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
         EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];

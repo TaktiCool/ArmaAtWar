@@ -61,7 +61,7 @@
 
         // Check bleeding too
         if (_target getVariable [QGVAR(bloodLoss), 0] != 0) exitWith {
-            systemChat "You must First Bandage the Unit to Revive him!";
+            systemChat "You have to bandage the casualty before you can revive him!";
             false
         };
 
