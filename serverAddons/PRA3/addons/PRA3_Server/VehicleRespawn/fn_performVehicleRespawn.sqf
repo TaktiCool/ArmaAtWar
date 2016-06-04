@@ -45,5 +45,6 @@ if (!isNull _vehicle) then {
         clearMagazineCargoGlobal _vehicle;
         clearWeaponCargoGlobal _vehicle;
         clearBackpackCargoGlobal _vehicle;
+        _vehicle disableTIEquipment true;
     }, _condition, [_respawnCounter, _this]] call CFUNC(waitUntil);
 }, 3, [_type, _varName, _position, _direction, _respawnCondition, _respawnCounter]] call CFUNC(wait);
