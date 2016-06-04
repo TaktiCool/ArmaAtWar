@@ -28,12 +28,13 @@ DFUNC(updateIcons) = {
             nil
         } count GVAR(currentIcons);
         {
-            [_x, _x] call FUNC(addUnitToTracker);
+            if !(_x getVariable [QCGVAR(tempUnit), false]) then { // dont Draw Temp Units
+                [_x, _x] call FUNC(addUnitToTracker);
+            };
             nil
         } count allPlayers;
         GVAR(blockUpdate) = false;
-    }, 0.5] call CFUNC(wait);
-
+    }, 1] call CFUNC(wait);
 };
 
 {
