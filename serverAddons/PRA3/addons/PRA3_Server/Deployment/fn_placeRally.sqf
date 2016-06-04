@@ -42,7 +42,7 @@
     private _pointId = [_text, "ui\media\rally_ca.paa", _spawnCount, _position, {group PRA3_Player == _this}, group PRA3_Player, _squadRallyPointObjects] call FUNC(addDeploymentPoint);
     (group PRA3_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
-    ["displayNotification", group PRA3_Player, [format["Your quadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
+    ["displayNotification", group PRA3_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
     [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
     [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(mutex);
