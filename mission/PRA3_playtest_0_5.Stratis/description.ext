@@ -4,7 +4,7 @@
 class Header {
     gameType = "SCont"; // Game type, see 'class' columns in the table below
     minPlayers = 1; //min # of players the mission supports
-    maxPlayers = 250; //max # of players the mission supports
+    maxPlayers = 100; //max # of players the mission supports
 };
 joinUnassigned = 1;
 allowFunctionsRecompile = 0;
