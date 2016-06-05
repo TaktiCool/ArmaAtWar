@@ -24,9 +24,9 @@ private _selectedValue = [[_idc, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] 
 private _addedData = [];
 lnbClear _idc;
 {
-    _x params ["_name", "_data", "_icon"];
+    _x params ["_textRows", "_data", "_icon"];
 
-    private _rowNumber = lnbAddRow [_idc, [_name]];
+    private _rowNumber = lnbAddRow [_idc, _textRows];
     [_idc, [_rowNumber, 0], _data] call CFUNC(lnbSave);
     _addedData pushBack _data;
     lnbSetPicture [_idc, [_rowNumber, 0], _icon];

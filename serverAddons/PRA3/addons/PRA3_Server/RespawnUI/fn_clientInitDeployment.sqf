@@ -38,7 +38,7 @@
                 _name = format ["%1 (%2)", _name, _tickets];
             };
 
-            _lnbData pushBack [_name, _x, _icon];
+            _lnbData pushBack [[_name], _x, _icon];
         };
     } forEach _pointIds;
 
