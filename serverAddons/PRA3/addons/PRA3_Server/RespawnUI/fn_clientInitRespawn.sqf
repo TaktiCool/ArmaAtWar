@@ -141,7 +141,8 @@
                 _id call CFUNC(removePerFrameHandler);
             };
 
-            (findDisplay 1000 displayCtrl 500) ctrlSetText format ["%1s until respawn", ceil (_respawnTime - diag_tickTime)];
+            private _time = GVAR(respawnTime) - diag_tickTime;
+            (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2 s", floor _time, floor ((_time % 1) * 10)];
         }, 0.1, diag_tickTime + ([QGVAR(RespawnSettings_respawnCountdown), 0] call CFUNC(getSetting))] call CFUNC(addPerFrameHandler);
 
         {
