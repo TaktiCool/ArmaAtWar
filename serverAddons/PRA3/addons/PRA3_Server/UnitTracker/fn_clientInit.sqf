@@ -17,6 +17,7 @@ GVAR(playerCounter) = 0;
 GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
+GVAR(groupInfoPFH) = -1;
 
 DFUNC(updateIcons) = {
     if (GVAR(blockUpdate)) exitWith {};
@@ -27,12 +28,13 @@ DFUNC(updateIcons) = {
             nil
         } count GVAR(currentIcons);
         {
-            [_x, _x] call FUNC(addUnitToTracker);
+            if !(_x getVariable [QCGVAR(tempUnit), false]) then { // dont Draw Temp Units
+                [_x, _x] call FUNC(addUnitToTracker);
+            };
             nil
         } count allPlayers;
         GVAR(blockUpdate) = false;
-    }, 0.5] call CFUNC(wait);
-
+    }, 1] call CFUNC(wait);
 };
 
 {

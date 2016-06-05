@@ -17,7 +17,7 @@ params ["_kitName"];
 
 private _kitDetails = [_kitName, [
     ["uniform", ""], ["vest", ""], ["backpack", ""], ["headGear", ""],
-    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineCount", 0],
+    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineTracerCount", 0],
     ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
@@ -49,8 +49,8 @@ removeGoggles PRA3_Player;
 PRA3_Player addHeadgear _headGear;
 
 // Primary Weapon
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
 [_primaryMagazineTracer, _primaryMagazineTracerCount] call CFUNC(addMagazine);
+[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
 {
     PRA3_Player addPrimaryWeaponItem _x;
     nil

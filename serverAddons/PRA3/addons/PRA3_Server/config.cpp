@@ -4,6 +4,12 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.56;
+        author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
+        authors[] = {"joko // Jonas", "NetFusion", "Hoeginson", "BadGuy", "PRA3 Team"};
+        authorUrl = "";
+        version = VERSION;
+        versionStr = QUOTE(VERSION);
+        versionAr[] = {VERSION_AR};
         requiredAddons[] = {
             // Vanilla
             "3den",
@@ -559,11 +565,6 @@ class CfgPatches {
             "a3data",
             "map_vr"
         };
-        author[] = {"joko // Jonas", "NetFusion", "Hoeginson", "BadGuy", "PRA3 Team"};
-        authorUrl = "";
-        version = VERSION;
-        versionStr = QUOTE(VERSION);
-        versionAr[] = {VERSION_AR};
     };
 };
 
@@ -572,9 +573,9 @@ class CfgPatches {
 #include "PRA3.hpp"
 
 class CfgAddons {
-	class PreloadAddons {
-		class PRA3_Server {
-			list[] = {"A3_Functions_F"};
-		};
-	};
+    class PreloadAddons {
+        class PRA3_Server {
+            list[] = {"A3_Functions_F"};
+        };
+    };
 };

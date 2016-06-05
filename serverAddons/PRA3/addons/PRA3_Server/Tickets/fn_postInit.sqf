@@ -57,7 +57,7 @@ GVAR(deactivateTicketSystem) = false;
 
         addMissionEventHandler ["EntityKilled", {
             params ["_killedEntity", "_killer"];
-            if (_killedEntity getVariable [QEGVAR(VehicleRespawn,ticketValue),0] > 0) exitWith {
+            if (_killedEntity getVariable ["ticketValue",0] > 0) exitWith {
                 private _ticketValue = _killedEntity getVariable ["ticketValue",0];
                 private _currentSide = _killedEntity getVariable ["side","unknown"];
                 private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _currentSide];

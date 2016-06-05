@@ -1,13 +1,13 @@
 #define MAJOR 0
-#define MINOR 3
+#define MINOR 5
 #define PATCHLVL 0
-#define BUILD 90
+#define BUILD 215
 
 #define VERSION MAJOR.MINOR.PATCHLVL.BUILD
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
 
 // dont release with this setting enabled
-#define isDev
+// #define isDev
 
 #define QUOTE(var) #var
 

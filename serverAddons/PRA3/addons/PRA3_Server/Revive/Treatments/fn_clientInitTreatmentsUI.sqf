@@ -66,7 +66,7 @@
                     nil
                 } count [
                     [cursorTarget, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />"],
-                    [PRA3_Player, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself<br />"]
+                    [PRA3_Player, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself"]
                 ];
             };
             nil
@@ -77,7 +77,7 @@
 
         (_display displayCtrl 3004) ctrlSetStructuredText parseText (format [_text, _actionName]);
         (_display displayCtrl 3004) ctrlCommit 0;
-    }, 0.5] call CFUNC(addPerFrameHandler);
+    }, 0] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(RestoreWeapon), {

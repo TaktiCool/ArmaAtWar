@@ -54,7 +54,7 @@ addMissionEventHandler ["Draw3D", {
                     _icon = "\A3\Ui_f\data\IGUI\Cfg\Cursors\unitbleeding_ca.paa";
                 } else {
                     if (_x getVariable [QGVAR(isUnconscious), false] && cursorTarget isEqualTo _x && _x getVariable [QGVAR(medicalActionRunning), ""] == "") then {
-                        _text = "Press Space to Revive";
+                        _text = "Press space to revive the casualty";
                     } else {
                         if (!(_x getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}] isEqualTo (GVAR(selections) apply {0}))) then {
                             _icon = "\A3\UI_f\data\IGUI\Cfg\Actions\heal_ca.paa";

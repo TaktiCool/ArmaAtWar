@@ -63,16 +63,13 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 1) params ["_group"];
 
 
-                if (_group == GVAR(currentHoverGroup)) exitWith {};
+                if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
                 GVAR(currentHoverGroup) == _group;
                 //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
                 private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
                 _pos set [0, (_pos select 0) + 15/640];
                 _pos set [1, (_pos select 1) - 15/640];
-
-                //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutRsc [UIVAR(GroupInfo),"PLAIN",0.2];
-                //private _display = (ctrlParent _map) createDisplay UIVAR(GroupInfo);
 
                 private _display = ctrlParent _map;
                 private _idd = ctrlIDD _display;
@@ -87,6 +84,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
                 if (isNull _ctrlGrp) then {
                     _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+                    _ctrlGrp ctrlSetFade 0;
                     _ctrlGrp ctrlCommit 0;
                     uiNamespace setVariable [format [UIVAR(GroupInfo_%1_Group), _idd], _ctrlGrp];
 
@@ -140,13 +138,13 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 };
 
                 _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
-                _ctrlGrp ctrlSetFade 0;
+                _ctrlGrp ctrlShow true;
 
                 _ctrlSquadName ctrlSetText toUpper groupId _group;
 
                 private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
                 private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
-                private _units = ([group PRA3_Player] call CFUNC(groupPlayers));
+                private _units = ([_group] call CFUNC(groupPlayers));
 
                 _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""])+" Squad"];
                 _ctrlSquadDescription ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
@@ -156,7 +154,6 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 private _unitCount = {
                     private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
                     private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-                    //(_display displayCtrl 6006) lnbSetPicture [[_rowNumber, 0], _kitIcon];
                     _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
                     true;
                 } count _units;
@@ -172,7 +169,11 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     nil;
                 } count [_ctrlGrp, _ctrlSquadName, _ctrlSquadType, _ctrlSquadDescription, _ctrlSquadMemberCount, _ctrlBgBottom, _ctrlMemberList];
 
-                [{
+                if (GVAR(groupInfoPFH) != -1) then {
+                    GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
+                };
+
+                GVAR(groupInfoPFH) = [{
                     disableSerialization;
                     params ["_params", "_id"];
                     _params params ["_group", "_map"];
@@ -181,15 +182,18 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     _pos set [0, (_pos select 0) + 15/640];
                     _pos set [1, (_pos select 1) - 15/640];
 
-                    //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
                     private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
-                    if (!isNull _grp) then {
-                        _grp ctrlSetPosition _pos;
-                        _grp ctrlCommit 0;
-                    } else {
-                        GVAR(currentHoverGroup) = grpNull;
+
+                    if (isNull _grp || (_map == ((findDisplay 12) displayCtrl 51) && !visibleMap) || isNull _map) exitWith {
                         _id call CFUNC(removePerFrameHandler);
+                        _grp ctrlShow false;
+                        //ctrlDelete _grp;
+                        _grp ctrlCommit 0;
                     };
+
+                    _grp ctrlSetPosition _pos;
+                    _grp ctrlCommit 0;
+
                     /*
                     if (!visibleMap) then {
                         if (!isNull _display) then {
@@ -211,16 +215,21 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 (_this select 0) params ["_map", "_xPos", "_yPos"];
                 (_this select 1) params ["_group"];
 
-                if (GVAR(currentHoverGroup) == _group) then {
+                if (GVAR(currentHoverGroup) isEqualTo _group) then {
                     GVAR(currentHoverGroup) = grpNull;
                 };
 
                 //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
                 private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
                 if (!isNull _grp) then {
-                    _grp ctrlSetFade 1;
+                    //ctrlDelete _grp;
+                    _grp ctrlShow false;
                     _grp ctrlCommit 0;
                     //([UIVAR(GroupInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
+                };
+
+                if (GVAR(groupInfoPFH) != -1) then {
+                    GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
                 };
 
             },

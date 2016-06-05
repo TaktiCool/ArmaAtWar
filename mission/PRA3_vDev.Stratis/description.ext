@@ -13,6 +13,8 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
+skipLobby = 1;
+
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";
@@ -58,6 +60,7 @@ class RscTitles {
     #include "ui\hud\Notification.hpp"
     #include "ui\hud\MedicalInfo.hpp"
     #include "ui\hud\Compass.hpp"
+    #include "ui\hud\PerformanceStatus.hpp"
 };
 
 /* disable CfgRemoteExec Until BI fix it
