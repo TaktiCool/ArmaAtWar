@@ -19,7 +19,7 @@ onLoadName = "Project Reality: Arma 3";
 onLoadMission = "Project Reality: Arma 3";
 loadScreen =  "ui\media\loadingscreen.paa";
 
-skipLobby = 1;
+// skipLobby = 1;
 
 respawn = 3;
 respawnDelay = 3;
