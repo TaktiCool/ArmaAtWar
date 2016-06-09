@@ -37,16 +37,6 @@ GVAR(state) = 0;
             nil
         } count allUnits;
 
-        // Remove empty groups.
-        {
-            if !(_x getVariable [QCGVAR(noClean), false]) then {
-                if ((units _x) isEqualTo []) then {
-                    deleteGroup _x;
-                };
-            };
-            nil
-        } count allGroups;
-
         {
             if !(_x getVariable [QCGVAR(noClean), false]) then {
                 if (!(_x getVariable [QGVAR(queued), false])) then {
@@ -65,7 +55,7 @@ GVAR(state) = 0;
                 _x params ["_object", "_enqueueTime"];
 
                 // If the time has not passed exit. This assumes all following object are pushed after the current one.
-                if (_enqueueTime + 360 > time) exitWith {};
+                if (_enqueueTime + 120 > time) exitWith {};
                 if !(_object getVariable [QCGVAR(noClean), false]) then {
 
                     // Remove the object from the storage.
@@ -86,7 +76,7 @@ GVAR(state) = 0;
                         params ["_object", "_height", "_position"];
 
                         // Get the current position and subtract some value from the z axis.
-                        _position set [2,  (_position select 2) - 0.1];
+                        _position set [2,  (_position select 2) - 0.05];
 
                         // Apply the position change.
                         _object setPos _position;
@@ -100,4 +90,14 @@ GVAR(state) = 0;
             } count +GVAR(objectStorage);
         };
     };
-}, 10] call CFUNC(addPerFrameHandler);
+
+    // Remove empty groups.
+    {
+        if !(_x getVariable [QCGVAR(noClean), false]) then {
+            if ((units _x) isEqualTo []) then {
+                deleteGroup _x;
+            };
+        };
+        nil
+    } count allGroups;
+}, 0] call CFUNC(addPerFrameHandler);
