@@ -46,6 +46,6 @@ if ((_vehicle isKindOf "Tank" && _isCrew == 0) || (_vehicle isKindOf "Air" && ([
             // Use action here to have an animation
             PRA3_Player action ["getOut", _vehicle];
         };
-        ["You're not allowed to use this vehicle"] call CFUNC(displayNotification);
     };
+    ["You're not allowed to use this vehicle"] call CFUNC(displayNotification);
 };
