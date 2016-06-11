@@ -35,10 +35,8 @@ private _side = switch (markerColor _marker) do {
     default {sideUnknown};
 };
 
-
-
 _marker setMarkerAlpha 1;
-//_logic setVariable ["informationMarker", _infoMarker, true];
+
 _logic setVariable ["name", _marker, true];
 _logic setVariable ["fullName", markerText _marker, true];
 _logic setVariable ["designator", _designator, true];
@@ -51,11 +49,9 @@ _logic setVariable ["minUnits", _minUnits, true];
 _logic setVariable ["captureRate", 0, true];
 _logic setVariable ["captureTime", _captureTime, true];
 _logic setVariable ["firstCaptureTime", _firstCaptureTime, true];
-_logic setVariable ["isLastSector", _isLastSector, true];
+
 if (_side == sideUnknown) then {
     _logic setVariable ["captureProgress", 0, true];
 } else {
     _logic setVariable ["captureProgress", 1, true];
 };
-
-["sectorCreated", [_side, _marker, _designator]] call CFUNC(globalEvent);
