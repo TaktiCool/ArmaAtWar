@@ -14,12 +14,14 @@
     Returns:
     The selected data <Any>
 */
-params ["_idc", "_allData"];
+params ["_idc", "_allData", ["_selectedValue", nil]];
 
 disableSerialization;
 
-private _selectedEntry = lnbCurSelRow _idc;
-private _selectedValue = [[_idc, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
+if (isNil "_selectedValue") then {
+    private _selectedEntry = lnbCurSelRow _idc;
+    private _selectedValue = [[_idc, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
+};
 
 private _addedData = [];
 lnbClear _idc;
@@ -29,7 +31,10 @@ lnbClear _idc;
     private _rowNumber = lnbAddRow [_idc, _textRows];
     [_idc, [_rowNumber, 0], _data] call CFUNC(lnbSave);
     _addedData pushBack _data;
-    lnbSetPicture [_idc, [_rowNumber, 0], _icon];
+
+    if (!isNil "_icon") then {
+        lnbSetPicture [_idc, [_rowNumber, 0], _icon];
+    };
 
     if (_data isEqualTo _selectedValue) then {
         lnbSetCurSelRow [_idc, _rowNumber];

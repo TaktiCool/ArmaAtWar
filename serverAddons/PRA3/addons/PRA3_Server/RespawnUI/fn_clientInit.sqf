@@ -14,12 +14,21 @@
     None
 */
 [QGVAR(RespawnSettings), missionConfigFile >> "PRA3" >> "CfgRespawn"] call CFUNC(loadSettings);
-GVAR(selectedKit) = "";
 
 // When player dies show respawn UI
-[QEGVAR(Revive,Killed), { //@todo this should work without the revive module
+[QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
     setPlayerRespawnTime 10e10; // Prevent respawn
     createDialog UIVAR(RespawnScreen);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(RespawnScreen_onLoad), {
+    showHUD [true, true, true, true, true, true, false, true];
+    [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(RespawnScreen_onUnload), {
+    showHUD [true,true,true,true,true,true,true,true];
+    [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
 }] call CFUNC(addEventHandler);
 
 // Wait for the mission start first.
@@ -54,10 +63,7 @@ GVAR(selectedKit) = "";
         createDialog UIVAR(RespawnScreen);
     }] call CFUNC(mutex);
 
-
-    /*
     ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
         createDialog UIVAR(RespawnScreen);
     }] call CFUNC(addAction);
-    */
 }] call CFUNC(addEventHandler);

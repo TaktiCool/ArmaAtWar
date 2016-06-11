@@ -18,31 +18,6 @@
     [UIVAR(RespawnScreen_RoleManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
-// When the selected entry changed update the weapon tab content
-[UIVAR(RespawnScreen_RoleList_onLBSelChanged), {
-    // Instantly assign the kit (do not apply)
-
-    // Get the selected value
-    private _selectedEntry = lnbCurSelRow 303;
-    if (_selectedEntry == -1) exitWith {};
-
-    private _previousSelectedKit = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-    private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
-
-    if (_previousSelectedKit != _selectedKit) then {
-        PRA3_Player setVariable [QEGVAR(Kit,kit), _selectedKit, true];
-        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-        //[UIVAR(RespawnScreen_SquadManagement_update), group PRA3_Player] call CFUNC(targetEvent); //@todo only update squad member list
-    } else {
-        UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
-    };
-}] call CFUNC(addEventHandler);
-
-// When the selected tab changed update the weapon tab content
-[UIVAR(RespawnScreen_WeaponTabs_onToolBoxSelChanged), {
-    UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
-}] call CFUNC(addEventHandler);
-
 [UIVAR(RespawnScreen_RoleManagement_update), {
     if (!dialog) exitWith {};
 
@@ -65,7 +40,33 @@
     } count (call EFUNC(Kit,getAllKits));
 
     // Update the lnb
-    [303, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+    [303, _lnbData, PRA3_Player getVariable QEGVAR(Kit,kit)] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+}] call CFUNC(addEventHandler);
+
+// When the selected entry changed update the weapon tab content
+[UIVAR(RespawnScreen_RoleList_onLBSelChanged), {
+    disableSerialization;
+
+    // Get the selected value
+    private _selectedEntry = lnbCurSelRow 303;
+    if (_selectedEntry == -1) exitWith {};
+
+    private _previousSelectedKit = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
+    private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+
+    // Instantly assign the kit (do not apply) if changed
+    if (_previousSelectedKit != _selectedKit) then {
+        PRA3_Player setVariable [QEGVAR(Kit,kit), _selectedKit, true];
+        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+        [QGVAR(KitChanged)] call CFUNC(localEvent);
+    } else {
+        UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
+    };
+}] call CFUNC(addEventHandler);
+
+// When the selected tab changed update the weapon tab content
+[UIVAR(RespawnScreen_WeaponTabs_onToolBoxSelChanged), {
+    UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_WeaponTabs_update), {

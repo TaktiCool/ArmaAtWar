@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    [Description]
+    Initializes the deployment part of the respawn screen.
 
     Parameter(s):
     None
@@ -18,9 +18,12 @@
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-// When the selected entry changed animate the map
-[UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
-    UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
+//@todo switch to events related to deployment point instead of rally with #178
+[QEGVAR(Deployment,rallyPlaced), {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+[QEGVAR(Deployment,rallyDestroyed), {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // This EH updates the deployment list
@@ -44,6 +47,12 @@
 
     // Update the lnb
     [403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+}] call CFUNC(addEventHandler);
+
+// When the selected entry changed animate the map
+[UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
+    //@todo only animate if really changed
+    UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_DeploymentManagement_animateMap), {

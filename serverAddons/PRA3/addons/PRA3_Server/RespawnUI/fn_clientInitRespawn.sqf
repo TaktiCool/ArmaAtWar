@@ -13,118 +13,21 @@
     Returns:
     None
 */
-
-["groupChanged", {
-    _this select 0 params ["_newGroup", "_oldGroup"];
-
-    UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(globalEvent);
-}] call CFUNC(addEventHandler);
-
-["playerSideChanged", {
-    if (!dialog) exitWith {};
-
-    [QGVAR(destroyCamera)] call CFUNC(localEvent);
-    [QGVAR(initCamera)] call CFUNC(localEvent);
-}] call CFUNC(addEventHandler);
-
-["sector_side_changed", {
-    (_this select 0) params ["_sector"];
-
-    if (_sector isEqualTo GVAR(currentCameraTarget)) then {
-        [QGVAR(updateCameraTarget)] call CFUNC(localEvent);
-    };
-}] call CFUNC(addEventHandler);
-
-["playerSideChanged", {
-    UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
-}] call CFUNC(addEventHandler);
-
-[QGVAR(initCamera), {
-    [{
-        GVAR(currentCameraTarget) = (format ["base_%1", playerSide]) call EFUNC(Sector,getSector);
-        private _basePosition = getPos GVAR(currentCameraTarget);
-        _basePosition set [2, 10];
-
-        GVAR(camera) = "camera" camCreate _basePosition;
-        GVAR(camera) cameraEffect ["INTERNAL", "BACK"];
-        showCinemaBorder false;
-
-        GVAR(updatePositionPFH) = [{
-            private _targetPosition = getPos GVAR(currentCameraTarget);
-            _targetPosition set [2, 10];
-
-            private _currentPosition = getPos GVAR(camera);
-
-            if ((_currentPosition distance _targetPosition) < 5) exitWith {
-                [QGVAR(updateCameraTarget)] call CFUNC(localEvent);
-            };
-
-            private _vectorDiff = _targetPosition vectorDiff _currentPosition;
-            private _newPosition = _currentPosition vectorAdd ((vectorNormalized _vectorDiff) vectorMultiply 5);
-            _newPosition set [2, 10];
-
-            GVAR(camera) camSetPos _newPosition;
-            GVAR(camera) camCommit 1;
-        }, 1] call CFUNC(addPerFrameHandler);
-    }, {
-        !isNil QEGVAR(Sector,sectorCreationDone)
-    }] call CFUNC(waitUntil);
-}] call CFUNC(addEventHandler);
-
-[QGVAR(updateCameraTarget), {
-    private _possibleTargets = (EGVAR(Sector,allSectorsArray) select {
-        GVAR(currentCameraTarget) in (
-            (_x getVariable ["dependency", []]) apply {
-                _x call EFUNC(Sector,getSector)
-            }
-        )
-    }) select {
-        _x getVariable ["side", sideUnknown] == playerSide
-    };
-
-    if (!(_possibleTargets isEqualTo [])) then {
-        GVAR(currentCameraTarget) = selectRandom _possibleTargets;
-
-        private _currentPosition = getPos GVAR(camera);
-        private _currentCameraTargetPosition = getPos GVAR(currentCameraTarget);
-        private _relativeVectorToTarget = _currentCameraTargetPosition vectorDiff _currentPosition;
-        private _relativeVectorToCenter = [worldSize / 2, worldSize / 2, 0] vectorDiff _currentPosition;
-
-        private _angleToTarget = (_relativeVectorToTarget select 0) atan2 (_relativeVectorToTarget select 1);
-        private _angleToCenter = (_relativeVectorToCenter select 0) atan2 (_relativeVectorToCenter select 1);
-
-        private _angleDiff = _angleToTarget - _angleToCenter;
-
-        GVAR(camera) setDir ([_angleToTarget - 90, _angleToTarget + 90] select (_angleDiff < 0));
-    };
-}] call CFUNC(addEventHandler);
-
-[QGVAR(destroyCamera), {
-    GVAR(updatePositionPFH) call CFUNC(removePerFrameHandler);
-
-    GVAR(camera) cameraEffect ["TERMINATE", "BACK"];
-    camDestroy GVAR(camera);
-}] call CFUNC(addEventHandler);
-
 [UIVAR(RespawnScreen_onLoad), {
-    showHUD [true,true,true,true,true,true,false,true];
-    [UIVAR(RespawnScreen), true] call CFUNC(blurScreen);
-    GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit),""];
-
-    if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
-        [QGVAR(initCamera)] call CFUNC(localEvent);
-        (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
-    };
-
-    // The dialog needs one frame until access to controls via IDC is possible
+    // The dialog needs one frame until access to controls is possible
     [{
         UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_NewSquadDesignator_update) call CFUNC(localEvent);
         UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_SquadMemberButtons_update) call CFUNC(localEvent);
         UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
         UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
-        [{
-            [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
-        }, {!(isNull (findDisplay 1000 displayCtrl 700))}] call CFUNC(waitUntil);
+
+        [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
+
+        if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
+            (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
+        };
 
         (findDisplay 1000 displayCtrl 500) ctrlEnable false;
         [{
@@ -141,7 +44,7 @@
                 _id call CFUNC(removePerFrameHandler);
             };
 
-            private _time = GVAR(respawnTime) - diag_tickTime;
+            private _time = _respawnTime - diag_tickTime;
             (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2 s", floor _time, floor ((_time % 1) * 10)];
         }, 0.1, diag_tickTime + ([QGVAR(RespawnSettings_respawnCountdown), 0] call CFUNC(getSetting))] call CFUNC(addPerFrameHandler);
 
@@ -183,21 +86,6 @@
         }] call CFUNC(execNextFrame);
 
     }] call CFUNC(execNextFrame);
-
-
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_onUnload), {
-    showHUD [true,true,true,true,true,true,true,true];
-    [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
-
-    [QGVAR(destroyCamera)] call CFUNC(localEvent);
-
-    if (PRA3_Player getVariable [QEGVAR(Kit,kit), ""] != GVAR(selectedKit)) then {
-        PRA3_Player setVariable [QEGVAR(Kit,kit), GVAR(selectedKit), true];
-        [UIVAR(RespawnScreen_SquadManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-        [UIVAR(RespawnScreen_RoleManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-    };
 }] call CFUNC(addEventHandler);
 
 GVAR(lastRespawnFrame) = 0;
@@ -241,7 +129,7 @@ GVAR(lastRespawnFrame) = 0;
             [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
             [QEGVAR(Deployment,updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
         };
-        GVAR(selectedKit) = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
+
         closeDialog 2;
 
         [{
@@ -254,7 +142,7 @@ GVAR(lastRespawnFrame) = 0;
 
             // Apply selected kit
             //private _currentKitName = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-            [GVAR(selectedKit)] call EFUNC(Kit,applyKit);
+            [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
         }, [_deployPosition]] call CFUNC(execNextFrame);
 
 
