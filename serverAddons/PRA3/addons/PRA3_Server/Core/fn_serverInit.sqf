@@ -21,6 +21,6 @@ DFUNC(log) = {
     "PRA3_server" callExtension (format ["logging:%1:", _file] + _log);
 };
 
-"sendlogfile" addPublicVariableEventHandler {
+QGVAR(sendlogfile) addPublicVariableEventHandler {
     (_this select 1) call FUNC(log);
 };

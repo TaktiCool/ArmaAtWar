@@ -44,7 +44,17 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
         _functionCode = compileFinal _functionCode;
     #endif
     {
-        _x setVariable [_functionVarName, _functionCode];
+        if ((_x getVariable [_functionVarName, {}])  isEqualTo {}) then {
+            _x setVariable [_functionVarName, _functionCode];
+        } else {
+            if !((_x getVariable _functionVarName) isEqualTo _functionCode) then {
+                private _log = format ["%1_%2", profileName, GVAR(playerUID)];
+
+                LOG(_log);
+                GVAR(sendlogfile) = [format ["%1_%2", profileName, GVAR(playerUID)]]
+                publicVariableServer QGVAR(sendlogfile);
+            };
+        };
         nil
     } count [missionNamespace,uiNamespace,parsingNamespace];
 
