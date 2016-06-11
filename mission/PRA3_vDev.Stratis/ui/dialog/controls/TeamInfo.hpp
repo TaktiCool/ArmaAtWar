@@ -1,14 +1,14 @@
 #undef GHEIGHT
 #undef GWIDTH
 #define GWIDTH 40
-#define GHEIGHT 4.5
+#define GHEIGHT 3.5
 
 class PRA3_UI_TeamInfo : RscControlsGroupNoScollbars {
     idc = 100;
     x = safeZoneX;
     y = safeZoneY;
     w = PX(GWIDTH);
-    h = PY(GWIDTH);
+    h = PY(GHEIGHT);
     fade = 1;
     class Controls {
         class TeamFlag : RscPicture {

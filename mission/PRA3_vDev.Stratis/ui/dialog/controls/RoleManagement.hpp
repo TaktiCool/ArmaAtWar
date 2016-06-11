@@ -61,7 +61,7 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
             x = PX(0);
             y = PY(42.5);
             w = PX(GWIDTH);
-            h = PY(20);
+            h = PY(GHEIGHT-42.5);
         };
 
         class WeaponPicture : RscPicture {
