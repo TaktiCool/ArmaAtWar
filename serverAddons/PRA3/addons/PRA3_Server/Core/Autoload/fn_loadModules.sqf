@@ -64,8 +64,6 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
 
     // If the progress is 1 the last function code is received.
     if (_progress >= 1) then {
-        // End the loading screen and enable input for the user.
-        disableUserInput false;
         DUMP("All Function Recieved, now call then")
         // Call all modules.
         call FUNC(callModules);
