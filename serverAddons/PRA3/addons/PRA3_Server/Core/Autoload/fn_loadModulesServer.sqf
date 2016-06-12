@@ -84,5 +84,6 @@ if (isServer) then {
         } forEach GVAR(RequiredFncClient);
     };
 };
+
 // Call all required function on the server.
-call FUNC(callModules)
+call FUNC(callModules);

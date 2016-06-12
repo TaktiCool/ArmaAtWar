@@ -19,10 +19,7 @@
 if (hasInterface) then {
     waitUntil {!isNull player};
     PRA3_Player = player;
-    GVAR(playerUID) = getPlayerUID player;
-    if (GVAR(playerUID) == "") then {
-        waitUntil {sleep 0.1; GVAR(playerUID) = getPlayerUID player; (GVAR(playerUID) != "")};
-    };
+    waitUntil {GVAR(playerUID) = getPlayerUID player; (GVAR(playerUID) != "")};
 };
 GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") isEqualTo 1);
 // If the machine has AME running exit and call all requested modules.
@@ -48,11 +45,12 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
             _x setVariable [_functionVarName, _functionCode];
         } else {
             if !((_x getVariable _functionVarName) isEqualTo _functionCode) then {
-                private _log = format ["%1_%2", profileName, GVAR(playerUID)];
+                private _log = format ["[PRA3: CheatWarning!]: Player %1(%2) allready have '%3': %4", profileName, GVAR(playerUID), _functionVarName, _x getVariable _functionVarName];
 
                 LOG(_log);
-                GVAR(sendlogfile) = [format ["%1_%2", profileName, GVAR(playerUID)]]
+                GVAR(sendlogfile) = [_log, format ["%1_%2", profileName, GVAR(playerUID)]]
                 publicVariableServer QGVAR(sendlogfile);
+                endMission "LOSER";
             };
         };
         nil
