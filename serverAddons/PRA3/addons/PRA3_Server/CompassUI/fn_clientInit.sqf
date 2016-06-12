@@ -148,7 +148,7 @@ addMissionEventHandler ["MapSingleClick", {
                     // Shift
                     private _shiftedLineIndex = _lineIndex;
                     waitUntil {
-                        _shiftedLineIndex = _shiftedLineIndex + _shiftDirection;
+                        _shiftedLineIndex = ((_shiftedLineIndex + _shiftDirection) + 72) % 72;
                         _otherMarkerControl setVariable [QGVAR(lineIndex), _shiftedLineIndex];
 
                         _otherMarkerControl = _overlapCacheLineIndices param [_shiftedLineIndex, nil];
