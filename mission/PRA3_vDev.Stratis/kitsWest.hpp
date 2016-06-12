@@ -22,9 +22,9 @@ class Kits {
         primaryWeapon = "arifle_MX_F";
         primaryAttachments[] = {"optic_Aco","acc_pointer_IR"};
         primaryMagazine = "30Rnd_65x39_caseless_mag";
-        primaryMagazineCount = 5;
+        primaryMagazineCount = 0;
         primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
-        primaryMagazineTracerCount = 3;
+        primaryMagazineTracerCount = 5;
 
         // Secondary weapon
         secondaryWeapon = "";
@@ -44,7 +44,7 @@ class Kits {
 
         // Items
         assignedItems[] = {"ItemWatch", "ItemCompass", "ItemRadio", "ItemMap", "ItemGPS"};
-        items[] = {{"FirstAidKit", 3}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed"};
+        items[] = {"FirstAidKit","FirstAidKit","FirstAidKit", "HandGrenade","HandGrenade", "SmokeShell", "SmokeShell", "SmokeShellGreen", "SmokeShellRed"};
     };
     class Officer: Rifleman {
         availableInGroups[] = {"Rifle", "Weapon"};
@@ -90,7 +90,7 @@ class Kits {
         primaryWeapon = "LMG_Mk200_F";
         primaryAttachments[] = {"acc_pointer_IR","bipod_01_F_blk"};
         primaryMagazine = "200Rnd_65x39_cased_Box";
-        primaryMagazineCount = 2;
+        primaryMagazineCount = 0;
         primaryMagazineTracer = "200Rnd_65x39_cased_Box_Tracer";
         primaryMagazineTracerCount = 3;
         backpack = "B_AssaultPack_rgr";
@@ -105,7 +105,7 @@ class Kits {
         displayName = "Grenadier";
 
         primaryWeapon = "arifle_MX_GL_F";
-        items[] += {{"1Rnd_HE_Grenade_shell", 6}};
+        items[] += {{"1Rnd_HE_Grenade_shell", 6}, {"1Rnd_Smoke_Grenade_shell", 3}};
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
@@ -142,7 +142,7 @@ class Kits {
 
         secondaryWeapon = "launch_B_Titan_F";
         secondaryMagazine = "Titan_AA";
-        secondaryMagazineCount = 3;
+        secondaryMagazineCount = 2;
         backpack = "B_AssaultPack_rgr";
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\aa_ca.paa";
@@ -165,16 +165,18 @@ class Kits {
 
         displayName = "HAT Rifleman";
 
-        secondaryWeapon = "launch_B_Titan_F";
+        secondaryWeapon = "launch_B_Titan_short_F";
         secondaryMagazine = "Titan_AT";
-        secondaryMagazineCount = 3;
-        backpack = "B_AssaultPack_rgr";
+        secondaryMagazineCount = 2;
+        backpack = "B_TacticalPack_mcamo";
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\at_ca.paa";
     };
     class HeavyMachineGun: AutomaticRifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Weapon"};
 
         displayName = "HMG Rifleman";
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
     };
     class AmmoBearer: Rifleman {
         availableInGroups[] = {"Weapon"};
@@ -182,7 +184,7 @@ class Kits {
         displayName = "Ammo Bearer";
 
         backpack = "B_AssaultPack_rgr";
-        items[] = {{"200Rnd_65x39_cased_Box", 4}};
+        items[] += {{"200Rnd_65x39_cased_Box_Tracer", 3}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle", "Helicopter"};
@@ -219,7 +221,7 @@ class Kits {
         primaryAttachments[] = {"optic_LRPS","bipod_01_F_blk"};
 
         primaryMagazine = "7Rnd_408_Mag";
-        primaryMagazineCount = 10;
+        primaryMagazineCount = 5;
 
         secondaryWeapon = "Rangefinder";
 

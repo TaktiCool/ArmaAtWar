@@ -21,7 +21,7 @@
     [QGVAR(initCamera)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-["sector_side_changed", {
+["sectorSideChanged", {
     (_this select 0) params ["_sector"];
 
     if (_sector isEqualTo GVAR(currentCameraTarget)) then {
@@ -57,7 +57,7 @@
             GVAR(camera) camCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     }, {
-        !isNil QEGVAR(Sector,sectorCreationDone)
+        !isNil QEGVAR(Sector,ServerInitDone) && {EGVAR(Sector,ServerInitDone)}
     }] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
 
