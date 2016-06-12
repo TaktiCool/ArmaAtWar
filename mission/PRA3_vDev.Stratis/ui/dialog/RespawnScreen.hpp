@@ -118,6 +118,7 @@ class PRA3_UI_RespawnScreen {
             y = safeZoneY + safeZoneH - PY(6) ;
             w = PX(40);
             h = PY(6);
+            fade = 1;
 
             colorText[] = {0,0,0,1};
 

@@ -14,8 +14,20 @@
     None
 */
 /*
+ * #### TEAM INFO SCREEN ####
  * TEAM INFO
  */
+[UIVAR(TeamInfoScreen_onLoad), {
+    // The dialog needs one frame until access to controls is possible
+    [{
+        // Update the values of the UI elements
+        UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
+
+        // Fade the control in
+        100 call FUNC(fadeControl);
+    }] call CFUNC(execNextFrame);
+}] call CFUNC(addEventHandler);
+
 // When the player side changes update the team info
 ["playerSideChanged", {
     UIVAR(RespawnScreen_TeamInfo_update) call CFUNC(localEvent);
@@ -33,6 +45,23 @@
 
 [UIVAR(RespawnScreen_ChangeSideBtn_onButtonClick), {
     call EFUNC(Squad,switchSide);
+}] call CFUNC(addEventHandler);
+
+/*
+ * #### SQUAD SCREEN ####
+ */
+[UIVAR(SquadScreen_onLoad), {
+    // The dialog needs one frame until access to controls is possible
+    [{
+        // Update the values of the UI elements
+        UIVAR(RespawnScreen_NewSquadDesignator_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_SquadTypeCombo_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_SquadManagement_update) call CFUNC(localEvent);
+        UIVAR(RespawnScreen_SquadMemberManagement_update) call CFUNC(localEvent);
+
+        // Fade the control in
+        200 call FUNC(fadeControl);
+    }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 /*
@@ -132,8 +161,8 @@
 /*
  * SQUAD LIST
  */
- // When the group changes update the squad list for new squad member count
- // This needs to be global cause it triggers on side change too
+// When the group changes update the squad list for new squad member count
+// This needs to be global cause it triggers on side change too
 ["playerSideChanged", {
     (_this select 0) params ["_newSIde", "_oldSide"];
     [UIVAR(RespawnScreen_SquadManagement_update), _oldSide] call CFUNC(targetEvent);

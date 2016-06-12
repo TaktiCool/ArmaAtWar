@@ -13,6 +13,17 @@
     Returns:
     None
 */
+[UIVAR(RoleScreen_onLoad), {
+    // The dialog needs one frame until access to controls is possible
+    [{
+        // Update the values of the UI elements
+        UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
+
+        // Fade the control in
+        300 call FUNC(fadeControl);
+    }] call CFUNC(execNextFrame);
+}] call CFUNC(addEventHandler);
+
 // When player changes the group update the role management for his old and his new group
 ["groupChanged", {
     [UIVAR(RespawnScreen_RoleManagement_update), _this select 0] call CFUNC(targetEvent);

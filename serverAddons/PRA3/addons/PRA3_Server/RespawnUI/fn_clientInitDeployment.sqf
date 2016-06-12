@@ -13,6 +13,17 @@
     Returns:
     None
 */
+[UIVAR(DeploymentScreen_onLoad), {
+    // The dialog needs one frame until access to controls is possible
+    [{
+        // Update the values of the UI elements
+        UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
+
+        // Fade the control in
+        400 call FUNC(fadeControl);
+    }] call CFUNC(execNextFrame);
+}] call CFUNC(addEventHandler);
+
 // When the group changes the rally might change too so update the list
 ["groupChanged", {
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
