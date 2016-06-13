@@ -29,7 +29,7 @@ _condition = if (_distance > 0 && !(_onObject isEqualTo PRA3_Player)) then {"[_t
 _callback = _callback call FUNC(codeToString);
 _callback = compile (format ["[{%1}, _this] call %2;", _callback, FUNC(directCall)]);
 
-if (_text isEqualType "") then {_text = compile ("format [""" + _text + """, getText (configFile >> ""CfgVehicles"" >> typeOf _this >> ""displayName"")]")};
+if (_text isEqualType "") then {_text = compile ("format ['" + _text + "']")};
 if (_onObject isEqualType "") then {_onObject = [_onObject];};
 
 if (_onObject isEqualType []) then {

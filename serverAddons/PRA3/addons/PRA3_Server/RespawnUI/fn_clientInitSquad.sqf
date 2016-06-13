@@ -219,6 +219,8 @@
         ctrlSetText [209, "SELECT A SQUAD"];
         lnbClear 210;
         ctrlShow [211, false];
+
+        UIVAR(RespawnScreen_SquadMemberButtons_update) call CFUNC(localEvent);
     };
     private _selectedSquad = [207, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
