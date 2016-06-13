@@ -13,7 +13,7 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
-skipLobby = 0;
+// skipLobby = 1;
 
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
