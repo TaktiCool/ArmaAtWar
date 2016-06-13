@@ -18,7 +18,7 @@
     params ["_description", "_type"];
 
     // Check conditions for creation
-    if (_description == "" || !([_type] call FUNC(canUseSquadType))) exitWith {};
+    if (!([_type] call FUNC(canUseSquadType))) exitWith {};
 
     // Leave old squad first
     call FUNC(leaveSquad);
