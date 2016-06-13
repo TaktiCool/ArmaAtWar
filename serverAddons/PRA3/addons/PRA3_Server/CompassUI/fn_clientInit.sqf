@@ -143,7 +143,11 @@ addMissionEventHandler ["MapSingleClick", {
                     };
 
                     // Direction
-                    private _shiftDirection = _offset / abs _offset; // 1 or -1
+                    private _shiftDirection = if (_offset == 0) then {
+                        1
+                    } else {
+                        _offset / abs _offset // 1 or -1
+                    };
 
                     // Shift
                     private _shiftedLineIndex = _lineIndex;
