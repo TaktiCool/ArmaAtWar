@@ -119,7 +119,7 @@
 
     disableSerialization;
 
-    // SquadTypeCombo @todo restore focus if necessary
+    // SquadTypeCombo @todo restore focus if necessary #224
     private _selectedGroupType = lbData [205, lbCurSel 205];
     lbClear 205;
 
@@ -175,11 +175,17 @@
 [UIVAR(RespawnScreen_SquadManagement_update), {
     if (!dialog) exitWith {};
 
+    private _ownGroupIndex = -1;
+
     // Prepare the data for the lnb
     private _lnbData = [];
     {
         private _groupId = groupId _x;
         if (side _x == playerSide && _groupId in EGVAR(Squad,squadIds)) then {
+            if (_x == group PRA3_Player) then {
+                _ownGroupIndex = _forEachIndex;
+            };
+
             private _squadDesignator = _groupId select [0, 1];
             private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
             private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
@@ -188,16 +194,14 @@
 
             _lnbData pushBack [[_squadDesignator, _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]], _x];
         };
-        nil
-    } count allGroups;
+    } forEach allGroups;
 
     // Update the lnb
     [207, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
-    //@todo highlight current squad
-//    for "_i" from 0 to 4 do {
-//        lnbSetColor [207, [_rowNumber, _i], [0.77, 0.51, 0.08, 1]];
-//    };
+    for "_i" from 0 to 4 do {
+        lnbSetColor [207, [_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];
+    };
 }] call CFUNC(addEventHandler);
 
 /*

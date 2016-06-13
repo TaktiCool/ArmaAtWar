@@ -87,7 +87,7 @@
         [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
 
         // Fade the button in, calculate the respawn timer if necessary
-        //@todo move the button into deployment
+        //@todo move the button into deployment #222
         500 call FUNC(fadeControl);
         if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
             // Catch the escape key
@@ -120,7 +120,7 @@
         };
 
         // The right background
-        // @todo move the backgrounds in the sub screens
+        // @todo move the backgrounds in the sub screens #223
         601 call FUNC(fadeControl); // left
         602 call FUNC(fadeControl); // right
         603 call FUNC(fadeControl); // header (left)
