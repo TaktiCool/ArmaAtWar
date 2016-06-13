@@ -53,13 +53,16 @@
                     if (_alpha == 0) exitWith {};
                     // The color depends whether the unit is in the group of the player or not.
                     private _color = if (group _x == group PRA3_Player) then {
+
+                        // we need to check if _index is -1 because if the player controll a drone and try to get assignedTeam from player return Nil
+                        private _index = ["MAIN","RED","GREEN","BLUE","YELLOW"] find (assignedTeam _x);
                         [
                             [1, 1, 1, _alpha],      // Main
                             [1, 0, 0.1, _alpha],    // Red
                             [0.1, 1, 0, _alpha],    // Green
                             [0.1, 0, 1, _alpha],    // Blue
                             [1, 1, 0.1, _alpha]     // Yellow
-                        ] select (["MAIN","RED","GREEN","BLUE","YELLOW"] find (assignedTeam _x));
+                        ] param [_index, [1, 1, 1, _alpha]];
                     } else {
                         [0.77, 0.51, 0.08, _alpha]
                     };
