@@ -5,6 +5,7 @@
 
 class PRA3_UI_RespawnScreen {
     idd = 1000;
+    enableSimulation = 1;
     onLoad = "'PRA3_UI_RespawnScreen_onLoad' call PRA3_Core_fnc_localEvent;";
     onUnload = "'PRA3_UI_RespawnScreen_onUnload' call PRA3_Core_fnc_localEvent;";
 
