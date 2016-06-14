@@ -35,7 +35,7 @@
 }] call CFUNC(addEventHandler);
 
 // If a sector changed its side it might be our current camera target
-["sector_side_changed", {
+["sectorSideChanged", {
     (_this select 0) params ["_sector"];
 
     // Update the camera target if the affected sector was the camera target
@@ -89,7 +89,7 @@
             GVAR(camera) camCommit (_speed / _distanceToNewPos);
         }, 1] call CFUNC(addPerFrameHandler);
     }, {
-        !isNil QEGVAR(Sector,sectorCreationDone)
+        !isNil QEGVAR(Sector,ServerInitDone) && {EGVAR(Sector,ServerInitDone)}
     }] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
 
