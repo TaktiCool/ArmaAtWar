@@ -181,24 +181,22 @@
     private _lnbData = [];
     {
         private _groupId = groupId _x;
-        if (side _x == playerSide && _groupId in EGVAR(Squad,squadIds)) then {
-            if (_x == group PRA3_Player) then {
-                _ownGroupIndex = _forEachIndex;
-            };
-
-            private _squadDesignator = _groupId select [0, 1];
-            private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
-            private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
-            private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
-            private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
-
-            if (_description == "") then {
-                _description = _groupId;
-            };
-
-            _lnbData pushBack [[_squadDesignator, _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]], _x];
+        if (_x == group PRA3_Player) then {
+            _ownGroupIndex = _forEachIndex;
         };
-    } forEach allGroups;
+
+        private _squadDesignator = _groupId select [0, 1];
+        private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
+        private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
+        private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
+        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
+
+        if (_description == "") then {
+            _description = _groupId;
+        };
+
+        _lnbData pushBack [[_squadDesignator, _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]], _x];
+    } forEach (allGroups select {side _x == playerSide && (groupId _x in EGVAR(Squad,squadIds))});
 
     // Update the lnb
     [207, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
