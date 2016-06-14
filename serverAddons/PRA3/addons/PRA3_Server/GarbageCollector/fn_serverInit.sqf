@@ -95,9 +95,9 @@ GVAR(state) = 0;
     {
         if !(_x getVariable [QCGVAR(noClean), false]) then {
             if ((units _x) isEqualTo []) then {
-                deleteGroup _x;
+                ["deleteGroup", groupOwner _x, _x] call CFUNC(targetEvent);
             };
         };
         nil
     } count allGroups;
-}, 0] call CFUNC(addPerFrameHandler);
+}, 5] call CFUNC(addPerFrameHandler);
