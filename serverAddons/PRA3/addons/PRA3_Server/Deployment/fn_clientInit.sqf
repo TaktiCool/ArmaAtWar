@@ -26,16 +26,16 @@
     {
         private _pointDetails = _pointData select (_pointIds find _x);
         _pointDetails params ["_name", "_icon", "_spawnTickets", "_position", "_spawnCondition", "_args", "_pointObjects"];
-        //@todo this should be redesigned (quick version for play test)
+        //@todo this should be redesigned (quick version for play test) #178
         if (_icon == "ui\media\rally_ca.paa" && _args call _spawnCondition) then {
             private _normal = [(str missionConfigFile select [0, count str missionConfigFile - 15]) + _icon, [0, 0.87, 0, 1], _position, 25, 0, "", 1];
             private _normalText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1", _name], 2, 0.09];
             private _onHoverText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1 (%2 spawns remaining)", _name, _spawnTickets], 2, 0.089];
-            [_name, [_normal, _normalText], "normal"] call CFUNC(addMapIcon);
-            [_name, [_normal, _onHoverText], "hover"] call CFUNC(addMapIcon);
+            ["RALLY", [_normal, _normalText], "normal"] call CFUNC(addMapIcon);
+            ["RALLY", [_normal, _onHoverText], "hover"] call CFUNC(addMapIcon);
 
         } else {
-            [_name] call CFUNC(removeMapIcon);
+            ["RALLY"] call CFUNC(removeMapIcon);
         };
         nil
     } count _pointIds;
