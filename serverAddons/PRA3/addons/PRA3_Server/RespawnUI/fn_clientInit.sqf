@@ -69,9 +69,9 @@
         createDialog UIVAR(RespawnScreen);
     }] call CFUNC(mutex);
 
-    ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
-        createDialog UIVAR(RespawnScreen);
-    }] call CFUNC(addAction);
+//    ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
+//        createDialog UIVAR(RespawnScreen);
+//    }] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
