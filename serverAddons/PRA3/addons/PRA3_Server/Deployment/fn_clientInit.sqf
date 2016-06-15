@@ -16,8 +16,15 @@
 [QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
 
 ["groupChanged", {
-    // Redraw ALL markers cause the playerSide may differ
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+[QGVAR(rallyPlaced), {
+    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+
+[QGVAR(rallyDestroyed), {
+    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 [QGVAR(updateMapIcons), {

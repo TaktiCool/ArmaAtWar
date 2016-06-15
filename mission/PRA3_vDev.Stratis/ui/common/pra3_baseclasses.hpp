@@ -3,9 +3,9 @@ class PRA3_RscButtonMenu : RscButton {
     text = "";
     font = "PuristaMedium";
     style = ST_LEFT;
-    sizeEx = PY(2);
+    sizeEx = PY(1.8);
     shadow = 0;
-    colorBackground[] = {0.3,0.3,0.3,1};
+    colorBackground[] = {0.3,0.3,0.3,0.8};
     colorBackgroundActive[] = {0.3,0.3,0.3,1};
     colorFocused[] = {0.3,0.3,0.3,1};
     colorText[] = {1,1,1,1};
@@ -13,22 +13,14 @@ class PRA3_RscButtonMenu : RscButton {
     y = PY(0);
     w = PX(9);
     h = PY(3);
+    period = 0;
 };
 
-class PRA3_RscButtonMenu_Colored : RscButton {
-    text = "";
-    font = "PuristaMedium";
-    style = ST_LEFT;
-    sizeEx = PY(2);
-    shadow = 0;
-    colorBackground[] = {0.77, 0.51, 0.08, 1};
+class PRA3_RscButtonMenu_Colored : PRA3_RscButtonMenu {
+    colorBackground[] = {0.77, 0.51, 0.08, 0.8};
     colorBackgroundActive[] = {0.77, 0.51, 0.08, 1};
-    colorFocused[] = {0.77, 0.51, 0.08, 1};
-    x = PX(0);
-    y = PY(0);
-    w = PX(9);
-    h = PY(3);
-    period = 0;
+    colorFocused[] = {0.77, 0.51, 0.08, 0.8};
+    colorText[] = {0,0,0,1};
 };
 
 class PRA3_RscEdit : RscEdit {
@@ -48,11 +40,11 @@ class PRA3_RscEdit : RscEdit {
 
 class PRA3_H1Text : RscText {
     text = "";
-    font = "PuristaSemiBold";
+    font = "PuristaMedium";
     sizeEx = PY(2.9);
     shadow = 0;
     colorBackground[] = {0,0,0,0};
-    colorText[] = {1,1,1,1};
+    colorText[] = {0.77, 0.51, 0.08, 1};
     x = PX(0);
     y = PY(0);
     w = PX(30);
@@ -60,7 +52,7 @@ class PRA3_H1Text : RscText {
 };
 
 class PRA3_H2Text : PRA3_H1Text {
-    font = "PuristaSemiBold";
+    font = "PuristaBold";
     sizeEx = PY(2.5);
     h = PY(3);
 };
@@ -105,6 +97,14 @@ class PRA3_RscListNBox : RscListNBox {
 class PRA3_RscCombo : RscCombo {
     colorBackground[] = {0.3,0.3,0.3,1};
     sizeEx = PY(2);
+};
+
+class PRA3_RscHeaderBackground : RscPicture {
+    text = "#(argb,8,8,3)color(0,0,0,1)";
+    x = PX(0);
+    y = PY(0);
+    w = PX(40);
+    h = PY(3);
 };
 /*
 class PRA3_UI_DisableMouse_Dialog {

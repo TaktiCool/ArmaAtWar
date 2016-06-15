@@ -48,9 +48,8 @@ if (getMarkerPos "respawn_guerrila" distance [0,0,0] >= 1) then {
                 private _enemyCount = {(side group _x) != _rallySide} count (nearestObjects [_position, ["CAManBase"], _maxEnemyCountRadius]);
 
                 if (_enemyCount >= _maxEnemyCount) then {
-                    [_args] call FUNC(destroyRally);
                     [_x] call FUNC(removeDeploymentPoint);
-                    [UIVAR(RespawnScreen_DeploymentManagement_update), _args] call CFUNC(targetEvent);
+                    [_args] call FUNC(destroyRally);
                 };
             };
         };

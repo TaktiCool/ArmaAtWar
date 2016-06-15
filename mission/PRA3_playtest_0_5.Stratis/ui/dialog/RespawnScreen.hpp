@@ -147,7 +147,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0,0.075,0.5,0.85};
 
-                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadManagement_update' call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class BackgroundSquadDetails : RscPicture {
@@ -177,7 +177,7 @@ class PRA3_UI_RespawnScreen {
 
                     columns[] = {0};
 
-                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadManagement_update' call PRA3_Core_fnc_localEvent;";
+                    onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadMemberList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
                 };
 
                 class JoinLeaveBtn : PRA3_RscButtonMenu {
