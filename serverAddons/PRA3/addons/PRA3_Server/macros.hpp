@@ -34,7 +34,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, GVAR(playerUID)]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, CGVAR(playerUID)]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
@@ -45,7 +45,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, GVAR(playerUID)]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, CGVAR(playerUID)]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
@@ -61,7 +61,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, GVAR(playerUID)]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, CGVAR(playerUID)]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
@@ -72,7 +72,7 @@
         diag_log format ["(%1) [PRA3 LOG - %2]: %3", diag_frameNo, #MODULE, var];\
         systemChat format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var];\
         if (hasInterface) then {\
-            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, GVAR(playerUID)]];\
+            sendlogfile = [format ["(%1) [PRA3 DUMP - %2]: %3", diag_frameNo, #MODULE, var], format ["%1_%2", profileName, CGVAR(playerUID)]];\
             publicVariableServer "sendlogfile";\
         };
 #endif
@@ -111,8 +111,8 @@
 #define CFUNC(var1) EFUNC(Core,var1)
 #define QCFUNC(var1) QUOTE(CFUNC(var1))
 
-#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
-#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
+#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call CFUNC(compile);
+#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call CFUNC(compile);
 
 #ifdef PRA3_DEBUGFULL
     #define ENABLEPERFORMANCECOUNTER

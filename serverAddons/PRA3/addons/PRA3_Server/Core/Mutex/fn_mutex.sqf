@@ -17,8 +17,7 @@
 params [["_code", {}], ["_args", []]];
 
 // Cache the function and args
-private _test = GVAR(mutexCache) pushBackUnique [_code, _args];
-DUMP(_test)
+GVAR(mutexCache) pushBackUnique [_code, _args];
 
 // Tell the server that there is something to execute
 [QGVAR(mutexRequest), PRA3_Player] call CFUNC(serverEvent);
