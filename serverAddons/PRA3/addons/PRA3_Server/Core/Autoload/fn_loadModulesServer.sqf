@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Server side modules loader (used when AME is present on client too). Prepares the functions for transmission to clients. Should run before client register with server.
+    Server side modules loader (used when PRA3 is present on client too). Prepares the functions for transmission to clients. Should run before client register with server.
 
     Parameter(s):
     ARRAY - server only: the names of the requested modules
@@ -55,7 +55,7 @@ LOG("Loaded Modules: " + str _modules)
     if (_functionModuleName in _modules) then {
         GVAR(requiredFunctions) pushBack _x;
     };
-    true
+    nil
 } count GVAR(functionCache);
 
 // EH for client registration. Starts transmission of function code.

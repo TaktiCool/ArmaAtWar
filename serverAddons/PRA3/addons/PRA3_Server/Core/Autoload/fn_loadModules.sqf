@@ -22,8 +22,9 @@ if (hasInterface) then {
     waitUntil {GVAR(playerUID) = getPlayerUID player; (GVAR(playerUID) != "")};
 };
 GVAR(allowFunctionsLog) = (getNumber (missionConfigFile >> "allowFunctionsLog") isEqualTo 1);
-// If the machine has AME running exit and call all requested modules.
-if (isClass (configFile >> "CfgPatches" >> "PRA3_Server")) exitWith { [FUNC(loadModulesServer), _this] call FUNC(directCall) };
+
+// If the machine has PRA3 running and is the Server exit to the server LoadModules
+if (isClass (configFile >> "CfgPatches" >> "PRA3_Server") && isServer) exitWith { [FUNC(loadModulesServer), _this] call FUNC(directCall) };
 
 // Start the loading screen on the client to prevent a drawing lag while loading. Disable input too to prevent unintended movement after spawn.
 [QGVAR(loadModules)] call bis_fnc_startLoadingScreen;
