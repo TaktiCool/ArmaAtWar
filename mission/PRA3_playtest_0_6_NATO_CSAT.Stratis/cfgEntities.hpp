@@ -51,6 +51,8 @@ class CfgEntities {
         ticketValue = 10;
     };
 
+    class vr_bobcat_0: vr_marshall_0 {};
+
     // Air
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 1200;
@@ -85,6 +87,8 @@ class CfgEntities {
         respawnTime = 1200;
         ticketValue = 10;
     };
+
+    class vr_kamysh_0 : vr_marid_0 {};
 
     // Air
     class vr_orca_0 : defaultEast {
