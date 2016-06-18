@@ -131,7 +131,7 @@ class Kits {
         displayName = "Engineer";
 
         isEngineer = 1;
-
+        items[] += {"ToolKit"};
         UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\repair_ca.paa";
     };
     class AntiAir: Rifleman {
@@ -191,7 +191,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_B_CombatUniform_mcam";
+        uniform = "U_B_CombatUniform_ocamo";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
@@ -214,7 +214,7 @@ class Kits {
 
         displayName = "Sniper";
 
-        uniform = "U_B_FullGhillie_lsh";
+        uniform = "U_B_GhillieSuit";
         backpack = "B_AssaultPack_rgr";
 
         primaryWeapon = "srifle_LRR_F";
@@ -233,7 +233,7 @@ class Kits {
 
         displayName = "Spotter";
 
-        uniform = "U_B_FullGhillie_lsh";
+        uniform = "U_B_GhillieSuit";
         primaryAttachments[] = {"optic_Arco"};
         secondaryWeapon = "Rangefinder";
         assignedItems[] += {"Rangefinder"};
