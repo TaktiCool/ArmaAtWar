@@ -41,8 +41,8 @@ DFUNC(checkNextMutexClient) = {
         private _index =_clientQueue find _owner;
         if (_index != -1) then {
             _clientQueue deleteAt _index;
+            GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue]];
         };
-        GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue]];
 
         // If the client is currently executing reset the lock
         if (_currentClient == _owner) then {
