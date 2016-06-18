@@ -8,7 +8,7 @@ class cfgLogistic {
 
     class BasicAmmoBox : MedicalBox {
         displayName = "Basic Ammo Box";
-        content[] = {{"30Rnd_65x39_caseless_mag_Tracer", 30}, {"200Rnd_65x39_cased_Box_Tracer", 5}, {"11Rnd_45ACP_Mag", 9}, {"20Rnd_762x51_Mag", 5}, {"1Rnd_HE_Grenade_shell", 6}, {"RPG32_F", 2}, {"1Rnd_Smoke_Grenade_shell", 3}, {"SmokeShell", 10}, {"SmokeShellGreen", 5}, {"SmokeShellRed", 5}};
+        content[] = {{"30Rnd_65x39_caseless_mag_Tracer", 30}, {"200Rnd_65x39_cased_Box_Tracer", 5}, {"11Rnd_45ACP_Mag", 9}, {"20Rnd_762x51_Mag", 5}, {"1Rnd_HE_Grenade_shell", 6}, {"NLAW_F", 2}, {"1Rnd_Smoke_Grenade_shell", 3}, {"SmokeShell", 10}, {"SmokeShellGreen", 5}, {"SmokeShellRed", 5}};
     };
 
     class AdvancedAmmoBox : MedicalBox {
@@ -18,6 +18,6 @@ class cfgLogistic {
 
     class HeavyAmmoBox : MedicalBox {
         displayName = "Heavy Ammo Box";
-        content[] = {{"RPG32_F", 6}, {"Titan_AT", 2}, {"Titan_AA", 2}};
+        content[] = {{"NLAW_F", 6}, {"Titan_AT", 2}, {"Titan_AA", 2}};
     };
 };
