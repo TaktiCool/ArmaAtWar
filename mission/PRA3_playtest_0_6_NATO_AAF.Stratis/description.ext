@@ -1,0 +1,79 @@
+/*
+ * https://community.bistudio.com/wiki/Description.ext
+ */
+class Header {
+    gameType = "SCont"; // Game type, see 'class' columns in the table below
+    minPlayers = 1; //min # of players the mission supports
+    maxPlayers = 100; //max # of players the mission supports
+};
+joinUnassigned = 1;
+allowFunctionsRecompile = 0;
+allowFunctionsLog = 0;
+briefing = 0;
+debriefing = 0;
+enableDebugConsole = 1;
+
+disabledAI = 1;
+author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";
+onLoadName = "Project Reality: Arma 3";
+onLoadMission = "Project Reality: Arma 3";
+loadScreen =  "ui\media\loadingscreen.paa";
+
+// skipLobby = 1;
+
+respawn = 3;
+respawnDelay = 3;
+respawnDialog = 0;
+
+class PRA3 {
+
+    #include "cfgBaseSettings.hpp"
+
+    #include "cfgGroupTypes.hpp"
+
+    #include "cfgSides.hpp"
+
+    #include "cfgSquadRallyPoint.hpp"
+
+    #include "cfgSectors.hpp"
+
+    #include "cfgRevive.hpp"
+
+    #include "cfgEntities.hpp"
+
+    #include "ui\common\pra3Core.hpp"
+
+};
+
+
+#include "ui\common\defines.hpp"
+#include "ui\common\baseclasses.hpp"
+#include "ui\common\pra3_baseclasses.hpp"
+#include "ui\dialog\RespawnScreen.hpp"
+
+class RscTitles {
+    #include "ui\hud\CaptureStatus.hpp"
+    #include "ui\hud\TicketStatus.hpp"
+    #include "ui\hud\MedicalProgress.hpp"
+    #include "ui\hud\Notification.hpp"
+    #include "ui\hud\MedicalInfo.hpp"
+    #include "ui\hud\Compass.hpp"
+    #include "ui\hud\PerformanceStatus.hpp"
+};
+
+/* disable CfgRemoteExec Until BI fix it
+class CfgRemoteExec {
+    class Functions {
+        mode = 1; // only whitelisted functions/commands are allowed for remote execution
+        jip = 0; // no functions can use jip
+
+        class PRA3_Core_fnc_localEvent {
+            allowedTargets = 0; // all targets
+        };
+        class BIS_fnc_call {
+            allowedTargets = 0;
+            jip = 1;
+        };
+    };
+};
+*/

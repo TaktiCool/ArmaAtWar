@@ -14,7 +14,7 @@
     -
 */
 [{
-    private _newSide = call compile ((EGVAR(Mission,competingSides) select { _x != str playerSide }) select 0);
+    private _newSide = ((EGVAR(Mission,competingSides) select { _x != playerSide }) select 0);
 
     //@todo #112 think about restrictions
 
