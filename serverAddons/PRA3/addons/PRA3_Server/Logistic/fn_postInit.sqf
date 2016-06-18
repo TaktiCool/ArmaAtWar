@@ -74,7 +74,7 @@ GVAR(CargoClasses) = [];
     },
     {
         params ["_draggedObject"];
-        [FUNC(dragObject), [_draggedObject, PRA3_Player]] call CFUNC(mutex);
+        [FUNC(dragObject), [_draggedObject, PRA3_Player], "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -129,7 +129,7 @@ GVAR(CargoClasses) = [];
             ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
 
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
-        }, _vehicle] call CFUNC(mutex);
+        }, _vehicle, "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -164,7 +164,7 @@ GVAR(CargoClasses) = [];
             ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
             [_draggedObject, PRA3_Player] call FUNC(dragObject);
             _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
-        }, _vehicle] call CFUNC(mutex);
+        }, _vehicle, "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -252,7 +252,7 @@ GVAR(CargoClasses) = [];
                 ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
                 [_draggedObject, PRA3_Player] call FUNC(dragObject);
                 _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
-            }, GVAR(currentContainer)] call CFUNC(mutex);
+            }, GVAR(currentContainer), "logistic"] call CFUNC(mutex);
         }];
         _unloadBtn ctrlCommit 0;
 
