@@ -23,4 +23,4 @@
 
     // Respawn as new unit
     [_newSide, createGroup _newSide, [-1000, -1000, 10], true] call CFUNC(respawn);
-}] call CFUNC(mutex);
+}, [], "respawn"] call CFUNC(mutex);

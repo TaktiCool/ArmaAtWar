@@ -44,4 +44,4 @@
 
     ["displayNotification", group PRA3_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
     QGVAR(rallyPlaced) call CFUNC(localEvent);
-}] call CFUNC(mutex);
+}, [], "respawn"] call CFUNC(mutex);

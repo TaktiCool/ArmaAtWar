@@ -15,20 +15,31 @@
 */
 
 // Storage for mutex functions
-GVAR(mutexCache) = [];
+GVAR(mutexCaches) = call CFUNC(createNamespace);
 
 // EH which fires on server response
 [QGVAR(mutexLock), {
-    // Its time to execute out cached functions.
+    (_this select 0) params ["_mutexId"];
+
+    private _mutexCache = [GVAR(mutexCaches), _mutexId, []] call CFUNC(getVariable);
+
+    // Its time to execute the cached functions.
     {
         _x params ["_code", "_args"];
-        _args call _code;
+        
+        if (_code isEqualType "") then {
+            _code = missionNamespace getVariable [_code, {}];
+        };
+
+        if (_code isEqualType {}) then {
+            _args call _code;
+        };
         nil
-    } count GVAR(mutexCache);
+    } count _mutexCache;
 
     // Empty the cache
-    GVAR(mutexCache) = [];
+    GVAR(mutexCaches) setVariable [_mutexId, []];
 
     // Tell the server that we finished
-    [QGVAR(unlockMutex)] call CFUNC(serverEvent);
+    [QGVAR(unlockMutex), _mutexId] call CFUNC(serverEvent);
 }] call CFUNC(addEventHandler);

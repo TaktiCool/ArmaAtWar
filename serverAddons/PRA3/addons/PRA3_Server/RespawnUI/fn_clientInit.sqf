@@ -67,7 +67,7 @@
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
 
         createDialog UIVAR(RespawnScreen);
-    }] call CFUNC(mutex);
+    }, [], "respawn"] call CFUNC(mutex);
 
 //    ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
 //        createDialog UIVAR(RespawnScreen);
@@ -195,5 +195,5 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
         }, [_deployPosition]] call CFUNC(execNextFrame);
 
         GVAR(lastRespawnFrame) = diag_frameNo;
-    }] call CFUNC(mutex);
+    }, [], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);

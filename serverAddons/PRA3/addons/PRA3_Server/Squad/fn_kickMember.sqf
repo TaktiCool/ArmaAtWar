@@ -20,4 +20,4 @@
 
     [_unit] join grpNull;
 
-}, _this] call CFUNC(mutex);
+}, _this, "respawn"] call CFUNC(mutex);
