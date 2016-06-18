@@ -13,16 +13,19 @@
     Returns:
     None
 */
-// Variable which indicates if some client is currently executing
-GVAR(currentMutexClient) = 0;
-
 // Queue of clients who requested mutex executing
-GVAR(mutexQueue) = [];
+GVAR(mutexes) = call CFUNC(createNamespace); // Entries are [currentClient, clientQueue]
 
 DFUNC(checkNextMutexClient) = {
-    if (!(GVAR(mutexQueue) isEqualTo [])) then {
-        GVAR(currentMutexClient) = GVAR(mutexQueue) deleteAt 0;
-        [QGVAR(mutexLock), GVAR(currentMutexClient)] call CFUNC(targetEvent);
+    params ["_mutexId"];
+
+    private _mutex = [GVAR(mutexes), _mutexId, [0, []]] call CFUNC(getVariable);
+    _mutex params ["_currentClient", "_clientQueue"];
+
+    if (!(_clientQueue isEqualTo [])) then {
+        _currentClient = _clientQueue deleteAt 0;
+        GVAR(mutexes) setVariable [_mutexId, [_currentClient, _clientQueue]];
+        [QGVAR(mutexLock), _currentClient, _mutexId] call CFUNC(targetEvent);
     };
 };
 
@@ -30,31 +33,48 @@ DFUNC(checkNextMutexClient) = {
 [QGVAR(mutex), "onPlayerDisconnected", {
     params ["_id", "_name", "_uid", "_owner", "_jip"];
 
-    // Clean the queue
-    GVAR(mutexQueue) = GVAR(mutexQueue) select {_x != _owner};
+    {
+        private _mutex = [GVAR(mutexes), _x, [0, []]] call CFUNC(getVariable);
+        _mutex params ["_currentClient", "_clientQueue"];
 
-    // If the client is currently executing reset the lock
-    if (GVAR(currentMutexClient) == _owner) then {
-        call FUNC(checkNextMutexClient);
-    };
+        // Clean the queue
+        GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue - [_owner]]];
+
+        // If the client is currently executing reset the lock
+        if (_currentClient == _owner) then {
+            _x call FUNC(checkNextMutexClient);
+        };
+
+        nil
+    } count (allVariables GVAR(mutexes));
 
     false
 }] call BIS_fnc_addStackedEventHandler;
 
 // EH which fired if some client requests mutex executing
 [QGVAR(mutexRequest), {
-    // We enqueue the value in the queue
-    GVAR(mutexQueue) pushBackUnique (owner (_this select 0));
+    (_this select 0) params ["_clientObject", "_mutexId"];
 
-    if (GVAR(currentMutexClient) == 0) then {
+    private _mutex = [GVAR(mutexes), _mutexId, [0, []]] call CFUNC(getVariable);
+    _mutex params ["_currentClient", "_clientQueue"];
+
+    // We enqueue the value in the queue
+    _clientQueue pushBackUnique (owner _clientObject);
+    GVAR(mutexes) setVariable [_mutexId, [_currentClient, _clientQueue]];
+
+    if (_currentClient == 0) then {
         // Tell the client that he can start and remove him from the queue
-        call FUNC(checkNextMutexClient);
+        _mutexId call FUNC(checkNextMutexClient);
     };
 }] call CFUNC(addEventHandler);
 
 [QGVAR(unlockMutex), {
-    GVAR(currentMutexClient) = 0;
+    (_this select 0) params ["_mutexId"];
+
+    private _mutex = [GVAR(mutexes), _mutexId, [0, []]] call CFUNC(getVariable);
+    _mutex params ["_currentClient", "_clientQueue"];
+    GVAR(mutexes) setVariable [_mutexId, [0, _clientQueue]];
 
     // Tell the client that he can start and remove him from the queue
-    call FUNC(checkNextMutexClient);
+    _mutexId call FUNC(checkNextMutexClient);
 }] call CFUNC(addEventHandler);
