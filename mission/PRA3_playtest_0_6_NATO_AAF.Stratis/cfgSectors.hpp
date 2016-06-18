@@ -4,7 +4,7 @@ class sector {
     dependency[] = {};
     ticketValue = 30;
     captureTime[] = {30,60};
-    minUnits = 1;
+    minUnits = 3;
     isLastSector = "";
     firstCaptureTime[] = {5,15};
 };
