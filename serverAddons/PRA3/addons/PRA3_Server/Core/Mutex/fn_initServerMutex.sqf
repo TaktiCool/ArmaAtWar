@@ -38,7 +38,11 @@ DFUNC(checkNextMutexClient) = {
         _mutex params ["_currentClient", "_clientQueue"];
 
         // Clean the queue
-        GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue - [_owner]]];
+        private _index =_clientQueue find _owner;
+        if (_index != -1) then {
+            _clientQueue deleteAt _index;
+        };
+        GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue]];
 
         // If the client is currently executing reset the lock
         if (_currentClient == _owner) then {
