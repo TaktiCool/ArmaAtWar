@@ -35,7 +35,6 @@ addons[]=
 	"A3_Characters_F",
 	"A3_Air_F_Beta_Heli_Transport_01",
 	"A3_Soft_F_MRAP_01",
-	"Blastcore_VEP",
 	"A3_Soft_F_Gamma_Truck_01",
 	"A3_Soft_F_Beta_Truck_01",
 	"A3_Soft_F_Beta_Truck_02",
@@ -52,7 +51,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=12;
+		items=11;
 		class Item0
 		{
 			className="A3_Modules_F_Curator";
@@ -90,45 +89,40 @@ class AddonsMetaData
 		};
 		class Item5
 		{
-			className="Blastcore_VEP";
-			name="Blastcore_VEP";
-		};
-		class Item6
-		{
 			className="A3_Soft_F_Gamma";
 			name="Arma 3 - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
-		class Item7
+		class Item6
 		{
 			className="A3_Soft_F_Beta";
 			name="Arma 3 Beta - Unarmored land vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
-		class Item8
+		class Item7
 		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
-		class Item9
+		class Item8
 		{
 			className="A3_Armor_F_Beta";
 			name="Arma 3 Beta - Armored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
-		class Item10
+		class Item9
 		{
 			className="A3_Air_F";
 			name="Arma 3 Alpha - Aircrafts";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
-		class Item11
+		class Item10
 		{
 			className="A3_Soft_F_EPC";
 			name="Arma 3 Win Episode - Unarmored land vehicles";
