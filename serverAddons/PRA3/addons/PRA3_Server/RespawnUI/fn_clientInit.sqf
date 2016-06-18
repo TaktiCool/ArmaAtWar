@@ -119,12 +119,102 @@
             (findDisplay 1000  displayCtrl 500) ctrlSetText "Close";
         };
 
+        //Update the MissionName Text
+        (findDisplay 1000  displayCtrl 604) ctrlSetStructuredText parseText format ["%1", getText (missionConfigFile >> "onLoadMission")];
+
+        //Update Tickets
+        private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
+        (findDisplay 1000 displayCtrl 801) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (findDisplay 1000 displayCtrl 803) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 0],""]);
+        (findDisplay 1000 displayCtrl 805) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 0],_startTickets]);
+        (findDisplay 1000 displayCtrl 802) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (findDisplay 1000 displayCtrl 804) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 1],""]);
+        (findDisplay 1000 displayCtrl 806) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 1],_startTickets]);
+
+        {
+            (findDisplay 1000 displayCtrl _x) ctrlCommit 0;
+            nil;
+        } count [801,802,803,804,805,806];
+
         // The right background
         // @todo move the backgrounds in the sub screens #223
         601 call FUNC(fadeControl); // left
         602 call FUNC(fadeControl); // right
         603 call FUNC(fadeControl); // header (left)
+        604 call FUNC(fadeControl); // MissionName
+        800 call FUNC(fadeControl); // MissionName
     }] call CFUNC(execNextFrame);
+
+
+}] call CFUNC(addEventHandler);
+
+["ticketsChanged", {
+    disableSerialization;
+    if (isNull findDisplay 1000) exitWith {};
+    if (GVAR(deactivateTicketSystem)) exitWith {};
+    private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
+    (findDisplay 1000 displayCtrl 801) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+    (findDisplay 1000 displayCtrl 803) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 0],""]);
+    (findDisplay 1000 displayCtrl 805) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 0],_startTickets]);
+    (findDisplay 1000 displayCtrl 802) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+    (findDisplay 1000 displayCtrl 804) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 1],""]);
+    (findDisplay 1000 displayCtrl 806) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 1],_startTickets]);
+
+    {
+        (findDisplay 1000 displayCtrl _x) ctrlCommit 0;
+        nil;
+    } count [801,802,803,804,805,806];
+}] call CFUNC(addEventHandler);
+
+// alternative notification Display
+["notificationDisplayed", {
+    disableSerialization;
+    private _display = findDisplay 1000;
+    if (isNull _display) exitWith {};
+    (_this select 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
+
+
+
+    private _groupPos = ctrlPosition (_display displayCtrl 4000);
+    private _oldGroupPos = +_groupPos;
+    _groupPos set [0, 0.5];
+    _groupPos set [2, 0];
+    (_display displayCtrl 4000) ctrlSetPosition _groupPos;
+
+
+    private _bgPos = ctrlPosition (_display displayCtrl 4001);
+    _bgPos set [0, -(_bgPos select 2)/2];
+    (_display displayCtrl 4001) ctrlSetPosition _bgPos;
+    _bgPos set [0, 0];
+
+    private _txtPos = ctrlPosition (_display displayCtrl 4002);
+    _txtPos set [0, -(_txtPos select 2)/2];
+    (_display displayCtrl 4002) ctrlSetPosition _txtPos;
+    _txtPos set [0, 0];
+    (_display displayCtrl 4001) ctrlSetTextColor _color;
+
+    (_display displayCtrl 4002) ctrlSetStructuredText parseText format ["%1",_text];
+    (_display displayCtrl 4000) ctrlCommit 0;
+    (_display displayCtrl 4001) ctrlCommit 0;
+    (_display displayCtrl 4002) ctrlCommit 0;
+
+    (_display displayCtrl 4000) ctrlSetPosition _oldGroupPos;
+    (_display displayCtrl 4000) ctrlSetFade 0;
+    (_display displayCtrl 4000) ctrlShow true;
+    (_display displayCtrl 4001) ctrlSetPosition _bgPos;
+    (_display displayCtrl 4002) ctrlSetPosition _txtPos;
+    (_display displayCtrl 4000) ctrlCommit 0.2;
+    (_display displayCtrl 4001) ctrlCommit 0.2;
+    (_display displayCtrl 4002) ctrlCommit 0.2;
+}] call CFUNC(addEventHandler);
+
+["notificationHidden", {
+    disableSerialization;
+    private _display = findDisplay 1000;
+    if (isNull _display) exitWith {};
+    (_display displayCtrl 4000) ctrlSetFade 1;
+    (_display displayCtrl 4000) ctrlShow false;
+    (_display displayCtrl 4002) ctrlCommit 0.2;
 }] call CFUNC(addEventHandler);
 
 // Handle the deploy button
