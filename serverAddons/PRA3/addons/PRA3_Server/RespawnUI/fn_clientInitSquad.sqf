@@ -201,10 +201,8 @@
     // Update the lnb
     [207, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
-    if (_ownGroupIndex != -1) then {
-        for "_i" from 0 to 4 do {
-            lnbSetColor [207, [_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];
-        };
+    for "_i" from 0 to 3 do {
+        lnbSetColor [207, [_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];
     };
 }] call CFUNC(addEventHandler);
 
