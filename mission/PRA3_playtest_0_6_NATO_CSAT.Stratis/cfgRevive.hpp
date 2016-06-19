@@ -17,14 +17,14 @@ class CfgRevive {
     unconsciousDuration = 500; // Value which determines how long a unit stays unconscious (calculated with bleeding)
 
     // Bandage
-    bandageActionDuration = 20; // Time a MEDIC needs to bandage
-    bandageCoefficient = 2; // Duration penalty for non medics
+    bandageActionDuration = 10; // Time a MEDIC needs to bandage
+    bandageCoefficient = 2.5; // Duration penalty for non medics
 
     // Revive
-    reviveActionDuration = 20; // Time a MEDIC needs to revive
-    reviveCoefficient = 2; // Duration penalty for non medics
+    reviveActionDuration = 10; // Time a MEDIC needs to revive
+    reviveCoefficient = 2.5; // Duration penalty for non medics
 
     // Healing
-    healingActionDuration = 40; // Time a MEDIC needs to heal a unit from maxDamage
-    healingCoefficient = 2; // Duration penalty for non medics
+    healingActionDuration = 20; // Time a MEDIC needs to heal a unit from maxDamage
+    healingCoefficient = 2.5; // Duration penalty for non medics
 };
