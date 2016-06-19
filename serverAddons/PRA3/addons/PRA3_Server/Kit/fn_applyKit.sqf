@@ -43,23 +43,9 @@ removeHeadgear PRA3_Player;
 removeGoggles PRA3_Player;
 
 // add container
-if (_uniform != "") then {
-    [PRA3_Player, _uniform] call CFUNC(addContainer);
-} else {
-    removeUniform PRA3_Player;
-};
-
-if (_vest != "") then {
-    [PRA3_Player, _vest] call CFUNC(addContainer);
-} else {
-    removeVest PRA3_Player;
-};
-
-if (_backpack != "") then {
-    [PRA3_Player, _backpack] call CFUNC(addContainer);
-} else {
-    removeBackpack PRA3_Player;
-};
+[PRA3_Player, _uniform, 0] call CFUNC(addContainer);
+[PRA3_Player, _vest, 1] call CFUNC(addContainer);
+[PRA3_Player, _backpack, 2] call CFUNC(addContainer);
 
 PRA3_Player addHeadgear _headGear;
 
