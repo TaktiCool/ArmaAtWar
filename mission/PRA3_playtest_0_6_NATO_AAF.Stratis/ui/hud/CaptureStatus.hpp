@@ -21,11 +21,12 @@ class PRA3_UI_CaptureStatus {
                 class FlagImage : RscPicture {
                     idc = 1001;
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
-                    x = PX(0.5);
-                    y = PY(0.5);
+                    x = PX(0);
+                    y = PY(0);
                     w = PX(3);
-                    h = PY(2);
+                    h = PY(3);
                 };
+                /*
                 class SectorDesignator : RscText {
                     idc = 1002;
                     text = "X";
@@ -35,10 +36,11 @@ class PRA3_UI_CaptureStatus {
                     colorBackground[] = {0,0,0,0};
                     colorText[] = {1,1,1,1};
                     x = PX(4);
-                    y = PY(0.5);
+                    y = PY(0.1);
                     w = PX(2);
                     h = PY(2);
                 };
+
                 class SectorName : RscText {
                     idc = 1003;
                     text = "Sector Name";
@@ -48,9 +50,28 @@ class PRA3_UI_CaptureStatus {
                     colorBackground[] = {0,0,0,0};
                     colorText[] = {1,1,1,1};
                     x = PX(7);
-                    y = PY(0.25);
+                    y = PY(0.1);
                     w = PX(33);
                     h = PY(2.5);
+                };
+                */
+
+                class SectorDescription : RscStructuredText {
+                    idc = 1002;
+                    shadow = 0;
+                    x = PX(0);
+                    y = PY(0.1);
+                    w = PX(40);
+                    h = PY(3);
+                    text = "TEST";
+                    size = PY(2.5);
+                    class Attributes
+                    {
+                        font = "PuristaSemiBold";
+                        color = "#ffffff";
+                        align = "center";
+                        shadow = 1;
+                    };
                 };
 
                 class BackgroundProgress : RscText {

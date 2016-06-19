@@ -12,9 +12,11 @@ class sector {
 class CfgSectors {
 
     class base_west : sector {
+        designator = "HQ";
     };
 
     class base_guer : sector {
+        designator = "HQ";
     };
 
     class CfgSectorPath {
