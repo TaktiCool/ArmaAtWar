@@ -189,7 +189,7 @@ class Kits {
         displayName = "Ammo Bearer";
 
         backpack = "B_TacticalPack_rgr";
-        items[] = {{"150Rnd_762x54_Box", 3}};
+        items[] = {{"200Rnd_65x39_cased_Box_Tracer", 3}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle", "Helicopter"};
