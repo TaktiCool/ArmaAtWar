@@ -17,7 +17,7 @@ disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";
 onLoadMission = "Project Reality: Arma 3";
-loadScreen =  "ui\media\loadingscreen.paa";
+loadScreen =  "ui\media\loadingscreen_co.paa";
 
 // skipLobby = 1;
 
