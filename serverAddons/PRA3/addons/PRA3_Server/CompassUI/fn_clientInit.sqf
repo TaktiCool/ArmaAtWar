@@ -103,7 +103,7 @@ addMissionEventHandler ["MapSingleClick", {
         private _overlapCacheLineIndices = [];
 
         {
-            private _lineMarker = _x;
+            private _lineMarker = GVAR(lineMarkers) getVariable _x;
             if (!(isNil "_lineMarker")) then {
                 private _markerPosition = _lineMarker select 1;
                 private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
