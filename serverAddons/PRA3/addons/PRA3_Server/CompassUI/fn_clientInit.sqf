@@ -103,7 +103,7 @@ addMissionEventHandler ["MapSingleClick", {
         private _overlapCacheLineIndices = [];
 
         {
-            private _lineMarker = GVAR(lineMarkers) getVariable _x;
+            private _lineMarker = _x;
             if (!(isNil "_lineMarker")) then {
                 private _markerPosition = _lineMarker select 1;
                 private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
@@ -166,7 +166,7 @@ addMissionEventHandler ["MapSingleClick", {
                 _nextLineMarkerControl = _nextLineMarkerControl + 1;
             };
             nil
-        } count ([GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariable));
+        } count (allVariables GVAR(lineMarkers));
 
         if (_nextLineMarkerControl < count GVAR(lineMarkerControlPool)) then {
             for "_i" from _nextLineMarkerControl to (count GVAR(lineMarkerControlPool) - 1) do {
