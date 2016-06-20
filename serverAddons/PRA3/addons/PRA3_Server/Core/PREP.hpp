@@ -57,20 +57,18 @@ EPREP(lnbData,lnbLoad)
 EPREP(lnbData,lnbSave)
 
 // Map Icon Render
-EPREP(MapIcons,clientInitMapIcons)
-EPREP(MapIcons,addMapIcon)
-EPREP(MapIcons,removeMapIcon)
-EPREP(MapIcons,registerMapControl)
-EPREP(MapIcons,unregisterMapControl)
-EPREP(MapIcons,drawMapIcons)
-EPREP(MapIcons,mouseClickEH)
-EPREP(MapIcons,mouseMovingEH)
-EPREP(MapIcons,getIconAtPos)
+EPREP(MapGraphics,clientInitMapGraphics)
+EPREP(MapGraphics,addMapGraphicsLayer)
+EPREP(MapGraphics,removeMapGraphicsLayer)
+EPREP(MapGraphics,registerMapControl)
+EPREP(MapGraphics,unregisterMapControl)
+EPREP(MapGraphics,renderMapGraphics)
+EPREP(MapGraphics,updateMapGraphicsCache)
 
 // Map Icon Render Events
-EPREP(MapIcons,addMapIconEventHandler)
-EPREP(MapIcons,removeMapIconEventHandler)
-EPREP(MapIcons,triggerMapIconEvent)
+EPREP(MapGraphics,addMapIconEventHandler)
+EPREP(MapGraphics,removeMapIconEventHandler)
+EPREP(MapGraphics,triggerMapIconEvent)
 
 // Mutex
 EPREP(Mutex,initClientMutex)
