@@ -11,54 +11,140 @@
     0: Group Name <STRING>
     1: Group Data <ARRAY>
     2: Group Layer <NUMBER>
+    3: State <STRING>
+    4: Code <Code> called every frame
 
     Remarks:
     Group Data is defined as <ARRAY> of GraphicsElements of following Structure:
     0: Class <STRING> (ICON | RECTANGLE | ELLIPSE | LINE | ARROW | POLYGON)
-    1: Class Data <ARRAY>
-        ICON:
-            0: Texture <String>
-            1: Color <Array> [r,g,b,a]
-            2: Position <MapGraphicsPosition>
-            3: Width <Number>
-            4: Height <Number>
-            5: Angle <Number>
-            6: Text <String>
-            7: Shadow <Boolean/Number>
-            8: Text Size <Number>
-            9: Font <String>
-            10: Align <String>
-        RECTANGLE:
-            0: Center Position <MapGraphicsPosition>
-            1: Width <Number | ['m','screen', NUMBER]>
-            2: Height <Number | ['m','screen', NUMBER]>
-            3: Angle <Number>
-            4: Line Color <Array> [r,g,b,a]
-            5: Fill Color <Array> [r,g,b,a]
-        ELLIPSE:
-            0: Center Position <MapGraphicsPosition>
-            1: Width <Number | ['m','screen', NUMBER]>
-            2: Height <Number | ['m','screen', NUMBER]>
-            3: Angle <Number>
-            4: Line Color <Array> [r,g,b,a]
-            5: Fill Color <Array> [r,g,b,a]
-        LINE:
-            0: Position 1 <MapGraphicsPosition>
-            1: Position 2 <MapGraphicsPosition>
-            2: Line Color <Array> [r,g,b,a]
-        ARROW:
-            0: Position 1 <MapGraphicsPosition>
-            1: Position 2 <MapGraphicsPosition>
-            2: Line Color <Array> [r,g,b,a]
-        POLYGON:
-            0: Positions <Array> of MapGraphicsPosition
-            1: Line Color <Array> [r,g,b,a]
-    2: Code <Code> called every frame
+    Class = "ICON":
+        1: Texture <String>
+        2: Color <Array> [r,g,b,a]
+        3: Position <MapGraphicsPosition>
+        4: Width <Number>
+        5: Height <Number>
+        6: Angle <Number>
+        7: Text <String>
+        8: Shadow <Boolean/Number>
+        9: Text Size <Number>
+        10: Font <String>
+        11: Align <String>
+    Class = "RECTANGLE":
+        1: Center Position <MapGraphicsPosition>
+        2: Width <Number | ['m','screen', NUMBER]>
+        3: Height <Number | ['m','screen', NUMBER]>
+        4: Angle <Number>
+        5: Line Color <Array> [r,g,b,a]
+        6: Fill Color <Array> [r,g,b,a]
+    Class = "ELLIPSE":
+        1: Center Position <MapGraphicsPosition>
+        2: Width <Number | ['m','screen', NUMBER]>
+        3: Height <Number | ['m','screen', NUMBER]>
+        4: Angle <Number>
+        5: Line Color <Array> [r,g,b,a]
+        6: Fill Color <Array> [r,g,b,a]
+    Class = "LINE":
+        1: Position 1 <MapGraphicsPosition>
+        2: Position 2 <MapGraphicsPosition>
+        3: Line Color <Array> [r,g,b,a]
+    Class = "ARROW":
+        1: Position 1 <MapGraphicsPosition>
+        2: Position 2 <MapGraphicsPosition>
+        3: Line Color <Array> [r,g,b,a]
+    Class = "POLYGON":
+        1: Positions <Array> of MapGraphicsPosition
+        2: Line Color <Array> [r,g,b,a]
 
-    <MapGraphicsPosition>:
+
+    TYPE <MapGraphicsPosition>:
     OBJECT | POSITION3D | POSITION2D | [OBJECT | POSITION3D | POSITION2D,[ScreenOffsetX,ScreenOffsetY]]
 
     Returns:
     None
 */
-params ["_groupName", "_groupData", ["_layer",0]];
+params ["_groupName", "_groupData", ["_layer",0], ["_state","normal"], ["_code",{}]];
+
+// Compete the data for the map graphics cache
+private _completeGroupData = [];
+{
+    _x params ["_class"];
+    private _attributes = _x select [1];
+    switch (_class) do {
+        case ("ICON"): {
+            _attributes params [
+                ["_texture",""],
+                ["_color",[0, 0, 0, 1]],
+                ["_position", objNull, [[], objNull]],
+                ["_width", 25],
+                ["_height", 25],
+                ["_angle", 0,[0,objNull]],
+                ["_text",""],
+                ["_shadow", 0],
+                ["_textSize", 0.08],
+                ["_font", "PuristaMedium"],
+                ["_align","right"]
+            ];
+            _completeGroupData pushBack [_class, _texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align, _code];
+        };
+        case ("RECTANGLE"): {
+            _attributes params [
+                ["_position", objNull, [[], objNull]],
+                ["_width", 25,[0,[]]],
+                ["_height", 25,[0,[]]],
+                ["_angle", 0,[0,objNull]],
+                ["_lineColor",[0, 0, 0, 1]],
+                ["_fillColor",[0, 0, 0, 1]]
+            ];
+            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor];
+        };
+        case ("ELLIPSE"): {
+            _attributes params [
+                ["_position", objNull, [[], objNull]],
+                ["_width", 25,[0,[]]],
+                ["_height", 25,[0,[]]],
+                ["_angle", 0,[0,objNull]],
+                ["_lineColor",[0, 0, 0, 1]],
+                ["_fillColor",[0, 0, 0, 1]]
+            ];
+            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor];
+        };
+        case ("LINE"): {
+            _attributes params [
+                ["_position1", objNull, [[], objNull]],
+                ["_position2", objNull, [[], objNull]],
+                ["_color",[0, 0, 0, 1]]
+            ];
+            _completeGroupData pushBack [_class, _position1, _position2, _color];
+        };
+        case ("ARROW"): {
+            _attributes params [
+                ["_position1", objNull, [[], objNull]],
+                ["_position2", objNull, [[], objNull]],
+                ["_color",[0, 0, 0, 1]]
+            ];
+            _completeGroupData pushBack [_class, _position1, _position2, _color];
+        };
+        case ("POLYGON"): {
+            _attributes params [
+                ["_polygon", []],
+                ["_color",[0, 0, 0, 1]]
+            ];
+            _completeGroupData pushBack [_class, _polygon, _color];
+        };
+    };
+
+    nil
+} count _groupData;
+
+// select the correct state
+private _stateNum = ["normal", "hover", "selected"] find _state;
+if (_stateNum == -1) then {
+    _stateNum = 0;
+};
+
+// save the data
+private _currentIcon = [GVAR(MapGraphicsGroup), _groupName, [_layer, 0, [],[],[]]] call FUNC(getVariable);
+_currentIcon set [_stateNum + 2, _completeGroupData];
+GVAR(MapGraphicsGroup) setVariable [_id, _currentIcons];
+// increment map graphics cache
+GVAR(MapGraphicsCacheRebuildFlag) = GVAR(MapGraphicsCacheRebuildFlag) + 1;

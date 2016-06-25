@@ -30,6 +30,8 @@ private _mcEHId = _map ctrlAddEventHandler ["MouseButtonClick", FUNC(mouseClickE
 _map setVariable [QGVAR(DrawEHId), _drawEHId];
 _map setVariable [QGVAR(MouseMovingEHId), _mmEHId];
 _map setVariable [QGVAR(MouseButtonClickEHId), _mcEHId];
+_map setVariable [QGVAR(MapGraphicsBuildCacheFlag), 0];
+_map setVariable [QGVAR(MapGraphicsBuildCache), []];
 
 with uiNamespace do {
     GVAR(MapGraphicsMapControls) pushBackUnique _map;
