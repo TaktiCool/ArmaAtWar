@@ -43,8 +43,8 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
     GVAR(currentIcons) pushBack _iconId;
 
     if (_newUnit == leader _newUnit) then {
-        private _groupType = _group getVariable [QGVAR(Type), "Rifle"];
-        private _groupMapIcon = [format [QGVAR(GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
+        private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
+        private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
         private _groupIconId = format [QGVAR(Group_%1), groupId group _newUnit];
         [
             _groupIconId,
@@ -125,7 +125,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                     _ctrlSquadMemberCount ctrlSetPosition [PX(12.5), PY(1.8), PX(4.5), PY(2)];
                     _ctrlSquadMemberCount ctrlSetFont "PuristaMedium";
                     _ctrlSquadMemberCount ctrlSetTextColor [0.5,0.5,0.5,1];
-                    _ctrlSquadMemberCount ctrlSetStructuredText parseText "ALPHA";;
+                    _ctrlSquadMemberCount ctrlSetStructuredText parseText "ALPHA";
                     uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadMemberCount), _idd], _ctrlSquadMemberCount];
 
                     _ctrlMemberList = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
