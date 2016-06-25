@@ -122,7 +122,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
 
                     _ctrlSquadMemberCount = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
                     _ctrlSquadMemberCount ctrlSetFontHeight PY(1.8);
-                    _ctrlSquadMemberCount ctrlSetPosition [PX(12.5), PY(1.8), PX(4.5), PY(2)];
+                    _ctrlSquadMemberCount ctrlSetPosition [PX(12), PY(1.8), PX(5), PY(2)];
                     _ctrlSquadMemberCount ctrlSetFont "PuristaMedium";
                     _ctrlSquadMemberCount ctrlSetTextColor [0.5,0.5,0.5,1];
                     _ctrlSquadMemberCount ctrlSetStructuredText parseText "ALPHA";
