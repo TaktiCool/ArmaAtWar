@@ -14,6 +14,5 @@
     None
 */
 params ["_id"];
-_id = toLower _id;
 
 GVAR(lineMarkers) setVariable [_id, nil];
