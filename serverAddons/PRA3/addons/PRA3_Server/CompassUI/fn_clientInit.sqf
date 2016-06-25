@@ -210,17 +210,11 @@ addMissionEventHandler ["MapSingleClick", {
         private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
-        // temp fix for Vehicle Crew
-        if (PRA3_Player != vehicle PRA3_Player) then {
-            private _crew = crew (vehicle PRA3_Player);
-            _nearUnits = _nearUnits select {!(_x in _crew)};
-        };
-
         {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
-            if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
+            if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle PRA3_Player))) then {
                 private _unitPosition = getPosVisual _x;
                 private _relativeVectorToUnit = _unitPosition vectorDiff _currentPosition;
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
