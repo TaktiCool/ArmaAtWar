@@ -59,9 +59,8 @@ addMissionEventHandler ["MapSingleClick", {
         private _dialog = uiNamespace getVariable UIVAR(Compass);
         if (isNull _dialog) exitWith {};
 
-        private _viewDirectionVector = getCameraViewDirection PRA3_Player;
+        private _viewDirectionVector = (positionCameraToWorld [0, 0, 0]) vectorDiff (positionCameraToWorld [0, 0, -1]);
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
-
         private _currentPosition = getPosVisual PRA3_Player;
 
         // Move all controls to view direction
@@ -144,7 +143,11 @@ addMissionEventHandler ["MapSingleClick", {
                     };
 
                     // Direction
-                    private _shiftDirection = _offset / abs _offset; // 1 or -1
+                    private _shiftDirection = if (_offset == 0) then {
+                        1
+                    } else {
+                        _offset / abs _offset // 1 or -1
+                    };
 
                     // Shift
                     private _shiftedLineIndex = _lineIndex;
@@ -192,6 +195,12 @@ addMissionEventHandler ["MapSingleClick", {
         private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
         private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
+
+        // temp fix for Vehicle Crew
+        if (PRA3_Player != vehicle PRA3_Player) then {
+            private _crew = crew (vehicle PRA3_Player);
+            _nearUnits = _nearUnits select {!(_x in _crew)};
+        };
 
         {
             private _targetSide = side (group _x);

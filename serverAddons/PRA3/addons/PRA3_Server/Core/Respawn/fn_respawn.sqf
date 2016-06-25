@@ -24,7 +24,8 @@ if (_className == "") then {
     _className = "O_Soldier_F";
 };
 // We need to create a new group otherwise the unit may not be local (looks like its sometimes local to the group owner).
-private _newUnit = (createGroup _targetSide) createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
+private _tempGroup = createGroup _targetSide;
+private _newUnit = _tempGroup createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
 _newUnit attachTo [GVAR(attachPoint)];
 
 // Reattach all triggers
@@ -64,6 +65,9 @@ selectPlayer _newUnit;
 // Now we move the new unit to the correct group. This has to be done before the player leaves the group to ensure there is always at least one unit in the group.
 [_newUnit] joinSilent _targetGroup;
 
+// Remove the temp group
+["deleteGroup", _tempGroup] call CFUNC(serverEvent);
+
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName _oldUnit;
 _oldUnit setVehicleVarName "";
@@ -100,7 +104,9 @@ PRA3_Player = _newUnit;
 ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
 
 if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
+    _tempGroup = group _oldUnit;
     deleteVehicle _oldUnit;
+    ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
 } else {
     _oldUnit setDamage 1;
 };

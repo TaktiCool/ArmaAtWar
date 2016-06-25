@@ -84,6 +84,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
                 if (isNull _ctrlGrp) then {
                     _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+                    _ctrlGrp ctrlSetFade 0;
                     _ctrlGrp ctrlCommit 0;
                     uiNamespace setVariable [format [UIVAR(GroupInfo_%1_Group), _idd], _ctrlGrp];
 
@@ -137,14 +138,13 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 };
 
                 _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
-                _ctrlGrp ctrlSetFade 0;
                 _ctrlGrp ctrlShow true;
 
                 _ctrlSquadName ctrlSetText toUpper groupId _group;
 
                 private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
                 private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
-                private _units = ([group PRA3_Player] call CFUNC(groupPlayers));
+                private _units = ([_group] call CFUNC(groupPlayers));
 
                 _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""])+" Squad"];
                 _ctrlSquadDescription ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);

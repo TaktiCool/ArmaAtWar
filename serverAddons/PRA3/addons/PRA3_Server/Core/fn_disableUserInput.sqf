@@ -63,21 +63,22 @@ if (_state) then {
             _ctrl ctrlSetTooltip "Respawn.";
         };
 
-        if (_key in actionKeys "CuratorInterface" && {getAssignedCuratorLogic player in allCurators}) then {
-            openCuratorInterface;
+        if (_key in actionKeys "CuratorInterface" && {getAssignedCuratorLogic player in allCurators}) exitWith {
+            false;
+            //openCuratorInterface;
         };
 
-        if (_key in actionKeys "ShowMap") then {
-            openMap true;
+        if (_key in (actionKeys "ShowMap" + actionKeys "PushToTalk" + actionKeys "PushToTalkAll" + actionKeys "PushToTalkCommand" + actionKeys "PushToTalkDirect" + actionKeys "PushToTalkGroup" + actionKeys "PushToTalkSide" + actionKeys "PushToTalkVehicle")) exitWith {
+            false;
         };
 
         if (isServer || {serverCommandAvailable "#kick"} || {player getVariable [QEGVAR(Revive,isUnconscious), false]}) then {
-            if (!(_key in (actionKeys "DefaultAction" + actionKeys "Throw")) && {_key in (actionKeys "Chat" + actionKeys "PrevChannel" + actionKeys "NextChannel")}) then {
-                _key = 0;
+            if (!(_key in (actionKeys "DefaultAction" + actionKeys "Throw")) && {_key in (actionKeys "Chat" + actionKeys "PrevChannel" + actionKeys "NextChannel")}) exitWith {
+                false;
             };
         };
 
-        _key > 0;
+        true;
     }];
 
 } else {

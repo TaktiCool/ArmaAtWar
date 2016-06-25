@@ -4,7 +4,7 @@
 class Header {
     gameType = "SCont"; // Game type, see 'class' columns in the table below
     minPlayers = 1; //min # of players the mission supports
-    maxPlayers = 250; //max # of players the mission supports
+    maxPlayers = 100; //max # of players the mission supports
 };
 joinUnassigned = 0;
 allowFunctionsRecompile = 1;
@@ -13,13 +13,13 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
-skipLobby = 1;
+// skipLobby = 1;
 
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Project Reality: Arma 3";
 onLoadMission = "Project Reality: Arma III";
-loadScreen =  "ui\media\loadingscreen.paa";
+loadScreen =  "ui\media\loadingscreen_co.paa";
 
 respawn = 3;
 respawnDelay = 3;
@@ -36,6 +36,8 @@ class PRA3 {
     #include "cfgSquadRallyPoint.hpp"
 
     #include "cfgSectors.hpp"
+
+    #include "cfgRespawn.hpp"
 
     #include "cfgRevive.hpp"
 

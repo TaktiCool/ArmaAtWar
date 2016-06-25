@@ -26,4 +26,4 @@
 
     call FUNC(leaveSquad);
     [PRA3_Player] join _group;
-}, _this] call CFUNC(mutex);
+}, _this, "respawn"] call CFUNC(mutex);

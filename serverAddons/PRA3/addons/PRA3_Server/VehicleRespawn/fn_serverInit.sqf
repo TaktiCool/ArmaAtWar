@@ -47,8 +47,8 @@ addMissionEventHandler ["EntityKilled", {
 
         private _respawnCondition = _killedEntity getVariable ["respawnCondition", "true"];
         private _respawnCounter = _killedEntity getVariable [QGVAR(RespawnCounter), 0];
-        private _respawnPosition = _entity getVariable [QGVAR(respawnPosition), getPos _killedEntity];
-        private _respawnDirection = _entity getVariable [QGVAR(respawnDirection), getDir _killedEntity];
+        private _respawnPosition = _killedEntity getVariable [QGVAR(respawnPosition), getPos _killedEntity];
+        private _respawnDirection = _killedEntity getVariable [QGVAR(respawnDirection), getDir _killedEntity];
 
         GVAR(VehicleRespawnAllVehicles) deleteAt (GVAR(VehicleRespawnAllVehicles) find _killedEntity);
 

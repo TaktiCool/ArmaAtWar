@@ -17,8 +17,14 @@
 [{
     params ["_description", "_type"];
 
+    // Remove leading whitespace
+    private _descriptionArray = toArray _description;
+    for "_i" from 0 to (count _descriptionArray - 1) do {
+        if (!((_descriptionArray select _i) in [9, 10, 13, 32])) exitWith {_description = _description select [_i]};
+    };
+
     // Check conditions for creation
-    if (_description == "" || !([_type] call FUNC(canUseSquadType))) exitWith {};
+    if (!([_type] call FUNC(canUseSquadType))) exitWith {};
 
     // Leave old squad first
     call FUNC(leaveSquad);
@@ -31,4 +37,4 @@
     _newGroup setVariable [QGVAR(Type), _type, true];
 
     [PRA3_Player] join _newGroup;
-}, _this] call CFUNC(mutex);
+}, _this, "respawn"] call CFUNC(mutex);

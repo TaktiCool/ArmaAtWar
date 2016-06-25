@@ -38,6 +38,7 @@
 
                 [_this, PRA3_Player] call CFUNC(restoreGear);
                 PRA3_Player setDir getDir _corpse;
+                PRA3_Player setPosASL (getPosASL _corpse);
                 deleteVehicle _corpse;
 
                 ["UnconsciousnessChanged", true] call CFUNC(localEvent);
