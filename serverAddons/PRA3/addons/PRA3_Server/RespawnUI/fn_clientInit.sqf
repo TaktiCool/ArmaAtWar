@@ -50,7 +50,7 @@
         private _leastPlayerSide = sideUnknown;
         private _leastPlayerCount = 999;
         {
-            private _side = call compile _x;
+            private _side = _x;
             private _playerCount = {side group _x == _side} count allPlayers;
             if (_playerCount < _leastPlayerCount) then {
                 _leastPlayerSide = _side;

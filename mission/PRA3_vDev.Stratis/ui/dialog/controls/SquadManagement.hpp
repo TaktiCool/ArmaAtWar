@@ -66,7 +66,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScollbars {
             x = PX(0);
             y = PY(8);
             w = PX(GWIDTH);
-            h = PY(43.5);
+            h = PY(43.5-8);
 
             columns[] = {0,0.075,0.5,0.85};
 
