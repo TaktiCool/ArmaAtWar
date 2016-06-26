@@ -17,7 +17,7 @@
     -
 */
 
-#define pos [-100000,-100000,-100000]
+#define pos [-2000,-2000,-2000]
 
 params [["_isGlobal", false]];
 
