@@ -1,30 +1,92 @@
-#undef size
-#define size 3.2
+#define BAR(var) \
+class Bar##var : Bar1 {\
+    idc = 9100 + var;\
+    x = PX(0.3 * (var - 1));\
+};
+
 class PRA3_UI_PerformanceStatus {
     idd = -1;
     duration = 1e11;
     onLoad = "uiNamespace setVariable ['PRA3_UI_PerformanceStatus', _this select 0];";
     class Controls {
         class CtrlGroup : RscControlsGroupNoScollbars {
-            idc = 9090;
-            x = safeZoneX + safeZoneW - PX(size+1);
-            y = 0.5 - PY(size+5);
-            w = PX(size);
-            h = PY((size*2)+1);
+            idc = 9000;
+            x = safeZoneX + safeZoneW - PX(13);
+            y = 0.5 - PY(5);
+            w = PX(12);
+            h = PY(13.4);
 
             class Controls {
-                class serverPerformance : RscPicture {
-                    idc = 9091;
+                class ServerPerformanceIndicator : RscPicture {
+                    idc = 9001;
                     text = "ui\media\badServerFrames_ca.paa";
-                    x = PX(0);
+                    x = PX(12 - 3.2);
                     y = PY(0);
-                    w = PX(size);
-                    h = PY(size);
+                    w = PX(3.2);
+                    h = PY(3.2);
                 };
-                class clientPerformance : serverPerformance {
+                class ClientPerformanceIndicator : ServerPerformanceIndicator {
                     text = "ui\media\badClientFrames_ca.paa";
-                    idc = 9092;
-                    y = PY(size+1);
+                    idc = 9002;
+                    y = PY(3.2 + 1);
+                };
+
+                class FrameChartGroup : RscControlsGroupNoScollbars {
+                    idc = 9100;
+                    x = PX(0);
+                    y = PY((3.2 + 1) * 2);
+                    w = PX(12);
+                    h = PY(5);
+
+                    class Controls {
+                        class Bar1 : RscPicture {
+                            idc = 9101;
+                            text = "#(argb,8,8,3)color(1,1,1,1)";
+                            x = PX(0);
+                            y = PY(0);
+                            w = PX(0.2);
+                            h = PY(5);
+                        };
+                        BAR(2)
+                        BAR(3)
+                        BAR(4)
+                        BAR(5)
+                        BAR(6)
+                        BAR(7)
+                        BAR(8)
+                        BAR(9)
+                        BAR(10)
+                        BAR(11)
+                        BAR(12)
+                        BAR(13)
+                        BAR(14)
+                        BAR(15)
+                        BAR(16)
+                        BAR(17)
+                        BAR(18)
+                        BAR(19)
+                        BAR(20)
+                        BAR(21)
+                        BAR(22)
+                        BAR(23)
+                        BAR(24)
+                        BAR(25)
+                        BAR(26)
+                        BAR(27)
+                        BAR(28)
+                        BAR(29)
+                        BAR(30)
+                        BAR(31)
+                        BAR(32)
+                        BAR(33)
+                        BAR(34)
+                        BAR(35)
+                        BAR(36)
+                        BAR(37)
+                        BAR(38)
+                        BAR(39)
+                        BAR(40)
+                    };
                 };
             };
         };

@@ -89,7 +89,7 @@
     private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // Get the kit data
-    private _selectedTabIndex = (lbCurSel 304);
+    private _selectedTabIndex = lbCurSel 304;
     private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
 
     // WeaponPicture
