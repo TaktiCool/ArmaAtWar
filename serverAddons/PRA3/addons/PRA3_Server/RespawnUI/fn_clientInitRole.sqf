@@ -90,7 +90,7 @@
 
     // Get the kit data
     private _selectedTabIndex = (lbCurSel 304);
-    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
+    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
 
     // WeaponPicture
     ctrlSetText [306, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture")];
