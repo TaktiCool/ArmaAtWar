@@ -102,13 +102,13 @@ if (!(isNil "_targetSide")) then {
 
 // Handle position
 [{
-    params ["_newUnit", "_targetPosition", "_className"];
+    params ["_oldUnit", "_targetPosition"];
 
-    _newUnit setDir (random 360);
-    _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
+    PRA3_Player setDir (random 360);
+    PRA3_Player setPos ([_targetPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition));
 
     // Trigger MP respawn event
-    ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
-}, [_newUnit, _targetPosition, _className]] call CFUNC(execNextFrame);
+    ["MPRespawn", [PRA3_Player, _oldUnit]] call CFUNC(globalEvent);
+}, [_oldUnit, _targetPosition]] call CFUNC(execNextFrame);
 
 
