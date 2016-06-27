@@ -275,11 +275,13 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             // Spawn
             [_deployPosition, true] call CFUNC(respawn);
 
-            // Fix issue that player spawn Prone
-            ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
+            [{
+                // Fix issue that player spawn Prone
+                ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
 
-            // Apply selected kit
-            [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                // Apply selected kit
+                [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+            }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
 
         GVAR(lastRespawnFrame) = diag_frameNo;

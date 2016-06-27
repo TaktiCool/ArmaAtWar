@@ -111,7 +111,11 @@ if (_findSavePos) then {
     setPlayerRespawnTime 10e10;
 
     PRA3_Player setDir (random 360);
-    PRA3_Player setPos _targetPosition;
+    if (surfaceIsWater _targetPosition) then {
+        PRA3_Player setPosASL _targetPosition;
+    } else {
+        PRA3_Player setPos _targetPosition;
+    };
 
     // Trigger MP respawn event
     ["MPRespawn", [PRA3_Player, _oldUnit]] call CFUNC(globalEvent);

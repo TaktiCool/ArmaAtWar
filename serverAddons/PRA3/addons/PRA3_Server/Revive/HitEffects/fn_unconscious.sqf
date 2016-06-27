@@ -32,7 +32,7 @@
                 private _corpse = PRA3_Player;
 
                 //@todo this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [getPosASL PRA3_Player, false] call CFUNC(respawn);
+                [getPos PRA3_Player, false] call CFUNC(respawn);
 
                 [{
                     params ["_gear", "_corpse"];
