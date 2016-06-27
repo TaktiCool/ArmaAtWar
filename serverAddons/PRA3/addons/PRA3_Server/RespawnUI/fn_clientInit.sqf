@@ -273,7 +273,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [_deployPosition, true] call CFUNC(respawn);
+            [AGLToASL _deployPosition, true] call CFUNC(respawn);
 
             [{
                 // Fix issue that player spawn Prone
