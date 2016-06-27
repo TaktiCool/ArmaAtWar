@@ -61,7 +61,7 @@
 
         // Move the player to the side as temporary unit
         PRA3_Player setVariable [QCGVAR(tempUnit), true];
-        [_leastPlayerSide, createGroup _leastPlayerSide, [-1000, -1000, 10], true] call CFUNC(respawn);
+        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawn);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
@@ -275,7 +275,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
+            [_deployPosition] call CFUNC(respawn);
 
             // Fix issue that player spawn Prone
             ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);

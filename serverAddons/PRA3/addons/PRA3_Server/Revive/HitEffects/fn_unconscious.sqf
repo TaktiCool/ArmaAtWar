@@ -34,7 +34,7 @@
                 private _corpse = PRA3_Player;
 
                 //@todo this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [playerSide, group PRA3_Player, getPosWorld PRA3_Player] call CFUNC(respawn);
+                [getPosWorld PRA3_Player] call CFUNC(respawn);
 
                 [_this, PRA3_Player] call CFUNC(restoreGear);
                 PRA3_Player setDir getDir _corpse;
