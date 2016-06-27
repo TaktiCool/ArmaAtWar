@@ -17,8 +17,6 @@
     ["Killed", {
         (_this select 0) params ["_unit", "_killer"];
 
-        setPlayerRespawnTime 10e10;
-
         private _preventInstantDeath = [QGVAR(Settings_preventInstantDeath), 1] call CFUNC(getSetting);
 
         // Abort if the respawn button was pressed or unconsciousness
@@ -34,17 +32,17 @@
                 private _corpse = PRA3_Player;
 
                 //@todo this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [getPosASL PRA3_Player] call CFUNC(respawn);
+                [getPosASL PRA3_Player, false] call CFUNC(respawn);
 
                 [{
-                    params ["_gear", "_direction"];
+                    params ["_gear", "_corpse"];
                     [_gear, PRA3_Player] call CFUNC(restoreGear);
-                     PRA3_Player setDir _direction;
+                    PRA3_Player setDir getDir _corpse;
 
-                     ["UnconsciousnessChanged", true] call CFUNC(localEvent);
-                }, [_this, getDir _corpse]] call CFUNC(execNextFrame);
+                    ["UnconsciousnessChanged", true] call CFUNC(localEvent);
 
-                deleteVehicle _corpse;
+                    deleteVehicle _corpse;
+                }, [_this, _corpse]] call CFUNC(execNextFrame);
             }, 3, _gear] call CFUNC(wait);
         } else {
             if (isNull _killer) then {

@@ -17,8 +17,6 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
-    setPlayerRespawnTime 10e10; // Prevent respawn
-
     // Respawn screen may already open by user action
     if (dialog) then {
         closeDialog 2;
@@ -61,7 +59,7 @@
 
         // Move the player to the side as temporary unit
         PRA3_Player setVariable [QCGVAR(tempUnit), true];
-        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawn);
+        [[-1000, -1000, 10], false, _leastPlayerSide] call CFUNC(respawn);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
@@ -275,7 +273,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [_deployPosition] call CFUNC(respawn);
+            [_deployPosition, true] call CFUNC(respawn);
 
             // Fix issue that player spawn Prone
             ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);

@@ -15,7 +15,7 @@
     Returns:
     None
 */
-params ["_targetPosition", "_targetSide"];
+params ["_targetPosition", "_findSavePos", "_targetSide"];
 
 private _newUnit = PRA3_Player;
 private _oldUnit = PRA3_Player;
@@ -101,11 +101,17 @@ if (!(isNil "_targetSide")) then {
 };
 
 // Handle position
+if (_findSavePos) then {
+    _targetPosition = ([_targetPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition));
+};
+
 [{
     params ["_oldUnit", "_targetPosition"];
 
+    setPlayerRespawnTime 10e10;
+
     PRA3_Player setDir (random 360);
-    PRA3_Player setPos ([_targetPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition));
+    PRA3_Player setPos _targetPosition;
 
     // Trigger MP respawn event
     ["MPRespawn", [PRA3_Player, _oldUnit]] call CFUNC(globalEvent);
