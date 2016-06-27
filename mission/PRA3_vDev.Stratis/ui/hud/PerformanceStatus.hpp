@@ -41,7 +41,6 @@ class PRA3_UI_PerformanceStatus {
                     class Controls {
                         class FPSText : PRA3_RscText {
                             idc = 9101;
-                            text = "0";
                             style = ST_RIGHT;
                             x = PX(0);
                             y = PY(0);
@@ -51,7 +50,6 @@ class PRA3_UI_PerformanceStatus {
 
                         class Bar1 : RscPicture {
                             idc = 9102;
-                            text = "#(argb,8,8,3)color(1,1,1,1)";
                             x = PX(3);
                             y = PY(0);
                             w = PX(0.2);

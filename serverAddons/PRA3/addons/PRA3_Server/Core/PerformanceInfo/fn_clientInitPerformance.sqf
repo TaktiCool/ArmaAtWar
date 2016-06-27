@@ -31,11 +31,11 @@ DFUNC(showIndicator) = {
 
 ["missionStarted", {
     ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(PerformanceStatus),"PLAIN"];
+    private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
 
     ["performanceCheck", {
-        (_this select 0) params ["_serverFps"];
+        params ["_serverFps", "_display"];
 
-        private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
         if (isNull _display) exitWith {};
 
         // Server frames
@@ -43,12 +43,17 @@ DFUNC(showIndicator) = {
 
         // Client frames
         [_display displayCtrl 9002, diag_fps] call FUNC(showIndicator);
-    }] call CFUNC(addEventHandler);
+    }, _display] call CFUNC(addEventHandler);
+
+#ifdef isDev
+    for "_i" from 40 to 1 step -1 do {
+        private _control = _display displayCtrl (9101 + _i);
+        _control ctrlSetText "#(argb,8,8,3)color(1,1,1,1)";
+    };
 
     [{
-        disableSerialization;
+        params ["_display"];
 
-        private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
         if (isNull _display) exitWith {};
 
         private _currentFPS = 1 / GVAR(deltaTime);
@@ -68,11 +73,14 @@ DFUNC(showIndicator) = {
             _position set [3, _height];
             _maxHeight = _maxHeight max _height;
             _control ctrlSetPosition _position;
+            _control ctrlSetTextColor ([[1, 1, 1, 0.8], [1, 0, 0, 0.8]] select (_height < PY(2)));
             _control ctrlCommit 0;
         };
 
         if (PY(4) > _maxHeight) then {
             GVAR(maxFPS) = GVAR(maxFPS) * 0.8;
         };
-    }] call FUNC(addPerFrameHandler);
+    }, 0, _display] call FUNC(addPerFrameHandler);
+#endif
+
 }] call CFUNC(addEventHandler);
