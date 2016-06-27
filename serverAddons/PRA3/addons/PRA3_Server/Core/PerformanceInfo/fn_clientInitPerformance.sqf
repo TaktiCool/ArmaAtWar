@@ -13,7 +13,7 @@
     Returns:
     None
 */
-GVAR(maxDeltaTime) = 0;
+GVAR(maxFPS) = 0;
 
 DFUNC(showIndicator) = {
     params ["_control", "_fps"];
@@ -51,12 +51,16 @@ DFUNC(showIndicator) = {
         private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
         if (isNull _display) exitWith {};
 
-        GVAR(maxDeltaTime) = GVAR(deltaTime) max GVAR(maxDeltaTime);
+        private _currentFPS = 1 / GVAR(deltaTime);
+        GVAR(maxFPS) = _currentFPS max GVAR(maxFPS);
 
-        private _lastHeight = PY(5) * (GVAR(deltaTime) / GVAR(maxDeltaTime));
+        private _control = _display displayCtrl 9101;
+        _control ctrlSetText str round GVAR(maxFPS);
+
+        private _lastHeight = PY(5) * (_currentFPS / GVAR(maxFPS));
         private _maxHeight = 0;
         for "_i" from 40 to 1 step -1 do {
-            private _control = _display displayCtrl (9100 + _i);
+            private _control = _display displayCtrl (9101 + _i);
             private _position = ctrlPosition _control;
             private _height = _lastHeight;
             _lastHeight = _position select 3;
@@ -68,7 +72,7 @@ DFUNC(showIndicator) = {
         };
 
         if (PY(4) > _maxHeight) then {
-            GVAR(maxDeltaTime) = GVAR(maxDeltaTime) * 0.8;
+            GVAR(maxFPS) = GVAR(maxFPS) * 0.8;
         };
     }] call FUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
