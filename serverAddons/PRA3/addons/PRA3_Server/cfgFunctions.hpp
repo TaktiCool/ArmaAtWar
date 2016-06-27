@@ -23,13 +23,13 @@ class cfgFunctions {
 
     //init = "pr\PRA3\addons\PRA3_Server\init.sqf";
 
-    class PRA3_Core { \
-        class Core { \
-            file = "\pr\PRA3\addons\PRA3_Server\Core"; \
-            class preInit: basePreFNC {}; \
-            class preStart: basePreStartFNC {}; \
-            class compile: baseFNC{}; \
-        }; \
+    class PRA3_Core {
+        class Core {
+            file = "\pr\PRA3\addons\PRA3_Server\Core";
+            class preInit: basePreFNC {};
+            class preStart: basePreStartFNC {};
+            class compile: baseFNC{};
+        };
     };
 
     FUNCTIONSCONFIG(Revive)
