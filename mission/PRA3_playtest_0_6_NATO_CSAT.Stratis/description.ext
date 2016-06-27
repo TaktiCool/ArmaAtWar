@@ -11,7 +11,7 @@ allowFunctionsRecompile = 0;
 allowFunctionsLog = 0;
 briefing = 0;
 debriefing = 0;
-enableDebugConsole = 1;
+enableDebugConsole = 2;
 
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";

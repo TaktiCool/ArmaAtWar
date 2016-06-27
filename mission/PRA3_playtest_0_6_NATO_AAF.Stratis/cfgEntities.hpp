@@ -14,7 +14,7 @@ class defaultEast : defaultVehicle {
 };
 
 class defaultIndependent : defaultVehicle {
-    side = "INDEPENDENT";
+    side = "GUER";
 };
 
 class CfgEntities {
@@ -59,7 +59,7 @@ class CfgEntities {
 
     // -- Opfor -- //
     // Car
-    class vr_ifrit_0 : defaultEast {
+    class vr_ifrit_0 : defaultIndependent {
         respawnTime = 300; // 5 min
     };
     class vr_ifrit_1: vr_ifrit_0 {};
@@ -87,7 +87,7 @@ class CfgEntities {
     };
 
     // Air
-    class vr_orca_0 : defaultEast {
+    class vr_orca_0 : defaultIndependent {
         respawnTime = 1200;
         ticketValue = 5;
     };
