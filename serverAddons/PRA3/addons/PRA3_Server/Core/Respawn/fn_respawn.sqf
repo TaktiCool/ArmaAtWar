@@ -80,6 +80,8 @@ if (!(isNil "_targetSide")) then {
         setPlayerRespawnTime 0;
     };
     _newUnit setVariable [QGVAR(tempUnit), false];
+    ["enableSimulation", [_newUnit, true]] call CFUNC(serverEvent);
+    ["hideObject", [_newUnit, false]] call CFUNC(serverEvent);
 };
 
 // Handle position
@@ -90,7 +92,7 @@ _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
 ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
 
-if (!(isNil "_targetSide") && _oldUnit getVariable [QGVAR(tempUnit), false]) then {
+if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
     _tempGroup = group _oldUnit;
     deleteVehicle _oldUnit;
     ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
