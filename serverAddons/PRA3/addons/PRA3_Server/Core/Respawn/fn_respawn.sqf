@@ -56,37 +56,15 @@ if (!(isNil "_targetSide")) then {
     ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
     ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 
-    // Save old leader status
-    private _wasLeader = (PRA3_Player == leader PRA3_Player);
-
     private _oldUnit = PRA3_Player;
 
     // Move the player to the unit before changing anything
     selectPlayer _newUnit;
 
-    // Now we move the new unit to the correct group. This has to be done before the player leaves the group to ensure there is always at least one unit in the group.
-    [_newUnit] joinSilent _targetGroup;
-
-    // Remove the temp group
-    ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
-
     // Handle the vehicleVarName
     private _oldVarName = vehicleVarName _oldUnit;
     _oldUnit setVehicleVarName "";
     _newUnit setVehicleVarName _oldVarName;
-    missionNamespace setVariable [_oldVarName, _newUnit];
-
-    // Make the exact group slot available
-    private _positionId = parseNumber ((str _oldUnit) select [((str _oldUnit) find ":") + 1]);
-    [_oldUnit] join grpNull;
-    _newUnit joinAsSilent [_targetGroup, _positionId];
-
-    // Restore old leader status
-    if (_wasLeader) then {
-        [{
-            ["selectLeader", [group PRA3_Player, PRA3_Player]] call CFUNC(serverEvent);
-        }] call CFUNC(execNextFrame);
-    };
 
     // Copy event handlers
     // This should be done by our awesome event system in core on playerChanged event
