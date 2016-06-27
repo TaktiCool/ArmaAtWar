@@ -76,7 +76,9 @@ if (!(isNil "_targetSide")) then {
     PRA3_Player = _newUnit;
 
 } else {
-    setPlayerRespawnTime 0;
+    if (!alive PRA3_Player) then {
+        setPlayerRespawnTime 0;
+    };
     _newUnit setVariable [QGVAR(tempUnit), false];
 };
 
