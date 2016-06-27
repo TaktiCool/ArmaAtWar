@@ -90,10 +90,8 @@ _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
 ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
 
-if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
+if (!(isNil "_targetSide") && _oldUnit getVariable [QGVAR(tempUnit), false]) then {
     _tempGroup = group _oldUnit;
     deleteVehicle _oldUnit;
     ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
-} else {
-    _oldUnit setDamage 1;
 };
