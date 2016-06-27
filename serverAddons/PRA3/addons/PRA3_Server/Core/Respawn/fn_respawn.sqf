@@ -75,25 +75,40 @@ if (!(isNil "_targetSide")) then {
     ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
     PRA3_Player = _newUnit;
 
+    // Trigger respawn event
+    ["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
+
+    if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
+        _tempGroup = group _oldUnit;
+        deleteVehicle _oldUnit;
+        ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
+    };
 } else {
     if (!alive PRA3_Player) then {
         setPlayerRespawnTime 0;
+    } else {
+        if (PRA3_Player getVariable [QGVAR(tempUnit), false]) then {
+            PRA3_Player setVariable [QGVAR(tempUnit), false];
+            ["enableSimulation", [PRA3_Player, true]] call CFUNC(serverEvent);
+            ["hideObject", [PRA3_Player, false]] call CFUNC(serverEvent);
+        };
+
+        // Trigger respawn event
+        [{
+            ["Respawn", [PRA3_Player, PRA3_Player]] call CFUNC(localEvent);
+        }] call CFUNC(execNextFrame);
     };
-    _newUnit setVariable [QGVAR(tempUnit), false];
-    ["enableSimulation", [_newUnit, true]] call CFUNC(serverEvent);
-    ["hideObject", [_newUnit, false]] call CFUNC(serverEvent);
 };
 
 // Handle position
-_newUnit setDir (random 360);
-_newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
+[{
+    params ["_newUnit", "_targetPosition", "_className"];
 
-// Trigger respawn event
-["Respawn", [_newUnit, _oldUnit]] call CFUNC(localEvent);
-["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
+    _newUnit setDir (random 360);
+    _newUnit setPos ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
 
-if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {
-    _tempGroup = group _oldUnit;
-    deleteVehicle _oldUnit;
-    ["deleteGroup", _tempGroup] call CFUNC(serverEvent);
-};
+    // Trigger MP respawn event
+    ["MPRespawn", [_newUnit, _oldUnit]] call CFUNC(globalEvent);
+}, [_newUnit, _targetPosition, _className]] call CFUNC(execNextFrame);
+
+

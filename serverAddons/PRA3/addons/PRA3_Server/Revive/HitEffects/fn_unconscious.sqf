@@ -34,14 +34,17 @@
                 private _corpse = PRA3_Player;
 
                 //@todo this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [getPosWorld PRA3_Player] call CFUNC(respawn);
+                [getPosASL PRA3_Player] call CFUNC(respawn);
 
-                [_this, PRA3_Player] call CFUNC(restoreGear);
-                PRA3_Player setDir getDir _corpse;
-                PRA3_Player setPosASL (getPosASL _corpse);
+                [{
+                    params ["_gear", "_direction"];
+                    [_gear, PRA3_Player] call CFUNC(restoreGear);
+                     PRA3_Player setDir _direction;
+
+                     ["UnconsciousnessChanged", true] call CFUNC(localEvent);
+                }, [_this, getDir _corpse]] call CFUNC(execNextFrame);
+
                 deleteVehicle _corpse;
-
-                ["UnconsciousnessChanged", true] call CFUNC(localEvent);
             }, 3, _gear] call CFUNC(wait);
         } else {
             if (isNull _killer) then {
