@@ -41,21 +41,22 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     #else
         _functionCode = compileFinal _functionCode;
     #endif
+
     {
         if ((_x getVariable [_functionVarName, {}])  isEqualTo {}) then {
             _x setVariable [_functionVarName, _functionCode];
         } else {
             if !((_x getVariable _functionVarName) isEqualTo _functionCode) then {
-                private _log = format ["[PRA3: CheatWarning!]: Player %1(%2) allready have '%3': %4", profileName, GVAR(playerUID), _functionVarName, _x getVariable _functionVarName];
+                private _log = format ["[PRA3: CheatWarning!]: Player %1(%2) allready have ""%3""", profileName, GVAR(playerUID), _functionVarName];
 
                 LOG(_log);
-                GVAR(sendlogfile) = [_log, format ["%1_%2", profileName, GVAR(playerUID)]]
+                GVAR(sendlogfile) = [_log, "PRA3_SecurityLog"];
                 publicVariableServer QGVAR(sendlogfile);
                 endMission "LOSER";
             };
         };
         nil
-    } count [missionNamespace,uiNamespace,parsingNamespace];
+    } count [missionNamespace, uiNamespace, parsingNamespace];
 
     // Update the loading screen with the progress.
     _progress call bis_fnc_progressloadingscreen;
