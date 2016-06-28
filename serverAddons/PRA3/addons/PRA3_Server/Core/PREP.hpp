@@ -91,6 +91,7 @@ EPREP(Notification,handleNotificationQueue)
 // respawn
 EPREP(Respawn,serverInitRespawn)
 EPREP(Respawn,respawn)
+EPREP(Respawn,respawnNewSide)
 
 // Settings
 EPREP(Settings,initSettings)

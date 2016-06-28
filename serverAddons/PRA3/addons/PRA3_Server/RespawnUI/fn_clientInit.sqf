@@ -57,9 +57,8 @@
             nil
         } count EGVAR(Mission,competingSides);
 
-        // Move the player to the side as temporary unit
-        PRA3_Player setVariable [QCGVAR(tempUnit), true];
-        [[-1000, -1000, 10], false, _leastPlayerSide] call CFUNC(respawn);
+        // Move the player to the side
+        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawnNewSide);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
@@ -273,7 +272,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL _deployPosition, true] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
 
             [{
                 // Fix issue that player spawn Prone
