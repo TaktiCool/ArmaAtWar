@@ -20,7 +20,7 @@
 
     // remove spamm events like eventadded, cursortargetchanged, playerinventorychanged from being logged
     if (toLower(_eventName) in ["eventadded", "cursortargetchanged", "playerInventoryChanged"]) then {
-        DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName + ":" + str (_args select 0))
+        DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName)
     } else {
         DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName + ":" + str _args)
     };
