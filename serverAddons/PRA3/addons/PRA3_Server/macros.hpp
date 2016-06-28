@@ -125,3 +125,11 @@
     #define PERFORMANCECOUNTER_START(var1) /* Performance Counter disabled */
     #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
 #endif
+
+#define FUNCTIONSCONFIG(moduleName) class PRA3_##moduleName { \
+    class moduleName { \
+        file = QUOTE(\pr\PRA3\addons\PRA3_Server\##moduleName); \
+        class preInit: basePreFNC {}; \
+        class preStart: basePreStartFNC {}; \
+    }; \
+};

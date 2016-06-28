@@ -31,7 +31,7 @@ GVAR(CargoClasses) = [];
 
 ["missionStarted", {
     {
-        private _side = _x;
+        private _side = configName _x;
         private _cfg = (missionConfigFile >> "PRA3" >> "Sides" >> _side >> "cfgLogistic");
         private _objects = getArray (_cfg >> "objectToSpawn");
 
@@ -60,7 +60,7 @@ GVAR(CargoClasses) = [];
             nil
         } count (configProperties [_cfg, "isClass _x"]);
         nil
-    } count EGVAR(mission,competingSides);
+    } count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
 }] call CFUNC(addEventHandler);
 
 [

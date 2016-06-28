@@ -91,6 +91,7 @@ EPREP(Notification,handleNotificationQueue)
 // respawn
 EPREP(Respawn,serverInitRespawn)
 EPREP(Respawn,respawn)
+EPREP(Respawn,respawnNewSide)
 
 // Settings
 EPREP(Settings,initSettings)
@@ -106,7 +107,8 @@ EPREP(StatusEffects,setStatusEffect)
 EPREP(TeamColorSync,clientInitTeamColorSync)
 
 // Performance Info
-EPREP(PerformanceInfo,postInitPerformance)
+EPREP(PerformanceInfo,clientInitPerformance)
+EPREP(PerformanceInfo,serverInitPerformance)
 EPREP(PerformanceInfo,dumpPerformanceInformation)
 
 // Init

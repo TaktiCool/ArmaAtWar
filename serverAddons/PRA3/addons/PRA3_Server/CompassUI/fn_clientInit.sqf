@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Client Init of Compass UI
+    Client init point of compass ui scripts.
 
     Parameter(s):
     None
@@ -15,25 +15,34 @@
 */
 GVAR(lineMarkers) = call CFUNC(createNamespace);
 
+// Use pools to store the controls for the markers
 GVAR(lineMarkerControlPool) = [];
 GVAR(iconMarkerControlPool) = [];
 
+// Caches for alpha values
 GVAR(lineAlphaCache) = [];
 GVAR(lineAlphaCache) resize 109;
 GVAR(bearingAlphaCache) = [];
 GVAR(bearingAlphaCache) resize 37;
 
+// Function to determine alpha value dependent on position
+// Parameter: xPosition <Number>
+// Return: alphaValue <Number>
 DFUNC(getAlphaFromX) = {
     (3 - (abs (_this - 92.5) / 30)) max 0
 };
 
+// Function to show the compass
 DFUNC(showCompass) = {
+    // Reset the cache
     GVAR(lineAlphaCache) = GVAR(lineAlphaCache) apply {1};
     GVAR(bearingAlphaCache) = GVAR(bearingAlphaCache) apply {1};
+
+    // Show the compass and make sure it is not shown if the map is open
     ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN", 0, false];
 };
 
-call FUNC(showCompass);
+// Hide the compass on respawn screen
 [UIVAR(RespawnScreen_onLoad), {
     ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
 }] call CFUNC(addEventHandler);
@@ -41,21 +50,25 @@ call FUNC(showCompass);
     call FUNC(showCompass);
 }] call CFUNC(addEventHandler);
 
+//@todo handle removal of the marker according to engine specs
 addMissionEventHandler ["MapSingleClick", {
     params ["_units", "_position", "_alt", "_shift"];
 
     if (!_shift) exitWith {};
 
-    ["MOVE", [0.9, 0.66, 0.01, 1], _position] call FUNC(addCompassLineMarker);
+    ["MOVE", [0.9, 0.66, 0.01, 1], _position] call FUNC(addLineMarker);
 }];
 
 ["missionStarted", {
+    call FUNC(showCompass);
+
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {
         PERFORMANCECOUNTER_START(CompassUI)
 
         disableSerialization;
 
+        // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
         if (isNull _dialog) exitWith {};
 
@@ -63,7 +76,7 @@ addMissionEventHandler ["MapSingleClick", {
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
         private _currentPosition = getPosVisual PRA3_Player;
 
-        // Move all controls to view direction
+        // Shift the control group to view direction
         private _control = _dialog displayCtrl 7100;
         _control ctrlSetPosition [PX(_viewDirection * -0.5), PY(1)];
         _control ctrlCommit 0;
@@ -166,8 +179,9 @@ addMissionEventHandler ["MapSingleClick", {
                 _nextLineMarkerControl = _nextLineMarkerControl + 1;
             };
             nil
-        } count ([GVAR(lineMarkers), QGVAR(lineMarkerIDs), []] call CFUNC(getVariable));
+        } count (allVariables GVAR(lineMarkers));
 
+        // Remove the unused controls
         if (_nextLineMarkerControl < count GVAR(lineMarkerControlPool)) then {
             for "_i" from _nextLineMarkerControl to (count GVAR(lineMarkerControlPool) - 1) do {
                 private _control = GVAR(lineMarkerControlPool) select _nextLineMarkerControl;
@@ -196,17 +210,11 @@ addMissionEventHandler ["MapSingleClick", {
         private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
-        // temp fix for Vehicle Crew
-        if (PRA3_Player != vehicle PRA3_Player) then {
-            private _crew = crew (vehicle PRA3_Player);
-            _nearUnits = _nearUnits select {!(_x in _crew)};
-        };
-
         {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
-            if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
+            if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle PRA3_Player))) then {
                 private _unitPosition = getPosVisual _x;
                 private _relativeVectorToUnit = _unitPosition vectorDiff _currentPosition;
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
@@ -256,11 +264,4 @@ addMissionEventHandler ["MapSingleClick", {
 
         PERFORMANCECOUNTER_END(CompassUI)
     }];
-}] call CFUNC(addEventHandler);
-
-["addCompassLineMarker", {
-    (_this select 0) call FUNC(addCompassLineMarker);
-}] call CFUNC(addEventHandler);
-["removeCompassLineMarker", {
-    (_this select 0) call FUNC(removeCompassLineMarker)
 }] call CFUNC(addEventHandler);

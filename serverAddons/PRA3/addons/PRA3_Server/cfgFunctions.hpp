@@ -23,27 +23,27 @@ class cfgFunctions {
 
     //init = "pr\PRA3\addons\PRA3_Server\init.sqf";
 
-    #include "Core\cfgFunctions.hpp"
+    class PRA3_Core {
+        class Core {
+            file = "\pr\PRA3\addons\PRA3_Server\Core";
+            class preInit: basePreFNC {};
+            class preStart: basePreStartFNC {};
+            class compile: baseFNC{};
+        };
+    };
 
-    #include "Revive\cfgFunctions.hpp"
-
-    #include "Kit\cfgFunctions.hpp"
-    #include "Logistic\cfgFunctions.hpp"
-
-    #include "Mission\cfgFunctions.hpp"
-    #include "Deployment\cfgFunctions.hpp"
-    #include "RespawnUI\cfgFunctions.hpp"
-    #include "Squad\cfgFunctions.hpp"
-
-    #include "Sector\cfgFunctions.hpp"
-    #include "Tickets\cfgFunctions.hpp"
-
-    #include "VehicleRespawn\cfgFunctions.hpp"
-    #include "Nametags\cfgFunctions.hpp"
-
-    #include "UnitTracker\cfgFunctions.hpp"
-
-    #include "CompassUI\cfgFunctions.hpp"
-
-    #include "GarbageCollector\cfgFunctions.hpp"
+    FUNCTIONSCONFIG(Revive)
+    FUNCTIONSCONFIG(Kit)
+    FUNCTIONSCONFIG(Logistic)
+    FUNCTIONSCONFIG(Mission)
+    FUNCTIONSCONFIG(Deployment)
+    FUNCTIONSCONFIG(RespawnUI)
+    FUNCTIONSCONFIG(Squad)
+    FUNCTIONSCONFIG(Sector)
+    FUNCTIONSCONFIG(Tickets)
+    FUNCTIONSCONFIG(VehicleRespawn)
+    FUNCTIONSCONFIG(Nametags)
+    FUNCTIONSCONFIG(UnitTracker)
+    FUNCTIONSCONFIG(CompassUI)
+    FUNCTIONSCONFIG(GarbageCollector)
 };

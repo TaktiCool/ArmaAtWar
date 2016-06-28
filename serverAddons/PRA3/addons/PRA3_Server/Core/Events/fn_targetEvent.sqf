@@ -43,7 +43,7 @@ if (_target isEqualType "") exitWith {
                     _targets pushBack _x;
                 };
                 nil
-            } count allPlayers
+            } count allPlayers;
         };
     };
     if (count _targets != 0) then {
