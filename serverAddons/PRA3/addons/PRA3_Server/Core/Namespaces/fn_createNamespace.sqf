@@ -8,7 +8,7 @@
     Create a Location
 
     Parameter(s):
-    None
+    Is Global <Bool> (default: false)
 
     Returns:
     Namespace <Location>
