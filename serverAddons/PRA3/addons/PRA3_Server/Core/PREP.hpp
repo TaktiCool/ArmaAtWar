@@ -88,8 +88,7 @@ EPREP(Notification,clientInitNotification)
 EPREP(Notification,displayNotification)
 EPREP(Notification,handleNotificationQueue)
 
-// respawn
-EPREP(Respawn,serverInitRespawn)
+// Respawn
 EPREP(Respawn,respawn)
 EPREP(Respawn,respawnNewSide)
 
