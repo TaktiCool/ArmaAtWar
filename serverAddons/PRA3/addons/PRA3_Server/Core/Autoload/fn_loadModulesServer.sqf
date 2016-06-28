@@ -72,16 +72,7 @@ if (isServer) then {
         // Determine client id by provided object (usually the player object).
         private _clientID = owner (_this select 1);
 
-        {
-            // Extract the code out of the function.
-            private _functionCode = parsingNamespace getVariable [_x, {}];
-            // Remove leading and trailing braces from the code.
-            _functionCode = _functionCode call CFUNC(codeToString);
-
-            // Transfer the function name, code and progress to the client.
-            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / GVAR(countRequiredFnc)];
-            _clientID publicVariableClient QGVAR(receiveFunction);
-        } forEach GVAR(RequiredFncClient);
+        _clientID call CFUNC(sendFunctions);
     };
 };
 

@@ -26,6 +26,7 @@ EPREP(Events,hcInitEvents)
 EPREP(Autoload,autoloadEntryPoint)
 EPREP(Autoload,callModules)
 EPREP(Autoload,loadModules)
+EPREP(Autoload,sendFunctions)
 EPREP(Autoload,loadModulesServer)
 
 // Config Caching
