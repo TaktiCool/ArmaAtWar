@@ -21,7 +21,7 @@
 
 params [["_isGlobal", false]];
 
-private _ret = if (_isLogic) then {
+private _ret = if (_isGlobal isEqualType true && {_isGlobal}) then {
     private _grp = call CFUNC(getLogicGroup);
     _grp createUnit ["Logic", pos, [], 0, "NONE"];
 } else {
