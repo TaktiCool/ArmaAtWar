@@ -41,10 +41,12 @@ count diag_activeSQFScripts = %8
 count diag_activeSQSScripts = %9
 count diag_activeMissionFSMs = %10",
 time,
+serverTime,
 diag_fps,
 count GVAR(waitArray),
 count GVAR(waitUntilArray),
-count GVAR(perFrameHandlerArray), {!(isNil "_x")} count GVAR(PFHhandles),
+count GVAR(perFrameHandlerArray),
+{!(isNil "_x")} count GVAR(PFHhandles),
 count diag_activeSQFScripts,
 count diag_activeSQSScripts,
 count diag_activeMissionFSMs

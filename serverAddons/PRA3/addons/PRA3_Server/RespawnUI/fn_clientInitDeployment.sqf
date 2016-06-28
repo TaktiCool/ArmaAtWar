@@ -2,10 +2,10 @@
 /*
     Project Reality ArmA 3
 
-    Author:
+    Author: NetFusion
 
     Description:
-    [Description]
+    Initializes the deployment part of the respawn screen.
 
     Parameter(s):
     None
@@ -13,64 +13,74 @@
     Returns:
     None
 */
+[UIVAR(DeploymentScreen_onLoad), {
+    // The dialog needs one frame until access to controls is possible
+    [{
+        // Update the values of the UI elements
+        UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 
-GVAR(lastDeploymentManagementUIUpdateFrame) = 0;
-
-[UIVAR(RespawnScreen_DeploymentManagement_update), {
-    if (!dialog || GVAR(lastDeploymentManagementUIUpdateFrame) == diag_frameNo) exitWith {};
-    GVAR(lastDeploymentManagementUIUpdateFrame) = diag_frameNo;
-
-    disableSerialization;
-
-    // SpawnPointList
-    #undef IDC
-    #define IDC 403
-    private _selectedLnbRow = lnbCurSelRow IDC;
-    private _selectedPoint = [[IDC, [lnbCurSelRow IDC, 0]] call CFUNC(lnbLoad), ""] select (_selectedLnbRow == -1);
-    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
-    private _visiblePoints = _pointIds select {
-        private _pointDetails = _pointData select (_pointIds find _x);
-        (_pointDetails select 5) call (_pointDetails select 4)
-    };
-    lnbClear IDC;
-    {
-        private _pointDetails = _pointData select (_pointIds find _x);
-        _pointDetails params ["_name", "_icon", "_tickets"];
-        if (_tickets > 0) then {
-            _name = format ["%1 (%2)", _name, _tickets];
-        };
-
-        private _rowNumber = lnbAddRow [IDC, [_name]];
-        [IDC, [_rowNumber, 0], _x] call CFUNC(lnbSave);
-
-        lnbSetPicture [IDC, [_rowNumber, 0], _icon];
-
-        if (_x == _selectedPoint) then {
-            lnbSetCurSelRow [IDC, _rowNumber];
-        };
-    } count _visiblePoints;
-    if ((lnbSize IDC select 0) == 0) then {
-        lnbSetCurSelRow [IDC, -1];
-        _selectedPoint = "";
-    } else {
-        if (_selectedPoint == "" || !(_selectedPoint in _visiblePoints)) then {
-            lnbSetCurSelRow [IDC, 0];
-            _selectedPoint = [IDC, [0, 0]] call CFUNC(lnbLoad);
-        };
-    };
-
-    // Map
-    #undef IDC
-    #define IDC 700
-    if (_selectedPoint != "") then {
-        private _map = (findDisplay 1000) displayCtrl IDC;
-        private _pointDetails = _pointData select (_pointIds find _selectedPoint);
-
-        _map ctrlMapAnimAdd [0.5, 0.15, _pointDetails select 3]; //@todo check if dialog syntax can be used
-        ctrlMapAnimCommit _map;
-    };
+        // Fade the control in
+        400 call FUNC(fadeControl);
+    }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
-[UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
+// When the group changes the rally might change too so update the list
+["groupChanged", {
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+//@todo switch to events related to deployment point instead of rally with #178
+[QEGVAR(Deployment,rallyPlaced), {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+[QEGVAR(Deployment,rallyDestroyed), {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+
+// This EH updates the deployment list
+[UIVAR(RespawnScreen_DeploymentManagement_update), {
+    if (!dialog) exitWith {};
+
+    // Prepare the data for the lnb
+    private _lnbData = [];
+    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"]; //@todo use current position if deployment is deactivated
+    {
+        private _pointDetails = _pointData select _forEachIndex;
+        _pointDetails params ["_name", "_icon", "_tickets", "_position", "_spawnCondition", "_args"];
+        if (_args call _spawnCondition) then {
+            if (_tickets > 0) then {
+                _name = format ["%1 (%2)", _name, _tickets];
+            };
+
+            _lnbData pushBack [[_name], _x, _icon];
+        };
+    } forEach _pointIds;
+
+    // Update the lnb
+    [403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+}] call CFUNC(addEventHandler);
+
+// When the selected entry changed animate the map
+[UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
+    //@todo only animate if really changed
+    UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(RespawnScreen_DeploymentManagement_animateMap), {
+    disableSerialization;
+
+    // Get the selected value
+    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"]; //@todo use current position if deployment is deactivated
+    private _selectedEntry = lnbCurSelRow 403;
+    if (_selectedEntry == -1) exitWith {};
+    private _selectedPoint = [403, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+
+    // Get the point data
+    private _pointDetails = _pointData select (_pointIds find _selectedPoint); //@todo rewrite with #178
+    private _position = _pointDetails select 3;
+
+    // Animate the map
+    private _map = (findDisplay 1000) displayCtrl 700;
+    _map ctrlMapAnimAdd [0.5, 0.15, _position]; // Dialog syntax can not be used
+    ctrlMapAnimCommit _map;
 }] call CFUNC(addEventHandler);

@@ -33,7 +33,7 @@
 
         _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
         if (isNull _display) then {
-            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.2];
+            ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0];
             _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
 
             {
@@ -95,7 +95,7 @@
 
     private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
     if (isNull _display) then {
-        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.2];
+        ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.1];
         _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
     };
 
@@ -115,7 +115,7 @@
 
         disableSerialization;
 
-        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target) then {
+        if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target || dialog) then {
             [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
         };
 

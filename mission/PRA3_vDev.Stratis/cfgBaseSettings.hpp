@@ -2,7 +2,6 @@ loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "V
 tickets = 1000; // number of tickets per team
 ticketBleed[] = {10,5}; // time, tickets
 musicStart = 100; // tickets to start the music
-respawnCountdown = 30;
 playerTicketValue = 1; // Ticket value of a player
 
 // Optional ConfigValue used if no Near Location can be found

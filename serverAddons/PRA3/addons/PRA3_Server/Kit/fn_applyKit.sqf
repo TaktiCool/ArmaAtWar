@@ -43,9 +43,10 @@ removeHeadgear PRA3_Player;
 removeGoggles PRA3_Player;
 
 // add container
-[PRA3_Player, _uniform] call CFUNC(addContainer);
-[PRA3_Player, _vest] call CFUNC(addContainer);
-[PRA3_Player, _backpack] call CFUNC(addContainer);
+[PRA3_Player, _uniform, 0] call CFUNC(addContainer);
+[PRA3_Player, _vest, 1] call CFUNC(addContainer);
+[PRA3_Player, _backpack, 2] call CFUNC(addContainer);
+
 PRA3_Player addHeadgear _headGear;
 
 // Primary Weapon

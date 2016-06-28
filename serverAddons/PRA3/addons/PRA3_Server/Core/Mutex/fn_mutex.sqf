@@ -14,10 +14,17 @@
     Returns:
     <Any>
 */
-params [["_code", {}], ["_args", []]];
+params [["_code", {}], ["_args", []], ["_mutexId", "main"]];
+
+private _mutexCache = [GVAR(mutexCaches), _mutexId, []] call CFUNC(getVariable);
 
 // Cache the function and args
-GVAR(mutexCache) pushBack [_code, _args];
+private _index = _mutexCache pushBackUnique [_code, _args];
+
+// Exit if there was an duplicate detected
+if (_index == -1) exitWith {};
+
+GVAR(mutexCaches) setVariable [_mutexId, _mutexCache];
 
 // Tell the server that there is something to execute
-[QGVAR(mutexRequest), PRA3_Player] call CFUNC(serverEvent);
+[QGVAR(mutexRequest), [PRA3_Player, _mutexId]] call CFUNC(serverEvent);

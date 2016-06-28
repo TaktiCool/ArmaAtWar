@@ -15,7 +15,7 @@
     None
 */
 params ["_selectionIndex", "_newDamage", "_unit"];
-if (isNull _unit) exitWith {};
+if (isNull _unit|| !alive _unit) exitWith {};
 DUMP("HandleDamage Cached: "+ str _this);
 private _damageArray = (_unit getVariable [QGVAR(cachedDamage), GVAR(selections) apply {[0]}]);
 private _handleDamageArray = _damageArray select _selectionIndex;
@@ -28,13 +28,19 @@ if !(_unit getVariable [QGVAR(damageWaitIsRunning), false]) then {
     // wait 3 Frames and execute the Damage Handling. to Get sure every external Damage Handling reach the Client
     [{
         params ["_unit"];
-        if (isNull _unit) exitWith {};
+        if (isNull _unit || !alive _unit) exitWith {
+            _unit setVariable [QGVAR(damageWaitIsRunning), false];
+        };
         [{
             params ["_unit"];
-            if (isNull _unit) exitWith {};
+            if (isNull _unit || !alive _unit) exitWith {
+                _unit setVariable [QGVAR(damageWaitIsRunning), false];
+            };
             [{
                 params ["_unit"];
-                if (isNull _unit) exitWith {};
+                if (isNull _unit || !alive _unit) exitWith {
+                    _unit setVariable [QGVAR(damageWaitIsRunning), false];
+                };
                 private _previousDamage = _unit getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
                 private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
                 {

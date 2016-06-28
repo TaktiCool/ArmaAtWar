@@ -43,6 +43,5 @@
     (group PRA3_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
     ["displayNotification", group PRA3_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
-}] call CFUNC(mutex);
+    QGVAR(rallyPlaced) call CFUNC(localEvent);
+}, [], "respawn"] call CFUNC(mutex);

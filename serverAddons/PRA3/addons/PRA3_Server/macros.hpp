@@ -111,8 +111,8 @@
 #define CFUNC(var1) EFUNC(Core,var1)
 #define QCFUNC(var1) QUOTE(CFUNC(var1))
 
-#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
-#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call PRA3_Core_fnc_compile;
+#define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call CFUNC(compile);
+#define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call CFUNC(compile);
 
 #ifdef PRA3_DEBUGFULL
     #define ENABLEPERFORMANCECOUNTER
@@ -125,3 +125,11 @@
     #define PERFORMANCECOUNTER_START(var1) /* Performance Counter disabled */
     #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
 #endif
+
+#define FUNCTIONSCONFIG(moduleName) class PRA3_##moduleName { \
+    class moduleName { \
+        file = QUOTE(\pr\PRA3\addons\PRA3_Server\##moduleName); \
+        class preInit: basePreFNC {}; \
+        class preStart: basePreStartFNC {}; \
+    }; \
+};

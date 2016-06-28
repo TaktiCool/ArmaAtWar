@@ -19,11 +19,24 @@
 
     GVAR(competingSides) = [];
     {
-        GVAR(competingSides) pushBack (configName _x);
-        missionNamespace setVariable [format [QGVAR(Flag_%1), configName _x], getText (_x >> "flag")];
-        missionNamespace setVariable [format [QGVAR(SideColor_%1), configName _x], getArray (_x >> "color")];
-        missionNamespace setVariable [format [QGVAR(SideName_%1), configName _x], getText (_x >> "name")];
-        missionNamespace setVariable [format [QGVAR(SideMapIcon_%1), configName _x], getText (_x >> "mapIcon")];
+        private _side = sideUnknown;
+        if (configName _x == "WEST") then {
+            _side = west;
+        };
+        if (configName _x == "EAST") then {
+            _side = east;
+        };
+        if (configName _x == "GUER") then {
+            _side = independent;
+        };
+        if (configName _x == "CIV") then {
+            _side = civilian;
+        };
+        GVAR(competingSides) pushBack _side;
+        missionNamespace setVariable [format [QGVAR(Flag_%1), _side], getText (_x >> "flag")];
+        missionNamespace setVariable [format [QGVAR(SideColor_%1), _side], getArray (_x >> "color")];
+        missionNamespace setVariable [format [QGVAR(SideName_%1), _side], getText (_x >> "name")];
+        missionNamespace setVariable [format [QGVAR(SideMapIcon_%1), _side], getText (_x >> "mapIcon")];
         nil;
     } count ("true" configClasses (missionConfigFile >> "PRA3" >> "sides"));
 }] call CFUNC(addEventhandler);

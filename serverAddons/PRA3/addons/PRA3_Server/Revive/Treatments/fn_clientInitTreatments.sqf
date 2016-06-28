@@ -31,7 +31,7 @@
     if ((_modelName select [0, 1]) == "\") then {
         _modelName = _modelName select [1, count _modelName - 1];
     };
-    if ((_modelName select [count _modelName - 4, 3]) != "p3d") then {
+    if ((_modelName select [count _modelName - 4, 4]) != ".p3d") then {
         _modelName = _modelName + ".p3d";
     };
     private _fakeWeapon = createSimpleObject [_modelName, [0, 0, 0]];
@@ -114,6 +114,7 @@
  */
 GVAR(medicalActionRunning) = "";
 GVAR(medicalActionTarget) = objNull;
+GVAR(inhibitKeyPressEH) = -1;
 [QGVAR(StartMedicalAction), {
     (_this select 0) params ["_action", "_target"];
 
@@ -125,6 +126,17 @@ GVAR(medicalActionTarget) = objNull;
     _target setVariable [QGVAR(treatmentStartTime), serverTime, true];
 
     [QGVAR(RegisterTreatment), _target, [PRA3_Player, _action]] call CFUNC(targetEvent);
+
+    GVAR(inhibitKeyPressEH) = (findDisplay 46) displayAddEventHandler ["KeyDown", {
+        params ["_ctrl", "_key"];
+
+        // Handle ESC Key
+        if (_key == 1) then {
+            [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
+        };
+
+        false;
+    }];
 }] call CFUNC(addEventHandler);
 
 [QGVAR(StopMedicalAction), {
@@ -134,6 +146,7 @@ GVAR(medicalActionTarget) = objNull;
 
     GVAR(medicalActionRunning) = "";
     GVAR(medicalActionTarget) = objNull;
+    (findDisplay 46) displayRemoveEventHandler ["KeyDown", GVAR(inhibitKeyPressEH)];
 }] call CFUNC(addEventHandler);
 
 GVAR(currentTreatingUnits) = [];
