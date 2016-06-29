@@ -1,5 +1,5 @@
 // Base Includes
-#include "\pr\PRA3\addons\PRA3_Server\modInfo.hpp"
+#include "modInfo.hpp"
 
 // Check Debug settings
 #ifdef PRA3_DEBUGFULL
@@ -60,7 +60,7 @@
 
 
 // Function macros
-#define EDFUNC(var1,var2) TRIPLE(PREFIX,var1,var2)
+#define EDFUNC(var1,var2) TRIPLE(PREFIX,var1,DOUBLE(fnc,var2))
 
 #define DFUNC(var) EDFUNC(MODULE,var)
 
@@ -110,9 +110,9 @@
 #define PY(Y) ((Y)/PYN*safeZoneH)
 
 // CFG Function Macro for Easy Module Including
-#define FUNCTIONSCONFIG(moduleName) class DOUBLE(PRAFIX,moduleName) { \
+#define FUNCTIONSCONFIG(moduleName) class DOUBLE(PREFIX,moduleName) { \
     class moduleName { \
-        file = QUOTE(\##PATH\##PREFIX\addons\##MOD\##moduleName); \
+        file = QUOTE(\PATH\PREFIX\addons\MOD\##moduleName); \
         class preInit: basePreFNC {}; \
         class preStart: basePreStartFNC {}; \
     }; \

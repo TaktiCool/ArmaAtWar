@@ -43,7 +43,7 @@ private _fnc_addDependencyModule = {
 } count _this;
 
 LOG("Loaded Modules: " + str _modules)
-private _prefixLength = count QUOTE(PREFIX);
+private _prefixLength = (count QUOTE(PREFIX)) + 1;
 {
     // Extract the module name out of the full function name.
     // 1: Remove "PRA3_" prefix
