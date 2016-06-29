@@ -69,7 +69,7 @@
 #define QFUNC(var) QUOTE(DFUNC(var))
 
 #ifdef isDev
-    #define EFUNC(var1,var2) (missionNamespace getVariable [QEFUNC(var1,var2), {DUMP(QEFUNC(var1,var2) + " Dont Exist")}])
+    #define EFUNC(var1,var2) (missionNamespace getVariable [QEFUNC(var1,var2), {["Error function %1 dont exist or isNil", QEFUNC(var1,var2)] call BIS_fnc_errorMsg; DUMP(QEFUNC(var1,var2) + " Dont Exist")}])
 #endif
 
 #ifdef ENABLEFUNCTIONTRACE
