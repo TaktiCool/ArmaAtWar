@@ -10,6 +10,9 @@
     #define ENABLEPERFORMANCECOUNTER
 #endif
 
+#ifdef PRA3_DEBUGFULL
+    #define ENABLEFUNCTIONTRACE
+#endif
 
 // define Version Information
 #define VERSION MAJOR.MINOR.PATCHLVL.BUILD
@@ -17,7 +20,7 @@
 
 // Predefines for easy Macro work
 #define DOUBLE(var1,var2) var1##_##var2
-#define TRIBLE(var1,var2,var3) DOUBLE(var1,DOUBLE(var1,var3))
+#define TRIPLE(var1,var2,var3) DOUBLE(var1,DOUBLE(var2,var3))
 
 #define QUOTE(var) #var
 
@@ -25,7 +28,7 @@
 #define FFNCPATH(subModule,var) \##PATH\##PREFIX\addons\##MOD\##MODULE\##subModule\fn_##var.sqf
 
 // Global Varible Macros
-#define EGVAR(var1,var2) TRIBLE(PREFIX,var1,var2)
+#define EGVAR(var1,var2) TRIPLE(PREFIX,var1,var2)
 #define QEGVAR(var1,var2) QUOTE(EGVAR(var1,var2))
 
 #define GVAR(var) EGVAR(MODULE,var)
@@ -57,7 +60,7 @@
 
 
 // Function macros
-#define EDFUNC(var1,var2) TRIBLE(PREFIX,var1,var2)
+#define EDFUNC(var1,var2) TRIPLE(PREFIX,var1,var2)
 
 #define DFUNC(var) EDFUNC(MODULE,var)
 
@@ -83,6 +86,8 @@
 #ifndef EFUNC
     #define EFUNC(var1,var2) DEFUNC(var1,var2)
 #endif
+
+#define FUNC(var) EFUNC(MODULE,var)
 
 #define CFUNC(var1) EFUNC(Core,var1)
 #define QCFUNC(var1) QUOTE(CFUNC(var1))
