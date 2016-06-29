@@ -274,7 +274,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
 
             [{
                 // Fix issue that player spawn Prone

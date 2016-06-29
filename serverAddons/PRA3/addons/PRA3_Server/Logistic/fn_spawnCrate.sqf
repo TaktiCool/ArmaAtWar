@@ -26,7 +26,7 @@ _args params ["_crateType", ["_content", []]];
 if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)
 };
-private _spawnPos = [_spawnPos, 10, _crateType] call CFUNC(findSavePosition);
+private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
 private _crateObject = _crateType createVehicle _spawnPos;
 
 if !(_content isEqualTo []) then {
