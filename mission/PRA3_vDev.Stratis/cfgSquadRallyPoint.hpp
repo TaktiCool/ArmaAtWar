@@ -1,5 +1,5 @@
 class cfgSquadRallyPoint {
-    waitTime = 300;
+    waitTime = 10;
     minDistance = 100;
     spawnCount = 9;
     nearPlayerToBuild = 2;

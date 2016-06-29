@@ -6,7 +6,7 @@ playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
 restirctSideSwitchRestrictionCount = 5;
-restirctSideSwitchRestrictionTime = 250;
+restirctSideSwitchRestrictionTime = 50;
 
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {
