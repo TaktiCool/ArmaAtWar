@@ -1,5 +1,9 @@
 #include "macros.hpp"
 
+if (isNil QFUNC(compile)) then {
+    DFUNC(compile) = compile preprocessFileLineNumbers QUOTE(FUNCPATH(compile));
+};
+
 /*
 #ifndef isDev
     private _extRet = "PRA3_server" callExtension "version";

@@ -10,26 +10,27 @@
 
     Parameter(s):
     0: Postion <Array>
-    1: Radius <Float>
-    2: Vehicle Class <String> (Optional)
+    1: Radius <Number>
+    2: minimal Radui <Number> (Default: 0)
+    2: Vehicle Class <String> (Default: Nil)
 
     Returns:
     Save Position <Array>
 */
 
-params ["_pos", "_radius", "_type"];
+params ["_pos", "_radius", ["_minRaduis", 0, [0]], "_type"];
 private _haveType = isNil "_type";
 private _retPos = if (_haveType) then {
-    _pos findEmptyPosition [0, _radius];
+    _pos findEmptyPosition [_minRaduis, _radius];
 } else {
-    _pos findEmptyPosition [0, _radius, _type];
+    _pos findEmptyPosition [_minRaduis, _radius, _type];
 };
 
 if (_retPos isEqualTo []) exitWith {
     if (_haveType) then {
-        [_pos, _radius + 10] call (missionNamespace getVariable [_fnc_scriptName, {}]);
+        [_pos, _radius + 10, _minRaduis] call (missionNamespace getVariable [_fnc_scriptName, {}]);
     } else {
-        [_pos, _radius + 10, _type] call (missionNamespace getVariable [_fnc_scriptName, {}]);
+        [_pos, _radius + 10, _minRaduis,_type] call (missionNamespace getVariable [_fnc_scriptName, {}]);
     };
 };
 

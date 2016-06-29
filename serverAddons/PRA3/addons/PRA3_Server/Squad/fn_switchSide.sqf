@@ -16,7 +16,9 @@
 [{
     private _newSide = ((EGVAR(Mission,competingSides) select { _x != playerSide }) select 0);
 
-    //@todo #112 think about restrictions
+    private _oldSide = playerSide;
+
+    if !(call FUNC(canSwitchSide)) exitWith {};
 
     // Leave old squad first
     call FUNC(leaveSquad);

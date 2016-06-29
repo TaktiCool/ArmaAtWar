@@ -29,6 +29,10 @@
     [UIVAR(RespawnScreen_RoleManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
+["leaderChanged", {
+    [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
 [UIVAR(RespawnScreen_RoleManagement_update), {
     if (!dialog) exitWith {};
 

@@ -17,6 +17,8 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
+    setPlayerRespawnTime 10e10;
+
     // Respawn screen may already open by user action
     if (dialog) then {
         closeDialog 2;
@@ -272,7 +274,7 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
 
             [{
                 // Fix issue that player spawn Prone

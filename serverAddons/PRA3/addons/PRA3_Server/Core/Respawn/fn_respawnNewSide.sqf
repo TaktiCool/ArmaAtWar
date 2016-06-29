@@ -67,7 +67,7 @@ _newUnit setVehicleVarName _oldVarName;
 
 // Handle position
 PRA3_Player setDir (random 360);
-PRA3_Player setPosASL ([_targetPosition, 5, _className] call CFUNC(findSavePosition));
+PRA3_Player setPosASL ([_targetPosition, 5, 0,_className] call CFUNC(findSavePosition));
 
 // Broadcast the change after everything is changed
 ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);

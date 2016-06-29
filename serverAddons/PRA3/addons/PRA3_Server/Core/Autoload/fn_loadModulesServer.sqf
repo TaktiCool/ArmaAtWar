@@ -43,11 +43,11 @@ private _fnc_addDependencyModule = {
 } count _this;
 
 LOG("Loaded Modules: " + str _modules)
-
+private _prefixLength = (count QUOTE(PREFIX)) + 1;
 {
     // Extract the module name out of the full function name.
     // 1: Remove "PRA3_" prefix
-    private _functionModuleName = _x select [5, count _x - 6];
+    private _functionModuleName = _x select [_prefixLength, count _x - 6];
     // 2: All characters until the next "_" are the module name.
     _functionModuleName = _functionModuleName select [0, _functionModuleName find "_"];
 
