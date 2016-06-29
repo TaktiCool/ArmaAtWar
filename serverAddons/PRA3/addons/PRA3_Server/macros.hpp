@@ -89,8 +89,8 @@
 
 #define FUNC(var) EFUNC(MODULE,var)
 
-#define CFUNC(var1) EFUNC(Core,var1)
-#define QCFUNC(var1) QUOTE(CFUNC(var1))
+#define CFUNC(var) EFUNC(Core,var)
+#define QCFUNC(var) QUOTE(EDFUNC(Core,var))
 
 #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call CFUNC(compile);
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call CFUNC(compile);
@@ -112,7 +112,7 @@
 // CFG Function Macro for Easy Module Including
 #define FUNCTIONSCONFIG(moduleName) class DOUBLE(PRAFIX,moduleName) { \
     class moduleName { \
-        file = QUOTE(\##PATH\##PREFIX\addons\##MOD\##MODULE); \
+        file = QUOTE(\##PATH\##PREFIX\addons\##MOD\##moduleName); \
         class preInit: basePreFNC {}; \
         class preStart: basePreStartFNC {}; \
     }; \
