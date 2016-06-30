@@ -1,8 +1,15 @@
-// Rally System
 PREP(serverInit)
 PREP(clientInit)
-PREP(addDeploymentPoint)
-PREP(removeDeploymentPoint)
-PREP(canPlaceRally)
-PREP(placeRally)
-PREP(destroyRally)
+PREP(addPoint)
+PREP(removePoint)
+PREP(getAvailablePoints)
+PREP(prepareSpawn)
+
+// Rally System
+EPREP(Rally,clientInitRally)
+EPREP(Rally,placeRally)
+EPREP(Rally,destroyRally)
+EPREP(Rally,canPlaceRally)
+
+// FOB system
+EPREP(FOB,placeFOB)

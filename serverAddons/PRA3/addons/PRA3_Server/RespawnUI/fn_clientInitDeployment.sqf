@@ -29,11 +29,13 @@
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-//@todo switch to events related to deployment point instead of rally with #178
-[QEGVAR(Deployment,rallyPlaced), {
+[QEGVAR(Deployment,pointAdded), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
-[QEGVAR(Deployment,rallyDestroyed), {
+[QEGVAR(Deployment,pointRemoved), {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+[QEGVAR(Deployment,ticketsChanged), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
@@ -43,18 +45,15 @@
 
     // Prepare the data for the lnb
     private _lnbData = [];
-    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"]; //@todo use current position if deployment is deactivated
     {
-        private _pointDetails = _pointData select _forEachIndex;
-        _pointDetails params ["_name", "_icon", "_tickets", "_position", "_spawnCondition", "_args"];
-        if (_args call _spawnCondition) then {
-            if (_tickets > 0) then {
-                _name = format ["%1 (%2)", _name, _tickets];
-            };
-
-            _lnbData pushBack [[_name], _x, _icon];
+        (EGVAR(Deployment,pointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_tickets", "_icon"];
+        if (_tickets > 0) then {
+            _name = format ["%1 (%2)", _name, _tickets];
         };
-    } forEach _pointIds;
+
+        _lnbData pushBack [[_name], _x, _icon];
+        nil
+    } count (call EFUNC(Deployment,getAvailablePoints)); //@todo use current position if deployment is deactivated
 
     // Update the lnb
     [403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -70,14 +69,13 @@
     disableSerialization;
 
     // Get the selected value
-    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"]; //@todo use current position if deployment is deactivated
     private _selectedEntry = lnbCurSelRow 403;
     if (_selectedEntry == -1) exitWith {};
     private _selectedPoint = [403, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // Get the point data
-    private _pointDetails = _pointData select (_pointIds find _selectedPoint); //@todo rewrite with #178
-    private _position = _pointDetails select 3;
+    private _pointDetails = EGVAR(Deployment,pointStorage) getVariable _selectedPoint;
+    private _position = _pointDetails select 1;
 
     // Animate the map
     private _map = (findDisplay 1000) displayCtrl 700;

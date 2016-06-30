@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    Init for Rally System for Leaders
+    Init for deployment system
 
     Parameter(s):
     None
@@ -13,47 +13,45 @@
     Returns:
     None
 */
-[QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
-
 ["groupChanged", {
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QGVAR(rallyPlaced), {
-    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
+[QGVAR(pointAdded), {
+    [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QGVAR(rallyDestroyed), {
-    [QGVAR(updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
+[QGVAR(pointRemoved), {
+    [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
+[QGVAR(ticketsChanged), {
+    [QGVAR(updateMapIcons)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+GVAR(pointMarkerIds) = [];
 [QGVAR(updateMapIcons), {
-    EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
+    private _availablePoints = call FUNC(getAvailablePoints);
+    private _existingMapIconPoints = GVAR(pointMarkerIds) arrayIntersect _availablePoints;
 
     {
-        private _pointDetails = _pointData select (_pointIds find _x);
-        _pointDetails params ["_name", "_icon", "_spawnTickets", "_position", "_spawnCondition", "_args", "_pointObjects"];
-        //@todo this should be redesigned (quick version for play test) #178
-        if (_icon == "ui\media\rally_ca.paa" && _args call _spawnCondition) then {
-            private _normal = [(str missionConfigFile select [0, count str missionConfigFile - 15]) + _icon, [0, 0.87, 0, 1], _position, 25, 0, "", 1];
+        [_x] call CFUNC(removeMapIcon);
+        nil
+    } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
+
+    {
+        (GVAR(pointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
+
+        if (_mapIcon != "") then {
+            private _icon = [(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, [0, 0.87, 0, 1], _position, 25, 0, "", 1];
             private _normalText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1", _name], 2, 0.09];
             private _onHoverText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1 (%2 spawns remaining)", _name, _spawnTickets], 2, 0.089];
-            ["RALLY", [_normal, _normalText], "normal"] call CFUNC(addMapIcon);
-            ["RALLY", [_normal, _onHoverText], "hover"] call CFUNC(addMapIcon);
-
-        } else {
-            ["RALLY"] call CFUNC(removeMapIcon);
+            [_x, [_icon, _normalText], "normal"] call CFUNC(addMapIcon);
+            [_x, [_icon, _onHoverText], "hover"] call CFUNC(addMapIcon);
         };
-        nil
-    } count _pointIds;
-}] call CFUNC(addEventHandler);
 
-/*
- * ACTIONS
- */
-["Create Rally Point", PRA3_Player, 0, {
-    [QGVAR(isRallyPlaceable), FUNC(canPlaceRally), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
-}, {
-    QGVAR(ClearRallyPlaceable) call CFUNC(localEvent);
-    call FUNC(placeRally);
-}] call CFUNC(addAction);
+        nil
+    } count (_availablePoints - _existingMapIconPoints);
+
+    GVAR(pointMarkerIds) = _availablePoints;
+}] call CFUNC(addEventHandler);
