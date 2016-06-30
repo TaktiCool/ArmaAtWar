@@ -80,7 +80,13 @@ EPREP(Mutex,mutex)
 // Namespaces
 EPREP(Namespaces,createNamespace)
 EPREP(Namespaces,deleteNamespace)
+
+EPREP(Namespaces,setVariable)
 EPREP(Namespaces,getVariable)
+EPREP(Namespaces,allVariables)
+
+EPREP(Namespaces,setVar)
+
 EPREP(Namespaces,getLogicGroup)
 
 // Notification System
