@@ -182,7 +182,7 @@ addMissionEventHandler ["MapSingleClick", {
                 _nextLineMarkerControl = _nextLineMarkerControl + 1;
             };
             nil
-        } count (allVariables GVAR(lineMarkers));
+        } count ([GVAR(lineMarkers), QGVAR(lineMarkersCache)] call CFUNC(allVariables));
 
         // Remove the unused controls
         if (_nextLineMarkerControl < count GVAR(lineMarkerControlPool)) then {
