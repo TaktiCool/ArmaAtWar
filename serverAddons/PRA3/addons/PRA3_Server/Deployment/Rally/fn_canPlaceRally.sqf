@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    check if Rally is Placeable
+    Checks if rally is placeable
 
     Parameter(s):
     None
@@ -30,18 +30,19 @@ private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] ca
 private _count = {(group _x) == (group PRA3_Player)} count (nearestObjects [PRA3_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
 if (_count < _nearPlayerToBuild) exitWith {false};
 
-// Check near rallies
-GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+// Check near DPs
 private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
 {
-    private _pointDetails = _pointData select (_pointIds find _x);
-    private _pointPosition = _pointDetails select 3;
-    if ((PRA3_Player distance _pointPosition) < _minDistance) exitWith {
-        _rallyNearPlayer = true;
+    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    if (!(isNil "_pointDetails")) then {
+        private _pointPosition = _pointDetails select 1;
+        if ((PRA3_Player distance _pointPosition) < _minDistance) exitWith {
+            _rallyNearPlayer = true;
+        };
     };
     nil
-} count _pointIds;
+} count (allVariables GVAR(pointStorage));
 if (_rallyNearPlayer) exitWith {false};
 
 true

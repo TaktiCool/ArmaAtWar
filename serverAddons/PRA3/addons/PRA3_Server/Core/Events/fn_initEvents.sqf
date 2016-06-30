@@ -108,7 +108,7 @@ GVAR(entities) = [];
 
     if !(_entities isEqualTo GVAR(entities)) then {
         {
-            if !(_x getVariable [QGVAR(isProcessed), false] && _x isKindOf "Animal" && _x isKindOf "Logic") then {
+            if !(_x getVariable [QGVAR(isProcessed), false] || _x isKindOf "Animal" || _x isKindOf "Logic") then {
                 ["entityCreated", _x] call CFUNC(localEvent);
                 _x setVariable [QGVAR(isProcessed), true];
             };

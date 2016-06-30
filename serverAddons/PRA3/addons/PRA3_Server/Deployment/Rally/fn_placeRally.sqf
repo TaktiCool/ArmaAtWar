@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    place rally
+    Place rally
 
     Parameter(s):
     None
@@ -39,9 +39,8 @@
     (group PRA3_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = [_position] call CFUNC(getNearestLocationName);
     private _spawnCount = [QGVAR(Rally_spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, "ui\media\rally_ca.paa", _spawnCount, _position, {group PRA3_Player == _this}, group PRA3_Player, _squadRallyPointObjects] call FUNC(addDeploymentPoint);
+    private _pointId = [_text, _position, group PRA3_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _squadRallyPointObjects] call FUNC(addPoint);
     (group PRA3_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
     ["displayNotification", group PRA3_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
-    QGVAR(rallyPlaced) call CFUNC(localEvent);
 }, [], "respawn"] call CFUNC(mutex);
