@@ -27,4 +27,7 @@ private _pointObjects = _pointDetails select 6;
 GVAR(pointStorage) setVariable [_pointId, nil];
 
 private _availableFor = _pointDetails select 2;
-[QGVAR(pointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
+
+if (!(isNull _availableFor)) then {
+    [QGVAR(pointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
+};

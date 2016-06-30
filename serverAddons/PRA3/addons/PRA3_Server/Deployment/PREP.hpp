@@ -7,6 +7,7 @@ PREP(prepareSpawn)
 
 // Rally System
 EPREP(Rally,clientInitRally)
+EPREP(Rally,serverInitRally)
 EPREP(Rally,placeRally)
 EPREP(Rally,destroyRally)
 EPREP(Rally,canPlaceRally)
