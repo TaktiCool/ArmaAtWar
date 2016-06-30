@@ -24,12 +24,6 @@ params ["_namespace", "_varName", "_varContent", ["_cacheName", "PRA3_allVariabl
 
 [_namespace, _varName, _varContent, _global] call CFUNC(setVar);
 
-if (_namespace isEqualType locationNull) then {
-    _namespace setVariable [_varName, _varContent];
-} else {
-    _namespace setVariable [_varName, _varContent, _global];
-};
-
 private _cache = [_namespace, _cacheName, []] call CFUNC(getVariable);
 
 if (isNil "_varContent") then {
