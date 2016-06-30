@@ -84,7 +84,7 @@
 #endif
 
 #ifndef EFUNC
-    #define EFUNC(var1,var2) DEFUNC(var1,var2)
+    #define EFUNC(var1,var2) EDFUNC(var1,var2)
 #endif
 
 #define FUNC(var) EFUNC(MODULE,var)
