@@ -52,7 +52,11 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
                 LOG(_log);
                 GVAR(sendlogfile) = [_log, "PRA3_SecurityLog"];
                 publicVariableServer QGVAR(sendlogfile);
-                endMission "LOSER";
+                ["Warning Function %1 is corupted on your Client"] call BIS_fnc_errorMsg;
+                [] spawn {
+                    sleep 10;
+                    endMission "LOSER";
+                };
             };
         };
         nil
@@ -60,6 +64,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
 
     // Update the loading screen with the progress.
     _progress call bis_fnc_progressloadingscreen;
+    DUMP("LoadModules Progress: " + str _progress)
 
     // Store the function name.
     GVAR(requiredFunctions) pushBack _functionVarName;
