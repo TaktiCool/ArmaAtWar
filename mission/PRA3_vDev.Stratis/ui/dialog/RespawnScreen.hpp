@@ -24,7 +24,7 @@ class PRA3_UI_RespawnScreen {
         class SquadManagement : PRA3_UI_SquadManagement {};
         class RoleManagement : PRA3_UI_RoleManagement {};
         class DeploymentManagement : PRA3_UI_DeploymentManagement {};
-        class MissionName : RscControlsGroupNoScollbars {
+        class MissionName : RscControlsGroupNoScrollbars {
             idc = 500;
             x = safeZoneX;
             y = safeZoneY;
@@ -59,7 +59,7 @@ class PRA3_UI_RespawnScreen {
                 };
             };
         };
-        class Tickets : RscControlsGroupNoScollbars {
+        class Tickets : RscControlsGroupNoScrollbars {
             idc = 600;
             x = safeZoneX + safeZoneW - PX(40);
             y = safeZoneY;
@@ -122,7 +122,7 @@ class PRA3_UI_RespawnScreen {
                 };
             };
         };
-        class Notification : RscControlsGroupNoScollbars {
+        class Notification : RscControlsGroupNoScrollbars {
             idc = 700;
             x = 0.5 - PX(25);
             y = PY(0.5) + safeZoneY;

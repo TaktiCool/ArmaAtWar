@@ -3,7 +3,7 @@
 #define GWIDTH 40
 #define GHEIGHT 60.5
 
-class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
+class PRA3_UI_RoleManagement : RscControlsGroupNoScrollbars {
     idc = 300;
     x = safeZoneX + safeZoneW - PX(40);
     y = PY(10.5) + safeZoneY;
