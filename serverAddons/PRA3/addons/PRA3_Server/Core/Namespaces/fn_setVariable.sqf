@@ -35,7 +35,7 @@ if (isNil "_varContent") then {
 if (_namespace isEqualType locationNull) then {
     _namespace setVariable [_varName, _varContent];
     _namespace setVariable [_cacheName, _cache];
-else {
+} else {
     _namespace setVariable [_varName, _varContent, _global];
     _namespace setVariable [_cacheName, _cache, _global];
 };
