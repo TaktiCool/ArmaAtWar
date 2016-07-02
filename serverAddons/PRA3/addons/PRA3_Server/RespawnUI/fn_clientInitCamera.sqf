@@ -23,7 +23,7 @@
 
 // When player changes the side reinitialize the camera
 ["playerSideChanged", {
-    if (!dialog) exitWith {};
+    if (isNull GVAR(camera)) exitWith {};
 
     [QGVAR(destroyCamera)] call CFUNC(localEvent);
     [QGVAR(initCamera)] call CFUNC(localEvent);

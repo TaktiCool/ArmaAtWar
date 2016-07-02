@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
     Save Data for lnb Data
@@ -15,17 +15,8 @@
     Returns:
     None
 */
-disableSerialization;
-params ["_idc", "_rowAndColum", "_data"];
+params ["_control", "_rowAndColumn", "_data"];
 
-private _hash = GVAR(allVariablesCache) pushBack _data;
-
-lnbSetValue [_idc, _rowAndColum, _hash];
-if (isNil QGVAR(lnbDataPFHID)) then {
-    // PFH for Flushing Data
-    GVAR(lnbDataPFHID) = [{
-        if (!dialog) then {
-            GVAR(allVariablesCache) = [];
-        };
-    }, 1] call CFUNC(addPerFrameHandler);
-};
+private _index = GVAR(lnbDataControlCache) pushBack _control;
+GVAR(lnbDataDataCache) setVariable [str _index, _data];
+_control lnbSetValue [_rowAndColumn, _index];

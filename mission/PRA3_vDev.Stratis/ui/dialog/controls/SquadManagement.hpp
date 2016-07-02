@@ -1,16 +1,25 @@
 #undef GHEIGHT
 #undef GWIDTH
 #define GWIDTH 40
-#define GHEIGHT 54
+#define GHEIGHT 97.5
 
 class PRA3_UI_SquadManagement : RscControlsGroupNoScollbars {
     idc = 200;
     x = safeZoneX;
-    y = safeZoneY;
+    y = PY(10.5) + safeZoneY;
     w = PX(GWIDTH);
-    h = safeZoneH;
+    h = PY(GHEIGHT);
     fade = 1;
+
     class Controls {
+        class Background : RscPicture {
+            idc = 299;
+            text = "#(argb,8,8,3)color(0,0,0,0.8)";
+            x = PX(0);
+            y = PY(0);
+            w = PX(GWIDTH);
+            h = safeZoneH;
+        };
         class HeadingBackground : PRA3_RscHeaderBackground {
             idc = 201;
             y = PY(0);

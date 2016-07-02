@@ -13,4 +13,9 @@
     Returns:
     None
 */
-missionNamespace setVariable [QGVAR(allVariablesCache), []];
+GVAR(lnbDataControlCache) = [];
+GVAR(lnbDataDataCache) = false call CFUNC(createNamespace);
+
+[{
+    GVAR(lnbDataControlCache) = GVAR(lnbDataControlCache) - [controlNull];
+}, 1] call CFUNC(addPerFrameHandler);

@@ -8,7 +8,7 @@
     This function shows the interrupt display which usually opens when you press the escape button.
 
     Parameter(s):
-    0: Control <Control>
+    0: Display <Display>
     1: DIKCode <Number>
     2: ShiftKey <Boolean>
     3: CtrlKey <Boolean>
@@ -17,23 +17,13 @@
     Returns:
     Handled or not <Boolean>
 */
-if ((_this select 1) != 1) exitWith {false};
+params ["_display", "_dikCode"];
+if (_dikCode == 1) exitWith {
+    _display closeDisplay 1;
 
-createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
-
-disableSerialization;
-
-private _dialog = findDisplay 49;
-
-// Disable all buttons first
-for "_i" from 100 to 2000 do {
-    (_dialog displayCtrl _i) ctrlEnable false;
+    [{
+        (findDisplay 46) createDisplay UIVAR(RespawnScreen);
+    }, {!dialog}] call CFUNC(waitUntil);
 };
 
-private _control = _dialog displayCtrl 103;
-_control ctrlSetEventHandler ["buttonClick", "closeDialog 0; failMission ""LOSER"";"];
-_control ctrlEnable true;
-_control ctrlSetText "ABORT";
-_control ctrlSetTooltip "Abort.";
-
-true
+false

@@ -13,10 +13,9 @@
     Returns:
     None
 */
-params ["_idc"];
+params ["_control"];
 
 // Place the UI out of the screen to animate it back in
-private _control = findDisplay 1000 displayCtrl _idc;
 private _initialPosition = ctrlPosition _control;
 private _width = _initialPosition select 2;
 _control ctrlSetPosition [
