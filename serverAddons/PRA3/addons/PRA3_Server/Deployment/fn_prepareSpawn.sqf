@@ -27,7 +27,7 @@ if (_spawnTickets > 0) then {
         [_pointId] call FUNC(removePoint);
     } else {
         _pointDetails set [3, _spawnTickets];
-        GVAR(pointStorage) setVariable [_pointId, _pointDetails, true];
+        [GVAR(pointStorage), _pointId, _pointDetails, QGVAR(pointStorage), true] call CFUNC(setVariable);
         [QGVAR(ticketsChanged), _availableFor] call CFUNC(targetEvent);
     };
 };

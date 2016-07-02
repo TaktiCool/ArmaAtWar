@@ -42,7 +42,7 @@ private _rallyNearPlayer = false;
         };
     };
     nil
-} count (allVariables GVAR(pointStorage));
+} count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
 if (_rallyNearPlayer) exitWith {false};
 
 true

@@ -25,6 +25,6 @@ private _availablePoints = [];
         };
     };
     nil
-} count (allVariables GVAR(pointStorage));
+} count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
 
 _availablePoints
