@@ -5,15 +5,15 @@
     Author: joko // Jonas
 
     Description:
-    Return allVariables that set with CFUNC(setVariable) from a Namespace
+    Return allVariables that have been set with FUNC(setVariable) of a namespace
 
     Parameter(s):
     0: Namespace <Namespace>
-    1: Variable Cachename <String> (default: PRA3_allVariableCache)
+    1: Cache name <String> (default: QGVAR(allVariableCache))
 
     Returns:
-    <Array<Strings>> All Variable Names
+    All variable names <Array>
 */
-params ["_namespace", ["_cacheName", "PRA3_allVariableCache"]];
+params ["_namespace", ["_cacheName", QGVAR(allVariableCache)]];
 
 [_namespace, _cacheName, []] call CFUNC(getVariable);

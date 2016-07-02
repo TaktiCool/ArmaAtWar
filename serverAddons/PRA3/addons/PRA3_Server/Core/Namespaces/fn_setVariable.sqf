@@ -5,34 +5,37 @@
     Author: joko // Jonas
 
     Description:
-    Set Variable at a Namespace/Logic/Object and save the name to get it back from CFUNC(allVaraibles)
+    Set variable on a namespace/logic/object and save the name to get it back from FUNC(allVariables)
 
     Parameter(s):
-    0: Object to set Variable on <Namespace>
-    1: Variable Name <String>
-    2: Variable Content <Any>
-    3: Variable Cachename <String> (default: PRA3_allVariableCache)
-    4: Global? <Bool> (default: false)
+    0: Namespace to set variable on <Namespace>
+    1: Variable name <String>
+    2: Variable content <Any>
+    3: Cache name <String> (default: QGVAR(allVariableCache))
+    4: Global <Bool> (default: false)
 
     Remark:
-    4: get ignored if Namespace is a Location
+    4: Is ignored if namespace is a location
 
     Returns:
     None
 */
-params ["_namespace", "_varName", "_varContent", ["_cacheName", "PRA3_allVariableCache"], ["_global", false, [false]]];
-
-[_namespace, _varName, _varContent, _global] call CFUNC(setVar);
+params ["_namespace", "_varName", "_varContent", ["_cacheName", QGVAR(allVariableCache)], ["_global", false, [false]]];
 
 private _cache = [_namespace, _cacheName, []] call CFUNC(getVariable);
-
 if (isNil "_varContent") then {
-    private _i = _cache find _varName
-    if (_i != -1) then {
-        _cache deleteAt _i;
+    private _index = _cache find _varName;
+    if (_index != -1) then {
+        _cache deleteAt _index;
     };
 } else {
     _cache pushBackUnique _varName;
 };
 
-[_namespace, _cacheName, _cache, _global] call CFUNC(setVar);
+if (_namespace isEqualType locationNull) then {
+    _namespace setVariable [_varName, _varContent];
+    _namespace setVariable [_cacheName, _cache];
+else {
+    _namespace setVariable [_varName, _varContent, _global];
+    _namespace setVariable [_cacheName, _cache, _global];
+};

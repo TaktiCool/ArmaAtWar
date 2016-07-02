@@ -5,22 +5,21 @@
     Author: joko // Jonas
 
     Description:
-    Wraper for setVariable for namespaces
+    Wrapper for setVariable on namespaces
 
     Parameter(s):
-    0: Object to set Variable on <Namespace>
-    1: Variable Name <String>
-    2: Variable Content <Any>
+    0: Object to set variable on <Namespace>
+    1: Variable name <String>
+    2: Variable content <Any>
     3: Global <Bool> (default: false)
 
     Remark:
-    3: get ignored if Namespace is a Location
-
+    3: Is ignored if namespace is a location
 
     Returns:
     None
 */
-params ["_namespace", "_varName", "_varContent", ["_global"]];
+params ["_namespace", "_varName", "_varContent", ["_global", false, [false]]];
 if (_namespace isEqualType locationNull) then {
     _namespace setVariable [_varName, _varContent];
 } else {
