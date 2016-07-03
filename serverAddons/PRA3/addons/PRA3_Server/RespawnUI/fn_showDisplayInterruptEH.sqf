@@ -20,10 +20,13 @@
 params ["_display", "_dikCode"];
 if (_dikCode == 1) exitWith {
     _display closeDisplay 1;
+    createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
 
     [{
         (findDisplay 46) createDisplay UIVAR(RespawnScreen);
     }, {!dialog}] call CFUNC(waitUntil);
+
+    true
 };
 
 false
