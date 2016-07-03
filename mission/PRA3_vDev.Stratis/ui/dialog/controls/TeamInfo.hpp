@@ -16,14 +16,14 @@ class PRA3_UI_TeamInfo : RscControlsGroupNoScollbars {
             text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
             x = PX(0.5);
             y = PY(0.75);
-            w = PX(4.5);
+            w = PX(3);
             h = PY(3);
         };
 
         class TeamName : PRA3_H1Text {
             idc = 103;
             text = "US ARMY";
-            x = PX(5.5);
+            x = PX(4);
             y = PY(0.25);
             w = PX(GWIDTH-12);
             h = PY(GHEIGHT-0.5);

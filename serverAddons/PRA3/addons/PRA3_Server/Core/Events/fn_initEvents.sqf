@@ -81,21 +81,21 @@ GVAR(EventNamespace) = call EFUNC(Core,createNamespace);
 }] call FUNC(addEventHandler);
 ["moveInCargo", {
     (_this select 0) params ["_vehicle", "_unit"];
-    if !(local _vehicle && isNull _vehicle) exitWith {
+    if (!(local _vehicle) && !(isNull _vehicle)) exitWith {
         ["moveInCargo", _vehicle, [_vehicle, _unit]] call CFUNC(targetEvent);
     };
     _unit moveInCargo _vehicle;
 }] call FUNC(addEventHandler);
 ["moveInDriver", {
     (_this select 0) params ["_vehicle", "_unit"];
-    if !(local _vehicle && isNull _vehicle) exitWith {
+    if (!(local _vehicle) && !(isNull _vehicle)) exitWith {
         ["moveInDriver", _vehicle, [_vehicle, _unit]] call CFUNC(targetEvent);
     };
     _unit moveInDriver _vehicle;
 }] call FUNC(addEventHandler);
 ["moveInTurret", {
     (_this select 0) params ["_vehicle", "_unit", "_turretPath"];
-    if !(local _vehicle && isNull _vehicle) exitWith {
+    if (!(local _vehicle) && !(isNull _vehicle)) exitWith {
         ["moveInTurret", _vehicle, [_vehicle, _unit, _turretPath]] call CFUNC(targetEvent);
     };
     _unit moveInTurret [_vehicle, _turretPath];
@@ -108,7 +108,7 @@ GVAR(entities) = [];
 
     if !(_entities isEqualTo GVAR(entities)) then {
         {
-            if !(_x getVariable [QGVAR(isProcessed), false] && _x isKindOf "Animal" && _x isKindOf "Logic") then {
+            if !(_x getVariable [QGVAR(isProcessed), false] || _x isKindOf "Animal" || _x isKindOf "Logic") then {
                 ["entityCreated", _x] call CFUNC(localEvent);
                 _x setVariable [QGVAR(isProcessed), true];
             };

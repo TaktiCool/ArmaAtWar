@@ -191,7 +191,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_O_CombatUniform_ocamo";
+        uniform = "U_B_CombatUniform_mcam";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 

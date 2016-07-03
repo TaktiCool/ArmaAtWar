@@ -5,17 +5,16 @@
     Author: joko // Jonas
 
     Description:
-    get Default Variable for Locations
+    Get variable of location with default fallback
 
     Parameter(s):
     0: NameSpace <Any>
-    1: Variable Name <String>
+    1: Variable name <String>
     2: Default <Any>
 
     Returns:
-    Varibale <Any>
+    Variable <Any>
 */
-
 params ["_namespace", "_varName", "_default"];
 
 if !(_namespace isEqualType locationNull) exitWith {

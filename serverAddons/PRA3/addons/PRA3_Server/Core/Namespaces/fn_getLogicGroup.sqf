@@ -14,8 +14,8 @@
     Logic Gruppe <Group>
 */
 
-private _grp = missionNamespace getVariable [QGVAR(logicGroup),grpNull];
-if (isNull _grp) then {
+private _grp = missionNamespace getVariable QGVAR(logicGroup);
+if (isNil "_grp") then {
     _grp = createGroup (createCenter sideLogic);
     missionNamespace setVariable [QGVAR(logicGroup),_grp,true];
 };

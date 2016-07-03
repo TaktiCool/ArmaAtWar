@@ -1,4 +1,4 @@
-class PRA3 {
+class PREFIX {
     class Dependencies {
         class Core {
             require[] = {};
@@ -49,7 +49,7 @@ class PRA3 {
         };
     };
 
-    class PRA3_Extension {
+    class DOUBLE(PREFIX,Extension) {
         version = "0.1";
     };
 };

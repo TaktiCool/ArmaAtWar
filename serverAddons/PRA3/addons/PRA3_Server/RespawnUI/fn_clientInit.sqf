@@ -17,7 +17,7 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
-    setPlayerRespawnTime 10e10; // Prevent respawn
+    setPlayerRespawnTime 10e10;
 
     // Respawn screen may already open by user action
     if (dialog) then {
@@ -50,7 +50,7 @@
         private _leastPlayerSide = sideUnknown;
         private _leastPlayerCount = 999;
         {
-            private _side = call compile _x;
+            private _side = _x;
             private _playerCount = {side group _x == _side} count allPlayers;
             if (_playerCount < _leastPlayerCount) then {
                 _leastPlayerSide = _side;
@@ -59,9 +59,8 @@
             nil
         } count EGVAR(Mission,competingSides);
 
-        // Move the player to the side as temporary unit
-        PRA3_Player setVariable [QCGVAR(tempUnit), true];
-        [_leastPlayerSide, createGroup _leastPlayerSide, [-1000, -1000, 10], true] call CFUNC(respawn);
+        // Move the player to the side
+        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawnNewSide);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
@@ -218,7 +217,6 @@
 }] call CFUNC(addEventHandler);
 
 // Handle the deploy button
-GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
 [UIVAR(RespawnScreen_DeployButton_action), {
     if (alive PRA3_Player && !(PRA3_Player getVariable [QCGVAR(tempUnit), false])) exitWith {
         closeDialog 1;
@@ -226,8 +224,6 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
 
     // We use the mutex to prevent race conditions
     [{
-        if (diag_frameNo == GVAR(lastRespawnFrame)) exitWith {}; //@todo remove this with #29
-
         // Check squad
         if (!((groupId group PRA3_Player) in EGVAR(Squad,squadIds))) exitWith {
             ["You have to join a squad!"] call CFUNC(displayNotification);
@@ -245,29 +241,9 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             ["You have to select a spawnpoint!"] call CFUNC(displayNotification);
         };
 
-        // Check tickets
+        // Get position
         _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
-        EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
-        private _pointDetails = _pointData select (_pointIds find _currentDeploymentPointSelection);
-        private _tickets = _pointDetails select 2;
-        private _deployPosition = _pointDetails select 3;
-        if (_tickets == 0) exitWith {
-            ["Spawn point has no tickets left!"] call CFUNC(displayNotification);
-        };
-
-        // Reduce ticket of deployment point because we spawn there
-        //@todo rewrite with #178
-        if (_tickets > 0) then {
-            _tickets = _tickets - 1;
-            _pointDetails set [2, _tickets];
-            if (_tickets == 0) then {
-                [group PRA3_Player] call EFUNC(Deployment,destroyRally);
-            } else {
-                publicVariable QEGVAR(Deployment,deploymentPoints);
-            };
-            [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-            [QEGVAR(Deployment,updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
-        };
+        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Deployment,prepareSpawn);
 
         closeDialog 1;
 
@@ -275,15 +251,15 @@ GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
             params ["_deployPosition"];
 
             // Spawn
-            [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
 
-            // Fix issue that player spawn Prone
-            ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
+            [{
+                // Fix issue that player spawn Prone
+                ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
 
-            // Apply selected kit
-            [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                // Apply selected kit
+                [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+            }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
-
-        GVAR(lastRespawnFrame) = diag_frameNo;
     }, [], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);

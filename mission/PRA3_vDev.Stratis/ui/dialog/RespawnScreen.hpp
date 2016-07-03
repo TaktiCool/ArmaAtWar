@@ -82,10 +82,10 @@ class PRA3_UI_RespawnScreen {
                 class TeamFlag : RscPicture {
                     idc = 801;
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
-                    x = PX(20-5);
-                    y = PY(0.75);
-                    w = PX(4.5);
-                    h = PY(3);
+                    x = PX(20-4);
+                    y = PY(0.5);
+                    w = PX(3.5);
+                    h = PY(3.5);
                 };
 
                 class TeamFlag2 : TeamFlag {
@@ -100,7 +100,7 @@ class PRA3_UI_RespawnScreen {
                     style = ST_RIGHT;
                     x = PX(1);
                     y = PY(0);
-                    w = PX(13.5);
+                    w = PX(15);
                     h = PY(2.5);
                     sizeEx = PY(2.9);
                     font = "PuristaSemiBold";
@@ -110,7 +110,7 @@ class PRA3_UI_RespawnScreen {
                     idc = 804;
                     text = "CSAT";
                     style = ST_LEFT;
-                    x = PX(20+5.5);
+                    x = PX(20+4);
                     y = PY(0);
                 };
 
@@ -120,14 +120,14 @@ class PRA3_UI_RespawnScreen {
                     style = ST_RIGHT;
                     x = PX(1);
                     y = PY(2.2);
-                    w = PX(13.5);
+                    w = PX(15);
                     h = PY(2);
                 };
 
                 class Tickets2 : Tickets {
                     idc = 806;
                     style = ST_LEFT;
-                    x = PX(20+5.5);
+                    x = PX(20+4);
                 };
             };
         };

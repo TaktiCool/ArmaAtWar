@@ -78,7 +78,13 @@ EPREP(Mutex,mutex)
 // Namespaces
 EPREP(Namespaces,createNamespace)
 EPREP(Namespaces,deleteNamespace)
+
+EPREP(Namespaces,setVariable)
 EPREP(Namespaces,getVariable)
+EPREP(Namespaces,allVariables)
+
+EPREP(Namespaces,setVar)
+
 EPREP(Namespaces,getLogicGroup)
 
 // Notification System
@@ -86,9 +92,9 @@ EPREP(Notification,clientInitNotification)
 EPREP(Notification,displayNotification)
 EPREP(Notification,handleNotificationQueue)
 
-// respawn
-EPREP(Respawn,serverInitRespawn)
+// Respawn
 EPREP(Respawn,respawn)
+EPREP(Respawn,respawnNewSide)
 
 // Settings
 EPREP(Settings,initSettings)
@@ -104,7 +110,8 @@ EPREP(StatusEffects,setStatusEffect)
 EPREP(TeamColorSync,clientInitTeamColorSync)
 
 // Performance Info
-EPREP(PerformanceInfo,postInitPerformance)
+EPREP(PerformanceInfo,clientInitPerformance)
+EPREP(PerformanceInfo,serverInitPerformance)
 EPREP(PerformanceInfo,dumpPerformanceInformation)
 
 // Init

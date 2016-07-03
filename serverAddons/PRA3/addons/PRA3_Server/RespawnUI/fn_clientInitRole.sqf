@@ -29,6 +29,10 @@
     [UIVAR(RespawnScreen_RoleManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
+["leaderChanged", {
+    [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
 [UIVAR(RespawnScreen_RoleManagement_update), {
     if (!dialog) exitWith {};
 
@@ -89,8 +93,8 @@
     private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // Get the kit data
-    private _selectedTabIndex = (lbCurSel 304);
-    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "secondaryWeapon", "handGunWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
+    private _selectedTabIndex = lbCurSel 304;
+    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
 
     // WeaponPicture
     ctrlSetText [306, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture")];
