@@ -24,6 +24,8 @@ if (PRA3_Player getVariable [QGVAR(tempUnit), false]) then {
 
 if (!alive PRA3_Player) then {
     // This will cause one frame delay until new unit is available
+    GVAR(respawnPosition) = _targetPosition;
+    PRA3_Player addMPEventHandler ["MPRespawn", {GVAR(respawnPosition)}];
     setPlayerRespawnTime 0;
 
     [{
@@ -36,9 +38,6 @@ if (!alive PRA3_Player) then {
             ["enableSimulation", [PRA3_Player, false]] call CFUNC(serverEvent);
             ["hideObject", [PRA3_Player, true]] call CFUNC(serverEvent);
         };
-
-        PRA3_Player setDir (random 360);
-        PRA3_Player setPosASL _targetPosition;
 
         // Respawn event is triggered by engine
         ["MPRespawn", [PRA3_Player, _oldPlayer]] call CFUNC(globalEvent);
