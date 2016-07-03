@@ -17,14 +17,16 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
-    setPlayerRespawnTime 10e10;
+    [[-10000, -10000, 50], true] call CFUNC(respawn);
 
-    // Respawn screen may already open by user action
-    if (dialog) then {
-        closeDialog 2;
-    };
+    [{
+        // Respawn screen may already open by user action
+        if (dialog) then {
+            closeDialog 2;
+        };
 
-    createDialog UIVAR(RespawnScreen);
+        createDialog UIVAR(RespawnScreen);
+    }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
