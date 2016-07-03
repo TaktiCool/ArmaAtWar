@@ -27,14 +27,14 @@ class ScrollBar {
  * BASE CONTROLS
  */
 #define FONTCONTROL font = "PuristaMedium";\
-sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";\
-text = ""\
-colorText[] = COLOR_WHITE;\
-colorShadow[] = {0,0,0,0.5};
+    sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";\
+    text = ""\
+    colorText[] = COLOR_WHITE;\
+    colorShadow[] = {0,0,0,0.5};
 
 #define TOOLTIPCONTROL tooltipColorText[] = COLOR_WHITE;\
-tooltipColorBox[] = COLOR_WHITE;\
-tooltipColorShade[] = {0,0,0,0.65};
+    tooltipColorBox[] = COLOR_WHITE;\
+    tooltipColorShade[] = {0,0,0,0.65};
 
 // ControlsGroup
 class RscControlsGroup {
