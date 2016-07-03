@@ -12,7 +12,6 @@
     1: Group Data <ARRAY>
     2: Group Layer <NUMBER>
     3: State <STRING>
-    4: Code <Code> called every frame
 
     Remarks:
     Group Data is defined as <ARRAY> of GraphicsElements of following Structure:
@@ -54,6 +53,7 @@
     Class = "POLYGON":
         1: Positions <Array> of MapGraphicsPosition
         2: Line Color <Array> [r,g,b,a]
+    last element: Code <Code> called every frame
 
 
     TYPE <MapGraphicsPosition>:
@@ -62,7 +62,7 @@
     Returns:
     None
 */
-params ["_groupName", "_groupData", ["_layer",0], ["_state","normal"], ["_code",{}]];
+params ["_groupName", "_groupData", ["_layer",0], ["_state","normal"]];
 
 // Compete the data for the map graphics cache
 private _completeGroupData = [];
@@ -82,7 +82,8 @@ private _completeGroupData = [];
                 ["_shadow", 0],
                 ["_textSize", 0.08],
                 ["_font", "PuristaMedium"],
-                ["_align","right"]
+                ["_align","right"],
+                ["_code",{}]
             ];
             _completeGroupData pushBack [_class, _texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align, _code];
         };
@@ -93,9 +94,10 @@ private _completeGroupData = [];
                 ["_height", 25,[0,[]]],
                 ["_angle", 0,[0,objNull]],
                 ["_lineColor",[0, 0, 0, 1]],
-                ["_fillColor",[0, 0, 0, 1]]
+                ["_fillColor",[0, 0, 0, 1]],
+                ["_code",{}]
             ];
-            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor];
+            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor, _code];
         };
         case ("ELLIPSE"): {
             _attributes params [
@@ -104,32 +106,36 @@ private _completeGroupData = [];
                 ["_height", 25,[0,[]]],
                 ["_angle", 0,[0,objNull]],
                 ["_lineColor",[0, 0, 0, 1]],
-                ["_fillColor",[0, 0, 0, 1]]
+                ["_fillColor",[0, 0, 0, 1]],
+                ["_code",{}]
             ];
-            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor];
+            _completeGroupData pushBack [_class, _position, _width, _height, _angle, _lineColor, _fillColor, _code];
         };
         case ("LINE"): {
             _attributes params [
                 ["_position1", objNull, [[], objNull]],
                 ["_position2", objNull, [[], objNull]],
-                ["_color",[0, 0, 0, 1]]
+                ["_color",[0, 0, 0, 1]],
+                ["_code",{}]
             ];
-            _completeGroupData pushBack [_class, _position1, _position2, _color];
+            _completeGroupData pushBack [_class, _position1, _position2, _color, _code];
         };
         case ("ARROW"): {
             _attributes params [
                 ["_position1", objNull, [[], objNull]],
                 ["_position2", objNull, [[], objNull]],
-                ["_color",[0, 0, 0, 1]]
+                ["_color",[0, 0, 0, 1]],
+                ["_code",{}]
             ];
-            _completeGroupData pushBack [_class, _position1, _position2, _color];
+            _completeGroupData pushBack [_class, _position1, _position2, _color, _code];
         };
         case ("POLYGON"): {
             _attributes params [
                 ["_polygon", []],
-                ["_color",[0, 0, 0, 1]]
+                ["_color",[0, 0, 0, 1]],
+                ["_code",{}]
             ];
-            _completeGroupData pushBack [_class, _polygon, _color];
+            _completeGroupData pushBack [_class, _polygon, _color, _code];
         };
     };
 
@@ -143,8 +149,9 @@ if (_stateNum == -1) then {
 };
 
 // save the data
-private _currentIcon = [GVAR(MapGraphicsGroup), _groupName, [_layer, 0, [],[],[]]] call FUNC(getVariable);
-_currentIcon set [_stateNum + 2, _completeGroupData];
-GVAR(MapGraphicsGroup) setVariable [_id, _currentIcons];
+private _currentIcon = [GVAR(MapGraphicsGroup), _groupName, [_layer, 0, 0, [],[],[]]] call FUNC(getVariable);
+_currentIcon set [_stateNum + 3, _completeGroupData];
+_currentIcon set [1, diag_tickTime];
+[GVAR(MapGraphicsGroup), _groupName, _currentIcon] call FUNC(setVariable);
 // increment map graphics cache
 GVAR(MapGraphicsCacheRebuildFlag) = GVAR(MapGraphicsCacheRebuildFlag) + 1;

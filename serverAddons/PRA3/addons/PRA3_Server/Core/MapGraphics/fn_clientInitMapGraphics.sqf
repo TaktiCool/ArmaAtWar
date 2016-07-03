@@ -21,7 +21,7 @@ with uiNamespace do {
 
 //Namespace for Layer
 GVAR(MapGraphicsGroup) = call FUNC(createNamespace);
-GVAR(MapGraphicsGroupIndex) = [];
 
 //Render Cache
 GVAR(MapGraphicsCacheBuildFlag) = 0; // Should be incremented for each rebuild
+GVAR(MapGraphicsCache) = [];
