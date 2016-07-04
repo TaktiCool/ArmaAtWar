@@ -24,4 +24,7 @@ GVAR(MapGraphicsGroup) = call FUNC(createNamespace);
 
 //Render Cache
 GVAR(MapGraphicsCacheBuildFlag) = 0; // Should be incremented for each rebuild
+GVAR(MapGraphicsCacheVersion) = 0;
 GVAR(MapGraphicsCache) = [];
+
+GVAR(MapGraphicsGeometryCache) = [];

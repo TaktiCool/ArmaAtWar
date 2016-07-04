@@ -19,13 +19,20 @@
 params ["_map"];
 
 private _mapScale = ctrlMapScale _map;
+private _cache = [];
+
+if (GVAR(MapGraphicsCacheVersion) != GVAR(MapGraphicsCacheBuildFlag)) then {
+    GVAR(MapGraphicsCacheVersion) = GVAR(MapGraphicsCacheBuildFlag);
+    call FUNC(buildMapGraphicsCache);
+};
 // iterate through all mapGraphic objects
 {
     private _state = _x select 2;
     private _group = _x select (3 + _state);
 
     {
-        private _iconData = _x;
+        private _groupId = _x select 0;
+        private _iconData = _x select 1;
         private _type = _iconData select 0;
 
 
@@ -46,6 +53,7 @@ private _mapScale = ctrlMapScale _map;
                 };
 
                 _map drawIcon [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
+                _cache pushBack [_groupId, _position, _width, _height, _angle];
             };
             case ("RECTANGLE"): {
                 _iconData params ["_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
@@ -58,6 +66,7 @@ private _mapScale = ctrlMapScale _map;
                 _position = [_position, _map] call CFUNC(mapGraphicsPosition);
 
                 _map drawRectangle [_position, _width, _height, _angle, _lineColor, _fillColor];
+                _cache pushBack [_groupId, _position, _width, _height, _angle];
             };
             case ("ELLIPSE"): {
                 _iconData params ["_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
@@ -70,6 +79,7 @@ private _mapScale = ctrlMapScale _map;
                 _position = [_position, _map] call CFUNC(mapGraphicsPosition);
 
                 _map drawEllipse [_position, _width, _height, _angle, _lineColor, _fillColor];
+                _cache pushBack [_groupId, _position, _width, _height, _angle];
             };
             case ("LINE"): {
                 _iconData params ["_pos1", "_pos2", "_lineColor", "_code"];
@@ -104,3 +114,5 @@ private _mapScale = ctrlMapScale _map;
 
     nil
 } count GVAR(MapGraphicsCache);
+
+GVAR(MapGraphicsGeometryCache) = _cache;

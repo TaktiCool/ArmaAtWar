@@ -19,9 +19,9 @@ private _cache = [];
 {
     private _graphicsGroupId = _x;
     private _graphicsGroup = GVAR(MapGraphicsGroup) getVariable _graphicsGroupId;
-    _cache pushBack _graphicsGroup;
+    _cache pushBack [_graphicsGroupId, _graphicsGroup];
     nil;
-} count ([GVAR(MapGraphicsGroupIndex)] call CFUNC(allVariables));
+} count ([GVAR(MapGraphicsGroup)] call CFUNC(allVariables));
 
 _cache sort true;
 
