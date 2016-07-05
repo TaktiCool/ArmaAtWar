@@ -24,7 +24,7 @@
     [group PRA3_Player] call FUNC(destroyRally);
 
     private _pointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
-    _pointObjects = _squadRallyPointObjects apply {
+    _pointObjects = _pointObjects apply {
         _x params ["_type", "_offset"];
 
         private _objPosition = _position vectorAdd _offset;
