@@ -20,4 +20,10 @@ class cfgLogistic {
         displayName = "Heavy Ammo Box";
         content[] = {{"RPG32_F", 6}, {"Titan_AT", 2}, {"Titan_AA", 2}};
     };
+
+    class FOBBox {
+        displayName = "FOB Box";
+        classname = "O_CargoNet_01_ammo_F";
+        content[] = {};
+    };
 };

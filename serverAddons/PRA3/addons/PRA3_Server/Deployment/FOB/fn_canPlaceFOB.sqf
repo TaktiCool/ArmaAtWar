@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    Checks if rally is placeable
+    Checks if FOB is placeable
 
     Parameter(s):
     None
@@ -19,19 +19,8 @@ if (leader PRA3_Player != PRA3_Player) exitWith {false};
 // Check vehicle
 if (vehicle PRA3_Player != PRA3_Player) exitWith {false};
 
-// Check time
-private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);
-private _lastRallyPlaced = (group PRA3_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
-if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
-
-// Check near players
-private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
-private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
-private _count = {(group _x) == (group PRA3_Player)} count (nearestObjects [PRA3_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
-if (_count < _nearPlayerToBuild) exitWith {false};
-
 // Check near DPs
-private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
+private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting); //@todo use FOB specific setting
 private _rallyNearPlayer = false;
 {
     private _pointDetails = GVAR(pointStorage) getVariable _x;
