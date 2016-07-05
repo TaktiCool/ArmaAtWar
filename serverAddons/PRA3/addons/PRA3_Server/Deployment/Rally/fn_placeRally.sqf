@@ -16,12 +16,12 @@
 [{
     if (!(call FUNC(canPlaceRally))) exitWith {};
 
-    [group PRA3_Player] call FUNC(destroyRally);
-
     private _position = [PRA3_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (PRA3_Player distance _position >= 20) exitWith {
         ["You can not place a rallypoint at this position"] call CFUNC(displayNotification);
     };
+
+    [group PRA3_Player] call FUNC(destroyRally);
 
     private _squadRallyPointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
     _squadRallyPointObjects = _squadRallyPointObjects apply {
