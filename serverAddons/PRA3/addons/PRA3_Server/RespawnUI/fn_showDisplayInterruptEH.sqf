@@ -46,6 +46,6 @@ _control ctrlSetText "ABORT";
         private _controlGroup = _display displayCtrl (_i * 100);
         _controlGroup ctrlShow true;
     };
-}, {!dialog && !GVAR(missionEnded)}, _display] call CFUNC(waitUntil);
+}, {!dialog}, _display] call CFUNC(waitUntil);
 
 true
