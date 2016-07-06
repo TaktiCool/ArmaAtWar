@@ -13,7 +13,11 @@
     Returns:
     None
 */
+params ["_target"];
+
 [{
+    params ["_target"];
+
     if (!(call FUNC(canPlaceFOB))) exitWith {};
 
     private _position = [PRA3_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
@@ -34,8 +38,10 @@
         _obj
     };
 
+    deleteVehicle _target;
+
     private _text = [_position] call CFUNC(getNearestLocationName);
     private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call FUNC(addPoint);
 
     ["displayNotification", playerSide, [format["Squad %1 placed a FOB near %2", groupId (group PRA3_Player), _text]]] call CFUNC(targetEvent);
-}, [], "respawn"] call CFUNC(mutex);
+}, [_target], "respawn"] call CFUNC(mutex);
