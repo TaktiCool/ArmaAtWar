@@ -22,5 +22,5 @@
     [QGVAR(isFOBPlaceable), FUNC(canPlaceFOB), [], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall);
 }, {
     QGVAR(ClearFOBPlaceable) call CFUNC(localEvent);
-    call FUNC(placeFOB);
+    [_target] call FUNC(placeFOB);
 }] call CFUNC(addAction);
