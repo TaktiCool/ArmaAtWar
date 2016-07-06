@@ -134,7 +134,7 @@
 // Alternative notification display
 ["notificationDisplayed", {
     private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
-    if (isNull _display) exitWith {};
+    if (isNull _display || dialog) exitWith {};
 
     (_this select 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
 
