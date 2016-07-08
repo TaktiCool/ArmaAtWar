@@ -13,7 +13,7 @@
     Returns:
     None
 */
-[QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
+[QGVAR(Rally), missionConfigFile >> "PRA3" >> "cfgSquadRallyPoint"] call CFUNC(loadSettings);
 
 [QGVAR(pointRemoved), {
     (_this select 0) params ["_pointId"];
