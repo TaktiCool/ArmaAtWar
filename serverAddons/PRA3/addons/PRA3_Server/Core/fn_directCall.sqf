@@ -21,5 +21,5 @@ if !(canSuspend) exitWith {
 };
 isNil {
     _PRA_return = _PRA3_arguments call _PRA3_code
-}
+};
 if !(isNil "_PRA_return") then {_PRA_return};
