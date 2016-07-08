@@ -100,6 +100,11 @@ if (_forceCount >= _minUnits && _diff > 0) then {
     _captureRate = 0;
 };
 
+// Reset Progress when a new attacker is capturing neutral sector
+if (_side == sideUnknown && ((str _attackerSide) != _lastAttackerSide)) then {
+    _captureProgress = 0;
+};
+
 // Update current capture progress
 _captureProgress = _captureProgress + (_tick-_lastTick)*_captureRate;
 

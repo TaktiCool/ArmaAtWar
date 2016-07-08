@@ -14,6 +14,26 @@
     None
 */
 
+DFUNC(checkTicketBleed) = {
+    // Check for Ticket Bleed
+    private _sectorOwner = EGVAR(Sector,allSectorsArray) apply {
+        _x getVariable ["side",sideUnknown]};
+
+    if (sideUnknown in _sectorOwner) exitWith {sideUnknown};
+
+    private _nbrOwnedSectors = EGVAR(Mission,competingSides) apply {
+        private _side = _x;
+        [{_x == _side} count _sectorOwner, _side];
+    };
+
+    _nbrOwnedSectors sort true;
+
+    private _looser = _nbrOwnedSectors select 0;
+    if ((_looser select 0) > 1) exitWith {sideUnknown};
+
+    _looser select 1;
+};
+
 
 GVAR(deactivateTicketSystem) = false;
 ["playEndMusic", {
@@ -93,6 +113,31 @@ GVAR(deactivateTicketSystem) = false;
                 };
             };
 
+            // Check for Ticket Bleed
+            private _looser = call FUNC(checkTicketBleed);
+
+            if (_looser != sideUnknown) then {
+                [{
+                    (_this select 0) params ["_side"];
+                    private _id = (_this select 1);
+
+                    private _looser = call FUNC(checkTicketBleed);
+
+                    if (_looser != _side) exitWith {
+                        [_id] call CFUNC(removePerFrameHandler);
+                    };
+
+                    private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _side];
+                    _tickets = _tickets - (GVAR(ticketBleed) select 1);
+                    missionNamespace setVariable [format [QGVAR(sideTickets_%1), _side], _tickets];
+                    publicVariable (format [QGVAR(sideTickets_%1), _side]);
+                    "ticketsChanged" call CFUNC(globalEvent);
+                }, GVAR(ticketBleed) select 0, [_looser]] call CFUNC(addPerFrameHandler);
+
+            };
+
+
+            /*
             private _looserSide = sideUnknown;
             private _nbrOwnedSectors = {
                 private _condition = !((_x getVariable ["side",sideUnknown]) in [_newSide]);
@@ -126,6 +171,8 @@ GVAR(deactivateTicketSystem) = false;
 
                 }, GVAR(ticketBleed) select 0, [_looserSide, _newSide]] call CFUNC(addPerFrameHandler);
             };
+
+            */
         }] call CFUNC(addEventhandler);
 
 
