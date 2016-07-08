@@ -17,6 +17,8 @@
 params ["_params", "_pfhId"];
 _params params ["_sector"];
 
+private _side = _sector getVariable ["side",sideUnknown];
+
 // if sector is not active (e.g. dependencies are not fulfilled )
 if !(_sector getVariable ["isActive", false]) exitWith {
     // if sector is neutral and is being captured
@@ -48,7 +50,6 @@ private _lastCaptureRate = _captureRate;
 private _captureProgress = _sector getVariable ["captureProgress",1];
 private _lastCaptureProgress = _captureProgress;
 private _minUnits = _sector getVariable ["minUnits",1];
-private _side = _sector getVariable ["side",sideUnknown];
 private _lastSide = _side;
 private _attackerSide = _sector getVariable ["attackerSide",sideUnknown];
 private _lastAttackerSide = str _attackerSide;
