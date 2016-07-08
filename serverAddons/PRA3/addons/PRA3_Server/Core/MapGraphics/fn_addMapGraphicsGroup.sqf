@@ -62,13 +62,13 @@
     Returns:
     None
 */
-params ["_groupName", "_groupData", ["_layer",0], ["_state","normal"]];
+params ["_groupName", "_groupData", ["_state","normal"], ["_layer",0]];
 
 // Compete the data for the map graphics cache
 private _completeGroupData = [];
 {
     _x params ["_class"];
-    private _attributes = _x select [1];
+    private _attributes = _x select [1, count _x - 1];
     switch (_class) do {
         case ("ICON"): {
             _attributes params [
@@ -154,4 +154,4 @@ _currentIcon set [_stateNum + 3, _completeGroupData];
 _currentIcon set [1, diag_tickTime];
 [GVAR(MapGraphicsGroup), _groupName, _currentIcon] call FUNC(setVariable);
 // increment map graphics cache
-GVAR(MapGraphicsCacheRebuildFlag) = GVAR(MapGraphicsCacheRebuildFlag) + 1;
+GVAR(MapGraphicsCacheBuildFlag) = GVAR(MapGraphicsCacheBuildFlag) + 1;

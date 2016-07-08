@@ -70,6 +70,7 @@ EPREP(MapGraphics,registerMapControl)
 EPREP(MapGraphics,removeMapGraphicsEventHandler)
 EPREP(MapGraphics,removeMapGraphicsGroup)
 EPREP(MapGraphics,unregisterMapControl)
+EPREP(MapGraphics,triggerMapGraphicsEvent)
 
 // Mutex
 EPREP(Mutex,initClientMutex)

@@ -28,3 +28,7 @@ GVAR(MapGraphicsCacheVersion) = 0;
 GVAR(MapGraphicsCache) = [];
 
 GVAR(MapGraphicsGeometryCache) = [];
+
+[{
+    ((findDisplay 12) displayCtrl 51) call FUNC(registerMapControl);
+}, {!(isNull ((findDisplay 12) displayCtrl 51))}] call FUNC(waitUntil);

@@ -3,14 +3,14 @@
     Project Reality ArmA 3
 
     Author: joko // Jonas
-    
+
     Description:
     Remove a Map Icon Draw Event
 
     Parameter(s):
-    0: Icon Id <String>
-    1: Icon Event Name <String>
-    2: Event ID <Number>
+    0: Group Name <String>
+    1: Event Name <String>
+    2: Event ID (optional) <Number>
 
     Returns:
     None
@@ -24,3 +24,5 @@ private _namespace = missionNamespace getVariable _eventNameSpace;
 private _eventArray = [_namespace, _uid, []] call FUNC(getVariable);
 if (count _eventArray >= _id) exitWith {};
 _eventArray set [_id, nil];
+
+GVAR(MapGraphicsCacheBuildFlag) = GVAR(MapGraphicsCacheBuildFlag) + 1;

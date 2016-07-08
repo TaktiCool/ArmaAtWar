@@ -16,15 +16,15 @@
     Returns:
     None
 */
-params ["_control", "_xPos", "_yPos", "_mousePos"];
+params ["_control", "_xPos", "_yPos", "_mouseOver"];
 
-private _nearestIcon = [_control, _xPos, _yPos] call FUNC(nearestGroup);
+private _nearestIcon = [_control, _xPos, _yPos] call FUNC(nearestMapGraphicsGroup);
 {
     private _icon = GVAR(MapGraphicsGroup) getVariable _x;
     if ((_icon select 2) == 1 && _nearestIcon != _x) then {
         _icon set [2, 0];
         GVAR(MapGraphicsGroup) setVariable [_x, _icon];
-        [_x, "hoverout", [_control, _xPos, _yPos]] call FUNC(triggerMapIconEvent);
+        [_x, "hoverout", [_control, _xPos, _yPos]] call FUNC(triggerMapGraphicsEvent);
         GVAR(MapGraphicsCacheBuildFlag) = GVAR(MapGraphicsCacheBuildFlag) + 1;
     };
     nil;
@@ -37,6 +37,6 @@ private _icon = GVAR(MapGraphicsGroup) getVariable _nearestIcon;
 if ((_icon select 2) < 1) then {
     _icon set [2, 1];
     GVAR(MapGraphicsGroup) setVariable [_nearestIcon, _icon];
-    [_nearestIcon, "hoverin", [_control, _xPos, _yPos]] call FUNC(triggerMapIconEvent);
+    [_nearestIcon, "hoverin", [_control, _xPos, _yPos]] call FUNC(triggerMapGraphicsEvent);
     GVAR(MapGraphicsCacheBuildFlag) = GVAR(MapGraphicsCacheBuildFlag) + 1;
 };

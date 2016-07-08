@@ -27,90 +27,82 @@ if (GVAR(MapGraphicsCacheVersion) != GVAR(MapGraphicsCacheBuildFlag)) then {
 };
 // iterate through all mapGraphic objects
 {
-    private _state = _x select 2;
-    private _group = _x select (3 + _state);
+    _x params ["_layer","_timestamp","_groupId"];
+    private _iconData = _x select [3, count _x - 3];
 
-    {
-        private _groupId = _x select 0;
-        private _iconData = _x select 1;
-        private _type = _iconData select 0;
+    switch (_iconData select 0) do {
+        case ("ICON"): {
+            _iconData params ["_type", "_texture", "_color", "_position", "_width", "_height", "_angle", "_text", "_shadow", "_textSize", "_font", "_align", "_code"];
+            call _code;
 
-
-        switch (_type) do {
-            case ("ICON"): {
-                _iconData params ["_type", "_texture", "_color", "_position", "_width", "_height", "_angle", "_text", "_shadow", "_textSize", "_font", "_align", "_code"];
-                call _code;
-
-                if (_align isEqualType objNull) then {
-                    _align = getDirVisual _align;
-                };
-
-                _position = [_position, _map] call CFUNC(mapGraphicsPosition);
-
-                if (_mapScale < 0.1) then {
-                    private _fontScale = (_mapScale/0.1) max 0.5;
-                    _iconPart set [8, (_iconPart select 8)*_fontScale];
-                };
-
-                _map drawIcon [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
-                _cache pushBack [_groupId, _position, _width, _height, _angle];
+            if (_angle isEqualType objNull) then {
+                _angle = getDirVisual _angle;
             };
-            case ("RECTANGLE"): {
-                _iconData params ["_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
-                call _code;
 
-                if (_align isEqualType objNull) then {
-                    _align = getDirVisual _align;
-                };
+            _position = [_position, _map] call CFUNC(mapGraphicsPosition);
 
-                _position = [_position, _map] call CFUNC(mapGraphicsPosition);
-
-                _map drawRectangle [_position, _width, _height, _angle, _lineColor, _fillColor];
-                _cache pushBack [_groupId, _position, _width, _height, _angle];
+            if (_mapScale < 0.1) then {
+                _textSize = _textSize*((_mapScale/0.1) max 0.5);
             };
-            case ("ELLIPSE"): {
-                _iconData params ["_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
-                call _code;
 
-                if (_align isEqualType objNull) then {
-                    _align = getDirVisual _align;
-                };
-
-                _position = [_position, _map] call CFUNC(mapGraphicsPosition);
-
-                _map drawEllipse [_position, _width, _height, _angle, _lineColor, _fillColor];
-                _cache pushBack [_groupId, _position, _width, _height, _angle];
-            };
-            case ("LINE"): {
-                _iconData params ["_pos1", "_pos2", "_lineColor", "_code"];
-                call _code;
-
-                _pos1 = [_pos1, _map] call CFUNC(mapGraphicsPosition);
-                _pos2 = [_pos2, _map] call CFUNC(mapGraphicsPosition);
-
-                _map drawLine [_pos1, _pos2, _lineColor];
-            };
-            case ("ARROW"): {
-                _iconData params ["_pos1", "_pos2", "_lineColor", "_code"];
-                call _code;
-
-                _pos1 = [_pos1, _map] call CFUNC(mapGraphicsPosition);
-                _pos2 = [_pos2, _map] call CFUNC(mapGraphicsPosition);
-
-                _map drawLine [_pos1, _pos2, _lineColor];
-            };
-            case ("ARROW"): {
-                _iconData params ["_positions", "_lineColor", "_code"];
-                call _code;
-                {
-                    _positions set [_forEachIndex, [_x, _map] call CFUNC(mapGraphicsPosition)];
-                } forEach _positions;
-
-                _map drawLine [_positions, _lineColor];
-            };
+            _map drawIcon [_texture, _color, _position, _width, _height, _angle, _text, _shadow, _textSize, _font, _align];
+            _cache pushBack [_groupId, _position, _width*6*_mapscale, _height*6*_mapscale, _angle, true];
         };
-        nil
-    } count _group;
+        case ("RECTANGLE"): {
+            _iconData params ["_type","_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
+            call _code;
+
+            if (_angle isEqualType objNull) then {
+                _angle = getDirVisual _angle;
+            };
+
+            _position = [_position, _map] call CFUNC(mapGraphicsPosition);
+
+            _map drawRectangle [_position, _width, _height, _angle, _lineColor, _fillColor];
+            _cache pushBack [_groupId, _position, _width, _height, _angle, true];
+        };
+        case ("ELLIPSE"): {
+            _iconData params ["_type","_position", "_width", "_height", "_angle", "_lineColor", "_fillColor", "_code"];
+            call _code;
+
+            if (_angle isEqualType objNull) then {
+                _angle = getDirVisual _angle;
+            };
+
+            _position = [_position, _map] call CFUNC(mapGraphicsPosition);
+
+            _map drawEllipse [_position, _width, _height, _angle, _lineColor, _fillColor];
+            _cache pushBack [_groupId, _position, _width, _height, _angle, false];
+        };
+        case ("LINE"): {
+            _iconData params ["_type","_pos1", "_pos2", "_lineColor", "_code"];
+            call _code;
+
+            _pos1 = [_pos1, _map] call CFUNC(mapGraphicsPosition);
+            _pos2 = [_pos2, _map] call CFUNC(mapGraphicsPosition);
+
+            _map drawLine [_pos1, _pos2, _lineColor];
+        };
+        case ("ARROW"): {
+            _iconData params ["_type","_pos1", "_pos2", "_lineColor", "_code"];
+            call _code;
+
+            _pos1 = [_pos1, _map] call CFUNC(mapGraphicsPosition);
+            _pos2 = [_pos2, _map] call CFUNC(mapGraphicsPosition);
+
+            _map drawArrow [_pos1, _pos2, _lineColor];
+        };
+        case ("POLYGON"): {
+            _iconData params ["_type","_positions", "_lineColor", "_code"];
+            call _code;
+            private _temp = _positions apply {
+                [_x, _map] call CFUNC(mapGraphicsPosition);
+            };
+
+            _map drawPolygon [_temp, _lineColor];
+        };
+    };
+
 
     nil
 } count GVAR(MapGraphicsCache);

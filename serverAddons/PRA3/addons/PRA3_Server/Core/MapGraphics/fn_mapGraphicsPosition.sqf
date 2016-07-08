@@ -20,8 +20,8 @@
 params ["_position"];
 
 if (_position isEqualType [] && {(_position select 1) isEqualType []}) then {
-    private _pos = _position select 0;
-    private _offset = _position select 1;
+    _position params ["_pos", "_offset"];
+
     if (_pos isEqualType objNull) then {
         _pos = getPosVisual _pos;
     };
@@ -32,7 +32,7 @@ if (_position isEqualType [] && {(_position select 1) isEqualType []}) then {
 };
 
 if (_position isEqualType objNull) then {
-    _position getPosVisual _position;
+    _position = getPosVisual _position;
 };
 
 _position
