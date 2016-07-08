@@ -22,5 +22,11 @@
     [QGVAR(isFOBPlaceable), FUNC(canPlaceFOB), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall);
 }, {
     QGVAR(ClearFOBPlaceable) call CFUNC(localEvent);
-    [_target] call FUNC(placeFOB);
+    [_this select 0] call FUNC(placeFOB);
+}] call CFUNC(addAction);
+
+["Take down FOB", "CargoNet_01_ammo_base_F", 3, {
+    (_target getVariable [QGVAR(pointId), ""]) != ""
+}, {
+    [_this select 0] call FUNC(destroyFOB);
 }] call CFUNC(addAction);

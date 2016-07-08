@@ -15,4 +15,5 @@ EPREP(Rally,canPlaceRally)
 // FOB system
 EPREP(FOB,clientInitFOB)
 EPREP(FOB,placeFOB)
+EPREP(FOB,destroyFOB)
 EPREP(FOB,canPlaceFOB)
