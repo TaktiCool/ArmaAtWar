@@ -9,7 +9,7 @@ class PRA3_UI_PerformanceStatus {
     duration = 1e11;
     onLoad = "uiNamespace setVariable ['PRA3_UI_PerformanceStatus', _this select 0];";
     class Controls {
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 9000;
             x = safeZoneX + safeZoneW - PX(12);
             y = 0.5 - PY(5);
@@ -31,7 +31,7 @@ class PRA3_UI_PerformanceStatus {
                     y = PY(3.2 + 1);
                 };
 
-                class FrameChartGroup : RscControlsGroupNoScollbars {
+                class FrameChartGroup : RscControlsGroupNoScrollbars {
                     idc = 9100;
                     x = PX(0);
                     y = PY((3.2 + 1) * 2);

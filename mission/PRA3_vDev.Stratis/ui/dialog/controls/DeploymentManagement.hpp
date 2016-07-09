@@ -1,24 +1,29 @@
 #undef GHEIGHT
 #undef GWIDTH
 #define GWIDTH 40
-#define GHEIGHT 27.5
+#define GHEIGHT 37
 
-
-class PRA3_UI_DeploymentManagement : RscControlsGroupNoScollbars {
+class PRA3_UI_DeploymentManagement : RscControlsGroupNoScrollbars {
     idc = 400;
     x = safeZoneX + safeZoneW - PX(40);
-    y = safeZoneY;
+    y = PY(71) + safeZoneY;
     w = PX(GWIDTH);
     h = PY(GHEIGHT);
-
     fade = 1;
 
     class Controls {
+        class Background : RscPicture {
+            idc = 499;
+            text = "#(argb,8,8,3)color(0,0,0,0.8)";
+            x = PX(0);
+            y = PY(0);
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+        };
         class HeadingBackground : PRA3_RscHeaderBackground {
             idc = 401;
             y = PY(0);
         };
-
         class Heading : PRA3_H2Text {
             idc = 402;
             text = "DEPLOYMENT";
@@ -27,7 +32,6 @@ class PRA3_UI_DeploymentManagement : RscControlsGroupNoScollbars {
             w = PX(GWIDTH-1);
             h = PY(3);
         };
-
         class SpawnPointList : PRA3_RscListNBox {
             idc = 403;
             x = PX(0);
@@ -38,6 +42,17 @@ class PRA3_UI_DeploymentManagement : RscControlsGroupNoScollbars {
             columns[] = {0,0.075,0.875};
 
             onLBSelChanged = "'PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
+        };
+        class DeployButton : PRA3_RscButtonMenu_Colored {
+            idc = 404;
+            text = "DEPLOY";
+            sizeEx = PY(4);
+            x = PX(0);
+            y = PY(GHEIGHT - 6);
+            w = PX(GWIDTH);
+            h = PY(6);
+            colorText[] = {0,0,0,1};
+            action = "'PRA3_UI_RespawnScreen_DeployButton_action' call PRA3_Core_fnc_localEvent;";
         };
     };
 };

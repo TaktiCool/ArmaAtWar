@@ -2,7 +2,7 @@
 /*
     Project Reality ArmA 3
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
     Save Data from lnb Data
@@ -14,9 +14,7 @@
     Returns:
     Variable from lnbData <Any>
 */
-disableSerialization;
-params ["_idc", "_rowAndColum"];
-private _hash = lnbValue [_idc,_rowAndColum];
-if (count GVAR(allVariablesCache) >= _hash) then {
-    GVAR(allVariablesCache) select _hash;
-};
+params ["_control", "_rowAndColumn"];
+
+private _index = _control lnbValue _rowAndColumn;
+GVAR(lnbDataDataCache) getVariable (str _index);

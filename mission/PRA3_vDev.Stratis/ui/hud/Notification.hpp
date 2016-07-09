@@ -3,7 +3,7 @@ class PRA3_UI_Notification {
     duration = 1e11;
     onLoad = "uiNamespace setVariable ['PRA3_UI_Notification', _this select 0];";
     class Controls {
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 4000;
             x = 0.5 - PX(25);
             y = PY(4.5) + safeZoneY;
