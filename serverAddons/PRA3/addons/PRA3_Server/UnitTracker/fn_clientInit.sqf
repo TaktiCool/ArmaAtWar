@@ -24,7 +24,7 @@ DFUNC(updateIcons) = {
     GVAR(blockUpdate) = true;
     [{
         {
-            [_x] call CFUNC(removeMapIcon);
+            [_x] call CFUNC(removeMapGraphicsGroup);
             nil
         } count GVAR(currentIcons);
         {

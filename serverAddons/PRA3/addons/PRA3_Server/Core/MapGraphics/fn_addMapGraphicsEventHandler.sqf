@@ -12,7 +12,7 @@
     1: Icon Event Name <String>
     2: Code that get Executed on this Event <Code or String>
     3: Arugments that get return in the Event <Any>
-
+    
     Returns:
     ID of the Event <Number>
 */

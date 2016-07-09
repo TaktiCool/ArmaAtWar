@@ -34,11 +34,11 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
 
     private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo group _newUnit);
 
-    private _manIcon = [_newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, _newUnit, "", 1];
-    private _manDescription = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 0, name _newUnit, 2];
+    private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1];
+    private _manDescription = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 20, 0, name _newUnit, 2];
 
-    [_iconId, [_manIcon]] call CFUNC(addMapIcon);
-    [_iconId, [_manIcon, _manDescription], "hover"] call CFUNC(addMapIcon);
+    [_iconId, [_manIcon]] call CFUNC(addMapGraphicsGroup);
+    [_iconId, [_manIcon, _manDescription], "hover"] call CFUNC(addMapGraphicsGroup);
 
     GVAR(currentIcons) pushBack _iconId;
 
@@ -49,14 +49,14 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
         [
             _groupIconId,
             [
-                [_groupMapIcon, _color, [_newUnit, [0, -20]], 25],
-                ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [_newUnit, [0, -20]], 25, 0, (groupId group _newUnit) select [0, 1], 2]
+                ["ICON", _groupMapIcon, _color, [_newUnit, [0, -20]], 25, 25],
+                ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [_newUnit, [0, -20]], 25, 25, 0, (groupId group _newUnit) select [0, 1], 2]
             ]
-        ] call CFUNC(addMapIcon);
+        ] call CFUNC(addMapGraphicsGroup);
 
         [
             _groupIconId,
-            "hover",
+            "hoverin",
             {
                 disableSerialization;
                 (_this select 0) params ["_map", "_xPos", "_yPos"];
@@ -205,7 +205,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
                 }, 0, [_group, _map]] call CFUNC(addPerFrameHandler);
             },
             group _newUnit
-        ] call CFUNC(addMapIconEventHandler);
+        ] call CFUNC(addMapGraphicsEventHandler);
 
         [
             _groupIconId,
@@ -234,7 +234,7 @@ if (side _newUnit == playerSide && !(isHidden _newUnit || !simulationEnabled _ne
 
             },
             group _newUnit
-        ] call CFUNC(addMapIconEventHandler);
+        ] call CFUNC(addMapGraphicsEventHandler);
         GVAR(currentIcons) pushBack _groupIconId;
     };
 
