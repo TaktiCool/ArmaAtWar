@@ -5,7 +5,7 @@ class PRA3_UI_SquadScreen {
 
     class Controls {
         class SquadManagement : PRA3_UI_SquadManagement {
-            y = PY(5);
+            y = PY(5) + safeZoneY;
         };
     };
 };
