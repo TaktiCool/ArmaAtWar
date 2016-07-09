@@ -35,4 +35,4 @@ GVAR(MapGraphicsGeometryCache) = [];
 
 [{
     ((uiNamespace getVariable "RscMiniMap") displayCtrl 101) call FUNC(registerMapControl);
-}, {!(isNull (uiNamespace getVariable "RscMiniMap")}] call FUNC(waitUntil);
+}, {!(isNull (uiNamespace getVariable "RscMiniMap"))}] call FUNC(waitUntil);
