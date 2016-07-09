@@ -18,7 +18,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             x = PX(0);
             y = PY(0);
             w = PX(GWIDTH);
-            h = safeZoneH;
+            h = PY(GHEIGHT);
         };
         class HeadingBackground : PRA3_RscHeaderBackground {
             idc = 201;
