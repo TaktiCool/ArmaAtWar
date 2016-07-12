@@ -14,9 +14,9 @@
     None
 */
 ["missionStarted", {
-    ["Role Screen", PRA3_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {
-        (findDisplay 46) createDisplay UIVAR(RoleScreen);
-    }] call CFUNC(addAction);
+//    ["Role Screen", PRA3_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {
+//        (findDisplay 46) createDisplay UIVAR(RoleScreen);
+//    }] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RoleScreen_onLoad), {
