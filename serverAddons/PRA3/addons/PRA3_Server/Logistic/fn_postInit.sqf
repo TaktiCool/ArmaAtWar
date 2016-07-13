@@ -16,6 +16,10 @@
 
 if (isDedicated || !hasInterface) exitWith {};
 
+["isNotDragging", {
+    !(_unit getVariable [QGVAR(Item), objNull])
+}] call CFUNC(addCanInteractWith);
+
 GVAR(DragableClasses) = [];
 {
     GVAR(DragableClasses) pushBack configName _x;
