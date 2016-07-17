@@ -57,21 +57,21 @@ EPREP(lnbData,initlnbData)
 EPREP(lnbData,lnbLoad)
 EPREP(lnbData,lnbSave)
 
-// Map Icon Render
-EPREP(MapIcons,clientInitMapIcons)
-EPREP(MapIcons,addMapIcon)
-EPREP(MapIcons,removeMapIcon)
-EPREP(MapIcons,registerMapControl)
-EPREP(MapIcons,unregisterMapControl)
-EPREP(MapIcons,drawMapIcons)
-EPREP(MapIcons,mouseClickEH)
-EPREP(MapIcons,mouseMovingEH)
-EPREP(MapIcons,getIconAtPos)
-
-// Map Icon Render Events
-EPREP(MapIcons,addMapIconEventHandler)
-EPREP(MapIcons,removeMapIconEventHandler)
-EPREP(MapIcons,triggerMapIconEvent)
+// MapGraphics
+EPREP(MapGraphics,addMapGraphicsEventHandler)
+EPREP(MapGraphics,addMapGraphicsGroup)
+EPREP(MapGraphics,buildMapGraphicsCache)
+EPREP(MapGraphics,clientInitMapGraphics)
+EPREP(MapGraphics,drawMapGraphics)
+EPREP(MapGraphics,mapGraphicsMouseButtonClick)
+EPREP(MapGraphics,mapGraphicsMouseMoving)
+EPREP(MapGraphics,mapGraphicsPosition)
+EPREP(MapGraphics,nearestMapGraphicsGroup)
+EPREP(MapGraphics,registerMapControl)
+EPREP(MapGraphics,removeMapGraphicsEventHandler)
+EPREP(MapGraphics,removeMapGraphicsGroup)
+EPREP(MapGraphics,unregisterMapControl)
+EPREP(MapGraphics,triggerMapGraphicsEvent)
 
 // Mutex
 EPREP(Mutex,initClientMutex)
@@ -81,7 +81,13 @@ EPREP(Mutex,mutex)
 // Namespaces
 EPREP(Namespaces,createNamespace)
 EPREP(Namespaces,deleteNamespace)
+
+EPREP(Namespaces,setVariable)
 EPREP(Namespaces,getVariable)
+EPREP(Namespaces,allVariables)
+
+EPREP(Namespaces,setVar)
+
 EPREP(Namespaces,getLogicGroup)
 
 // Notification System

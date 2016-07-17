@@ -13,15 +13,26 @@
     Returns:
     None
 */
+["missionStarted", {
+//    ["Role Screen", PRA3_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {
+//        (findDisplay 46) createDisplay UIVAR(RoleScreen);
+//    }] call CFUNC(addAction);
+}] call CFUNC(addEventHandler);
+
 [UIVAR(RoleScreen_onLoad), {
+    (_this select 0) params ["_display"];
+    uiNamespace setVariable [QGVAR(roleDisplay), _display];
+
     // The dialog needs one frame until access to controls is possible
     [{
+        params ["_display"];
+
         // Update the values of the UI elements
         UIVAR(RespawnScreen_RoleManagement_update) call CFUNC(localEvent);
 
         // Fade the control in
-        300 call FUNC(fadeControl);
-    }] call CFUNC(execNextFrame);
+        (_display displayCtrl 300) call FUNC(fadeControl);
+    }, _display] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 // When player changes the group update the role management for his old and his new group
@@ -34,7 +45,8 @@
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_RoleManagement_update), {
-    if (!dialog) exitWith {};
+    private _display = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
+    if (isNull _display) exitWith {};
 
     // Prepare the data for the lnb
     private _lnbData = [];
@@ -55,19 +67,23 @@
     } count (call EFUNC(Kit,getAllKits));
 
     // Update the lnb
-    [303, _lnbData, PRA3_Player getVariable QEGVAR(Kit,kit)] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+    [_display displayCtrl 303, _lnbData, PRA3_Player getVariable QEGVAR(Kit,kit)] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 }] call CFUNC(addEventHandler);
 
 // When the selected entry changed update the weapon tab content
 [UIVAR(RespawnScreen_RoleList_onLBSelChanged), {
-    disableSerialization;
+    private _display = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
+    if (isNull _display) exitWith {};
 
     // Get the selected value
-    private _selectedEntry = lnbCurSelRow 303;
+    private _control = _display displayCtrl 303;
+    private _selectedEntry = lnbCurSelRow _control;
     if (_selectedEntry == -1) exitWith {};
 
     private _previousSelectedKit = PRA3_Player getVariable [QEGVAR(Kit,kit), ""];
-    private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+    DUMP(_previousSelectedKit)
+    private _selectedKit = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+    DUMP(_selectedKit)
 
     // Instantly assign the kit (do not apply) if changed
     if (_previousSelectedKit != _selectedKit) then {
@@ -85,20 +101,22 @@
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_WeaponTabs_update), {
-    disableSerialization;
+    private _display = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
+    if (isNull _display) exitWith {};
 
     // Get the selected value
-    private _selectedEntry = lnbCurSelRow 303;
+    private _control = _display displayCtrl 303;
+    private _selectedEntry = lnbCurSelRow _control;
     if (_selectedEntry == -1) exitWith {};
-    private _selectedKit = [303, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+    private _selectedKit = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // Get the kit data
-    private _selectedTabIndex = lbCurSel 304;
+    private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
     private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
 
     // WeaponPicture
-    ctrlSetText [306, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture")];
+    (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture"));
 
     // WeaponName
-    ctrlSetText [307, getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName")];
+    (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName"));
 }] call CFUNC(addEventHandler);

@@ -5,13 +5,10 @@
     Author: BadGuy
 
     Description:
-    Unregisters a Map Control for Map Icon Drawing
+    Unregisters a Map Control for MapGraphics
 
     Parameter(s):
     0: Map <Control>
-
-    Remarks:
-    None
 
     Returns:
     None
@@ -20,7 +17,7 @@ disableSerialization;
 params ["_map"];
 private _idx = 0;
 with uiNamespace do {
-    _idx = GVAR(MapIconMapControls) find _map;
+    _idx = GVAR(MapGraphicsMapControls) find _map;
 };
 if (_idx >= 0) then {
     private _drawId = _map getVariable [QGVAR(DrawEHId), -1];
@@ -30,6 +27,6 @@ if (_idx >= 0) then {
     _map ctrlRemoveEventHandler ["MouseMoving", _mmId];
     _map ctrlRemoveEventHandler ["MouseButtonClick", _mcId];
     with uiNamespace do {
-        GVAR(MapIconMapControls) deleteAt _idx;
+        GVAR(MapGraphicsMapControls) deleteAt _idx;
     };
 };

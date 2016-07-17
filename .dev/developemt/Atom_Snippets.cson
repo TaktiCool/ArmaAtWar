@@ -1,0 +1,71 @@
+'.source.sqf':
+# Logging Snipets
+    'PRA3_Log':
+        'prefix': 'Log'
+        'body': 'LOG($1)'
+    'PRA3_Dump':
+        'prefix': 'Dump'
+        'body': 'DUMP($1)'
+
+# PerFrame Snipets
+    'PRA3_addPFH':
+        'prefix': 'addPFH'
+        'body': '[{$1\n    \n}, ${2:0}] call CFUNC(addPerFrameHandler);'
+    'PRA3_removePFH':
+        'prefix': 'removePFH'
+        'body': '$1 call CFUNC(removePerFrameHandler);'
+    'PRA3_execNextF':
+        'prefix': 'execNextF'
+        'body': '[{$1\n    \n}] call CFUNC(execNextFrame);'
+    'PRA3_wait':
+        'prefix': 'wait'
+        'body': '[{$1\n    \n}, ${2:1}] call CFUNC(wait);'
+    'PRA3_waitunitl':
+        'prefix': 'waitUntil'
+        'body': '[{$1\n    \n}, {$2\n    \n}] call CFUNC(waitUntil);'
+
+# Event Snipets
+    'PRA3_addEvent':
+        'prefix': 'addEvent'
+        'body': '["${1:EVENT}", {$2\n    \n}] call CFUNC(addEventhandler);'
+    'PRA3_localEvent':
+        'prefix': 'localEvent'
+        'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(localEvent);'
+    'PRA3_targetEvent':
+        'prefix': '_targetEvent'
+        'body': '["${1:EVENT}", ${2:TARGETS}, ${3:ARGUMENTS}] call CFUNC(targetEvent);'
+    'PRA3_serverEvent':
+        'prefix': 'serverEvent'
+        'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(serverEvent);'
+    'PRA3_globalEvent':
+        'prefix': 'globalEvent'
+        'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(serverEvent);'
+
+# Namespace
+    'PRA3_allVariables':
+        'prefix': 'allVariables'
+        'body': '[${1:NAMESPACE},"${2:TEXT}"] call CFUNC(allVariables);'
+    'PRA3_setVariableNamespace':
+        'prefix': 'setVariableNamespace'
+        'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call CFUNC(displayNotification);'
+    'PRA3_getVariableNamespace':
+        'prefix': 'getVariableNamespace'
+        'body': '[${1:NAMESPACE}, ${2:VARIABLENAME}, ${3:DEFAULT}] call CFUNC(getVariable);'
+    'PRA3_createNamespace':
+        'prefix': 'createNamespace'
+        'body': '${1:false} call CFUNC(createNamespace);'
+    'PRA3_deleteNamespace':
+        'prefix': 'deleteNamespace'
+        'body': '${1:NAMESPACE} call CFUNC(deleteNamespace);'
+
+# Mutex
+    'PRA3_mutex':
+        'prefix': 'mutex'
+        'body': '[${1:CODE}, ${2:ARGUMENTS}, ${3:MUTEXID}] call CFUNC(mutex);'
+
+# Misc Snipets
+    'PRA3_ShowNotification':
+        'prefix': 'notification'
+        'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call CFUNC(displayNotification);'
+
+# ToDo: MapGrahics

@@ -14,11 +14,12 @@
     Returns:
     Return of the Function <Any>
 */
-params [["_code", {}, [{}]], ["_arguments", []]];
-private "_return";
+params [["_PRA3_code", {}, [{}]], ["_PRA3_arguments", []]];
+private "_PRA_return";
 if !(canSuspend) exitWith {
-    _arguments call _code;
+    _PRA3_arguments call _PRA3_code;
 };
-
-"_return = _arguments call _code" configClasses (missionConfigFile >> "PRA3" >> "dummy");
-if !(isNil "_return") then {_return};
+isNil {
+    _PRA_return = _PRA3_arguments call _PRA3_code
+};
+if !(isNil "_PRA_return") then {_PRA_return};

@@ -65,17 +65,17 @@ if (hasInterface) then {
     [
         _id,
         [
-            [_icon, _color, getMarkerPos _marker],
-            ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
+            ["ICON", _icon, _color, getMarkerPos _marker],
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _designator, 2]
         ]
-    ] call CFUNC(addMapIcon);
+    ] call CFUNC(addMapGraphicsGroup);
 
     [
         _id,
         [
-            [_icon, _color, getMarkerPos _marker],
-            ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _fullname, 2]
+            ["ICON", _icon, _color, getMarkerPos _marker],
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _fullname, 2]
         ],
         "hover"
-    ] call CFUNC(addMapIcon);
+    ] call CFUNC(addMapGraphicsGroup);
 };

@@ -30,7 +30,7 @@
                     private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
 
                     private _rallySide = side _availableFor;
-                    private _enemyCount = {(side group _x) != _rallySide} count (nearestObjects [_position, ["CAManBase"], _maxEnemyCountRadius]);
+                    private _enemyCount = {(side group _x) != _rallySide} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
                     if (_enemyCount >= _maxEnemyCount) then {
                         [_availableFor] call FUNC(destroyRally);
@@ -39,5 +39,5 @@
             };
         };
         nil
-    } count (allVariables GVAR(pointStorage));
+    } count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
 }, 0.2] call CFUNC(addPerFrameHandler);

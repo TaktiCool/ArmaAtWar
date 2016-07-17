@@ -20,7 +20,7 @@ if (leader PRA3_Player != PRA3_Player) exitWith {false};
 if (vehicle PRA3_Player != PRA3_Player) exitWith {false};
 
 // Check time
-private _waitTime = [QGVAR(Rally_waitTime)] call CFUNC(getSetting);
+private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);
 private _lastRallyPlaced = (group PRA3_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
 if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
 
@@ -42,7 +42,7 @@ private _rallyNearPlayer = false;
         };
     };
     nil
-} count (allVariables GVAR(pointStorage));
+} count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
 if (_rallyNearPlayer) exitWith {false};
 
 true

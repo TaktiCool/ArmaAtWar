@@ -45,6 +45,7 @@ GVAR(CargoClasses) = [];
         {
             private _content = getArray (_x >> "content");
             private _className = getText (_x >> "classname");
+            private _clearOnSpawn = getText (_x >> "removeDefaultLoadout");
             private _displayName = getText (_x >> "displayName");
             [
                 _displayName,
@@ -54,7 +55,7 @@ GVAR(CargoClasses) = [];
                 {
                     params ["_targetPos", "", "", "_args"];
                     ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
-                }, [_className, _content]
+                }, [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]
             ] call CFUNC(addAction);
 
             nil
@@ -269,8 +270,6 @@ GVAR(CargoClasses) = [];
             GVAR(CargoLoadBar) ctrlCommit 0;
         };
 
-
-
         // UPDATE LOOP
         [{
             disableSerialization;
@@ -286,7 +285,7 @@ GVAR(CargoClasses) = [];
                 lbClear GVAR(CargoListBox);
 
                 {
-                    GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+                    GVAR(CargoListBox) lbAdd (_x getVariable [GVAR(displayName),getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
                     nil
                 } count _cargoItems;
             };
@@ -300,8 +299,6 @@ GVAR(CargoClasses) = [];
             with uiNamespace do {
                 GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity/_cargoCapacity);
             };
-
-
 
         }, 1,[_container]] call CFUNC(addPerFrameHandler);
 

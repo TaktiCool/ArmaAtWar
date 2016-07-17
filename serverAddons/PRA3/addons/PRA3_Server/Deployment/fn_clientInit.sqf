@@ -35,7 +35,7 @@ GVAR(pointMarkerIds) = [];
     private _existingMapIconPoints = GVAR(pointMarkerIds) arrayIntersect _availablePoints;
 
     {
-        [_x] call CFUNC(removeMapIcon);
+        [_x] call CFUNC(removeMapGraphicsGroup);
         nil
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
@@ -43,11 +43,14 @@ GVAR(pointMarkerIds) = [];
         (GVAR(pointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
         if (_mapIcon != "") then {
-            private _icon = [(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, [0, 0.87, 0, 1], _position, 25, 0, "", 1];
-            private _normalText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1", _name], 2, 0.09];
-            private _onHoverText = ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 0, format ["%1 (%2 spawns remaining)", _name, _spawnTickets], 2, 0.089];
-            [_x, [_icon, _normalText], "normal"] call CFUNC(addMapIcon);
-            [_x, [_icon, _onHoverText], "hover"] call CFUNC(addMapIcon);
+            private _icon = ["ICON",(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, [0, 0.87, 0, 1], _position, 25, 25, 0, "", 1];
+            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 25, 0, format ["%1", _name], 2, 0.09];
+            [_x, [_icon, _normalText], "normal"] call CFUNC(addMapGraphicsGroup);
+
+            if (_spawnTickets > 0) then {
+                private _onHoverText = ["ICON","a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25,25, 0, format ["%1 (%2 spawns remaining)", _name, _spawnTickets], 2, 0.089];
+                [_x, [_icon, _onHoverText], "hover"] call CFUNC(addMapGraphicsGroup);
+            };
         };
 
         nil
