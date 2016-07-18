@@ -72,6 +72,24 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     // If the progress is 1 the last function code is received.
     if (_progress >= 1) then {
         DUMP("All Function Recieved, now call then")
+
+        // Skip Briefing.
+        // yes i also dont like this BUT at this point PFH and other Eventhandler are not Initialized and PFH dont trigger in the briefing Screen
+        [] spawn {
+            if (!isNumber (missionConfigFile >> "briefing")) exitWith {};
+            if (getNumber (missionConfigFile >> "briefing") == 1) exitWith {};
+
+            waitUntil {
+                if (getClientState == "BRIEFING READ") exitWith {true};
+                if (!isNull findDisplay 53) exitWith {
+                    ctrlActivate (findDisplay 53 displayCtrl 1);
+                    findDisplay 53 closeDisplay 1;
+                    true
+                };
+                false
+            };
+        };
+
         // Call all modules.
         call FUNC(callModules);
     };
