@@ -15,7 +15,7 @@
 */
 params ["_clientID"];
 
-/*
+///*
 // send all Functions if mission Started was not triggered jet
 if (isNil QGVAR(missionStartedTriggered)) exitWith {
     {
@@ -29,7 +29,7 @@ if (isNil QGVAR(missionStartedTriggered)) exitWith {
 
     } forEach GVAR(RequiredFncClient);
 };
-*/
+//*/
 if (isNil QGVAR(SendFunctionsUnitCache)) then {
     GVAR(SendFunctionsUnitCache) = [[_clientID, +GVAR(RequiredFncClient), 0]];
 } else {
@@ -41,7 +41,7 @@ if (isNil QGVAR(PFHSendFunctions)) exitWith {
         private _delete = false;
         {
             _x params ["_clientID", "_functionCache", "_index"];
-            for "_i" from 1 to (count _functionCache) min 4 do {
+            for "_i" from 1 to ((count _functionCache) min 4) do {
                 // Extract the code out of the function.
                 private _functionName = _functionCache deleteAt 0;
                 private _functionCode = parsingNamespace getVariable [_functionName, {}];
