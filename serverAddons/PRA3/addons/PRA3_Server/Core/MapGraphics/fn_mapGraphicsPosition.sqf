@@ -17,7 +17,7 @@
     TYPE <MapGraphicsPosition>:
     OBJECT | POSITION3D | POSITION2D | [OBJECT | POSITION3D | POSITION2D,[ScreenOffsetX,ScreenOffsetY]]
 */
-params ["_position"];
+params ["_position", "_map"];
 
 if (_position isEqualType [] && {(_position select 1) isEqualType []}) then {
     _position params ["_pos", "_offset"];
