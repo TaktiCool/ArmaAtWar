@@ -14,11 +14,11 @@
     Returns:
     The selected data <Any>
 */
-params ["_control", "_allData", ["_selectedValue", nil]];
+params ["_control", "_allData", "_selectedValue"];
 
 if (isNil "_selectedValue") then {
     private _selectedEntry = lnbCurSelRow _control;
-    private _selectedValue = [[_control, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
+    _selectedValue = [[_control, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
 };
 
 private _addedData = [];
