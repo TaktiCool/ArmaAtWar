@@ -184,7 +184,7 @@
             };
             nil
         } count _nearUnits;
-        DUMP(count _icons)
+
         [QGVAR(Icons),_icons] call CFUNC(add3dGraphics);
     }, 1.2] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
