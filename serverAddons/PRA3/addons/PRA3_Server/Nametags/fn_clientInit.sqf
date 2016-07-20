@@ -137,38 +137,36 @@
                     private _size = 1;
                     private _alpha = 1;
                     private _offset = [0,0,0.5];
-                    DUMP(_offset)
 
                     if (_distance < 7) then {
-                        _offset set [2, (_offset select 2)*((3+_distance)/10)];
-                    };
-
-                    if (_distance >=7) then {
-                        _size = (7/_distance)^0.7;
+                        _offset set [2, (_offset select 2) * ((3 + _distance) / 10)];
+                    } else {
+                        _size = (7 / _distance) ^ 0.7;
                         _alpha = _size;
 
-                        _offset set [2, (_offset select 2)*(1/_size)^0.3];
+                        _offset set [2, (_offset select 2) * (1 / _size) ^ 0.3];
 
                         if (_distance >=30) then {
-                            _alpha = (1-(_distance - 30)/20)*_alpha;
+                            // linear fade out
+                            _alpha = (1 - (_distance - 30) / 20) * _alpha;
                         };
-                    };
 
-                    private _wts = worldToScreen _facePositionAGL;
-                    private _distX = abs ((_wts select 0) - 0.5);
-                    private _distY = abs ((_wts select 0) - 0.5);
-                    private _marginX = PX(1);
-                    private _marginY = PY(1);
-                    if (_distX < _marginX && _distY < _marginY) then {
-                        _unit setVariable [QGVAR(lastTimeInFocus), _currentTime];
-                    };
+                        private _wts = worldToScreen _facePositionAGL;
+                        private _distX = abs ((_wts select 0) - 0.5);
+                        private _distY = abs ((_wts select 1) - 0.5);
+                        private _marginX = PX(1.5);
+                        private _marginY = PY(1.5);
+                        if (_distX < _marginX && _distY < _marginY) then {
+                            _unit setVariable [QGVAR(lastTimeInFocus), _currentTime];
+                        };
 
-                    private _diffTime = _currentTime - (_unit getVariable [QGVAR(lastTimeInFocus), 0]);
+                        private _diffTime = _currentTime - (_unit getVariable [QGVAR(lastTimeInFocus), 0]);
 
-                    if (_diffTime < 3) then {
-                        private _tempAlpha = 1-sqrt(_diffTime/3);
-                        if (_alpha < _tempAlpha) then {
-                            _alpha = _tempAlpha;
+                        if (_diffTime < 3) then {
+                            private _tempAlpha = 1-sqrt(_diffTime/3);
+                            if (_alpha < _tempAlpha) then {
+                                _alpha = _tempAlpha;
+                            };
                         };
                     };
 
@@ -178,7 +176,7 @@
                     _width = _size * _width;
                     _height = _size * _height;
                     _textSize = _size * _textSize;
-                    _position set [2,_offset];
+                    _position set [2, _offset];
                     _color set [3, _alpha];
 
                     true;
