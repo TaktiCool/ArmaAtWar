@@ -136,7 +136,7 @@
 
                     private _size = 1;
                     private _alpha = 1;
-                    private _offset = [0,0,0.5];
+                    private _offset = [0,0,0.45];
 
                     if (_distance < 7) then {
                         _offset set [2, (_offset select 2) * ((3 + _distance) / 10)];
