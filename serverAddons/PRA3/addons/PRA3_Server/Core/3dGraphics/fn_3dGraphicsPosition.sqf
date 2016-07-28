@@ -17,9 +17,11 @@
 params ["_positionIn"];
 
 if (_positionIn isEqualType objNull) exitWith {
-    _positionIn modelToWorldVisual [0,0,0];
+    _positionIn modelToWorldVisual [0,0,0]; // Return
 };
-private _ret = nil;
+
+
+private "_ret";
 if (_positionIn isEqualType []) then {
     if ((_positionIn select 0) isEqualType 0) exitWith {
         _ret = _positionIn;
@@ -29,4 +31,4 @@ if (_positionIn isEqualType []) then {
         _ret = (_refPos modelToWorldVisual ((_refPos selectionPosition _refPosSelection) vectorAdd _refPosOffset)) vectorAdd _offset;
     };
 };
-_ret
+_ret;
