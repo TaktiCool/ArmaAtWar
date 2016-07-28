@@ -14,15 +14,15 @@
     Returns:
     <Bool> can InterActWith
 */
-params [["_unit", objNull, [objNull]], ["_ignoredTypes", [], [[]]]];
-[format [QGVAR(canInteractWith_%1_%2),_unit, _ignoredTypes], {
+params [["_caller", objNull, [objNull]], ["_target", objNull, [objNull]], ["_ignoredTypes", [], [[]]]];
+[format [QGVAR(canInteractWith_%1_%2_%3), _caller, _target, _ignoredTypes], {
     scopeName "canInteractWithScope";
-    params [["_unit", objNull, [objNull]], ["_ignoredTypes", [], [[]]]];
+    params [["_caller", objNull, [objNull]], ["_target", objNull, [objNull]], ["_ignoredTypes", [], [[]]]];
     {
         _x params ["_type", "_condition"];
         if !(_type in _ignoredTypes) then {
             private _status = call _condition;
-            if (!isNil "_status" && {_status}) then {
+            if (!isNil "_status" && {!_status}) then {
                 false breakOut "canInteractWithScope";
             };
         };

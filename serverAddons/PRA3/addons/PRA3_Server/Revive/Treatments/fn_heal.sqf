@@ -17,7 +17,7 @@
     PRA3_Player == vehicle PRA3_Player && "Medikit" in (items PRA3_Player) && {PRA3_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit"}
 }, {
     [QGVAR(SwitchWeapon), "Medikit"] call CFUNC(localEvent);
-}] call CFUNC(addAction);
+},[],["isNotUnconscious"]] call CFUNC(addAction);
 
 [QGVAR(PrepareTreatment), {
     (_this select 0) params ["_unit", "_action"];
@@ -56,7 +56,7 @@
     if (_finished) exitWith {
         PRA3_Player setVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
     };
-    
+
 }] call CFUNC(addEventHandler);
 
 // Handle incoming heal

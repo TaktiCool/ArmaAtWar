@@ -17,7 +17,8 @@
 if (isDedicated || !hasInterface) exitWith {};
 
 ["isNotDragging", {
-    !(_unit getVariable [QGVAR(Item), objNull])
+    isNull (_caller getVariable [QGVAR(Item), objNull]) &&
+    isNull (_target getVariable [QGVAR(Item), objNull])
 }] call CFUNC(addCanInteractWith);
 
 GVAR(DragableClasses) = [];
@@ -74,7 +75,6 @@ GVAR(CargoClasses) = [];
     3,
     {
         (isNull assignedGunner _target) &&
-        isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) &&
         isNull (_target getVariable [QGVAR(Player), objNull])
     },
     {
@@ -90,7 +90,7 @@ GVAR(CargoClasses) = [];
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         [PRA3_Player] call FUNC(dropObject);
-    }
+    }, [], ["isNotDragging"]
 ] call CFUNC(addAction);
 
 [
@@ -135,7 +135,7 @@ GVAR(CargoClasses) = [];
 
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);
-    }
+    }, [], ["isNotDragging"]
 ] call CFUNC(addAction);
 
 [
@@ -156,7 +156,7 @@ GVAR(CargoClasses) = [];
     {
         // @TODO we need to find a Idea how to change this action name
         // _target setUserActionText [_id, format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]];
-        isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])
+        !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])
     },
     {
         params ["_vehicle"];

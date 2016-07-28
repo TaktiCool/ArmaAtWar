@@ -13,17 +13,23 @@
     Returns:
     0: Return Name <TYPE>
 */
-[PRA3_Player, ["isSwimming"]] call CFUNC(canInteractWith);
-["inNotVehicle", {
-    vehicle _unit != _unit
+// [PRA3_Player, PRA3_Player,["inNotVehicle", "isNotSwimming", "isNotDead", "isNotOnMap", "isNotUnconscious", "isNotDragging"]] call PRA3_Core_fnc_canInteractWith;
+
+
+// ["isNotInVehicle", "isNotSwimming", "isNotDead", "isNotOnMap", "isNotUnconscious", "isNotDragging"]
+
+["isNotInVehicle", {
+    vehicle _caller == _caller && vehicle _target == _target
 }] call CFUNC(addCanInteractWith);
+
 ["isNotSwimming", {
-    !underwater _unit
+    !underwater _caller && !underwater _target
 }] call CFUNC(addCanInteractWith);
 
 ["isNotDead", {
-    !alive _unit
+    alive _caller && alive _target
 }] call CFUNC(addCanInteractWith);
-["notOnMap", {
+
+["isNotOnMap", {
     !visibleMap
 }] call CFUNC(addCanInteractWith);
