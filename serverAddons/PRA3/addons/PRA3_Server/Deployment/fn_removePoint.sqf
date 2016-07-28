@@ -29,6 +29,6 @@ private _pointObjects = _pointDetails select 6;
 
 private _availableFor = _pointDetails select 2;
 
-if (!(isNull _availableFor)) then {
+if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
     [QGVAR(pointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
 };
