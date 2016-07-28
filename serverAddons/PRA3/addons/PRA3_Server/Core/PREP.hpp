@@ -77,6 +77,14 @@ EPREP(MapGraphics,removeMapGraphicsGroup)
 EPREP(MapGraphics,unregisterMapControl)
 EPREP(MapGraphics,triggerMapGraphicsEvent)
 
+// 3dGraphics
+EPREP(3dGraphics,clientInit3dGraphics)
+EPREP(3dGraphics,add3dGraphics)
+EPREP(3dGraphics,remove3dGraphics)
+EPREP(3dGraphics,build3dGraphicsCache)
+EPREP(3dGraphics,draw3dGraphics)
+EPREP(3dGraphics,3dGraphicsPosition)
+
 // Mutex
 EPREP(Mutex,initClientMutex)
 EPREP(Mutex,initServerMutex)
