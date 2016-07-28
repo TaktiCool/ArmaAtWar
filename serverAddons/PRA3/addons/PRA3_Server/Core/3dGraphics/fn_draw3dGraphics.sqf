@@ -13,6 +13,10 @@
     Returns:
     None
 */
+
+// Dont Render 3d Icons if a UI is Open.
+if (!isNull (findDisplay 49) || dialog) exitWith {};
+
 PERFORMANCECOUNTER_START(3dGraphics)
 
 private _fov = (call CFUNC(getFOV)) * 3;
