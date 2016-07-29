@@ -141,7 +141,7 @@ GVAR(CargoClasses) = [];
     {!(_target getVariable ["hasInventory", true])},
     {
         params ["_vehicle"];
-        PRA3_Player action ["Gear", _vehicle];
+        PRA3_Player action ["Gear", objNull];
     }
 ] call CFUNC(addAction);
 
@@ -285,7 +285,7 @@ GVAR(CargoClasses) = [];
                 lbClear GVAR(CargoListBox);
 
                 {
-                    GVAR(CargoListBox) lbAdd (_x getVariable [GVAR(displayName),getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
+                    GVAR(CargoListBox) lbAdd (_x getVariable [QGVAR(displayName), getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
                     nil
                 } count _cargoItems;
             };
