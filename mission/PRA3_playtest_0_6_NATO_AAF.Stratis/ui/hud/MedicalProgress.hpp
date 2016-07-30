@@ -4,7 +4,7 @@ class PRA3_UI_MedicalProgress {
     onLoad = "uiNamespace setVariable ['PRA3_UI_MedicalProgress', _this select 0];";
     onUnLoad = "";
     class Controls {
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 3000;
             x = 0.5 - PX(25);
             y = 1 - PY(10);

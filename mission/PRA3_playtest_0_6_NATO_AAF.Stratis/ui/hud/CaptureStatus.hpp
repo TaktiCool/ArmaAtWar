@@ -3,7 +3,7 @@ class PRA3_UI_CaptureStatus {
     duration = 1e11;
     onLoad = "uiNamespace setVariable ['PRA3_UI_CaptureStatus', _this select 0];";
     class Controls {
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 1000;
             x = 0.5 - PX(20);
             y = PY(0.5) + safeZoneY;
@@ -12,6 +12,7 @@ class PRA3_UI_CaptureStatus {
 
             class Controls {
                 class Background : RscPicture {
+                    idc = 1999;
                     text = "#(argb,8,8,3)color(0,0,0,0.8)";
                     x = PX(0);
                     y = PY(0);
@@ -75,6 +76,7 @@ class PRA3_UI_CaptureStatus {
                 };
 
                 class BackgroundProgress : RscText {
+                    idc = 1998;
                     shadow = 0;
                     colorBackground[] = {"(profilenamespace getvariable ['Map_Unknown_R',0])","(profilenamespace getvariable ['Map_Unknown_G',1])","(profilenamespace getvariable ['Map_Unknown_B',1])","(profilenamespace getvariable ['Map_Unknown_A',0.8])"};
                     x = PX(0);

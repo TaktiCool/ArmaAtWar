@@ -129,6 +129,18 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
         assignedItems[] += {"Rangefinder"};
     };
+	class DemolitionExpert: Rifleman {
+        kitGroup = "Limited";
+        availableInGroups[] = {"Rifle"};
+
+        backpack = "B_TacticalPack_rgr";
+
+        items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "DemoCharge_Remote_Mag", {"SatchelCharge_Remote_Mag", 2}};
+
+        displayName = "Demolition Expert";
+
+        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
+    };
     class Engineer: Rifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Rifle"};

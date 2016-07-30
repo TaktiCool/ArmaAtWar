@@ -16,7 +16,7 @@ class PRA3_UI_Compass {
     duration = 1e11;
     onLoad = "uiNamespace setVariable ['PRA3_UI_Compass', _this select 0];";
     class Controls {
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 7000;
             x = 0.5 - PX(46.25);
             y = PY(103) + safeZoneY;
@@ -33,7 +33,7 @@ class PRA3_UI_Compass {
                     w = PX(2);
                     h = PY(1);
                 };
-                class CtrlGroup : RscControlsGroupNoScollbars {
+                class CtrlGroup : RscControlsGroupNoScrollbars {
                     idc = 7100;
                     x = 0;
                     y = 0;

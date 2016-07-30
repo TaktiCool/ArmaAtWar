@@ -124,6 +124,18 @@ class Kits {
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
+    class DemolitionExpert: Rifleman {
+        kitGroup = "Limited";
+        availableInGroups[] = {"Rifle"};
+
+        backpack = "B_AssaultPack_rgr";
+
+        items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "DemoCharge_Remote_Mag", {"SatchelCharge_Remote_Mag", 2}};
+
+        displayName = "Demolition Expert";
+
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
+    };
     class Engineer: Rifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Rifle"};
@@ -131,7 +143,7 @@ class Kits {
         displayName = "Engineer";
 
         isEngineer = 1;
-        items[] += {"ToolKit"};
+
         UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\repair_ca.paa";
     };
     class AntiAir: Rifleman {
@@ -191,7 +203,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_B_CombatUniform_ocamo";
+        uniform = "U_O_CombatUniform_ocamo";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
@@ -214,7 +226,7 @@ class Kits {
 
         displayName = "Sniper";
 
-        uniform = "U_B_GhillieSuit";
+        uniform = "U_B_FullGhillie_lsh";
         backpack = "B_AssaultPack_rgr";
 
         primaryWeapon = "srifle_LRR_F";
@@ -233,7 +245,7 @@ class Kits {
 
         displayName = "Spotter";
 
-        uniform = "U_B_GhillieSuit";
+        uniform = "U_B_FullGhillie_lsh";
         primaryAttachments[] = {"optic_Arco"};
         secondaryWeapon = "Rangefinder";
         assignedItems[] += {"Rangefinder"};
