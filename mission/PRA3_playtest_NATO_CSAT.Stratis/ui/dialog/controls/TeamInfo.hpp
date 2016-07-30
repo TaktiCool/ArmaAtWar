@@ -1,5 +1,3 @@
-#undef GHEIGHT
-#undef GWIDTH
 #define GWIDTH 40
 #define GHEIGHT 4.5
 

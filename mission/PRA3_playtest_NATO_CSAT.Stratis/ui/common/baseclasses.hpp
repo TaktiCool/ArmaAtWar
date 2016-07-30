@@ -28,13 +28,13 @@ class ScrollBar {
  */
 #define FONTCONTROL font = "PuristaMedium";\
     sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";\
-    text = ""\
+    text = "";\
     colorText[] = COLOR_WHITE;\
-    colorShadow[] = {0,0,0,0.5};
+    colorShadow[] = {0,0,0,0.5}
 
 #define TOOLTIPCONTROL tooltipColorText[] = COLOR_WHITE;\
     tooltipColorBox[] = COLOR_WHITE;\
-    tooltipColorShade[] = {0,0,0,0.65};
+    tooltipColorShade[] = {0,0,0,0.65}
 
 // ControlsGroup
 class RscControlsGroup {
@@ -73,8 +73,8 @@ class RscListBox
     shadow = 0;
     colorBackground[] = {0,0,0,0.3};
 
-    FONTCONTROL
-    TOOLTIPCONTROL
+    FONTCONTROL;
+    TOOLTIPCONTROL;
 
     colorDisabled[] = {1,1,1,0.25};
     colorScrollbar[] = {0.95,0.95,0.95,1};
@@ -120,8 +120,8 @@ class RscText
     h = 0.037;
     w = 0.3;
 
-    FONTCONTROL
-    TOOLTIPCONTROL
+    FONTCONTROL;
+    TOOLTIPCONTROL;
 
     lineSpacing = 1;
 };
@@ -162,8 +162,8 @@ class RscPicture
     w = 0.2;
     h = 0.15;
 
-    FONTCONTROL
-    TOOLTIPCONTROL
+    FONTCONTROL;
+    TOOLTIPCONTROL;
 };
 
 
@@ -179,8 +179,8 @@ class RscEdit
     h = 0.04;
     w = 0.2;
 
-    FONTCONTROL
-    TOOLTIPCONTROL
+    FONTCONTROL;
+    TOOLTIPCONTROL;
 
     colorDisabled[] = {1,1,1,0.25};
     colorSelection[] = {
@@ -204,8 +204,8 @@ class RscCombo
     w = 0.12;
     h = 0.035;
 
-    FONTCONTROL
-    TOOLTIPCONTROL
+    FONTCONTROL;
+    TOOLTIPCONTROL;
 
     colorSelect[] = COLOR_BLACK;
     colorScrollbar[] = {0.95,0.95,0.95,1};
@@ -245,7 +245,7 @@ class RscButton
     w = 0.095589;
     h = 0.039216;
 
-    FONTCONTROL
+    FONTCONTROL;
 
     colorDisabled[] = {1,1,1,0.25};
     colorBackgroundDisabled[] = {0,0,0,0.5};
