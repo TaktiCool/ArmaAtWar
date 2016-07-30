@@ -32,6 +32,7 @@ private _dialog = findDisplay 49;
 // Disable all buttons first
 for "_i" from 100 to 2000 do {
     (_dialog displayCtrl _i) ctrlEnable false;
+    (_dialog displayCtrl _i) ctrlSetTooltip "";
 };
 
 private _control = _dialog displayCtrl 104;
