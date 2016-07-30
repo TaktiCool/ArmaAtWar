@@ -1,21 +1,29 @@
 #undef GHEIGHT
 #undef GWIDTH
 #define GWIDTH 40
-#define GHEIGHT 60
+#define GHEIGHT 60.5
 
-class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
+class PRA3_UI_RoleManagement : RscControlsGroupNoScrollbars {
     idc = 300;
     x = safeZoneX + safeZoneW - PX(40);
-    y = safeZoneY;
+    y = PY(10.5) + safeZoneY;
     w = PX(GWIDTH);
     h = PY(GHEIGHT);
     fade = 1;
+
     class Controls {
+        class Background : RscPicture {
+            idc = 399;
+            text = "#(argb,8,8,3)color(0,0,0,0.8)";
+            x = PX(0);
+            y = PY(0);
+            w = PX(GWIDTH);
+            h = PY(GHEIGHT);
+        };
         class HeadingBackground : PRA3_RscHeaderBackground {
             idc = 301;
             y = PY(0);
         };
-
         class Heading : PRA3_H2Text {
             idc = 302;
             text = "ROLE";
@@ -24,7 +32,6 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
             w = PX(GWIDTH-1);
             h = PY(3);
         };
-
         class RoleList : PRA3_RscListNBox {
             idc = 303;
             x = PX(0);
@@ -36,7 +43,6 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
 
             onLBSelChanged = "'PRA3_UI_RespawnScreen_RoleList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
         };
-
         class WeaponTabs : RscToolbox {
             idc = 304;
             x = PX(0);
@@ -54,7 +60,6 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
 
             onToolBoxSelChanged = "'PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged' call PRA3_Core_fnc_localEvent;";
         };
-
         class WeaponBackground : RscPicture {
             idc = 305;
             text = "#(argb,8,8,3)color(0.1,0.1,0.1,1)";
@@ -63,7 +68,6 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
             w = PX(GWIDTH);
             h = PY(GHEIGHT-42.5);
         };
-
         class WeaponPicture : RscPicture {
             idc = 306;
             text = "";
@@ -73,7 +77,6 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScollbars {
             w = PX(GWIDTH-14);
             h = PY(10);
         };
-
         class WeaponName : PRA3_RscText {
             idc = 307;
             style = ST_CENTER;

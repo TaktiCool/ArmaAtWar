@@ -4,7 +4,7 @@ class PRA3_UI_TicketStatus {
     onLoad = "uiNamespace setVariable ['PRA3_UI_TicketStatus', _this select 0];";
     class Controls {
 
-        class TicketsLeft : RscControlsGroupNoScollbars {
+        class TicketsLeft : RscControlsGroupNoScrollbars {
             idc = 2010;
             x = 0.5 - PX(40);
             y = safeZoneY;
@@ -47,7 +47,7 @@ class PRA3_UI_TicketStatus {
             };
         };
 
-        class TicketsRight : RscControlsGroupNoScollbars {
+        class TicketsRight : RscControlsGroupNoScrollbars {
             idc = 2020;
             x = 0.5;
             y = safeZoneY;
@@ -92,7 +92,7 @@ class PRA3_UI_TicketStatus {
 
 
         /*
-        class CtrlGroup : RscControlsGroupNoScollbars {
+        class CtrlGroup : RscControlsGroupNoScrollbars {
             idc = 2000;
             x = 0.5 - PX(25.5);
             y = PY(0.5) + safeZoneY;
