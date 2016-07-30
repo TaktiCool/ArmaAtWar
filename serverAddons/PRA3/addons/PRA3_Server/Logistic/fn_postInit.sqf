@@ -45,7 +45,7 @@ GVAR(CargoClasses) = [];
         {
             private _content = getArray (_x >> "content");
             private _className = getText (_x >> "classname");
-            private _clearOnSpawn = getText (_x >> "removeDefaultLoadout");
+            private _clearOnSpawn = getNumber (_x >> "removeDefaultLoadout");
             private _displayName = getText (_x >> "displayName");
             [
                 _displayName,
