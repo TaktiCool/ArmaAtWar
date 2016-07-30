@@ -55,7 +55,7 @@ class AddonsMetaData
 		class Item0
 		{
 			className="A3_Modules_F_Curator";
-			name="Arma 3 Zeus Update - Scripted features";
+			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -97,7 +97,7 @@ class AddonsMetaData
 		class Item6
 		{
 			className="A3_Soft_F_Beta";
-			name="Arma 3 Beta - Unarmored land vehicles";
+			name="Arma 3 Beta - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -125,7 +125,7 @@ class AddonsMetaData
 		class Item10
 		{
 			className="A3_Soft_F_EPC";
-			name="Arma 3 Win Episode - Unarmored land vehicles";
+			name="Arma 3 Win Episode - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -143,24 +143,6 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
-		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -175,6 +157,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -560,18 +560,20 @@ class Mission
 		class Item17
 		{
 			dataType="Marker";
-			position[]={3263.8987,3.1817436,6848.145};
-			name="respawn_west";
+			position[]={3263.8989,2.9796954e+012,6848.145};
+			name="baseSpawn_west";
 			type="Empty";
 			id=216;
+			atlOffset=2.9796954e+012;
 		};
 		class Item18
 		{
 			dataType="Marker";
-			position[]={2987.8357,171.52084,1852.2671};
-			name="respawn_east";
+			position[]={2987.8359,1.1904291e+020,1852.267};
+			name="baseSpawn_east";
 			type="Empty";
 			id=217;
+			atlOffset=1.1904291e+020;
 		};
 		class Item19
 		{
@@ -6527,6 +6529,7 @@ class Mission
 			};
 			id=619;
 			type="O_APC_Tracked_02_cannon_F";
+			atlOffset=-0.0014801025;
 		};
 	};
 };

@@ -186,4 +186,6 @@ class CfgEntities {
         isLoadable = 1;
     };
     class O_HMG_01_high_F: B_HMG_01_high_F {};
+	
+	class CargoNet_01_ammo_base_F : Land_CargoBox_V1_F {};
 };

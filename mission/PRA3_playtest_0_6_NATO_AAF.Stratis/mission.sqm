@@ -52,7 +52,7 @@ class AddonsMetaData
 		class Item0
 		{
 			className="A3_Modules_F_Curator";
-			name="Arma 3 Zeus Update - Scripted features";
+			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -94,7 +94,7 @@ class AddonsMetaData
 		class Item6
 		{
 			className="A3_Soft_F_Beta";
-			name="Arma 3 Beta - Unarmored land vehicles";
+			name="Arma 3 Beta - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -115,7 +115,7 @@ class AddonsMetaData
 		class Item9
 		{
 			className="A3_Armor_F_Gamma";
-			name="Arma 3 - Armored land vehicles";
+			name="Arma 3 - Armored Land Vehicles";
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
@@ -133,6 +133,24 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+				};
+			};
+		};
+		class Attribute1
+		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -147,24 +165,6 @@ class CustomAttributes
 						};
 					};
 					value=1;
-				};
-			};
-		};
-		class Attribute1
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
 				};
 			};
 		};
@@ -531,18 +531,20 @@ class Mission
 		class Item16
 		{
 			dataType="Marker";
-			position[]={3263.8987,3.1817436,6848.145};
-			name="respawn_west";
+			position[]={3263.8989,2.1302725e+023,6848.145};
+			name="baseSpawn_west";
 			type="Empty";
 			id=216;
+			atlOffset=2.1302725e+023;
 		};
 		class Item17
 		{
 			dataType="Marker";
-			position[]={2987.8357,171.52084,1852.2671};
-			name="respawn_guerrila";
+			position[]={2987.8359,2.898091e+012,1852.267};
+			name="baseSpawn_guer";
 			type="Empty";
 			id=217;
+			atlOffset=2.898091e+012;
 		};
 		class Item18
 		{
