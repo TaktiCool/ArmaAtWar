@@ -1,9 +1,13 @@
 loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker", "CompassUI", "GarbageCollector"};
 tickets = 300; // number of tickets per team
-ticketBleed[] = {10,5}; // time, tickets
+ticketBleed[] = {10,1}; // time, tickets
 musicStart = 30; // tickets to start the music
 respawnCountdown = 30;
 playerTicketValue = 1; // Ticket value of a player
+
+// restirctSideSwitch = "";
+restirctSideSwitchRestrictionCount = 5;
+restirctSideSwitchRestrictionTime = 50;
 
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {

@@ -124,6 +124,18 @@ class Kits {
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
+    class DemolitionExpert: Rifleman {
+        kitGroup = "Limited";
+        availableInGroups[] = {"Rifle"};
+
+        backpack = "B_AssaultPack_rgr";
+
+        items[] = {{"FirstAidKit", 2}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "DemoCharge_Remote_Mag", {"SatchelCharge_Remote_Mag", 2}};
+
+        displayName = "Demolition Expert";
+
+        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
+    };
     class Engineer: Rifleman {
         kitGroup = "Limited";
         availableInGroups[] = {"Rifle"};
@@ -191,7 +203,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_B_CombatUniform_mcam";
+        uniform = "U_O_CombatUniform_ocamo";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
