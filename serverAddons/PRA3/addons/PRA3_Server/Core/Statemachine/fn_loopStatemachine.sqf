@@ -48,5 +48,13 @@ private _nextState = if (_currentState isEqualType "") then {
 } else {
     [_args, _currentState select 1] call _code;
 };
+private _nextStateName = if (_nextState isEqualType "") then {
+    _nextState
+} else {
+    _nextState select 0;
+};
 
+if (_nextStateName in EGVAR(Statemachine,exitStateNames)) exitWith {
+    [_stateMachine] call FUNC(killStatemachine);
+};
 _stateMachine setVariable [ SMVAR(nextStateData), _nextState];
