@@ -5,28 +5,28 @@
     Author: joko // Jonas
 
     Description:
-    Create Statemaschine from Config
+    Create Statemachine from Config
 
     Parameter(s):
     0: Config Path <Config>
 
     Returns:
-    0: Statemaschine Object <Location>
+    0: Statemachine Object <Location>
 */
 params ["_configPath"];
 
-private _stateMaschine = call FUNC(createStatemaschine);
+private _stateMachine = call FUNC(createStatemachine);
 
 private _entryPoint = getText(_configPath >> "entryPoint");
 if (_entryPoint != "") then {
-    _stateMaschine setVariable [SMVAR(nextStateData), _entryPoint];
+    _stateMachine setVariable [SMVAR(nextStateData), _entryPoint];
 };
 
 {
     private _code = getText(_x >> "stateCode");
     private _name = configName _x;
-    [_stateMaschine, _name, _code] call FUNC(addStatemaschineState);
+    [_stateMachine, _name, _code] call FUNC(addStatemachineState);
     nil
 } count configProperties [_configPath, "isClass _x", true];
 
-_stateMaschine
+_stateMachine

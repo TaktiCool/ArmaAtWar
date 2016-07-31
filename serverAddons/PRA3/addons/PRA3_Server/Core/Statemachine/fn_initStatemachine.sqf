@@ -5,14 +5,13 @@
     Author: joko // Jonas
 
     Description:
-    Kill a Statemaschine.
+    Init Variables for the Simple Statemachine
 
     Parameter(s):
-    0: Statemaschine Index <Number>
+    None
 
     Returns:
     None
 */
-params ["_index"];
 
-_index call CFUNC(removePerFrameHandler);
+EGVAR(Statemachine,allStatemachines) = [];

@@ -117,12 +117,12 @@ EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
 // Statemaschine
-EPREP(Statemaschine,addStatemaschineState)
-EPREP(Statemaschine,createStatemaschine)
-EPREP(Statemaschine,createStatemaschineFromConfig)
-EPREP(Statemaschine,killStatemaschine)
-EPREP(Statemaschine,loopStatemaschine)
-EPREP(Statemaschine,startStatemaschine)
+EPREP(Statemaschine,addStatemachineState)
+EPREP(Statemachine,createStatemachine)
+EPREP(Statemachine,createStatemachineFromConfig)
+EPREP(Statemachine,killStatemachine)
+EPREP(Statemachine,loopStatemachine)
+EPREP(Statemachine,startStatemachine)
 
 
 // Team Color Sync

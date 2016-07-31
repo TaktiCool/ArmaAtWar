@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Loop for 1 Statemaschine.
+    Loop for 1 Statemachine.
 
     Parameter(s):
     PFH Arguments
@@ -13,9 +13,9 @@
     Returns:
     None
 */
-params ["_stateMaschine", "_idPFH"];
+params ["_stateMachine", "_idPFH"];
 
-private _currentState = _stateMaschine getVariable SMVAR(nextStateData);
+private _currentState = _stateMachine getVariable SMVAR(nextStateData);
 // check if current state exist in Namespace.
 if (isNil "_currentState") exitWith {
     LOG("Error Next State is Nil")
@@ -23,9 +23,9 @@ if (isNil "_currentState") exitWith {
 };
 
 private _stateData = if (_currentState isEqualType "") then {
-    _stateMaschine getVariable _currentState;
+    _stateMachine getVariable _currentState;
 } else {
-    _stateMaschine getVariable (_currentState select 0);
+    _stateMachine getVariable (_currentState select 0);
 };
 
 // check if state data exist.
@@ -49,4 +49,4 @@ private _nextState = if (_currentState isEqualType "") then {
     [_args, _currentState select 1] call _code;
 };
 
-_stateMaschine setVariable [ SMVAR(nextStateData), _nextState];
+_stateMachine setVariable [ SMVAR(nextStateData), _nextState];

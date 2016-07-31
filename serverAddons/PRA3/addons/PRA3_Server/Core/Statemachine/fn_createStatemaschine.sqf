@@ -5,13 +5,13 @@
     Author: joko // Jonas
 
     Description:
-    Create a New Statemaschine.
+    Create a New Statemachine.
 
     Parameter(s):
     None
 
     Returns:
-    StateMaschine Object <Location>
+    Statemachine Object <Location>
 */
 
 private _namespace = false call CFUNC(createNamespace);
