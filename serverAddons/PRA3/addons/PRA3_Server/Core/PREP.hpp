@@ -117,7 +117,7 @@ EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
 // Statemaschine
-EPREP(Statemaschine,addStatemachineState)
+EPREP(Statemachine,addStatemachineState)
 EPREP(Statemachine,createStatemachine)
 EPREP(Statemachine,createStatemachineFromConfig)
 EPREP(Statemachine,killStatemachine)
