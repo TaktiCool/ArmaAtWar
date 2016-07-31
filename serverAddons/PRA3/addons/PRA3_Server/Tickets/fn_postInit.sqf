@@ -181,7 +181,6 @@ GVAR(deactivateTicketSystem) = false;
     if (hasInterface) then {
         ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(TicketStatus),"PLAIN"];
         private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
-        disableSerialization;
         private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
         /*
         (_dialog displayCtrl 2001) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
@@ -197,7 +196,6 @@ GVAR(deactivateTicketSystem) = false;
         (_dialog displayCtrl 2023) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Mission,competingSides) select 1],_startTickets]);
         missionNamespace getVariable format [QGVAR(sideTickets_%1), str(_currentSide)];
         ["ticketsChanged", {
-            disableSerialization;
             if (GVAR(deactivateTicketSystem)) exitWith {};
             private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
             (_dialog displayCtrl 2011) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
@@ -232,7 +230,6 @@ GVAR(deactivateTicketSystem) = false;
         }] call CFUNC(addEventHandler);
 
         ["sectorEntered", {
-            disableSerialization;
             private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
             if (isNull _dialog) exitWith {};
             (_dialog displayCtrl 2010) ctrlSetPosition [0.5-PX(40+21), safeZoneY];
@@ -243,7 +240,6 @@ GVAR(deactivateTicketSystem) = false;
         }] call CFUNC(addEventHandler);
 
         ["sectorLeaved", {
-            disableSerialization;
             private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
             if (isNull _dialog) exitWith {};
             (_dialog displayCtrl 2010) ctrlSetPosition [0.5-PX(40), safeZoneY];
