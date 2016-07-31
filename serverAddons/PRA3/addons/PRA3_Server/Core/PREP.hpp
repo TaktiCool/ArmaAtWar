@@ -116,6 +116,15 @@ EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
+// Statemaschine
+EPREP(Statemaschine,addStatemaschineState)
+EPREP(Statemaschine,createStatemaschine)
+EPREP(Statemaschine,createStatemaschineFromConfig)
+EPREP(Statemaschine,killStatemaschine)
+EPREP(Statemaschine,loopStatemaschine)
+EPREP(Statemaschine,startStatemaschine)
+
+
 // Team Color Sync
 EPREP(TeamColorSync,clientInitTeamColorSync)
 
