@@ -24,7 +24,7 @@ DFUNC(checkNextMutexClient) = {
 
     if (!(_clientQueue isEqualTo [])) then {
         _currentClient = _clientQueue deleteAt 0;
-        GVAR(mutexes) setVariable [_mutexId, [_currentClient, _clientQueue]];
+        [GVAR(mutexes), _mutexId, [_currentClient, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
         [QGVAR(mutexLock), _currentClient, _mutexId] call CFUNC(targetEvent);
     };
 };
@@ -41,7 +41,7 @@ DFUNC(checkNextMutexClient) = {
         private _index =_clientQueue find _owner;
         if (_index != -1) then {
             _clientQueue deleteAt _index;
-            GVAR(mutexes) setVariable [_x, [_currentClient, _clientQueue]];
+            [GVAR(mutexes), _x, [_currentClient, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
         };
 
         // If the client is currently executing reset the lock
@@ -50,7 +50,7 @@ DFUNC(checkNextMutexClient) = {
         };
 
         nil
-    } count (allVariables GVAR(mutexes));
+    } count ([GVAR(mutexes), QGVAR(mutexesCache)] call CFUNC(allVariables));
 
     false
 }] call BIS_fnc_addStackedEventHandler;
@@ -64,7 +64,7 @@ DFUNC(checkNextMutexClient) = {
 
     // We enqueue the value in the queue
     _clientQueue pushBackUnique (owner _clientObject);
-    GVAR(mutexes) setVariable [_mutexId, [_currentClient, _clientQueue]];
+    [GVAR(mutexes), _mutexId, [_currentClient, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
 
     if (_currentClient == 0) then {
         // Tell the client that he can start and remove him from the queue
@@ -77,8 +77,7 @@ DFUNC(checkNextMutexClient) = {
 
     private _mutex = [GVAR(mutexes), _mutexId, [0, []]] call CFUNC(getVariable);
     _mutex params ["_currentClient", "_clientQueue"];
-    GVAR(mutexes) setVariable [_mutexId, [0, _clientQueue]];
-
+    [GVAR(mutexes), _mutexId, [0, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
     // Tell the client that he can start and remove him from the queue
     _mutexId call FUNC(checkNextMutexClient);
 }] call CFUNC(addEventHandler);

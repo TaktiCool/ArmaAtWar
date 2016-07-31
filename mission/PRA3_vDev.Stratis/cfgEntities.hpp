@@ -2,7 +2,7 @@ class defaultVehicle {
     respawnCondition = "true";
     side = "UNKNOWN";
     respawnTime = -1; // disabled
-    ticketValue = 5;
+    ticketValue = 2;
 };
 
 class defaultWest : defaultVehicle {
@@ -174,4 +174,6 @@ class CfgEntities {
         isLoadable = 1;
     };
     class O_HMG_01_high_F: B_HMG_01_high_F {};
+
+    class CargoNet_01_ammo_base_F : B_Slingload_01_Cargo_F {};
 };

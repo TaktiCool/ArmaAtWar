@@ -1,5 +1,5 @@
 #include "macros.hpp"
-
+/*
 private _cfg = configFile >> "PRA3" >> "CfgEntities";
 {
     private _obj = _x;
@@ -20,5 +20,5 @@ private _cfg = configFile >> "PRA3" >> "CfgEntities";
     } count configProperties [(_cfg >> typeOf _x), "true"];
     nil
 } count vehicles;
-
+*/
 #include "PREP.hpp"

@@ -56,21 +56,29 @@ EPREP(lnbData,initlnbData)
 EPREP(lnbData,lnbLoad)
 EPREP(lnbData,lnbSave)
 
-// Map Icon Render
-EPREP(MapIcons,clientInitMapIcons)
-EPREP(MapIcons,addMapIcon)
-EPREP(MapIcons,removeMapIcon)
-EPREP(MapIcons,registerMapControl)
-EPREP(MapIcons,unregisterMapControl)
-EPREP(MapIcons,drawMapIcons)
-EPREP(MapIcons,mouseClickEH)
-EPREP(MapIcons,mouseMovingEH)
-EPREP(MapIcons,getIconAtPos)
+// MapGraphics
+EPREP(MapGraphics,addMapGraphicsEventHandler)
+EPREP(MapGraphics,addMapGraphicsGroup)
+EPREP(MapGraphics,buildMapGraphicsCache)
+EPREP(MapGraphics,clientInitMapGraphics)
+EPREP(MapGraphics,drawMapGraphics)
+EPREP(MapGraphics,mapGraphicsMouseButtonClick)
+EPREP(MapGraphics,mapGraphicsMouseMoving)
+EPREP(MapGraphics,mapGraphicsPosition)
+EPREP(MapGraphics,nearestMapGraphicsGroup)
+EPREP(MapGraphics,registerMapControl)
+EPREP(MapGraphics,removeMapGraphicsEventHandler)
+EPREP(MapGraphics,removeMapGraphicsGroup)
+EPREP(MapGraphics,unregisterMapControl)
+EPREP(MapGraphics,triggerMapGraphicsEvent)
 
-// Map Icon Render Events
-EPREP(MapIcons,addMapIconEventHandler)
-EPREP(MapIcons,removeMapIconEventHandler)
-EPREP(MapIcons,triggerMapIconEvent)
+// 3dGraphics
+EPREP(3dGraphics,clientInit3dGraphics)
+EPREP(3dGraphics,add3dGraphics)
+EPREP(3dGraphics,remove3dGraphics)
+EPREP(3dGraphics,build3dGraphicsCache)
+EPREP(3dGraphics,draw3dGraphics)
+EPREP(3dGraphics,3dGraphicsPosition)
 
 // Mutex
 EPREP(Mutex,initClientMutex)
@@ -80,7 +88,13 @@ EPREP(Mutex,mutex)
 // Namespaces
 EPREP(Namespaces,createNamespace)
 EPREP(Namespaces,deleteNamespace)
+
+EPREP(Namespaces,setVariable)
 EPREP(Namespaces,getVariable)
+EPREP(Namespaces,allVariables)
+
+EPREP(Namespaces,setVar)
+
 EPREP(Namespaces,getLogicGroup)
 
 // Notification System
@@ -88,9 +102,9 @@ EPREP(Notification,clientInitNotification)
 EPREP(Notification,displayNotification)
 EPREP(Notification,handleNotificationQueue)
 
-// respawn
-EPREP(Respawn,serverInitRespawn)
+// Respawn
 EPREP(Respawn,respawn)
+EPREP(Respawn,respawnNewSide)
 
 // Settings
 EPREP(Settings,initSettings)
@@ -106,7 +120,8 @@ EPREP(StatusEffects,setStatusEffect)
 EPREP(TeamColorSync,clientInitTeamColorSync)
 
 // Performance Info
-EPREP(PerformanceInfo,postInitPerformance)
+EPREP(PerformanceInfo,clientInitPerformance)
+EPREP(PerformanceInfo,serverInitPerformance)
 EPREP(PerformanceInfo,dumpPerformanceInformation)
 
 // Init

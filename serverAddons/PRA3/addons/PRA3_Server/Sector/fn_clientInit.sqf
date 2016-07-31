@@ -45,21 +45,21 @@ GVAR(currentSector) = objNull;
 
     if ((side group PRA3_Player) isEqualTo _newSide) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
-            [format["You captured sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format["You captured sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
         } else {
-            [format["Your team captured sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format["Your team captured sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
         };
     };
 
     if ((side group PRA3_Player) isEqualTo _oldSide) exitWith {
-        [format["You lost sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+        [format["You lost sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group PRA3_Player) isEqualTo _oldSide)) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
-            [format["You neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format["You neutralized sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
         } else {
-            [format["Your team neutralized sector %1", _sectorName], missionNamespace getVariable [format [QGVAR(SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format["Your team neutralized sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
         };
     };
 

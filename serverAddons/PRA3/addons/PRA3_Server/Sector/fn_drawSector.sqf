@@ -51,11 +51,11 @@ if (hasInterface) then {
             if (_sector call FUNC(isCaptureable)) then {
                 _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
                 _color = [0.01, 0.67, 0.92, 1];
-                ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+                ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
             };
         } else {
             _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
-            ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addCompassLineMarker);
+            ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
             _color = [0.99, 0.26, 0, 1];
 
         };
@@ -65,17 +65,17 @@ if (hasInterface) then {
     [
         _id,
         [
-            [_icon, _color, getMarkerPos _marker],
-            ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _designator, 2]
+            ["ICON", _icon, _color, getMarkerPos _marker],
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _designator, 2]
         ]
-    ] call CFUNC(addMapIcon);
+    ] call CFUNC(addMapGraphicsGroup);
 
     [
         _id,
         [
-            [_icon, _color, getMarkerPos _marker],
-            ["a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 0, _fullname, 2]
+            ["ICON", _icon, _color, getMarkerPos _marker],
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _fullname, 2]
         ],
         "hover"
-    ] call CFUNC(addMapIcon);
+    ] call CFUNC(addMapGraphicsGroup);
 };

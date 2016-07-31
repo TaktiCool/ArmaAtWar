@@ -14,42 +14,40 @@
     Returns:
     The selected data <Any>
 */
-params ["_idc", "_allData", ["_selectedValue", nil]];
-
-disableSerialization;
+params ["_control", "_allData", "_selectedValue"];
 
 if (isNil "_selectedValue") then {
-    private _selectedEntry = lnbCurSelRow _idc;
-    private _selectedValue = [[_idc, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
+    private _selectedEntry = lnbCurSelRow _control;
+    _selectedValue = [[_control, [_selectedEntry, 0]] call CFUNC(lnbLoad), nil] select (_selectedEntry == -1);
 };
 
 private _addedData = [];
-lnbClear _idc;
+lnbClear _control;
 {
     _x params ["_textRows", "_data", "_icon"];
 
-    private _rowNumber = lnbAddRow [_idc, _textRows];
-    [_idc, [_rowNumber, 0], _data] call CFUNC(lnbSave);
+    private _rowNumber = _control lnbAddRow _textRows;
+    [_control, [_rowNumber, 0], _data] call CFUNC(lnbSave);
     _addedData pushBack _data;
 
     if (!isNil "_icon") then {
-        lnbSetPicture [_idc, [_rowNumber, 0], _icon];
+        _control lnbSetPicture [[_rowNumber, 0], _icon];
     };
 
     if (_data isEqualTo _selectedValue) then {
-        lnbSetCurSelRow [_idc, _rowNumber];
+        _control lnbSetCurSelRow _rowNumber;
     };
 
     nil
 } count _allData;
 
-if ((lnbSize _idc select 0) == 0) then {
-    lnbSetCurSelRow [_idc, -1];
+if ((lnbSize _control select 0) == 0) then {
+    _control lnbSetCurSelRow -1;
     _selectedValue = nil;
 } else {
     if (isNil "_selectedValue" || {!(_selectedValue in _addedData)}) then {
-        lnbSetCurSelRow [_idc, 0];
-        _selectedValue = [_idc, [0, 0]] call CFUNC(lnbLoad);
+        _control lnbSetCurSelRow 0;
+        _selectedValue = [_control, [0, 0]] call CFUNC(lnbLoad);
     };
 };
 

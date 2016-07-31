@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    Init for Rally System for Leaders
+    Init for rally system
 
     Parameter(s):
     None
@@ -13,46 +13,18 @@
     Returns:
     None
 */
-[QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
+// Create a global namespace and publish it
+GVAR(pointStorage) = true call CFUNC(createNamespace);
+publicVariable QGVAR(pointStorage);
 
-if (getMarkerPos "respawn_west" distance [0,0,0] >= 1) then {
-    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_west", {playerSide == west}] call FUNC(addDeploymentPoint);
-};
-
-if (getMarkerPos "respawn_east" distance [0,0,0] >= 1) then {
-    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_east", {playerSide == east}] call FUNC(addDeploymentPoint);
-};
-
-if (getMarkerPos "respawn_guerrila" distance [0,0,0] >= 1) then {
-    ["BASE", "a3\ui_f\data\map\Markers\Military\box_ca.paa", -1, getMarkerPos "respawn_guerrila", {playerSide == independent}] call FUNC(addDeploymentPoint);
-};
-
-[{
-    GVAR(deploymentPoints) params ["_pointIds", "_pointData"];
+// Add the bases as default points
+["missionStarted", {
     {
-        private _pointDetails = _pointData select (_pointIds find _x);
-        _pointDetails params ["_name", "_icon", "_tickets", "_position", "_condition", "_args", "_objects"];
-
-        if (_args isEqualType grpNull) then {
-            if (isNull _args) then {
-                {
-                    deleteVehicle _x;
-                    nil
-                } count _objects;
-                [_x] call FUNC(removeDeploymentPoint);
-            } else {
-                private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
-                private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
-
-                private _rallySide = side _args;
-                private _enemyCount = {(side group _x) != _rallySide} count (nearestObjects [_position, ["CAManBase"], _maxEnemyCountRadius]);
-
-                if (_enemyCount >= _maxEnemyCount) then {
-                    [_x] call FUNC(removeDeploymentPoint);
-                    [_args] call FUNC(destroyRally);
-                };
-            };
+        private _markerName = "baseSpawn_" + (toLower str _x);
+        private _markerPosition = getMarkerPos _markerName;
+        if (!(_markerPosition isEqualTo [0, 0, 0])) then {
+            ["BASE", _markerPosition, _x, -1, "a3\ui_f\data\map\Markers\Military\box_ca.paa"] call FUNC(addPoint);
         };
         nil
-    } count _pointIds;
-}, 0.2] call CFUNC(addPerFrameHandler);
+    } count EGVAR(Mission,competingSides);
+}] call CFUNC(addEventHandler);

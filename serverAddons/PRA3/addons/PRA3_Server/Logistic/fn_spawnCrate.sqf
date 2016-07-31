@@ -21,24 +21,30 @@
 */
 
 (_this select 0) params ["_args", "_spawnPos"];
-_args params ["_crateType", ["_content", []]];
+_args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName"];
 
 if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)
 };
-private _spawnPos = [_spawnPos, 10, _crateType] call CFUNC(findSavePosition);
+private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
 private _crateObject = _crateType createVehicle _spawnPos;
 
-if !(_content isEqualTo []) then {
+if (_displayName != "") then {
+    _crateObject setVariable [QGVAR(displayName), _displayName, true];
+};
 
-    // hideObject until the Cargo is Filled up
-    _crateObject hideObjectGlobal true;
+// hideObject until the Cargo is Filled up
+_crateObject hideObjectGlobal true;
 
+if (_clearOnSpawn) then {
     // clear the Cargo
     clearWeaponCargoGlobal _crateObject;
     clearMagazineCargoGlobal _crateObject;
     clearItemCargoGlobal _crateObject;
     clearBackpackCargoGlobal _crateObject;
+};
+
+if !(_content isEqualTo []) then {
 
     // Refill the Cargo
     {
@@ -62,6 +68,6 @@ if !(_content isEqualTo []) then {
         nil
     } count _content;
 
-    // Unhide the Cargo after Filling
-    _crateObject hideObjectGlobal false;
 };
+// Unhide the Cargo after Filling
+_crateObject hideObjectGlobal false;

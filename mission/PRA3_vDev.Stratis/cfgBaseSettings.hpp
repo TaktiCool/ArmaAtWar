@@ -4,6 +4,10 @@ ticketBleed[] = {10,5}; // time, tickets
 musicStart = 100; // tickets to start the music
 playerTicketValue = 1; // Ticket value of a player
 
+// restirctSideSwitch = "";
+restirctSideSwitchRestrictionCount = 5;
+restirctSideSwitchRestrictionTime = 50;
+
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {
     "base_east",

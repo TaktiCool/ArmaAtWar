@@ -45,16 +45,17 @@ GVAR(CargoClasses) = [];
         {
             private _content = getArray (_x >> "content");
             private _className = getText (_x >> "classname");
+            private _clearOnSpawn = getNumber (_x >> "removeDefaultLoadout");
             private _displayName = getText (_x >> "displayName");
             [
                 _displayName,
                 _objects,
                 3,
-                compile format ["playerside isEqualTo %1", _side],
+                compile format ["(str playerside) == ""%1""", _side],
                 {
                     params ["_targetPos", "", "", "_args"];
                     ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
-                }, [_className, _content]
+                }, [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]
             ] call CFUNC(addAction);
 
             nil
@@ -140,7 +141,7 @@ GVAR(CargoClasses) = [];
     {!(_target getVariable ["hasInventory", true])},
     {
         params ["_vehicle"];
-        PRA3_Player action ["Gear", _vehicle];
+        PRA3_Player action ["Gear", objNull];
     }
 ] call CFUNC(addAction);
 
@@ -151,7 +152,7 @@ GVAR(CargoClasses) = [];
     {
         // @TODO we need to find a Idea how to change this action name
         // _target setUserActionText [_id, format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]];
-        isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo [])
+        isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo []) && PRA3_Player == vehicle PRA3_Player
     },
     {
         params ["_vehicle"];
@@ -269,8 +270,6 @@ GVAR(CargoClasses) = [];
             GVAR(CargoLoadBar) ctrlCommit 0;
         };
 
-
-
         // UPDATE LOOP
         [{
             disableSerialization;
@@ -286,7 +285,7 @@ GVAR(CargoClasses) = [];
                 lbClear GVAR(CargoListBox);
 
                 {
-                    GVAR(CargoListBox) lbAdd getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+                    GVAR(CargoListBox) lbAdd (_x getVariable [QGVAR(displayName), getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
                     nil
                 } count _cargoItems;
             };
@@ -300,8 +299,6 @@ GVAR(CargoClasses) = [];
             with uiNamespace do {
                 GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity/_cargoCapacity);
             };
-
-
 
         }, 1,[_container]] call CFUNC(addPerFrameHandler);
 

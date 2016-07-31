@@ -17,14 +17,16 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
-    setPlayerRespawnTime 10e10; // Prevent respawn
+    [[-10000, -10000, 50], true] call CFUNC(respawn);
 
-    // Respawn screen may already open by user action
-    if (dialog) then {
-        closeDialog 2;
-    };
+    [{
+        // Respawn screen may already open by user action
+        if (!(isNull (uiNamespace getVariable [QGVAR(respawnDisplay), displayNull]))) exitWith {
+            [UIVAR(RespawnScreen_onLoad), GVAR(respawnDisplay)] call CFUNC(localEvent);
+        };
 
-    createDialog UIVAR(RespawnScreen);
+        (findDisplay 46) createDisplay UIVAR(RespawnScreen);
+    }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
@@ -59,231 +61,131 @@
             nil
         } count EGVAR(Mission,competingSides);
 
-        // Move the player to the side as temporary unit
-        PRA3_Player setVariable [QCGVAR(tempUnit), true];
-        [_leastPlayerSide, createGroup _leastPlayerSide, [-1000, -1000, 10], true] call CFUNC(respawn);
+        // Move the player to the side
+        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawnNewSide);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
 
-        createDialog UIVAR(RespawnScreen);
+        (findDisplay 46) createDisplay UIVAR(RespawnScreen);
     }, [], "respawn"] call CFUNC(mutex);
-
-//    ["Respawn Screen", PRA3_Player, 0, {!dialog}, {
-//        createDialog UIVAR(RespawnScreen);
-//    }] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
+    (_this select 0) params ["_display"];
+    uiNamespace setVariable [QGVAR(respawnDisplay), _display];
+
     // Load the different screens
-    UIVAR(TeamInfoScreen_onLoad) call CFUNC(localEvent);
-    UIVAR(SquadScreen_onLoad) call CFUNC(localEvent);
-    UIVAR(RoleScreen_onLoad) call CFUNC(localEvent);
-    UIVAR(DeploymentScreen_onLoad) call CFUNC(localEvent);
+    [UIVAR(TeamInfoScreen_onLoad), _display] call CFUNC(localEvent);
+    [UIVAR(SquadScreen_onLoad), _display] call CFUNC(localEvent);
+    [UIVAR(RoleScreen_onLoad), _display] call CFUNC(localEvent);
+    [UIVAR(DeploymentScreen_onLoad), _display] call CFUNC(localEvent);
 
     // The dialog needs one frame until access to controls is possible
     [{
-        // Register the map for the marker system
-        [(findDisplay 1000  displayCtrl 700)] call CFUNC(registerMapControl);
+        params ["_display"];
 
-        // Fade the button in, calculate the respawn timer if necessary
-        //@todo move the button into deployment #222
-        500 call FUNC(fadeControl);
+        // Register the map for the marker system
+        [_display displayCtrl 800] call CFUNC(registerMapControl);
+
         if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
             // Catch the escape key
-            (findDisplay 1000) displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
-
-            // Disable the button and start the timer
-            (findDisplay 1000 displayCtrl 500) ctrlEnable false;
-            [{
-                params ["_respawnTime", "_id"];
-
-                // If the dialog has closed exit the PFH
-                if (!dialog) exitWith {
-                    _id call CFUNC(removePerFrameHandler);
-                };
-
-                // If the timer is up enabled deploying
-                if (diag_tickTime >= _respawnTime) exitWith {
-                    (findDisplay 1000 displayCtrl 500) ctrlSetText "DEPLOY";
-                    (findDisplay 1000 displayCtrl 500) ctrlEnable true;
-
-                    _id call CFUNC(removePerFrameHandler);
-                };
-
-                // Update the text on the button
-                private _time = _respawnTime - diag_tickTime;
-                (findDisplay 1000  displayCtrl 500) ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-            }, 0.1, diag_tickTime + ([QGVAR(RespawnSettings_respawnCountdown), 0] call CFUNC(getSetting))] call CFUNC(addPerFrameHandler);
-        } else {
-            (findDisplay 1000  displayCtrl 500) ctrlSetText "Close";
+            _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };
 
-        //Update the MissionName Text
-        (findDisplay 1000  displayCtrl 604) ctrlSetStructuredText parseText format ["%1", getText (missionConfigFile >> "onLoadMission")];
+        // Update the MissionName Text
+        (_display displayCtrl 501) ctrlSetStructuredText parseText (getText (missionConfigFile >> "onLoadMission"));
 
-        //Update Tickets
-        private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
-        (findDisplay 1000 displayCtrl 801) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (findDisplay 1000 displayCtrl 803) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 0],""]);
-        (findDisplay 1000 displayCtrl 805) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 0],_startTickets]);
-        (findDisplay 1000 displayCtrl 802) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (findDisplay 1000 displayCtrl 804) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 1],""]);
-        (findDisplay 1000 displayCtrl 806) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 1],_startTickets]);
+        // Update Tickets
+        private _startTickets = getNumber (missionConfigFile >> "PRA3" >> "tickets");
+        private _firstSide = EGVAR(Mission,competingSides) select 0;
+        private _secondSide = EGVAR(Mission,competingSides) select 1;
+        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1), _firstSide], ""]);
+        (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _firstSide], _startTickets]);
+        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1), _secondSide], ""]);
+        (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _secondSide], _startTickets]);
 
         {
-            (findDisplay 1000 displayCtrl _x) ctrlCommit 0;
-            nil;
-        } count [801,802,803,804,805,806];
+            (_display displayCtrl _x) ctrlCommit 0;
+            nil
+        } count [601, 602, 603, 604, 605, 606];
 
-        // The right background
-        // @todo move the backgrounds in the sub screens #223
-        601 call FUNC(fadeControl); // left
-        602 call FUNC(fadeControl); // right
-        603 call FUNC(fadeControl); // header (left)
-        604 call FUNC(fadeControl); // MissionName
-        800 call FUNC(fadeControl); // MissionName
-    }] call CFUNC(execNextFrame);
-
-
+        (_display displayCtrl 500) call FUNC(fadeControl); // MissionName
+        (_display displayCtrl 600) call FUNC(fadeControl); // Tickets
+    }, _display] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
 ["ticketsChanged", {
-    disableSerialization;
-    if (isNull findDisplay 1000) exitWith {};
-    if (GVAR(deactivateTicketSystem)) exitWith {};
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+    if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
+
     private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
-    (findDisplay 1000 displayCtrl 801) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-    (findDisplay 1000 displayCtrl 803) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 0],""]);
-    (findDisplay 1000 displayCtrl 805) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 0],_startTickets]);
-    (findDisplay 1000 displayCtrl 802) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-    (findDisplay 1000 displayCtrl 804) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1),EGVAR(Mission,competingSides) select 1],""]);
-    (findDisplay 1000 displayCtrl 806) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1),EGVAR(Mission,competingSides) select 1],_startTickets]);
+    (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 0], _startTickets]);
+    (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 1], _startTickets]);
 
     {
-        (findDisplay 1000 displayCtrl _x) ctrlCommit 0;
+        (_display displayCtrl _x) ctrlCommit 0;
         nil;
-    } count [801,802,803,804,805,806];
+    } count [605, 606];
 }] call CFUNC(addEventHandler);
 
-// alternative notification Display
+// Alternative notification display
 ["notificationDisplayed", {
-    disableSerialization;
-    private _display = findDisplay 1000;
-    if (isNull _display) exitWith {};
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+    if (isNull _display || dialog) exitWith {};
+
     (_this select 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
 
-
-
-    private _groupPos = ctrlPosition (_display displayCtrl 4000);
+    // Center and zero width
+    private _controlGroup = _display displayCtrl 700;
+    private _groupPos = ctrlPosition _controlGroup;
     private _oldGroupPos = +_groupPos;
     _groupPos set [0, 0.5];
     _groupPos set [2, 0];
-    (_display displayCtrl 4000) ctrlSetPosition _groupPos;
+    _controlGroup ctrlSetPosition _groupPos;
 
-
-    private _bgPos = ctrlPosition (_display displayCtrl 4001);
-    _bgPos set [0, -(_bgPos select 2)/2];
-    (_display displayCtrl 4001) ctrlSetPosition _bgPos;
+    // Background
+    private _controlBackground = _display displayCtrl 799;
+    _controlBackground ctrlSetTextColor _color;
+    private _bgPos = ctrlPosition _controlBackground;
+    _bgPos set [0, -(_bgPos select 2) / 2];
+    _controlBackground ctrlSetPosition _bgPos;
     _bgPos set [0, 0];
 
-    private _txtPos = ctrlPosition (_display displayCtrl 4002);
-    _txtPos set [0, -(_txtPos select 2)/2];
-    (_display displayCtrl 4002) ctrlSetPosition _txtPos;
+    // Text
+    private _controlText = _display displayCtrl 701;
+    _controlText ctrlSetStructuredText parseText format ["%1",_text];
+    private _txtPos = ctrlPosition _controlText;
+    _txtPos set [0, -(_txtPos select 2) / 2];
+    _controlText ctrlSetPosition _txtPos;
     _txtPos set [0, 0];
-    (_display displayCtrl 4001) ctrlSetTextColor _color;
 
-    (_display displayCtrl 4002) ctrlSetStructuredText parseText format ["%1",_text];
-    (_display displayCtrl 4000) ctrlCommit 0;
-    (_display displayCtrl 4001) ctrlCommit 0;
-    (_display displayCtrl 4002) ctrlCommit 0;
+    // Commit initial positions
+    _controlGroup ctrlCommit 0;
+    _controlBackground ctrlCommit 0;
+    _controlText ctrlCommit 0;
 
-    (_display displayCtrl 4000) ctrlSetPosition _oldGroupPos;
-    (_display displayCtrl 4000) ctrlSetFade 0;
-    (_display displayCtrl 4000) ctrlShow true;
-    (_display displayCtrl 4001) ctrlSetPosition _bgPos;
-    (_display displayCtrl 4002) ctrlSetPosition _txtPos;
-    (_display displayCtrl 4000) ctrlCommit 0.2;
-    (_display displayCtrl 4001) ctrlCommit 0.2;
-    (_display displayCtrl 4002) ctrlCommit 0.2;
+    // Prepare animation
+    _controlGroup ctrlSetPosition _oldGroupPos;
+    _controlGroup ctrlSetFade 0;
+    _controlGroup ctrlShow true;
+    _controlBackground ctrlSetPosition _bgPos;
+    _controlText ctrlSetPosition _txtPos;
+
+    // Commit animation
+    _controlGroup ctrlCommit 0.2;
+    _controlBackground ctrlCommit 0.2;
+    _controlText ctrlCommit 0.2;
 }] call CFUNC(addEventHandler);
 
 ["notificationHidden", {
-    disableSerialization;
-    private _display = findDisplay 1000;
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
     if (isNull _display) exitWith {};
-    (_display displayCtrl 4000) ctrlSetFade 1;
-    (_display displayCtrl 4000) ctrlShow false;
-    (_display displayCtrl 4002) ctrlCommit 0.2;
-}] call CFUNC(addEventHandler);
 
-// Handle the deploy button
-GVAR(lastRespawnFrame) = 0; //@todo remove this with #29
-[UIVAR(RespawnScreen_DeployButton_action), {
-    if (alive PRA3_Player && !(PRA3_Player getVariable [QCGVAR(tempUnit), false])) exitWith {
-        closeDialog 1;
-    };
-
-    // We use the mutex to prevent race conditions
-    [{
-        if (diag_frameNo == GVAR(lastRespawnFrame)) exitWith {}; //@todo remove this with #29
-
-        // Check squad
-        if (!((groupId group PRA3_Player) in EGVAR(Squad,squadIds))) exitWith {
-            ["You have to join a squad!"] call CFUNC(displayNotification);
-        };
-
-        // Check kit
-        private _currentRoleSelection = lnbCurSelRow 303;
-        if (_currentRoleSelection < 0) exitWith {
-            ["You have to select a role!"] call CFUNC(displayNotification);
-        };
-
-        // Check deployment
-        private _currentDeploymentPointSelection = lnbCurSelRow 403;
-        if (_currentDeploymentPointSelection < 0) exitWith {
-            ["You have to select a spawnpoint!"] call CFUNC(displayNotification);
-        };
-
-        // Check tickets
-        _currentDeploymentPointSelection = [403, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
-        EGVAR(Deployment,deploymentPoints) params ["_pointIds", "_pointData"];
-        private _pointDetails = _pointData select (_pointIds find _currentDeploymentPointSelection);
-        private _tickets = _pointDetails select 2;
-        private _deployPosition = _pointDetails select 3;
-        if (_tickets == 0) exitWith {
-            ["Spawn point has no tickets left!"] call CFUNC(displayNotification);
-        };
-
-        // Reduce ticket of deployment point because we spawn there
-        //@todo rewrite with #178
-        if (_tickets > 0) then {
-            _tickets = _tickets - 1;
-            _pointDetails set [2, _tickets];
-            if (_tickets == 0) then {
-                [group PRA3_Player] call EFUNC(Deployment,destroyRally);
-            } else {
-                publicVariable QEGVAR(Deployment,deploymentPoints);
-            };
-            [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
-            [QEGVAR(Deployment,updateMapIcons), group PRA3_Player] call CFUNC(targetEvent);
-        };
-
-        closeDialog 1;
-
-        [{
-            params ["_deployPosition"];
-
-            // Spawn
-            [playerSide, group PRA3_Player, _deployPosition] call CFUNC(respawn);
-
-            // Fix issue that player spawn Prone
-            ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
-
-            // Apply selected kit
-            [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
-        }, [_deployPosition]] call CFUNC(execNextFrame);
-
-        GVAR(lastRespawnFrame) = diag_frameNo;
-    }, [], "respawn"] call CFUNC(mutex);
+    private _controlGroup = _display displayCtrl 700;
+    _controlGroup ctrlSetFade 1;
+    _controlGroup ctrlShow false;
+    _controlGroup ctrlCommit 0.2;
 }] call CFUNC(addEventHandler);
