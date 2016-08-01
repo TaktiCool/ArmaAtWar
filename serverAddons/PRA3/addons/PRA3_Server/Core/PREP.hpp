@@ -118,7 +118,6 @@ EPREP(StatusEffects,setStatusEffect)
 
 // Statemaschine
 EPREP(Statemachine,startStatemachine)
-EPREP(Statemachine,killStatemachine)
 EPREP(Statemachine,stepStatemachine)
 EPREP(Statemachine,createStatemachine)
 EPREP(Statemachine,createStatemachineFromConfig)
