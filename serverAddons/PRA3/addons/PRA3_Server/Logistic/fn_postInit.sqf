@@ -186,7 +186,6 @@ GVAR(CargoClasses) = [];
 
 
 
-        disableSerialization;
         private _display = (findDisplay 602);
         private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
         private _gX = (((safezoneW / safezoneH) min 1.2) / 40);
@@ -239,7 +238,6 @@ GVAR(CargoClasses) = [];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             [{
-                disableSerialization;
                 params ["_vehicle"];
                 private _index = lbCurSel (uiNamespace getVariable QGVAR(CargoListBox));
                 if (_index == -1) exitWith {};
@@ -272,7 +270,6 @@ GVAR(CargoClasses) = [];
 
         // UPDATE LOOP
         [{
-            disableSerialization;
             params ["_args", "_id"];
 
             if (isNull (findDisplay 602)) exitWith {

@@ -41,7 +41,6 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
     _groupIconId,
     "hoverin",
     {
-        disableSerialization;
         (_this select 0) params ["_map", "_xPos", "_yPos"];
         (_this select 1) params ["_group"];
 
@@ -157,7 +156,6 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
         };
 
         GVAR(groupInfoPFH) = [{
-            disableSerialization;
             params ["_params", "_id"];
             _params params ["_group", "_map"];
 
@@ -194,7 +192,6 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
     _groupIconId,
     "hoverout",
     {
-        disableSerialization;
         (_this select 0) params ["_map", "_xPos", "_yPos"];
         (_this select 1) params ["_group"];
 

@@ -13,7 +13,6 @@
     Returns:
     None
 */
-disableSerialization;
 if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
 (GVAR(NotificationQueue) deleteAt 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
 if !(call _condition) exitWith {
@@ -58,7 +57,6 @@ GVAR(LastNotification) = time;
 GVAR(NextNotification) = time + _time;
 
 [{
-    disableSerialization;
     [{
         if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
         call CFUNC(handleNotificationQueue);

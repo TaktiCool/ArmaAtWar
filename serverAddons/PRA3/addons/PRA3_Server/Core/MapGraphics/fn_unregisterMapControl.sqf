@@ -13,7 +13,6 @@
     Returns:
     None
 */
-disableSerialization;
 params ["_map"];
 private _idx = 0;
 with uiNamespace do {
