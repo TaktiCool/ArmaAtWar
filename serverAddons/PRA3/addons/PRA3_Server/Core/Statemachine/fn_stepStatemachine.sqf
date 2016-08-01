@@ -13,13 +13,13 @@
     Returns:
     None
 */
-params ["_stateMachine", "_idPFH"];
+params ["_stateMachine"];
 
 private _currentState = _stateMachine getVariable SMSVAR(nextStateData);
 // check if current state exist in Namespace.
 if (isNil "_currentState") exitWith {
     LOG("Error Next State is Nil")
-    _idPFH call CFUNC(removePerFrameHandler);
+    "exit"
 };
 
 private _stateData = if (_currentState isEqualType "") then {
@@ -31,7 +31,7 @@ private _stateData = if (_currentState isEqualType "") then {
 // check if state data exist.
 if (isNil "_stateData") exitWith {
     LOG("Error Next State is Unknown: " + _currentState)
-    _idPFH call CFUNC(removePerFrameHandler);
+    "exit"
 };
 
 _stateData params ["_code", "_args"];

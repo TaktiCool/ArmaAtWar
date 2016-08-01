@@ -13,6 +13,4 @@
     Returns:
     None
 */
-
-EGVAR(Statemachine,allStatemachines) = [];
 EGVAR(Statemachine,exitStateNames) = ["exit", "cancel", "kill"];

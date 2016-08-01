@@ -25,8 +25,9 @@ if !(isNil "_firstState") then {
     _stateMachine setVariable [SMSVAR(nextStateData), _firstState];
 };
 
-private _index = [FUNC(loopStatemachine), _tickeTime, _stateMachine] call CFUNC(addPerFrameHandler);
-
-_stateMachine setVariable [SMSVAR(PFHIndex), _index];
-EGVAR(Statemachine,allStatemachines) set [_index, _stateMachine];
-_index
+[{
+    private _ret = _this call FUNC(stepStatemachine);
+    if (_ret in EGVAR(Statemachine,exitStateNames)) then {
+        (_this select 1) call CFUNC(removePerFrameHandler);
+    };
+}, _tickeTime, _stateMachine] call CFUNC(addPerFrameHandler);
