@@ -23,9 +23,9 @@ if (isNil "_currentState") exitWith {
 };
 
 private _stateData = if (_currentState isEqualType "") then {
-    _stateMachine getVariable _currentState;
+    _stateMachine getVariable format[SMSVAR(%1), _currentState];
 } else {
-    _stateMachine getVariable (_currentState select 0);
+    _stateMachine getVariable format[SMSVAR(%1), (_currentState select 0)];
 };
 
 // check if state data exist.
