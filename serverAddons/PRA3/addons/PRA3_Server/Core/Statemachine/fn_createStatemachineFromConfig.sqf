@@ -19,7 +19,7 @@ private _stateMachine = call FUNC(createStatemachine);
 
 private _entryPoint = getText(_configPath >> "entryPoint");
 if (_entryPoint != "") then {
-    _stateMachine setVariable [SMVAR(nextStateData), _entryPoint];
+    _stateMachine setVariable [SMSVAR(nextStateData), _entryPoint];
 };
 
 {

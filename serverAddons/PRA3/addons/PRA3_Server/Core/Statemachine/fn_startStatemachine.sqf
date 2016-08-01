@@ -22,11 +22,11 @@ if (_stateMachine in EGVAR(Statemachine,allStatemachines)) exitWith {
 };
 
 if !(isNil "_firstState") then {
-    _stateMachine setVariable [SMVAR(nextStateData), _firstState];
+    _stateMachine setVariable [SMSVAR(nextStateData), _firstState];
 };
 
 private _index = [FUNC(loopStatemachine), _tickeTime, _stateMachine] call CFUNC(addPerFrameHandler);
 
-_stateMachine setVariable [SMVAR(PFHIndex), _index];
+_stateMachine setVariable [SMSVAR(PFHIndex), _index];
 EGVAR(Statemachine,allStatemachines) set [_index, _stateMachine];
 _index

@@ -19,6 +19,6 @@
     Returns:
     None
 */
-params [["_statemachine", locationNull, [locationNull]], ["_stateName", "", [""]], ["_stateCode", {}, [{}, ""]], ["_args", []]];
+params [["_stateMachine", locationNull, [locationNull]], ["_stateName", "", [""]], ["_stateCode", {}, [{}, ""]], ["_args", []]];
 
-_statemachine setVariable [_stateName, [_stateCode, _args]];
+[_stateMachine, format[SMSVAR(%1), _stateName], [_stateCode, _args], QGVAR(allStatemachineStates), false] call CFUNC(setVariable);

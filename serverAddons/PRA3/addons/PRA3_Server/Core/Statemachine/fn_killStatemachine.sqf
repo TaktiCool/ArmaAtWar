@@ -20,7 +20,7 @@ if (_index isEqualType 0) then {
     _stateMachine = EGVAR(Statemachine,allStatemachines) param [_index, nil];
 } else {
     _stateMachine = _index;
-    _index = _index getVariable SMVAR(PFHIndex);
+    _index = _index getVariable SMSVAR(PFHIndex);
 };
 
 _index call CFUNC(removePerFrameHandler);

@@ -15,7 +15,7 @@
 */
 params ["_stateMachine", "_idPFH"];
 
-private _currentState = _stateMachine getVariable SMVAR(nextStateData);
+private _currentState = _stateMachine getVariable SMSVAR(nextStateData);
 // check if current state exist in Namespace.
 if (isNil "_currentState") exitWith {
     LOG("Error Next State is Nil")
@@ -56,5 +56,6 @@ private _nextStateName = if (_nextState isEqualType "") then {
 
 if (_nextStateName in EGVAR(Statemachine,exitStateNames)) exitWith {
     [_stateMachine] call FUNC(killStatemachine);
+    _nextStateName
 };
-_stateMachine setVariable [ SMVAR(nextStateData), _nextState];
+_stateMachine setVariable [SMSVAR(nextStateData), _nextState];

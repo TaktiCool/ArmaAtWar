@@ -16,4 +16,5 @@
 
 private _namespace = false call CFUNC(createNamespace);
 
-_namespace setVariable [SMVAR(nextStateData), "init"];
+_namespace setVariable [SMSVAR(nextStateData), "init"];
+_namespace
