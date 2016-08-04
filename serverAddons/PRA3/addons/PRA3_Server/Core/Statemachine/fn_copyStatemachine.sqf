@@ -28,3 +28,4 @@ private _allStates = [_stateMachine, QGVAR(allStatemachineStates)] call CFUNC(al
     [_stateMachineNew, _x, _stateMachine getVariable _x, QGVAR(allStatemachineStates), false] call CFUNC(setVariable);
     nil
 } count _allStates;
+_stateMachineNew

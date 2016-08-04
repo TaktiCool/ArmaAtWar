@@ -25,7 +25,7 @@ if (_entryPoint != "") then {
 {
     private _code = getText(_x >> "stateCode");
     private _name = configName _x;
-    [_stateMachine, _name, _code] call FUNC(addStatemachineState);
+    [_stateMachine, _name, compile _code] call FUNC(addStatemachineState);
     nil
 } count configProperties [_configPath, "isClass _x", true];
 

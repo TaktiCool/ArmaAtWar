@@ -5,13 +5,13 @@
     Author: joko // Jonas
 
     Description:
-    Loop for 1 Statemachine.
+    Trigger 1 Step in 1 Statemachine.
 
     Parameter(s):
-    PFH Arguments
+    0: Statemachine Object <Location>
 
     Returns:
-    None
+    Next Statename <String>
 */
 params ["_stateMachine"];
 
@@ -59,3 +59,4 @@ if (_nextStateName in EGVAR(Statemachine,exitStateNames)) exitWith {
     _nextStateName
 };
 _stateMachine setVariable [SMSVAR(nextStateData), _nextState];
+_nextStateName

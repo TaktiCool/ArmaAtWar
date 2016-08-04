@@ -17,10 +17,6 @@
 */
 params ["_stateMachine", "_firstState", ["_tickeTime", 0]];
 
-if (_stateMachine in EGVAR(Statemachine,allStatemachines)) exitWith {
-    LOG("Error Statemachine is allready Running")
-};
-
 if !(isNil "_firstState") then {
     _stateMachine setVariable [SMSVAR(nextStateData), _firstState];
 };
