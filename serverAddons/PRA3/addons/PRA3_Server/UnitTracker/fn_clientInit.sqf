@@ -39,7 +39,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
     params ["_dummy", "_units"];
     private _unit = _units deleteAt 0;
 
-    while {(isNull _unit || {side _unit != playerSide}) && {_units isEqualTo []}} do {
+    while {(isNull _unit || {side _unit != playerSide}) && {!(_units isEqualTo [])}} do {
         _unit = _units deleteAt 0;
     };
 
