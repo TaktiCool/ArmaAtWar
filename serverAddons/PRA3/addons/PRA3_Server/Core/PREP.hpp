@@ -116,6 +116,16 @@ EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
+// Statemaschine
+EPREP(Statemachine,startStatemachine)
+EPREP(Statemachine,stepStatemachine)
+EPREP(Statemachine,createStatemachine)
+EPREP(Statemachine,createStatemachineFromConfig)
+EPREP(Statemachine,copyStatemachine)
+EPREP(Statemachine,addStatemachineState)
+EPREP(Statemachine,setVariableStatemachine)
+EPREP(Statemachine,getVariableStatemachine)
+
 // Performance Info
 EPREP(PerformanceInfo,clientInitPerformance)
 EPREP(PerformanceInfo,serverInitPerformance)
