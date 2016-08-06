@@ -126,9 +126,6 @@ EPREP(Statemachine,addStatemachineState)
 EPREP(Statemachine,setVariableStatemachine)
 EPREP(Statemachine,getVariableStatemachine)
 
-// Team Color Sync
-EPREP(TeamColorSync,clientInitTeamColorSync)
-
 // Performance Info
 EPREP(PerformanceInfo,clientInitPerformance)
 EPREP(PerformanceInfo,serverInitPerformance)
