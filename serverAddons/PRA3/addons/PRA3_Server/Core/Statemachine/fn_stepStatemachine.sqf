@@ -53,10 +53,11 @@ private _nextStateName = if (_nextState isEqualType "") then {
 } else {
     _nextState select 0;
 };
-
+/*
 if (_nextStateName in EGVAR(Statemachine,exitStateNames)) exitWith {
     [_stateMachine] call FUNC(killStatemachine);
     _nextStateName
 };
+*/
 _stateMachine setVariable [SMSVAR(nextStateData), _nextState];
 _nextStateName
