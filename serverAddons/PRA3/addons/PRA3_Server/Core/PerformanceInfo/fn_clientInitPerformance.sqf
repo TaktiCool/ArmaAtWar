@@ -18,8 +18,6 @@ GVAR(maxFPS) = 0;
 DFUNC(showIndicator) = {
     params ["_control", "_fps"];
 
-    disableSerialization;
-
     private _visible = _fps < 15;
     _control ctrlShow _visible;
 

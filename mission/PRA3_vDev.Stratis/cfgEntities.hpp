@@ -2,7 +2,7 @@ class defaultVehicle {
     respawnCondition = "true";
     side = "UNKNOWN";
     respawnTime = -1; // disabled
-    ticketValue = 5;
+    ticketValue = 2;
 };
 
 class defaultWest : defaultVehicle {

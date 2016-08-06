@@ -22,8 +22,6 @@
     [{
         params ["_params", "_id"];
 
-         disableSerialization;
-
         private _fakeWeaponName = PRA3_Player getVariable [QGVAR(fakeWeaponName), ""];
 
         if (_fakeWeaponName == "") exitWith {
@@ -91,8 +89,6 @@
 [QGVAR(StartMedicalAction), {
     (_this select 0) params ["_action", "_target", "_displayText"];
 
-    disableSerialization;
-
     private _display = uiNamespace getVariable [UIVAR(MedicalProgress), displayNull];
     if (isNull _display) then {
         ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutRsc [UIVAR(MedicalProgress), "PLAIN", 0.1];
@@ -112,8 +108,6 @@
     [{
         params ["_params", "_id"];
         _params params ["_display", "_target"];
-
-        disableSerialization;
 
         if (!(_target in [PRA3_Player, cursorTarget]) || PRA3_Player distance _target > 3 || !alive _target || dialog) then {
             [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);

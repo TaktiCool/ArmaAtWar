@@ -44,10 +44,10 @@
 # Namespace
     'PRA3_allVariables':
         'prefix': 'allVariables'
-        'body': '[${1:NAMESPACE},"${2:TEXT}"] call CFUNC(allVariables);'
+        'body': '[${1:NAMESPACE},"${2:VARIABLENAME}"] call CFUNC(allVariables);'
     'PRA3_setVariableNamespace':
         'prefix': 'setVariableNamespace'
-        'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call CFUNC(displayNotification);'
+        'body': '[${1:NAMESPACE}, "${2:VARIABLENAME}", ${3:VALUE},"${4:CACHENAME}", ${5:GLOBAL}] call CFUNC(setVariable);'
     'PRA3_getVariableNamespace':
         'prefix': 'getVariableNamespace'
         'body': '[${1:NAMESPACE}, ${2:VARIABLENAME}, ${3:DEFAULT}] call CFUNC(getVariable);'

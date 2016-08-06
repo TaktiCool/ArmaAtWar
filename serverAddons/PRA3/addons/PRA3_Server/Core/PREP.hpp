@@ -121,9 +121,6 @@ EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
-// Team Color Sync
-EPREP(TeamColorSync,clientInitTeamColorSync)
-
 // Performance Info
 EPREP(PerformanceInfo,clientInitPerformance)
 EPREP(PerformanceInfo,serverInitPerformance)

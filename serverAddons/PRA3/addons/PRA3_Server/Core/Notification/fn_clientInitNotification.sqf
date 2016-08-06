@@ -14,8 +14,6 @@
     None
 */
 
-disableSerialization;
-
 GVAR(NotificationQueue) = [];
 GVAR(LastNotification) = -1;
 GVAR(NextNotification) = -1;

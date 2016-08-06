@@ -16,8 +16,6 @@
 params ["_state"];
 
 if (_state) then {
-    disableSerialization;
-
     if (!isNil QGVAR(disableUserInputKeyEventHandler)) exitWith {};
 
     // end TFAR and ACRE2 radio transmissions
@@ -39,8 +37,6 @@ if (_state) then {
 
         if (_key == 1) then {
             createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
-
-            disableSerialization;
 
             private _dlg = findDisplay 49;
 
@@ -100,7 +96,6 @@ if (_state) then {
 params ["_state"];
 
 if (_state) then {
-    disableSerialization;
 
     if (!isNull (uiNamespace getVariable [UIVAR(dlgDisableMouse), displayNull])) exitWith {};
     if (!isNil QGVAR(disableInputPFH)) exitWith {};
@@ -123,8 +118,6 @@ if (_state) then {
 
         if (_key == 1) then {
             createDialog (["RscDisplayInterrupt", "RscDisplayMPInterrupt"] select isMultiplayer);
-
-            disableSerialization;
 
             private _dlg = findDisplay 49;
 

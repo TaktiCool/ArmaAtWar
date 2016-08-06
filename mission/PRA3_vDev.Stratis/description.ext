@@ -42,6 +42,8 @@ class PRA3 {
     #include "cfgRevive.hpp"
 
     #include "cfgEntities.hpp"
+	
+	#include "cfgFOB.hpp"
 
     #include "ui\common\pra3Core.hpp"
 

@@ -66,8 +66,6 @@ addMissionEventHandler ["MapSingleClick", {
     addMissionEventHandler ["Draw3D", {
         PERFORMANCECOUNTER_START(CompassUI)
 
-        disableSerialization;
-
         // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
         if (isNull _dialog) exitWith {};
