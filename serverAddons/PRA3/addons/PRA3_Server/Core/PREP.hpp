@@ -51,6 +51,11 @@ EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)
 
+// canInteractWith
+EPREP(Interaction,addCanInteractWith)
+EPREP(Interaction,canInteractWith)
+EPREP(Interaction,clientInitCanInteractWith)
+
 // lnbData
 EPREP(lnbData,initlnbData)
 EPREP(lnbData,lnbLoad)
