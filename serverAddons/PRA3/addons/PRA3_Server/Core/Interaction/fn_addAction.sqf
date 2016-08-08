@@ -23,7 +23,7 @@ params ["_text", "_onObject", "_distance", "_condition", "_callback", ["_args",[
 // Convert Condition to String
 _condition = _condition call FUNC(codeToString);
 
-_condition = "[_target, _this, " + str _ignoredCanInteractConditions + "] call PAR3_Core_fnc_canInteractWith && " + _condition;
+_condition = "[_target, _this, " + str _ignoredCanInteractConditions + "] call PRA3_Core_fnc_canInteractWith && " + _condition;
 
 _condition = if (_distance > 0 && !(_onObject isEqualTo PRA3_Player)) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange &&" + _condition} else {_condition};
 
