@@ -61,3 +61,9 @@ GVAR(CargoClasses) = [];
         nil
     } count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
 }] call CFUNC(addEventHandler);
+
+
+["isNotDragging", {
+    isNull (_caller getVariable [QGVAR(Item), objNull]) &&
+    isNull (_target getVariable [QGVAR(Item), objNull])
+ }] call CFUNC(addCanInteractWith);

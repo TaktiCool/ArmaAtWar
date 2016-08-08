@@ -37,7 +37,7 @@
     {!(isNull (PRA3_Player getVariable [QGVAR(Item), objNull]))},
     {
         [PRA3_Player] call FUNC(dropObject);
-    }
+    }, [], ["isNotDragging"]
 ] call CFUNC(addAction);
 
 [
@@ -82,7 +82,7 @@
 
             PRA3_Player action ["SwitchWeapon", PRA3_Player, PRA3_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);
-    }
+    }, [], ["isNotDragging"]
 ] call CFUNC(addAction);
 
 [
