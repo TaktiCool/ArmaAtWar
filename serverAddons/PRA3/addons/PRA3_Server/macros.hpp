@@ -104,6 +104,8 @@
     #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
 #endif
 
+#define LOC(var) var call CFUNC(readLocalization);
+
 // UI Based Macros
 #define PYN 108
 #define PX(X) ((X)/PYN*safeZoneH/(4/3))
