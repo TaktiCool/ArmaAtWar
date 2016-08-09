@@ -104,6 +104,8 @@
     #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
 #endif
 
+
+#define LOCVAR(var) TRIPLE(STR_PRA3,MODULE,var)
 #define LOC(var) var call CFUNC(readLocalization);
 
 // UI Based Macros
