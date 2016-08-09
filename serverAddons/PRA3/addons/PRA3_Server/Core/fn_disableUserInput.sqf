@@ -25,10 +25,12 @@ if (_state) then {
     if (visibleMap) then {
         openMap false;
     };
-
-    inGameUISetEventHandler ["PrevAction", "true"];
-    inGameUISetEventHandler ["NextAction", "true"];
-    inGameUISetEventHandler ["Action", "true"];
+    GVAR(disableUserInputPrevActionEH) = ["inGameUIPrevAction", {true}] call FUNC(addEventhandler);
+    GVAR(disableUserInputNextActionEH) = ["inGameUINextAction", {true}] call FUNC(addEventhandler);
+    GVAR(disableUserInputActionEH) = ["inGameUIAction", {true}] call FUNC(addEventhandler);
+    //inGameUISetEventHandler ["PrevAction", "true"];
+    //inGameUISetEventHandler ["NextAction", "true"];
+    //inGameUISetEventHandler ["Action", "true"];
 
     GVAR(disableUserInputScrollWheelEventHandler) = (findDisplay 46) displayAddEventHandler ["MouseZChanged", {true;}];
     GVAR(disableUserInputMouseButtonEventHandler) = (findDisplay 46) displayAddEventHandler ["MouseButtonDown", {true;}];
@@ -82,14 +84,20 @@ if (_state) then {
         (findDisplay 46) displayRemoveEventHandler ["KeyDown",GVAR(disableUserInputKeyEventHandler)];
         (findDisplay 46) displayRemoveEventHandler ["MouseButtonDown",GVAR(disableUserInputMouseButtonEventHandler)];
         (findDisplay 46) displayRemoveEventHandler ["MouseZChanged",GVAR(disableUserInputScrollWheelEventHandler)];
+        ["inGameUIPrevAction", GVAR(disableUserInputPrevActionEH)] call CFUNC(removeEventHandler);
+        ["inGameUINextAction", GVAR(disableUserInputNextActionEH)] call CFUNC(removeEventHandler);
+        ["inGameUIAction", GVAR(disableUserInputActionEH)] call CFUNC(removeEventHandler);
     };
     GVAR(disableUserInputKeyEventHandler) = nil;
     GVAR(disableUserInputMouseButtonEventHandler) = nil;
     GVAR(disableUserInputScrollWheelEventHandler) = nil;
+    GVAR(disableUserInputPrevActionEH) = nil;
+    GVAR(disableUserInputNextActionEH) = nil;
+    GVAR(disableUserInputActionEH) = nil;
 
-    inGameUISetEventHandler ["PrevAction", ""];
-    inGameUISetEventHandler ["NextAction", ""];
-    inGameUISetEventHandler ["Action", ""];
+    //inGameUISetEventHandler ["PrevAction", ""];
+    //inGameUISetEventHandler ["NextAction", ""];
+    //inGameUISetEventHandler ["Action", ""];
 };
 
 /*

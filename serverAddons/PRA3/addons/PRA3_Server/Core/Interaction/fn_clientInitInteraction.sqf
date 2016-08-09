@@ -23,9 +23,11 @@ GVAR(PlayerInteraction_Actions) = [];
     _data params ["_currentPlayer", "_oldPlayer"];
 
     {
-        _x params ["_id", "_text", "_callback", "_args", "_condition"];
+        _x params ["_id", "_text", "_condition", "_callback", "_args", "_priority", "_showWindow", "_hideOnUse", "_shortcut", "_radius", "_unconscious", "_onActionAdded"];
         _oldPlayer removeAction _id;
-        _id = _currentPlayer addAction [_currentPlayer call _text, _callback, _args, 1.5, false, true, "", _condition];
+        private _argArray = [_currentPlayer call _text, _callback, _args, _priority, _showWindow, _hideOnUse, _shortcut, _condition, _radius, _unconscious];
+        private _id = _currentPlayer addAction _argArray;
+        [_id, _currentPlayer, _argArray] call _onActionAdded;
         _x set [0, _id];
         nil
     } count GVAR(PlayerInteraction_Actions);

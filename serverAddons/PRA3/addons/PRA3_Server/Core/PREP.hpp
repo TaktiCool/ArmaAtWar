@@ -47,6 +47,8 @@ EPREP(Gear,getAllGear)
 
 // Interaction
 EPREP(Interaction,addAction)
+EPREP(Interaction,addHoldAction)
+EPREP(Interaction,holdActionCallback)
 EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)

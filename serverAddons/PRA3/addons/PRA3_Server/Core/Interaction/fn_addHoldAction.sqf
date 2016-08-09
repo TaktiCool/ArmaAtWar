@@ -18,16 +18,17 @@
         5: idleText <String>
         6: arguments <Array>
 
+
+	[cursorTarget, "TestHold", "", "", {true}, {true}, {StartTime = time;}, {(time - StartTime)/10},{hint "COMPLETED";},{hint "INTERRUPTED"}] call CFUNC(addHoldAction)
     Returns:
     0: Return <Type>
 */
 params
 [
-	["_target",objNull,[objNull]],
-    ["_distance",2,[123]],
+	["_target",objNull,[objNull,"",[]]],
 	["_title","MISSING TITLE",[""]],
 	["_iconIdle","MISSING ICON",["",{}]],
-	["_iconProgress",_iconIdle,["",{}]],
+	["_iconProgress","MISSING ICON",["",{}]],
 	["_condShow",{true},[{}]],
 	["_condProgress",{true},[{}]],
 	["_codeStart",{},[{}]],
@@ -47,68 +48,77 @@ private _keyName = _keyNameRaw select [1,count _keyNameRaw - 2];
 private _keyNameColored = format["<t color='#ffae00'>%1</t>",_keyName];
 private _hint = format[localize "STR_A3_HoldKeyTo",_keyNameColored,_title];
 _hint = format["<t font='RobotoCondensedBold'>%1</t>",_hint];
-_title = format["<t color='#FFFFFF' align='left'>%1</t>        <t color='#83ffffff' align='right'>%2     </t>",_title,_keyName];
 
-[_title, _target, _distance, _condShow, {
-    params ["_target", "_caller", "_id", "_args"];
-    _args params
-    [
-        "_distance", "_title", "_hint",
-    	["_iconIdle","MISSING ICON",["",{}]],
-    	["_iconProgress","",[""]],
-    	["_condProgress",{true},[{}]],
-    	["_codeProgress",{},[{}]],
-    	["_codeCompleted",{},[{}]],
-    	["_codeInterrupted",{},[{}]],
-    	["_arguments",[],[[]]]
-    ];
+if (_target isEqualType "" && {_target == "VanillaAction"}) then {
+	["inGameUIAction", {
+		(_this select 0) params ["_target", "_caller", "_idx", "_id", "_title", "_priority"];
 
-    [_target, _caller, _id, _arguments] call _codeStart;
+		if (_id == ((_this select 1) select 0)) then {
+			private _keyNameRaw = actionKeysNames ["Action",1,"Keyboard"];
+			private _keyName = _keyNameRaw select [1,count _keyNameRaw - 2];
+			//STR_A3_HoldKeyTo: Hold %1 to %2
+			private _keyNameColored = format["<t color='#ffae00'>%1</t>",_keyName];
+			private _hint = format[localize "STR_A3_HoldKeyTo",_keyNameColored,_title];
+			
+			private _args = _this select 1;
+			_args set [0, _title];
+			_args set [1, _hint];
+			_args set [11, _priority];
+			[_target, _caller, _id, _this select 1] call FUNC(holdActionCallback);
+		};
 
-    [{
-        params ["_args", "_handle"];
-        _args params ["_target", "_caller", "_id", "_args"];
-        _args params
-        [
-            "_distance", "_title", "_hint",
-        	["_iconIdle","MISSING ICON",["",{}]],
-        	["_iconProgress","",[""]],
-        	["_condProgress",{true},[{}]],
-        	["_codeProgress",{},[{}]],
-        	["_codeCompleted",{},[{}]],
-        	["_codeInterrupted",{},[{}]],
-        	["_arguments",[],[[]]]
-        ];
+	},[_title,
+	_hint,
+	_iconIdle,
+	_iconProgress,
+	_condShow,
+	_condProgress,
+	_codeStart,
+	_codeProgress,
+	_codeCompleted,
+	_codeInterrupted,
+	_arguments,
+	_priority,
+	_removeCompleted,
+	_showUnconscious]] call FUNC(addEventhandler);
+} else {
+	_title = format["<t color='#FFFFFF' align='left'>%1</t>        <t color='#83ffffff' align='right'>%2     </t>",_title,_keyName];
+	[_title, _target, 0, _condShow, FUNC(holdActionCallback), ["arguments", [
+		_title,
+		_hint,
+		_iconIdle,
+		_iconProgress,
+		_condShow,
+		_condProgress,
+		_codeStart,
+		_codeProgress,
+		_codeCompleted,
+		_codeInterrupted,
+		_arguments,
+		_priority,
+		_removeCompleted,
+		_showUnconscious
+		], "priority", _priority, "showWindow", true, "hideOnUse", false, "showUnconscious", _showUnconscious, "onActionAdded", {
+			params ["_id", "_target", "_argArray"];
+			_argArray params ["","","_args"];
+			_args params
+	        [
+				"_title",
+				"_hint",
+				"_iconIdle",
+				"_iconProgress",
+				"_condShow",
+				"_condProgress",
+				"_codeStart",
+				"_codeProgress",
+				"_codeCompleted",
+				"_codeInterrupted",
+				"_arguments",
+				"_priority",
+				"_removeCompleted",
+				"_showUnconscious"
+	        ];
 
-        if ((inputAction "Action" < 0.5 && {inputAction "ActionContext" < 0.5}) || !(call _condProgress)) exitWith {
-            _args call _onAbortion;
-            _handle call CFUNC(removePerFrameHandler);
-        };
-
-        private _ret = _args call _codeProgress;
-        if (_ret isEqualType 0) then {
-            _ret = (_ret min 1) max 0;
-            private _progressIcon = format ["\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_%1_ca.paa", floor (_ret*24)];
-
-            _target setUserActionText [_id,_title,_progressIcon, _iconProgress];
-
-
-            if (_ret >= 1) then {
-                _ret = true;
-            };
-        };
-
-        if (_ret isEqualType true) then {
-            if (_ret) then {
-                _args call _codeCompleted;
-            } else {
-                _args call _codeInterrupted;
-            };
-
-            _handle call CFUNC(removePerFrameHandler);
-        };
-    }, 0, _this] call CFUNC(addPerFrameHandler);
-
-
-
-}, [_distance, _title, _hint, _iconIdle, _iconProgress, _condProgress, _codeProgress, _codeCompleted, _codeInterrupted, _arguments]] call CFUNC(addAction);
+			_target setUserActionText [_id,_title,_iconIdle, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint];
+		}]] call CFUNC(addAction);
+	};

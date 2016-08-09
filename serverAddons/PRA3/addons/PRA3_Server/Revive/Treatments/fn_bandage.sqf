@@ -18,7 +18,7 @@
     PRA3_Player == vehicle PRA3_Player && "FirstAidKit" in (items PRA3_Player) && {PRA3_Player getVariable [QGVAR(fakeWeaponName), ""] != "FirstAidKit"}
 }, {
     [QGVAR(SwitchWeapon), "FirstAidKit"] call CFUNC(localEvent);
-},[],["isNotUnconscious"]] call CFUNC(addAction);
+},["ignoredCanInteractConditions",["isNotUnconscious"]]] call CFUNC(addAction);
 
 [QGVAR(PrepareTreatment), {
     (_this select 0) params ["_unit", "_action"];

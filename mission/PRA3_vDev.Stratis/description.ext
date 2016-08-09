@@ -42,7 +42,7 @@ class PRA3 {
     #include "cfgRevive.hpp"
 
     #include "cfgEntities.hpp"
-	
+
 	#include "cfgFOB.hpp"
 
     #include "ui\common\pra3Core.hpp"
@@ -65,6 +65,7 @@ class RscTitles {
     #include "ui\hud\MedicalInfo.hpp"
     #include "ui\hud\Compass.hpp"
     #include "ui\hud\PerformanceStatus.hpp"
+    #include "ui\hud\HoldAction.hpp"
 };
 
 /* disable CfgRemoteExec Until BI fix it

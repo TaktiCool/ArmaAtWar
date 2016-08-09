@@ -30,6 +30,7 @@
 
 _eventName = format ["PRA3_Event_%1", _eventName];
 private _eventArray = GVAR(EventNamespace) getVariable _eventName;
+private _ret = nil;
 if !(isNil "_eventArray") then {
     {
         if !(isNil "_x") then {
@@ -37,9 +38,13 @@ if !(isNil "_eventArray") then {
             if (_eventFunctions isEqualType "") then {
                 _eventFunctions = parsingNamespace getVariable [_eventFunctions, {}];
             };
-            [_args, _data] call _eventFunctions;
+            // TODO: Add function to specify return value handling
+            private _tempRet = [_args, _data] call _eventFunctions;
+            if (!isNil "_tempRet") then {
+                _ret = _tempRet;
+            };
         };
         nil
     } count _eventArray;
 };
-nil
+_ret;
