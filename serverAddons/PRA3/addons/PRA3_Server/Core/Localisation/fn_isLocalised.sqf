@@ -5,13 +5,15 @@
     Author: joko // Jonas
 
     Description:
-    ReadLocalisation
+    check if a String is Localised
 
     Parameter(s):
     0: Localisation Name <String>
 
     Returns:
-    Localisted Text
+    is Localised <Bool>
 */
 params [["_locaName", "STR_PRA3_ERROR"]];
-[LVAR(Namespace), _locaName, "Error"] call CFUNC(getVariable);
+private _temp = LVAR(Namespace) getVariable _locaName;
+
+!isNil "_temp";

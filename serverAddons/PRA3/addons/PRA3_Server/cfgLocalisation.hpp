@@ -1,4 +1,4 @@
-class cfgLocalization {
+class cfgLocalisation {
 
     supportedLanguages[] = {"English", "German", "Spanish", "French", "Polish", "Czech", "Italian", "Hungarian", "Portuguese", "Russian", "", "", "", ""};
     class STR_PRA3_TestTranslation {

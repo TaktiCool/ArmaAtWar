@@ -25,6 +25,7 @@ EPREP(Events,hcInitEvents)
 // Localization
 EPREP(Localization,initLocalization)
 EPREP(Localization,readLocalization)
+EPREP(Localization,isLocalised)
 
 // Autoload
 EPREP(Autoload,autoloadEntryPoint)
