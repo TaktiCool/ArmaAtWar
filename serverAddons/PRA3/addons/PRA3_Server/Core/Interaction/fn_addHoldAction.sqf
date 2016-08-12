@@ -38,7 +38,8 @@ params
 	["_arguments",[],[[]]],
 	["_priority",1000,[123]],
 	["_removeCompleted",true,[true]],
-	["_showUnconscious",false,[true]]
+	["_showUnconscious",false,[true]],
+	["_ignoredCanInteractConditions",[],[[]]]
 ];
 
 //preprocess data
@@ -105,5 +106,5 @@ if (_target isEqualType "" && {_target == "VanillaAction"}) then {
 	        ];
 
 			_target setUserActionText [_id,_title,_iconIdle, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint];
-		}]] call CFUNC(addAction);
+		}, "ignoredCanInteractConditions", _ignoredCanInteractConditions]] call CFUNC(addAction);
 	};
