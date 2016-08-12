@@ -67,7 +67,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     DUMP("LoadModules Progress: " + str _progress)
 
     // Store the function name.
-    GVAR(requiredFunctions) pushBack _functionVarName;
+    GVAR(requiredFunctions) pushBackUnique _functionVarName;
 
     // If the progress is 1 the last function code is received.
     if (_progress >= 1) then {

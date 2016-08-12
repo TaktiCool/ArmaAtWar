@@ -78,3 +78,8 @@ if (isServer) then {
 
 // Call all required function on the server.
 call FUNC(callModules);
+
+// We need split up this to be sure that callModules is Done
+if (isServer) then {
+    call CFUNC(sendFunctionsLoop);
+};

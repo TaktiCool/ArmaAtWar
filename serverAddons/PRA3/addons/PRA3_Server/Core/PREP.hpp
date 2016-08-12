@@ -27,6 +27,7 @@ EPREP(Autoload,autoloadEntryPoint)
 EPREP(Autoload,callModules)
 EPREP(Autoload,loadModules)
 EPREP(Autoload,sendFunctions)
+EPREP(Autoload,sendFunctionsLoop)
 EPREP(Autoload,loadModulesServer)
 
 // Config Caching
