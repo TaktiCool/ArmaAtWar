@@ -19,34 +19,66 @@ GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
 GVAR(groupInfoPFH) = -1;
 
-DFUNC(updateIcons) = {
-    if (GVAR(blockUpdate)) exitWith {};
-    GVAR(blockUpdate) = true;
-    [{
-        {
-            [_x] call CFUNC(removeMapGraphicsGroup);
-            nil
-        } count GVAR(currentIcons);
-        {
-            if !(_x getVariable [QCGVAR(tempUnit), false]) then { // dont Draw Temp Units
-                [_x, _x] call FUNC(addUnitToTracker);
+GVAR(processedUnits) = [];
+GVAR(processedGroups) = [];
+GVAR(lastProcessedUnits) = [];
+GVAR(lastProcessedGroups) = [];
+
+GVAR(ProcessingSM) = call CFUNC(createStatemachine);
+
+[GVAR(ProcessingSM), "init", {
+    private _units = +(allUnits select {side _x == playerSide});
+    GVAR(lastProcessedUnits) = GVAR(processedUnits);
+    GVAR(lastProcessedGroups) = GVAR(processedGroups);
+    GVAR(processedGroups) = [];
+    GVAR(processedUnits) = [];
+    [["addIcons", _units], "init"] select (_units isEqualTo []);
+}] call CFUNC(addStatemachineState);
+
+[GVAR(ProcessingSM), "addIcons", {
+    params ["_dummy", "_units"];
+    private _unit = _units deleteAt 0;
+
+    while {(isNull _unit || {side _unit != playerSide}) && {!(_units isEqualTo [])}} do {
+        _unit = _units deleteAt 0;
+    };
+
+    if (!isNull _unit && {side _unit == playerSide}) then {
+        private _element = [_unit, side _unit, group _unit, (leader group _unit == _unit), _unit getVariable [QGVAR(playerIconId), ""]];
+        if (!(_element in GVAR(lastProcessedUnits)) || (_element select 4 == "")) then {
+            private _id = [_unit] call FUNC(addUnitToTracker);
+            _element set [4, _id];
+        };
+        GVAR(processedUnits) pushBack _element;
+        if (leader _unit == _unit) then {
+            private _element = [group _unit, leader _unit, format [QGVAR(Group_%1), groupId group _unit]];
+            if !(_element in GVAR(lastProcessedGroups) || (_element select 2 == "")) then {
+                private _id = [_element select 0] call FUNC(addGroupToTracker);
+                _element set [2, _id];
             };
-            nil
-        } count allPlayers;
-        GVAR(blockUpdate) = false;
-    }, 1] call CFUNC(wait);
-};
+            GVAR(processedGroups) pushBack _element;
+        };
+    };
 
-{
-    [_x, {
-        call FUNC(updateIcons);
-    }] call CFUNC(addEventHandler);
-    nil
-} count ["missionStarted", QGVAR(updateIconsEvent), "visibleMapChanged", UIVAR(RespawnScreen_onLoad)];
+    private _defaultState = [["addIcons", _units], "init"] select (_units isEqualTo []);
 
-{
-    [_x, {
-        QGVAR(updateIconsEvent) call CFUNC(globalEvent);
-    }] call CFUNC(addEventHandler);
-    nil
-} count ["leaderChanged", "sideChanged", "groupChanged", "playerChanged"];
+    if (_units isEqualTo []) exitWith {
+        private _iconsToDelete = (GVAR(lastProcessedUnits) apply {_x select 4}) - (GVAR(processedUnits) apply {_x select 4});
+        _iconsToDelete append ((GVAR(lastProcessedGroups) apply {_x select 2}) - (GVAR(processedGroups) apply {_x select 2}));
+        [["deleteIcons", _iconsToDelete], _defaultState] select (_iconsToDelete isEqualTo []);
+    };
+    _defaultState;
+}] call CFUNC(addStatemachineState);
+
+[GVAR(ProcessingSM), "deleteIcons", {
+    params ["_dummy", "_iconsToDelete"];
+
+    private _icon = _iconsToDelete deleteAt 0;
+    [_icon] call CFUNC(removeMapGraphicsGroup);
+    [_icon, "hoverin"] call CFUNC(removeMapGraphicsEventHandler);
+    [_icon, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
+
+    [["deleteIcons", _iconsToDelete], "init"] select (_iconsToDelete isEqualTo []);
+}] call CFUNC(addStatemachineState);
+
+[GVAR(ProcessingSM), "init"] call CFUNC(startStateMachine);

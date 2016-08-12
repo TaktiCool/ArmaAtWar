@@ -57,7 +57,7 @@
 ["missionStarted", {
     ["Squad Screen", PRA3_Player, 0, {isNull (uiNamespace getVariable [QGVAR(squadDisplay), displayNull])}, {
         (findDisplay 46) createDisplay UIVAR(SquadScreen);
-    }] call CFUNC(addAction);
+    },[],["isNotInVehicle"]] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(SquadScreen_onLoad), {

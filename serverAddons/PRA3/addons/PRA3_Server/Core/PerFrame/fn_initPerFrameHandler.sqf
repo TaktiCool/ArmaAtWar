@@ -20,7 +20,7 @@ GVAR(PFHhandles) = [];
 GVAR(nextFrameBufferA) = [];
 GVAR(nextFrameBufferB) = [];
 GVAR(nextFrameNo) = diag_frameno;
-GVAR(deltaTime) = 0;
+GVAR(deltaTime) = diag_tickTime - (diag_tickTime/10000);
 GVAR(lastFrameTime) = diag_tickTime;
 GVAR(sortWaitArray) = false;
 GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
@@ -29,6 +29,10 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     };
 
     PERFORMANCECOUNTER_START(PFHCounter)
+
+    // Delta time Describe the time that the last Frame needed to calculate this is required for some One Each Frame Balance Math Calculations
+    GVAR(deltaTime) = diag_tickTime - GVAR(lastFrameTime);
+    GVAR(lastFrameTime) = diag_tickTime;
 
     {
         _x params ["_function", "_delay", "_delta", "", "_args", "_handle"];
@@ -94,10 +98,6 @@ GVAR(OnEachFrameID) = addMissionEventHandler ["EachFrame", {
     GVAR(nextFrameBufferA) = +GVAR(nextFrameBufferB);
     GVAR(nextFrameBufferB) = [];
     GVAR(nextFrameNo) = diag_frameno + 1;
-
-    // Delta time Describe the time that the last Frame needed to calculate this is required for some One Each Frame Balance Math Calculations
-    GVAR(deltaTime) = diag_tickTime - GVAR(lastFrameTime);
-    GVAR(lastFrameTime) = diag_tickTime;
 
     PERFORMANCECOUNTER_END(PFHCounter)
 }];

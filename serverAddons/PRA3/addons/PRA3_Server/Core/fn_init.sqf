@@ -36,7 +36,6 @@ if (hasInterface) then {
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
                 [{
-                    disableSerialization;
                     private _pauseMenuDisplay = findDisplay 49;
 
                     _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);

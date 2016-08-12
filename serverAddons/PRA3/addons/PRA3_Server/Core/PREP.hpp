@@ -52,6 +52,11 @@ EPREP(Interaction,clientInitInteraction)
 EPREP(Interaction,loop)
 EPREP(Interaction,inRange)
 
+// canInteractWith
+EPREP(Interaction,addCanInteractWith)
+EPREP(Interaction,canInteractWith)
+EPREP(Interaction,clientInitCanInteractWith)
+
 // lnbData
 EPREP(lnbData,initlnbData)
 EPREP(lnbData,lnbLoad)
@@ -72,6 +77,14 @@ EPREP(MapGraphics,removeMapGraphicsEventHandler)
 EPREP(MapGraphics,removeMapGraphicsGroup)
 EPREP(MapGraphics,unregisterMapControl)
 EPREP(MapGraphics,triggerMapGraphicsEvent)
+
+// 3dGraphics
+EPREP(3dGraphics,clientInit3dGraphics)
+EPREP(3dGraphics,add3dGraphics)
+EPREP(3dGraphics,remove3dGraphics)
+EPREP(3dGraphics,build3dGraphicsCache)
+EPREP(3dGraphics,draw3dGraphics)
+EPREP(3dGraphics,3dGraphicsPosition)
 
 // Mutex
 EPREP(Mutex,initClientMutex)
@@ -109,8 +122,15 @@ EPREP(StatusEffects,initStatusEffects)
 EPREP(StatusEffects,addStatusEffectType)
 EPREP(StatusEffects,setStatusEffect)
 
-// Team Color Sync
-EPREP(TeamColorSync,clientInitTeamColorSync)
+// Statemaschine
+EPREP(Statemachine,startStatemachine)
+EPREP(Statemachine,stepStatemachine)
+EPREP(Statemachine,createStatemachine)
+EPREP(Statemachine,createStatemachineFromConfig)
+EPREP(Statemachine,copyStatemachine)
+EPREP(Statemachine,addStatemachineState)
+EPREP(Statemachine,setVariableStatemachine)
+EPREP(Statemachine,getVariableStatemachine)
 
 // Performance Info
 EPREP(PerformanceInfo,clientInitPerformance)

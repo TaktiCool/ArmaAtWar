@@ -18,12 +18,14 @@
     Returns:
     None
 */
-params ["_text", "_onObject", "_distance", "_condition", "_callback", ["_args",[]]];
+params ["_text", "_onObject", "_distance", "_condition", "_callback", ["_args",[]], ["_ignoredCanInteractConditions", []]];
 
 // Convert Condition to String
 _condition = _condition call FUNC(codeToString);
 
-_condition = if (_distance > 0 && !(_onObject isEqualTo PRA3_Player)) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange && " + _condition} else {_condition};
+_condition = "[_target, _this, " + str _ignoredCanInteractConditions + "] call PRA3_Core_fnc_canInteractWith && " + _condition;
+
+_condition = if (_distance > 0 && !(_onObject isEqualTo PRA3_Player)) then {"[_target, " + (str _distance) + "] call PRA3_Core_fnc_inRange &&" + _condition} else {_condition};
 
 _callback = _callback call FUNC(codeToString);
 _callback = compile (format ["[{%1}, _this] call %2;", _callback, QFUNC(directCall)]);
