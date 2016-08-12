@@ -158,7 +158,3 @@ GVAR(groupUnits) = [];
         unAssignVehicle PRA3_Player;
     };
 }] call CFUNC(addEventHandler);
-
-inGameUISetEventHandler ["PrevAction", "[""inGameUIPrevAction"", _this] call PRA3_Core_fnc_localEvent;"];
-inGameUISetEventHandler ["NextAction", "[""inGameUINextAction"", _this] call PRA3_Core_fnc_localEvent;"];
-inGameUISetEventHandler ["Action", "[""inGameUIAction"", _this] call PRA3_Core_fnc_localEvent;"];

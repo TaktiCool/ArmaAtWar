@@ -8,7 +8,7 @@ class PRA3_UI_HoldAction {
             idc = 6000;
             shadow = 0;
             x = 0;
-            y = 0.5;
+            y = 0.509;
             w = 1;
             h = 0.5;
             text = "";
@@ -23,7 +23,7 @@ class PRA3_UI_HoldAction {
 
         class TextForeground : TextBackground {
             idc = 6001;
-            
+
         };
 
 

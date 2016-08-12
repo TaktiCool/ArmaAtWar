@@ -32,3 +32,29 @@ GVAR(PlayerInteraction_Actions) = [];
         nil
     } count GVAR(PlayerInteraction_Actions);
 }] call FUNC(addEventhandler);
+
+GVAR(InGameUIEventHandler) = call CFUNC(createNamespace);
+GVAR(DisablePrevAction) = false;
+GVAR(DisableNextAction) = false;
+GVAR(DisableAction) = false;
+
+private _inGameUiEventHandler = {
+    params ["_target", "_caller", "_idx", "_id", "_title", "_priority", "_showWindow", "_hideOnUse", "_shortcut", "_visibility", "_eventName"];
+
+
+
+    if (GVAR(DisablePrevAction) && {_eventName == "PrevAction"} || (GVAR(DisableNextAction) && {_eventName == "NextAction"}) || (GVAR(DisableAction) && {_eventName == "Action"})) then {
+        true
+    } else {
+
+        DUMP(_this);
+
+        private _ehData = [GVAR(InGameUIEventHandler), format ["%1_%2", _eventName, _id], []] call CFUNC(getVariable);
+        _ehData params [["_code",{}], ["_args",[]]];
+        [_target, _caller, _id, _args] call _code;
+    };
+};
+
+inGameUISetEventHandler ["PrevAction", _inGameUiEventHandler call CFUNC(codeToString)];
+inGameUISetEventHandler ["NextAction", _inGameUiEventHandler call CFUNC(codeToString)];
+inGameUISetEventHandler ["Action", _inGameUiEventHandler call CFUNC(codeToString)];

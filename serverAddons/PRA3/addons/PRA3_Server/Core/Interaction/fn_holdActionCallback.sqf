@@ -33,13 +33,16 @@ _actionArguments params
     "_showUnconscious"
 ];
 
-GVAR(HoldActionPrevActionEH) = ["inGameUIPrevAction", {true}] call FUNC(addEventhandler);
-GVAR(HoldActionNextActionEH) = ["inGameUINextAction", {true}] call FUNC(addEventhandler);
-
-{inGameUISetEventHandler [_x, "true"]} forEach ["PrevAction", "NextAction"];
-
+GVAR(DisablePrevAction) = true;
+GVAR(DisableNextAction) = true;
 
 [_target, _caller, _id, _arguments] call _codeStart;
+
+if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
+    ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutRsc [UIVAR(HoldAction),"PLAIN",0];
+};
+
+GVAR(HoldActionStartTime) = diag_tickTime;
 
 [{
     params ["_args", "_handle"];
@@ -70,15 +73,20 @@ GVAR(HoldActionNextActionEH) = ["inGameUINextAction", {true}] call FUNC(addEvent
 
     if (_ret isEqualType 0) then {
         _ret = (_ret min 1) max 0;
-        private _currentProgressIcon = format ["<img size='3' shadow='0' color='#ffffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_%1_ca.paa'/>", floor (_ret*24)];
+        private _progressIconPath = format ["\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_%1_ca.paa", floor (_ret*24)];
+        if (diag_tickTime - GVAR(HoldActionStartTime) <= 0.15) then {
+            _progressIconPath = format ["\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_%1_ca.paa", floor ((diag_tickTime - GVAR(HoldActionStartTime)) / 0.05)];
+        };
 
         if (_id isEqualType 123) then {
-            _target setUserActionText [_id,_title,_iconProgress, _currentProgressIcon + "<br/><br/>" + _hint];
+            _target setUserActionText [_id,_title,_iconProgress, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]];
         } else {
-            ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutRsc [UIVAR(HoldAction),"PLAIN",0];
             private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
-            (_dialog displayCtrl 6000) ctrlSetStructuredText parseText _iconProgress;
-            (_dialog displayCtrl 6001) ctrlSetStructuredText parseText (_currentProgressIcon + "<br/><br/>" + _hint);
+            (_display displayCtrl 6000) ctrlSetStructuredText parseText _iconProgress;
+            (_display displayCtrl 6001) ctrlSetStructuredText parseText (format ["<img size='3.5' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]);
+            (_display displayCtrl 6000) ctrlCommit 0;
+            (_display displayCtrl 6001) ctrlCommit 0;
+
         };
 
 
@@ -94,9 +102,9 @@ GVAR(HoldActionNextActionEH) = ["inGameUINextAction", {true}] call FUNC(addEvent
         } else {
             _args call _codeInterrupted;
         };
-        
-        ["inGameUIPrevAction", GVAR(HoldActionPrevActionEH)] call CFUNC(removeEventHandler);
-        ["inGameUINextAction", GVAR(HoldActionNextActionEH)] call CFUNC(removeEventHandler);
+
+        GVAR(DisablePrevAction) = false;
+        GVAR(DisableNextAction) = false;
 
         if (_id isEqualType 123) then {
             _target setUserActionText [_id,_title,_iconIdle, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint];
