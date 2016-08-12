@@ -83,7 +83,8 @@ if (_target isEqualType "" && {_target == "VanillaAction"}) then {
 		_arguments,
 		_priority,
 		_removeCompleted,
-		_showUnconscious
+		_showUnconscious,
+		_ignoredCanInteractConditions
 		], "priority", _priority, "showWindow", true, "hideOnUse", false, "showUnconscious", _showUnconscious, "onActionAdded", {
 			params ["_id", "_target", "_argArray"];
 			_argArray params ["","","_args"];
@@ -102,7 +103,8 @@ if (_target isEqualType "" && {_target == "VanillaAction"}) then {
 				"_arguments",
 				"_priority",
 				"_removeCompleted",
-				"_showUnconscious"
+				"_showUnconscious",
+				"ignoredCanInteractConditions"
 	        ];
 
 			_target setUserActionText [_id,_title,_iconIdle, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint];

@@ -30,7 +30,8 @@ _actionArguments params
     "_arguments",
     "_priority",
     "_removeCompleted",
-    "_showUnconscious"
+    "_showUnconscious",
+    "_ignoredCanInteractConditions"
 ];
 
 GVAR(DisablePrevAction) = true;
