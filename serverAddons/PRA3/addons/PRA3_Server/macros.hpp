@@ -14,9 +14,7 @@
     #define ENABLEFUNCTIONTRACE
 #endif
 
-// define Version Information
-#define VERSION MAJOR.MINOR.PATCHLVL.BUILD
-#define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
+
 
 // Predefines for easy Macro work
 #define DOUBLE(var1,var2) var1##_##var2
@@ -95,25 +93,4 @@
 #define PREP(fncName) [QUOTE(FUNCPATH(fncName)), QFUNC(fncName)] call CFUNC(compile);
 #define EPREP(folder,fncName) [QUOTE(FFNCPATH(folder,fncName)), QFUNC(fncName)] call CFUNC(compile);
 
-
-#ifdef ENABLEPERFORMANCECOUNTER
-    #define PERFORMANCECOUNTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
-    #define PERFORMANCECOUNTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);
-#else
-    #define PERFORMANCECOUNTER_START(var1) /* Performance Counter disabled */
-    #define PERFORMANCECOUNTER_END(var1) /* Performance Counter disabled */
-#endif
-
-// UI Based Macros
-#define PYN 108
-#define PX(X) ((X)/PYN*safeZoneH/(4/3))
-#define PY(Y) ((Y)/PYN*safeZoneH)
-
-// CFG Function Macro for Easy Module Including
-#define FUNCTIONSCONFIG(moduleName) class DOUBLE(PREFIX,moduleName) { \
-    class moduleName { \
-        file = QUOTE(\PATH\PREFIX\addons\MOD\##moduleName); \
-        class preInit: basePreFNC {}; \
-        class preStart: basePreStartFNC {}; \
-    }; \
-};
+#include "supportMacros.hpp"
