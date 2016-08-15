@@ -1,3 +1,7 @@
+//String Compression
+PREP(compressString)
+PREP(decompressString)
+
 // Per Frame Eventhandler
 EPREP(PerFrame,addPerFrameHandler)
 EPREP(PerFrame,removePerFrameHandler)
