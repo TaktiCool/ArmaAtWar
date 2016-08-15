@@ -43,7 +43,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     #endif
 
     {
-        if ((_x getVariable [_functionVarName, {}])  isEqualTo {}) then {
+        if (isNil {(_x getVariable _functionVarName)}) then {
             _x setVariable [_functionVarName, _functionCode];
         } else {
             if !((_x getVariable _functionVarName) isEqualTo _functionCode) then {
@@ -52,7 +52,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
                 LOG(_log);
                 GVAR(sendlogfile) = [_log, "PRA3_SecurityLog"];
                 publicVariableServer QGVAR(sendlogfile);
-                ["Warning Function %1 is corupted on your Client"] call BIS_fnc_errorMsg;
+                ["Warning Function %1 is corrupted on your Client, Please restart your Client."] call BIS_fnc_errorMsg;
                 [] spawn {
                     sleep 10;
                     endMission "LOSER";
