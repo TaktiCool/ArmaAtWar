@@ -36,6 +36,7 @@ _actionArguments params
 
 GVAR(DisablePrevAction) = true;
 GVAR(DisableNextAction) = true;
+GVAR(HoldActionStartTime) = diag_tickTime;
 
 [_target, _caller, _id, _arguments] call _codeStart;
 
@@ -43,7 +44,7 @@ if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
     ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutRsc [UIVAR(HoldAction),"PLAIN",0];
 };
 
-GVAR(HoldActionStartTime) = diag_tickTime;
+
 
 [{
     params ["_args", "_handle"];
@@ -65,7 +66,7 @@ GVAR(HoldActionStartTime) = diag_tickTime;
         "_removeCompleted",
         "_showUnconscious"
     ];
-    private _ret = !((inputAction "Action" < 0.5 && {inputAction "ActionContext" < 0.5}) || !([_target, _caller, _id, _arguments] call _condProgress));
+    private _ret = !((inputAction "Action" < 0.5 && {inputAction "ActionContext" < 0.5}) || !(call _condProgress));
 
 
     if (_ret) then {
@@ -80,11 +81,11 @@ GVAR(HoldActionStartTime) = diag_tickTime;
         };
 
         if (_id isEqualType 123) then {
-            _target setUserActionText [_id,_title,_iconProgress, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]];
+            _target setUserActionText [_id,_title, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath], (call _iconProgress)];
         } else {
             private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
-            (_display displayCtrl 6000) ctrlSetStructuredText parseText _iconProgress;
-            (_display displayCtrl 6001) ctrlSetStructuredText parseText (format ["<img size='3.5' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]);
+            (_display displayCtrl 6000) ctrlSetStructuredText parseText (format ["<img size='3.5' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]);
+            (_display displayCtrl 6001) ctrlSetStructuredText parseText call _iconProgress;
             (_display displayCtrl 6000) ctrlCommit 0;
             (_display displayCtrl 6001) ctrlCommit 0;
 
@@ -106,9 +107,11 @@ GVAR(HoldActionStartTime) = diag_tickTime;
 
         GVAR(DisablePrevAction) = false;
         GVAR(DisableNextAction) = false;
+        GVAR(HoldActionStartTime) = -1;
 
         if (_id isEqualType 123) then {
-            _target setUserActionText [_id,_title,_iconIdle, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint];
+            DUMP(_iconIdle);
+            _target setUserActionText [_id,_title, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint, (call _iconIdle)];
         } else {
             ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutFadeOut 0;
         };
