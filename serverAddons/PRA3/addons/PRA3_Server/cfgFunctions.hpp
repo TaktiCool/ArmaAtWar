@@ -26,9 +26,14 @@ class cfgFunctions {
     class DOUBLE(PREFIX,Core) {
         class Core {
             file = "\pr\PRA3\addons\PRA3_Server\Core";
+
+            class compressString: baseFNC {};
+            class decompressString: baseFNC {};
+
+            class compile: baseFNC{};
+
             class preInit: basePreFNC {};
             class preStart: basePreStartFNC {};
-            class compile: baseFNC{};
         };
     };
 

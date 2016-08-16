@@ -49,4 +49,11 @@ params [["_functionPath", "", [""]], ["_functionVarName", "", [""]]];
 } count [missionNamespace, uiNamespace, parsingNamespace];
 
 GVAR(functionCache) pushBack _functionVarName;
+
+
+// save Compressed Version Only in Parsing Namespace if the Variable not exist
+if (isNil {parsingNamespace getVariable (_functionVarName + "_Compressed")}) then {
+    parsingNamespace setVariable [_functionVarName + "_Compressed", _funcString call CFUNC(compressString)];
+};
+
 nil

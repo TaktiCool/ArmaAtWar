@@ -16,4 +16,4 @@
 */
 
 // Transfers entry function from server to all clients.
-if (isServer) then { publicVariable QFUNC(loadModules); };
+if (isServer) then { publicVariable QFUNC(loadModules); publicVariable QFUNC(decompressString); };
