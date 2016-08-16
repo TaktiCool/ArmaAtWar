@@ -19,7 +19,7 @@ if (isNil QGVAR(PFHSendFunctions)) exitWith {
         private _delete = false;
         {
             _x params ["_clientID", "_functionCache", "_index"];
-            for "_i" from 1 to ((count _functionCache) min 4) do {
+            for "_i" from 0 to ((count _functionCache - 1) min 3) do {
                 // Extract the code out of the function.
                 private _functionName = _functionCache deleteAt 0;
                 private _functionCode = parsingNamespace getVariable [_functionName, {}];
