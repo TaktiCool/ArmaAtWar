@@ -18,7 +18,7 @@ GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
 GVAR(groupInfoPFH) = -1;
-GVAR(lastTriggerTime) = diag_frameNo;
+GVAR(lastFrameTriggered) = diag_frameNo;
 
 GVAR(processedUnits) = [];
 GVAR(processedGroups) = [];
@@ -84,12 +84,12 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
 ["DrawMapGraphics", {
     GVAR(ProcessingSM) call CFUNC(stepStatemachine);
-    GVAR(lastTriggerTime) = diag_frameNo;
+    GVAR(lastFrameTriggered) = diag_frameNo;
 }] call CFUNC(addEventhandler);
 
 [{
-    if (GVAR(lastTriggerTime) != diag_frameNo) then {
+    if (GVAR(lastFrameTriggered) != diag_frameNo) then {
         GVAR(ProcessingSM) call CFUNC(stepStatemachine);
-        GVAR(lastTriggerTime) = diag_frameNo;
+        GVAR(lastFrameTriggered) = diag_frameNo;
     };
 }, 0.25] call CFUNC(addPerFrameHandler);
