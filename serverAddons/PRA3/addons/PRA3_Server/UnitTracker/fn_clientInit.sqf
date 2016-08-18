@@ -18,6 +18,7 @@ GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
 GVAR(groupInfoPFH) = -1;
+GVAR(lastTriggerTime) = time;
 
 GVAR(processedUnits) = [];
 GVAR(processedGroups) = [];
@@ -81,4 +82,14 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
     [["deleteIcons", _iconsToDelete], "init"] select (_iconsToDelete isEqualTo []);
 }] call CFUNC(addStatemachineState);
 
-[GVAR(ProcessingSM), "init"] call CFUNC(startStateMachine);
+["DrawMapGraphics", {
+    GVAR(ProcessingSM) call CFUNC(stepStatemachine);
+    GVAR(lastTriggerTime) = time;
+}] call CFUNC(addEventhandler);
+
+[{
+    if (GVAR(lastTriggerTime) != time) then {
+        GVAR(ProcessingSM) call CFUNC(stepStatemachine);
+        GVAR(lastTriggerTime) = time;
+    };
+}, 0.25] call CFUNC(addPerFrameHandler);
