@@ -18,11 +18,13 @@
 #ifdef isDev
     params [["_eventName", "", [""]], ["_args", []], ["_sender", "Local Called"]];
 
-    // remove spamm events like eventadded, cursortargetchanged, playerinventorychanged from being logged
-    if (toLower(_eventName) in ["eventadded", "cursortargetchanged", "playerInventoryChanged"]) then {
-        DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName)
-    } else {
-        DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName + ":" + str _args)
+    if !(toLower(_eventName) in ["pra3_respawnui_updatecameratarget"]) then {
+        // remove spamm events like eventadded, cursortargetchanged, playerinventorychanged from being logged
+        if (toLower(_eventName) in ["eventadded", "cursortargetchanged", "playerinventorychanged"]) then {
+            DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName)
+        } else {
+            DUMP("Local event: " + "Sendet from: " + _sender + "; EventName: " + _eventName + ":" + str _args)
+        };
     };
 #else
     params [["_eventName", "", [""]], ["_args", []]];
