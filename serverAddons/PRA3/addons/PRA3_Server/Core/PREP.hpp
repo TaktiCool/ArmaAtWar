@@ -22,6 +22,11 @@ EPREP(Events,clientInitEvents)
 EPREP(Events,serverInitEvents)
 EPREP(Events,hcInitEvents)
 
+// Localization
+EPREP(Localization,initLocalization)
+EPREP(Localization,readLocalization)
+EPREP(Localization,isLocalised)
+
 // Autoload
 EPREP(Autoload,autoloadEntryPoint)
 EPREP(Autoload,callModules)
