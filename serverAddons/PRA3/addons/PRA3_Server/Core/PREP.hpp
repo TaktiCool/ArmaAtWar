@@ -1,8 +1,3 @@
-//String Compression
-PREP(compressString)
-PREP(decompressString)
-PREP(stripSqf)
-
 // Per Frame Eventhandler
 EPREP(PerFrame,addPerFrameHandler)
 EPREP(PerFrame,removePerFrameHandler)
