@@ -45,23 +45,13 @@ switch (_compression) do {
         } count toArray _decompressedString;
     };
     case ("LZ77"): {
-        private _window = '';
         {
             if (_x < 1024) then {
-                private _c = toString [_x];
-                _output = _output + _c;
-                _window = _window + _c;
+                _output = _output + toString [_x];
             } else {
                 private _length = floor (_x/1024);
                 private _offset = _x - (_length*1024);
-                _length = _length + 1;
-                private _word = _window select [_offset, _length];
-                _output = _output + _word;
-                _window = _window + _word;
-            };
-
-            if (count _window > 1025) then {
-                _window = _window select [count _window - 1025, 1025];
+                _output = _output + (_output select [((count _output) - 1025 + _offset) max _offset, _length+1]);
             };
             nil
         } count toArray _decompressedString;
