@@ -27,6 +27,7 @@ class cfgFunctions {
         class Core {
             file = "\pr\PRA3\addons\PRA3_Server\Core";
 
+            class stripSqf: baseFNC {};
             class compressString: baseFNC {};
             class decompressString: baseFNC {};
 
