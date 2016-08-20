@@ -30,6 +30,7 @@ EPREP(Autoload,loadModulesServer)
 
 // Config Caching
 EPREP(ConfigCaching,returnParents)
+EPREP(ConfigCaching,configProperties)
 EPREP(ConfigCaching,initConfigCaching)
 
 //Entity Variables

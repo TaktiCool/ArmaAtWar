@@ -18,7 +18,7 @@
     (_this select 0) params ["_entity"];
     private _entityClass = typeOf _entity;
     private _entityClasses = [_entityClass];
-    _entityClasses append ([(configFile >> "CfgVehicles" >> _entityClass), true] call BIS_fnc_returnParents);
+    _entityClasses append ([(configFile >> "CfgVehicles" >> _entityClass), true] call CFUNC(returnParents));
     _entityClasses pushBack vehicleVarName _entity;
     {
         {
@@ -35,7 +35,7 @@
             };
             _entity setVariable [configName _x, _var];
             nil
-        } count configProperties [(missionConfigFile >> "PRA3" >> "CfgEntities" >> _x), "true"];
+        } count ([(missionConfigFile >> "PRA3" >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));
         nil
     } count _entityClasses;
 }] call FUNC(addEventhandler);
