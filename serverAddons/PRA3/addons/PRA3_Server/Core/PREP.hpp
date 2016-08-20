@@ -31,10 +31,13 @@ EPREP(Localization,isLocalised)
 EPREP(Autoload,autoloadEntryPoint)
 EPREP(Autoload,callModules)
 EPREP(Autoload,loadModules)
+EPREP(Autoload,sendFunctions)
+EPREP(Autoload,sendFunctionsLoop)
 EPREP(Autoload,loadModulesServer)
 
 // Config Caching
 EPREP(ConfigCaching,returnParents)
+EPREP(ConfigCaching,configProperties)
 EPREP(ConfigCaching,initConfigCaching)
 
 //Entity Variables

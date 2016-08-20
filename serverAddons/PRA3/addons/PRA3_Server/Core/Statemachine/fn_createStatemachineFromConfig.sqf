@@ -27,6 +27,6 @@ if (_entryPoint != "") then {
     private _name = configName _x;
     [_stateMachine, _name, compile _code] call FUNC(addStatemachineState);
     nil
-} count configProperties [_configPath, "isClass _x", true];
+} count ([_configPath, "isClass _x", true] call CFUNC(configProperties));
 
 _stateMachine

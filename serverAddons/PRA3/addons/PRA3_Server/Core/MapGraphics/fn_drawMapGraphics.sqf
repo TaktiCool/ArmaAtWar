@@ -21,6 +21,8 @@ params ["_map"];
 private _mapScale = ctrlMapScale _map;
 private _cache = [];
 
+"DrawMapGraphics" call CFUNC(localEvent);
+
 if (GVAR(MapGraphicsCacheVersion) != GVAR(MapGraphicsCacheBuildFlag)) then {
     GVAR(MapGraphicsCacheVersion) = GVAR(MapGraphicsCacheBuildFlag);
     call FUNC(buildMapGraphicsCache);

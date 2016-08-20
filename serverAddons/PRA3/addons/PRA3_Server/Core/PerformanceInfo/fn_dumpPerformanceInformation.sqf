@@ -24,8 +24,8 @@ private ["_var", "_unit", "_fnc_outputText", "_text"];
 private _fnc_outputText = {
     if (count (_this select 0) > 1000) exitWith {};
     diag_log text (_this select 0);
-    sendlogfile = [(_this select 0), "PERFORMACE_DUMP_" + getPlayerUID PRA3_Player];
-    publicVariableServer "sendlogfile";
+    GVAR(sendlogfile) = [(_this select 0), "PERFORMACE_DUMP_" + getPlayerUID PRA3_Player];
+    publicVariableServer QGVAR(sendlogfile);
 };
 
 _text = format [
