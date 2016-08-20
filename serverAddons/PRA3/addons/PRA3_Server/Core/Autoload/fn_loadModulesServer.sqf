@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Server side modules loader (used when AME is present on client too). Prepares the functions for transmission to clients. Should run before client register with server.
+    Server side modules loader (used when PRA3 is present on client too). Prepares the functions for transmission to clients. Should run before client register with server.
 
     Parameter(s):
     ARRAY - server only: the names of the requested modules
@@ -55,7 +55,7 @@ private _prefixLength = (count QUOTE(PREFIX)) + 1;
     if (_functionModuleName in _modules) then {
         GVAR(requiredFunctions) pushBack _x;
     };
-    true
+    nil
 } count GVAR(functionCache);
 
 // EH for client registration. Starts transmission of function code.
@@ -72,17 +72,14 @@ if (isServer) then {
         // Determine client id by provided object (usually the player object).
         private _clientID = owner (_this select 1);
 
-        {
-            // Extract the code out of the function.
-            private _functionCode = parsingNamespace getVariable [_x, {}];
-            // Remove leading and trailing braces from the code.
-            _functionCode = _functionCode call CFUNC(codeToString);
-
-            // Transfer the function name, code and progress to the client.
-            GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / GVAR(countRequiredFnc)];
-            _clientID publicVariableClient QGVAR(receiveFunction);
-        } forEach GVAR(RequiredFncClient);
+        _clientID call CFUNC(sendFunctions);
     };
 };
+
 // Call all required function on the server.
-call FUNC(callModules)
+call FUNC(callModules);
+
+// We need split up this to be sure that callModules is Done
+if (isServer) then {
+    call CFUNC(sendFunctionsLoop);
+};

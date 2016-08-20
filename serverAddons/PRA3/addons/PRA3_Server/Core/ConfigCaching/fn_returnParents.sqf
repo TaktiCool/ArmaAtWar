@@ -14,11 +14,9 @@
     Returns:
     all Partent Classes <Array<ConfigPath>>
 */
-params ["_config", ["_returnNames", false]];
-
-private _ret = GVAR(configCache) getVariable format [QGVAR(%1_%2), _config, _returnNames];
+private _ret = GVAR(configCache) getVariable format [QGVAR(returnParents_%1), _this];
 if (isNil "_ret") then {
     _ret = _this call BIS_fnc_returnParents;
-    GVAR(configCache) setVariable [format [QGVAR(%1_%2), _config, _returnNames], _ret];
+    GVAR(configCache) setVariable [format [QGVAR(returnParents_%1), _this], _ret];
 };
 _ret

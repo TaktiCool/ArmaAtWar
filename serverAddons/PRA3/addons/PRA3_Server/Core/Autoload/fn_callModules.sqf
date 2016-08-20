@@ -100,6 +100,7 @@ if (!hasInterface && !isServer) then {
 
     [{
         [QGVAR(loadModules)] call bis_fnc_endLoadingScreen;
+        disableUserInput false;
     }] call CFUNC(execNextFrame);
 
 }, _postInit] call CFUNC(execNextFrame);

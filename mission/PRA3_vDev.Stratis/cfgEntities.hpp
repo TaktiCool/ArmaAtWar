@@ -3,6 +3,8 @@ class defaultVehicle {
     side = "UNKNOWN";
     respawnTime = -1; // disabled
     ticketValue = 2;
+    abandonedVehicleRadius = 100;
+    abandonedVehicleTime = 300;
 };
 
 class defaultWest : defaultVehicle {
