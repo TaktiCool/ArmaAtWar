@@ -14,7 +14,7 @@
     0: uncompressed <String>
 */
 #define SYMBOL_OFFSET 256
-params ["_decompressedString", ["_compression", "LZW"]];
+params ["_decompressedString", ["_compression", "LZ77"]];
 private _output = "";
 
 switch (_compression) do {
@@ -44,7 +44,7 @@ switch (_compression) do {
             nil
         } count toArray _decompressedString;
     };
-    case ("LZ77"): {
+    default { //LZ77
         {
             if (_x < 1024) then {
                 _output = _output + toString [_x];

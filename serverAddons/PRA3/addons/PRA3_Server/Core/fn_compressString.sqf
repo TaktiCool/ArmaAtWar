@@ -14,7 +14,7 @@
     0: compressed String <String>
 */
 #define SYMBOL_OFFSET 256
-params ["_inputStr", ["_compression", "LZW"]];
+params ["_inputStr", ["_compression", "LZ77"]];
 private _output = "";
 
 switch (_compression) do {
@@ -49,8 +49,7 @@ switch (_compression) do {
             _output = _output + _buffer;
         };
     };
-    case ("LZ77"): {
-        private _window = '';
+    default { //LZ77
         private _n = count _inputStr;
         private _c = '';
         private _k = 0;
@@ -59,12 +58,11 @@ switch (_compression) do {
         private _idx = 0;
         {
             _c = _inputStr select [_k,_l+1];
-            _idx = _window find _c;
+            _idx = (_inputStr select [(_k - 1025) max 0, _k min 1025]) find _c;
             if (_idx >= 0 && _l <= 53) then {
                 _l = _l + 1;
                 _lastIdx = _idx;
             } else {
-                _window = _window + (_c select [0, _l]);
                 if (_l > 1) then {
                     private _codeWord = (_l-1)*1024;
                     _codeWord = _codeWord + _lastIdx;
@@ -74,11 +72,7 @@ switch (_compression) do {
                 } else {
                     _output = _output + (_c select [0, _l]);
                 };
-
-                if (count _window > 1025) then {
-                    _window = _window select [count _window - 1025, 1025];
-                };
-                 _k = _k + _l;
+                _k = _k + _l;
             };
         } count toArray _inputStr;
 
