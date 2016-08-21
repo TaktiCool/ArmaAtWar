@@ -50,17 +50,14 @@ GVAR(functionCache) pushBack _functionVarName;
 
 // save Compressed Version Only in Parsing Namespace if the Variable not exist
 if (isNil {parsingNamespace getVariable (_functionVarName + "_Compressed")}) then {
-    if (isNil QGVAR(compileCompressionType)) then {
-        GVAR(compileCompressionType) = getText (configFile >> "PRA3" >> "compileCompressionType");
-    };
-    if (GVAR(compileCompressionType) != "") then {
-        #ifdef isDev
-            private _compressedString = [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString);
-            parsingNamespace setVariable [_functionVarName + "_Compressed", _compressedString];
-            DUMP("Function Compression: " + _functionName + str ((count _compressedString / count _funcString) * 100) + "%")
-        #else
-            parsingNamespace setVariable [_functionVarName + "_Compressed", [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString)];
-        #endif
-    };
+    #ifdef isDev
+        private _compressedString = [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString);
+        parsingNamespace setVariable [_functionVarName + "_Compressed", _compressedString];
+
+        private _str = format ["Compress Functions: %1 %2 %3", _functionVarName, str ((count _compressedString / count _funcString) * 100), "%"];
+        DUMP(_str)
+    #else
+        parsingNamespace setVariable [_functionVarName + "_Compressed", [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString)];
+    #endif
 };
 nil

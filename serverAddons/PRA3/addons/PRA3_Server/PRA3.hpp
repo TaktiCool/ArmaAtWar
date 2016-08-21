@@ -49,8 +49,6 @@ class PREFIX {
         };
     };
 
-    compileCompressionType = "LZ77";
-
     class DOUBLE(PREFIX,Extension) {
         version = "0.1";
     };

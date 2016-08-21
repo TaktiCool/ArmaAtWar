@@ -14,11 +14,27 @@
     0: uncompressed <String>
 */
 #define SYMBOL_OFFSET 256
-params ["_decompressedString", ["_compression", "LZ77"]];
+params ["_decompressedString"];
 private _output = "";
 
+private _compressedArray = toArray _decompressedString;
+
+private _compression = (_compressedArray deleteAt 0);
+
 switch (_compression) do {
-    case ("LZW"): {
+    case 1: { //LZ77
+        {
+            if (_x < 1024) then {
+                _output = _output + toString [_x];
+            } else {
+                private _length = floor (_x/1024);
+                private _offset = _x - (_length*1024);
+                _output = _output + (_output select [((count _output) - 1025 + _offset) max _offset, _length+1]);
+            };
+            nil
+        } count _compressedArray;
+    };
+    case 2: { // LZW
         if (isNil QGVAR(CompressionDictionary)) then {
             GVAR(CompressionDictionary) = [];
             for "_i" from 0 to (SYMBOL_OFFSET-1) do {
@@ -42,19 +58,11 @@ switch (_compression) do {
             _buffer = _currentWord;
             _output = _output + _currentWord;
             nil
-        } count toArray _decompressedString;
+        } count _compressedArray;
     };
-    default { //LZ77
-        {
-            if (_x < 1024) then {
-                _output = _output + toString [_x];
-            } else {
-                private _length = floor (_x/1024);
-                private _offset = _x - (_length*1024);
-                _output = _output + (_output select [((count _output) - 1025 + _offset) max _offset, _length+1]);
-            };
-            nil
-        } count toArray _decompressedString;
+    default { // Not Compressed String
+        LOG("String is not Compressed!")
+        _output = _decompressedString;
     };
 };
 
