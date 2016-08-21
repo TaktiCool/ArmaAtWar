@@ -13,8 +13,8 @@
     Returns:
     None
 */
-s
-params [["_functionName", ""], ["_clientID", -1], ["_index"]];
+
+params [["_functionName", ""], ["_clientID", -1], ["_index", 0]];
 
 if (GVAR(useFunctionCompression)) then {
     private _functionCode = parsingNamespace getVariable [_functionName + "_Compressed", ""];
@@ -24,8 +24,10 @@ if (GVAR(useFunctionCompression)) then {
     _functionCode = _functionCode call CFUNC(codeToString);
 };
 
-
-
 // Transfer the function name, code and progress to the client.
 GVAR(receiveFunction) = [_functionName, _functionCode, _index / GVAR(countRequiredFnc)];
+
+
+DUMP("sendFunction: " + _functionName + ", " + str GVAR(receiveFunction) select 2)
+
 _clientID publicVariableClient QGVAR(receiveFunction);
