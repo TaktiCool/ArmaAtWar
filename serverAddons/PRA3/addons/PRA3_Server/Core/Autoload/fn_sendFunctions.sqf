@@ -13,25 +13,19 @@
     Returns:
     None
 */
-params ["_clientID"];
+s
+params [["_functionName", ""], ["_clientID", -1], ["_index"]];
 
-///*
-// send all Functions if mission Started was not triggered jet
-if (isNil QGVAR(missionStartedTriggered)) exitWith {
-    {
-        private _functionCode = parsingNamespace getVariable [_x, {}];
-
-        // Remove leading and trailing braces from the code.
-        _functionCode = _functionCode call CFUNC(codeToString);
-
-        GVAR(receiveFunction) = [_x, _functionCode, _forEachIndex / GVAR(countRequiredFnc)];
-        _clientID publicVariableClient QGVAR(receiveFunction);
-
-    } forEach GVAR(RequiredFncClient);
-};
-//*/
-if (isNil QGVAR(SendFunctionsUnitCache)) then {
-    GVAR(SendFunctionsUnitCache) = [[_clientID, +GVAR(RequiredFncClient), 0]];
+if (GVAR(useFunctionCompression)) then {
+    private _functionCode = parsingNamespace getVariable [_functionName + "_Compressed", ""];
 } else {
-    GVAR(SendFunctionsUnitCache) pushBack [_clientID, +GVAR(RequiredFncClient), 0];
+    private _functionCode = parsingNamespace getVariable [_functionName, {}];
+    // Remove leading and trailing braces from the code.
+    _functionCode = _functionCode call CFUNC(codeToString);
 };
+
+
+
+// Transfer the function name, code and progress to the client.
+GVAR(receiveFunction) = [_functionName, _functionCode, _index / GVAR(countRequiredFnc)];
+_clientID publicVariableClient QGVAR(receiveFunction);

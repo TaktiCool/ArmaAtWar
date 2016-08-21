@@ -27,11 +27,8 @@ params [["_functionPath", "", [""]], ["_functionVarName", "", [""]]];
     private _fncCode = if (isNil "_cachedFunction") then {
         private _header = format ["private _fnc_scriptNameParent = if (isNil '_fnc_scriptName') then {'%1'} else {_fnc_scriptName}; private _fnc_scriptName = '%1'; scriptName _fnc_scriptName; scopeName _fnc_scriptName + '_Main'; ", _functionVarName, _debug];
         private _funcString = _header + preprocessFileLineNumbers _functionPath;
-        /* TODO: find a solution to extract and import more than 10k chars
-        if (GVAR(serverExtensionExist)) then {
-            _funcString = "PRA3_server" callExtension "cleanupcode:" + _funcString;
-        };
-        */
+        _funcString = _funcString call CFUNC(stripSqf);
+
         compileFinal _funcString;
     } else {
         _cachedFunction
@@ -53,7 +50,17 @@ GVAR(functionCache) pushBack _functionVarName;
 
 // save Compressed Version Only in Parsing Namespace if the Variable not exist
 if (isNil {parsingNamespace getVariable (_functionVarName + "_Compressed")}) then {
-    parsingNamespace setVariable [_functionVarName + "_Compressed", _funcString call CFUNC(compressString)];
+    if (isNil QGVAR(compileCompressionType)) then {
+        GVAR(compileCompressionType) = getText (configFile >> "PRA3" >> "compileCompressionType");
+    };
+    if (GVAR(compileCompressionType) != "") then {
+        #ifdef isDev
+            private _compressedString = [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString);
+            parsingNamespace setVariable [_functionVarName + "_Compressed", _compressedString];
+            DUMP("Function Compression: " + _functionName + str ((count _compressedString / count _funcString) * 100) + "%")
+        #else
+            parsingNamespace setVariable [_functionVarName + "_Compressed", [_funcString, GVAR(compileCompressionType)] call CFUNC(compressString)];
+        #endif
+    };
 };
-
 nil

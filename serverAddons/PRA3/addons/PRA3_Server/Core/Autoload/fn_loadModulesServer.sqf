@@ -72,7 +72,19 @@ if (isServer) then {
         // Determine client id by provided object (usually the player object).
         private _clientID = owner (_this select 1);
 
-        _clientID call CFUNC(sendFunctions);
+        // send all Functions if mission Started was not triggered jet
+        if (isNil QGVAR(missionStartedTriggered)) exitWith {
+            {
+                [_x, _clientID, _forEachIndex] call CFUNC(sendFunctions);
+            } forEach GVAR(RequiredFncClient);
+        };
+
+        if (isNil QGVAR(SendFunctionsUnitCache)) then {
+            GVAR(SendFunctionsUnitCache) = [[_clientID, +GVAR(RequiredFncClient), 0]];
+        } else {
+            GVAR(SendFunctionsUnitCache) pushBack [_clientID, +GVAR(RequiredFncClient), 0];
+        };
+
     };
 };
 
