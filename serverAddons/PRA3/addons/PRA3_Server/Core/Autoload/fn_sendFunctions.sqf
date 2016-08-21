@@ -28,6 +28,6 @@ if (GVAR(useFunctionCompression)) then {
 GVAR(receiveFunction) = [_functionName, _functionCode, _index / GVAR(countRequiredFnc)];
 
 
-DUMP("sendFunction: " + _functionName + ", " + str GVAR(receiveFunction) select 2)
+DUMP("sendFunction: " + _functionName + ", " + str (GVAR(receiveFunction) select 2))
 
 _clientID publicVariableClient QGVAR(receiveFunction);
