@@ -57,10 +57,10 @@ class RscControlsGroup {
     class Controls {};
 };
 class RscControlsGroupNoScrollbars : RscControlsGroup {
-    class VScrollbar : VScrollbar {
+    class VScrollbar : Scrollbar {
         width = 0;
     };
-    class HScrollbar : HScrollbar {
+    class HScrollbar : Scrollbar {
         height = 0;
     };
 };
