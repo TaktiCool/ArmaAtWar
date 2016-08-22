@@ -31,7 +31,7 @@ switch (_compression) do {
                 } else {
                     private _symbol = _dict find _buffer;
                     if (_symbol>=0) then {
-                        _output = _output + toString [SYMBOL_OFFSET + _symbol];
+                        _output = _output + toString [SYMBOL_OFFSET, _symbol];
                     } else {
                         _output = _output + _buffer;
                     };
@@ -60,7 +60,7 @@ switch (_compression) do {
         {
             _c = _inputStr select [_k,_l+1];
             _idx = (_inputStr select [(_k - 1025) max 0, _k min 1025]) find _c;
-            if (_idx >= 0 && _l <= 53) then {
+            if (_idx >= 0 && _l <= 53 && ((_k+_l) < _n)) then {
                 _l = _l + 1;
                 _lastIdx = _idx;
             } else {
@@ -77,12 +77,14 @@ switch (_compression) do {
             };
         } count toArray _inputStr;
 
-        if (_idx >= 0 && _l <= 53) then {
+        if (_idx >= 0 && _l <= 53 && ((_k+_l) < _n)) then {
             private _codeWord = (_l-2)*1024;
             _codeWord = _codeWord + _lastIdx;
             _output = _output + toString [_codeWord];
         } else {
-            _output = _output + (_c select [0, _l]);
+            if ((_k+_l) < _n) then {
+                _output = _output + (_c select [0, _l]);
+            };
         };
     };
 };
