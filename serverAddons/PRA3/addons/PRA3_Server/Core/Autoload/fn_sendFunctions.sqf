@@ -16,12 +16,12 @@
 
 params [["_functionName", ""], ["_clientID", -1], ["_index", 0]];
 
-if (GVAR(useFunctionCompression)) then {
-    private _functionCode = parsingNamespace getVariable [_functionName + "_Compressed", ""];
+private _functionCode = if (GVAR(useFunctionCompression)) then {
+    parsingNamespace getVariable [_functionName + "_Compressed", ""];
 } else {
-    private _functionCode = parsingNamespace getVariable [_functionName, {}];
+    private _code = parsingNamespace getVariable [_functionName, {}];
     // Remove leading and trailing braces from the code.
-    _functionCode = _functionCode call CFUNC(codeToString);
+    _code call CFUNC(codeToString);
 };
 
 // Transfer the function name, code and progress to the client.
