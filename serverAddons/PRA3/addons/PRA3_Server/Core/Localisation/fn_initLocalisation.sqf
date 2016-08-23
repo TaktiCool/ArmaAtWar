@@ -14,6 +14,12 @@
     None
 */
 
+#ifdef disableCompression
+    #define useCompression false
+#else
+    #define useCompression GVAR(useFunctionCompression)
+#endif
+
 if (isServer) then {
     LVAR(ServerNamespace) = false call CFUNC(createNamespace);
 
@@ -47,6 +53,9 @@ if (isServer) then {
             nil
         } count ([LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables));
 
+        if (useCompression) then {
+            _sendVariable = [(str _sendVariable), "LZW"] call CFUNC(compressString);
+        };
         [QLVAR(receive), _player, _sendVariable] call CFUNC(targetEvent);
     }] call CFUNC(addEventhandler);
 };
@@ -57,9 +66,13 @@ if (hasInterface) then {
     [QLVAR(registerPlayer), [language, PRA3_Player]] call CFUNC(serverEvent);
 
     [QLVAR(receive), {
+        params ["_localisationData"];
+        if (_localisationData isEqualTo "") then {
+            _localisationData = _localisationData call CFUNC(decompressString);
+        };
         {
             [LVAR(ClientNamespace), _x select 0, _x select 1, QLVAR(all)] call CFUNC(setVariable);
             nil
-        } count (_this select 0);
+        } count _localisationData;
     }] call CFUNC(addEventhandler);
 };
