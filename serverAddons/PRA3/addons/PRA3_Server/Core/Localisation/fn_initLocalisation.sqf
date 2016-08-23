@@ -24,8 +24,6 @@ if (isServer) then {
             private _currentConfig = _x;
             private _allLocalisations = [];
             {
-                _allLocalisations set [_forEachIndex, getText (_currentConfig >> ["English", _x] select (isText _currentConfig >> _x))];
-                _allLocalisations set [_forEachIndex, getText (_currentConfig >> (["English", _x] select (isText _currentConfig >> _x)))];
                 _allLocalisations set [_forEachIndex, getText (_currentConfig >> (["English", _x] select (isText (_currentConfig >> _x))))];
             } forEach LVAR(supportedLanguages);
             [LVAR(ServerNamespace), configName _x, _allLocalisations, QLVAR(allLocalisations)] call CFUNC(setVariable);

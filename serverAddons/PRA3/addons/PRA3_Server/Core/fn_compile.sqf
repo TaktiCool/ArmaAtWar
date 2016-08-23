@@ -62,7 +62,12 @@ GVAR(functionCache) pushBack _functionVarName;
 
 
 // save Compressed Version Only in Parsing Namespace if the Variable not exist
-if (isNil {parsingNamespace getVariable (_functionVarName + "_Compressed")}) then {
+#ifdef disableCompression
+    #define useCompression false
+#else
+    #define useCompression isNil {parsingNamespace getVariable (_functionVarName + "_Compressed")
+#endif
+if (useCompression) then {
     #ifdef isDev
         private _compressedString = _funcString call CFUNC(compressString);
         parsingNamespace setVariable [_functionVarName + "_Compressed", _compressedString];

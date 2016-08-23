@@ -14,9 +14,16 @@
     None
 */
 
+#ifdef disableCompression
+#define useCompression false
+#else
+#define useCompression GVAR(useFunctionCompression)
+#endif
+
+
 params [["_functionName", ""], ["_clientID", -1], ["_index", 0]];
 
-private _functionCode = if (GVAR(useFunctionCompression)) then {
+private _functionCode = if (useCompression) then {
     parsingNamespace getVariable [_functionName + "_Compressed", ""];
 } else {
     private _code = parsingNamespace getVariable [_functionName, {}];
