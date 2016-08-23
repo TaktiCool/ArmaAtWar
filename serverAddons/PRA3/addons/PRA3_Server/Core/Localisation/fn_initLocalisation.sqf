@@ -47,7 +47,6 @@ if (isServer) then {
             private _var = (LVAR(ServerNamespace) getVariable _x) select _index;
             _sendVariable pushBack [_x, _var];
             nil
-        } count [LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables);
         } count ([LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables));
 
         [QLVAR(receive), _player, _sendVariable] call CFUNC(targetEvent);
