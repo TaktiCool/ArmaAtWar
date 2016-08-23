@@ -25,6 +25,8 @@ if (isServer) then {
             private _allLocalisations = [];
             {
                 _allLocalisations set [_forEachIndex, getText (_currentConfig >> ["English", _x] select (isText _currentConfig >> _x))];
+                _allLocalisations set [_forEachIndex, getText (_currentConfig >> (["English", _x] select (isText _currentConfig >> _x)))];
+                _allLocalisations set [_forEachIndex, getText (_currentConfig >> (["English", _x] select (isText (_currentConfig >> _x))))];
             } forEach LVAR(supportedLanguages);
             [LVAR(ServerNamespace), configName _x, _allLocalisations, QLVAR(allLocalisations)] call CFUNC(setVariable);
             nil
@@ -46,6 +48,7 @@ if (isServer) then {
             _sendVariable pushBack [_x, _var];
             nil
         } count [LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables);
+        } count ([LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables));
 
         [QLVAR(receive), _player, _sendVariable] call CFUNC(targetEvent);
     }] call CFUNC(addEventhandler);

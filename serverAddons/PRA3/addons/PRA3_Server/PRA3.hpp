@@ -48,7 +48,7 @@ class PREFIX {
             require[] = {"Core"};
         };
     };
-
+    #include "cfgLocalisation.hpp"
     class DOUBLE(PREFIX,Extension) {
         version = "0.1";
     };
