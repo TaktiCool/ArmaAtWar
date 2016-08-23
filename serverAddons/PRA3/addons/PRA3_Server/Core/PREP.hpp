@@ -23,7 +23,7 @@ EPREP(Events,serverInitEvents)
 EPREP(Events,hcInitEvents)
 
 // Localization
-EPREP(Localisation,init)
+EPREP(Localisation,initLocalisation)
 EPREP(Localisation,readLocalisation)
 EPREP(Localisation,isLocalised)
 

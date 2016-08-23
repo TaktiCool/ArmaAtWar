@@ -17,7 +17,6 @@
 params ["_inputStr", ["_compression", "LZ77"]];
 private _type = ((["LZ77", "LZW"] find _compression) + 1);
 private _output = toString [_type];
-DUMP("Type: " + str _type)
 switch (_compression) do {
     case ("LZW"): {
         private _dict = [];

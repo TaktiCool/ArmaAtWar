@@ -55,7 +55,7 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     DUMP("Function Recieved: " + _functionVarName)
     // Compile the function code and assign it.
 
-    _functionCode = [_functionCode, GVAR(compileCompressionType)] call CFUNC(decompressString);
+    _functionCode = _functionCode call CFUNC(decompressString);
     #ifdef isDev
         _functionCode = compile _functionCode;
     #else
