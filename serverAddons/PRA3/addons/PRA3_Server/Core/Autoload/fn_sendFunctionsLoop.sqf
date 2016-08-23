@@ -22,14 +22,8 @@ if (isNil QGVAR(PFHSendFunctions)) exitWith {
             for "_i" from 0 to ((count _functionCache - 1) min 3) do {
                 // Extract the code out of the function.
                 private _functionName = _functionCache deleteAt 0;
-                private _functionCode = parsingNamespace getVariable [_functionName, {}];
 
-                // Remove leading and trailing braces from the code.
-                _functionCode = _functionCode call CFUNC(codeToString);
-
-                // Transfer the function name, code and progress to the client.
-                GVAR(receiveFunction) = [_functionName, _functionCode, (_index + _i) / GVAR(countRequiredFnc)];
-                _clientID publicVariableClient QGVAR(receiveFunction);
+                [_functionName, _clientID, _index + _i] call CFUNC(sendFunctions);
             };
 
             if (_functionCache isEqualTo []) then {

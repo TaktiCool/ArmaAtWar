@@ -16,4 +16,11 @@
 */
 
 // Transfers entry function from server to all clients.
-if (isServer) then { publicVariable QFUNC(loadModules); };
+if (isServer) then {
+    GVAR(useFunctionCompression) = getNumber(missionConfigFile >> "PRA3" >> "useCompressedFunction") isEqualTo 1;
+
+    publicVariable QGVAR(useFunctionCompression);
+
+    publicVariable QFUNC(decompressString);
+    publicVariable QFUNC(loadModules);
+};

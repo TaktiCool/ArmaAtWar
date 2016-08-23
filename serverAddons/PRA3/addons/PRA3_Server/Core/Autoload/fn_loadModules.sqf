@@ -54,6 +54,8 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
     (_this select 1) params ["_functionVarName", "_functionCode", "_progress"];
     DUMP("Function Recieved: " + _functionVarName)
     // Compile the function code and assign it.
+
+    _functionCode = _functionCode call CFUNC(decompressString);
     #ifdef isDev
         _functionCode = compile _functionCode;
     #else
@@ -65,12 +67,12 @@ QGVAR(receiveFunction) addPublicVariableEventHandler {
             _x setVariable [_functionVarName, _functionCode];
         } else {
             if !((_x getVariable _functionVarName) isEqualTo _functionCode) then {
-                private _log = format ["[PRA3: CheatWarning!]: Player %1(%2) allready have ""%3""", profileName, GVAR(playerUID), _functionVarName];
+                private _log = format ["[PRA3: CheatWarning!]: Player %1(%2) allready have ""%3""!", profileName, GVAR(playerUID), _functionVarName];
 
                 LOG(_log);
                 GVAR(sendlogfile) = [_log, "PRA3_SecurityLog"];
                 publicVariableServer QGVAR(sendlogfile);
-                ["Warning Function %1 is corrupted on your Client, Please restart your Client."] call BIS_fnc_errorMsg;
+                ["Warning Function %1 is corrupted on your Client, Please restart your Client.", _functionVarName] call BIS_fnc_errorMsg;
                 [] spawn {
                     sleep 10;
                     endMission "LOSER";

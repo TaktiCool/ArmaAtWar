@@ -14,8 +14,14 @@
     None
 */
 
+#ifdef disableCompression
+    #define useCompression false
+#else
+    #define useCompression GVAR(useFunctionCompression)
+#endif
+
 if (isServer) then {
-    LVAR(Namespace) = false call CFUNC(createNamespace);
+    LVAR(ServerNamespace) = false call CFUNC(createNamespace);
 
     LVAR(supportedLanguages) = getArray(configFile >> "PRA3" >> "cfgLocalisation" >> "supportedLanguages");
 
@@ -24,9 +30,9 @@ if (isServer) then {
             private _currentConfig = _x;
             private _allLocalisations = [];
             {
-                _allLocalisations set [_forEachIndex, getText (_currentConfig >> ["English", _x] select (isText _currentConfig >> _x))];
+                _allLocalisations set [_forEachIndex, getText (_currentConfig >> (["English", _x] select (isText (_currentConfig >> _x))))];
             } forEach LVAR(supportedLanguages);
-            [LVAR(Namespace), configName _x, _allLocalisations, QLVAR(allLocalisations)] call CFUNC(setVariable);
+            [LVAR(ServerNamespace), configName _x, _allLocalisations, QLVAR(allLocalisations)] call CFUNC(setVariable);
             nil
         } count configProperties [_x >> "PRA3" >> "cfgLocalisation", "isClass _x", true];
         nil
@@ -42,22 +48,31 @@ if (isServer) then {
         };
 
         {
-            private _var = (LVAR(Namespace) getVariable _x) select _index;
+            private _var = (LVAR(ServerNamespace) getVariable _x) select _index;
             _sendVariable pushBack [_x, _var];
-        } count [LVAR(Namespace), QLVAR(allLocalisations)] call CFUNC(allVariables);
+            nil
+        } count ([LVAR(ServerNamespace), QLVAR(allLocalisations)] call CFUNC(allVariables));
 
+        if (useCompression) then {
+            _sendVariable = [(str _sendVariable), "LZW"] call CFUNC(compressString);
+        };
         [QLVAR(receive), _player, _sendVariable] call CFUNC(targetEvent);
     }] call CFUNC(addEventhandler);
 };
 
 if (hasInterface) then {
-    LVAR(Namespace) = false call CFUNC(createNamespace);
+    LVAR(ClientNamespace) = false call CFUNC(createNamespace);
 
     [QLVAR(registerPlayer), [language, PRA3_Player]] call CFUNC(serverEvent);
 
     [QLVAR(receive), {
+        params ["_localisationData"];
+        if (_localisationData isEqualTo "") then {
+            _localisationData = _localisationData call CFUNC(decompressString);
+        };
         {
-            [LVAR(Namespace), _x select 0, _x select 1, QLVAR(all)] call CFUNC(setVariable);
-        } count (_this select 0);
+            [LVAR(ClientNamespace), _x select 0, _x select 1, QLVAR(all)] call CFUNC(setVariable);
+            nil
+        } count _localisationData;
     }] call CFUNC(addEventhandler);
 };
