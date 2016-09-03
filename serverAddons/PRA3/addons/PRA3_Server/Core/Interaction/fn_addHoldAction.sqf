@@ -97,7 +97,7 @@ if (_target isEqualType "" && {_target == "VanillaAction"}) then {
 		_removeCompleted,
 		_showUnconscious,
 		_ignoredCanInteractConditions
-		], "priority", _priority, "showWindow", true, "hideOnUse", false, "showUnconscious", _showUnconscious, /*"onActionAdded", {
+		], "priority", _priority, "showWindow", true, "hideOnUse", false, "unconscious", _showUnconscious, /*"onActionAdded", {
 			params ["_id", "_target", "_argArray"];
 			_argArray params ["","","_args"];
 			_args params
