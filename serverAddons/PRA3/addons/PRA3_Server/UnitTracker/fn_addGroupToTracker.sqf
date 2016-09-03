@@ -46,7 +46,7 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
 
         if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
-        GVAR(currentHoverGroup) == _group;
+        GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
         private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
