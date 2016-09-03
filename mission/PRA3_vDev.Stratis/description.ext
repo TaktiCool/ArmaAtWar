@@ -65,7 +65,6 @@ class RscTitles {
     #include "ui\hud\MedicalInfo.hpp"
     #include "ui\hud\Compass.hpp"
     #include "ui\hud\PerformanceStatus.hpp"
-    #include "ui\hud\HoldAction.hpp"
 };
 
 /* disable CfgRemoteExec Until BI fix it

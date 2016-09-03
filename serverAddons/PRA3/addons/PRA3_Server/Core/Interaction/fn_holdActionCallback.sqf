@@ -41,7 +41,16 @@ GVAR(HoldActionStartTime) = diag_tickTime;
 [_target, _caller, _id, _arguments] call _codeStart;
 
 if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
-    ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutRsc [UIVAR(HoldAction),"PLAIN",0];
+    private _display = findDisplay 46;
+    private _ctrl = _display ctrlCreate ["RscStructuredText", 6000];
+    _ctrl ctrlSetPosition [0, 0.509, 1, 0.5];
+    _ctrl ctrlSetFont "PuristaMedium";
+
+    _ctrl = _display ctrlCreate ["RscStructuredText", 6001];
+    _ctrl ctrlSetPosition [0, 0.509, 1, 0.5];
+    _ctrl ctrlSetFont "PuristaMedium";
+    uiNamespace setVariable [UIVAR(HoldAction), _display];
+    //([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutRsc [UIVAR(HoldAction),"PLAIN",0];
 };
 
 
@@ -84,11 +93,10 @@ if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
             _target setUserActionText [_id,_title, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath], (call _iconProgress)];
         } else {
             private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
-            (_display displayCtrl 6000) ctrlSetStructuredText parseText (format ["<img size='3.5' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath]);
-            (_display displayCtrl 6001) ctrlSetStructuredText parseText call _iconProgress;
+            (_display displayCtrl 6000) ctrlSetStructuredText parseText format ["<t align='center'><img size='3.5' shadow='0' color='#ffffffff' image='%1'/></t>", _progressIconPath];
+            (_display displayCtrl 6001) ctrlSetStructuredText parseText format ["<t align='center'>%1</t>", call _iconProgress];
             (_display displayCtrl 6000) ctrlCommit 0;
             (_display displayCtrl 6001) ctrlCommit 0;
-
         };
 
 
@@ -113,7 +121,12 @@ if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
             DUMP(_iconIdle);
             _target setUserActionText [_id,_title, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint, (call _iconIdle)];
         } else {
-            ([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutFadeOut 0;
+            //([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutFadeOut 0;
+            private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
+            (_display displayCtrl 6001) ctrlSetStructuredText parseText "";
+            (_display displayCtrl 6000) ctrlSetStructuredText parseText "";
+            (_display displayCtrl 6000) ctrlCommit 0;
+            (_display displayCtrl 6001) ctrlCommit 0;
         };
         _handle call CFUNC(removePerFrameHandler);
     };
