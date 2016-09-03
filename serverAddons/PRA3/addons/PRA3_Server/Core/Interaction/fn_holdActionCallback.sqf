@@ -90,11 +90,13 @@ if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
         };
 
         if (_id isEqualType 123) then {
-            _target setUserActionText [_id,_title, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath], (call _iconProgress)];
+            _target setUserActionText [_id,_title,
+                format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", _progressIconPath],
+                format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", (call _iconProgress)]];
         } else {
             private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
             (_display displayCtrl 6000) ctrlSetStructuredText parseText format ["<t align='center'><img size='3.5' shadow='0' color='#ffffffff' image='%1'/></t>", _progressIconPath];
-            (_display displayCtrl 6001) ctrlSetStructuredText parseText format ["<t align='center'>%1</t>", call _iconProgress];
+            (_display displayCtrl 6001) ctrlSetStructuredText parseText format ["<t align='center'><img size='3.5' shadow='0' color='#ffffffff' image='%1'/></t>", call _iconProgress];
             (_display displayCtrl 6000) ctrlCommit 0;
             (_display displayCtrl 6001) ctrlCommit 0;
         };
@@ -119,7 +121,7 @@ if (isNull (uiNamespace getVariable [UIVAR(HoldAction),displayNull])) then {
 
         if (_id isEqualType 123) then {
             DUMP(_iconIdle);
-            _target setUserActionText [_id,_title, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint, (call _iconIdle)];
+            _target setUserActionText [_id,_title, "<img size='3' shadow='0' color='#ffffff' image='\A3\Ui_f\data\IGUI\Cfg\HoldActions\in\in_0_ca.paa'/><br/><br/>" + _hint, format ["<img size='3' shadow='0' color='#ffffffff' image='%1'/>", (call _iconProgress)]];
         } else {
             //([UIVAR(HoldAction)] call BIS_fnc_rscLayer) cutFadeOut 0;
             private _display = uiNamespace getVariable [UIVAR(HoldAction),displayNull];
