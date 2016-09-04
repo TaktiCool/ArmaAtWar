@@ -13,7 +13,7 @@
     Returns:
     None
 */
-// @todo replace with fatigue framework
+// TODO replace with fatigue framework
 [QGVAR(Hit), {
     (_this select 0) params ["_unit", "_selectionName", "_newDamage", "_totalDamage"];
 
@@ -28,7 +28,7 @@
     // Only handle healing here
     if (_action != "HEAL" ||!(isForcedWalk PRA3_Player)) exitWith {};
 
-    if (_finished) then { //@todo maybe a value check for legs is better
+    if (_finished) then { // TODO maybe a value check for legs is better
         ["forceWalk","Revive",false] call PRA3_Core_fnc_setStatusEffect;
     };
 }] call CFUNC(addEventHandler);

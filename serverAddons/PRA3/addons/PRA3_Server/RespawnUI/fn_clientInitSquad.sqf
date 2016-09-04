@@ -138,7 +138,8 @@
     private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
     if (isNull _display) exitWith {};
 
-    // SquadTypeCombo @todo restore focus if necessary #224
+    // SquadTypeCombo
+    // TODO restore focus if necessary #224
     private _control = _display displayCtrl 205;
     private _selectedGroupType = _control lbData (lbCurSel _control);
     lbClear _control;

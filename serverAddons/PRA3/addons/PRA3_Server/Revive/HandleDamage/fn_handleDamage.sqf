@@ -34,7 +34,7 @@ private _selectionIndex = GVAR(selections) find _selectionName;
 private _damageCoefficients = [QGVAR(Settings_damageCoefficients), GVAR(selections) apply {1}] call CFUNC(getSetting);
 _newDamage = _newDamage / (_damageCoefficients select _selectionIndex);
 
-//@todo try to move this into unconscious hit effect
+// TODO try to move this into unconscious hit effect
 if (_unit getVariable [QGVAR(isUnconscious), false]) then {
     private _unconsciousDamageCoefficient = [QGVAR(Settings_unconsciousDamageCoefficient), 1] call CFUNC(getSetting);
     _newDamage = _newDamage * _unconsciousDamageCoefficient;
