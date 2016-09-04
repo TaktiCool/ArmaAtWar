@@ -21,7 +21,7 @@
     {!(_target getVariable ["hasInventory", true])},
     {
         params ["_vehicle"];
-        CLib_Player action ["Gear", objNull];
+        Clib_Player action ["Gear", objNull];
     },
     ["onActionAdded",{
         params ["_id", "_object", "_args"];
@@ -35,7 +35,7 @@
 
     if ((typeOf _container) == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
-        if (!(_cursorTarget getVariable ["hasInventory", true]) && ((CLib_Player distance _cursorTarget) < 5)) then {
+        if (!(_cursorTarget getVariable ["hasInventory", true]) && ((Clib_Player distance _cursorTarget) < 5)) then {
             _container = _cursorTarget;
         };
     };
@@ -110,7 +110,7 @@
                 ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
                 ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
                 ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
-                [_draggedObject, CLib_Player] call FUNC(dragObject);
+                [_draggedObject, Clib_Player] call FUNC(dragObject);
                 _vehicle setVariable [QGVAR(CargoItems), _draggedObjectArray, true];
             }, GVAR(currentContainer), "logistic"] call CFUNC(mutex);
         }];

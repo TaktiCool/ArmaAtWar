@@ -35,7 +35,7 @@
             };
             _entity setVariable [configName _x, _var];
             nil
-        } count ([(missionConfigFile >> "PRA3" >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));
+        } count ([(missionConfigFile >> QPREFIX >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));
         nil
     } count _entityClasses;
 }] call FUNC(addEventhandler);

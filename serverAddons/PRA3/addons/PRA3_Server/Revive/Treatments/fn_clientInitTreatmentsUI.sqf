@@ -22,7 +22,7 @@
     [{
         params ["_params", "_id"];
 
-        private _fakeWeaponName = CLib_Player getVariable [QGVAR(fakeWeaponName), ""];
+        private _fakeWeaponName = Clib_Player getVariable [QGVAR(fakeWeaponName), ""];
 
         if (_fakeWeaponName == "") exitWith {
             ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
@@ -58,13 +58,13 @@
                 {
                     _x params ["_unit", "_additionalText"];
 
-                    if (CLib_Player distance _unit < 3 && _unit call _condition) then {
+                    if (Clib_Player distance _unit < 3 && _unit call _condition) then {
                         _text = _text + _additionalText;
                     };
                     nil
                 } count [
                     [cursorTarget, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\lmb_ca.paa'/> to %1 a comrade<br />"],
-                    [CLib_Player, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself"]
+                    [Clib_Player, "<img size='1.5' image='\a3\3DEN\Data\Displays\Display3DEN\Hint\rmb_ca.paa'/> to %1 yourself"]
                 ];
             };
             nil
@@ -79,7 +79,7 @@
 }] call CFUNC(addEventHandler);
 
 [QGVAR(RestoreWeapon), {
-    CLib_Player setVariable [QGVAR(fakeWeaponName), ""];
+    Clib_Player setVariable [QGVAR(fakeWeaponName), ""];
 }] call CFUNC(addEventHandler);
 
 
@@ -109,7 +109,7 @@
         params ["_params", "_id"];
         _params params ["_display", "_target"];
 
-        if (!(_target in [CLib_Player, cursorTarget]) || CLib_Player distance _target > 3 || !alive _target || dialog) then {
+        if (!(_target in [Clib_Player, cursorTarget]) || Clib_Player distance _target > 3 || !alive _target || dialog) then {
             [QGVAR(StopMedicalAction), false] call CFUNC(localEvent);
         };
 
@@ -136,13 +136,13 @@
 }] call CFUNC(addEventHandler);
 
 [QGVAR(StopMedicalAction), {
-    if (CLib_Player getVariable [QGVAR(fakeWeaponName), ""] == "") then {
+    if (Clib_Player getVariable [QGVAR(fakeWeaponName), ""] == "") then {
         ([UIVAR(MedicalProgress)] call BIS_fnc_rscLayer) cutFadeOut 0;
     };
 }] call CFUNC(addEventHandler);
 
 [{
-    private _action = CLib_Player getVariable [QGVAR(medicalActionRunning), ""];
+    private _action = Clib_Player getVariable [QGVAR(medicalActionRunning), ""];
 
     if (_action == "") exitWith {
         if (!isNull (uiNamespace getVariable [UIVAR(MedicalInfo), displayNull])) then {

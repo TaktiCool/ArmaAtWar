@@ -72,7 +72,7 @@ addMissionEventHandler ["MapSingleClick", {
 
         private _viewDirectionVector = (positionCameraToWorld [0, 0, 0]) vectorDiff (positionCameraToWorld [0, 0, -1]);
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
-        private _currentPosition = getPosVisual CLib_Player;
+        private _currentPosition = getPosVisual Clib_Player;
 
         // Shift the control group to view direction
         private _control = _dialog displayCtrl 7100;
@@ -215,7 +215,7 @@ addMissionEventHandler ["MapSingleClick", {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
-            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle CLib_Player))) then {
+            if (_x != Clib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle Clib_Player))) then {
                 private _unitPosition = getPosVisual _x;
                 private _relativeVectorToUnit = _unitPosition vectorDiff _currentPosition;
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
@@ -240,8 +240,8 @@ addMissionEventHandler ["MapSingleClick", {
 
                 _control ctrlSetText _icon;
 
-                private _color = [_sideColor, _groupColor] select (group CLib_Player == group _x);
-                _color set [3, ((1 - 0.2 * ((CLib_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
+                private _color = [_sideColor, _groupColor] select (group Clib_Player == group _x);
+                _color set [3, ((1 - 0.2 * ((Clib_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
                 _control ctrlSetTextColor _color;
 
                 private _positionCenter = [PX(_compassAngle * 0.5) - ((_size select 0) / 2), PY(0.75) - ((_size select 1) / 2)];

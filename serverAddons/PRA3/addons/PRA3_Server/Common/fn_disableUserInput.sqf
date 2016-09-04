@@ -180,7 +180,7 @@ if (_state) then {
             GVAR(disableInputPFH) = nil;
             [true] call FUNC(disableUserInput);
         };
-        if (!alive CLib_Player) then {
+        if (!alive Clib_Player) then {
             if (!isNil QGVAR(disableInputPFH)) then {
                 [GVAR(disableInputPFH)] call FUNC(removePerFrameHandler);
                 GVAR(disableInputPFH) = nil;

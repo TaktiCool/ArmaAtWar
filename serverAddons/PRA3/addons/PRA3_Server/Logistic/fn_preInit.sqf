@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-private _cfg = configFile >> "PRA3" >> "CfgEntities";
+private _cfg = configFile >> QPREFIX >> "CfgEntities";
 {
     private _obj = _x;
     {

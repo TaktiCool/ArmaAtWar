@@ -16,10 +16,10 @@
 */
 params ["_targetPosition", "_targetSide"];
 
-private _oldUnit = CLib_Player;
+private _oldUnit = Clib_Player;
 
 // Create new body
-private _className = getText (missionConfigFile >> "PRA3" >> "Sides" >> (str _targetSide) >> "playerClass");
+private _className = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str _targetSide) >> "playerClass");
 if (_className == "") then {
     _className = "O_Soldier_F";
 };
@@ -30,7 +30,7 @@ private _newUnit = _tempGroup createUnit [_className, [-10000, -10000, 50], [], 
 
 // Reattach all triggers
 {
-    if (triggerAttachedVehicle _x == CLib_Player) then {
+    if (triggerAttachedVehicle _x == Clib_Player) then {
         _x triggerAttachVehicle [_newUnit];
     };
     nil
@@ -39,20 +39,20 @@ private _newUnit = _tempGroup createUnit [_className, [-10000, -10000, 50], [], 
 // Copy all variables to the new object
 {
     if !(_x in CGVAR(ignoreVariables)) then {
-        private _var = CLib_Player getVariable _x;
+        private _var = Clib_Player getVariable _x;
         if !(isNil "_var") then {
             _newUnit setVariable [_x, _var];
         };
     };
     nil
-} count (allVariables CLib_Player);
+} count (allVariables Clib_Player);
 
 // This unit is temporary (will be removed if we call this function again)
 _newUnit setVariable [QGVAR(tempUnit), true];
 ["enableSimulation", [_newUnit, false]] call CFUNC(serverEvent);
 ["hideObject", [_newUnit, true]] call CFUNC(serverEvent);
 
-private _oldUnit = CLib_Player;
+private _oldUnit = Clib_Player;
 
 // Move the player to the unit before changing anything
 selectPlayer _newUnit;
@@ -66,16 +66,16 @@ _newUnit setVehicleVarName _oldVarName;
 // This should be done by our awesome event system in core on playerChanged event
 
 // Handle position
-CLib_Player setDir (random 360);
-CLib_Player setPosASL ([_targetPosition, 5, 0,_className] call CFUNC(findSavePosition));
+Clib_Player setDir (random 360);
+Clib_Player setPosASL ([_targetPosition, 5, 0,_className] call CFUNC(findSavePosition));
 
 // Broadcast the change after everything is changed
 ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
-CLib_Player = _newUnit;
+Clib_Player = _newUnit;
 
 // Trigger respawn event
-["Respawn", [CLib_Player, _oldUnit]] call CFUNC(localEvent);
-["MPRespawn", [CLib_Player, _oldUnit]] call CFUNC(globalEvent);
+["Respawn", [Clib_Player, _oldUnit]] call CFUNC(localEvent);
+["MPRespawn", [Clib_Player, _oldUnit]] call CFUNC(globalEvent);
 
 // Remove the old unit if it was a temp unit
 if (_oldUnit getVariable [QGVAR(tempUnit), false]) then {

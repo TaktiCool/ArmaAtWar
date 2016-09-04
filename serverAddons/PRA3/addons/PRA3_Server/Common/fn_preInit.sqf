@@ -1,22 +1,8 @@
 #include "macros.hpp"
 
-if (isNil QFUNC(compile)|| isNil QFUNC(compressString) || isNil QFUNC(decompressString) || isNil QFUNC(stripSqf)) then {
-    DFUNC(compile) = compile preprocessFileLineNumbers QUOTE(FUNCPATH(compile));
-    DFUNC(compressString) = compile preprocessFileLineNumbers QUOTE(FUNCPATH(compressString));
-    DFUNC(decompressString) = compile preprocessFileLineNumbers QUOTE(FUNCPATH(decompressString));
-    DFUNC(stripSqf) = compile preprocessFileLineNumbers QUOTE(FUNCPATH(stripSqf));
-};
-
-/*
-#ifndef isDev
-    private _extRet = "PRA3_server" callExtension "version";
-    GVAR(serverExtensionExist) = _extRet != "" && {getText(configFile >> "PRA3" >> "PRA3_Extension" >> "version") == _extRet};
-#endif
-*/
-
 // Version Informations
 private _missionVersionStr = "";
-private _missionVersionAr = getArray(missionConfigFile >> "PRA3" >> "Version");
+private _missionVersionAr = getArray(missionConfigFile >> QPREFIX >> "Version");
 
 private _serverVersionStr = "";
 private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" >> "versionAr");
@@ -32,7 +18,7 @@ private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" 
 } count _serverVersionAr;
 
 // TODO Create Database for Compatible Versions
-if (!(_missionVersionAr isEqualTo _serverVersionAr) && (isClass (missionConfigFile >> "PRA3"))) then {
+if (!(_missionVersionAr isEqualTo _serverVersionAr) && (isClass (missionConfigFile >> QPREFIX))) then {
     ["Lost"] call BIS_fnc_endMissionServer
 };
 
@@ -47,7 +33,7 @@ private _tempRequires = [];
     _tempName pushBack (configName _x);
     _tempRequires pushBack (getArray (_x >> "require"));
     nil
-} count ("true" configClasses (configFile >> "PRA3" >> "Dependencies"));
+} count ("true" configClasses (configFile >> QPREFIX >> "Dependencies"));
 GVAR(Dependencies) = [_tempName,_tempRequires];
 
 // The autoloader uses this array to get all function names.

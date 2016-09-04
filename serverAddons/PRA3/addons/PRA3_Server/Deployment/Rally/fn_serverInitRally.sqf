@@ -13,7 +13,7 @@
     Returns:
     None
 */
-[QGVAR(Rally), missionConfigFile >> "PRA3" >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
+[QGVAR(Rally), missionConfigFile >> QPREFIX >> "CfgSquadRallyPoint"] call CFUNC(loadSettings);
 
 [{
     {

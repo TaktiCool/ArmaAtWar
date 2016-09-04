@@ -16,10 +16,10 @@
 params ["_target"];
 
 // Check leader
-if (leader CLib_Player != CLib_Player) exitWith {false};
+if (leader Clib_Player != Clib_Player) exitWith {false};
 
 // Check vehicle
-if (vehicle CLib_Player != CLib_Player) exitWith {false};
+if (vehicle Clib_Player != Clib_Player) exitWith {false};
 
 // Check near DPs
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
@@ -30,7 +30,7 @@ private _rallyNearPlayer = false;
 
     // Ignore RPs
     if (_availableFor isEqualType sideUnknown) then {
-        if ((CLib_Player distance _position) < _minDistance) exitWith {
+        if ((Clib_Player distance _position) < _minDistance) exitWith {
             _rallyNearPlayer = true;
         };
     };
@@ -53,7 +53,7 @@ private _rallyNearPlayer = false;
 
     // Ignore RPs
     if (_availableFor isEqualType sideUnknown) then {
-        if ((CLib_Player distance _position) < _minDistance) exitWith {
+        if ((Clib_Player distance _position) < _minDistance) exitWith {
             _rallyNearPlayer = true;
         };
     };

@@ -45,7 +45,7 @@ GVAR(deactivateTicketSystem) = false;
 
 
 [{
-    GVAR(availableTracks) = getArray(missionConfigFile >> "PRA3" >> "tracks");
+    GVAR(availableTracks) = getArray(missionConfigFile >> QPREFIX >> "tracks");
 
     if (GVAR(availableTracks) isEqualTo []) then {
         {
@@ -61,14 +61,14 @@ GVAR(deactivateTicketSystem) = false;
         };
     };
 
-    GVAR(musicStartTickets) = getNumber(missionConfigFile >> "PRA3" >> "musicStart");
+    GVAR(musicStartTickets) = getNumber(missionConfigFile >> QPREFIX >> "musicStart");
 
     if (isServer) then {
-        GVAR(playerTicketValue) = getNumber(missionConfigFile >> "PRA3" >> "playerTicketValue");
-        GVAR(ticketBleed) = getArray(missionConfigFile >> "PRA3" >> "ticketBleed");
+        GVAR(playerTicketValue) = getNumber(missionConfigFile >> QPREFIX >> "playerTicketValue");
+        GVAR(ticketBleed) = getArray(missionConfigFile >> QPREFIX >> "ticketBleed");
 
 
-        private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
+        private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
         {
             missionNamespace setVariable [format [QGVAR(sideTickets_%1), _x], _startTickets];
             publicVariable (format [QGVAR(sideTickets_%1), _x]);
@@ -180,7 +180,7 @@ GVAR(deactivateTicketSystem) = false;
 
     if (hasInterface) then {
         ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(TicketStatus),"PLAIN"];
-        private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
+        private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
         private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
         /*
         (_dialog displayCtrl 2001) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1),EGVAR(Mission,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
@@ -218,7 +218,7 @@ GVAR(deactivateTicketSystem) = false;
 
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Mission,competingSides) select 0], 1000]) <= 0
                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Mission,competingSides) select 1], 1000]) <= 0) then {
-                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_Player], 1000]) <= 0) then {
+                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group Clib_Player], 1000]) <= 0) then {
                     ["LOOSER", false] spawn BIS_fnc_endMission;
                 } else {
                     ["WINNER", true] spawn BIS_fnc_endMission;

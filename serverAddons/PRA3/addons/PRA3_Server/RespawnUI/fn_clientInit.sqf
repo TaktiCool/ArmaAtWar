@@ -13,7 +13,7 @@
     Returns:
     None
 */
-[QGVAR(RespawnSettings), missionConfigFile >> "PRA3" >> "CfgRespawn"] call CFUNC(loadSettings);
+[QGVAR(RespawnSettings), missionConfigFile >> QPREFIX >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { // TODO this should work without the revive module (vanilla death)
@@ -88,7 +88,7 @@
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
 
-        if (!(alive CLib_Player) || (CLib_Player getVariable [QCGVAR(tempUnit), false])) then {
+        if (!(alive Clib_Player) || (Clib_Player getVariable [QCGVAR(tempUnit), false])) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };
@@ -97,7 +97,7 @@
         (_display displayCtrl 501) ctrlSetStructuredText parseText (getText (missionConfigFile >> "onLoadMission"));
 
         // Update Tickets
-        private _startTickets = getNumber (missionConfigFile >> "PRA3" >> "tickets");
+        private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
         private _firstSide = EGVAR(Mission,competingSides) select 0;
         private _secondSide = EGVAR(Mission,competingSides) select 1;
         (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
@@ -121,7 +121,7 @@
     private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
     if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
 
-    private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
+    private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
     (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 0], _startTickets]);
     (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 1], _startTickets]);
 

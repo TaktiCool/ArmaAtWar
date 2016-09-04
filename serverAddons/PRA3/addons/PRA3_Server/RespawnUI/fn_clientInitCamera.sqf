@@ -16,7 +16,7 @@
 */
 // When respawn screen is opened caused by death or upon startup init the camera
 [UIVAR(RespawnScreen_onLoad), {
-    if (!(alive CLib_Player) || (CLib_Player getVariable [QCGVAR(tempUnit), false])) then {
+    if (!(alive Clib_Player) || (Clib_Player getVariable [QCGVAR(tempUnit), false])) then {
         [QGVAR(initCamera)] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventHandler);

@@ -1,10 +1,4 @@
 #include "macros.hpp"
-GVAR(allCustomNamespaces) = [];
-
-GVAR(cachedCall) = call FUNC(createNamespace);
-if (hasInterface) then {
-    CLib_Player setVariable [QGVAR(playerName), profileName, true];
-};
 
 GVAR(ignoreVariables) = [toLower(QGVAR(PlayerInteraction_Actions)),toLower(QGVAR(tempUnit)), toLower(QGVAR(isProcessed)), toLower(QEGVAR(Revive,reviveEventhandlerAdded)), toLower(QEGVAR(Revive,damageWaitIsRunning))];
 
@@ -14,7 +8,7 @@ GVAR(allLocationTypes) = [];
     nil
 } count ("true" configClasses (configFile >> "CfgLocationTypes"));
 
-GVAR(markerLocations) = getArray (missionConfigFile >> "PRA3" >> "markerLocation");
+GVAR(markerLocations) = getArray (missionConfigFile >> QPREFIX >> "markerLocation");
 GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, markerText _x]};
 
 // functions for Disable User Input
@@ -26,7 +20,7 @@ DFUNC(onButtonClickEndStr) = {
 
 DFUNC(onButtonClickRespawnStr) = {
     closeDialog 0;
-    forceRespawn CLib_Player;
+    forceRespawn Clib_Player;
     [false] call FUNC(disableUserInput);
 } call FUNC(codeToString);
 
@@ -71,23 +65,6 @@ if (hasInterface) then {
             };
         }];
     }] call CFUNC(addEventhandler);
-
-    // this fix a issue that Static Guns and Cars dont have right Damage on Lower LODs what mean you can not hit a Unit in a Static gun.
-    // this fix the issue until BI fix this issue and prevent False Reports
-    GVAR(staticVehicleFix) = [];
-    ["entityCreated", {
-        params ["_args"];
-        if (_args isKindOf "Car" || _args isKindOf "StaticWeapon") then {
-            private _id = GVAR(staticVehicleFix) pushBackUnique _args;
-            if (_id != -1) then {
-                [{}, {
-                    1 preloadObject _this;
-                }, _args] call CFUNC(waitUntil);
-            };
-        };
-        GVAR(staticVehicleFix) = GVAR(staticVehicleFix) - [objNull];
-    }] call CFUNC(addEventhandler);
-
 
     // Disable all Radio Messages
     enableSentences false;

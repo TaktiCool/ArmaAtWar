@@ -26,7 +26,7 @@
     (_this select 0) params ["_unit", "_action", "_finished"];
 
     // Only handle healing here
-    if (_action != "HEAL" ||!(isForcedWalk CLib_Player)) exitWith {};
+    if (_action != "HEAL" ||!(isForcedWalk Clib_Player)) exitWith {};
 
     if (_finished) then { // TODO maybe a value check for legs is better
         ["forceWalk","Revive",false] call PRA3_Core_fnc_setStatusEffect;
