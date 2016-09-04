@@ -17,7 +17,7 @@
     PRA3_Player == vehicle PRA3_Player && "Medikit" in (items PRA3_Player) && {PRA3_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit"}
 }, {
     [QGVAR(SwitchWeapon), "Medikit"] call CFUNC(localEvent);
-},[],["isNotUnconscious"]] call CFUNC(addAction);
+},["ignoredCanInteractConditions",["isNotUnconscious"]]] call CFUNC(addAction);
 
 [QGVAR(PrepareTreatment), {
     (_this select 0) params ["_unit", "_action"];

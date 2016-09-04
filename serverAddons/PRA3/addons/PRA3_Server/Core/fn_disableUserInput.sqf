@@ -25,10 +25,12 @@ if (_state) then {
     if (visibleMap) then {
         openMap false;
     };
-
-    inGameUISetEventHandler ["PrevAction", "true"];
-    inGameUISetEventHandler ["NextAction", "true"];
-    inGameUISetEventHandler ["Action", "true"];
+    GVAR(DisablePrevAction) = true;
+    GVAR(DisableNextAction) = true;
+    GVAR(DisableAction) = true;
+    //inGameUISetEventHandler ["PrevAction", "true"];
+    //inGameUISetEventHandler ["NextAction", "true"];
+    //inGameUISetEventHandler ["Action", "true"];
 
     GVAR(disableUserInputScrollWheelEventHandler) = (findDisplay 46) displayAddEventHandler ["MouseZChanged", {true;}];
     GVAR(disableUserInputMouseButtonEventHandler) = (findDisplay 46) displayAddEventHandler ["MouseButtonDown", {true;}];
@@ -86,10 +88,13 @@ if (_state) then {
     GVAR(disableUserInputKeyEventHandler) = nil;
     GVAR(disableUserInputMouseButtonEventHandler) = nil;
     GVAR(disableUserInputScrollWheelEventHandler) = nil;
+    GVAR(DisablePrevAction) = false;
+    GVAR(DisableNextAction) = false;
+    GVAR(DisableAction) = false;
 
-    inGameUISetEventHandler ["PrevAction", ""];
-    inGameUISetEventHandler ["NextAction", ""];
-    inGameUISetEventHandler ["Action", ""];
+    //inGameUISetEventHandler ["PrevAction", ""];
+    //inGameUISetEventHandler ["NextAction", ""];
+    //inGameUISetEventHandler ["Action", ""];
 };
 
 /*

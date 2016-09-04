@@ -24,20 +24,24 @@ if (isNull _lastTarget) exitWith {};
 private _objActions = _lastTarget getVariable [QGVAR(Interaction_Actions), []];
 if (_objActions isEqualTo GVAR(Interaction_Actions)) exitWith {};
 {
-    _x params ["_onObject", "_text", "_condition", "_code", "_args"];
+    _x params ["_onObject", "_text", "_condition", "_code", "_args", "_priority", "_showWindow", "_hideOnUse", "_shortcut", "_radius", "_unconscious", "_onActionAdded"];
 
     if !(_x in _objActions) then {
         if (_onObject isEqualType "") then {
             if (_lastTarget isKindOf _onObject) then {
-                _lastTarget addAction [_lastTarget call _text, _code, _args, 1.5, true, true, "", _condition];
+                private _argArray = [_lastTarget call _text, _code, _args, _priority, _showWindow, _hideOnUse, _shortcut, _condition, _radius, _unconscious];
+                private _id = _lastTarget addAction _argArray;
+                [_id, _lastTarget, _argArray] call _onActionAdded;
                 _objActions pushBackUnique _x;
                 DUMP("add Real Action to Object " + str _lastTarget)
             };
         };
 
         if (_onObject isEqualType objNull) then {
-            if ([_lastTarget] find _onObject > -1) then {
-                _lastTarget addAction [_lastTarget call _text, _code, _args, 1.5, true, true, "", _condition];
+            if (_lastTarget == _onObject) then {
+                private _argArray = [_lastTarget call _text, _code, _args, _priority, _showWindow, _hideOnUse, _shortcut, _condition, _radius, _unconscious];
+                private _id = _lastTarget addAction _argArray;
+                [_id, _lastTarget, _argArray] call _onActionAdded;
                 _objActions pushBackUnique _x;
                 DUMP("add Real Action to Object " + str _lastTarget)
             };
