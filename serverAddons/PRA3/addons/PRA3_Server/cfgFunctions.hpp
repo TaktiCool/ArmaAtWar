@@ -25,16 +25,14 @@ class cfgFunctions {
 
     class DOUBLE(PREFIX,Core) {
         class Core {
-            file = "\pr\PRA3\addons\PRA3_Server\Core";
-
-            class stripSqf: baseFNC {};
-            class compressString: baseFNC {};
-            class decompressString: baseFNC {};
-
-            class compile: baseFNC{};
-
-            class preInit: basePreFNC {};
-            class preStart: basePreStartFNC {};
+            // file = "\pr\PRA3\addons\PRA3_Server\Core";
+            singleFunctionConfigSub(Core,Compile,stripSqf,baseFNC)
+            singleFunctionConfigSub(Core,Compile,compressString,baseFNC)
+            singleFunctionConfigSub(Core,Compile,decompressString,baseFNC)
+            singleFunctionConfigSub(Core,Compile,compile,baseFNC)
+            singleFunctionConfigSub(Core,Compile,checkCompression,baseFNC)
+            singleFunctionConfig(Core,preInit,basePreFNC)
+            singleFunctionConfig(Core,preStart,basePreStartFNC)
         };
     };
 

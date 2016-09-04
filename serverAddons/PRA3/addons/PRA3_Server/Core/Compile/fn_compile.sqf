@@ -60,7 +60,6 @@ scopeName _fnc_scriptName + '_Main';\
 
 GVAR(functionCache) pushBack _functionVarName;
 
-
 // save Compressed Version Only in Parsing Namespace if the Variable not exist
 #ifdef disableCompression
     #define useCompression false

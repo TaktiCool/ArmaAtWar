@@ -50,6 +50,10 @@
     }; \
 };
 
+
+#define singleFunctionConfig(Module,func,baseClass) class func : baseClass {file = QUOTE(\PATH\PREFIX\addons\MOD\##Module##\fn_##func##.sqf);};
+#define singleFunctionConfigSub(Module,submodule,func,baseClass) class func : baseClass {file = QUOTE(\PATH\PREFIX\addons\MOD\##Module##\##submodule##\fn_##func##.sqf);};
+
 #ifdef ENABLEPERFORMANCECOUNTER
     #define PERFORMANCECOUNTER_START(var1) [#var1, true] call CFUNC(addPerformanceCounter);
     #define PERFORMANCECOUNTER_END(var1) [#var1, false] call CFUNC(addPerformanceCounter);

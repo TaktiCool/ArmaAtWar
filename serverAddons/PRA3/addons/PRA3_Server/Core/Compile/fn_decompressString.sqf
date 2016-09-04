@@ -62,7 +62,8 @@ switch (_compression) do {
     };
     default { // Not Compressed String
         LOG("String is not Compressed!")
-        _output = _decompressedString;
+        _output = _compression + _decompressedString;
+        _output = toString _output;
     };
 };
 
