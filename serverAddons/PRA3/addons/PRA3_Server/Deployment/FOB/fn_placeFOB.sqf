@@ -20,8 +20,8 @@ params ["_target"];
 
     if (!(call FUNC(canPlaceFOB))) exitWith {};
 
-    private _position = [PRA3_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
-    if (PRA3_Player distance _position >= 20) exitWith {
+    private _position = [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    if (CLib_Player distance _position >= 20) exitWith {
         ["You can not place a FOB at this position"] call CFUNC(displayNotification);
     };
 
@@ -47,5 +47,5 @@ params ["_target"];
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
     ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); // TODO this is only for the take down action
 
-    ["displayNotification", playerSide, [format["Squad %1 placed a FOB near %2", groupId (group PRA3_Player), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", playerSide, [format["Squad %1 placed a FOB near %2", groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

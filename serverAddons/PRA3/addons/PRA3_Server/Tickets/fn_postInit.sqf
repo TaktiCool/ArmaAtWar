@@ -218,7 +218,7 @@ GVAR(deactivateTicketSystem) = false;
 
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Mission,competingSides) select 0], 1000]) <= 0
                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Mission,competingSides) select 1], 1000]) <= 0) then {
-                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group PRA3_Player], 1000]) <= 0) then {
+                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_Player], 1000]) <= 0) then {
                     ["LOOSER", false] spawn BIS_fnc_endMission;
                 } else {
                     ["WINNER", true] spawn BIS_fnc_endMission;

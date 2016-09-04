@@ -14,7 +14,7 @@
     None
 */
 addMissionEventHandler ["Draw3D", {
-    if (!alive PRA3_Player || !isNull (findDisplay 49) || dialog) exitWith {};
+    if (!alive CLib_Player || !isNull (findDisplay 49) || dialog) exitWith {};
 
     // Use the camera position as center for nearby player detection.
     private _cameraPosAGL = positionCameraToWorld [0, 0, 0];
@@ -27,12 +27,12 @@ addMissionEventHandler ["Draw3D", {
     {
         private _targetSide = side (group _x);
 
-        if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && {_x getVariable [QGVAR(isUnconscious), false] || _x getVariable [QGVAR(bloodLoss), 0] != 0 || !(_x getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}] isEqualTo (GVAR(selections) apply {0}))}) then {
+        if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && {_x getVariable [QGVAR(isUnconscious), false] || _x getVariable [QGVAR(bloodLoss), 0] != 0 || !(_x getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}] isEqualTo (GVAR(selections) apply {0}))}) then {
             private _tagPositionAGL = _x modelToWorldVisual (_x selectionPosition "spine2");
             private _tagPositionASL = AGLtoASL _tagPositionAGL;
             private _screenTagPosition = worldToScreen _tagPositionAGL;
 
-            if (!(_screenTagPosition isEqualTo []) && {(lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, PRA3_Player, _x] isEqualTo [])}) then {
+            if (!(_screenTagPosition isEqualTo []) && {(lineIntersectsSurfaces [_cameraPosASL, _tagPositionASL, CLib_Player, _x] isEqualTo [])}) then {
                 // Calculate the alpha value of the display color based on the distance to player object.
                 private _distance = _cameraPosAGL distance _tagPositionAGL;
                 if (_distance <= 0 || _distance > 31) exitWith {};

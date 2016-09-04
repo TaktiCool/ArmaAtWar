@@ -32,7 +32,7 @@ if (_iconId == "") then {
     _newUnit setVariable [QGVAR(playerIconId), _iconId];
 };
 
-private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo group _newUnit);
+private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo group _newUnit);
 
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1];
 private _manDescription = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 20, 0, name _newUnit, 2];
