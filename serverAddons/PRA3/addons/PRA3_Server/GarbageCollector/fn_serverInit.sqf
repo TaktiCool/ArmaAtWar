@@ -68,7 +68,7 @@ GVAR(state) = 0;
                     private _height = ((_boundingBox select 1) select 2) - ((_boundingBox select 0) select 2);
 
                     // Use an OEF EH to move the object slowly below the surface.
-                    //@todo make this optional cause it should not be visible in general.
+                    // TODO make this optional cause it should not be visible in general.
                     [{
                         params ["_object"];
                         deleteVehicle _object;

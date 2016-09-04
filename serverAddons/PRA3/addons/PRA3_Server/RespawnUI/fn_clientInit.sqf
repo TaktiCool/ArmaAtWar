@@ -16,7 +16,7 @@
 [QGVAR(RespawnSettings), missionConfigFile >> "PRA3" >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
-[QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
+[QEGVAR(Revive,Killed), { // TODO this should work without the revive module (vanilla death)
     [[-10000, -10000, 50], true] call CFUNC(respawn);
 
     [{

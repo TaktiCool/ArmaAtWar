@@ -50,7 +50,7 @@ DFUNC(showCompass) = {
     call FUNC(showCompass);
 }] call CFUNC(addEventHandler);
 
-//@todo handle removal of the marker according to engine specs
+// TODO handle removal of the marker according to engine specs
 addMissionEventHandler ["MapSingleClick", {
     params ["_units", "_position", "_alt", "_shift"];
 

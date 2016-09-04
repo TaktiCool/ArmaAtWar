@@ -90,7 +90,7 @@
     GVAR(CargoClasses),
     10,
     {
-        // @TODO we need to find a Idea how to change this action name
+        // TODO we need to find a Idea how to change this action name
         // _target setUserActionText [_id, format["Unload %1 out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]];
         isNull (PRA3_Player getVariable [QGVAR(Item), objNull]) && !((_target getVariable [QGVAR(CargoItems), []]) isEqualTo []) && PRA3_Player == vehicle PRA3_Player
     },

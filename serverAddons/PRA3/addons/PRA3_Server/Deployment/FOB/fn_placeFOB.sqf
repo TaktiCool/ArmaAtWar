@@ -45,7 +45,7 @@ params ["_target"];
     private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call FUNC(addPoint);
 
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
-    ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); //@todo this is only for the take down action
+    ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); // TODO this is only for the take down action
 
     ["displayNotification", playerSide, [format["Squad %1 placed a FOB near %2", groupId (group PRA3_Player), _text]]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

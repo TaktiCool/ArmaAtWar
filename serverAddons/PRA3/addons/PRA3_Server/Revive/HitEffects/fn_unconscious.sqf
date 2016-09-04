@@ -31,7 +31,7 @@
             [{
                 private _corpse = PRA3_Player;
 
-                //@todo this may trigger an unwanted respawn event - other modules may reset their variables on respawn
+                // TODO this may trigger an unwanted respawn event - other modules may reset their variables on respawn
                 [getPosASL PRA3_Player] call CFUNC(respawn);
 
                 [{
@@ -71,7 +71,7 @@
             moveOut PRA3_Player;
         };
 
-        //@todo check if this is possible after ragdoll
+        // TODO check if this is possible after ragdoll
         if ((animationState PRA3_Player) in ["ladderriflestatic", "laddercivilstatic"]) then {
             PRA3_Player action ["ladderOff", nearestBuilding PRA3_Player];
         };

@@ -6,7 +6,7 @@
 
     Description:
     Initializes the camera path background in respawn screen.
-    @todo this currently works only if sector module is running
+    TODO this currently works only if sector module is running
 
     Parameter(s):
     None

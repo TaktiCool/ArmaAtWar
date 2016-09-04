@@ -153,7 +153,7 @@
 
         _lnbData pushBack [[_name], _x, _icon];
         nil
-    } count (call EFUNC(Deployment,getAvailablePoints)); //@todo use current position if deployment is deactivated
+    } count (call EFUNC(Deployment,getAvailablePoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -161,7 +161,7 @@
 
 // When the selected entry changed animate the map
 [UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
-    //@todo only animate if really changed
+    // TODO only animate if really changed
     UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 

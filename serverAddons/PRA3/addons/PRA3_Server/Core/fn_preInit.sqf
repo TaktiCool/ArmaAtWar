@@ -31,7 +31,7 @@ private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" 
     nil
 } count _serverVersionAr;
 
-// @Todo Create Database for Compatible Versions
+// TODO Create Database for Compatible Versions
 if (!(_missionVersionAr isEqualTo _serverVersionAr) && (isClass (missionConfigFile >> "PRA3"))) then {
     ["Lost"] call BIS_fnc_endMissionServer
 };
