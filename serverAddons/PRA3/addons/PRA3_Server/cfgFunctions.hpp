@@ -31,6 +31,7 @@ class cfgFunctions {
             singleFunctionConfigSub(Core,Compile,decompressString,baseFNC)
             singleFunctionConfigSub(Core,Compile,compile,baseFNC)
             singleFunctionConfigSub(Core,Compile,checkCompression,baseFNC)
+            singleFunctionConfigSub(Core,Compile,checkAllFunctionCompression,baseFNC)
             singleFunctionConfig(Core,preInit,basePreFNC)
             singleFunctionConfig(Core,preStart,basePreStartFNC)
         };

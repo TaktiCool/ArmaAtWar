@@ -8,29 +8,21 @@
     Check if all Compression work right
 
     Parameter(s):
-    None
+    0: UnCompressed String <String>
 
     Returns:
-    None
+    fail Compression <Array< LZ77, LZW>>
 */
-#define AllCompressionTypes ["LZ77", "LZW"]
-private _wrongCount = 0;
-{
-    private _fncName = _x;
-    private _originalFunction = (parsingNamespace getVariable _fncName) call CFUNC(codeToString);
-    {
-        private _compressedFunction = [_originalFunction , _x] call CFUNC(compressString);
-        private _decompFunction = _compressedFunction call CFUNC(decompressString);
-        if !(_decompFunction isEqualTo _originalFunction) then {
-            LOG("Compression Check ERROR: " + _fncName + " " + _x + " compression dont work correct")
-            _wrongCount = _wrongCount + 1;
-        } else {
-            LOG("Compression Check: " + _fncName + " " + _x + " passed Test")
-        };
-    } count AllCompressionTypes;
-    nil
-} count GVAR(functionCache);
+params ["_string"];
 
-if (_wrongCount != 0) then {
-    hint "A Function Dont Compress Right! Please Check log";
-};
+private _return = [];
+{
+    private _compressedFunction = [_string , _x] call CFUNC(compressString);
+    private _decompFunction = _compressedFunction call CFUNC(decompressString);
+    if !(_decompFunction isEqualTo _string) then {
+        _return pushBack false;
+    } else {
+        _return pushBack false;
+    };
+    nil
+} count AllCompressionTypes;
