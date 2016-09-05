@@ -74,4 +74,4 @@
         'prefix': 'PRA3_Header'
         'body': '#include "macros.hpp"\n/*\n    Project Reality ArmA 3\n    \n    Author: ${1:Author}\n    \n    Description:\n    ${2:Description}\n    \n    Parameter(s):\n    0: ${3:Argument} <${4:Type}>\n    \n    Returns:\n    0: ${5:Return} <${6:Type}>\n*/'
 
-# TODO: MapGrahics
+# TODO MapGrahics
