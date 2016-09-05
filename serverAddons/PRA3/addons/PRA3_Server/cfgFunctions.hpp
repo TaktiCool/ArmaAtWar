@@ -24,14 +24,6 @@ class cfgFunctions {
     //init = "pr\PRA3\addons\PRA3_Server\init.sqf";
 
     class DOUBLE(PREFIX,Core) {
-        class Core {
-            // file = "\pr\PRA3\addons\PRA3_Server\Core";
-            singleFunctionConfigSub(Core,Compile,stripSqf,baseFNC)
-            singleFunctionConfigSub(Core,Compile,compressString,baseFNC)
-            singleFunctionConfigSub(Core,Compile,decompressString,baseFNC)
-            singleFunctionConfigSub(Core,Compile,compile,baseFNC)
-            singleFunctionConfigSub(Core,Compile,checkCompression,baseFNC)
-            singleFunctionConfigSub(Core,Compile,checkAllFunctionCompression,baseFNC)
             singleFunctionConfig(Core,preInit,basePreFNC)
             singleFunctionConfig(Core,preStart,basePreStartFNC)
         };

@@ -11,20 +11,6 @@ GVAR(allLocationTypes) = [];
 GVAR(markerLocations) = getArray (missionConfigFile >> QPREFIX >> "markerLocation");
 GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, markerText _x]};
 
-// functions for Disable User Input
-DFUNC(onButtonClickEndStr) = {
-    closeDialog 0;
-    failMission 'LOSER';
-    [false] call FUNC(disableUserInput);
-} call FUNC(codeToString);
-
-DFUNC(onButtonClickRespawnStr) = {
-    closeDialog 0;
-    forceRespawn Clib_Player;
-    [false] call FUNC(disableUserInput);
-} call FUNC(codeToString);
-
-
 if (hasInterface) then {
     ["missionStarted", {
         (findDisplay 46) displayAddEventHandler ["KeyDown", {
