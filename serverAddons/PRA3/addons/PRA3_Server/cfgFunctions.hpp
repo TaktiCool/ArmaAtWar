@@ -18,17 +18,7 @@ class basePreStartFNC: baseFNC {
 };
 
 class cfgFunctions {
-
-    createShortcuts = 1;
-
-    //init = "pr\PRA3\addons\PRA3_Server\init.sqf";
-
-    class DOUBLE(PREFIX,Core) {
-            singleFunctionConfig(Core,preInit,basePreFNC)
-            singleFunctionConfig(Core,preStart,basePreStartFNC)
-        };
-    };
-
+    FUNCTIONSCONFIG(Common)
     FUNCTIONSCONFIG(Revive)
     FUNCTIONSCONFIG(Kit)
     FUNCTIONSCONFIG(Logistic)
