@@ -3,6 +3,8 @@ class defaultVehicle {
     side = "UNKNOWN";
     respawnTime = -1; // disabled
     ticketValue = 2;
+    abandonedVehicleRadius = 100;
+    abandonedVehicleTime = 300;
 };
 
 class defaultWest : defaultVehicle {
@@ -186,6 +188,6 @@ class CfgEntities {
         isLoadable = 1;
     };
     class O_HMG_01_high_F: B_HMG_01_high_F {};
-	
+
 	class CargoNet_01_ammo_base_F : Land_CargoBox_V1_F {};
 };
