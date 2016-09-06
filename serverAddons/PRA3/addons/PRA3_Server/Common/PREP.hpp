@@ -10,6 +10,11 @@ EPREP(Settings,initSettings)
 EPREP(Settings,loadSettings)
 EPREP(Settings,getSetting)
 
+// Notification
+EPREP(Notification,clientInitNotification)
+EPREP(Notification,displayNotification)
+EPREP(Notification,handleNotificationQueue)
+
 // Performance Info
 EPREP(PerformanceInfo,clientInitPerformance)
 EPREP(PerformanceInfo,serverInitPerformance)
