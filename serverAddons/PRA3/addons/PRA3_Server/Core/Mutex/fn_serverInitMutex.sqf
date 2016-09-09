@@ -23,22 +23,22 @@ DFUNC(checkNextMutexClient) = {
     _mutex params ["_currentClient", "_clientQueue"];
 
     if (!(_clientQueue isEqualTo [])) then {
+        // Next client in queue
         _currentClient = _clientQueue deleteAt 0;
         [GVAR(mutexes), _mutexId, [_currentClient, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
         [QGVAR(mutexLock), _currentClient, _mutexId] call CFUNC(targetEvent);
+    } else {
+        // Reset current client because no next client available
+        [GVAR(mutexes), _mutexId, [0, []], QGVAR(mutexesCache)] call CFUNC(setVariable);
     };
 };
 
 // Handle disconnect of client
 [QGVAR(mutex), "onPlayerDisconnected", {
-    DUMP("onPlayerDisconnect triggered")
     {
         private _mutex = [GVAR(mutexes), _x, [0, []]] call CFUNC(getVariable);
         _mutex params ["_currentClient", "_clientQueue"];
 
-        DUMP("currentClient: " + str _currentClient)
-        DUMP("owner: " + str _owner)
-        DUMP("clientQueue: " + str _clientQueue)
         // Clean the queue
         private _index =_clientQueue find _owner;
         if (_index != -1) then {
