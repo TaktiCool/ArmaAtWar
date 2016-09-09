@@ -97,8 +97,8 @@ EPREP(3dGraphics,draw3dGraphics)
 EPREP(3dGraphics,3dGraphicsPosition)
 
 // Mutex
-EPREP(Mutex,initClientMutex)
-EPREP(Mutex,initServerMutex)
+EPREP(Mutex,clientInitMutex)
+EPREP(Mutex,serverInitMutex)
 EPREP(Mutex,mutex)
 
 // Namespaces
