@@ -37,9 +37,9 @@ DFUNC(checkNextMutexClient) = {
         private _mutex = [GVAR(mutexes), _x, [0, []]] call CFUNC(getVariable);
         _mutex params ["_currentClient", "_clientQueue"];
 
-        DUMP("currentClient: %1" + str _current)
-        DUMP("owner: %1" + str _owner)
-        DUMP("clientQueue: %1" + str _clientQueue)
+        DUMP("currentClient: " + str _currentClient)
+        DUMP("owner: " + str _owner)
+        DUMP("clientQueue: " + str _clientQueue)
         // Clean the queue
         private _index =_clientQueue find _owner;
         if (_index != -1) then {
