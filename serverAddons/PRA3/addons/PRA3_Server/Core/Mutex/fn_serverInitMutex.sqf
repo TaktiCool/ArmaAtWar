@@ -32,11 +32,12 @@ DFUNC(checkNextMutexClient) = {
 // Handle disconnect of client
 [QGVAR(mutex), "onPlayerDisconnected", {
     params ["_id", "_name", "_uid", "_owner", "_jip"];
-
+    DUMP("onPlayerDisconnect triggered")
     {
         private _mutex = [GVAR(mutexes), _x, [0, []]] call CFUNC(getVariable);
         _mutex params ["_currentClient", "_clientQueue"];
 
+        DUMP(format["clientQueue: %1", _clientQueue])
         // Clean the queue
         private _index =_clientQueue find _owner;
         if (_index != -1) then {
