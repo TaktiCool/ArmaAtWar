@@ -1,6 +1,6 @@
 loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker", "CompassUI", "GarbageCollector"};
 
-useCompressedFunction = 1;
+useCompressedFunction = 0;
 
 tickets = 1000; // number of tickets per team
 ticketBleed[] = {10,5}; // time, tickets
