@@ -30,9 +30,7 @@ DFUNC(checkNextMutexClient) = {
 };
 
 // Handle disconnect of client
-addMissionEventHandler ["onPlayerDisconnected", {
-    params ["_id", "_uid", "_name", "_jip", "_owner"];
-    DUMP(_this)
+[QGVAR(mutex), "onPlayerDisconnected", {
     DUMP("onPlayerDisconnect triggered")
     {
         private _mutex = [GVAR(mutexes), _x, [0, []]] call CFUNC(getVariable);
@@ -50,7 +48,6 @@ addMissionEventHandler ["onPlayerDisconnected", {
 
         // If the client is currently executing reset the lock
         if (_currentClient == _owner) then {
-
             _x call FUNC(checkNextMutexClient);
         };
 
@@ -58,7 +55,7 @@ addMissionEventHandler ["onPlayerDisconnected", {
     } count ([GVAR(mutexes), QGVAR(mutexesCache)] call CFUNC(allVariables));
 
     false
-}];
+}] call BIS_fnc_addStackedEventHandler;
 
 // EH which fired if some client requests mutex executing
 [QGVAR(mutexRequest), {
