@@ -11,7 +11,7 @@ allowFunctionsRecompile = 0;
 allowFunctionsLog = 0;
 briefing = 0;
 debriefing = 0;
-enableDebugConsole = 2;
+enableDebugConsole = 1;
 
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";
@@ -42,7 +42,7 @@ class PRA3 {
     #include "cfgRevive.hpp"
 
     #include "cfgEntities.hpp"
-	
+
 	#include "cfgFOB.hpp"
 
     #include "ui\common\pra3Core.hpp"
