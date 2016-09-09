@@ -79,7 +79,6 @@ DFUNC(checkNextMutexClient) = {
 
     private _mutex = [GVAR(mutexes), _mutexId, [0, []]] call CFUNC(getVariable);
     _mutex params ["_currentClient", "_clientQueue"];
-    [GVAR(mutexes), _mutexId, [0, _clientQueue], QGVAR(mutexesCache)] call CFUNC(setVariable);
     // Tell the client that he can start and remove him from the queue
     _mutexId call FUNC(checkNextMutexClient);
 }] call CFUNC(addEventHandler);
