@@ -78,7 +78,7 @@
             Clib_Player setVariable [QGVAR(Item), objNull, true];
             _draggedObject setVariable [QGVAR(Player), objNull, true];
 
-            ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
+            ["forceWalk","Logistic",false] call CFUNC(setStatusEffect);
 
             Clib_Player action ["SwitchWeapon", Clib_Player, Clib_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);

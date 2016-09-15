@@ -1,8 +1,0 @@
-PREP(serverInit)
-PREP(clientInit)
-PREP(clientInitActions)
-PREP(clientInitCargoInventory)
-PREP(getWeight)
-PREP(dragObject)
-PREP(dropObject)
-PREP(spawnCrate)

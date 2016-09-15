@@ -14,6 +14,6 @@ class CfgPatches {
     };
 };
 
-#include "cfgFunctions.hpp"
+#include "CfgCLibModules.hpp"
 
 #include "PRA3.hpp"
