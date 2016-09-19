@@ -25,10 +25,15 @@ GVAR(processedGroups) = [];
 GVAR(lastProcessedUnits) = [];
 GVAR(lastProcessedGroups) = [];
 
+DFUNC(isValidUnit) = {
+    params ["_unit"];
+    !isNull _unit && alive _unit && side group _unit == playerSide && !isHidden _unit && simulationEnabled _unit;
+};
+
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
 [GVAR(ProcessingSM), "init", {
-    private _units = +(allUnits select {side _x == playerSide});
+    private _units = +(allUnits select {[_x] call FUNC(isValidUnit)});
     GVAR(lastProcessedUnits) = GVAR(processedUnits);
     GVAR(lastProcessedGroups) = GVAR(processedGroups);
     GVAR(processedGroups) = [];
@@ -40,19 +45,23 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
     params ["_dummy", "_units"];
     private _unit = _units deleteAt 0;
 
-    while {(isNull _unit || {side _unit != playerSide}) && {!(_units isEqualTo [])}} do {
+    while {!([_unit] call FUNC(isValidUnit)) && {!(_units isEqualTo [])}} do {
         _unit = _units deleteAt 0;
     };
 
-    if (!isNull _unit && {side _unit == playerSide}) then {
-        private _element = [_unit, side _unit, group _unit, (leader group _unit == _unit), _unit getVariable [QGVAR(playerIconId), ""]];
+    if ([_unit] call FUNC(isValidUnit)) then {
+        private _element = [_unit, side _unit, group _unit, (leader group _unit == _unit), _unit getVariable [QGVAR(playerIconId), ""], group _unit isEqualTo group PRA3_player];
+
         if (!(_element in GVAR(lastProcessedUnits)) || (_element select 4 == "")) then {
+            DUMP(_element);
+            DUMP("UNIT ADDED");
+
             private _id = [_unit] call FUNC(addUnitToTracker);
             _element set [4, _id];
         };
         GVAR(processedUnits) pushBack _element;
         if (leader _unit == _unit) then {
-            private _element = [group _unit, leader _unit, format [QGVAR(Group_%1), groupId group _unit]];
+            private _element = [group _unit, leader _unit, format [QGVAR(Group_%1), groupId group _unit], group _unit isEqualTo group PRA3_player];
             if !(_element in GVAR(lastProcessedGroups) || (_element select 2 == "")) then {
                 private _id = [_element select 0] call FUNC(addGroupToTracker);
                 _element set [2, _id];

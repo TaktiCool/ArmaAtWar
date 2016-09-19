@@ -15,7 +15,7 @@
 */
 params ["_newUnit"];
 
-if (side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
+//if (!alive _newUnit || side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
 
 #ifdef isDev
     DUMP("Unit Icon added: " + str _newUnit)
