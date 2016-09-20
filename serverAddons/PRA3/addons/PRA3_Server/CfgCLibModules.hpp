@@ -32,13 +32,6 @@ class CfgCLibModules {
                 FNC(respawnNewSide);
             };
 
-            // Settings
-            MODULE(Settings) {
-                FNC(initSettings);
-                FNC(loadSettings);
-                FNC(getSetting);
-            };
-
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
@@ -50,7 +43,6 @@ class CfgCLibModules {
             MODULE(PerformanceInfo) {
                 FNC(clientInitPerformance);
                 FNC(serverInitPerformance);
-                FNC(dumpPerformanceInformation);
             };
         };
 
