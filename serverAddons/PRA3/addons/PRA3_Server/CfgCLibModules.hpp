@@ -190,7 +190,7 @@ class CfgCLibModules {
 
         // Tickets
         MODULE(Tickets) {
-            FNC(Init);
+            FNC(init);
         };
 
         // UnitTracker
