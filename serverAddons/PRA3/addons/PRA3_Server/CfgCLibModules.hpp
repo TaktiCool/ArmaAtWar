@@ -54,28 +54,28 @@ class CfgCLibModules {
         };
 
         MODULE(Deployment) {
-            FNC(serverInit)
-            FNC(clientInit)
-            FNC(addPoint)
-            FNC(removePoint)
-            FNC(getAvailablePoints)
-            FNC(FNCareSpawn)
+            FNC(serverInit);
+            FNC(clientInit);
+            FNC(addPoint);
+            FNC(removePoint);
+            FNC(getAvailablePoints);
+            FNC(FNCareSpawn);
 
             // Rally System
             MODULE(Rally) {
-                FNC(clientInitRally)
-                FNC(serverInitRally)
-                FNC(placeRally)
-                FNC(destroyRally)
-                FNC(canPlaceRally)
+                FNC(serverInitRally);
+                FNC(clientInitRally);
+                FNC(placeRally);
+                FNC(destroyRally);
+                FNC(canPlaceRally);
             };
 
             // FOB system
             MODULE(FOB) {
-                FNC(clientInitFOB)
-                FNC(placeFOB)
-                FNC(destroyFOB)
-                FNC(canPlaceFOB)
+                FNC(clientInitFOB);
+                FNC(placeFOB);
+                FNC(destroyFOB);
+                FNC(canPlaceFOB);
             };
         };
 
@@ -136,7 +136,7 @@ class CfgCLibModules {
 
             // HitEffects
             MODULE(HitEffects) {
-                EFNC(clientInitHitEffectsUI);
+                FNC(clientInitHitEffectsUI);
                 FNC(blood);
                 FNC(fatigue);
                 FNC(unconscious);
@@ -152,7 +152,7 @@ class CfgCLibModules {
             };
 
             // Handle Damage
-            MOUDLE(HandleDamage) {
+            MODULE(HandleDamage) {
                 FNC(clientInitHandleDamage);
                 FNC(handleDamage);
                 FNC(handleDamageCached);
@@ -202,9 +202,9 @@ class CfgCLibModules {
 
         // VehicleRespawn
         MODULE(VehicleRespawn) {
-            PREP(serverInit);
-            PREP(clientInit);
-            PREP(performVehicleRespawn);
+            FNC(serverInit);
+            FNC(clientInit);
+            FNC(performVehicleRespawn);
         };
     };
 };
