@@ -26,5 +26,5 @@ publicVariable QGVAR(pointStorage);
             ["BASE", _markerPosition, _x, -1, "a3\ui_f\data\map\Markers\Military\box_ca.paa"] call FUNC(addPoint);
         };
         nil
-    } count EGVAR(Mission,competingSides);
+    } count EGVAR(Common,competingSides);
 }] call CFUNC(addEventHandler);

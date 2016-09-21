@@ -9,11 +9,11 @@ class CLibBaseModule;
 
 class CfgCLibModules {
     class PRA3 {
-        dependency[] = {"CLib"};
         path = "\pr\PRA3\addons\PRA3_Server"; // TODO add Simplifyed Macro for this
 
         // Common
         MODULE(Common) {
+            dependency[] = {"CLib"};
             // Init
             FNC(init);
 
@@ -48,12 +48,15 @@ class CfgCLibModules {
 
         // CompassUI
         MODULE(CompassUI) {
+            dependency[] = {"PRA3/Common"};
+
             FNC(clientInit);
             FNC(removeLineMarker);
             FNC(addLineMarker);
         };
 
         MODULE(Deployment) {
+            dependency[] = {"PRA3/Common"};
             FNC(serverInit);
             FNC(clientInit);
             FNC(addPoint);
@@ -81,11 +84,13 @@ class CfgCLibModules {
 
         // GarbageCollector
         MODULE(GarbageCollector) {
+            dependency[] = {"PRA3/Common"};
             FNC(serverInit);
         };
 
         // Kit
         MODULE(Kit) {
+            dependency[] = {"PRA3/Common"};
             FNC(clientInit);
             FNC(getAllKits);
             FNC(getKitDetails);
@@ -96,6 +101,7 @@ class CfgCLibModules {
 
         // Logistic
         MODULE(Logistic) {
+            dependency[] = {"PRA3/Common"};
             FNC(serverInit);
             FNC(clientInit);
             FNC(clientInitActions);
@@ -106,18 +112,15 @@ class CfgCLibModules {
             FNC(spawnCrate);
         };
 
-        // Mission
-        MODULE(Mission) {
-            FNC(init);
-        };
-
         // Nametags
         MODULE(Nametags) {
+            dependency[] = {"PRA3/Common"};
             FNC(clientInit);
         };
 
         // RespawnUI
         MODULE(RespawnUI) {
+            dependency[] = {"PRA3/Common", "PRA3/Deployment", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
             FNC(clientInit);
             FNC(clientInitDeployment);
             FNC(clientInitRole);
@@ -130,6 +133,7 @@ class CfgCLibModules {
 
         // Revive
         MODULE(Revive) {
+            dependency[] = {"PRA3/Common"};
             // General
             FNC(clientInit);
             FNC(bloodEffect);
@@ -162,6 +166,7 @@ class CfgCLibModules {
 
         // Sector
         MODULE(Sector) {
+            dependency[] = {"PRA3/Common"};
             FNC(init);
             FNC(clientInit);
             FNC(serverInit);
@@ -176,6 +181,7 @@ class CfgCLibModules {
 
         // Squad
         MODULE(Squad) {
+            dependency[] = {"PRA3/Common"};
             FNC(clientInit);
             FNC(getNextSquadId);
             FNC(canUseSquadType);
@@ -190,11 +196,13 @@ class CfgCLibModules {
 
         // Tickets
         MODULE(Tickets) {
+            dependency[] = {"PRA3/Common", "PRA3/Sector"};
             FNC(init);
         };
 
         // UnitTracker
         MODULE(UnitTracker) {
+            dependency[] = {"PRA3/Common"};
             FNC(clientInit);
             FNC(addUnitToTracker);
             FNC(addGroupToTracker);
@@ -202,6 +210,7 @@ class CfgCLibModules {
 
         // VehicleRespawn
         MODULE(VehicleRespawn) {
+            dependency[] = {"PRA3/Common"};
             FNC(serverInit);
             FNC(clientInit);
             FNC(performVehicleRespawn);

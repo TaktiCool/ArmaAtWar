@@ -22,7 +22,7 @@ if (side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newU
 #endif
 
 
-private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
+private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
 private _iconId = _newUnit getVariable [QGVAR(playerIconId), ""];
 if (_iconId == "") then {
