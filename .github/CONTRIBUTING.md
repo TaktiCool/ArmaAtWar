@@ -21,7 +21,7 @@ A video of the issue might be helpful in resolving it faster.
 # Requesting a feature
 In Order to keep the Issue Tracker Clean and Classified, we Close every Feature Requests that is not in the [Issue #40](https://github.com/drakelinglabs/projectrealityarma3/issues/40)
 
-## Contact us
+# Contact us
 
 Feel free to use our [discord](http://discord.me/pra3) to contact us.
 
