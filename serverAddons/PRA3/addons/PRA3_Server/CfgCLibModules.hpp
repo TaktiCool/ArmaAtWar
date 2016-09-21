@@ -59,7 +59,7 @@ class CfgCLibModules {
             FNC(addPoint);
             FNC(removePoint);
             FNC(getAvailablePoints);
-            FNC(FNCareSpawn);
+            FNC(prepareSpawn);
 
             // Rally System
             MODULE(Rally) {
