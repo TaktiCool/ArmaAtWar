@@ -13,7 +13,7 @@ class CfgCLibModules {
 
         // Common
         MODULE(Common) {
-            dependency[] = {"CLib"};
+            dependency[] = {"CLib/PerFrame", "CLib/Events", "CLib/Localisation", "CLib/Autoload", "CLib/ConfigCaching", "CLib/3dGraphics", "CLib/extensionFramework", "CLib/Gear", "CLib/Interaction", "CLib/lnbData", "CLib/MapGraphics", "CLib/Misc", "CLib/Mutex", "CLib/Namespaces", "CLib/RemoteExecution", "CLib/Statemachine", "CLib/StatusEffects"};
             // Init
             FNC(init);
 
