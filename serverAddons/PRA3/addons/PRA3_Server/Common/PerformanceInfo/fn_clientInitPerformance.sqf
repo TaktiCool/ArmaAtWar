@@ -78,7 +78,7 @@ DFUNC(showIndicator) = {
         if (PY(4) > _maxHeight) then {
             GVAR(maxFPS) = GVAR(maxFPS) * 0.8;
         };
-    }, 0, _display] call FUNC(addPerFrameHandler);
+    }, 0, _display] call CFUNC(addPerFrameHandler);
 #endif
 
 }] call CFUNC(addEventHandler);

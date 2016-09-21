@@ -22,7 +22,7 @@ params ["_target"];
 
     private _position = [Clib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (Clib_Player distance _position >= 20) exitWith {
-        ["You can not place a FOB at this position"] call CFUNC(displayNotification);
+        ["You can not place a FOB at this position"] call EFUNC(Common,displayNotification);
     };
 
     private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBObjects");
@@ -41,7 +41,7 @@ params ["_target"];
 
     deleteVehicle _target;
 
-    private _text = [_position] call CFUNC(getNearestLocationName);
+    private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call FUNC(addPoint);
 
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];

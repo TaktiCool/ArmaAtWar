@@ -32,7 +32,7 @@
                 private _corpse = Clib_Player;
 
                 // TODO this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [getPosASL Clib_Player] call CFUNC(respawn);
+                [getPosASL Clib_Player] call EFUNC(Common,respawn);
 
                 [{
                     params ["_gear", "_corpse"];

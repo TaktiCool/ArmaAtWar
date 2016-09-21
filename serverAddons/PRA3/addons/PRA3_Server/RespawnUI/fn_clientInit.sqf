@@ -17,7 +17,7 @@
 
 // When player dies show respawn UI
 [QEGVAR(Revive,Killed), { // TODO this should work without the revive module (vanilla death)
-    [[-10000, -10000, 50], true] call CFUNC(respawn);
+    [[-10000, -10000, 50], true] call EFUNC(Common,respawn);
 
     [{
         // Respawn screen may already open by user action
@@ -62,7 +62,7 @@
         } count EGVAR(Mission,competingSides);
 
         // Move the player to the side
-        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawnNewSide);
+        [[-1000, -1000, 10], _leastPlayerSide] call EFUNC(Common,respawnNewSide);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;

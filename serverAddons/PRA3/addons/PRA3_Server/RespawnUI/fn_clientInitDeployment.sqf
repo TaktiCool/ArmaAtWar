@@ -84,20 +84,20 @@
 
         // Check squad
         if (!((groupId group Clib_Player) in EGVAR(Squad,squadIds))) exitWith {
-            ["You have to join a squad!"] call CFUNC(displayNotification);
+            ["You have to join a squad!"] call EFUNC(Common,displayNotification);
         };
 
         // Check kit
         private _currentRoleSelection = lnbCurSelRow (_roleDisplay displayCtrl 303);
         if (_currentRoleSelection < 0) exitWith {
-            ["You have to select a role!"] call CFUNC(displayNotification);
+            ["You have to select a role!"] call EFUNC(Common,displayNotification);
         };
 
         // Check deployment
         private _controlDeploymentList = _deploymentDisplay displayCtrl 403;
         private _currentDeploymentPointSelection = lnbCurSelRow _controlDeploymentList;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            ["You have to select a spawnpoint!"] call CFUNC(displayNotification);
+            ["You have to select a spawnpoint!"] call EFUNC(Common,displayNotification);
         };
 
         // Get position
@@ -110,7 +110,7 @@
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf Clib_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf Clib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
 
             [{
                 // Fix issue that player spawn Prone

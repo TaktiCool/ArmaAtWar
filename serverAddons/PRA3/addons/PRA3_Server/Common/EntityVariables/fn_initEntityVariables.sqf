@@ -38,4 +38,4 @@
         } count ([(missionConfigFile >> QPREFIX >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));
         nil
     } count _entityClasses;
-}] call FUNC(addEventhandler);
+}] call CFUNC(addEventhandler);

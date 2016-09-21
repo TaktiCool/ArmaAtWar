@@ -18,7 +18,7 @@
 
     private _position = [Clib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (Clib_Player distance _position >= 20) exitWith {
-        ["You can not place a rallypoint at this position"] call CFUNC(displayNotification);
+        ["You can not place a rallypoint at this position"] call EFUNC(Common,displayNotification);
     };
 
     [group Clib_Player] call FUNC(destroyRally);
@@ -37,7 +37,7 @@
     };
 
     (group Clib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
-    private _text = [_position] call CFUNC(getNearestLocationName);
+    private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _spawnCount = [QGVAR(Rally_spawnCount), 1] call CFUNC(getSetting);
     private _pointId = [_text, _position, group Clib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
     (group Clib_Player) setVariable [QGVAR(rallyId), _pointId, true];

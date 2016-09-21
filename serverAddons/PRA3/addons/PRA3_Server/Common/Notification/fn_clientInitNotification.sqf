@@ -19,5 +19,5 @@ GVAR(LastNotification) = -1;
 GVAR(NextNotification) = -1;
 
 ["displayNotification", {
-    (_this select 0) call CFUNC(displayNotification)
-}] call FUNC(addEventhandler);
+    (_this select 0) call FUNC(displayNotification)
+}] call CFUNC(addEventhandler);

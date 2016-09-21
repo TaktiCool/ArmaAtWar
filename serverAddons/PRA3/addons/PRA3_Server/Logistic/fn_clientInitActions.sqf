@@ -59,7 +59,7 @@
             } count _ItemArray;
 
             if (_cargoCapacity < _cargoSize) exitWith {
-                ["No Cargo Space available"] call CFUNC(displayNotification);
+                ["No Cargo Space available"] call EFUNC(Common,displayNotification);
             };
 
 
