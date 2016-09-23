@@ -31,7 +31,7 @@ private _vehicleIconId = format [QGVAR(Vehicle_%1), vehicleVarName _vehicle];
 [
     _vehicleIconId,
     [
-        ["ICON", _vehicleMapIcon, _color, _vehicle, 30, 30, _vehicle]
+        ["ICON", _vehicleMapIcon, _color, _vehicle, 30, 30, _vehicle, "", 1]
     ]
 ] call CFUNC(addMapGraphicsGroup);
 
