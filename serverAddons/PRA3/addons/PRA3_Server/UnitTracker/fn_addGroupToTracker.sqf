@@ -13,7 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
-params ["_group"];
+params ["_group", ["_attachTo",[leader (_this select 0), [0, -20]]]];
 
 if (side _group != playerSide) exitWith {""};
 
@@ -28,12 +28,12 @@ private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo _
 
 private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
 private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
-private _groupIconId = format [QGVAR(Group_%1), groupId _group];
+private _groupIconId = format [QGVAR(Group_%1_%2), groupId _group, _attachTo select 0];
 [
     _groupIconId,
     [
-        ["ICON", _groupMapIcon, _color, [leader _group, [0, -20]], 25, 25],
-        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [leader _group, [0, -20]], 25, 25, 0, (groupId _group) select [0, 1], 2]
+        ["ICON", _groupMapIcon, _color,_attachTo, 25, 25],
+        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _attachTo, 25, 25, 0, (groupId _group) select [0, 1], 2]
     ]
 ] call CFUNC(addMapGraphicsGroup);
 
@@ -42,16 +42,16 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
     "hoverin",
     {
         (_this select 0) params ["_map", "_xPos", "_yPos"];
-        (_this select 1) params ["_group"];
+        (_this select 1) params ["_group", "_attachTo"];
 
 
         if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
         GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
-        private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
+        private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
         _pos set [0, (_pos select 0) + 15/640];
-        _pos set [1, (_pos select 1) - 15/640];
+        _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
 
         private _display = ctrlParent _map;
         private _idd = ctrlIDD _display;
@@ -157,11 +157,11 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
         GVAR(groupInfoPFH) = [{
             params ["_params", "_id"];
-            _params params ["_group", "_map"];
+            _params params ["_group", "_map", "_attachTo"];
 
-            private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
+            private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
             _pos set [0, (_pos select 0) + 15/640];
-            _pos set [1, (_pos select 1) - 15/640];
+            _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
 
             private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
 
@@ -183,9 +183,9 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
                 _id call CFUNC(removePerFrameHandler);
             };
             */
-        }, 0, [_group, _map]] call CFUNC(addPerFrameHandler);
+        }, 0, [_group, _map, _attachTo]] call CFUNC(addPerFrameHandler);
     },
-    _group
+    [_group, _attachTo]
 ] call CFUNC(addMapGraphicsEventHandler);
 
 [
