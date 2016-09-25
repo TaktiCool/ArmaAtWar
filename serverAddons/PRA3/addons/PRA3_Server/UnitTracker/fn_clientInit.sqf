@@ -22,12 +22,8 @@ GVAR(groupInfoPFH) = -1;
 GVAR(vehicleInfoPFH) = -1;
 GVAR(lastFrameTriggered) = diag_frameNo;
 
-GVAR(processedUnits) = [];
-GVAR(processedGroups) = [];
-GVAR(processedVehicles) = [];
-GVAR(lastProcessedUnits) = [];
-GVAR(lastProcessedGroups) = [];
-GVAR(lastProcessedVehicles) = [];
+GVAR(processedIcons) = [];
+GVAR(lastProcessedIcons) = [];
 
 DFUNC(isValidUnit) = {
     params ["_unit"];
@@ -38,12 +34,9 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
 [GVAR(ProcessingSM), "init", {
     private _units = +(allUnits select {[_x] call FUNC(isValidUnit)});
-    GVAR(lastProcessedUnits) = GVAR(processedUnits);
-    GVAR(lastProcessedGroups) = GVAR(processedGroups);
-    GVAR(lastProcessedVehicles) = GVAR(processedVehicles);
-    GVAR(processedGroups) = [];
-    GVAR(processedUnits) = [];
-    GVAR(processedVehicles) = [];
+    GVAR(lastProcessedIcons) = +GVAR(processedIcons);
+    GVAR(processedIcons) = [];
+
     [["addIcons", _units], "init"] select (_units isEqualTo []);
 }] call CFUNC(addStatemachineState);
 
@@ -57,22 +50,20 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
     if ([_unit] call FUNC(isValidUnit)) then {
         if (vehicle _unit == _unit) then { // Infantry
-            private _element = [_unit, side _unit, group _unit, (leader group _unit == _unit), _unit getVariable [QGVAR(playerIconId), ""], group _unit isEqualTo group PRA3_player];
-            if (!(_element in GVAR(lastProcessedUnits)) || (_element select 4 == "")) then {
-                DUMP(_element);
-                DUMP("UNIT ADDED");
-
-                private _id = [_unit] call FUNC(addUnitToTracker);
-                _element set [4, _id];
+            private _iconId = toLower format [QGVAR(IconId_Player_%1_%2), _unit, group _unit isEqualTo group PRA3_player];
+            GVAR(processedIcons) pushBack _iconId;
+            if !(_iconId in GVAR(lastProcessedIcons)) then {
+                DUMP("UNIT ICON ADDED: " + _iconId);
+                [_unit, _iconId] call FUNC(addUnitToTracker);
             };
-            GVAR(processedUnits) pushBack _element;
+
             if (leader _unit == _unit) then {
-                private _element = [group _unit, leader _unit, format [QGVAR(Group_%1_%2), groupId group _unit, _unit], group _unit isEqualTo group PRA3_player, -1];
-                if !(_element in GVAR(lastProcessedGroups) || (_element select 2 == "")) then {
-                    private _id = [_element select 0] call FUNC(addGroupToTracker);
-                    _element set [2, _id];
+                _iconId = toLower format [QGVAR(IconId_Group_%1_%2_%3), group _unit, _unit, group _unit isEqualTo group PRA3_player];
+                GVAR(processedIcons) pushBack _iconId;
+                if !(_iconId in GVAR(lastProcessedIcons)) then {
+                    DUMP("GROUP ICON ADDED: " + _iconId);
+                    [group _unit, _iconId] call FUNC(addGroupToTracker);
                 };
-                GVAR(processedGroups) pushBack _element;
             };
         } else { // in vehicle
             private _vehicle = vehicle _unit;
@@ -80,54 +71,50 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
             private _inGroup = {
                 if (leader _x == _x) then {
                     _nbrGroups = _nbrGroups + 1;
-                    private _element = [group _x, _vehicle, format [QGVAR(Group_%1_%2), groupId group _x, _vehicle], group _x isEqualTo group PRA3_player, _nbrGroups];
-                    if !(_element in GVAR(lastProcessedGroups) || (_element select 2 == "")) then {
-                        private _id = [_element select 0, [_vehicle, [0, -20*_nbrGroups]]] call FUNC(addGroupToTracker);
-                        _element set [2, _id];
+                    private _iconId = toLower format [QGVAR(IconId_Group_%1_%2_%3_%4), group _x, _vehicle, group _unit isEqualTo group PRA3_player, _nbrGroups];
+                    GVAR(processedIcons) pushBack _iconId;
+                    if !(_iconId in GVAR(lastProcessedIcons)) then {
+                        DUMP("GROUP ICON ADDED: " + _iconId);
+                        [group _x, _iconId, [_vehicle, [0, -20*_nbrGroups]]] call FUNC(addGroupToTracker);
                     };
-                    GVAR(processedGroups) pushBack _element;
                 };
                 ({group _x isEqualTo group PRA3_player} count crew _vehicle) > 0;
             } count crew _vehicle;
             _inGroup = _inGroup > 0;
-            private _element = [_vehicle, side _vehicle, format [QGVAR(Vehicle_%1), vehicleVarName _vehicle], _inGroup];
-            if (!(_element in GVAR(lastProcessedVehicles)) || (_element select 2 == "")) then {
-                DUMP(_element);
-                DUMP("VEHICLE ADDED");
-
-                private _id = [_vehicle, _inGroup] call FUNC(addVehicleToTracker);
-                _element set [2, _id];
-
-
+            private _iconId = toLower format [QGVAR(Vehicle_%1_%2), _vehicle, _inGroup];
+            GVAR(processedIcons) pushBack _iconId;
+            if !(_iconId in GVAR(lastProcessedIcons)) then {
+                DUMP("VEHICLE ADDED: " + _iconId);
+                [_vehicle, _iconId, _inGroup] call FUNC(addVehicleToTracker);
             };
-            GVAR(processedVehicles) pushBack _element;
-
         };
-
-
     };
 
     private _defaultState = [["addIcons", _units], "init"] select (_units isEqualTo []);
 
-    if (_units isEqualTo []) exitWith {
-        private _iconsToDelete = (GVAR(lastProcessedUnits) apply {_x select 4}) - (GVAR(processedUnits) apply {_x select 4});
-        _iconsToDelete append ((GVAR(lastProcessedGroups) apply {_x select 2}) - (GVAR(processedGroups) apply {_x select 2}));
-        _iconsToDelete append ((GVAR(lastProcessedVehicles) apply {_x select 2}) - (GVAR(processedVehicles) apply {_x select 2}));
-        [["deleteIcons", _iconsToDelete], _defaultState] select (_iconsToDelete isEqualTo []);
+    if (_units isEqualTo []) then {
+        {
+            [_x, "hoverin"] call CFUNC(removeMapGraphicsEventHandler);
+            [_x, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
+            [_x] call CFUNC(removeMapGraphicsGroup);
+        } count (GVAR(lastProcessedIcons) - GVAR(processedIcons));
+        //[["deleteIcons", _iconsToDelete], _defaultState] select (_iconsToDelete isEqualTo []);
     };
     _defaultState;
 }] call CFUNC(addStatemachineState);
-
+/*
 [GVAR(ProcessingSM), "deleteIcons", {
     params ["_dummy", "_iconsToDelete"];
 
     private _icon = _iconsToDelete deleteAt 0;
+    DUMP("ICON REMOVED: " + _icon);
     [_icon] call CFUNC(removeMapGraphicsGroup);
     [_icon, "hoverin"] call CFUNC(removeMapGraphicsEventHandler);
     [_icon, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
 
     [["deleteIcons", _iconsToDelete], "init"] select (_iconsToDelete isEqualTo []);
 }] call CFUNC(addStatemachineState);
+*/
 
 ["DrawMapGraphics", {
     GVAR(ProcessingSM) call CFUNC(stepStatemachine);

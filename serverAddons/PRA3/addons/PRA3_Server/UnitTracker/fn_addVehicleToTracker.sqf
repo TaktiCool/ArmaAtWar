@@ -13,13 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
-params ["_vehicle", ["_inGroup", false]];
-
-if (side _vehicle != playerSide) exitWith {""};
-
-#ifdef isDev
-    DUMP("Vehicle Icon added: " + str _vehicle)
-#endif
+params ["_vehicle", "_vehicleIconId", ["_inGroup", false]];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -27,7 +21,7 @@ private _groupColor = [0, 0.87, 0, 1];
 private _color = [_sideColor, _groupColor] select _inGroup;
 
 private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
-private _vehicleIconId = format [QGVAR(Vehicle_%1), vehicleVarName _vehicle];
+
 [
     _vehicleIconId,
     [
@@ -68,24 +62,24 @@ private _vehicleIconId = format [QGVAR(Vehicle_%1), vehicleVarName _vehicle];
 
             private _ctrlBg = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
             _ctrlBg ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
-            _ctrlBg ctrlSetPosition [0, 0, PX(17), PY(2)];
+            _ctrlBg ctrlSetPosition [0, 0, PX(22), PY(2)];
             _ctrlBg ctrlCommit 0;
 
             _ctrlBgBottom = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
             _ctrlBgBottom ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
-            _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(17), PY(12)];
+            _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), PY(12)];
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_BgBottom), _idd], _ctrlBgBottom];
 
             _ctrlVehicleName = _display ctrlCreate ["RscText", -1, _ctrlGrp];
             _ctrlVehicleName ctrlSetFontHeight PY(1.8);
-            _ctrlVehicleName ctrlSetPosition [0, 0, PX(17), PY(2)];
+            _ctrlVehicleName ctrlSetPosition [0, 0, PX(18), PY(2)];
             _ctrlVehicleName ctrlSetFont "PuristaBold";
             _ctrlVehicleName ctrlSetText "HUNTER";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_VehicleName), _idd], _ctrlVehicleName];
 
             _ctrlTotalSeats = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
             _ctrlTotalSeats ctrlSetFontHeight PY(1.8);
-            _ctrlTotalSeats ctrlSetPosition [PX(12), PY(0), PX(5), PY(2)];
+            _ctrlTotalSeats ctrlSetPosition [PX(16.5), PY(0), PX(5), PY(2)];
             _ctrlTotalSeats ctrlSetFont "PuristaMedium";
             _ctrlTotalSeats ctrlSetTextColor [0.5,0.5,0.5,1];
             _ctrlTotalSeats ctrlSetStructuredText parseText "ALPHA";
@@ -93,14 +87,14 @@ private _vehicleIconId = format [QGVAR(Vehicle_%1), vehicleVarName _vehicle];
 
             _ctrlMemberList = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
             _ctrlMemberList ctrlSetFontHeight PY(4);
-            _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(17), PY(11.9)];
+            _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(21.5), PY(11.9)];
             _ctrlMemberList ctrlSetFont "PuristaMedium";
             _ctrlMemberList ctrlSetTextColor [1,1,1,1];
             _ctrlMemberList ctrlSetText "ALPHA";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_MemberList), _idd], _ctrlMemberList];
         };
 
-        _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
+        _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(22), PY(50)];
         _ctrlGrp ctrlShow true;
 
         _ctrlVehicleName ctrlSetText toUpper getText(configFile >> "CfgVehicles" >> typeOf _vehicle >> "displayName");
@@ -120,9 +114,9 @@ private _vehicleIconId = format [QGVAR(Vehicle_%1), vehicleVarName _vehicle];
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _crewUnits];
 
-        _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(17), _unitCount*PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), _unitCount*PY(1.8) + PY(0.4)];
 
-        _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(17), _unitCount*PY(1.8)];
+        _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(22), _unitCount*PY(1.8)];
 
         {
             _x ctrlCommit 0;
