@@ -34,7 +34,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
 [GVAR(ProcessingSM), "init", {
     private _units = +(allUnits select {[_x] call FUNC(isValidUnit)});
-    GVAR(lastProcessedIcons) = +GVAR(processedIcons);
+    GVAR(lastProcessedIcons) = (CGVAR(MapGraphicsGroup) call CFUNC(allVariables)) select {(_x find toLower QGVAR(IconId)) == 0};
     GVAR(processedIcons) = [];
 
     [["addIcons", _units], "init"] select (_units isEqualTo []);
@@ -94,6 +94,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
     if (_units isEqualTo []) then {
         {
+            DUMP("ICON REMOVED: " + _x);
             [_x, "hoverin"] call CFUNC(removeMapGraphicsEventHandler);
             [_x, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
             [_x] call CFUNC(removeMapGraphicsGroup);

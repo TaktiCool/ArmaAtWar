@@ -15,14 +15,22 @@
     Returns:
     None
 */
-params [["_uid", "", [""]], ["_event", "", [""]], ["_id", 0, [0]]];
+params [["_uid", "", [""]], ["_event", "", [""]], ["_id", -1, [-1]]];
 
 // build Namespace Variablename
 _eventNameSpace = format [QGVAR(MapIcon_%1_EventNamespace), _eventName];
 private _namespace = missionNamespace getVariable _eventNameSpace;
 
 private _eventArray = [_namespace, _uid, []] call FUNC(getVariable);
-if (count _eventArray >= _id) exitWith {};
-_eventArray set [_id, nil];
+if (_id == -1) then {
+    {
+        _eventArray set [_forEachIndex, nil];
+    } forEach _eventArray;
+} else {
+    if ((count _eventArray) <= _id) exitWith {};
+    _eventArray set [_id, nil];
+};
+
+
 
 GVAR(MapGraphicsCacheBuildFlag) = GVAR(MapGraphicsCacheBuildFlag) + 1;
