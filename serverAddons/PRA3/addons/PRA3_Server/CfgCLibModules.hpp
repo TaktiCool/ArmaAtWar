@@ -23,7 +23,7 @@ class CfgCLibModules {
             };
 
             // Respawn
-            MODULE(Respawn){
+            MODULE(Respawn) {
                 FNC(respawn);
                 FNC(respawnNewSide);
             };
