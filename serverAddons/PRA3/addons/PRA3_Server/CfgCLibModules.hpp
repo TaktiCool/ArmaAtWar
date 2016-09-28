@@ -3,10 +3,6 @@
 #define APIFNC(f) DFNC(f) {api = 1;}
 #define MODULE(m) class m
 
-class CLibBaseFunction;
-class CLibBaseModule;
-
-
 class CfgCLibModules {
     class PRA3 {
         path = "\pr\PRA3\addons\PRA3_Server"; // TODO add Simplifyed Macro for this

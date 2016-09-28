@@ -54,7 +54,7 @@ DFUNC(showIndicator) = {
 
         if (isNull _display) exitWith {};
 
-        private _currentFPS = 1 / GVAR(deltaTime);
+        private _currentFPS = 1 / CGVAR(deltaTime);
         GVAR(maxFPS) = _currentFPS max GVAR(maxFPS);
 
         private _control = _display displayCtrl 9101;
