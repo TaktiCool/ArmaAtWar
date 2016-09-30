@@ -1,4 +1,7 @@
 loadModules[] = {"Mission", "Logistic", "Nametags","Revive", "Sector", "Kit", "VehicleRespawn", "Squad", "RespawnUI", "Deployment", "Tickets", "UnitTracker", "CompassUI", "GarbageCollector"};
+
+useCompressedFunction = 0;
+
 tickets = 300; // number of tickets per team
 ticketBleed[] = {10,1}; // time, tickets
 musicStart = 30; // tickets to start the music

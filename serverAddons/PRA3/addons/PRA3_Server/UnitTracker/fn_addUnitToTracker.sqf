@@ -13,26 +13,13 @@
     Returns:
     0: Return Name <TYPE>
 */
-params ["_newUnit"];
+params ["_newUnit", "_iconId"];
 
-if (side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
-
-#ifdef isDev
-    DUMP("Unit Icon added: " + str _newUnit)
-#endif
-
-
+//if (!alive _newUnit || side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
-private _iconId = _newUnit getVariable [QGVAR(playerIconId), ""];
-if (_iconId == "") then {
-    _iconId = format [QGVAR(player_%1), GVAR(playerCounter)];
-    GVAR(playerCounter) = GVAR(playerCounter) + 1;
 
-    _newUnit setVariable [QGVAR(playerIconId), _iconId];
-};
-
-private _color = [_sideColor, _groupColor] select (group Clib_Player isEqualTo group _newUnit);
+private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo group _newUnit);
 
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1];
 private _manDescription = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 20, 0, name _newUnit, 2];

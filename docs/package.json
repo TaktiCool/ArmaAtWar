@@ -1,0 +1,11 @@
+{
+  "name": "PRA3",
+  "description": "Project Reality Arma 3",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "metalsmith": "^2.1.0",
+    "metalsmith-markdown": "^0.2.1"
+  }
+}

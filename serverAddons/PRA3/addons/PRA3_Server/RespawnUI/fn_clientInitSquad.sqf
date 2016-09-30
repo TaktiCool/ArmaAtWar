@@ -43,8 +43,8 @@
     if (isNull _display) exitWith {};
 
     // Update the flag and text
-    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), playerSide], ""]);
-    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,SideName_%1), playerSide], ""]);
+    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), playerSide], ""]);
+    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,SideName_%1), playerSide], ""]);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_ChangeSideBtn_onButtonClick), {
@@ -57,7 +57,7 @@
 ["missionStarted", {
     ["Squad Screen", Clib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(squadDisplay), displayNull])}, {
         (findDisplay 46) createDisplay UIVAR(SquadScreen);
-    },["ignoredCanInteractConditions",["isNotInVehicle"]]] call CFUNC(addAction);
+    },["ignoredCanInteractConditions",["isNotInVehicle"], "showWindow", false]] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(SquadScreen_onLoad), {

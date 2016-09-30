@@ -13,13 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
-params ["_group"];
-
-if (side _group != playerSide) exitWith {""};
-
-#ifdef isDev
-    DUMP("Group Icon added: " + str _group)
-#endif
+params ["_group", "_groupIconId", ["_attachTo",[leader (_this select 0), [0, -20]]]];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -28,12 +22,12 @@ private _color = [_sideColor, _groupColor] select (group Clib_Player isEqualTo _
 
 private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
 private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
-private _groupIconId = format [QGVAR(Group_%1), groupId _group];
+
 [
     _groupIconId,
     [
-        ["ICON", _groupMapIcon, _color, [leader _group, [0, -20]], 25, 25],
-        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [leader _group, [0, -20]], 25, 25, 0, (groupId _group) select [0, 1], 2]
+        ["ICON", _groupMapIcon, _color,_attachTo, 25, 25],
+        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _attachTo, 25, 25, 0, (groupId _group) select [0, 1], 2]
     ]
 ] call CFUNC(addMapGraphicsGroup);
 
@@ -42,16 +36,16 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
     "hoverin",
     {
         (_this select 0) params ["_map", "_xPos", "_yPos"];
-        (_this select 1) params ["_group"];
+        (_this select 1) params ["_group", "_attachTo"];
 
 
         if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
         GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
-        private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
+        private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
         _pos set [0, (_pos select 0) + 15/640];
-        _pos set [1, (_pos select 1) - 15/640];
+        _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
 
         private _display = ctrlParent _map;
         private _idd = ctrlIDD _display;
@@ -72,31 +66,31 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
             private _ctrlBg = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
             _ctrlBg ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
-            _ctrlBg ctrlSetPosition [0, 0, PX(17), PY(4)];
+            _ctrlBg ctrlSetPosition [0, 0, PX(22), PY(4)];
             _ctrlBg ctrlCommit 0;
 
             _ctrlBgBottom = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
             _ctrlBgBottom ctrlSetText "#(argb,8,8,3)color(0,0,0,0.8)";
-            _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(17), PY(12)];
+            _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(22), PY(12)];
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_BgBottom), _idd], _ctrlBgBottom];
 
             _ctrlSquadName = _display ctrlCreate ["RscText", -1, _ctrlGrp];
             _ctrlSquadName ctrlSetFontHeight PY(1.8);
-            _ctrlSquadName ctrlSetPosition [0, 0, PX(8), PY(2)];
+            _ctrlSquadName ctrlSetPosition [0, 0, PX(11), PY(2)];
             _ctrlSquadName ctrlSetFont "PuristaBold";
             _ctrlSquadName ctrlSetText "ALPHA";
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadName), _idd], _ctrlSquadName];
 
             _ctrlSquadType = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
             _ctrlSquadType ctrlSetFontHeight PY(1.8);
-            _ctrlSquadType ctrlSetPosition [PX(8.5), 0, PX(8.5), PY(2)];
+            _ctrlSquadType ctrlSetPosition [PX(11), 0, PX(10.5), PY(2)];
             _ctrlSquadType ctrlSetFont "PuristaMedium";
             _ctrlSquadType ctrlSetStructuredText parseText "ALPHA";
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadType), _idd], _ctrlSquadType];
 
             _ctrlSquadDescription = _display ctrlCreate ["RscText", -1, _ctrlGrp];
             _ctrlSquadDescription ctrlSetFontHeight PY(1.8);
-            _ctrlSquadDescription ctrlSetPosition [0, PY(1.8), PX(12), PY(2)];
+            _ctrlSquadDescription ctrlSetPosition [0, PY(1.8), PX(21), PY(2)];
             _ctrlSquadDescription ctrlSetFont "PuristaMedium";
             _ctrlSquadDescription ctrlSetText "ALPHA";
             _ctrlSquadDescription ctrlSetTextColor [0.5,0.5,0.5,1];
@@ -104,7 +98,7 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
             _ctrlSquadMemberCount = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
             _ctrlSquadMemberCount ctrlSetFontHeight PY(1.8);
-            _ctrlSquadMemberCount ctrlSetPosition [PX(12), PY(1.8), PX(5), PY(2)];
+            _ctrlSquadMemberCount ctrlSetPosition [PX(16), PY(1.8), PX(5.5), PY(2)];
             _ctrlSquadMemberCount ctrlSetFont "PuristaMedium";
             _ctrlSquadMemberCount ctrlSetTextColor [0.5,0.5,0.5,1];
             _ctrlSquadMemberCount ctrlSetStructuredText parseText "ALPHA";
@@ -112,14 +106,14 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
             _ctrlMemberList = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
             _ctrlMemberList ctrlSetFontHeight PY(4);
-            _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(17), PY(11.9)];
+            _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(22), PY(11.9)];
             _ctrlMemberList ctrlSetFont "PuristaMedium";
             _ctrlMemberList ctrlSetTextColor [1,1,1,1];
             _ctrlMemberList ctrlSetText "ALPHA";
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_MemberList), _idd], _ctrlMemberList];
         };
 
-        _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(17), PY(50)];
+        _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(22), PY(50)];
         _ctrlGrp ctrlShow true;
 
         _ctrlSquadName ctrlSetText toUpper groupId _group;
@@ -142,9 +136,9 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _squadUnits];
 
-        _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(17), _unitCount*PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(22), _unitCount*PY(1.8) + PY(0.4)];
 
-        _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(17), _unitCount*PY(1.8)];
+        _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(22), _unitCount*PY(1.8)];
 
         {
             _x ctrlCommit 0;
@@ -157,11 +151,11 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
 
         GVAR(groupInfoPFH) = [{
             params ["_params", "_id"];
-            _params params ["_group", "_map"];
+            _params params ["_group", "_map", "_attachTo"];
 
-            private _pos = _map ctrlMapWorldToScreen getPosVisual leader _group;
+            private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
             _pos set [0, (_pos select 0) + 15/640];
-            _pos set [1, (_pos select 1) - 15/640];
+            _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
 
             private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
 
@@ -183,9 +177,9 @@ private _groupIconId = format [QGVAR(Group_%1), groupId _group];
                 _id call CFUNC(removePerFrameHandler);
             };
             */
-        }, 0, [_group, _map]] call CFUNC(addPerFrameHandler);
+        }, 0, [_group, _map, _attachTo]] call CFUNC(addPerFrameHandler);
     },
-    _group
+    [_group, _attachTo]
 ] call CFUNC(addMapGraphicsEventHandler);
 
 [
