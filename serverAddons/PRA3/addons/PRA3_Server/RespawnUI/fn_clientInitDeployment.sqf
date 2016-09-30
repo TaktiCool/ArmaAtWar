@@ -39,7 +39,7 @@
     private _control = _display displayCtrl 404;
 
     // Calculate the respawn timer if necessary
-    if (!(alive Clib_Player) || (Clib_Player getVariable [QCGVAR(tempUnit), false])) then {
+    if (!(alive Clib_Player) || (Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
         [{
@@ -74,7 +74,7 @@
     private _roleDisplay = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _deploymentDisplay || isNull _roleDisplay) exitWith {};
 
-    if (alive Clib_Player && !(Clib_Player getVariable [QCGVAR(tempUnit), false])) exitWith {
+    if (alive Clib_Player && !(Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) exitWith {
         _deploymentDisplay closeDisplay 1;
     };
 

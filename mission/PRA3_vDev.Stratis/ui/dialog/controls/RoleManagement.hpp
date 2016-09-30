@@ -41,7 +41,7 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScrollbars {
 
             columns[] = {0,0.85};
 
-            onLBSelChanged = "'PRA3_UI_RespawnScreen_RoleList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
+            onLBSelChanged = "'PRA3_UI_RespawnScreen_RoleList_onLBSelChanged' call CLib_fnc_localEvent;";
         };
         class WeaponTabs : RscToolbox {
             idc = 304;
@@ -58,7 +58,7 @@ class PRA3_UI_RoleManagement : RscControlsGroupNoScrollbars {
             columns = 3;
             strings[] = {"Primary", "Secondary", "Special"};
 
-            onToolBoxSelChanged = "'PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged' call PRA3_Core_fnc_localEvent;";
+            onToolBoxSelChanged = "'PRA3_UI_RespawnScreen_WeaponTabs_onToolBoxSelChanged' call CLib_fnc_localEvent;";
         };
         class WeaponBackground : RscPicture {
             idc = 305;
