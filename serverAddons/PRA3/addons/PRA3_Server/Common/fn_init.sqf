@@ -139,3 +139,5 @@ if (hasInterface) then {
         nil;
     } count ("true" configClasses (missionConfigFile >> QPREFIX >> "sides"));
 }] call CFUNC(addEventhandler);
+
+["performanceCheck", 0] call CFUNC(addIgnoredEventLog);
