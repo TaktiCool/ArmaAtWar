@@ -22,7 +22,7 @@ private _fullname = _sector getVariable ["fullname", ""];
 private _side = _sector getVariable ["side", sideUnknown];
 
 private _color = [
-    missionNamespace getVariable format [QEGVAR(mission,SideColor_%1), str _side],
+    missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), str _side],
     [(profilenamespace getvariable ['Map_Unknown_R',0]),(profilenamespace getvariable ['Map_Unknown_G',1]),(profilenamespace getvariable ['Map_Unknown_B',1]),(profilenamespace getvariable ['Map_Unknown_A',0.8])]
 ] select (_side isEqualTo sideUnknown);
 
@@ -35,7 +35,7 @@ if (isServer) then {
 if (hasInterface) then {
 
     private _icon = [
-        missionNamespace getVariable format [QEGVAR(mission,SideMapIcon_%1), str _side],
+        missionNamespace getVariable format [QEGVAR(Common,SideMapIcon_%1), str _side],
         "a3\ui_f\data\Map\Markers\NATO\u_installation.paa"
     ] select (_side isEqualTo sideUnknown);
     private _id = format [QGVAR(ID_%1), _marker];

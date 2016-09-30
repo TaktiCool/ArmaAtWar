@@ -16,7 +16,7 @@
 if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
 (GVAR(NotificationQueue) deleteAt 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
 if !(call _condition) exitWith {
-    call CFUNC(handleNotificationQueue);
+    call FUNC(handleNotificationQueue);
 };
 ["notificationDisplayed",[_priority, _timeAdded, _text, _color, _time, _condition]] call CFUNC(localEvent);
 ([UIVAR(Notification)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Notification),"PLAIN",0.2];
@@ -59,7 +59,7 @@ GVAR(NextNotification) = time + _time;
 [{
     [{
         if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
-        call CFUNC(handleNotificationQueue);
+        call FUNC(handleNotificationQueue);
     }, {isNull (uiNamespace getVariable [UIVAR(Notification),displayNull])},[]] call CFUNC(waitUntil);
 
     ([UIVAR(Notification)] call BIS_fnc_rscLayer) cutFadeOut 0.3;
