@@ -16,7 +16,7 @@
 [{
     params ["_unit"];
 
-    if (PRA3_Player != leader _unit) exitWith {};
+    if (Clib_Player != leader _unit) exitWith {};
 
-    ["selectLeader", [group PRA3_Player, _unit]] call CFUNC(serverEvent);
+    ["selectLeader", [group Clib_Player, _unit]] call CFUNC(serverEvent);
 }, _this, "respawn"] call CFUNC(mutex);

@@ -25,10 +25,10 @@
     if (!(_unit getVariable [QEGVAR(Kit,isMedic), false])) then {
         _reviveActionDuration = _reviveActionDuration * _reviveCoefficient;
     };
-    PRA3_Player setVariable [QGVAR(treatmentAmount), 1 / _reviveActionDuration, true];
+    Clib_Player setVariable [QGVAR(treatmentAmount), 1 / _reviveActionDuration, true];
 
     // Publish start position for progress
-    PRA3_Player setVariable [QGVAR(treatmentProgress), 0, true];
+    Clib_Player setVariable [QGVAR(treatmentProgress), 0, true];
 }] call CFUNC(addEventHandler);
 
 [QGVAR(DeregisterTreatment), {
@@ -54,7 +54,7 @@
 
         // Check the target
         private _target = cursorTarget;
-        if (!(_target isKindOf "CAManBase") || PRA3_Player distance _target > 3 || !alive _target) exitWith {false};
+        if (!(_target isKindOf "CAManBase") || Clib_Player distance _target > 3 || !alive _target) exitWith {false};
 
         // Only one player can use revive on a target at a time
         if (!(_target getVariable [QGVAR(isUnconscious), false]) || _target getVariable [QGVAR(medicalActionRunning), ""] != "") exitWith {false};

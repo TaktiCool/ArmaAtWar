@@ -13,8 +13,8 @@
     Returns:
     None
 */
-["Medikit", PRA3_Player, 0, {
-    PRA3_Player == vehicle PRA3_Player && "Medikit" in (items PRA3_Player) && {PRA3_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit"}
+["Medikit", Clib_Player, 0, {
+    Clib_Player == vehicle Clib_Player && "Medikit" in (items Clib_Player) && {Clib_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit"}
 }, {
     [QGVAR(SwitchWeapon), "Medikit"] call CFUNC(localEvent);
 },["ignoredCanInteractConditions",["isNotUnconscious"]]] call CFUNC(addAction);
@@ -37,14 +37,14 @@
 
 
     // Publish start position for progress
-    private _selectionDamage = PRA3_Player getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+    private _selectionDamage = Clib_Player getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
 
     private _selectionDamageSorted = +_selectionDamage;
     _selectionDamageSorted sort false;
     private _highestDamage = _selectionDamageSorted select 0;
 
-    PRA3_Player setVariable [QGVAR(treatmentAmount), _totalHealingActionAmount / _maxDamage, true];
-    PRA3_Player setVariable [QGVAR(treatmentProgress), 1 - (_highestDamage / _maxDamage), true];
+    Clib_Player setVariable [QGVAR(treatmentAmount), _totalHealingActionAmount / _maxDamage, true];
+    Clib_Player setVariable [QGVAR(treatmentProgress), 1 - (_highestDamage / _maxDamage), true];
 
 }] call CFUNC(addEventHandler);
 
@@ -54,7 +54,7 @@
     if (_action != "HEAL") exitWith {};
 
     if (_finished) exitWith {
-        PRA3_Player setVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+        Clib_Player setVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
     };
 
 }] call CFUNC(addEventHandler);
@@ -62,28 +62,28 @@
 // Handle incoming heal
 [{
     // Handle only healing
-    if (PRA3_Player getVariable [QGVAR(medicalActionRunning), ""] != "HEAL") exitWith {};
+    if (Clib_Player getVariable [QGVAR(medicalActionRunning), ""] != "HEAL") exitWith {};
 
     GVAR(currentTreatingUnits) = GVAR(currentTreatingUnits) select {!isNull _x};
 
     if (GVAR(currentTreatingUnits) isEqualTo []) exitWith {};
 
-    private _selectionDamage = PRA3_Player getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
+    private _selectionDamage = Clib_Player getVariable [QGVAR(selectionDamage), GVAR(selections) apply {0}];
 
     private _selectionDamageSorted = +_selectionDamage;
     _selectionDamageSorted sort false;
     private _highestDamage = _selectionDamageSorted select 0;
 
     private _maxDamage = [QGVAR(Settings_maxDamage), 3] call CFUNC(getSetting);
-    private _totalHealingActionAmount = PRA3_Player getVariable [QGVAR(treatmentAmount), 0];
-    private _startTime = PRA3_Player getVariable [QGVAR(treatmentStartTime), 0];
+    private _totalHealingActionAmount = Clib_Player getVariable [QGVAR(treatmentAmount), 0];
+    private _startTime = Clib_Player getVariable [QGVAR(treatmentStartTime), 0];
     _highestDamage = (_highestDamage - (CGVAR(deltaTime) * _totalHealingActionAmount * _maxDamage)) max 0;
 
     _selectionDamage = _selectionDamage apply {
         [_x, _highestDamage] select (_x > _highestDamage)
     };
 
-    [PRA3_Player, QGVAR(selectionDamage), _selectionDamage] call CFUNC(setVariablePublic);
+    [Clib_Player, QGVAR(selectionDamage), _selectionDamage] call CFUNC(setVariablePublic);
 }] call CFUNC(addPerFrameHandler);
 
 ["missionStarted", {
@@ -97,11 +97,11 @@
         if (GVAR(medicalActionRunning) != "") exitWith {false};
 
         // Player has to have the FAK selected
-        if (PRA3_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit") exitWith {false};
+        if (Clib_Player getVariable [QGVAR(fakeWeaponName), ""] != "Medikit") exitWith {false};
 
         // Check the target
-        private _target = [cursorTarget, PRA3_Player] select _button;
-        if (!(_target isKindOf "CAManBase") || PRA3_Player distance _target > 3 || !alive _target) exitWith {false};
+        private _target = [cursorTarget, Clib_Player] select _button;
+        if (!(_target isKindOf "CAManBase") || Clib_Player distance _target > 3 || !alive _target) exitWith {false};
 
         private _noDamageValue = GVAR(selections) apply {0};
         if ((_target getVariable [QGVAR(selectionDamage), _noDamageValue] isEqualTo _noDamageValue) || _target getVariable [QGVAR(bloodLoss), 0] != 0) exitWith {false};

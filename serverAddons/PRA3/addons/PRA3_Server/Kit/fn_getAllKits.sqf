@@ -14,4 +14,4 @@
     Array With all Strings <Array>
 */
 
-("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
+("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}

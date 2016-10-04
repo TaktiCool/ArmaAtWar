@@ -31,9 +31,9 @@
     (_this select 0) params ["_state"];
 
     if (_state) then {
-        private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+        private _bloodLoss = Clib_Player getVariable [QGVAR(bloodLoss), 0];
         if (_bloodLoss < 1) then {
-            [PRA3_Player, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
+            [Clib_Player, QGVAR(bloodLoss), 1] call CFUNC(setVariablePublic);
         };
     };
 }] call CFUNC(addEventHandler);
@@ -55,37 +55,37 @@
 
 // Bandage
 ["stopBleeding", {
-    [PRA3_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
-    [PRA3_Player, QGVAR(bloodLossAmount), 0] call CFUNC(setVariablePublic);
+    [Clib_Player, QGVAR(bloodLoss), 0] call CFUNC(setVariablePublic);
+    [Clib_Player, QGVAR(bloodLossAmount), 0] call CFUNC(setVariablePublic);
 }] call CFUNC(addEventHandler);
 
 // Bleeding
 [{
-    if (!(alive PRA3_Player)) exitWith {};
+    if (!(alive Clib_Player)) exitWith {};
 
     // Stop bleeding while treated
-    if (PRA3_player getVariable [QGVAR(medicalActionRunning), ""] in ["BANDAGE", "REVIVE"]) exitWith {};
+    if (Clib_Player getVariable [QGVAR(medicalActionRunning), ""] in ["BANDAGE", "REVIVE"]) exitWith {};
 
     private _bleedCoefficient = [QGVAR(Settings_bleedCoefficient), 1] call CFUNC(getSetting);
-    private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+    private _bloodLoss = Clib_Player getVariable [QGVAR(bloodLoss), 0];
 
-    private _timerVariable = [QGVAR(bloodLossAmount), QGVAR(unconsciousTimer)] select (PRA3_Player getVariable [QGVAR(isUnconscious), false]);
-    private _maxTimerSettingsName = [QGVAR(Settings_bleedOutValue), QGVAR(Settings_unconsciousDuration)] select (PRA3_Player getVariable [QGVAR(isUnconscious), false]);
+    private _timerVariable = [QGVAR(bloodLossAmount), QGVAR(unconsciousTimer)] select (Clib_Player getVariable [QGVAR(isUnconscious), false]);
+    private _maxTimerSettingsName = [QGVAR(Settings_bleedOutValue), QGVAR(Settings_unconsciousDuration)] select (Clib_Player getVariable [QGVAR(isUnconscious), false]);
 
     private _maxTimer = [_maxTimerSettingsName, 300] call CFUNC(getSetting);
 
-    private _currentValue = PRA3_Player getVariable [_timerVariable, 0];
+    private _currentValue = Clib_Player getVariable [_timerVariable, 0];
     _currentValue = _currentValue + (_bloodLoss * _bleedCoefficient * CGVAR(deltaTime));
-    [PRA3_Player, _timerVariable, _currentValue] call CFUNC(setVariablePublic);
+    [Clib_Player, _timerVariable, _currentValue] call CFUNC(setVariablePublic);
 
     if (_currentValue >= _maxTimer) then {
-        PRA3_Player setDamage 1;
+        Clib_Player setDamage 1;
     };
 }] call CFUNC(addPerFrameHandler);
 
 // Visual bleeding effect
 [{
-    private _bloodLoss = PRA3_Player getVariable [QGVAR(bloodLoss), 0];
+    private _bloodLoss = Clib_Player getVariable [QGVAR(bloodLoss), 0];
 
     if (_bloodLoss > 0) then {
         [600 * _bloodLoss] call FUNC(bloodEffect);

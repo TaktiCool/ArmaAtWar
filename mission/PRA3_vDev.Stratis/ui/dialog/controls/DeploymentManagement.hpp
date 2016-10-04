@@ -41,7 +41,7 @@ class PRA3_UI_DeploymentManagement : RscControlsGroupNoScrollbars {
 
             columns[] = {0,0.075,0.875};
 
-            onLBSelChanged = "'PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
+            onLBSelChanged = "'PRA3_UI_RespawnScreen_SpawnPointList_onLBSelChanged' call CLib_fnc_localEvent;";
         };
         class DeployButton : PRA3_RscButtonMenu_Colored {
             idc = 404;
@@ -52,7 +52,7 @@ class PRA3_UI_DeploymentManagement : RscControlsGroupNoScrollbars {
             w = PX(GWIDTH);
             h = PY(6);
             colorText[] = {0,0,0,1};
-            action = "'PRA3_UI_RespawnScreen_DeployButton_action' call PRA3_Core_fnc_localEvent;";
+            action = "'PRA3_UI_RespawnScreen_DeployButton_action' call CLib_fnc_localEvent;";
         };
     };
 };

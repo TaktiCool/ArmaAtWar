@@ -17,7 +17,7 @@
 params ["_newSide", "_oldSide"];
 
 if ((GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) >= serverTime) exitWith {
-    [format ["You need wait %1 sec Until you can change the side again", (GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) - serverTime]] call CFUNC(displayNotification);
+    [format ["You need wait %1 sec Until you can change the side again", (GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) - serverTime]] call EFUNC(Common,displayNotification);
     false
 };
 
@@ -29,7 +29,7 @@ private _fnc = {
 private _newSideCount = _newSide call _fnc;
 private _oldSideCount = _oldSide call _fnc;
 if (_oldSideCount < (_newSide + GVAR(restirctSideSwitchRestrictionCount))) exitWith {
-    ["Max Player count on Enemy Side Reached."] call CFUNC(displayNotification); // TODO: l18N
+    ["Max Player count on Enemy Side Reached."] call EFUNC(Common,displayNotification); // TODO: l18N
     false
 };
 

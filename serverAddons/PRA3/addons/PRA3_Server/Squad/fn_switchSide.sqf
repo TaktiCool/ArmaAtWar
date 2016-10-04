@@ -14,7 +14,7 @@
     -
 */
 [{
-    private _newSide = ((EGVAR(Mission,competingSides) select { _x != playerSide }) select 0);
+    private _newSide = ((EGVAR(Common,competingSides) select { _x != playerSide }) select 0);
 
     private _oldSide = playerSide;
 
@@ -24,5 +24,5 @@
     call FUNC(leaveSquad);
 
     // Respawn as new unit
-    [[-1000, -1000, 10], _newSide] call CFUNC(respawnNewSide);
+    [[-1000, -1000, 10], _newSide] call EFUNC(Common,respawnNewSide);
 }, [], "respawn"] call CFUNC(mutex);

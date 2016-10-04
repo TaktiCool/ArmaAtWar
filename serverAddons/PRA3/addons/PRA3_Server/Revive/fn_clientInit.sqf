@@ -13,7 +13,7 @@
     Returns:
     None
 */
-[QGVAR(Settings), missionConfigFile >> "PRA3" >> "CfgRevive"] call CFUNC(loadSettings);
+[QGVAR(Settings), missionConfigFile >> QPREFIX >> "CfgRevive"] call CFUNC(loadSettings);
 
 GVAR(selections) = ["", "head", "body", "hand_l", "hand_r", "leg_l", "leg_r"];
 

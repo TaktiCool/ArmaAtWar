@@ -16,7 +16,7 @@
 [{
     params ["_unit"];
 
-    if (PRA3_Player != leader _unit || PRA3_Player == _unit) exitWith {};
+    if (Clib_Player != leader _unit || Clib_Player == _unit) exitWith {};
 
     [_unit] join grpNull;
 

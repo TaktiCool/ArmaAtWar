@@ -13,7 +13,7 @@
     Returns:
     None
 */
-[QGVAR(FOB), missionConfigFile >> "PRA3" >> "cfgFOB"] call CFUNC(loadSettings);
+[QGVAR(FOB), missionConfigFile >> QPREFIX >> "cfgFOB"] call CFUNC(loadSettings);
 
 /*
  * ACTIONS

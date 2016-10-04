@@ -18,19 +18,19 @@ GVAR(DragableClasses) = [];
 {
     GVAR(DragableClasses) pushBack configName _x;
     nil
-} count ("getNumber (_x >> ""isDragable"") == 1" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+} count ("getNumber (_x >> ""isDragable"") == 1" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
 
 GVAR(CargoClasses) = [];
 {
     GVAR(CargoClasses) pushBack configName _x;
     nil
-} count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> "PRA3" >> "CfgEntities"));
+} count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
 
 
 ["missionStarted", {
     {
         private _side = configName _x;
-        private _cfg = (missionConfigFile >> "PRA3" >> "Sides" >> _side >> "cfgLogistic");
+        private _cfg = (missionConfigFile >> QPREFIX >> "Sides" >> _side >> "cfgLogistic");
         private _objects = getArray (_cfg >> "objectToSpawn");
 
         _objects = _objects apply {
@@ -59,7 +59,7 @@ GVAR(CargoClasses) = [];
             nil
         } count (configProperties [_cfg, "isClass _x"]);
         nil
-    } count ("true" configClasses (missionConfigFile >> "PRA3" >> "Sides"));
+    } count ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
 }] call CFUNC(addEventHandler);
 
 

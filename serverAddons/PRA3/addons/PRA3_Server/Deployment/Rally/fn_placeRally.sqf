@@ -16,14 +16,14 @@
 [{
     if (!(call FUNC(canPlaceRally))) exitWith {};
 
-    private _position = [PRA3_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
-    if (PRA3_Player distance _position >= 20) exitWith {
-        ["You can not place a rallypoint at this position"] call CFUNC(displayNotification);
+    private _position = [Clib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    if (Clib_Player distance _position >= 20) exitWith {
+        ["You can not place a rallypoint at this position"] call EFUNC(Common,displayNotification);
     };
 
-    [group PRA3_Player] call FUNC(destroyRally);
+    [group Clib_Player] call FUNC(destroyRally);
 
-    private _pointObjects = getArray (missionConfigFile >> "PRA3" >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
+    private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
     _pointObjects = _pointObjects apply {
         _x params ["_type", "_offset"];
 
@@ -36,11 +36,11 @@
         _obj
     };
 
-    (group PRA3_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
-    private _text = [_position] call CFUNC(getNearestLocationName);
+    (group Clib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
+    private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _spawnCount = [QGVAR(Rally_spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, _position, group PRA3_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
-    (group PRA3_Player) setVariable [QGVAR(rallyId), _pointId, true];
+    private _pointId = [_text, _position, group Clib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
+    (group Clib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
-    ["displayNotification", group PRA3_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
+    ["displayNotification", group Clib_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

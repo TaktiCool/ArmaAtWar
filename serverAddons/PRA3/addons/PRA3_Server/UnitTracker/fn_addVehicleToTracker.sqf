@@ -15,7 +15,7 @@
 */
 params ["_vehicle", "_vehicleIconId", ["_inGroup", false]];
 
-private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
+private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
 
 private _color = [_sideColor, _groupColor] select _inGroup;

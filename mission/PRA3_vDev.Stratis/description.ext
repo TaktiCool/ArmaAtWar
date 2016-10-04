@@ -25,6 +25,20 @@ respawn = 3;
 respawnDelay = 3;
 respawnDialog = 0;
 
+CLib_useFallbackRemoteExecution = 0;
+CLib_useCompressedFunction = 0;
+CLib_Modules[] = {
+    "PRA3/Nametags",
+    "PRA3/CompassUI",
+    "PRA3/GarbageCollector",
+    "PRA3/Logistic",
+    "PRA3/RespawnUI",
+    "PRA3/Revive",
+    "PRA3/Tickets",
+    "PRA3/UnitTracker",
+    "PRA3/VehicleRespawn"
+};
+
 class PRA3 {
 
     #include "cfgBaseSettings.hpp"

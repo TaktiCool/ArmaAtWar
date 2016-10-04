@@ -16,7 +16,7 @@
 params ["_newUnit", "_iconId"];
 
 //if (!alive _newUnit || side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
-private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
+private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
 
 private _color = [_sideColor, _groupColor] select (group PRA3_Player isEqualTo group _newUnit);

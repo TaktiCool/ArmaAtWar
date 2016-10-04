@@ -14,9 +14,12 @@
     Returns:
     None
 */
+
+["pra3_respawnui_updatecameratarget", 0] call CFUNC(addIgnoredEventLog);
+
 // When respawn screen is opened caused by death or upon startup init the camera
 [UIVAR(RespawnScreen_onLoad), {
-    if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
+    if (!(alive Clib_Player) || (Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         [QGVAR(initCamera)] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventHandler);

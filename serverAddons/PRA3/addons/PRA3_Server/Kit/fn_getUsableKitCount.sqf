@@ -22,20 +22,20 @@ private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], [
 _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 
 // Check leader
-if (_isLeader == 1 && PRA3_Player != leader PRA3_Player) exitWith {0};
+if (_isLeader == 1 && Clib_Player != leader Clib_Player) exitWith {0};
 
 // Check squad type
-private _squadType = (group PRA3_Player) getVariable [QEGVAR(Squad,Type), ""];
+private _squadType = (group Clib_Player) getVariable [QEGVAR(Squad,Type), ""];
 if (!(_squadType in _availableInGroups)) exitWith {0};
 
 // Check group member count
-private _groupMembersCount = count ([group PRA3_Player] call CFUNC(groupPlayers));
+private _groupMembersCount = count ([group Clib_Player] call CFUNC(groupPlayers));
 private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSetting);
 private _usedKitsFromGroup = {
     private _usedKitName = _x getVariable [QGVAR(kit), ""];
     private _usedKitGroupName = ([_usedKitName, [["kitGroup", ""]]] call FUNC(getKitDetails)) select 0;
     _usedKitGroupName != "Unlimited" && _usedKitGroupName == _kitGroupName
-} count (([group PRA3_Player] call CFUNC(groupPlayers)) - [PRA3_Player]);
+} count (([group Clib_Player] call CFUNC(groupPlayers)) - [Clib_Player]);
 
 private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit);
 [_availableKits - _usedKitsFromGroup, 1] select _isLeader
