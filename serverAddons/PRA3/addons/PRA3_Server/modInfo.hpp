@@ -3,9 +3,9 @@
 #define MOD PRA3_Server
 
 #define MAJOR 0
-#define MINOR 8
+#define MINOR 12
 #define PATCHLVL 0
-#define BUILD 1273
+#define BUILD 1464
 
 // dont release with this setting enabled
 // #define DEBUGFULL // enable all Debug Methods
