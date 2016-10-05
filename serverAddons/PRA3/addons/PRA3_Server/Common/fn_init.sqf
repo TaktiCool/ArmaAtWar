@@ -36,7 +36,13 @@ GVAR(allLocationTypes) = [];
 } count ("true" configClasses (configFile >> "CfgLocationTypes"));
 
 GVAR(markerLocations) = getArray (missionConfigFile >> QPREFIX >> "markerLocation");
-GVAR(markerLocations) = GVAR(markerLocations) apply {[_x, getMarkerPos _x, markerText _x]};
+GVAR(markerLocations) = GVAR(markerLocations) apply {
+    private _text = markerText _x;
+    if (_text call CFUNC(isLocalised)) then {
+        _text = LOC(_text);
+    };
+    [_x, getMarkerPos _x, _text]
+};
 
 if (hasInterface) then {
     ["missionStarted", {

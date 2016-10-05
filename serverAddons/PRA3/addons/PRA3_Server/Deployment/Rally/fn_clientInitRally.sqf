@@ -27,7 +27,7 @@
 /*
  * ACTIONS
  */
-["Create Rally Point", Clib_Player, 0, {
+[MLOC(CreateRally), Clib_Player, 0, {
     [QGVAR(isRallyPlaceable), FUNC(canPlaceRally), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
 }, {
     QGVAR(ClearRallyPlaceable) call CFUNC(localEvent);
