@@ -24,5 +24,5 @@
             getText (_vehicleConfig >> "picture")
         ]
      ];
-     _text call CFUNC(displayNotification);
+     _text call EFUNC(Common,displayNotification);
 }] call CFUNC(addEventHandler);
