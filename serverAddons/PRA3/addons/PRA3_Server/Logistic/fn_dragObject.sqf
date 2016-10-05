@@ -20,7 +20,7 @@
 params ["_draggedObject", "_unit"];
 private _currentWeight = _draggedObject call FUNC(getWeight);
 if (_currentWeight >= __MAXWEIGHT) exitWith {
-    hint format["The box is %1 KG to heavy", _currentWeight - __MAXWEIGHT];
+    [format [MLOC(itemToHeavy), _currentWeight - __MAXWEIGHT]] call EFUNC(Common,displayNotification);
 };
 
 if (_draggedObject isKindOf "StaticWeapon") then {

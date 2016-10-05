@@ -18,6 +18,11 @@
     _args params ["_vehicle"];
 
     private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
-    [format["New vehicle available: <img size='0.7' color='#ffffff' image='%2'/> %1", getText (_vehicleConfig >> "displayName"), getText (_vehicleConfig >> "picture") ]] call EFUNC(Common,displayNotification);
-
+    private _text = format [MLOC(NewVehicleAvailable),
+        format ["<img size='0.7' color='#ffffff' image='%2'/> %1",
+            getText (_vehicleConfig >> "displayName"),
+            getText (_vehicleConfig >> "picture")
+        ]
+     ];
+     _text call EFUNC(Common,displayNotification);
 }] call CFUNC(addEventHandler);

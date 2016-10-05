@@ -45,6 +45,9 @@ GVAR(CargoClasses) = [];
             private _className = getText (_x >> "classname");
             private _clearOnSpawn = getNumber (_x >> "removeDefaultLoadout");
             private _displayName = getText (_x >> "displayName");
+            if (_displayName call CFUNC(isLocalised)) then {
+                _displayName = LOC(_displayName);
+            };
             [
                 _displayName,
                 _objects,

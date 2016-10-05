@@ -16,7 +16,21 @@
     Returns:
     None
 */
-params ["_text", ["_color",[0.2,0.2,0.2,0.8]], ["_time",6],["_priority",0], ["_condition", {true}]];
+params [["_text", "Error No Notification Text", ["", []]], ["_color",[0.2,0.2,0.2,0.8]], ["_time",6],["_priority",0], ["_condition", {true}]];
+
+if (_text isEqualType []) then {
+    {
+        if (_x call CFUNC(isLocalised)) then {
+            _text set [_forEachIndex, LOC(_x)];
+        };
+    } forEach _text;
+    _text = format _text;
+} else {
+    if (_text call CFUNC(isLocalised)) then {
+        _text = LOC(_text);
+    };
+};
+
 GVAR(NotificationQueue) pushBack [_priority, time, _text, _color, _time, _condition];
 GVAR(NotificationQueue) sort true;
 if (isNull (uiNamespace getVariable [UIVAR(Notification),displayNull])) then {

@@ -15,7 +15,7 @@
 */
 
 [
-    {format ["Drag %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format [MLOC(Drag), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(DragableClasses),
     3,
     {
@@ -31,7 +31,7 @@
 ] call CFUNC(addAction);
 
 [
-    "Drop",
+    MLOC(Drop),
     Clib_Player,
     0,
     {!(isNull (Clib_Player getVariable [QGVAR(Item), objNull]))},
@@ -41,7 +41,7 @@
 ] call CFUNC(addAction);
 
 [
-    {format["Load item in %1", getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format[MLOC(loadItem), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(CargoClasses),
     10,
     {!(isNull (Clib_Player getVariable [QGVAR(Item), objNull])) && !((Clib_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target) },
@@ -59,7 +59,7 @@
             } count _ItemArray;
 
             if (_cargoCapacity < _cargoSize) exitWith {
-                ["No Cargo Space available"] call EFUNC(Common,displayNotification);
+                [MLOC(noCargoSpace)] call EFUNC(Common,displayNotification);
             };
 
 
@@ -86,7 +86,7 @@
 ] call CFUNC(addAction);
 
 [
-    {format["Unload Object out %2",getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format[MLOC(UnloadItem), getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(CargoClasses),
     10,
     {

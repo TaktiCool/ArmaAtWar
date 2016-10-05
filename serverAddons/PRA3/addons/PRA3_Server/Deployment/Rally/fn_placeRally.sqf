@@ -18,7 +18,7 @@
 
     private _position = [Clib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (Clib_Player distance _position >= 20) exitWith {
-        ["You can not place a rallypoint at this position"] call EFUNC(Common,displayNotification);
+        [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
     };
 
     [group Clib_Player] call FUNC(destroyRally);
@@ -42,5 +42,5 @@
     private _pointId = [_text, _position, group Clib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
     (group Clib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
-    ["displayNotification", group Clib_Player, [format["Your squadleader placed a rally near %1", _text]]] call CFUNC(targetEvent);
+    ["displayNotification", group Clib_Player, [format[MLOC(RallyPlaced), _text]]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

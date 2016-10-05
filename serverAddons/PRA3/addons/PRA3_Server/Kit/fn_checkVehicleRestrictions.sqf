@@ -47,5 +47,5 @@ if (((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew 
             Clib_Player action ["getOut", _vehicle];
         };
     };
-    ["You're not allowed to use this vehicle"] call EFUNC(Common,displayNotification);
+    [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
 };

@@ -47,5 +47,5 @@ params ["_target"];
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
     ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); // TODO this is only for the take down action
 
-    ["displayNotification", playerSide, [format["Squad %1 placed a FOB near %2", groupId (group Clib_Player), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", playerSide, [format[MLOC(FOBPlaced), groupId (group Clib_Player), _text]]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

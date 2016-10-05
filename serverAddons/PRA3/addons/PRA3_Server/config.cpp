@@ -16,4 +16,6 @@ class CfgPatches {
 
 #include "CfgCLibModules.hpp"
 
+#include "CfgCLibLocalisation.hpp"
+
 #include "PRA3.hpp"
