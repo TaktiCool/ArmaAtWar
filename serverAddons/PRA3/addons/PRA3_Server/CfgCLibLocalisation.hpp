@@ -3,23 +3,6 @@ class CfgCLibLocalisation {
 
     supportedLanguages[] = {"English", "German", "Spanish", "French", "Polish", "Czech", "Italian", "Hungarian", "Portuguese", "Russian"};
 
-    // Test Strings
-    class STR_PRA3_TestTranslation {
-        English = "Test English";
-        German = "Test German";
-        Spanish = "Test Spanish";
-        French = "Test French";
-        Polish = "Test Polish";
-        Czech = "Test Czech";
-        Italian = "Test Italian";
-        Hungarian = "Test Hungarian";
-        Portuguese = "Test Portuguese";
-        Russian = "Test Russian";
-    };
-    class STR_PRA3_Error {
-        English = "Error";
-    };
-
     // Vehicle Respawn
     class ELSTRING(VehicleRespawn,NewVehicleAvailable) {
         English = "New vehicle available: %1";
