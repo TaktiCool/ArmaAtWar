@@ -17,9 +17,10 @@ private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" 
     nil
 } count _serverVersionAr;
 
+DUMP("Version Mission: " + _missionVersionStr + "; Version Server: " + _serverVersionStr)
 // TODO Create Database for Compatible Versions
 if (!(_missionVersionAr isEqualTo _serverVersionAr) && (isClass (missionConfigFile >> QPREFIX))) then {
-    ["Lost"] call BIS_fnc_endMissionServer
+    ["Lost"] call BIS_fnc_endMissionServer;
 };
 
 _missionVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 1)];

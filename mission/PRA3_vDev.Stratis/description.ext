@@ -27,6 +27,8 @@ respawnDialog = 0;
 
 CLib_useFallbackRemoteExecution = 0;
 CLib_useCompressedFunction = 0;
+CLib_useExperimentalAutoload = 0;
+
 CLib_Modules[] = {
     "PRA3/Nametags",
     "PRA3/CompassUI",
