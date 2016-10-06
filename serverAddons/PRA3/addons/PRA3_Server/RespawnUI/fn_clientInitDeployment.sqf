@@ -39,7 +39,7 @@
     private _control = _display displayCtrl 404;
 
     // Calculate the respawn timer if necessary
-    if (!(alive Clib_Player) || (Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
         [{
@@ -74,7 +74,7 @@
     private _roleDisplay = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _deploymentDisplay || isNull _roleDisplay) exitWith {};
 
-    if (alive Clib_Player && !(Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) exitWith {
+    if (alive CLib_Player && !(CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) exitWith {
         _deploymentDisplay closeDisplay 1;
     };
 
@@ -83,7 +83,7 @@
         params ["_deploymentDisplay", "_roleDisplay"];
 
         // Check squad
-        if (!((groupId group Clib_Player) in EGVAR(Squad,squadIds))) exitWith {
+        if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
             [MLOC(JoinASquad)] call EFUNC(Common,displayNotification);
         };
 
@@ -110,14 +110,14 @@
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf Clib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
 
             [{
                 // Fix issue that player spawn Prone
-                ["switchMove", [Clib_Player, ""]] call CFUNC(globalEvent);
+                ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
 
                 // Apply selected kit
-                [Clib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                [CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
             }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
@@ -129,13 +129,13 @@
 }] call CFUNC(addEventHandler);
 
 [QEGVAR(Deployment,pointAdded), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group Clib_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 [QEGVAR(Deployment,pointRemoved), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group Clib_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 [QEGVAR(Deployment,ticketsChanged), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group Clib_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // This EH updates the deployment list

@@ -15,14 +15,14 @@
 */
 params [["_oldVehicleRole", [""]]];
 
-private _vehicle = vehicle Clib_Player;
-private _newPosition = (assignedVehicleRole Clib_Player) select 0;
+private _vehicle = vehicle CLib_Player;
+private _newPosition = (assignedVehicleRole CLib_Player) select 0;
 
 // Cargo is always allowed
 if (_newPosition == "cargo") exitWith {};
 
 // Read the player settings
-private _currentKitName = Clib_Player getVariable [QGVAR(kit), ""];
+private _currentKitName = CLib_Player getVariable [QGVAR(kit), ""];
 private _kitDetails = [_currentKitName, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
 _kitDetails params ["_isCrew", "_isPilot"];
 
@@ -31,20 +31,20 @@ if (((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew 
     private _oldPosition = _oldVehicleRole select 0;
     switch (_oldPosition) do {
         case "cargo": {
-            moveOut Clib_Player;
-            ["moveInCargo", _vehicle, [_vehicle, Clib_Player]] call CFUNC(targetEvent);
+            moveOut CLib_Player;
+            ["moveInCargo", _vehicle, [_vehicle, CLib_Player]] call CFUNC(targetEvent);
         };
         case "driver": {
-            moveOut Clib_Player;
-            ["moveInDriver", _vehicle, [_vehicle, Clib_Player]] call CFUNC(targetEvent);
+            moveOut CLib_Player;
+            ["moveInDriver", _vehicle, [_vehicle, CLib_Player]] call CFUNC(targetEvent);
         };
         case "Turret": {
-            moveOut Clib_Player;
-            ["moveInTurret", _vehicle, [_vehicle, Clib_Player, _oldVehicleRole select 1]] call CFUNC(targetEvent);
+            moveOut CLib_Player;
+            ["moveInTurret", _vehicle, [_vehicle, CLib_Player, _oldVehicleRole select 1]] call CFUNC(targetEvent);
         };
         default {
             // Use action here to have an animation
-            Clib_Player action ["getOut", _vehicle];
+            CLib_Player action ["getOut", _vehicle];
         };
     };
     [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);

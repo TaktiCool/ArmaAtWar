@@ -23,7 +23,7 @@
     (_this select 0) params ["_newVehicle", "_oldVehicle"];
 
     // Check restrictions if player entered a vehicle
-    if (_newVehicle != Clib_Player) then {
+    if (_newVehicle != CLib_Player) then {
         call FUNC(checkVehicleRestrictions);
     };
 }] call CFUNC(addEventHandler);

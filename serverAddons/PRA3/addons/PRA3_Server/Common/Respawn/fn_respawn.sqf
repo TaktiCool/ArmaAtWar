@@ -16,13 +16,13 @@
 params ["_targetPosition", ["_tempUnit", false]];
 
 // Remove tempUnit status
-if (Clib_Player getVariable [QGVAR(tempUnit), false]) then {
-    Clib_Player setVariable [QGVAR(tempUnit), false];
-    ["enableSimulation", [Clib_Player, true]] call CFUNC(serverEvent);
-    ["hideObject", [Clib_Player, false]] call CFUNC(serverEvent);
+if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
+    CLib_Player setVariable [QGVAR(tempUnit), false];
+    ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
+    ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
 };
 
-if (!alive Clib_Player) then {
+if (!alive CLib_Player) then {
     // This will cause one frame delay until new unit is available
     setPlayerRespawnTime 0;
 
@@ -32,22 +32,22 @@ if (!alive Clib_Player) then {
         setPlayerRespawnTime 10e10;
 
         if (_tempUnit) then {
-            Clib_Player setVariable [QGVAR(tempUnit), true];
-            ["enableSimulation", [Clib_Player, false]] call CFUNC(serverEvent);
-            ["hideObject", [Clib_Player, true]] call CFUNC(serverEvent);
+            CLib_Player setVariable [QGVAR(tempUnit), true];
+            ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
+            ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
         };
 
-        Clib_Player setDir (random 360);
-        Clib_Player setPosASL _targetPosition;
+        CLib_Player setDir (random 360);
+        CLib_Player setPosASL _targetPosition;
 
         // Respawn event is triggered by engine
-        ["MPRespawn", [Clib_Player, _oldPlayer]] call CFUNC(globalEvent);
-    }, [_targetPosition, _tempUnit, Clib_Player]] call CFUNC(execNextFrame);
+        ["MPRespawn", [CLib_Player, _oldPlayer]] call CFUNC(globalEvent);
+    }, [_targetPosition, _tempUnit, CLib_Player]] call CFUNC(execNextFrame);
 } else {
-    Clib_Player setDir (random 360);
-    Clib_Player setPosASL _targetPosition;
+    CLib_Player setDir (random 360);
+    CLib_Player setPosASL _targetPosition;
 
     // This is instant cause we reuse the old unit
-    ["Respawn", [Clib_Player, Clib_Player]] call CFUNC(localEvent);
-    ["MPRespawn", [Clib_Player, Clib_Player]] call CFUNC(globalEvent);
+    ["Respawn", [CLib_Player, CLib_Player]] call CFUNC(localEvent);
+    ["MPRespawn", [CLib_Player, CLib_Player]] call CFUNC(globalEvent);
 };

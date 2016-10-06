@@ -13,9 +13,9 @@
     Returns:
     None
 */
-private _oldGroup = group Clib_Player;
+private _oldGroup = group CLib_Player;
 
-[Clib_Player] join grpNull;
+[CLib_Player] join grpNull;
 
 // Make sure invalid groups are not in allGroups
 if ((count ([_oldGroup] call CFUNC(groupPlayers))) == 0) then {

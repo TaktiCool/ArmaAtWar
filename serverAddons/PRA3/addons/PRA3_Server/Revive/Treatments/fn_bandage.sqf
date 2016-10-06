@@ -14,8 +14,8 @@
     None
 */
 // FAK as weapon
-["First Aid Kit", Clib_Player, 0, {
-    Clib_Player == vehicle Clib_Player && "FirstAidKit" in (items Clib_Player) && {Clib_Player getVariable [QGVAR(fakeWeaponName), ""] != "FirstAidKit"}
+["First Aid Kit", CLib_Player, 0, {
+    CLib_Player == vehicle CLib_Player && "FirstAidKit" in (items CLib_Player) && {CLib_Player getVariable [QGVAR(fakeWeaponName), ""] != "FirstAidKit"}
 }, {
     [QGVAR(SwitchWeapon), "FirstAidKit"] call CFUNC(localEvent);
 },["ignoredCanInteractConditions",["isNotUnconscious"]]] call CFUNC(addAction);
@@ -32,10 +32,10 @@
         private _bandageCoefficient = [QGVAR(Settings_bandageCoefficient)] call CFUNC(getSetting);
         _bandageActionDuration = _bandageActionDuration * _bandageCoefficient;
     };
-    Clib_Player setVariable [QGVAR(treatmentAmount), 1 / _bandageActionDuration, true];
+    CLib_Player setVariable [QGVAR(treatmentAmount), 1 / _bandageActionDuration, true];
 
     // Publish start position for progress
-    Clib_Player setVariable [QGVAR(treatmentProgress), 0, true];
+    CLib_Player setVariable [QGVAR(treatmentProgress), 0, true];
 }] call CFUNC(addEventHandler);
 
 [QGVAR(DeregisterTreatment), {
@@ -62,11 +62,11 @@
         if (GVAR(medicalActionRunning) != "") exitWith {false};
 
         // Player has to have the FAK selected
-        if (Clib_Player getVariable [QGVAR(fakeWeaponName), ""] != "FirstAidKit") exitWith {false};
+        if (CLib_Player getVariable [QGVAR(fakeWeaponName), ""] != "FirstAidKit") exitWith {false};
 
         // Check the target
-        private _target = [cursorTarget, Clib_Player] select _button;
-        if (!(_target isKindOf "CAManBase") || Clib_Player distance _target > 3 || !alive _target) exitWith {false};
+        private _target = [cursorTarget, CLib_Player] select _button;
+        if (!(_target isKindOf "CAManBase") || CLib_Player distance _target > 3 || !alive _target) exitWith {false};
 
         // Only one player can use an specific item on a target at a time
         if (_target getVariable [QGVAR(bloodLoss), 0] == 0 || _target getVariable [QGVAR(medicalActionRunning), ""] != "") exitWith {false};

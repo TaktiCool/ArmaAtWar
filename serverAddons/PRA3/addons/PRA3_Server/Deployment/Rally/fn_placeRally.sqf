@@ -16,12 +16,12 @@
 [{
     if (!(call FUNC(canPlaceRally))) exitWith {};
 
-    private _position = [Clib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
-    if (Clib_Player distance _position >= 20) exitWith {
+    private _position = [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    if (CLib_Player distance _position >= 20) exitWith {
         [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
     };
 
-    [group Clib_Player] call FUNC(destroyRally);
+    [group CLib_Player] call FUNC(destroyRally);
 
     private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
     _pointObjects = _pointObjects apply {
@@ -36,11 +36,11 @@
         _obj
     };
 
-    (group Clib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
+    (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _spawnCount = [QGVAR(Rally_spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, _position, group Clib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
-    (group Clib_Player) setVariable [QGVAR(rallyId), _pointId, true];
+    private _pointId = [_text, _position, group CLib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call FUNC(addPoint);
+    (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
-    ["displayNotification", group Clib_Player, [format[MLOC(RallyPlaced), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", group CLib_Player, [format[MLOC(RallyPlaced), _text]]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

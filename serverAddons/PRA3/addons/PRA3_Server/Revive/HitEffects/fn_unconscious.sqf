@@ -21,23 +21,23 @@
 
         // Abort if the respawn button was pressed or unconsciousness
         if (_preventInstantDeath == 0 || (time - (missionNamespace getVariable ["RscDisplayMPInterrupt_respawnTime",-1])) < 1) exitWith {
-            [QGVAR(Killed), [Clib_Player, _killer]] call CFUNC(localEvent);
+            [QGVAR(Killed), [CLib_Player, _killer]] call CFUNC(localEvent);
         };
 
-        if (!(Clib_Player getVariable [QGVAR(isUnconscious), false])) then {
-            private _gear = [Clib_Player] call CFUNC(saveGear);
-            Clib_Player setVariable [QGVAR(killer), _killer];
+        if (!(CLib_Player getVariable [QGVAR(isUnconscious), false])) then {
+            private _gear = [CLib_Player] call CFUNC(saveGear);
+            CLib_Player setVariable [QGVAR(killer), _killer];
 
             [{
-                private _corpse = Clib_Player;
+                private _corpse = CLib_Player;
 
                 // TODO this may trigger an unwanted respawn event - other modules may reset their variables on respawn
-                [getPosASL Clib_Player] call EFUNC(Common,respawn);
+                [getPosASL CLib_Player] call EFUNC(Common,respawn);
 
                 [{
                     params ["_gear", "_corpse"];
-                    [_gear, Clib_Player] call CFUNC(restoreGear);
-                    Clib_Player setDir getDir _corpse;
+                    [_gear, CLib_Player] call CFUNC(restoreGear);
+                    CLib_Player setDir getDir _corpse;
 
                     ["UnconsciousnessChanged", true] call CFUNC(localEvent);
 
@@ -46,9 +46,9 @@
             }, 3, _gear] call CFUNC(wait);
         } else {
             if (isNull _killer) then {
-                _killer = Clib_Player getVariable [QGVAR(killer), objNull];
+                _killer = CLib_Player getVariable [QGVAR(killer), objNull];
             };
-            [QGVAR(Killed), [Clib_Player, _killer]] call CFUNC(localEvent);
+            [QGVAR(Killed), [CLib_Player, _killer]] call CFUNC(localEvent);
         };
     }] call CFUNC(addEventHandler);
 }] call CFUNC(addEventHandler);
@@ -63,43 +63,43 @@
 ["UnconsciousnessChanged", {
     (_this select 0) params ["_state"];
 
-    Clib_Player setVariable [QGVAR(isUnconscious), _state, true];
+    CLib_Player setVariable [QGVAR(isUnconscious), _state, true];
     [_state] call CFUNC(disableUserInput);
 
     if (_state) then {
-        if (vehicle Clib_Player != Clib_Player) then {
-            moveOut Clib_Player;
+        if (vehicle CLib_Player != CLib_Player) then {
+            moveOut CLib_Player;
         };
 
         // TODO check if this is possible after ragdoll
-        if ((animationState Clib_Player) in ["ladderriflestatic", "laddercivilstatic"]) then {
-            Clib_Player action ["ladderOff", nearestBuilding Clib_Player];
+        if ((animationState CLib_Player) in ["ladderriflestatic", "laddercivilstatic"]) then {
+            CLib_Player action ["ladderOff", nearestBuilding CLib_Player];
         };
 
-        private _currentAnimationState = animationState Clib_Player;
-        Clib_Player setVariable [QGVAR(oldAnimationState), _currentAnimationState];
+        private _currentAnimationState = animationState CLib_Player;
+        CLib_Player setVariable [QGVAR(oldAnimationState), _currentAnimationState];
 
-        if (vehicle Clib_Player == Clib_Player) then {
-            ["switchMove", [Clib_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
+        if (vehicle CLib_Player == CLib_Player) then {
+            ["switchMove", [CLib_Player, "acts_InjuredLyingRifle02"]] call CFUNC(globalEvent);
         } else {
             private _animationConfig = configFile >> "CfgMovesMaleSdr" >> "States" >> _currentAnimationState;
             if (isArray (_animationConfig >> "interpolateTo")) then {
-                Clib_Player playMoveNow (getArray (_animationConfig >> "interpolateTo") select 0);
+                CLib_Player playMoveNow (getArray (_animationConfig >> "interpolateTo") select 0);
             };
         };
     } else {
-        Clib_Player setVariable [QGVAR(unconsciousTimer), 0];
+        CLib_Player setVariable [QGVAR(unconsciousTimer), 0];
 
-        if (vehicle Clib_Player == Clib_Player) then {
-            if (animationState Clib_Player == "AinjPpneMstpSnonWrflDnon") then {
-                Clib_Player playMoveNow "AinjPpneMstpSnonWrflDnon_rolltofront";
-                Clib_Player playMove "amovppnemstpsnonwnondnon";
+        if (vehicle CLib_Player == CLib_Player) then {
+            if (animationState CLib_Player == "AinjPpneMstpSnonWrflDnon") then {
+                CLib_Player playMoveNow "AinjPpneMstpSnonWrflDnon_rolltofront";
+                CLib_Player playMove "amovppnemstpsnonwnondnon";
             } else {
-                Clib_Player playMoveNow "amovppnemstpsnonwnondnon";
+                CLib_Player playMoveNow "amovppnemstpsnonwnondnon";
             };
         } else {
-            private _originalAnimationState = Clib_Player getVariable [QGVAR(oldAnimationState), ""];
-            Clib_Player playMoveNow _originalAnimationState;
+            private _originalAnimationState = CLib_Player getVariable [QGVAR(oldAnimationState), ""];
+            CLib_Player playMoveNow _originalAnimationState;
         };
     };
 
@@ -132,7 +132,7 @@ GVAR(unconsciousPFH) = -1;
             GVAR(unconsciousPFH) = [{
                 params ["_display", "_id"];
 
-                private _unconsciousTimer = Clib_Player getVariable [QGVAR(unconsciousTimer), 0];
+                private _unconsciousTimer = CLib_Player getVariable [QGVAR(unconsciousTimer), 0];
                 private _unconsciousDuration = [QGVAR(Settings_unconsciousDuration), 100] call CFUNC(getSetting);
 
                 private _progressPercentage = 1 - (_unconsciousTimer / _unconsciousDuration);

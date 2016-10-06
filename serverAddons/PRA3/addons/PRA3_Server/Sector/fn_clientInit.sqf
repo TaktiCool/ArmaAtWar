@@ -43,7 +43,7 @@ GVAR(currentSector) = objNull;
 
     private _sectorName = _sector getVariable ["fullName", ""];
 
-    if ((side group Clib_Player) isEqualTo _newSide) exitWith {
+    if ((side group CLib_Player) isEqualTo _newSide) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
             [format [MLOC(YouSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         } else {
@@ -51,11 +51,11 @@ GVAR(currentSector) = objNull;
         };
     };
 
-    if ((side group Clib_Player) isEqualTo _oldSide) exitWith {
+    if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
         [format [MLOC(YourSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
     };
 
-    if (sideUnknown isEqualTo _newSide && !((side group Clib_Player) isEqualTo _oldSide)) exitWith {
+    if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
             [format [MLOC(YouSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         } else {
@@ -69,25 +69,25 @@ GVAR(currentSector) = objNull;
 [{
     if (isNil QGVAR(allSectorsArray)) exitWith {};
     scopeName "MAIN";
-    if (alive Clib_Player) then {
+    if (alive CLib_Player) then {
         {
             private _marker = _x getVariable ["marker",""];
             if (_marker != "") then {
-                if (Clib_Player inArea _marker) then {
+                if (CLib_Player inArea _marker) then {
                     if (GVAR(currentSector) != _x) then {
                         if (!isNull GVAR(currentSector)) then {
                             if (!isServer) then {
-                                ["sectorLeaved", [Clib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+                                ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                             };
-                            ["sectorLeaved", [Clib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+                            ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
                         };
 
                         GVAR(currentSector) = _x;
 
                         if (!isServer) then {
-                            ["sectorEntered", [Clib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+                            ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                         };
-                        ["sectorEntered", [Clib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+                        ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
 
                     };
                     breakOut "MAIN";
@@ -99,9 +99,9 @@ GVAR(currentSector) = objNull;
 
     if (!isNull GVAR(currentSector)) then {
         if (!isServer) then {
-            ["sectorLeaved", [Clib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+            ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
         };
-        ["sectorLeaved", [Clib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+        ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
     };
 
 }, 0.1, []] call CFUNC(addPerFrameHandler);

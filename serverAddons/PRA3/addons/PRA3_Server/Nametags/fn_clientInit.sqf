@@ -24,7 +24,7 @@
 
         // Cycle through all nearby players and display their nameTag.
         private _nearUnits = [positionCameraToWorld [0, 0, 0], 100] call CFUNC(getNearUnits);
-        //_nearUnits pushBackUnique Clib_Player;
+        //_nearUnits pushBackUnique CLib_Player;
         private _icons = [];
         {
             private _targetSide = side (group _x);
@@ -33,11 +33,11 @@
         #ifdef isDev
             if (alive _x && playerSide getFriend _targetSide >= 0.6) then {
         #else
-            if (_x != Clib_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
+            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
         #endif
                 // The position of the nameTag is above the head.
 
-                private _color = if (group _x == group Clib_Player) then {
+                private _color = if (group _x == group CLib_Player) then {
 
                     // we need to check if _index is -1 because if the player controll a drone and try to get assignedTeam from player return Nil
                     private _index = ["MAIN","RED","GREEN","BLUE","YELLOW"] find (assignedTeam _x);
@@ -62,7 +62,7 @@
                     private _facePositionASL = AGLtoASL _facePositionAGL;
 
 
-                    if (!((lineIntersectsSurfaces [_cameraPosASL, _facePositionASL, Clib_Player, _unit]) isEqualTo [])) exitWith {false};
+                    if (!((lineIntersectsSurfaces [_cameraPosASL, _facePositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
 
                     private _distance = _cameraPosASL vectorDistance _facePositionASL;
 

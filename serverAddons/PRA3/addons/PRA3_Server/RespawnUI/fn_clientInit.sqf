@@ -88,7 +88,7 @@
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
 
-        if (!(alive Clib_Player) || (Clib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+        if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };

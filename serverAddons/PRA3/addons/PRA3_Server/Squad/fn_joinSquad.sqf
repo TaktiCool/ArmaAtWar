@@ -17,7 +17,7 @@
     params ["_group"];
 
     // Check conditions for creation
-    if (_group == group Clib_Player) exitWith {};
+    if (_group == group CLib_Player) exitWith {};
 
     private _groupType = _group getVariable [QGVAR(Type), ""];
     private _groupSize = [format [QGVAR(GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
@@ -25,5 +25,5 @@
     if (count ([_group] call CFUNC(groupPlayers)) >= _groupSize) exitWith {};
 
     call FUNC(leaveSquad);
-    [Clib_Player] join _group;
+    [CLib_Player] join _group;
 }, _this, "respawn"] call CFUNC(mutex);

@@ -111,8 +111,8 @@ if (hasInterface) then {
     (_this select 0) params ["_currentSide", "_oldSide"];
 
     if (_currentSide == sideEnemy) then {
-        _rating = rating Clib_Player;
-        Clib_Player addRating (0 - _rating);
+        _rating = rating CLib_Player;
+        CLib_Player addRating (0 - _rating);
     };
 }] call CFUNC(addEventhandler);
 
