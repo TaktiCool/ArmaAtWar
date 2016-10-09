@@ -185,6 +185,7 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(addUnitToTracker);
             FNC(addGroupToTracker);
+            FNC(addVehicleToTracker);
         };
 
         // VehicleRespawn
