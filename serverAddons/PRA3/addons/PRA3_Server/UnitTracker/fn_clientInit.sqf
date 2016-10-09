@@ -17,7 +17,7 @@ GVAR(playerCounter) = 0;
 GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
 GVAR(currentHoverGroup) = grpNull;
-GVAR(currentHoverVehicle) = grpNull;
+GVAR(currentHoverVehicle) = objNull;
 GVAR(groupInfoPFH) = -1;
 GVAR(vehicleInfoPFH) = -1;
 GVAR(lastFrameTriggered) = diag_frameNo;
@@ -87,7 +87,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                 ({group _x isEqualTo group CLib_Player} count crew _vehicle) > 0;
             } count crew _vehicle;
             _inGroup = _inGroup > 0;
-            private _iconId = toLower format [QGVAR(Vehicle_%1_%2), _vehicle, _inGroup];
+            private _iconId = toLower format [QGVAR(IconId_Vehicle_%1_%2), _vehicle, _inGroup];
             GVAR(processedIcons) pushBack _iconId;
             if !(_iconId in GVAR(lastProcessedIcons)) then {
                 DUMP("VEHICLE ADDED: " + _iconId);

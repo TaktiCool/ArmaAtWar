@@ -38,7 +38,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
 
 
         if (_vehicle isEqualTo GVAR(currentHoverVehicle)) exitWith {};
-        GVAR(currentHoverVehicle) = _group;
+        GVAR(currentHoverVehicle) = _vehicle;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
         private _pos = _map ctrlMapWorldToScreen getPosVisual _vehicle;
@@ -168,7 +168,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
         (_this select 1) params ["_vehicle"];
 
         if (GVAR(currentHoverVehicle) isEqualTo _vehicle) then {
-            GVAR(currentHoverVehicle) = grpNull;
+            GVAR(currentHoverVehicle) = objNull;
         };
 
         //private _display = uiNamespace getVariable [UIVAR(VehicleInfo),displayNull];
