@@ -15,7 +15,7 @@
 */
 params ["_group", "_groupIconId", ["_attachTo",[leader (_this select 0), [0, -20]]]];
 
-private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
+private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
 
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo _group);
