@@ -16,9 +16,13 @@
 [QGVAR(Settings), missionConfigFile >> "PRA3" >> "CfgRevive"] call CFUNC(loadSettings);
 
 ["playerChanged", {
-    (_this select 0) params ["_newPlayer"];
-    _newPlayer addEventHandler ["HandleDamage", FUNC(damageHandler)];
-
+    (_this select 0) params ["_newPlayer", "_oldPlayer"];
+    private _oldId = _oldPlayer getVariable [QGVAR(HandleDamageId), -1];
+    if (_oldId >= 0) then {
+        _oldPlayer removeEventHandler ["HandleDamage", _oldId];
+    };
+    private _id = _newPlayer addEventHandler ["HandleDamage", FUNC(damageHandler)];
+    _newPlayer setVariable [QGVAR(HandleDamageId), _id];
 }] call CFUNC(addEventhandler);
 
 ["Respawn", {
