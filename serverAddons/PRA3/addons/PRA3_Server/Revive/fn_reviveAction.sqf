@@ -19,24 +19,24 @@ private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\u100_ca.paa";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_revive_ca.paa";
 private _condition = {
     alive _target &&
-    (_target distance PRA3_player < 3) &&
+    (_target distance CLib_Player < 3) &&
     (_target getVariable [QGVAR(isUnconscious),false]) &&
-    (side group _target == side group PRA3_player)
+    (side group _target == side group CLib_Player)
 };
 
-GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (PRA3_player getVariable [QEGVAR(Kit,isMedic), false]));
+GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
 GVAR(reviveStartTime) = 0;
 private _onStart = {
     params ["_target", "_caller"];
 
     _target setVariable [QGVAR(reviveAction), "REVIVE", true];
     GVAR(reviveStartTime) = time;
-    GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (PRA3_player getVariable [QEGVAR(Kit,isMedic), false]));
-    PRA3_player playAction "medicStart";
+    GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+    CLib_Player playAction "medicStart";
 };
 
 private _onProgress = {
-    PRA3_player playAction "medicStart";
+    CLib_Player playAction "medicStart";
     (time - GVAR(reviveStartTime)) / GVAR(reviveDuration);
 };
 
@@ -49,7 +49,7 @@ private _onComplete = {
     if (_target getVariable [QGVAR(isUnconscious), false]) then {
         [QGVAR(revive), _target] call CFUNC(targetEvent);
     };
-    PRA3_player playAction "medicStop";
+    CLib_Player playAction "medicStop";
 };
 
 private _onInterruption = {
@@ -57,7 +57,7 @@ private _onInterruption = {
 
     _target setVariable [QGVAR(reviveAction), "", true];
     GVAR(reviveStartTime) = -1;
-    PRA3_player playActionNow "medicStop";
+    CLib_Player playActionNow "medicStop";
 };
 
 
@@ -66,12 +66,12 @@ private _onInterruption = {
 [QGVAR(revive), {
     [false] call FUNC(setUnconscious);
 
-    private _oldDamage = +((getAllHitPointsDamage PRA3_player) select 2);
-    PRA3_player setDamage 0.75;
+    private _oldDamage = +((getAllHitPointsDamage CLib_Player) select 2);
+    CLib_Player setDamage 0.75;
     {
-        PRA3_player setHitIndex [_forEachIndex, _x min 0.75];
+        CLib_Player setHitIndex [_forEachIndex, _x min 0.75];
     } forEach _oldDamage;
 
-    PRA3_player setVariable [QGVAR(bloodLevel), (PRA3_player getVariable [QGVAR(bloodLevel), 1]) max 0.25];
-    PRA3_player setVariable [QGVAR(bleedingRate), 0];
+    CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.25];
+    CLib_Player setVariable [QGVAR(bleedingRate), 0];
 }] call CFUNC(addEventhandler);

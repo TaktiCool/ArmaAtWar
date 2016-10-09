@@ -21,7 +21,7 @@ DFUNC(dropPlayer) = {
     _unit playAction "released";
     [QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
     /*
-    if (_unit == PRA3_Player) then {
+    if (_unit == CLib_Player) then {
         ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
     };
     */
@@ -73,7 +73,7 @@ DFUNC(dropPlayer) = {
                 [_unit] call FUNC(dropPlayer);
                 [_id] call CFUNC(removePerFrameHandler);
             }, 1,_unit] call CFUNC(addPerFrameHandler);
-        }, [_draggedUnit, PRA3_Player], "logistic"] call CFUNC(mutex);
+        }, [_draggedUnit, CLib_Player], "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
@@ -95,11 +95,11 @@ DFUNC(dropPlayer) = {
 
 [
     "Drop",
-    PRA3_Player,
+    CLib_Player,
     0,
-    {!(isNull (PRA3_Player getVariable [QGVAR(draggedPlayer), objNull]))},
+    {!(isNull (CLib_Player getVariable [QGVAR(draggedPlayer), objNull]))},
     {
-        [PRA3_Player] call FUNC(dropPlayer);
+        [CLib_Player] call FUNC(dropPlayer);
     }, ["ignoredCanInteractConditions",["isNotPlayerDragging"]]
 ] call CFUNC(addAction);
 

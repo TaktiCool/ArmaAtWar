@@ -45,21 +45,21 @@
 
         if (isNull _draggedUnit) exitWith {};
 
-        [QGVAR(unloadUnit), _draggedUnit, [getPosASL PRA3_player]] call CFUNC(targetEvent);
+        [QGVAR(unloadUnit), _draggedUnit, [getPosASL CLib_Player]] call CFUNC(targetEvent);
     }
 ] call CFUNC(addAction);
 
 [QGVAR(unloadUnit), {
-    if (vehicle PRA3_player != PRA3_player) then {
+    if (vehicle CLib_Player != CLib_Player) then {
         (_this select 0) params ["_position"];
-        unassignVehicle PRA3_player;
-        PRA3_player action ["Eject", vehicle PRA3_player];
+        unassignVehicle CLib_Player;
+        CLib_Player action ["Eject", vehicle CLib_Player];
         [{
             params ["_position"];
-            PRA3_player setPosASL _position;
+            CLib_Player setPosASL _position;
 
-            if !(PRA3_player getVariable [QGVAR(isUnconscious), false]) then {
-                if (driver PRA3_player == PRA3_player) then {
+            if !(CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
+                if (driver CLib_Player == CLib_Player) then {
                     [QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
                 };
             };

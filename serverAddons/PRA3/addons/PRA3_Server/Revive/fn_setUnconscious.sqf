@@ -16,15 +16,15 @@
 params [["_state", true]];
 
 if (_state) then {
-    if (!(PRA3_Player getVariable [QGVAR(isUnconscious), false])) then {
-        PRA3_Player setVariable [QGVAR(isUnconscious), true, true];
-        PRA3_player setUnconscious true;
+    if (!(CLib_Player getVariable [QGVAR(isUnconscious), false])) then {
+        CLib_Player setVariable [QGVAR(isUnconscious), true, true];
+        CLib_Player setUnconscious true;
         ["unconsciousnessChanged", [true]] call CFUNC(localEvent);
     };
 } else {
-    if (PRA3_Player getVariable [QGVAR(isUnconscious), false]) then {
-        PRA3_Player setVariable [QGVAR(isUnconscious), false, true];
-        PRA3_player setUnconscious false;
+    if (CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
+        CLib_Player setVariable [QGVAR(isUnconscious), false, true];
+        CLib_Player setUnconscious false;
         ["unconsciousnessChanged", [false]] call CFUNC(localEvent);
     };
 };

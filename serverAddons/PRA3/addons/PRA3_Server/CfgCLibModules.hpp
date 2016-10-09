@@ -135,7 +135,9 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(bloodEffect);
             FNC(bleedOut);
+            FNC(damageHandler);
             FNC(dragAction);
+            FNC(healAction);
             FNC(forceRespawnAction);
             FNC(reviveAction);
             FNC(unloadAction);

@@ -20,23 +20,23 @@ GVAR(bleedoutTimer) = -1;
     if (_state && {GVAR(bleedoutTimer) < 0}) then {
 
         GVAR(bleedoutTimer) = [{
-            if (!alive PRA3_player || !(PRA3_player getVariable [QGVAR(isUnconscious), false])) exitWith {
+            if (!alive CLib_Player || !(CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
             };
 
-            if ((PRA3_player getVariable [QGVAR(reviveAction),""]) == "") then {
-                private _bloodLevel = PRA3_player getVariable [QGVAR(bloodLevel), 1];
+            if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
+                private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
 
-                _bloodLevel = _bloodLevel - (PRA3_player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
+                _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
 
                 if (_bloodLevel <= 0) then {
-                    PRA3_player setDamage 1;
+                    CLib_Player setDamage 1;
                     GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                     GVAR(bleedoutTimer) = -1;
                 };
 
-                PRA3_player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
+                CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
             };
         }, 1] call CFUNC(addPerFrameHandler);
     };
@@ -65,7 +65,7 @@ GVAR(unconsciousPFH) = -1;
             GVAR(unconsciousPFH) = [{
                 params ["_dummy", "_id"];
 
-                if (!alive PRA3_player || !(PRA3_player getVariable [QGVAR(isUnconscious), false])) exitWith {
+                if (!alive CLib_Player || !(CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
                     GVAR(unconsciousPFH) call CFUNC(removePerFrameHandler);
                     GVAR(unconsciousPFH) = -1;
                     {
@@ -75,7 +75,7 @@ GVAR(unconsciousPFH) = -1;
                 };
 
 
-                private _progressPercentage = 1 - (PRA3_Player getVariable [QGVAR(bloodLevel), 0]);
+                private _progressPercentage = 1 - (CLib_Player getVariable [QGVAR(bloodLevel), 0]);
 
                 if (_progressPercentage > 0.99) then {
                     {

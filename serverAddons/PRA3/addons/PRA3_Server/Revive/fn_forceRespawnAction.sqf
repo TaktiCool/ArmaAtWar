@@ -18,12 +18,12 @@ private _title = localize "STR_A3_ForceRespawn";
 private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _showCondition = {
-    _target = PRA3_player;
+    _target = CLib_Player;
     (_target getVariable [QGVAR(isUnconscious), false]) && ((_target getVariable [QGVAR(reviveAction), ""]) == "");
 };
 
 private _progressCondition = {
-    (PRA3_player getVariable [QGVAR(isUnconscious), false]) && ((PRA3_player getVariable [QGVAR(reviveAction), ""]) == "")
+    (CLib_Player getVariable [QGVAR(isUnconscious), false]) && ((CLib_Player getVariable [QGVAR(reviveAction), ""]) == "")
 };
 
 GVAR(forceRespawnStartTime) = -1;
@@ -54,4 +54,4 @@ private _onInterruption = {
 };
 
 
-[PRA3_player, _title, _iconIdle, _iconProgress, _showCondition, _progressCondition, _onStart, _onProgress,_onComplete,_onInterruption, [], 5000, true, true, ["isNotUnconscious", "isNotInVehicle"]] call CFUNC(addHoldAction);
+[CLib_Player, _title, _iconIdle, _iconProgress, _showCondition, _progressCondition, _onStart, _onProgress,_onComplete,_onInterruption, [], 5000, true, true, ["isNotUnconscious", "isNotInVehicle"]] call CFUNC(addHoldAction);
