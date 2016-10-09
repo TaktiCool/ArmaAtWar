@@ -131,33 +131,14 @@ class CfgCLibModules {
         MODULE(Revive) {
             dependency[] = {"PRA3/Common"};
             // General
+            FNC(setUnconscious);
             FNC(clientInit);
             FNC(bloodEffect);
-
-            // HitEffects
-            MODULE(HitEffects) {
-                FNC(clientInitHitEffectsUI);
-                FNC(blood);
-                FNC(fatigue);
-                FNC(unconscious);
-            };
-
-            // Treatments
-            MODULE(Treatments) {
-                FNC(clientInitTreatments);
-                FNC(clientInitTreatmentsUI);
-                FNC(bandage);
-                FNC(heal);
-                FNC(revive);
-            };
-
-            // Handle Damage
-            MODULE(HandleDamage) {
-                FNC(clientInitHandleDamage);
-                FNC(handleDamage);
-                FNC(handleDamageCached);
-                FNC(translateSelection);
-            };
+            FNC(bleedOut);
+            FNC(dragAction);
+            FNC(forceRespawnAction);
+            FNC(reviveAction);
+            FNC(unloadAction);
         };
 
         // Sector
