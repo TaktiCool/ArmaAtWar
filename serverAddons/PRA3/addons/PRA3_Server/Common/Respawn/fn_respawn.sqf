@@ -37,7 +37,7 @@ if (!alive CLib_Player) then {
             [{
                 ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
                 ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
-            }] call CFUNC(execNextFrame);
+            }, 1] call CFUNC(wait);
         };
 
         CLib_Player setDir (random 360);
