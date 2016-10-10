@@ -21,8 +21,9 @@ if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
     [{
         CLib_Player setVariable [QGVAR(tempUnit), false];
         ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
+        DUMP("ENABLESIM");
         ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
-    }] call CFUNC(execNextFrame);
+    }, 1] call CFUNC(wait);
 };
 
 if (!alive CLib_Player) then {
