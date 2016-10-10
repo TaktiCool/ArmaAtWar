@@ -18,9 +18,13 @@ params ["_targetPosition", ["_tempUnit", false]];
 // Remove tempUnit status
 if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
     CLib_Player setVariable [QGVAR(tempUnit), false];
-    CLib_Player allowDamage true;
+    DUMP("SIM TRUE")
     ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
     ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
+    [{
+        DUMP("DAMAGE TRUE")
+        CLib_Player allowDamage true;
+    }, 1] call CFUNC(wait);
 };
 
 if (!alive CLib_Player) then {
@@ -34,7 +38,9 @@ if (!alive CLib_Player) then {
 
         if (_tempUnit) then {
             CLib_Player setVariable [QGVAR(tempUnit), true];
+            DUMP("DAMAGE FALSE")
             CLib_Player allowDamage false;
+            DUMP("SIM FALSE")
             ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
             ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
         };
