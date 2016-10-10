@@ -17,13 +17,9 @@ params ["_targetPosition", ["_tempUnit", false]];
 
 // Remove tempUnit status
 if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
-    // Wait one frame to prevent unexpected stuff before everything is set up
-    [{
-        CLib_Player setVariable [QGVAR(tempUnit), false];
-        ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
-        DUMP("ENABLESIM");
-        ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
-    }, 1] call CFUNC(wait);
+    CLib_Player setVariable [QGVAR(tempUnit), false];
+    ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
+    ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
 };
 
 if (!alive CLib_Player) then {
@@ -37,8 +33,11 @@ if (!alive CLib_Player) then {
 
         if (_tempUnit) then {
             CLib_Player setVariable [QGVAR(tempUnit), true];
-            ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
-            ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
+            // Wait one frame to let the damage of this frame handled
+            [{
+                ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
+                ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
+            }] call CFUNC(execNextFrame);
         };
 
         CLib_Player setDir (random 360);
