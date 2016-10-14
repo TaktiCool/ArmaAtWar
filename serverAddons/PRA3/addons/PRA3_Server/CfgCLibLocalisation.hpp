@@ -21,31 +21,31 @@ class CfgCLibLocalisation {
     // Sector
     class ELSTRING(Sector,YouSC) {
         English = "You have captured sector %1";
-        German = "Du hast Sector %1 eingenommen";
+        German = "Du hast Sektor %1 eingenommen";
     };
 
     class ELSTRING(Sector,YourTSC) {
         English = "Your team has captured sector %1";
-        German = "Dein Team hat Sector %1 eingenommen";
+        German = "Dein Team hat Sektor %1 eingenommen";
     };
 
     class ELSTRING(Sector,YouSL) {
         English = "You have lost sector %1";
-        German = "Dein Team hat Sector %1 Verloren";
+        German = "Dein Team hat Sektor %1 verloren";
     };
     class ELSTRING(Sector,YouSN) {
         English = "You have neutralized sector %1";
-        German = "Du hast Sector %1 Neutralisiert";
+        German = "Du hast Sektor %1 neutralisiert";
     };
     class ELSTRING(Sector,YourTSN) {
         English = "Your has team neutralized sector %1";
-        German = "Dein Team hat Sector %1 Neutralisiert";
+        German = "Dein Team hat Sektor %1 neutralisiert";
     };
 
     // RespawnUI
     class ELSTRING(RespawnUI,JoinASquad) {
         English = "You have to join a squad!";
-        German = "Du musst erste einem Squad Beitretten!";
+        German = "Du musst erst einem Squad beitreten!";
     };
     class ELSTRING(RespawnUI,ChooseARole) {
         English = "You have to select a role!";
@@ -53,7 +53,7 @@ class CfgCLibLocalisation {
     };
     class ELSTRING(RespawnUI,selectSpawn) {
         English = "You have to select a spawnpoint!";
-        German = "Du musst erst einen Spawn Punkt auswählen";
+        German = "Du musst erst einen Spawn Punkt auswählen!";
     };
 
     // Logistic
@@ -94,7 +94,7 @@ class CfgCLibLocalisation {
     };
     class ELSTRING(Deployment,cantPlaceRally) {
         English = "You can not place a rallypoint at this position";
-        German = "Du kannst hier keinen Rally Punkt erstellen";
+        German = "Du kannst hier keinen Rally Punkt platzieren";
     };
     class ELSTRING(Deployment,RallyPlaced) {
         English = "Your Squadleader has placed a rally near %1";
@@ -103,7 +103,7 @@ class CfgCLibLocalisation {
 
     // - FOB
     class ELSTRING(Deployment,FOBTakeDown) {
-        English = "Remove FOB";
+        English = "Destroy FOB";
         German = "FOB zerstören";
     };
     class ELSTRING(Deployment,PlaceFOB) {
@@ -124,7 +124,7 @@ class CfgCLibLocalisation {
     // Revive
     class ELSTRING(Revive,IFAK) {
         English = "First Aid Kit";
-        German = "Erstehilfe Kasten";
+        German = "Erste-Hilfe-Kasten";
     };
     class ELSTRING(Revive,Bandaging) {
         English = "Bandaging %1 ...";
@@ -148,7 +148,7 @@ class CfgCLibLocalisation {
     };
     class ELSTRING(Revive,PressToRevive) {
         English = "Press SPACE to revive the casualty";
-        German = "";
+        German = "LEER drücken um den Verwundeten wiederzubeleben";
     };
     class ELSTRING(Revive,ActionAComrade) {
         English = "to %1 your team mate";
