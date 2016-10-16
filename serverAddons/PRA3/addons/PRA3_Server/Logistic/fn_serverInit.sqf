@@ -14,9 +14,8 @@
     None
 */
 
-
-["entityCreated", {
-    (_this select 0) params ["_entity"];
+DFUNC(setLogisticVariables) = {
+    params ["_entity"];
 
     private _cargoCapacity = _entity getVariable ["cargoCapacity", 0];
 
@@ -31,6 +30,9 @@
         _entity setVariable ["hasInventory", _isCargo, true];
     };
 
+};
+["entityCreated", {
+    (_this select 0) call FUNC(setLogisticVariables);
 }] call CFUNC(addEventHandler);
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
