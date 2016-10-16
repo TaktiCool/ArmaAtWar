@@ -31,7 +31,7 @@
 ] call CFUNC(addAction);
 
 [
-    MLOC(Drop),
+    QLSTRING(Drop),
     CLib_Player,
     0,
     {!(isNull (CLib_Player getVariable [QGVAR(Item), objNull]))},
