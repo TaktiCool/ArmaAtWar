@@ -14,10 +14,8 @@
     None
 */
 
-
-
 DFUNC(pushbackInQueue) = {
-    params ["_object"]
+    params ["_object"];
     if !(_object getVariable [QCGVAR(noClean), false]) then {
         if (!(_object getVariable [QGVAR(queued), false])) then {
             _object setVariable [QGVAR(queued), true];
