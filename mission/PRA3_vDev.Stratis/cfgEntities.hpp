@@ -177,5 +177,10 @@ class CfgEntities {
     };
     class O_HMG_01_high_F: B_HMG_01_high_F {};
 
-    class CargoNet_01_ammo_base_F : B_Slingload_01_Cargo_F {};
+    class CargoNet_01_ammo_base_F : B_Slingload_01_Cargo_F {
+        isLoadable = 1;
+        cargoSize = 20;
+        cargoCapacity = 10;
+        logisticOffset[] = {0, 0, 0};
+    };
 };

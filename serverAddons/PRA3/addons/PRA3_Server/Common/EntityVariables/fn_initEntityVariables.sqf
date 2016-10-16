@@ -33,6 +33,7 @@
                     getArray _x;
                 };
             };
+            _var = _entity getVariable [configName _x, _var];
             _entity setVariable [configName _x, _var];
             nil
         } count ([(missionConfigFile >> QPREFIX >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));

@@ -30,11 +30,18 @@ params ["_target"];
         _x params ["_type", "_offset"];
 
         private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, _objPosition, [], 0, "CAN_COLLIDE"];
-        _obj setPosASL [_objPosition select 0, _objPosition select 1, (getTerrainHeightASL _objPosition)];
+        private _obj = createVehicle [_type, _position, [], 0, "CAN_COLLIDE"];
+        _obj setPosASL ([_position select 0, _position select 1, (getTerrainHeightASL _objPosition)] vectorAdd _offset);
         _obj setVectorUp (surfaceNormal (getPos _obj));
+        _obj setVariable ["isDragable", 0, true];
+
+        clearWeaponCargoGlobal _obj;
+        clearMagazineCargoGlobal _obj;
+        clearItemCargoGlobal _obj;
+        clearBackpackCargoGlobal _obj;
 
         ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
+        ["blockDamage", [_obj, true], true] call CFUNC(globalEvent);
 
         _obj
     };
@@ -45,6 +52,7 @@ params ["_target"];
     private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call FUNC(addPoint);
 
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
+    (_pointObjects select 0) setVariable [QGVAR(side), playerSide, true];
     ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); // TODO this is only for the take down action
 
     ["displayNotification", playerSide, [format[MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
