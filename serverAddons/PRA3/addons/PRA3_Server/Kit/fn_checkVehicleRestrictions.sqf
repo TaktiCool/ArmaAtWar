@@ -16,6 +16,15 @@
 params [["_oldVehicleRole", [""]]];
 
 private _vehicle = vehicle CLib_Player;
+
+// Players should not be able to board enemy vehicles.
+private _playerSide = str side group CLib_Player;
+private _vehicleSide = _vehicle getVariable ["side", _playerSide];
+if (_vehicleSide != _playerSide) exitWith {
+    CLib_Player action ["getOut", _vehicle];
+    [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+};
+
 private _newPosition = (assignedVehicleRole CLib_Player) select 0;
 
 // Cargo is always allowed
