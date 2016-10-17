@@ -25,6 +25,12 @@ GVAR(bleedoutTimer) = -1;
                 GVAR(bleedoutTimer) = -1;
             };
 
+            if (CLib_Player != vehicle CLib_Player && {damage vehicle CLib_Player == 1}) exitWith {
+                CLib_Player setDamage 1;
+                GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
+                GVAR(bleedoutTimer) = -1;
+            };
+
             if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
 
