@@ -20,6 +20,9 @@ if (_state) then {
         CLib_Player setVariable [QGVAR(isUnconscious), true, true];
         CLib_Player setUnconscious true;
         ["unconsciousnessChanged", [true]] call CFUNC(localEvent);
+        if (vehicle CLib_Player != CLib_Player) then {
+            [CLib_Player, [CLib_Player] call CFUNC(getDeathAnimation)] call CFUNC(doAnimation);
+        };
     };
 } else {
     if (CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
