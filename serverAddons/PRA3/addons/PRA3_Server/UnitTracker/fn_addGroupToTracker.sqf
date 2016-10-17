@@ -13,7 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
-params ["_group", "_groupIconId", ["_attachTo",[leader (_this select 0), [0, -20]]]];
+params ["_group", "_groupIconId", ["_attachTo",[0, -20]]];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -43,9 +43,9 @@ private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType
         GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
-        private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
+        private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
         _pos set [0, (_pos select 0) + 15/640];
-        _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
+        _pos set [1, (_pos select 1) + (((_attachTo) select 1)+5)/480];
 
         private _display = ctrlParent _map;
         private _idd = ctrlIDD _display;
