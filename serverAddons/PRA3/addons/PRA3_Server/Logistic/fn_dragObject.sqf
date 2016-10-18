@@ -20,7 +20,7 @@
 params ["_draggedObject", "_unit"];
 private _currentWeight = _draggedObject call FUNC(getWeight);
 if (_currentWeight >= __MAXWEIGHT) exitWith {
-    hint format["The box is %1 KG to heavy", _currentWeight - __MAXWEIGHT];
+    [format [MLOC(itemToHeavy), _currentWeight - __MAXWEIGHT]] call EFUNC(Common,displayNotification);
 };
 
 if (_draggedObject isKindOf "StaticWeapon") then {
@@ -41,8 +41,8 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= __MAXWEIGHT /2) 
 } else {
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2) + 0.5];
     _unit action ["SwitchWeapon", _unit, _unit, 99];
-    if (_unit == PRA3_Player) then {
-        ["forceWalk","Logistic",true] call PRA3_Core_fnc_setStatusEffect;
+    if (_unit == CLib_Player) then {
+        ["forceWalk","Logistic",true] call CFUNC(setStatusEffect);
     };
 };
 

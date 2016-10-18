@@ -37,23 +37,23 @@ _kitDetails params [
 ];
 
 // remove all Items
-removeAllAssignedItems PRA3_Player;
-removeAllWeapons PRA3_Player;
-removeHeadgear PRA3_Player;
-removeGoggles PRA3_Player;
+removeAllAssignedItems CLib_Player;
+removeAllWeapons CLib_Player;
+removeHeadgear CLib_Player;
+removeGoggles CLib_Player;
 
 // add container
-[PRA3_Player, _uniform, 0] call CFUNC(addContainer);
-[PRA3_Player, _vest, 1] call CFUNC(addContainer);
-[PRA3_Player, _backpack, 2] call CFUNC(addContainer);
+[CLib_Player, _uniform, 0] call CFUNC(addContainer);
+[CLib_Player, _vest, 1] call CFUNC(addContainer);
+[CLib_Player, _backpack, 2] call CFUNC(addContainer);
 
-PRA3_Player addHeadgear _headGear;
+CLib_Player addHeadgear _headGear;
 
 // Primary Weapon
 [_primaryMagazineTracer, _primaryMagazineTracerCount] call CFUNC(addMagazine);
 [_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
 {
-    PRA3_Player addPrimaryWeaponItem _x;
+    CLib_Player addPrimaryWeaponItem _x;
     nil
 } count (_primaryAttachments select {_x != ""});
 
@@ -65,7 +65,7 @@ PRA3_Player addHeadgear _headGear;
 
 // Assigned items
 {
-    PRA3_Player linkItem _x;
+    CLib_Player linkItem _x;
     nil
 } count _assignedItems;
 
@@ -81,14 +81,14 @@ if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
 
-PRA3_Player setVariable [QGVAR(kit), _kitName, true];
-PRA3_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
-PRA3_Player setVariable [QGVAR(kitIcon), _icon, true];
-PRA3_Player setVariable [QGVAR(MapIcon), _mapIcon, true];
-PRA3_Player setVariable [QGVAR(compassIcon), _compassIcon, true];
+CLib_Player setVariable [QGVAR(kit), _kitName, true];
+CLib_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
+CLib_Player setVariable [QGVAR(kitIcon), _icon, true];
+CLib_Player setVariable [QGVAR(MapIcon), _mapIcon, true];
+CLib_Player setVariable [QGVAR(compassIcon), _compassIcon, true];
 
-PRA3_Player setVariable [QGVAR(isLeader), _isLeader == 1, true];
-PRA3_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];
-PRA3_Player setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
-PRA3_Player setVariable [QGVAR(isPilot), _isPilot == 1, true];
-PRA3_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];
+CLib_Player setVariable [QGVAR(isLeader), _isLeader == 1, true];
+CLib_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];
+CLib_Player setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
+CLib_Player setVariable [QGVAR(isPilot), _isPilot == 1, true];
+CLib_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];

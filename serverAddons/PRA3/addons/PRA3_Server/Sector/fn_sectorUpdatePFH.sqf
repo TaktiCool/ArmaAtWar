@@ -67,7 +67,7 @@ if !(_sector getVariable ["firstCaptureDone", false]) then {
 // Get all active units of available sides
 private _force = [];
 private _nbrSides = {
-    private _c = {_x call CFUNC(isAlive)} count (_sector getVariable [format ["units%1", _x], []]);
+    private _c = {_x call EFUNC(Common,isAlive)} count (_sector getVariable [format ["units%1", _x], []]);
     _force pushBack [_c,_x];
     true;
 } count _activeSides;

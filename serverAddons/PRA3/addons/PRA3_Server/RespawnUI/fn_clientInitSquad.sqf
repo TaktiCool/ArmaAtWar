@@ -43,8 +43,8 @@
     if (isNull _display) exitWith {};
 
     // Update the flag and text
-    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), playerSide], ""]);
-    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,SideName_%1), playerSide], ""]);
+    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), playerSide], ""]);
+    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,SideName_%1), playerSide], ""]);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_ChangeSideBtn_onButtonClick), {
@@ -55,9 +55,9 @@
  * #### SQUAD SCREEN ####
  */
 ["missionStarted", {
-    ["Squad Screen", PRA3_Player, 0, {isNull (uiNamespace getVariable [QGVAR(squadDisplay), displayNull])}, {
+    ["Squad Screen", CLib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(squadDisplay), displayNull])}, {
         (findDisplay 46) createDisplay UIVAR(SquadScreen);
-    }] call CFUNC(addAction);
+    },["ignoredCanInteractConditions",["isNotInVehicle"], "showWindow", false]] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(SquadScreen_onLoad), {
@@ -138,7 +138,8 @@
     private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
     if (isNull _display) exitWith {};
 
-    // SquadTypeCombo @todo restore focus if necessary #224
+    // SquadTypeCombo
+    // TODO restore focus if necessary #224
     private _control = _display displayCtrl 205;
     private _selectedGroupType = _control lbData (lbCurSel _control);
     lbClear _control;
@@ -156,7 +157,7 @@
             };
         };
         nil
-    } count ("true" configClasses (missionConfigFile >> "PRA3" >> "GroupTypes"));
+    } count ("true" configClasses (missionConfigFile >> QPREFIX >> "GroupTypes"));
     if (lbSize 205 == 0) then {
         _control lbSetCurSel -1;
     } else {
@@ -206,7 +207,7 @@
     private _lnbData = [];
     {
         private _groupId = groupId _x;
-        if (_x == group PRA3_Player) then {
+        if (_x == group CLib_Player) then {
             _ownGroupIndex = _forEachIndex;
         };
 
@@ -236,7 +237,7 @@
  * SQUAD MEMBER LIST
  */
 [QGVAR(KitChanged), {
-    [UIVAR(RespawnScreen_SquadMemberManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_SquadList_onLBSelChanged), {
@@ -277,7 +278,7 @@
     [_controlSquadMemberList, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
     // JoinLeaveBtn
-    if (_selectedSquad == group PRA3_Player) then {
+    if (_selectedSquad == group CLib_Player) then {
         _controlJoinLeaveButton ctrlSetText "LEAVE";
         _controlJoinLeaveButton ctrlShow true;
     } else {
@@ -306,7 +307,7 @@
     if (_selectedEntry == -1) exitWith {};
     private _selectedSquad = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
-    if (_selectedSquad == group PRA3_Player) then {
+    if (_selectedSquad == group CLib_Player) then {
         UIVAR(RespawnScreen_SquadMemberButtons_update) call CFUNC(localEvent);
     };
 }] call CFUNC(addEventHandler);
@@ -329,7 +330,7 @@
     private _selectedGroupMember = [_controlSquadMemberList, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // KickBtn
-    private _buttonsVisible = (PRA3_Player == leader _selectedGroupMember && PRA3_Player != _selectedGroupMember);
+    private _buttonsVisible = (CLib_Player == leader _selectedGroupMember && CLib_Player != _selectedGroupMember);
     _controlKickButton ctrlShow _buttonsVisible;
 
     // PromoteBtn
@@ -343,7 +344,7 @@
     private _control = _display displayCtrl 207;
     private _selectedGroup = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
 
-    if (_selectedGroup == group PRA3_Player) then {
+    if (_selectedGroup == group CLib_Player) then {
         call EFUNC(Squad,leaveSquad);
     } else {
         [_selectedGroup] call EFUNC(Squad,joinSquad);

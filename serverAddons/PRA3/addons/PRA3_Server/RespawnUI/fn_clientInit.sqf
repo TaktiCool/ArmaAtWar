@@ -13,11 +13,11 @@
     Returns:
     None
 */
-[QGVAR(RespawnSettings), missionConfigFile >> "PRA3" >> "CfgRespawn"] call CFUNC(loadSettings);
+[QGVAR(RespawnSettings), missionConfigFile >> QPREFIX >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
-[QEGVAR(Revive,Killed), { //@todo this should work without the revive module (vanilla death)
-    [[-10000, -10000, 50], true] call CFUNC(respawn);
+["Killed", { // TODO this should work without the revive module (vanilla death)
+    [[-10000, -10000, 50], true] call EFUNC(Common,respawn);
 
     [{
         // Respawn screen may already open by user action
@@ -59,10 +59,10 @@
                 _leastPlayerCount = _playerCount;
             };
             nil
-        } count EGVAR(Mission,competingSides);
+        } count EGVAR(Common,competingSides);
 
         // Move the player to the side
-        [[-1000, -1000, 10], _leastPlayerSide] call CFUNC(respawnNewSide);
+        [[-1000, -1000, 10], _leastPlayerSide] call EFUNC(Common,respawnNewSide);
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
@@ -88,7 +88,7 @@
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
 
-        if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
+        if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };
@@ -97,14 +97,14 @@
         (_display displayCtrl 501) ctrlSetStructuredText parseText (getText (missionConfigFile >> "onLoadMission"));
 
         // Update Tickets
-        private _startTickets = getNumber (missionConfigFile >> "PRA3" >> "tickets");
-        private _firstSide = EGVAR(Mission,competingSides) select 0;
-        private _secondSide = EGVAR(Mission,competingSides) select 1;
-        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1), _firstSide], ""]);
+        private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
+        private _firstSide = EGVAR(Common,competingSides) select 0;
+        private _secondSide = EGVAR(Common,competingSides) select 1;
+        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _firstSide], ""]);
         (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _firstSide], _startTickets]);
-        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Mission,sideName_%1), _secondSide], ""]);
+        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _secondSide], ""]);
         (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _secondSide], _startTickets]);
 
         {
@@ -121,9 +121,9 @@
     private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
     if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
 
-    private _startTickets = getNumber(missionConfigFile >> "PRA3" >> "tickets");
-    (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 0], _startTickets]);
-    (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Mission,competingSides) select 1], _startTickets]);
+    private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
+    (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 0], _startTickets]);
+    (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 1], _startTickets]);
 
     {
         (_display displayCtrl _x) ctrlCommit 0;

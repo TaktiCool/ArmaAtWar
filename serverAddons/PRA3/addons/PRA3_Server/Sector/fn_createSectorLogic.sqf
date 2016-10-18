@@ -37,8 +37,13 @@ private _side = switch (markerColor _marker) do {
 
 _marker setMarkerAlpha 1;
 
+private _markerFullName = markerText _marker;
+if (_markerFullName call CFUNC(isLocalised)) then {
+    _markerFullName = LOC(_markerFullName);
+};
+
 _logic setVariable ["name", _marker, true];
-_logic setVariable ["fullName", markerText _marker, true];
+_logic setVariable ["fullName", _markerFullName, true];
 _logic setVariable ["designator", _designator, true];
 _logic setVariable ["marker", _marker, true];
 _logic setVariable ["side", _side, true];

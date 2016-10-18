@@ -43,23 +43,23 @@ GVAR(currentSector) = objNull;
 
     private _sectorName = _sector getVariable ["fullName", ""];
 
-    if ((side group PRA3_Player) isEqualTo _newSide) exitWith {
+    if ((side group CLib_Player) isEqualTo _newSide) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
-            [format["You captured sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format [MLOC(YouSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         } else {
-            [format["Your team captured sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format [MLOC(YourTSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         };
     };
 
-    if ((side group PRA3_Player) isEqualTo _oldSide) exitWith {
-        [format["You lost sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _newSide],[0,1,0,1]]] call CFUNC(displayNotification);
+    if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
+        [format [MLOC(YourSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
     };
 
-    if (sideUnknown isEqualTo _newSide && !((side group PRA3_Player) isEqualTo _oldSide)) exitWith {
+    if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
         if (GVAR(currentSector) isEqualTo _sector) then {
-            [format["You neutralized sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format [MLOC(YouSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         } else {
-            [format["Your team neutralized sector %1", _sectorName], missionNamespace getVariable [format [QEGVAR(Mission,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call CFUNC(displayNotification);
+            [format [MLOC(YourTSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]],[0,1,0,1]]] call EFUNC(Common,displayNotification);
         };
     };
 
@@ -69,25 +69,25 @@ GVAR(currentSector) = objNull;
 [{
     if (isNil QGVAR(allSectorsArray)) exitWith {};
     scopeName "MAIN";
-    if (alive PRA3_Player) then {
+    if (alive CLib_Player) then {
         {
             private _marker = _x getVariable ["marker",""];
             if (_marker != "") then {
-                if (PRA3_Player inArea _marker) then {
+                if (CLib_Player inArea _marker) then {
                     if (GVAR(currentSector) != _x) then {
                         if (!isNull GVAR(currentSector)) then {
                             if (!isServer) then {
-                                ["sectorLeaved", [PRA3_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+                                ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                             };
-                            ["sectorLeaved", [PRA3_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+                            ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
                         };
 
                         GVAR(currentSector) = _x;
 
                         if (!isServer) then {
-                            ["sectorEntered", [PRA3_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+                            ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                         };
-                        ["sectorEntered", [PRA3_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+                        ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
 
                     };
                     breakOut "MAIN";
@@ -99,9 +99,9 @@ GVAR(currentSector) = objNull;
 
     if (!isNull GVAR(currentSector)) then {
         if (!isServer) then {
-            ["sectorLeaved", [PRA3_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
+            ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
         };
-        ["sectorLeaved", [PRA3_Player, GVAR(currentSector)]] call CFUNC(localEvent);
+        ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
     };
 
 }, 0.1, []] call CFUNC(addPerFrameHandler);

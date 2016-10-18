@@ -48,7 +48,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             y = PY(4);
             w = PX(GWIDTH-23);
             h = PY(3);
-            onChar = "'PRA3_UI_RespawnScreen_SquadDescriptionInput_TextChanged' call PRA3_Core_fnc_localEvent;";
+            onChar = "'PRA3_UI_RespawnScreen_SquadDescriptionInput_TextChanged' call CLib_fnc_localEvent;";
         };
 
         class SquadTypeCombo : PRA3_RscCombo {
@@ -67,7 +67,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             w = PX(8);
             h = PY(3);
 
-            onButtonClick = "'PRA3_UI_RespawnScreen_CreateSquadBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
+            onButtonClick = "'PRA3_UI_RespawnScreen_CreateSquadBtn_onButtonClick' call CLib_fnc_localEvent;";
         };
 
         class SquadList : PRA3_RscListNBox {
@@ -79,7 +79,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
 
             columns[] = {0,0.075,0.5,0.85};
 
-            onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
+            onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadList_onLBSelChanged' call CLib_fnc_localEvent;";
         };
 
         class BackgroundSquadDetails : RscPicture {
@@ -109,7 +109,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
 
             columns[] = {0};
 
-            onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadMemberList_onLBSelChanged' call PRA3_Core_fnc_localEvent;";
+            onLBSelChanged = "'PRA3_UI_RespawnScreen_SquadMemberList_onLBSelChanged' call CLib_fnc_localEvent;";
         };
 
         class JoinLeaveBtn : PRA3_RscButtonMenu {
@@ -120,7 +120,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             w = PX(6);
             h = PY(3);
 
-            onButtonClick = "'PRA3_UI_RespawnScreen_JoinLeaveBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
+            onButtonClick = "'PRA3_UI_RespawnScreen_JoinLeaveBtn_onButtonClick' call CLib_fnc_localEvent;";
         };
 
         class KickBtn : PRA3_RscButtonMenu {
@@ -131,7 +131,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             w = PX(6);
             h = PY(3);
 
-            onButtonClick = "'PRA3_UI_RespawnScreen_KickBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
+            onButtonClick = "'PRA3_UI_RespawnScreen_KickBtn_onButtonClick' call CLib_fnc_localEvent;";
         };
 
         class PromoteBtn : PRA3_RscButtonMenu {
@@ -142,7 +142,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
             w = PX(9);
             h = PY(3);
 
-            onButtonClick = "'PRA3_UI_RespawnScreen_PromoteBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
+            onButtonClick = "'PRA3_UI_RespawnScreen_PromoteBtn_onButtonClick' call CLib_fnc_localEvent;";
         };
     };
 };

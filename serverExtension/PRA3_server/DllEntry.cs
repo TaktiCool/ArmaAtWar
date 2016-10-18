@@ -145,7 +145,7 @@ namespace PRA3_server
 			{
 				Directory.CreateDirectory(path);
 			}
-			// @Todo let the user define the File format
+			// TODO let the user define the File format
 			StreamWriter file = new System.IO.StreamWriter(path + string.Format("\\PRA3Log_{0}_{1}.{2}", startTime, inputParts[0], "log"), true);
 			file.WriteLine(currentDate("[{3}:{4}:{5}]") + inputParts[1]);
 			file.Close();

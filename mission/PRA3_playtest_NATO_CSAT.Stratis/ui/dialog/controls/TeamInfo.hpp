@@ -42,7 +42,7 @@ class PRA3_UI_TeamInfo : RscControlsGroupNoScrollbars {
             y = PY(0.75);
             w = PX(8);
             h = PY(3);
-            onButtonClick = "'PRA3_UI_RespawnScreen_ChangeSideBtn_onButtonClick' call PRA3_Core_fnc_localEvent;";
+            onButtonClick = "'PRA3_UI_RespawnScreen_ChangeSideBtn_onButtonClick' call CLib_fnc_localEvent;";
         };
     };
 };

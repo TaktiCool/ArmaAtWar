@@ -15,8 +15,6 @@
 */
 params ["_intensity"];
 
-disableSerialization;
-
 private _firstInit = false;
 if (isnull (uinamespace getVariable ["RscHealthTextures", displayNull])) then {
     ([QGVAR(PPBloodEffect)] call bis_fnc_rscLayer) cutRsc ["RscHealthTextures","plain"];
@@ -69,7 +67,6 @@ _texMiddle ctrlCommit 0.1;
 _texUpper ctrlCommit 0.1;
 
 private _fadeOut = {
-    disableSerialization;
     params ["_tex", "_time"];
     _tex ctrlsetfade 1;
     _tex ctrlCommit _time;

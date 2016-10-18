@@ -50,7 +50,7 @@ DFUNC(showCompass) = {
     call FUNC(showCompass);
 }] call CFUNC(addEventHandler);
 
-//@todo handle removal of the marker according to engine specs
+// TODO handle removal of the marker according to engine specs
 addMissionEventHandler ["MapSingleClick", {
     params ["_units", "_position", "_alt", "_shift"];
 
@@ -66,15 +66,13 @@ addMissionEventHandler ["MapSingleClick", {
     addMissionEventHandler ["Draw3D", {
         PERFORMANCECOUNTER_START(CompassUI)
 
-        disableSerialization;
-
         // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
         if (isNull _dialog) exitWith {};
 
         private _viewDirectionVector = (positionCameraToWorld [0, 0, 0]) vectorDiff (positionCameraToWorld [0, 0, -1]);
         private _viewDirection = ((_viewDirectionVector select 0) atan2 (_viewDirectionVector select 1) + 360) % 360;
-        private _currentPosition = getPosVisual PRA3_Player;
+        private _currentPosition = getPosVisual CLib_Player;
 
         // Shift the control group to view direction
         private _control = _dialog displayCtrl 7100;
@@ -210,14 +208,14 @@ addMissionEventHandler ["MapSingleClick", {
         private _nextIconMarkerControl = 0;
 
         private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
-        private _sideColor = +(missionNamespace getVariable format [QEGVAR(Mission,SideColor_%1), playerSide]);
+        private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
         {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
-            if (_x != PRA3_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle PRA3_Player))) then {
+            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle CLib_Player))) then {
                 private _unitPosition = getPosVisual _x;
                 private _relativeVectorToUnit = _unitPosition vectorDiff _currentPosition;
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
@@ -242,8 +240,8 @@ addMissionEventHandler ["MapSingleClick", {
 
                 _control ctrlSetText _icon;
 
-                private _color = [_sideColor, _groupColor] select (group PRA3_Player == group _x);
-                _color set [3, ((1 - 0.2 * ((PRA3_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
+                private _color = [_sideColor, _groupColor] select (group CLib_Player == group _x);
+                _color set [3, ((1 - 0.2 * ((CLib_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
                 _control ctrlSetTextColor _color;
 
                 private _positionCenter = [PX(_compassAngle * 0.5) - ((_size select 0) / 2), PY(0.75) - ((_size select 1) / 2)];

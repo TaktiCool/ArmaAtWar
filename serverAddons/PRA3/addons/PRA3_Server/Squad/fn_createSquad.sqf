@@ -36,5 +36,5 @@
     _newGroup setVariable [QGVAR(Description), _description, true];
     _newGroup setVariable [QGVAR(Type), _type, true];
 
-    [PRA3_Player] join _newGroup;
+    [CLib_Player] join _newGroup;
 }, _this, "respawn"] call CFUNC(mutex);

@@ -1,3 +1,3 @@
 enableSaving [false, false];
-
-(getArray (missionConfigFile >> "PRA3" >> "loadModules")) call PRA3_Core_fnc_loadModules;
+waitUntil {!isNil "CLib_fnc_loadModules"};
+call CLib_fnc_loadModules;

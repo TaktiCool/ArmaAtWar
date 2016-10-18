@@ -1,5 +1,5 @@
 enableSaving [false, false];
 enableEnvironment false;
 enableSentences false;
-// disableRemoteSensors true;
-(getArray (missionConfigFile >> "PRA3" >> "loadModules")) call PRA3_Core_fnc_loadModules;
+waitUntil {!isNil "CLib_fnc_loadModules"};
+call CLib_fnc_loadModules;

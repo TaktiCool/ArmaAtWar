@@ -17,8 +17,8 @@ params ["_unit"];
 private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
 detach _draggedObject;
 _unit playAction "released";
-if (_unit == PRA3_Player) then {
-    ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
+if (_unit == CLib_Player) then {
+    ["forceWalk","Logistic",false] call CFUNC(setStatusEffect);
 };
 if (isNull _draggedObject) exitWith {};
 ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);

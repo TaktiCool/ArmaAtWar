@@ -69,5 +69,8 @@ if !(_content isEqualTo []) then {
     } count _content;
 
 };
+
+_crateObject call FUNC(setLogisticVariables);
+
 // Unhide the Cargo after Filling
 _crateObject hideObjectGlobal false;

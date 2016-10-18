@@ -1,2 +1,0 @@
-// CompassUI
-PREP(serverInit)

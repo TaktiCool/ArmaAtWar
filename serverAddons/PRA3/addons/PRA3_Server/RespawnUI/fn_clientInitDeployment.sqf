@@ -39,7 +39,7 @@
     private _control = _display displayCtrl 404;
 
     // Calculate the respawn timer if necessary
-    if (!(alive PRA3_Player) || (PRA3_Player getVariable [QCGVAR(tempUnit), false])) then {
+    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
         [{
@@ -74,7 +74,7 @@
     private _roleDisplay = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _deploymentDisplay || isNull _roleDisplay) exitWith {};
 
-    if (alive PRA3_Player && !(PRA3_Player getVariable [QCGVAR(tempUnit), false])) exitWith {
+    if (alive CLib_Player && !(CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) exitWith {
         _deploymentDisplay closeDisplay 1;
     };
 
@@ -83,21 +83,21 @@
         params ["_deploymentDisplay", "_roleDisplay"];
 
         // Check squad
-        if (!((groupId group PRA3_Player) in EGVAR(Squad,squadIds))) exitWith {
-            ["You have to join a squad!"] call CFUNC(displayNotification);
+        if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
+            [MLOC(JoinASquad)] call EFUNC(Common,displayNotification);
         };
 
         // Check kit
         private _currentRoleSelection = lnbCurSelRow (_roleDisplay displayCtrl 303);
         if (_currentRoleSelection < 0) exitWith {
-            ["You have to select a role!"] call CFUNC(displayNotification);
+            [MLOC(ChooseARole)] call EFUNC(Common,displayNotification);
         };
 
         // Check deployment
         private _controlDeploymentList = _deploymentDisplay displayCtrl 403;
         private _currentDeploymentPointSelection = lnbCurSelRow _controlDeploymentList;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            ["You have to select a spawnpoint!"] call CFUNC(displayNotification);
+            [MLOC(selectSpawn)] call EFUNC(Common,displayNotification);
         };
 
         // Get position
@@ -110,14 +110,14 @@
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf PRA3_Player] call CFUNC(findSavePosition))] call CFUNC(respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
 
             [{
                 // Fix issue that player spawn Prone
-                ["switchMove", [PRA3_Player, ""]] call CFUNC(globalEvent);
+                ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
 
                 // Apply selected kit
-                [PRA3_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                [CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
             }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
@@ -129,13 +129,13 @@
 }] call CFUNC(addEventHandler);
 
 [QEGVAR(Deployment,pointAdded), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 [QEGVAR(Deployment,pointRemoved), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 [QEGVAR(Deployment,ticketsChanged), {
-    [UIVAR(RespawnScreen_DeploymentManagement_update), group PRA3_Player] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // This EH updates the deployment list
@@ -153,7 +153,7 @@
 
         _lnbData pushBack [[_name], _x, _icon];
         nil
-    } count (call EFUNC(Deployment,getAvailablePoints)); //@todo use current position if deployment is deactivated
+    } count (call EFUNC(Deployment,getAvailablePoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -161,7 +161,7 @@
 
 // When the selected entry changed animate the map
 [UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
-    //@todo only animate if really changed
+    // TODO only animate if really changed
     UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 

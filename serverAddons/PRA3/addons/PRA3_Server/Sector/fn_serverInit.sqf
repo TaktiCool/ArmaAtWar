@@ -23,7 +23,7 @@ GVAR(ServerInitDone) = false;
         GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
 
         GVAR(allSectorsArray) = [];
-        private _sectors = "true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors");
+        private _sectors = "true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors");
 
         {
             if ((configName _x find "base") >= 0) then {
@@ -32,7 +32,7 @@ GVAR(ServerInitDone) = false;
             nil;
         } count _sectors;
 
-        private _path = selectRandom ("true" configClasses (missionConfigFile >> "PRA3" >> "CfgSectors" >> "CfgSectorPath"));
+        private _path = selectRandom ("true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath"));
 
         {
             [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketValue"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
