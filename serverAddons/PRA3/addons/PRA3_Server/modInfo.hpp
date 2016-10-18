@@ -3,7 +3,7 @@
 #define MOD PRA3_Server
 
 #define MAJOR 0
-#define MINOR 12
+#define MINOR 13
 #define PATCHLVL 0
 #define BUILD 1512
 
