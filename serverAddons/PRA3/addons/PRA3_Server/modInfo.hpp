@@ -5,7 +5,7 @@
 #define MAJOR 0
 #define MINOR 12
 #define PATCHLVL 0
-#define BUILD 1464
+#define BUILD 1512
 
 // dont release with this setting enabled
 // #define DEBUGFULL // enable all Debug Methods
