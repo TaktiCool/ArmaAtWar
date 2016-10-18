@@ -24,7 +24,7 @@
             private _cond = false;
             {
                 //hintSilent format ["TEST: %1", _x getVariable [QGVAR(isUnconscious), false]];
-                if (_x getVariable [QGVAR(isUnconscious), false]) then {
+                if (alive _x && _x getVariable [QGVAR(isUnconscious), false]) then {
                     _cond = true;
                     breakTo "ActionCondition";
                 };
