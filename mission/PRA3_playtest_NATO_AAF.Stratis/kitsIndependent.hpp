@@ -238,6 +238,7 @@ class Kits {
 
         primaryMagazine = "5Rnd_127x108_Mag";
         primaryMagazineCount = 7;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 

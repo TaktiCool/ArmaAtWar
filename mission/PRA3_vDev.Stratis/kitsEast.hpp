@@ -230,7 +230,7 @@ class Kits {
 
         displayName = "Sniper";
 
-
+        uniform = "U_O_GhillieSuit";
         backpack = "B_TacticalPack_ocamo";
 
         primaryWeapon = "srifle_GM6_F";
@@ -238,6 +238,7 @@ class Kits {
 
         primaryMagazine = "5Rnd_127x108_Mag";
         primaryMagazineCount = 7;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 

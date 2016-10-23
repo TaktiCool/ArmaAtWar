@@ -203,7 +203,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_O_CombatUniform_ocamo";
+        uniform = "U_B_CombatUniform_ocamo";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
@@ -234,6 +234,7 @@ class Kits {
 
         primaryMagazine = "7Rnd_408_Mag";
         primaryMagazineCount = 5;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 
