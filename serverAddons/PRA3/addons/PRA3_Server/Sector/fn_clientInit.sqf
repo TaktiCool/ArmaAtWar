@@ -52,7 +52,7 @@ GVAR(currentSector) = objNull;
     };
 
     if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
-        [format [MLOC(YourSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
+        [format [MLOC(YouSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide],[0,1,0,1]]] call EFUNC(Common,displayNotification);
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
