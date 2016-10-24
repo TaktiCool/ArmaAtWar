@@ -58,9 +58,9 @@
             params ["_position"];
             CLib_Player setPosASL _position;
 
-            if !(CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
-                if (driver CLib_Player == CLib_Player) then {
-                    [QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
+            if (CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
+                if (vehicle CLib_Player == CLib_Player) then {
+                    [CLib_Player, "unconsciousrevivedefault"] call CFUNC(doAnimation);
                 };
             };
         }, 0.5, [_position]] call CFUNC(wait);
