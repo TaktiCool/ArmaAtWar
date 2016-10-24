@@ -35,7 +35,7 @@ private _onStart = {
 };
 
 private _onProgress = {
-    (time - GVAR(forceRespawnStartTime))/5;
+    (time - GVAR(forceRespawnStartTime))/1.5;
 };
 
 private _onComplete = {
