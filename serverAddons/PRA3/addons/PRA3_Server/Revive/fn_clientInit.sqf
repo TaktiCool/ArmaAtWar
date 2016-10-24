@@ -51,7 +51,7 @@
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x > 0) then {
 
 
-                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", _color, [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [1,1,1,1], [_x, "pelvis",[0,0,0]], 5, 5, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -61,7 +61,7 @@
 
                     private _distance = _cameraPosASL vectorDistance _pelvisPositionASL;
 
-                    if (_distance > 100 || _distance < 3) exitWith {false};
+                    if (_distance > 100 || _distance < 2) exitWith {false};
 
                     private _size = (1 / _distance) ^ 0.7;
 
@@ -75,7 +75,7 @@
                     true;
                 }];
                 private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
-                _icons pushBack ["ICON", _icon, _color, [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", _icon, [1,1,1,1], [_x, "pelvis",[0,0,0]], 5, 5, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -85,7 +85,7 @@
 
                     private _distance = _cameraPosASL vectorDistance _pelvisPositionASL;
 
-                    if (_distance > 100 || _distance < 3) exitWith {false};
+                    if (_distance > 100 || _distance < 2) exitWith {false};
 
                     if (_unit getVariable [QGVAR(isUnconscious), false]) then {
                         private _iconFormat = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\%1_ca.paa";
