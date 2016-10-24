@@ -78,7 +78,7 @@
                     _width = _size * _width;
                     _height = _size * _height;
 
-                    _color set [3, _alpha*0.3];
+                    _color set [3, _alpha];
 
                     true;
                 }];
