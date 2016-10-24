@@ -51,7 +51,7 @@
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x > 0) then {
 
 
-                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [1,1,1,1], [_x, "pelvis",[0,0,0]], 5, 5, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -62,11 +62,19 @@
                     private _distance = _cameraPosASL vectorDistance _pelvisPositionASL;
 
                     if (_distance > 100 || _distance < 2) exitWith {false};
+                    private _size = 1;
+                    private _alpha = 1;
+                    if (_distance >= 7) then {
+                        _size = (7 / _distance) ^ 0.7;
+                        _alpha = _size;
 
-                    private _size = (1 / _distance) ^ 0.7;
+                        if (_distance >=30) then {
+                            // linear fade out
+                            _alpha = (1 - (_distance - 30) / 20) * _alpha;
+                        };
+                    };
 
                     _size = _size * _fov;
-                    private _alpha = _size min 1;
                     _width = _size * _width;
                     _height = _size * _height;
 
@@ -75,7 +83,7 @@
                     true;
                 }];
                 private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
-                _icons pushBack ["ICON", _icon, [1,1,1,1], [_x, "pelvis",[0,0,0]], 5, 5, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", _icon, [1,1,1,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -99,10 +107,20 @@
                         _texture = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\r100_ca.paa";
                     };
 
-                    private _size = (1 / _distance) ^ 0.7;
+                    private _size = 1;
+                    private _alpha = 1;
+
+                    if (_distance >= 7) then {
+                        _size = (7 / _distance) ^ 0.7;
+                        _alpha = _size;
+
+                        if (_distance >=30) then {
+                            // linear fade out
+                            _alpha = (1 - (_distance - 30) / 20) * _alpha;
+                        };
+                    };
 
                     _size = _size * _fov;
-                    private _alpha = _size min 1;
                     _width = _size * _width;
                     _height = _size * _height;
 
