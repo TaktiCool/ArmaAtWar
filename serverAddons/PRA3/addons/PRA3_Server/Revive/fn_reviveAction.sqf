@@ -20,7 +20,7 @@ private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\u100_ca.paa"
 private _condition = {
     alive _target &&
     alive CLib_Player &&
-    (CLib_Player getVariable [QGVAR(isUnconscious), false]) &&
+    !(CLib_Player getVariable [QGVAR(isUnconscious), false]) &&
     (_target distance CLib_Player < 3) &&
     (_target getVariable [QGVAR(isUnconscious),false]) &&
     (side group _target == side group CLib_Player)

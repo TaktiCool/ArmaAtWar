@@ -19,7 +19,7 @@ private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_revive_ca
 private _condition = {
     alive _target &&
     alive CLib_Player &&
-    (CLib_Player getVariable [QGVAR(isUnconscious), false]) &&
+    !(CLib_Player getVariable [QGVAR(isUnconscious), false]) &&
     !(_target getVariable [QGVAR(isUnconscious), false]) &&
     (_target distance CLib_Player < 3) &&
     (side group _target == side group CLib_Player)
