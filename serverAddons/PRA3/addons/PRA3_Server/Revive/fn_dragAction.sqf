@@ -19,7 +19,7 @@ DFUNC(dropPlayer) = {
     private _draggedObject = _unit getVariable [QGVAR(draggedPlayer), objNull];
     detach _draggedObject;
     _unit playAction "released";
-    [_draggedObject, "unconsciousrevivedefault"] call CFUNC(doAnimation);
+    [_draggedObject, "unconsciousrevivedefault",1 ] call CFUNC(doAnimation);
     //[QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
 
     if (isNull _draggedObject) exitWith {};
@@ -40,7 +40,7 @@ DFUNC(dropPlayer) = {
     "CAManBase",
     2,
     {
-        alive _target && _target getVariable [QGVAR(isUnconscious),false];
+        alive _target && _target getVariable [QGVAR(isUnconscious),false]
     },
     {
         params ["_draggedUnit"];
@@ -61,16 +61,17 @@ DFUNC(dropPlayer) = {
 
             _unit playActionNow "grabDrag";
 
-            [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab"] call CFUNC(doAnimation);
+            [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab", 1] call CFUNC(doAnimation);
             [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(targetEvent);
 
             [{
                 params ["_args", "_id"];
-                _args params ["_unit"];
-                if (_unit == vehicle _unit && alive _unit && alive CLib_Player && !(CLib_Player getVariable [QGVAR(isUnconscious), false]) && (_unit getVariable [QGVAR(isUnconscious), false]) ) exitWith {};
-                [_unit] call FUNC(dropPlayer);
-                [_id] call CFUNC(removePerFrameHandler);
-            }, 1,_unit] call CFUNC(addPerFrameHandler);
+                _args params ["_draggedUnit", "_unit"];
+                if (_unit == vehicle _unit && alive _draggedUnit && alive _unit && !(_unit getVariable [QGVAR(isUnconscious), false]) && (_draggedUnit getVariable [QGVAR(isUnconscious), false])) then {
+                    [_unit] call FUNC(dropPlayer);
+                    [_id] call CFUNC(removePerFrameHandler);
+                };
+            }, 1,[_draggedUnit, _unit]] call CFUNC(addPerFrameHandler);
         }, [_draggedUnit, CLib_Player], "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
