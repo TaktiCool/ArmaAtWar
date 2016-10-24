@@ -21,9 +21,9 @@
 
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
 if (!(local _unit) || !(alive _unit) || (_unit != CLib_Player)) exitWith {};
-DUMP(_this);
-DUMP(getAllHitPointsDamage CLib_Player select 2);
-DUMP(damage CLib_Player);
+//DUMP(_this);
+//DUMP(getAllHitPointsDamage CLib_Player select 2);
+//DUMP(damage CLib_Player);
 private _returnedDamage = _damage;
 private _damageReceived = 0;
 private _maxDamage = 0.95;
@@ -31,22 +31,13 @@ private _maxDamage = 0.95;
 if (_hitPartIndex >= 0) then {
     private _lastDamage = CLib_Player getHit _selectionName;
     _damageReceived = (_damage - _lastDamage) max 0;
-    //if (_damageReceived < 0.1) then {
-    //    _returnedDamage = _lastDamage;
-    //} else {
-        [_damageReceived] call FUNC(bloodEffect);
-    //};
-
+    [_damageReceived] call FUNC(bloodEffect);
 };
 
 if (_hitPartIndex <= 7) then {
     if (_damage >= 1) then {
-        //if (_unit == vehicle _unit) then {
-            [true] call FUNC(setUnconscious);
-            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived min 1)];
-        //} else {
-            //_maxDamage = _damage;
-        //};
+        [true] call FUNC(setUnconscious);
+        CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived min 1)];
     };
 };
 

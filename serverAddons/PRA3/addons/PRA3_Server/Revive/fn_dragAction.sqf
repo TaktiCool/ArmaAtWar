@@ -19,12 +19,9 @@ DFUNC(dropPlayer) = {
     private _draggedObject = _unit getVariable [QGVAR(draggedPlayer), objNull];
     detach _draggedObject;
     _unit playAction "released";
-    [QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
-    /*
-    if (_unit == CLib_Player) then {
-        ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
-    };
-    */
+    [_draggedObject, "unconsciousrevivedefault"] call CFUNC(doAnimation);
+    //[QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
+
     if (isNull _draggedObject) exitWith {};
     ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
     _unit setVariable [QGVAR(draggedPlayer), objNull, true];
@@ -64,12 +61,13 @@ DFUNC(dropPlayer) = {
 
             _unit playActionNow "grabDrag";
 
-            [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(globalEvent);
+            [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab"] call CFUNC(doAnimation);
+            [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(targetEvent);
 
             [{
                 params ["_args", "_id"];
                 _args params ["_unit"];
-                if (_unit == vehicle _unit) exitWith {};
+                if (_unit == vehicle _unit && alive _unit && alive CLib_Player && !(CLib_Player getVariable [QGVAR(isUnconscious), false]) && (_unit getVariable [QGVAR(isUnconscious), false]) ) exitWith {};
                 [_unit] call FUNC(dropPlayer);
                 [_id] call CFUNC(removePerFrameHandler);
             }, 1,_unit] call CFUNC(addPerFrameHandler);
@@ -79,17 +77,7 @@ DFUNC(dropPlayer) = {
 
 [QGVAR(startGettingDraggedAnimation), {
     (_this select 0) params ["_unit"];
-    if (local _unit) then {
-        _unit setDir 180;
-    };
-
-    _unit switchMove "AinjPpneMrunSnonWnonDb_grab";
-
-}] call CFUNC(addEventhandler);
-
-[QGVAR(stopGettingDraggedAnimation), {
-    (_this select 0) params ["_unit"];
-    _unit switchMove "unconsciousrevivedefault";
+    _unit setDir 180;
 }] call CFUNC(addEventhandler);
 
 
