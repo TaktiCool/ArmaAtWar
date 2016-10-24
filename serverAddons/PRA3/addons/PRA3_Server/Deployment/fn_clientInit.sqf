@@ -54,7 +54,7 @@ GVAR(pointMarkerIds) = [];
         };
 
         nil
-    } count (_availablePoints - _existingMapIconPoints);
+    } count _availablePoints;
 
     GVAR(pointMarkerIds) = _availablePoints;
 }] call CFUNC(addEventHandler);
