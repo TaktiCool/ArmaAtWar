@@ -33,8 +33,16 @@
     _newUnit setVariable [QGVAR(isUnconscious), false, true];
 }] call CFUNC(addEventHandler);
 
+GVAR(draw3dIcons) = false;
+
 [{
-    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {};
+    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {
+        if (GVAR(draw3dIcons)) then {
+            [QGVAR(Icons)] call CFUNC(remove3dGraphics);
+        };
+        GVAR(draw3dIcons) = false;
+    };
+    GVAR(draw3dIcons) = true;
     private _nearUnits = [positionCameraToWorld [0, 0, 0], 100] call CFUNC(getNearUnits);
 
     private _icons = [];
