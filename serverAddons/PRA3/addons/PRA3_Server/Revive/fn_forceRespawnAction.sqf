@@ -43,6 +43,7 @@ private _onComplete = {
 
     _caller setVariable [QGVAR(forceRespawn), false, true];
     GVAR(forceRespawnStartTime) = -1;
+    _caller setUnconscious false;
     _caller setDamage 1;
 };
 

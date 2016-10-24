@@ -26,6 +26,7 @@ GVAR(bleedoutTimer) = -1;
             };
 
             if (CLib_Player != vehicle CLib_Player && {damage vehicle CLib_Player == 1}) exitWith {
+                CLib_Player setUnconscious false;
                 CLib_Player setDamage 1;
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
@@ -37,6 +38,7 @@ GVAR(bleedoutTimer) = -1;
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
 
                 if (_bloodLevel <= 0) then {
+                    CLib_Player setUnconscious false;
                     CLib_Player setDamage 1;
                     GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                     GVAR(bleedoutTimer) = -1;
