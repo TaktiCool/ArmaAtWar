@@ -28,11 +28,12 @@
 }] call CFUNC(addEventHandler);
 
 // bug Fix for JIP and VehicleVarName
-["entityCreated", {
-    (_this select 0) params ["_entity"];
-    if (vehicleVarName _entity != "") exitWith {};
-    private _varName = _entity getVariable [QGVAR(vehicleVarName), ""];
-    if (_varName != "") then {
-        _entity setVehicleVarName _varName;
+{
+    if (vehicleVarName _entity == "") then {
+        private _varName = _entity getVariable [QGVAR(vehicleVarName), ""];
+        if (_varName != "") then {
+            _entity setVehicleVarName _varName;
+        };
     };
-}] call CFUNC(addEventhandler);
+    nil
+} count ((entities "") - allUnits) + allUnits);
