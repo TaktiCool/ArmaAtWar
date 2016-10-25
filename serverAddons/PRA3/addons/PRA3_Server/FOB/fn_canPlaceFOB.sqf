@@ -58,7 +58,7 @@ private _rallyNearPlayer = false;
         };
     };
     nil
-} count (call FUNC(getAvailablePoints));
+} count (call EFUNC(Common,getAvailablePoints));
 if (_rallyNearPlayer) exitWith {false};
 */
 true
