@@ -19,7 +19,8 @@
     private _entityClass = typeOf _entity;
     private _entityClasses = [_entityClass];
     _entityClasses append ([(configFile >> "CfgVehicles" >> _entityClass), true] call CFUNC(returnParents));
-    _entityClasses pushBack vehicleVarName _entity;
+    _entityClasses pushBack (vehicleVarName _entity);
+    _entityClasses pushBack (str _entity);
     {
         {
             private _var = call {

@@ -41,6 +41,7 @@ if (!isNull _vehicle) then {
         _vehicle setDir _direction;
         ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
         missionNamespace setVariable [_varName, _vehicle, true];
+        _vehicle setVariable [QGVAR(vehicleVarName), _varName, true];
         clearItemCargoGlobal _vehicle;
         clearMagazineCargoGlobal _vehicle;
         clearWeaponCargoGlobal _vehicle;
