@@ -64,20 +64,26 @@ class CfgCLibModules {
         // Rally System
         MODULE(Rally) {
             dependency[] = {"PRA3/Common"};
-            FNC(serverInitRally);
-            FNC(clientInitRally);
-            FNC(placeRally);
-            FNC(destroyRally);
-            FNC(canPlaceRally);
+            FNC(serverInit);
+            FNC(clientInit);
+            FNC(place);
+            FNC(destroy);
+            FNC(canPlace);
         };
 
         // FOB system
         MODULE(FOB) {
             dependency[] = {"PRA3/Common"};
-            FNC(clientInitFOB);
-            FNC(placeFOB);
-            FNC(destroyFOB);
-            FNC(canPlaceFOB);
+            FNC(clientInit);
+            FNC(place);
+            FNC(destroy);
+            FNC(canPlace);
+        };
+
+        // SquadRespawn system
+        MODULE(FOB) {
+            dependency[] = {"PRA3/Common"};
+            FNC(clientInit);
         };
 
         // GarbageCollector
