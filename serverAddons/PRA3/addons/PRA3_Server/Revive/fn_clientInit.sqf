@@ -33,8 +33,16 @@
     _newUnit setVariable [QGVAR(isUnconscious), false, true];
 }] call CFUNC(addEventHandler);
 
+GVAR(draw3dIcons) = false;
+
 [{
-    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {};
+    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {
+        if (GVAR(draw3dIcons)) then {
+            [QGVAR(Icons)] call CFUNC(remove3dGraphics);
+        };
+        GVAR(draw3dIcons) = false;
+    };
+    GVAR(draw3dIcons) = true;
     private _nearUnits = [positionCameraToWorld [0, 0, 0], 100] call CFUNC(getNearUnits);
 
     private _icons = [];
@@ -51,7 +59,7 @@
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x > 0) then {
 
 
-                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,0.3], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 2, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -78,7 +86,7 @@
                     _width = _size * _width;
                     _height = _size * _height;
 
-                    _color set [3, _alpha*0.3];
+                    _color set [3, _alpha];
 
                     true;
                 }];
