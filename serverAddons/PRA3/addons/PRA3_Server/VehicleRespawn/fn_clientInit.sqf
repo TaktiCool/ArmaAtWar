@@ -29,10 +29,10 @@
 
 // bug Fix for JIP and VehicleVarName
 {
-    if (vehicleVarName _entity == "") then {
-        private _varName = _entity getVariable [QGVAR(vehicleVarName), ""];
+    if (vehicleVarName _x == "") then {
+        private _varName = _x getVariable [QGVAR(vehicleVarName), ""];
         if (_varName != "") then {
-            _entity setVehicleVarName _varName;
+            _x setVehicleVarName _varName;
         };
     };
     nil
