@@ -36,4 +36,4 @@
         };
     };
     nil
-} count ((entities "") - allUnits) + allUnits);
+} count (((entities "") - allUnits) + allUnits);
