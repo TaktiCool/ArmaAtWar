@@ -92,7 +92,6 @@ class CfgCLibModules {
             FNC(getKitDetails);
             FNC(getUsableKitCount);
             FNC(applyKit);
-            FNC(checkVehicleRestrictions);
         };
 
         // Logistic
