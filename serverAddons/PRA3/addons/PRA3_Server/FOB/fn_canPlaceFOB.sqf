@@ -25,7 +25,7 @@ if (vehicle CLib_Player != CLib_Player) exitWith {false};
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _fobNearPlayer = false;
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    private _pointDetails = EGVAR(Common,pointStorage) getVariable _x;
     _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
 
     // Ignore RPs
@@ -35,7 +35,7 @@ private _fobNearPlayer = false;
         };
     };
     nil
-} count (call FUNC(getAvailablePoints));
+} count (call EFUNC(Common,getAvailablePoints));
 if (_fobNearPlayer) exitWith {false};
 
 // Check near enemies
@@ -48,7 +48,7 @@ if (_enemyCount >= _maxEnemyPlace) exitWith {false};
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    private _pointDetails = EGVAR(Common,pointStorage) getVariable _x;
     _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
 
     // Ignore RPs

@@ -17,7 +17,7 @@
 
 [{
     {
-        private _pointDetails = GVAR(pointStorage) getVariable _x;
+        private _pointDetails = EGVAR(Common,pointStorage) getVariable _x;
         if (!(isNil "_pointDetails")) then {
             _pointDetails params ["_name", "_position", "_availableFor"];
 
@@ -39,5 +39,5 @@
             };
         };
         nil
-    } count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
+    } count ([EGVAR(Common,pointStorage), QEGVAR(Common,pointStorage)] call CFUNC(allVariables));
 }, 0.2] call CFUNC(addPerFrameHandler);

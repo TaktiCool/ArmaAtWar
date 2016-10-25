@@ -34,7 +34,7 @@ if (_count < _nearPlayerToBuild) exitWith {false};
 private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    private _pointDetails = EGVAR(Common,pointStorage) getVariable _x;
     if (!(isNil "_pointDetails")) then {
         private _pointPosition = _pointDetails select 1;
         if ((CLib_Player distance _pointPosition) < _minDistance) exitWith {
@@ -42,7 +42,7 @@ private _rallyNearPlayer = false;
         };
     };
     nil
-} count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
+} count ([EGVAR(Common,pointStorage), QEGVAR(Common,pointStorage)] call CFUNC(allVariables));
 if (_rallyNearPlayer) exitWith {false};
 
 true

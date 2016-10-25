@@ -93,13 +93,12 @@ class CfgCLibLocalisation {
         };
     };
 
-    // Deployment
-    class PRA3_Deployment {
+    // - Rally
+    class PRA3_Rally {
         class SpawnsRemaining {
             English = "%1 (%2 spawns remaining)";
             German = "%1 (%2 Spawns übrig)";
         };
-        // - Rally
         class CreateRally {
             English = "Create Rally Point";
             German = "Platziere Rally Punkt";
@@ -112,8 +111,10 @@ class CfgCLibLocalisation {
             English = "Your Squadleader has placed a rally near %1";
             German = "Dein Squadleader hat einen Rally nahe %1 erstellt";
         };
+    };
 
-        // - FOB
+    // - FOB
+    class PRA3_FOB {
         class FOBTakeDown {
             English = "Destroy FOB";
             German = "FOB zerstören";
@@ -126,7 +127,6 @@ class CfgCLibLocalisation {
             English = "Squad %1 has placed a FOB near %2";
             German = "Squad %1 hat ein FOB nahe %1 platziert";
         };
-
     };
 
     // Kit

@@ -49,7 +49,7 @@ params ["_target"];
     deleteVehicle _target;
 
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
-    private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call FUNC(addPoint);
+    private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call EFUNC(Common,addPoint);
 
     (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
     (_pointObjects select 0) setVariable [QGVAR(side), playerSide, true];

@@ -17,6 +17,16 @@ class CfgCLibModules {
             FNC(getNearestLocationName);
             FNC(isAlive);
 
+
+            MODULE(Deployment) {
+                FNC(serverInit);
+                FNC(clientInit);
+                FNC(addPoint);
+                FNC(removePoint);
+                FNC(getAvailablePoints);
+                FNC(prepareSpawn);
+            };
+
             //Entity Variables
             MODULE(EntityVariables) {
                 FNC(initEntityVariables);
@@ -51,31 +61,23 @@ class CfgCLibModules {
             FNC(addLineMarker);
         };
 
-        MODULE(Deployment) {
+        // Rally System
+        MODULE(Rally) {
             dependency[] = {"PRA3/Common"};
-            FNC(serverInit);
-            FNC(clientInit);
-            FNC(addPoint);
-            FNC(removePoint);
-            FNC(getAvailablePoints);
-            FNC(prepareSpawn);
+            FNC(serverInitRally);
+            FNC(clientInitRally);
+            FNC(placeRally);
+            FNC(destroyRally);
+            FNC(canPlaceRally);
+        };
 
-            // Rally System
-            MODULE(Rally) {
-                FNC(serverInitRally);
-                FNC(clientInitRally);
-                FNC(placeRally);
-                FNC(destroyRally);
-                FNC(canPlaceRally);
-            };
-
-            // FOB system
-            MODULE(FOB) {
-                FNC(clientInitFOB);
-                FNC(placeFOB);
-                FNC(destroyFOB);
-                FNC(canPlaceFOB);
-            };
+        // FOB system
+        MODULE(FOB) {
+            dependency[] = {"PRA3/Common"};
+            FNC(clientInitFOB);
+            FNC(placeFOB);
+            FNC(destroyFOB);
+            FNC(canPlaceFOB);
         };
 
         // GarbageCollector
@@ -115,7 +117,7 @@ class CfgCLibModules {
 
         // RespawnUI
         MODULE(RespawnUI) {
-            dependency[] = {"PRA3/Common", "PRA3/Deployment", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
+            dependency[] = {"PRA3/Common", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
             FNC(clientInit);
             FNC(clientInitDeployment);
             FNC(clientInitRole);
