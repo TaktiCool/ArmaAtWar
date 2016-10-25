@@ -14,14 +14,14 @@
     None
 */
 [{
-    if (!(call FUNC(canPlaceRally))) exitWith {};
+    if (!(call FUNC(canPlace))) exitWith {};
 
     private _position = CLib_Player modelToWorld [0,1,0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (CLib_Player distance _position >= 20) exitWith {
         [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
     };
 
-    [group CLib_Player] call FUNC(destroyRally);
+    [group CLib_Player] call FUNC(destroy);
 
     private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
     _pointObjects = _pointObjects apply {

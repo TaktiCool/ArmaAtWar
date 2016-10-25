@@ -28,8 +28,8 @@
  * ACTIONS
  */
 [QLSTRING(CreateRally), CLib_Player, 0, {
-    [QGVAR(isRallyPlaceable), FUNC(canPlaceRally), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
+    [QGVAR(isRallyPlaceable), FUNC(canPlace), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
 }, {
-    call FUNC(placeRally);
-    {QGVAR(ClearRallyPlaceable) call CFUNC(localEvent);} call CFUNC(execNextFrame);
+    call FUNC(place);
+    {QGVAR(ClearRallyPlaceable) call CFUNC(globalEvent);} call CFUNC(execNextFrame);
 }] call CFUNC(addAction);
