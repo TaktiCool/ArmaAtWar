@@ -48,3 +48,6 @@ serverExtension/packages/*
 
 # ArmA Files
 *.pbo
+
+# IDEA files
+.idea/
