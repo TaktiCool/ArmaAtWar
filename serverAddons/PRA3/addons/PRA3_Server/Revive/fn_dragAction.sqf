@@ -19,7 +19,7 @@ DFUNC(dropPlayer) = {
     private _draggedObject = _unit getVariable [QGVAR(draggedPlayer), objNull];
     detach _draggedObject;
     _unit playAction "released";
-    [_draggedObject, "unconsciousrevivedefault",1 ] call CFUNC(doAnimation);
+    ["switchMove", [_draggedObject, "unconsciousrevivedefault"]] call CFUNC(globalEvent);
     //[QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
 
     if (isNull _draggedObject) exitWith {};
@@ -61,13 +61,13 @@ DFUNC(dropPlayer) = {
 
             _unit playActionNow "grabDrag";
 
-            [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab", 1] call CFUNC(doAnimation);
-            [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(targetEvent);
+            ["switchMove", [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab"]] call CFUNC(globalEvent);
+            [QGVAR(startGettingDraggedAnimation), _draggedUnit] call CFUNC(targetEvent);
 
             [{
                 params ["_args", "_id"];
                 _args params ["_draggedUnit", "_unit"];
-                if (_unit == vehicle _unit && alive _draggedUnit && alive _unit && !(_unit getVariable [QGVAR(isUnconscious), false]) && (_draggedUnit getVariable [QGVAR(isUnconscious), false])) then {
+                if (_unit != vehicle _unit || !alive _draggedUnit || !alive _unit || (_unit getVariable [QGVAR(isUnconscious), false]) || !(_draggedUnit getVariable [QGVAR(isUnconscious), false])) then {
                     [_unit] call FUNC(dropPlayer);
                     [_id] call CFUNC(removePerFrameHandler);
                 };
@@ -77,8 +77,7 @@ DFUNC(dropPlayer) = {
 ] call CFUNC(addAction);
 
 [QGVAR(startGettingDraggedAnimation), {
-    (_this select 0) params ["_unit"];
-    _unit setDir 180;
+    CLib_Player setDir 180;
 }] call CFUNC(addEventhandler);
 
 
