@@ -19,7 +19,7 @@ DFUNC(dropPlayer) = {
     private _draggedObject = _unit getVariable [QGVAR(draggedPlayer), objNull];
     detach _draggedObject;
     _unit playAction "released";
-    [_draggedObject, "unconsciousrevivedefault",1 ] call CFUNC(doAnimation);
+    [_draggedObject, "unconsciousrevivedefault", 1] call CFUNC(doAnimation);
     //[QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
 
     if (isNull _draggedObject) exitWith {};
@@ -62,7 +62,7 @@ DFUNC(dropPlayer) = {
             _unit playActionNow "grabDrag";
 
             [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab", 1] call CFUNC(doAnimation);
-            [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(targetEvent);
+            [QGVAR(startGettingDraggedAnimation), _draggedUnit] call CFUNC(targetEvent);
 
             [{
                 params ["_args", "_id"];
@@ -77,8 +77,7 @@ DFUNC(dropPlayer) = {
 ] call CFUNC(addAction);
 
 [QGVAR(startGettingDraggedAnimation), {
-    (_this select 0) params ["_unit"];
-    _unit setDir 0;
+    CLib_Player setDir 180;
 }] call CFUNC(addEventhandler);
 
 
