@@ -78,7 +78,7 @@ DFUNC(dropPlayer) = {
 
 [QGVAR(startGettingDraggedAnimation), {
     (_this select 0) params ["_unit"];
-    _unit setDir 180;
+    _unit setDir 0;
 }] call CFUNC(addEventhandler);
 
 
