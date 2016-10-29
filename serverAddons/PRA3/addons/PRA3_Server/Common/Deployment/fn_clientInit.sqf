@@ -17,11 +17,11 @@
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QGVAR(pointAdded), {
+[QGVAR(deploymentPointAdded), {
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QGVAR(pointRemoved), {
+[QGVAR(deploymentPointRemoved), {
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
@@ -31,7 +31,7 @@
 
 GVAR(pointMarkerIds) = [];
 [QGVAR(updateMapIcons), {
-    private _availablePoints = call FUNC(getAvailablePoints);
+    private _availablePoints = call FUNC(getAvailableDeploymentPoints);
     private _existingMapIconPoints = GVAR(pointMarkerIds) arrayIntersect _availablePoints;
 
     {
@@ -40,7 +40,7 @@ GVAR(pointMarkerIds) = [];
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
     {
-        (GVAR(pointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
+        (GVAR(DeploymentPointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
         if (_mapIcon != "") then {
             private _icon = ["ICON",(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, [0, 0.87, 0, 1], _position, 25, 25, 0, "", 1];

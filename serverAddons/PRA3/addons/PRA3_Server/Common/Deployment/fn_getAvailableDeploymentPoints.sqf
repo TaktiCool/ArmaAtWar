@@ -16,7 +16,7 @@
 private _availablePoints = [];
 
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    private _pointDetails = GVAR(DeploymentPointStorage) getVariable _x;
     if (!(isNil "_pointDetails")) then {
         _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
 
@@ -25,6 +25,6 @@ private _availablePoints = [];
         };
     };
     nil
-} count ([GVAR(pointStorage), QGVAR(pointStorage)] call CFUNC(allVariables));
+} count ([GVAR(DeploymentPointStorage), QGVAR(DeploymentPointStorage)] call CFUNC(allVariables));
 
 _availablePoints

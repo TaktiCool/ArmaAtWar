@@ -23,8 +23,8 @@ params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapI
 
 private _id = format ["%1_%2", _name, _position];
 
-[GVAR(pointStorage), _id, [_name, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects], QGVAR(pointStorage), true] call CFUNC(setVariable);
+[GVAR(DeploymentPointStorage), _id, [_name, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 
-[QGVAR(pointAdded), _availableFor] call CFUNC(targetEvent);
+[QGVAR(deploymentPointAdded), _availableFor] call CFUNC(targetEvent);
 
 _id

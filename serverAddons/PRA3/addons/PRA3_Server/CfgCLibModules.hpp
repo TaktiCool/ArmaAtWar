@@ -21,9 +21,9 @@ class CfgCLibModules {
             MODULE(Deployment) {
                 FNC(serverInit);
                 FNC(clientInit);
-                FNC(addPoint);
-                FNC(removePoint);
-                FNC(getAvailablePoints);
+                FNC(addDeploymentPoint);
+                FNC(removeDeploymentPoint);
+                FNC(getAvailableDeploymentPoints);
                 FNC(prepareSpawn);
             };
 

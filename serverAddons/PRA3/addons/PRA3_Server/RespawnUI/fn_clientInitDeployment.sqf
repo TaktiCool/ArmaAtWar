@@ -128,10 +128,10 @@
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QEGVAR(Common,pointAdded), {
+[QEGVAR(Common,deploymentPointAdded), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
-[QEGVAR(Common,pointRemoved), {
+[QEGVAR(Common,deploymentPointRemoved), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 [QEGVAR(Common,ticketsChanged), {
@@ -146,14 +146,14 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        (EGVAR(Common,pointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_tickets", "_icon"];
+        (EGVAR(Common,DeploymentPointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_tickets", "_icon"];
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
         };
 
         _lnbData pushBack [[_name], _x, _icon];
         nil
-    } count (call EFUNC(Common,getAvailablePoints)); // TODO use current position if deployment is deactivated
+    } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -176,7 +176,7 @@
     private _selectedPoint = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // Get the point data
-    private _pointDetails = EGVAR(Common,pointStorage) getVariable _selectedPoint;
+    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _selectedPoint;
     private _position = _pointDetails select 1;
 
     // Animate the map

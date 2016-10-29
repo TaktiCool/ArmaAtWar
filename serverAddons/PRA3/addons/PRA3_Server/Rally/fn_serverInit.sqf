@@ -17,14 +17,14 @@
 
 [{
     {
-        private _pointDetails = EGVAR(Common,pointStorage) getVariable _x;
+        private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
         if (!(isNil "_pointDetails")) then {
             _pointDetails params ["_name", "_position", "_availableFor"];
 
             // For RPs only
             if (_availableFor isEqualType grpNull) then {
                 if (isNull _availableFor) then {
-                    [_x] call FUNC(removePoint);
+                    [_x] call FUNC(removeDeploymentPoint);
                 } else {
                     private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
                     private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
@@ -39,5 +39,5 @@
             };
         };
         nil
-    } count ([EGVAR(Common,pointStorage), QEGVAR(Common,pointStorage)] call CFUNC(allVariables));
+    } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
 }, 0.2] call CFUNC(addPerFrameHandler);

@@ -15,7 +15,7 @@
 */
 [QGVAR(Rally), missionConfigFile >> QPREFIX >> "cfgSquadRallyPoint"] call CFUNC(loadSettings);
 
-[QGVAR(pointRemoved), {
+[QGVAR(deploymentPointRemoved), {
     (_this select 0) params ["_pointId"];
     DUMP(_this)
 
