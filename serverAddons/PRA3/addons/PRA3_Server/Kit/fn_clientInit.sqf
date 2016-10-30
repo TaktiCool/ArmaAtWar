@@ -63,11 +63,41 @@
         };
 
         // Gunner and commander require a driver.
-        // Not possible to figure out which specific turret the player wants to board.
-        // This makes it impossible to check the config for FFV seats.
-        if (_actionName in ["GetInTurret", "GetInGunner", "GetInCommander", "MoveToTurret", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
+        if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
             [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
             true
+        };
+
+        // Check FFV seats - everything else requires driver to board.
+        if (_actionName in ["GetInTurret", "MoveToTurret"]) exitWith {
+            // Detect the turret via scanning for the action text.
+            private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
+            private _actionText = getText (configFile >> "CfgActions" >> _actionName >> "text");
+            private _vehicleName = getText (_vehicleConfig >> "displayName");
+
+            private _possibleTexts = [];
+            private _turretConfigs = [];
+            private _scanTurrets = {
+                if (!isClass (_this >> "Turrets")) exitWith {};
+
+                {
+                    _possibleTexts pushBack format [_actionText, _vehicleName, getText (_x >> "gunnerName")];
+                    _turretConfigs pushBack _x;
+                    _x call _scanTurrets;
+                    nil
+                } count ("true" configClasses (_this >> "Turrets"));
+            };
+            _vehicleConfig call _scanTurrets;
+
+            private _turretConfig = _turretConfigs select (_possibleTexts find _title);
+
+            // Now check if the turret has a gun.
+            if (getText (_turretConfig >> "body") != "") exitWith {
+                [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+                 true
+            };
+
+            false
         };
 
         false
