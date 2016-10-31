@@ -203,7 +203,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_B_CombatUniform_ocamo";
+        uniform = "U_B_HeliPilotCoveralls";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
