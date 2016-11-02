@@ -1,4 +1,3 @@
-
 class CfgCLibLocalisation {
 
     class PRA3 {
@@ -22,7 +21,7 @@ class CfgCLibLocalisation {
             class MaxPlayerCount {
                 English = "Maximum player count on the enemy side has been reached.";
                 German = "Maximale Spieleranzahl auf gegnerischen Seite erreicht.";
-                Polish = "Drużyna przeciwna osiągneła maksymalną ilość graczy.";
+                Polish = "Drużyna przeciwna osiągnęła maksymalną ilość graczy";
             };
         };
 
@@ -74,7 +73,7 @@ class CfgCLibLocalisation {
             class selectSpawn {
                 English = "You have to select a spawnpoint!";
                 German = "Du musst erst einen Spawn Punkt auswählen!";
-                Polish = "Musisz wybrać punkt respawnu!";
+                Polish = "Musisz wybrać punkt odrodzenia!";
             };
         };
 
@@ -99,7 +98,7 @@ class CfgCLibLocalisation {
             class noCargoSpace {
                 English = "No cargo space available";
                 German = "Kein Ladeplatz mehr frei";
-                Polish = "Nie ma wolnej przestrzeni ładunkowej";
+                Polish = "Brak wolnej przestrzeni ładunkowej";
             };
             class UnloadItem {
                 English = "Unload item out of %1";
@@ -109,7 +108,7 @@ class CfgCLibLocalisation {
             class itemToHeavy {
                 English = "Item is %1kg too heavy";
                 German = "Das Objekt ist %1kg zu schwer";
-                Polish = "Przedmiot jest za ciężki o %1kg";
+                Polish = "Przedmiot waży o %1kg za dużo";
             };
         };
 
@@ -118,7 +117,7 @@ class CfgCLibLocalisation {
             class SpawnsRemaining {
                 English = "%1 (%2 spawns remaining)";
                 German = "%1 (%2 Spawns übrig)";
-                Polish = "%1 (pozostało %2 respawn-ów)";
+                Polish = "%1 (Pozostało %2 odrodzeń)";
             };
             // - Rally
             class CreateRally {
