@@ -63,13 +63,15 @@
         };
 
         // Gunner and commander require a driver.
-        if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
+        // Not possible to figure out which specific turret the player wants to board.
+        // This makes it impossible to check the config for FFV seats.
+        if (_actionName in ["GetInTurret", "GetInGunner", "GetInCommander", "MoveToTurret", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
             [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
             true
         };
 
         // Check FFV seats - everything else requires driver to board.
-        if (_actionName in ["GetInTurret", "MoveToTurret"]) exitWith {
+        if (_actionName in ["GetInTurret", "MoveToTurret"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
             // Detect the turret via scanning for the action text.
             private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
             private _actionText = getText (configFile >> "CfgActions" >> _actionName >> "text");
