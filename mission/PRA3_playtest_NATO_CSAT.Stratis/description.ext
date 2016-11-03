@@ -38,7 +38,7 @@ CLib_Modules[] = {
 };
 
 respawn = 3;
-respawnDelay = 3;
+respawnDelay = 0;
 respawnDialog = 0;
 
 class PRA3 {
