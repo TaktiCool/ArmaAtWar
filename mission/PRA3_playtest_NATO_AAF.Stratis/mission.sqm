@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=630;
+		nextID=632;
 	};
 	class MarkerIDProvider
 	{
@@ -218,7 +218,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=143;
+		items=145;
 		class Item0
 		{
 			dataType="Logic";
@@ -6484,5 +6484,23 @@ class Mission
 			type="I_APC_Wheeled_03_cannon_F";
 			atlOffset=-0.0079956055;
 		};
+        class Item143
+        {
+            dataType="Marker";
+            position[]={31.543919,-116.70387,8149.6665};
+            name="respawn_west";
+            type="Empty";
+            id=630;
+            atlOffset=-7.6293945e-006;
+        };
+        class Item144
+        {
+            dataType="Marker";
+            position[]={26.827166,-18.553711,8149.7446};
+            name="respawn_east";
+            type="Empty";
+            id=631;
+            atlOffset=98.131554;
+        };
 	};
 };

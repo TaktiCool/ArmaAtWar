@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=620;
+		nextID=622;
 	};
 	class MarkerIDProvider
 	{
@@ -229,7 +229,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=145;
+		items=147;
 		class Item0
 		{
 			dataType="Logic";
@@ -6531,5 +6531,23 @@ class Mission
 			type="O_APC_Tracked_02_cannon_F";
 			atlOffset=-0.0014801025;
 		};
+        class Item145
+        {
+            dataType="Marker";
+            position[]={31.543919,-116.70387,8149.6665};
+            name="respawn_west";
+            type="Empty";
+            id=620;
+            atlOffset=-7.6293945e-006;
+        };
+        class Item146
+        {
+            dataType="Marker";
+            position[]={26.827166,-18.553711,8149.7446};
+            name="respawn_east";
+            type="Empty";
+            id=621;
+            atlOffset=98.131554;
+        };
 	};
 };
