@@ -135,6 +135,10 @@ class CfgCLibLocalisation {
                 German = "Entlade Objekt aus %1";
                 Polish = "Wyładuj przedmiot z %1";
             };
+            class UnableToUnload {
+                English = "You are Unable to Unload the Crate in your Current position.";
+                German = "Du kannst die Kiste in deiner Aktuellen Postion nicht entladen.";
+            };
             class itemToHeavy {
                 English = "Item is %1kg too heavy";
                 Czech = "Předmět je %1kg příliž těžký";

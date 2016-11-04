@@ -73,7 +73,6 @@ class Kits {
 
         primaryWeapon = "arifle_MXC_F";
         backpack = "B_AssaultPack_rgr";
-        assignedItems[] += {};
         items[] = {{"FirstAidKit", 10}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "Medikit"};
 
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
