@@ -86,7 +86,7 @@
 ] call CFUNC(addAction);
 
 [
-    {format[MLOC(UnloadItem), getText(configFile >> "CfgVehicles" >> typeOf (cursorTarget getVariable [QGVAR(CargoItems),[ObjNull]] select 0) >> "displayName"), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format[MLOC(UnloadItem), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
     GVAR(CargoClasses),
     10,
     {
