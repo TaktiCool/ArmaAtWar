@@ -81,7 +81,7 @@ class CfgCLibModules {
         };
 
         // SquadRespawn system
-        MODULE(FOB) {
+        MODULE(SquadRespawn) {
             dependency[] = {"PRA3/Common"};
             FNC(clientInit);
         };
