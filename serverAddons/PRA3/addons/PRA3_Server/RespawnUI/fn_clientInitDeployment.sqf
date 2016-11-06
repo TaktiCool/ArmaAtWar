@@ -102,7 +102,7 @@
 
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
-        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Deployment,prepareSpawn);
+        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
 
         _deploymentDisplay closeDisplay 1;
 
