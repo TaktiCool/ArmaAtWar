@@ -67,6 +67,7 @@ class PRA3 {
 
 };
 
+#include "cfgClibSimpleObject.hpp"
 
 #include "ui\common\defines.hpp"
 #include "ui\common\baseclasses.hpp"
