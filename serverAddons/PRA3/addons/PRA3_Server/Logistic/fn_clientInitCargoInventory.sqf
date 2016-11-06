@@ -99,7 +99,7 @@
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             if !(isNull (objectParent CLib_Player)) exitWith {
-                [QLSTRING(UnableToUnload)] call call EFUNC(Common,displayNotification);
+                MLOC(UnableToUnload) call EFUNC(Common,displayNotification);
             };
             [{
                 params ["_vehicle"];
