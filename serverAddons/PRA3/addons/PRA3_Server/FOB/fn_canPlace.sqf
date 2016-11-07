@@ -26,13 +26,11 @@ private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _fobNearPlayer = false;
 {
     private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-    _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
+    _pointDetails params ["_name", "_type","_position", "_availableFor", "_spawnTickets"];
 
     // Ignore RPs
-    if (_availableFor isEqualType sideUnknown) then {
-        if ((CLib_Player distance _position) < _minDistance) exitWith {
-            _fobNearPlayer = true;
-        };
+    if (_type == "FOB" && (CLib_Player distance _position) < _minDistance) exitWith {
+        _fobNearPlayer = true;
     };
     nil
 } count (call EFUNC(Common,getAvailableDeploymentPoints));

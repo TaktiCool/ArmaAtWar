@@ -13,7 +13,7 @@
     Returns:
     None
 */
-private _title = "Destroy FOB";
+private _title = "Defuse";
 private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _showCondition = {
@@ -28,7 +28,7 @@ private _showCondition = {
 
                 _customData params [["_counterActive", 0]];
 
-                if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 0 && _availableFor != side group CLib_Player}) then {
+                if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
                     GVAR(currentFob) = format ["%1_%2", _name, _position];;
                     _cond = true;
                     breakTo "ActionCondition";
@@ -39,24 +39,24 @@ private _showCondition = {
     };
 };
 
-GVAR(destroyFOBStartTime) = -1;
+GVAR(defuseStartTime) = -1;
 GVAR(currentFob) = [];
 private _onStart = {
     params ["_target", "_caller"];
 
     _caller setVariable [QGVAR(forceRespawn), true, true];
-    GVAR(destroyFOBStartTime) = time;
+    GVAR(defuseStartTime) = time;
 };
 
 private _onProgress = {
-    (time - GVAR(destroyFOBStartTime))/5;
+    (time - GVAR(defuseStartTime))/5;
 };
 
 private _onComplete = {
     params ["_target", "_caller"];
 
-    GVAR(destroyFOBStartTime) = -1;
-    [QGVAR(startDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
+    GVAR(defuseStartTime) = -1;
+    [QGVAR(stopDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
 };
 
 private _onInterruption = {

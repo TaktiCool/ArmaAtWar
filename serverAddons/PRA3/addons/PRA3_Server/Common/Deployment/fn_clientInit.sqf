@@ -40,7 +40,7 @@ GVAR(pointMarkerIds) = [];
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
     {
-        (GVAR(DeploymentPointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
+        (GVAR(DeploymentPointStorage) getVariable _x) params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
         if (_mapIcon != "") then {
             private _icon = ["ICON",(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, [0, 0.87, 0, 1], _position, 25, 25, 0, "", 1];

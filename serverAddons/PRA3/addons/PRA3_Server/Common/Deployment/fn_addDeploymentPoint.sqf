@@ -19,11 +19,11 @@
     Returns:
     Id <STRING>
 */
-params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []]];
+params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData",[]]];
 
 private _id = format ["%1_%2", _name, _position];
 
-[GVAR(DeploymentPointStorage), _id, [_name, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+[GVAR(DeploymentPointStorage), _id, [_name, _type, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects, _customData], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 
 [QGVAR(deploymentPointAdded), _availableFor] call CFUNC(targetEvent);
 

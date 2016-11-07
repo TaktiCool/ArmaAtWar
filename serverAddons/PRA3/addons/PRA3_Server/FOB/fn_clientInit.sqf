@@ -37,3 +37,4 @@
  } forEach ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
 
 call FUNC(destroyAction);
+call FUNC(defuseAction);

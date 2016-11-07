@@ -36,8 +36,8 @@ private _rallyNearPlayer = false;
 {
     private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
     if (!(isNil "_pointDetails")) then {
-        private _pointPosition = _pointDetails select 1;
-        if ((CLib_Player distance _pointPosition) < _minDistance) exitWith {
+        _pointDetails params ["_name", "_type", "_pointPosition"];
+        if (_type == "RALLY" && {(CLib_Player distance _pointPosition) < _minDistance}) exitWith {
             _rallyNearPlayer = true;
         };
     };

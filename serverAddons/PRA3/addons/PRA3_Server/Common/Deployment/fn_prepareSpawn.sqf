@@ -18,7 +18,7 @@ params ["_pointId"];
 private _pointDetails = GVAR(DeploymentPointStorage) getVariable [_pointId, []];
 if (_pointDetails isEqualTo []) exitWith {[0, 0, 0]};
 
-_pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon", "_pointObjects"];
+_pointDetails params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon", "_pointObjects"];
 
 if (_spawnTickets > 0) then {
     _spawnTickets = _spawnTickets - 1;

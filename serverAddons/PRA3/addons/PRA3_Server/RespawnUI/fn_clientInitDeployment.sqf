@@ -146,7 +146,7 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        (EGVAR(Common,DeploymentPointStorage) getVariable _x) params ["_name", "_position", "_availableFor", "_tickets", "_icon"];
+        (EGVAR(Common,DeploymentPointStorage) getVariable _x) params ["_name", "_type", "_position", "_availableFor", "_tickets", "_icon"];
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
         };
@@ -177,7 +177,7 @@
 
     // Get the point data
     private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _selectedPoint;
-    private _position = _pointDetails select 1;
+    private _position = _pointDetails select 2;
 
     // Animate the map
     private _controlMap = _display displayCtrl 800;

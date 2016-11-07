@@ -27,7 +27,7 @@ GVAR(oldSpawns) = [];
 
     {
         if (_x getVariable [QGVAR(hasRespawnPointAttached), false]) then {
-            GVAR(oldSpawns) pushBack ["Player " + name _x, getPos _x, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", []] call EFUNC(Common,addDeploymentPoint);
+            GVAR(oldSpawns) pushBack ["Player " + name _x, "SQUAD", getPos _x, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", []] call EFUNC(Common,addDeploymentPoint);
         };
         nil
     } count units CLib_Player;

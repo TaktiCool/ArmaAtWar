@@ -78,6 +78,7 @@ class CfgCLibModules {
             FNC(serverInit);
             FNC(place);
             FNC(destroyAction);
+            FNC(defuseAction);
             FNC(canPlace);
         };
 
