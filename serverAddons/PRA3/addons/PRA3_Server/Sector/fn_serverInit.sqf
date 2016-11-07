@@ -35,7 +35,31 @@ GVAR(ServerInitDone) = false;
         private _path = selectRandom ("true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath"));
 
         {
-            [configName _x, getArray (_x >> "dependency"),getNumber (_x >> "ticketValue"),getNumber (_x >> "minUnits"),getArray (_x >> "captureTime"), getArray(_x >> "firstCaptureTime"), getText (_x >> "designator")] call FUNC(createSectorLogic);
+
+            // we need to set the array via hand else the defaults get never Triggerd.
+            private _settings = [configName _x];
+            {
+                switch (true) do {
+                    case (isText _x): {
+                        _settings set [_forEachIndex, getText _x];
+                    };
+                    case (isArray _x): {
+                        _settings set [_forEachIndex, getArray _x];
+                    };
+                    case (isNumber _x): {
+                        _settings set [_forEachIndex, getNumber _x];
+                    };
+                };
+            } forEach [
+                (_x >> "dependency"),
+                (_x >> "ticketValue"),
+                (_x >> "minUnits"),
+                (_x >> "maxUnits"),
+                (_x >> "captureTime"),
+                (_x >> "firstCaptureTime"),
+                (_x >> "designator")
+            ];
+            _settings call FUNC(createSectorLogic);
             nil;
         } count ("true" configClasses _path);
 

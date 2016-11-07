@@ -44,22 +44,23 @@ if !(_sector getVariable ["isActive", false]) exitWith {
 
 // get all necessary variables from sector
 private _tick = serverTime;
-private _lastTick = _sector getVariable ["lastCaptureTick",_tick];
-private _captureRate = _sector getVariable ["captureRate",0];
+private _lastTick = _sector getVariable ["lastCaptureTick", _tick];
+private _captureRate = _sector getVariable ["captureRate", 0];
 private _lastCaptureRate = _captureRate;
-private _captureProgress = _sector getVariable ["captureProgress",1];
+private _captureProgress = _sector getVariable ["captureProgress", 1];
 private _lastCaptureProgress = _captureProgress;
-private _minUnits = _sector getVariable ["minUnits",1];
+private _minUnits = _sector getVariable ["minUnits", 1];
+private _maxUnits = _sector getVariable ["maxUnits", 9];
 private _lastSide = _side;
-private _attackerSide = _sector getVariable ["attackerSide",sideUnknown];
+private _attackerSide = _sector getVariable ["attackerSide", sideUnknown];
 private _lastAttackerSide = str _attackerSide;
-private _activeSides = _sector getVariable ["activeSides",[]];
+private _activeSides = _sector getVariable ["activeSides", []];
 
-(_sector getVariable ["captureTime",[30,60]]) params ["_captureTimeMin","_captureTimeMax"];
+(_sector getVariable ["captureTime", [30,60]]) params ["_captureTimeMin", "_captureTimeMax"];
 
 // load firstCaptureTime, when sector was not captured before
 if !(_sector getVariable ["firstCaptureDone", false]) then {
-    private _temp = (_sector getVariable ["firstCaptureTime",[5,15]]);
+    private _temp = (_sector getVariable ["firstCaptureTime", [5, 15]]);
     _captureTimeMin = _temp select 0;
     _captureTimeMax = _temp select 1;
 };
@@ -68,7 +69,7 @@ if !(_sector getVariable ["firstCaptureDone", false]) then {
 private _force = [];
 private _nbrSides = {
     private _c = {_x call EFUNC(Common,isAlive)} count (_sector getVariable [format ["units%1", _x], []]);
-    _force pushBack [_c,_x];
+    _force pushBack [_c, _x];
     true;
 } count _activeSides;
 
@@ -91,10 +92,10 @@ if (_forceCount >= _minUnits && _diff > 0) then {
     if (_side in [_leadingSide, sideUnknown]) then {
         if (_captureProgress < 1) then {
             _attackerSide = _leadingSide;
-            _captureRate = 1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/9) min 1)));
+            _captureRate = 1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/_maxUnits) min 1)));
         };
     } else {
-        _captureRate = -1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/9) min 1)));
+        _captureRate = -1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/_maxUnits) min 1)));
     };
 } else {
     _captureRate = 0;
