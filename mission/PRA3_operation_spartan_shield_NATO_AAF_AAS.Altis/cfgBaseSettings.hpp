@@ -15,6 +15,6 @@ markerLocation[] = {
     "sector_1",
     "sector_2",
     "sector_3",
-    "sector_3",
-    "sector_3",
+    "sector_4",
+    "sector_5",
 };
