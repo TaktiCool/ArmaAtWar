@@ -118,7 +118,7 @@
                     _position set [2, _offset];
                     _color set [3, _alpha];
                     if (_unit call CFUNC(isSpeaking)) then {
-                        _texture = "a3\ui_f\data\igui\rscingameui\rscdisplayvoicechat";
+                        _texture = "a3\ui_f\data\igui\rscingameui\rscdisplayvoicechat\microphone_ca.paa";
                     };
                     true;
                 }];
