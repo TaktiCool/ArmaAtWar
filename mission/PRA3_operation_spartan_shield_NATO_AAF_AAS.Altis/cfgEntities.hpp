@@ -42,15 +42,15 @@ class CfgEntities {
 
 
     // Trucks
-    class vr_HEMMTTrans_0: vr_hunter_0 {
+    class vr_HEMMTTrans_0 : vr_hunter_0 {
         respawnTime = 180;
         ticketValue = 15;
     };
-    class vr_HEMMTTrans_1: vr_HEMMTTrans_0 {};
+    class vr_HEMMTTrans_1 : vr_HEMMTTrans_0 {};
 
-    class vr_HEMMTRep_0: vr_HEMMTTrans_0 {};
-    class vr_HEMMTFuel_0: vr_HEMMTTrans_0 {};
-    class vr_HEMMTAmmo_0: vr_HEMMTTrans_0 {};
+    class vr_HEMMTRep_0 : vr_HEMMTTrans_0 {};
+    class vr_HEMMTFuel_0 : vr_HEMMTTrans_0 {};
+    class vr_HEMMTAmmo_0 : vr_HEMMTTrans_0 {};
 
     // Tanks
     class vr_marshall_0 : vr_hunter_0 {
@@ -85,7 +85,7 @@ class CfgEntities {
         ticketValue = 20;
         respawnTime = 300;
     };
-    class vr_strider_1: vr_strider_0 {};
+    class vr_strider_1 : vr_strider_0 {};
 
     class vr_striderHMG_0 : vr_strider_0 {
         ticketValue = 50;
@@ -95,15 +95,15 @@ class CfgEntities {
     class vr_striderGMG_1 : vr_striderHMG_0 {};
 
     // Trucks
-    class vr_ZamakTrans_0: vr_strider_0 {
+    class vr_ZamakTrans_0 : vr_strider_0 {
         ticketValue = 20;
         respawnTime = 180;
     };
-    class vr_ZamakTrans_1: vr_ZamakTrans_0 {};
+    class vr_ZamakTrans_1 : vr_ZamakTrans_0 {};
 
-    class vr_ZamakRep_0: vr_ZamakTrans_0 {};
-    class vr_ZamakFuel_0: vr_ZamakTrans_0 {};
-    class vr_ZamakAmmo_0: vr_ZamakTrans_0 {};
+    class vr_ZamakRep_0 : vr_ZamakTrans_0 {};
+    class vr_ZamakFuel_0 : vr_ZamakTrans_0 {};
+    class vr_ZamakAmmo_0 : vr_ZamakTrans_0 {};
 
     // Tanks
     class vr_gorgon_0 : vr_strider_0 {
@@ -128,8 +128,6 @@ class CfgEntities {
     class vr_hellcat_0 : defaultEast {
         respawnTime = 900;
         ticketValue = 75;
-    };
-
     };
 
     // Logistic
