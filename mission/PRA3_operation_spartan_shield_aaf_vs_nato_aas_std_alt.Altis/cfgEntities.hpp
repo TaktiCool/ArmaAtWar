@@ -3,7 +3,7 @@ class defaultVehicle {
     side = "UNKNOWN";
     respawnTime = -1; // disabled
     ticketValue = 2;
-    abandonedVehicleRadius = 100;
+    abandonedVehicleRadius = 200;
     abandonedVehicleTime = 300;
 };
 

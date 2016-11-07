@@ -5,14 +5,16 @@ playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
 restirctSideSwitchRestrictionCount = 5;
-restirctSideSwitchRestrictionTime = 50;
+restirctSideSwitchRestrictionTime = 90;
 
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {
-    "base_east",
+    "base_guer",
     "base_west",
     "sector_0",
     "sector_1",
     "sector_2",
+    "sector_3",
+    "sector_3",
     "sector_3",
 };

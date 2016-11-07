@@ -64,7 +64,7 @@ class Kits {
         compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
     };
     class Medic: Rifleman {
-        kitGroup = "Specialized";
+        kitGroup = "Limited";
         availableInGroups[] = {"Rifle", "Weapon"};
 
         displayName = "Medic";
