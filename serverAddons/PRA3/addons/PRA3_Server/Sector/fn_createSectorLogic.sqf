@@ -18,7 +18,16 @@
     Returns:
     None
 */
-params ["_marker", ["_dependency", []], ["_ticketValue", 30], ["_minUnits", 1], ["_maxUnits", 9], ["_captureTime",[30,60]], ["_firstCaptureTime",[5,15]], ["_designator","A"]];
+params [
+    "_marker",
+    ["_dependency", []],
+    ["_ticketValue", 30],
+    ["_minUnits", 1],
+    ["_maxUnits", 9],
+    ["_captureTime",[30,60]],
+    ["_firstCaptureTime",[5,15]],
+    ["_designator","A"]
+];
 
 
 private _size = getMarkerSize _marker;

@@ -40,24 +40,27 @@ GVAR(ServerInitDone) = false;
             private _settings = [configName _x];
             {
                 switch (true) do {
-                    case (isText _x): {
-                        _settings set [_forEachIndex, getText _x];
+                    case (isText (_x select 0)): {
+                        _settings set [_forEachIndex, getText (_x select 0)];
                     };
-                    case (isArray _x): {
-                        _settings set [_forEachIndex, getArray _x];
+                    case (isArray (_x select 0)): {
+                        _settings set [_forEachIndex, getArray (_x select 0)];
                     };
-                    case (isNumber _x): {
-                        _settings set [_forEachIndex, getNumber _x];
+                    case (isNumber (_x select 0)): {
+                        _settings set [_forEachIndex, getNumber (_x select 0)];
+                    };
+                    default {
+                        _settings set [_forEachIndex, (_x select 1)];
                     };
                 };
             } forEach [
-                (_x >> "dependency"),
-                (_x >> "ticketValue"),
-                (_x >> "minUnits"),
-                (_x >> "maxUnits"),
-                (_x >> "captureTime"),
-                (_x >> "firstCaptureTime"),
-                (_x >> "designator")
+                [(_x >> "dependency"), []],
+                [(_x >> "ticketValue"), 30],
+                [(_x >> "minUnits"), 1],
+                [(_x >> "maxUnits"), 9],
+                [(_x >> "captureTime"), [30, 60]],
+                [(_x >> "firstCaptureTime"), [5,15]],
+                [(_x >> "designator"), ""]
             ];
             _settings call FUNC(createSectorLogic);
             nil;
