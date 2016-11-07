@@ -35,22 +35,21 @@ GVAR(ServerInitDone) = false;
         private _path = selectRandom ("true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath"));
 
         {
-
             // we need to set the array via hand else the defaults get never Triggerd.
             private _settings = [configName _x];
             {
                 switch (true) do {
                     case (isText (_x select 0)): {
-                        _settings set [_forEachIndex, getText (_x select 0)];
+                        _settings set [_forEachIndex + 1, getText (_x select 0)];
                     };
                     case (isArray (_x select 0)): {
-                        _settings set [_forEachIndex, getArray (_x select 0)];
+                        _settings set [_forEachIndex + 1, getArray (_x select 0)];
                     };
                     case (isNumber (_x select 0)): {
-                        _settings set [_forEachIndex, getNumber (_x select 0)];
+                        _settings set [_forEachIndex + 1, getNumber (_x select 0)];
                     };
                     default {
-                        _settings set [_forEachIndex, (_x select 1)];
+                        _settings set [_forEachIndex + 1, (_x select 1)];
                     };
                 };
             } forEach [
