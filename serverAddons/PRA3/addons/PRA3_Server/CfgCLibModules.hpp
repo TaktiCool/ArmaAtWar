@@ -75,8 +75,9 @@ class CfgCLibModules {
         MODULE(FOB) {
             dependency[] = {"PRA3/Common"};
             FNC(clientInit);
+            FNC(serverInit);
             FNC(place);
-            FNC(destroy);
+            FNC(destroyAction);
             FNC(canPlace);
         };
 

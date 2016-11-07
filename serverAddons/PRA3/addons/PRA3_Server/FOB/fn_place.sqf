@@ -20,33 +20,19 @@ params ["_target"];
 
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = CLib_Player modelToWorld [0,1,0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _position = position _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _dirVector = vectorDir _target;
     if (CLib_Player distance _position >= 20) exitWith {
         ["You can not place a FOB at this position"] call EFUNC(Common,displayNotification);
     };
 
-    private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBObjects");
-    _pointObjects = _pointObjects apply {
-        _x params ["_type", "_offset"];
-
-        private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, _position, [], 0, "CAN_COLLIDE"];
-        _obj setPosASL ([_position select 0, _position select 1, (getTerrainHeightASL _objPosition)] vectorAdd _offset);
-        _obj setVectorUp (surfaceNormal (getPos _obj));
-        _obj setVariable ["isDragable", 0, true];
-
-        clearWeaponCargoGlobal _obj;
-        clearMagazineCargoGlobal _obj;
-        clearItemCargoGlobal _obj;
-        clearBackpackCargoGlobal _obj;
-
-        ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
-        ["blockDamage", [_obj, true], true] call CFUNC(globalEvent);
-
-        _obj
-    };
+    private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
 
     deleteVehicle _target;
+
+    private _pointObjects = [_composition, _position, _dirVector] call CFUNC(createSimpleObjectComp);
+
+
 
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _pointId = ["FOB " + _text, _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
