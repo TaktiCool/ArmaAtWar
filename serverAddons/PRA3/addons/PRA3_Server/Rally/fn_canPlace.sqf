@@ -29,7 +29,7 @@ private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getS
 private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
 private _count = {(group _x) == (group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
 if (_count < _nearPlayerToBuild) exitWith {false};
-
+/*
 // Check near DPs
 private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
@@ -44,5 +44,5 @@ private _rallyNearPlayer = false;
     nil
 } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
 if (_rallyNearPlayer) exitWith {false};
-
+*/
 true
