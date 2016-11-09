@@ -9,7 +9,7 @@
 
     Parameter(s):
     0: Name <STRING>
-    1:Type <String>
+    1: Type <String>
     2: Position <ARRAY>
     3: Spawn point for <SIDE, GROUP>
     4: Tickets <NUMBER>
