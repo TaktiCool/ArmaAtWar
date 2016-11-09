@@ -70,6 +70,38 @@
             true
         };
 
+        // Check FFV seats - everything else requires driver to board.
+        if (_actionName in ["GetInTurret", "MoveToTurret"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
+            // Detect the turret via scanning for the action text.
+            private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
+            private _actionText = getText (configFile >> "CfgActions" >> _actionName >> "text");
+            private _vehicleName = getText (_vehicleConfig >> "displayName");
+
+            private _possibleTexts = [];
+            private _turretConfigs = [];
+            private _scanTurrets = {
+                if (!isClass (_this >> "Turrets")) exitWith {};
+
+                {
+                    _possibleTexts pushBack format [_actionText, _vehicleName, getText (_x >> "gunnerName")];
+                    _turretConfigs pushBack _x;
+                    _x call _scanTurrets;
+                    nil
+                } count ("true" configClasses (_this >> "Turrets"));
+            };
+            _vehicleConfig call _scanTurrets;
+
+            private _turretConfig = _turretConfigs select (_possibleTexts find _title);
+
+            // Now check if the turret has a gun.
+            if (getText (_turretConfig >> "body") != "") exitWith {
+                [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+                 true
+            };
+
+            false
+        };
+
         false
     }, _x] call CFUNC(overrideAction);
 } count ["GetInDriver", "GetInCommander", "GetInGunner", "GetInCargo", "GetInPilot", "GetInTurret", "MoveToDriver", "MoveToCommander", "MoveToGunner", "MoveToCargo", "MoveToPilot", "MoveToTurret"];

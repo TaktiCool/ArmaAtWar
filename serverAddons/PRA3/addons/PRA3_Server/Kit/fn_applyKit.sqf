@@ -92,3 +92,14 @@ CLib_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];
 CLib_Player setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
 CLib_Player setVariable [QGVAR(isPilot), _isPilot == 1, true];
 CLib_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];
+
+if (_isMedic == 1) then {
+    CLib_Player setUnitTrait ["medic", true];
+} else {
+    CLib_Player setUnitTrait ["medic", false];
+};
+if (_isEngineer == 1) then {
+    CLib_Player setUnitTrait ["engineer", true];
+} else {
+    CLib_Player setUnitTrait ["engineer", false];
+};

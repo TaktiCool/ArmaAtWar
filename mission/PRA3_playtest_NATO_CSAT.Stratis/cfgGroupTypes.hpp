@@ -63,18 +63,20 @@ class GroupTypes {
         requiredPlayers = 20;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";
     };
+    /* Disabled Until we have Units that fit in to the Logistic Group
     class Logistic {
         displayName = "Logistic";
         groupSize = 4;
-        /* For Debug only
+        // For Debug only
         requiredGroups = 0;
         requiredPlayers = 1;
-        */
+        //
         requiredGroups = 2;
         requiredPlayers = 10;
 
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_support.paa";
     };
+    */
 };
 class KitGroups {
     class Unlimited {
