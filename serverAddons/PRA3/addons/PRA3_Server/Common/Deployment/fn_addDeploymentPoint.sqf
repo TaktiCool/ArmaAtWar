@@ -9,12 +9,13 @@
 
     Parameter(s):
     0: Name <STRING>
-    1: Position <ARRAY>
-    2: Spawn point for <SIDE, GROUP>
-    3: Tickets <NUMBER>
-    4: Icon path <STRING>
-    5: Map icon path <STRING>
-    6: Objects <ARRAY>
+    1:Type <String>
+    2: Position <ARRAY>
+    3: Spawn point for <SIDE, GROUP>
+    4: Tickets <NUMBER>
+    5: Icon path <STRING>
+    6: Map icon path <STRING>
+    7: Objects <ARRAY>
 
     Returns:
     Id <STRING>

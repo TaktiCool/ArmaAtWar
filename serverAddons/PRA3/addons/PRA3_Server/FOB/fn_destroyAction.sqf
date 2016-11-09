@@ -62,7 +62,7 @@ private _onComplete = {
 private _onInterruption = {
     params ["_target", "_caller"];
 
-    GVAR(forceRespawnStartTime) = -1;
+    GVAR(destroyFOBStartTime) = -1;
 };
 
 

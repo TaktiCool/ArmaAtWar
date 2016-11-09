@@ -42,5 +42,7 @@
     private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "ui\media\rally_ca.paa", "ui\media\rally_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
+    [QGVAR(placed), _pointId] call CFUNC(globalEvent);
+
     ["displayNotification", group CLib_Player, [format[MLOC(RallyPlaced), _text]]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);
