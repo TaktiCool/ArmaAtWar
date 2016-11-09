@@ -102,6 +102,13 @@ GVAR(soundList) = [
     ["UI\uav\UAV_07", 10, 4.5]
 ];
 
+DFUNC(shuffleSoundArray) = {
+    GVAR(soundList) = GVAR(soundList) call CFUNC(shuffleArray);
+    [FUNC(shuffleSoundArray), 300] call CFUNC(wait);
+};
+
+call FUNC(shuffleSoundArray);
+
 DFUNC(playRadioSound) = {
     params ["_obj"];
     if (isNull _obj) exitWith {};
