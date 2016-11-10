@@ -20,7 +20,7 @@ class CfgCLibModules {
 
             MODULE(Deployment) {
                 // Inits
-                FNC(init);
+                FNC(initDeployment);
                 FNC(serverInit);
                 FNC(clientInit);
 
