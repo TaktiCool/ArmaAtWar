@@ -15,7 +15,7 @@
 */
 params ["_pointId"];
 
-private _pointDetails = [_pointId, ["position", "spawntickets", "availableFor"]] call FUNC(getDeploymentPointData);
+private _pointDetails = [_pointId, ["position", "spawntickets", "availablefor"]] call FUNC(getDeploymentPointData);
 _pointDetails params [["_position", [0,0,0]], "_spawnTickets", "_availableFor"];
 if (_spawnTickets > 0) then {
     _spawnTickets = _spawnTickets - 1;
