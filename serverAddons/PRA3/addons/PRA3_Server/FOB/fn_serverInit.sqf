@@ -39,11 +39,8 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
     }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
     GVAR(namespace) setVariable [_pointId, [_pfhId, time + 30]];
-    [{
-        params ["_pointId"];
 
-        [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
-    }, [_pointId], "respawn"] call CFUNC(mutex);
+    [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(stopDestroyTimer), {
@@ -55,11 +52,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         GVAR(namespace) setVariable [_pointId, [-1, -1]];
     };
 
-    [{
-        params ["_pointId"];
-
-        [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
-    }, [_pointId], "respawn"] call CFUNC(mutex);
+    [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [
