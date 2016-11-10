@@ -15,19 +15,15 @@
 */
 params ["_pointId"];
 
-private _pointDetails = GVAR(DeploymentPointStorage) getVariable [_pointId, []];
-if (_pointDetails isEqualTo []) exitWith {[0, 0, 0]};
-
-_pointDetails params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon", "_pointObjects"];
-
+private _pointDetails = [_pointId, ["position", "spawnTickets", "availableFor"]] call FUNC(getDeploymentPointData);
+_pointDetails params [["_position", [0,0,0]], "_spawnTickets", "_availableFor"];
 if (_spawnTickets > 0) then {
     _spawnTickets = _spawnTickets - 1;
 
     if (_spawnTickets == 0) then {
         [_pointId] call FUNC(removeDeploymentPoint);
     } else {
-        _pointDetails set [3, _spawnTickets];
-        [GVAR(DeploymentPointStorage), _pointId, _pointDetails, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+        [_pointId, "spawnTickets", _spawnTickets] call FUNC(setDeploymentPointData);
         [QGVAR(ticketsChanged), _availableFor] call CFUNC(targetEvent);
     };
 };
