@@ -20,7 +20,6 @@ private _showCondition = {
     call {
         _target = CLib_Player;
         scopeName "ActionCondition";
-        private _cond = false;
         {
             // EGVAR(Common,DeploymentPointStorage) getVariable _x;
             private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
@@ -29,17 +28,16 @@ private _showCondition = {
             private _counterActive = [_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData);
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
-                GVAR(currentFob) = format ["%1_%2", _name, _position];;
-                _cond = true;
-                breakTo "ActionCondition";
+                GVAR(currentFob) = _x;
+                true breakOut "ActionCondition";
             };
         } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
-        _cond;
+        false
     };
 };
 
 GVAR(defuseStartTime) = -1;
-GVAR(currentFob) = [];
+GVAR(currentFob) = "";
 private _onStart = {
     params ["_target", "_caller"];
 
