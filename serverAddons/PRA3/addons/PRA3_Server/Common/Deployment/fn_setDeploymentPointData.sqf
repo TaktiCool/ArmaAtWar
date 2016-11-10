@@ -26,5 +26,5 @@ private _index = GVAR(DeploymentVarTypes) find _dataName;
 if (_index != -1) then {
     private _var = [_pointID, "All"] call FUNC(getDeploymentPointData);
     _var set [_index, _data];
-    GVAR(DeploymentPointStorage) getVariable [_pointID, _var, true];
+    GVAR(DeploymentPointStorage) setVariable [_pointID, _var, true];
 };
