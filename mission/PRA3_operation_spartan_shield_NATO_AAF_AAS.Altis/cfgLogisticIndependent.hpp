@@ -1,5 +1,5 @@
 class cfgLogistic {
-    objectToSpawn[] = {"mainBaseFlagGuer"};
+    objectToSpawn[] = {"mainBaseFlagGuer", "mainBaseFlagGuer_1"};
     class MedicalBox {
       displayName = "Medical Box";
       classname = "Box_IND_Ammo_F";
