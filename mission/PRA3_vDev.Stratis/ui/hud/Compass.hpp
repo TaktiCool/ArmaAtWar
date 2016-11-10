@@ -7,7 +7,7 @@ class Line##var : Line1 {\
 #define BEARING(var,textVar,textSize) \
 class Bearing##var : Bearing1 {\
     idc = 7300 + var;\
-    size = PY(textSize);\
+    sizeEx = PY(textSize);\
     x = PX(-0.25 + 7.5 * (var - 1));\
     text = textVar;\
 };
@@ -159,10 +159,9 @@ class PRA3_UI_Compass {
                         LINE(108)
                         LINE(109)
                         class Bearing1 : PRA3_RscText {
-                            type = CT_STRUCTURED_TEXT;
                             idc = 7301;
-                            text = "<b>W</b>";
-                            size = PY(2.2);
+                            text = "W";
+                            sizeEx = PY(2.4);
                             style = ST_CENTER;
                             x = PX(-0.25);
                             y = PY(2);
@@ -171,40 +170,40 @@ class PRA3_UI_Compass {
                         };
                         BEARING(2,"285",2)
                         BEARING(3,"300",2)
-                        BEARING(4,"<b>NW</b>",2.2)
+                        BEARING(4,"NW",2.4)
                         BEARING(5,"330",2)
                         BEARING(6,"345",2)
-                        BEARING(7,"<b>N</b>",2.2)
+                        BEARING(7,"N",2.4)
                         BEARING(8,"015",2)
                         BEARING(9,"030",2)
-                        BEARING(10,"<b>NE</b>",2.2)
+                        BEARING(10,"NE",2.4)
                         BEARING(11,"060",2)
                         BEARING(12,"075",2)
-                        BEARING(13,"<b>E</b>",2.2)
+                        BEARING(13,"E",2.4)
                         BEARING(14,"105",2)
                         BEARING(15,"120",2)
-                        BEARING(16,"<b>SE</b>",2.2)
+                        BEARING(16,"SE",2.4)
                         BEARING(17,"150",2)
                         BEARING(18,"165",2)
-                        BEARING(19,"<b>S</b>",2.2)
+                        BEARING(19,"S",2.4)
                         BEARING(20,"195",2)
                         BEARING(21,"210",2)
-                        BEARING(22,"<b>SW</b>",2.2)
+                        BEARING(22,"SW",2.4)
                         BEARING(23,"240",2)
                         BEARING(24,"255",2)
-                        BEARING(25,"<b>W</b>",2.2)
+                        BEARING(25,"W",2.4)
                         BEARING(26,"285",2)
                         BEARING(27,"300",2)
-                        BEARING(28,"<b>NW</b>",2.2)
+                        BEARING(28,"NW",2.4)
                         BEARING(29,"330",2)
                         BEARING(30,"345",2)
-                        BEARING(31,"<b>N</b>",2.2)
+                        BEARING(31,"N",2.4)
                         BEARING(32,"015",2)
                         BEARING(33,"030",2)
-                        BEARING(34,"<b>NO</b>",2.2)
+                        BEARING(34,"NO",2.4)
                         BEARING(35,"060",2)
                         BEARING(36,"075",2)
-                        BEARING(37,"<b>O</b>",2.2)
+                        BEARING(37,"O",2.4)
                     };
                 };
             };
