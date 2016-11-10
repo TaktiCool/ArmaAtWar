@@ -47,7 +47,7 @@ class Kits {
         items[] = {"FirstAidKit","FirstAidKit","FirstAidKit", "HandGrenade","HandGrenade", "SmokeShell", "SmokeShell", "SmokeShellGreen", "SmokeShellRed"};
     };
     class Officer: Rifleman {
-        availableInGroups[] = {"Rifle", "Weapon"};
+        availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
 
         displayName = "Squad Leader";
 
