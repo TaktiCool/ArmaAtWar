@@ -7,7 +7,7 @@ class Line##var : Line1 {\
 #define BEARING(var,textVar,textSize) \
 class Bearing##var : Bearing1 {\
     idc = 7300 + var;\
-    sizeEx = PY(textSize);\
+    size = PY(textSize);\
     x = PX(-0.25 + 7.5 * (var - 1));\
     text = textVar;\
 };
@@ -162,7 +162,7 @@ class PRA3_UI_Compass {
                             type = CT_STRUCTURED_TEXT;
                             idc = 7301;
                             text = "<b>W</b>";
-                            sizeEx = PY(2.2);
+                            size = PY(2.2);
                             style = ST_CENTER;
                             x = PX(-0.25);
                             y = PY(2);
