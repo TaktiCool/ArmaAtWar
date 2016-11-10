@@ -17,17 +17,17 @@
 GVAR(namespace) = false call CFUNC(createNamespace);
 
 [QGVAR(startDestroyTimer), {
-    (_this select 0) params ["_name"];
+    (_this select 0) params ["_pointId"];
     private _pfhId = [{
-        (_this select 0) params ["_name"];
-        private _data = [GVAR(namespace), _name, []] call CFUNC(getVariable);
+        (_this select 0) params ["_pointId"];
+        private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
         _data params ["_pfhId", ["_time", -1]];
         if (_time < 0) exitWith {
             _pfhId call CFUNC(removePerFrameHandler);
         };
         if (_time > time) exitWith {};
 
-        private _pos = [_name, "position"] call EFUNC(Common,getDeploymentPointData);
+        private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
 
         [{
             params ["_pos"];
@@ -35,31 +35,31 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             _bomb setDamage 1;
         }, _pos] call CFUNC(execNextFrame);
 
-        [_name] call EFUNC(Common,removeDeploymentPoint);
+        [_pointId] call EFUNC(Common,removeDeploymentPoint);
 
-    }, 0.1, [_name]] call CFUNC(addPerFrameHandler);
-    GVAR(namespace) setVariable [_name, [_pfhId, time + 30]];
+    }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
+    GVAR(namespace) setVariable [_pointId, [_pfhId, time + 30]];
     [{
-        params ["_name"];
+        params ["_pointId"];
 
-        [_name, 1, "counterActiv"] call EFUNC(Common,getDeploymentCustomData);
-    }, [_name], "respawn"] call CFUNC(mutex);
+        [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
+    }, [_pointId], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(stopDestroyTimer), {
-    (_this select 0) params ["_name"];
-    private _data = [GVAR(namespace), _name, []] call CFUNC(getVariable);
+    (_this select 0) params ["_pointId"];
+    private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
     _data params ["_pfhId", ["_time", -1]];
     if (_time > time) then {
         _pfhId call CFUNC(removePerFrameHandler);
-        GVAR(namespace) setVariable [_name, [-1, -1]];
+        GVAR(namespace) setVariable [_pointId, [-1, -1]];
     };
 
     [{
-        params ["_name"];
+        params ["_pointId"];
 
-        [_name, 0, "counterActiv"] call EFUNC(Common,getDeploymentCustomData);
-    }, [_name], "respawn"] call CFUNC(mutex);
+        [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
+    }, [_pointId], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [

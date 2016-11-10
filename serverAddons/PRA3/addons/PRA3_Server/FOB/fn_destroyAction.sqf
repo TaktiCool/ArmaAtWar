@@ -25,7 +25,7 @@ private _showCondition = {
             private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
             _pointDetails params ["_name", "_type", "_position", "_availableFor"];
 
-            private _counterActive = [_x, "counterActiv", 0] call EFUNC(Common,getDeploymentCustomData);
+            private _counterActive = [_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData);
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 0 && _availableFor != side group CLib_Player}) then {
                 GVAR(currentFob) = format ["%1_%2", _name, _position];;
