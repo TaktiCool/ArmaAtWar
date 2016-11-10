@@ -16,7 +16,7 @@
 */
 params ["_pointId", "_name", "_data"];
 
-private _customData = (_pointId call FUNC(getDeploymentPointData)) select 8;
+private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData);
 
 _customData params [["_names", []], ["_data", []]];
 
@@ -26,6 +26,4 @@ if (_index == -1) then {
 };
 _datas set [_index, _data];
 
-private _var = [_pointId, "All"] call FUNC(getDeploymentPointData);
-_var set [8, [_names, _datas]];
-GVAR(DeploymentPointStorage) setVariable [_pointId, _var, true];
+[_pointId, "customdata", [_names, _datas]] call FUNC(setDeploymentPointData);
