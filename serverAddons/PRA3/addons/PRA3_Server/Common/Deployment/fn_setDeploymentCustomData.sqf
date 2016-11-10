@@ -20,7 +20,7 @@ private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData)
 
 _customData params [["_names", []], ["_datas", []]];
 
-private _index = _customData find _name;
+private _index = _names find _name;
 if (_index == -1) then {
     _index = _names pushBack _name;
 };
