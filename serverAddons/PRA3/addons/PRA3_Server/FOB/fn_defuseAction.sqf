@@ -44,7 +44,6 @@ GVAR(currentFob) = [];
 private _onStart = {
     params ["_target", "_caller"];
 
-    _caller setVariable [QGVAR(forceRespawn), true, true];
     GVAR(defuseStartTime) = time;
 };
 

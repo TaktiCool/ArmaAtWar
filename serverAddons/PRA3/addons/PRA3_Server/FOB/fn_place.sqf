@@ -35,10 +35,6 @@ params ["_target"];
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
 
-    (_pointObjects select 0) setVariable [QGVAR(pointId), _pointId, true];
-    (_pointObjects select 0) setVariable [QGVAR(side), playerSide, true];
-    ["enableSimulation", [_pointObjects select 0, true]] call CFUNC(serverEvent); // TODO this is only for the take down action
-
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", playerSide, [format[MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
