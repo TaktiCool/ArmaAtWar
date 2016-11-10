@@ -24,7 +24,7 @@
         // For RPs only
         if (_availableFor isEqualType grpNull) then {
             if (isNull _availableFor) then {
-                [_x] call FUNC(removeDeploymentPoint);
+                [_x] call EFUNC(Common,removeDeploymentPoint);
             } else {
             private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
                 private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
