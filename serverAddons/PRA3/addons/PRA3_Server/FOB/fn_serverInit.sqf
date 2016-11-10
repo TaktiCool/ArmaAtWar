@@ -33,7 +33,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             params ["_pos"];
             private _bomb = "M_Mo_82mm_AT_LG" createVehicle _pos;
             _bomb setDamage 1;
-        }, _pos] call CFUNC(execNextFrame);
+        }, [_pos]] call CFUNC(execNextFrame);
 
         [_pointId] call EFUNC(Common,removeDeploymentPoint);
 
@@ -88,11 +88,11 @@ GVAR(soundList) = [
     ["radio\ambient_radio25", 10],
     ["radio\ambient_radio26", 8],
     ["radio\ambient_radio30", 9],
-    ["UI\uav\UAV_01", 04, 4.5],
+    ["UI\uav\UAV_01", 4, 4.5],
     ["UI\uav\UAV_02", 11, 4.5],
-    ["UI\uav\UAV_03", 05, 4.5],
-    ["UI\uav\UAV_04", 08, 4.5],
-    ["UI\uav\UAV_05", 08, 4.5],
+    ["UI\uav\UAV_03", 5, 4.5],
+    ["UI\uav\UAV_04", 8, 4.5],
+    ["UI\uav\UAV_05", 8, 4.5],
     ["UI\uav\UAV_06", 17, 4.5],
     ["UI\uav\UAV_07", 10, 4.5]
 ];
@@ -111,7 +111,7 @@ DFUNC(playRadioSound) = {
     _data params ["_soundPath", "_length", ["_volume", 1]];
     _soundPath = format ["a3\sounds_f\sfx\%1.wss", _soundPath];
 
-    playSound3D [_soundPath, _obj, false, getPosASL _obj, (_volume * 5), 1, 100];
+    playSound3D [_soundPath, _obj, false, getPosASL _obj, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _obj] call CFUNC(wait);
 };
 
