@@ -159,6 +159,7 @@ class PRA3_UI_Compass {
                         LINE(108)
                         LINE(109)
                         class Bearing1 : PRA3_RscText {
+                            type = CT_STRUCTURED_TEXT;
                             idc = 7301;
                             text = "<b>W</b>";
                             sizeEx = PY(2.2);
