@@ -4762,7 +4762,7 @@ class Mission
 		class Item111
 		{
 			dataType="Marker";
-			position[]={17074.914,1.6240189e+015,10010.871};
+			position[]={17096.029,1.6240189e+015,10019.007};
 			name="sector_4";
 			text="Ekali Village";
 			markerType="ELLIPSE";
@@ -4790,8 +4790,8 @@ class Mission
 		class Item113
 		{
 			dataType="Marker";
-			position[]={17444.299,3.9332599e+036,13171.603};
-			name="base_east";
+			position[]={17444.299,6660310,13171.603};
+			name="base_guer";
 			text="AAF HQ";
 			markerType="ELLIPSE";
 			type="ellipse";
@@ -4799,7 +4799,7 @@ class Mission
 			a=200;
 			b=200;
 			id=326;
-			atlOffset=3.9332599e+036;
+			atlOffset=6660296;
 		};
 		class Item114
 		{
@@ -10685,22 +10685,22 @@ class Mission
 		class Item214
 		{
 			dataType="Marker";
-			position[]={20789.986,1.5304438e+029,7269.7422};
-			name="baseRespawn_west";
+			position[]={20789.986,17024.836,7269.7422};
+			name="baseSpawn_west";
 			type="Empty";
 			angle=147.634;
 			id=531;
-			atlOffset=1.5304438e+029;
+			atlOffset=16996.904;
 		};
 		class Item215
 		{
 			dataType="Marker";
-			position[]={17422.773,5.6598488e+028,13197.798};
-			name="baseRespawn_guer";
+			position[]={17422.773,6578390,13197.798};
+			name="baseSpawn_guer";
 			type="Empty";
-			angle=134.22395;
+			angle=134.22398;
 			id=532;
-			atlOffset=5.6598488e+028;
+			atlOffset=6578376.5;
 		};
 		class Item216
 		{
