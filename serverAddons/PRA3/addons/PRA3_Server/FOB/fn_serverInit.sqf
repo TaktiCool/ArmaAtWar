@@ -31,6 +31,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         [{
             params ["_pos"];
+            DUMP("BOOOOOOOOOM " + str _pos);
             private _bomb = "M_Mo_82mm_AT_LG" createVehicle _pos;
             _bomb setDamage 1;
         }, +_pos] call CFUNC(execNextFrame);
