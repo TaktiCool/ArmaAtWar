@@ -27,10 +27,13 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         };
         if (_time > time) exitWith {};
 
-        private _pointData = _name call EFUNC(Common,getDeploymentPointData);
+        private _pos = [_name, "position"] call EFUNC(Common,getDeploymentPointData);
 
-        private _bomb = "M_Mo_82mm_AT_LG" createVehicle (_pointData select 2);
-        _bomb setDamage 1;
+        [{
+            params ["_pos"];
+            private _bomb = "M_Mo_82mm_AT_LG" createVehicle _pos;
+            _bomb setDamage 1;
+        }, _pos] call CFUNC(execNextFrame);
 
         [_name] call EFUNC(Common,removeDeploymentPoint);
 
@@ -39,11 +42,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     [{
         params ["_name"];
 
-        private _item = [EGVAR(Common,DeploymentPointStorage), _name, []] call CFUNC(getVariable);
-
-        if (_item isEqualTo []) exitWith {};
-        _item set [8, [1]];
-        [EGVAR(Common,DeploymentPointStorage), _name, _item, QEGVAR(Common,DeploymentPointStorage), true] call CFUNC(setVariable);
+        [_name, 1, "counterActiv"] call EFUNC(Common,getDeploymentCustomData);
     }, [_name], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventhandler);
 
@@ -59,11 +58,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     [{
         params ["_name"];
 
-        private _item = [EGVAR(Common,DeploymentPointStorage), _name, []] call CFUNC(getVariable);
-
-        if (_item isEqualTo []) exitWith {};
-        _item set [8, [0]];
-        [EGVAR(Common,DeploymentPointStorage), _name, _item, QEGVAR(Common,DeploymentPointStorage), true] call CFUNC(setVariable);
+        [_name, 0, "counterActiv"] call EFUNC(Common,getDeploymentCustomData);
     }, [_name], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventhandler);
 
@@ -122,6 +117,6 @@ DFUNC(playRadioSound) = {
 
 [QGVAR(placed), {
     (_this select 0) params ["_pointId"];
-    private _data = _pointId call EFUNC(Common,getDeploymentPointData);
-    (selectRandom (_data select 7)) call FUNC(playRadioSound);
+    private _data = [_pointId, "pointobjects"] call EFUNC(Common,getDeploymentPointData);
+    (selectRandom _data) call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);

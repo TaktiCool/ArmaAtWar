@@ -19,12 +19,21 @@ class CfgCLibModules {
 
 
             MODULE(Deployment) {
+                // Inits
+                FNC(init);
                 FNC(serverInit);
                 FNC(clientInit);
-                FNC(addDeploymentPoint);
+
+                // DataManagement
+                FNC(setDeploymentPointData);
                 FNC(getDeploymentPointData);
-                FNC(removeDeploymentPoint);
+                FNC(setDeploymentCustomData);
+                FNC(getDeploymentCustomData);
+
+                // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(removeDeploymentPoint);
+                FNC(addDeploymentPoint);
                 FNC(prepareSpawn);
             };
 

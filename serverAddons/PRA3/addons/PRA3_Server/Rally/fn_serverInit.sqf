@@ -17,24 +17,23 @@
 
 [{
     {
-        private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-        if (!(isNil "_pointDetails")) then {
-            _pointDetails params ["_name", "_position", "_availableFor"];
+        // EGVAR(Common,DeploymentPointStorage) getVariable _x;
+        private _pointDetails = [_x, ["name", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_name", "_position", "_availableFor"];
 
-            // For RPs only
-            if (_availableFor isEqualType grpNull) then {
-                if (isNull _availableFor) then {
-                    [_x] call FUNC(removeDeploymentPoint);
-                } else {
-                    private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
-                    private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
+        // For RPs only
+        if (_availableFor isEqualType grpNull) then {
+            if (isNull _availableFor) then {
+                [_x] call FUNC(removeDeploymentPoint);
+            } else {
+            private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
+                private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
 
-                    private _rallySide = side _availableFor;
-                    private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
+                private _rallySide = side _availableFor;
+                private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
-                    if (_enemyCount >= _maxEnemyCount) then {
-                        [_availableFor] call FUNC(destroyRally);
-                    };
+                if (_enemyCount >= _maxEnemyCount) then {
+                    [_availableFor] call FUNC(destroyRally);
                 };
             };
         };

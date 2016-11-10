@@ -22,17 +22,16 @@ private _showCondition = {
         scopeName "ActionCondition";
         private _cond = false;
         {
-            private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-            if (!(isNil "_pointDetails")) then {
-                _pointDetails params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
+            // EGVAR(Common,DeploymentPointStorage) getVariable _x;
+            private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
+            _pointDetails params ["_name", "_type", "_position", "_availableFor"];
 
-                _customData params [["_counterActive", 0]];
+            private _counterActive = [_x, "counterActiv", 0] call EFUNC(Common,getDeploymentCustomData);
 
-                if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
-                    GVAR(currentFob) = format ["%1_%2", _name, _position];;
-                    _cond = true;
-                    breakTo "ActionCondition";
-                };
+            if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
+                GVAR(currentFob) = format ["%1_%2", _name, _position];;
+                _cond = true;
+                breakTo "ActionCondition";
             };
         } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
         _cond;

@@ -25,9 +25,8 @@ if (vehicle CLib_Player != CLib_Player) exitWith {false};
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _fobNearPlayer = false;
 {
-    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-    _pointDetails params ["_name", "_type","_position", "_availableFor", "_spawnTickets"];
-
+    private _pointData = [_x, ["type", "postion"]] call EFUNC(Common,getDeploymentPointData);
+    _pointData params ["_type", "_position"];
     // Ignore RPs
     if (_type == "FOB" && (CLib_Player distance _position) < _minDistance) exitWith {
         _fobNearPlayer = true;

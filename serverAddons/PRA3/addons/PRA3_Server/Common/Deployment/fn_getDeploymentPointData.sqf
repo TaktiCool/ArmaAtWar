@@ -9,18 +9,40 @@
 
     Parameter(s):
     0: PointID <String>
+    1: DataName <String>
+
+    Remarks:
+    Returns what the Entry Type is.
+    if _type == "All" than you get a Array with all Data
 
     Returns:
-    0: Name <STRING>
-    1: Type <String>
-    2: Position <ARRAY>
-    3: Spawn point for <SIDE, GROUP>
-    4: Tickets <NUMBER>
-    5: Icon path <STRING>
-    6: Map icon path <STRING>
-    7: Objects <ARRAY>
+    Name <STRING>
+    Type <String>
+    Position <ARRAY>
+    Spawn point for <SIDE, GROUP>
+    Tickets <NUMBER>
+    Icon path <STRING>
+    Map icon path <STRING>
+    Objects <ARRAY>
 */
 
-params ["_pointID"];
+#define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
 
-[GVAR(DeploymentPointStorage), _pointID, [["", "_type", [0,0,0], sideUnknown, -1, "", "", [], []]]] call CFUNC(getVariable);
+params ["_pointID", ["_type", "all"]];
+if (_type isEqualType []) exitWith {
+    private _return = [];
+    {
+        _return pushback ([_pointID, _x] call FUNC(getDeploymentPointData));
+        nil
+    } count _type;
+    _return;
+};
+_type = toLower (_type);
+if (_type isEqualTo "all") exitWith {
+    GVAR(DeploymentPointStorage) getVariable [_pointID, DEFAULTDATA];
+};
+private _index = GVAR(DeploymentVarTypes) find _type;
+if (_index != -1) then {
+    private _data = GVAR(DeploymentPointStorage) getVariable [_pointID, DEFAULTDATA];
+    _data select _index;
+};
