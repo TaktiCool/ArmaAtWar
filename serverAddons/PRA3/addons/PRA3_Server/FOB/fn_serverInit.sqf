@@ -17,11 +17,9 @@
 GVAR(namespace) = false call CFUNC(createNamespace);
 
 [QGVAR(startDestroyTimer), {
-    (_this select 0) params ["_pointId"];
+    (_this select 0) params ["_pointId", "_time"];
     private _pfhId = [{
         (_this select 0) params ["_pointId"];
-        private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
-        _data params ["_pfhId", ["_time", -1]];
         if (_time < 0) exitWith {
             _pfhId call CFUNC(removePerFrameHandler);
         };
@@ -37,8 +35,8 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         [_pointId] call EFUNC(Common,removeDeploymentPoint);
 
-    }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
-    GVAR(namespace) setVariable [_pointId, [_pfhId, time + 30]];
+    }, 0.1, [_pointId, time + 30]] call CFUNC(addPerFrameHandler);
+    GVAR(namespace) setVariable [_pointId, _pfhId];
 
     [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
@@ -46,11 +44,9 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 [QGVAR(stopDestroyTimer), {
     (_this select 0) params ["_pointId"];
     private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
-    _data params ["_pfhId", ["_time", -1]];
-    if (_time > time) then {
-        _pfhId call CFUNC(removePerFrameHandler);
-        GVAR(namespace) setVariable [_pointId, [-1, -1]];
-    };
+    _data params ["_pfhId"];
+    _pfhId call CFUNC(removePerFrameHandler);
+    GVAR(namespace) setVariable [_pointId, nil];
 
     [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);

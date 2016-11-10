@@ -34,7 +34,8 @@
         [_this select 0] call FUNC(destroy);
     }] call CFUNC(addAction);
     */
-} forEach ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
+    nil
+} count ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
 
 call FUNC(destroyAction);
 call FUNC(defuseAction);
