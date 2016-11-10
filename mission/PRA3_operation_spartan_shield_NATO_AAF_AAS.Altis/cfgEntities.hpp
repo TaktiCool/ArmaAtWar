@@ -92,7 +92,7 @@ class CfgEntities {
     };
     class vr_striderHMG_1 : vr_striderHMG_0 {};
 
-    class vr_striderGMG_1 : vr_striderHMG_0 {};
+    class vr_striderGMG_0 : vr_striderHMG_0 {};
 
     // Trucks
     class vr_ZamakTrans_0 : vr_strider_0 {
@@ -119,13 +119,13 @@ class CfgEntities {
     };
 
     // Air
-    class vr_mohawk_0 : defaultEast {
+    class vr_mohawk_0 : defaultIndependent {
         respawnTime = 600;
         ticketValue = 50;
     };
     class vr_mohawk_1: vr_mohawk_0 {};
 
-    class vr_hellcat_0 : defaultEast {
+    class vr_hellcat_0 : defaultIndependent {
         respawnTime = 900;
         ticketValue = 75;
     };
@@ -174,14 +174,14 @@ class CfgEntities {
     };
 
 
-    class O_Truck_02_covered_F {
+    class I_Truck_02_covered_F {
         cargoCapacity = 50;
     };
 
-    class O_Truck_03_covered_F : O_Truck_02_covered_F {
+    class I_Truck_03_covered_F : I_Truck_02_covered_F {
     };
 
-    class O_Truck_03_transport_F : O_Truck_02_covered_F {
+    class I_Truck_03_transport_F : I_Truck_02_covered_F {
     };
 
     class B_Truck_01_Box_F {
@@ -199,13 +199,13 @@ class CfgEntities {
         cargoCapacity = 20;
     };
 
-    class O_MRAP_02_F : B_MRAP_01_F {
+    class I_MRAP_02_F : B_MRAP_01_F {
     };
     class B_HMG_01_high_F {
         isDragable = 1;
         isLoadable = 1;
     };
-    class O_HMG_01_high_F: B_HMG_01_high_F {};
+    class I_HMG_01_high_F: B_HMG_01_high_F {};
 
     class CargoNet_01_ammo_base_F : B_Slingload_01_Cargo_F {
         isLoadable = 1;

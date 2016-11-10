@@ -42,7 +42,7 @@ class CfgSectors {
             };
 
         };
-/*
+
         class path_1 {
             class sector_0 : sector {
                 dependency[] = {"base_west","sector_1"};
@@ -65,6 +65,6 @@ class CfgSectors {
             };
 
         };
-*/
+
     };
 };
