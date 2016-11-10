@@ -18,7 +18,7 @@ params ["_pointId", "_name", "_data"];
 
 private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData);
 
-_customData params [["_names", []], ["_data", []]];
+_customData params [["_names", []], ["_datas", []]];
 
 private _index = _customData find _name;
 if (_index == -1) then {
