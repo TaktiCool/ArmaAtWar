@@ -15,7 +15,7 @@
 */
 params ["_pointId"];
 
-private _pointDetails = [_pointId, ["position", "spawnTickets", "availableFor"]] call FUNC(getDeploymentPointData);
+private _pointDetails = [_pointId, ["position", "spawntickets", "availableFor"]] call FUNC(getDeploymentPointData);
 _pointDetails params [["_position", [0,0,0]], "_spawnTickets", "_availableFor"];
 if (_spawnTickets > 0) then {
     _spawnTickets = _spawnTickets - 1;
@@ -23,7 +23,7 @@ if (_spawnTickets > 0) then {
     if (_spawnTickets == 0) then {
         [_pointId] call FUNC(removeDeploymentPoint);
     } else {
-        [_pointId, "spawnTickets", _spawnTickets] call FUNC(setDeploymentPointData);
+        [_pointId, "spawntickets", _spawnTickets] call FUNC(setDeploymentPointData);
         [QGVAR(ticketsChanged), _availableFor] call CFUNC(targetEvent);
     };
 };
