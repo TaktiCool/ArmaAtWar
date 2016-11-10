@@ -146,7 +146,8 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        (EGVAR(Common,DeploymentPointStorage) getVariable _x) params ["_name", "_type", "_position", "_availableFor", "_tickets", "_icon"];
+        private _pointDetails = [_x, ["name", "spawntickets", "icon"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_name", "_tickets", "_icon"];
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
         };
