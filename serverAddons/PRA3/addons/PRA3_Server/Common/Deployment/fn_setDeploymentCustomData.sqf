@@ -18,10 +18,14 @@ params ["_pointId", "_name", "_data"];
 
 private _customData = (_pointId call FUNC(getDeploymentPointData)) select 8;
 
-_customData params ["_names", "_data"];
+_customData params [["_names", []], ["_data", []]];
 
 private _index = _customData find _name;
 if (_index == -1) then {
     _index = _names pushBack _name;
 };
 _datas set [_index, _data];
+
+private _var = [_pointId, "All"] call FUNC(getDeploymentPointData);
+_var set [8, [_names, _datas]];
+GVAR(DeploymentPointStorage) setVariable [_pointId, _var, true];
