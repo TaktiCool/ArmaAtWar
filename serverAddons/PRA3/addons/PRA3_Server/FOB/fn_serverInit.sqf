@@ -35,7 +35,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
 
-        private _speed = 1;
+        private _speed = 10;
 
         if (_timerValue >= 15) then {
             _speed = 5;
