@@ -80,6 +80,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
     [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
     [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
+    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(stopDestroyTimer), {
@@ -90,7 +91,6 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 [QGVAR(continueDestroyTimer), {
     (_this select 0) params ["_pointId"];
     [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
-    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [
