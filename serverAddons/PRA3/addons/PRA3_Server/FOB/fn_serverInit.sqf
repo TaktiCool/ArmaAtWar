@@ -61,9 +61,15 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             _bomb setDamage 1;
         }, [_pos]] call CFUNC(execNextFrame);
 
+        private _availablefor = [_pointId, "availablefor"] call EFUNC(Common,getDeploymentPointData);
+
         [_pointId] call EFUNC(Common,removeDeploymentPoint);
 
         (_this select 1) call CFUNC(removePerFrameHandler);
+
+        private _ticketValue = [QGVAR(FOB_ticketValue), 20] call CFUNC(getSetting);
+
+        [_availablefor, -_ticketValue] call EFUNC(Tickets,addTickets);
 
     }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
     GVAR(namespace) setVariable [_pointId, [_pfhId,0]];

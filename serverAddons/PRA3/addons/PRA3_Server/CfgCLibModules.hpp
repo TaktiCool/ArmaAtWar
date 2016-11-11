@@ -196,6 +196,7 @@ class CfgCLibModules {
         MODULE(Tickets) {
             dependency[] = {"PRA3/Common", "PRA3/Sector"};
             FNC(init);
+            FNC(addTickets);
         };
 
         // UnitTracker
