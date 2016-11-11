@@ -35,22 +35,22 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
 
-        private _speed = 1;
+        private _speed = 10;
 
         if (_timerValue >= 15) then {
-            _speed = 0.5;
+            _speed = 5;
         };
 
         if (_timerValue >= 20) then {
-            _speed = 0.2;
+            _speed = 2;
         };
 
         if (_timerValue >= 25) then {
-            _speed = 0.1;
+            _speed = 1;
         };
 
-        if ((_timerValue mod _speed) == 0) then {
-            playSound3D ["a3\sounds_f\sfx\beep_target.wss", objNull, false, AGLtoASL _pos, 10, 0.5, 80];
+        if ((round(_timerValue * 10) mod _speed) == 0) then {
+            playSound3D ["a3\sounds_f\sfx\beep_target.wss", objNull, false, AGLtoASL _pos, 10, 0.5, 40];
         };
 
         if (_timerValue < 30) exitWith {};
