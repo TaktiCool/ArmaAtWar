@@ -22,7 +22,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         (_this select 0) params ["_pointId", "_timerValue"];
 
         private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
-        _data params ["_pfhId", "_timerValue"];
+        _data params ["_pfhId", ["_timerValue", 0]];
 
         private _counterStopped = [_pointId, "counterStopped", 0] call EFUNC(Common,getDeploymentCustomData);
 
@@ -49,7 +49,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             _speed = 0.1;
         };
 
-        if (_timerValue mod _speed) then {
+        if ((_timerValue mod _speed) == 0) then {
             playSound3D ["a3\sounds_f\sfx\beep_target.wss", objNull, false, AGLtoASL _pos, 10, 0.5, 80];
         };
 
