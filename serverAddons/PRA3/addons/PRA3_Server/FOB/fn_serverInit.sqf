@@ -86,6 +86,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
     [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
     [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
+    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(stopDestroyTimer), {
@@ -96,7 +97,6 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 [QGVAR(continueDestroyTimer), {
     (_this select 0) params ["_pointId"];
     [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
-    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [
@@ -143,18 +143,30 @@ call FUNC(shuffleSoundArray);
 
 DFUNC(playRadioSound) = {
     params ["_pointId"];
+    private _soundWaitIsRunning = [_pointId, "soundWaitIsRunning", 0] call EFUNC(Common,getDeploymentCustomData);
+    if (_soundWaitIsRunning == 0) then {
+        _pointId call FUNC(playRadioSoundLoop);
+    };
+};
+
+DFUNC(playRadioSoundLoop) = {
+    params ["_pointId"];
     private _obj = [_pointId, "pointobjects"] call EFUNC(Common,getDeploymentPointData);
     private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
     _obj = selectRandom _obj;
     private _counterActive = [_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData);
-    if (isNull _obj) exitWith {};
-    if (_counterActive == 1) exitWith {};
+    if (isNull _obj || _counterActive == 1) exitWith {
+        [_pointId, "soundWaitIsRunning", 0] call EFUNC(Common,setDeploymentCustomData);
+    };
     private _data = selectRandom GVAR(soundList);
     _data params ["_soundPath", "_length", ["_volume", 1]];
     _soundPath = format ["a3\sounds_f\sfx\%1.wss", _soundPath];
 
     playSound3D [_soundPath, objNull, false, AGLtoASL _pos, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
+    if (_soundWaitIsRunning == 0) then {
+        [_pointId, "soundWaitIsRunning", 1] call EFUNC(Common,setDeploymentCustomData);
+    };
 };
 
 [QGVAR(placed), {
