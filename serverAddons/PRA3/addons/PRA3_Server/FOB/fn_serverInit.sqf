@@ -143,7 +143,7 @@ DFUNC(playRadioSound) = {
     _data params ["_soundPath", "_length", ["_volume", 1]];
     _soundPath = format ["a3\sounds_f\sfx\%1.wss", _soundPath];
 
-    playSound3D [_soundPath, _obj, false, _pos, (_volume * 4), 1, 40];
+    playSound3D [_soundPath, objNull, false, AGLtoASL _pos, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
 };
 
