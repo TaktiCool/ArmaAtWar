@@ -26,7 +26,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         if (_counterStopped == 1) exitWith {};
 
         _timerValue = _timerValue + 0.1;
-        _this set [1, _timerValue];
+        _this set [0, [_pointId, _timerValue]];
 
         if (_timerValue < 30) exitWith {};
 
