@@ -148,3 +148,13 @@ if (hasInterface) then {
 }] call CFUNC(addEventhandler);
 
 ["performanceCheck", 0] call CFUNC(addIgnoredEventLog);
+CGVAR(hideHUD) = false;
+
+// Temp for Ribbon
+if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
+    ["Hide HUD (Permanent) + Hide Player", {true}, {
+        ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+        ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+        CGVAR(hideHUD) = true;
+    }] call CFUNC(addAction);
+};
