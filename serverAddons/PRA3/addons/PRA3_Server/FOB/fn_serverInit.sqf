@@ -66,6 +66,11 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     [_pointId, "counterStopped", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
 
+[QGVAR(continueDestroyTimer), {
+    (_this select 0) params ["_pointId"];
+    [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
+}] call CFUNC(addEventhandler);
+
 GVAR(soundList) = [
     ["radio\ambient_radio2", 10],
     ["radio\ambient_radio3", 11],

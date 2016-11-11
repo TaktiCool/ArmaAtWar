@@ -58,7 +58,7 @@ private _onComplete = {
 
 private _onInterruption = {
     params ["_target", "_caller"];
-
+    [QGVAR(continueDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
     GVAR(defuseStartTime) = -1;
 };
 
