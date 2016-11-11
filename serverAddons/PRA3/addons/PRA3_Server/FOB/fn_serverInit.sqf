@@ -17,15 +17,27 @@
 GVAR(namespace) = false call CFUNC(createNamespace);
 
 [QGVAR(startDestroyTimer), {
-    (_this select 0) params ["_pointId", "_time"];
+    (_this select 0) params ["_pointId"];
     private _pfhId = [{
         (_this select 0) params ["_pointId"];
-        if (_time < 0) exitWith {
+        private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
+        _data params ["_pfhId", ["_timerValue", -1]];
+
+        private _counterStopped = [_pointId, "counterStopped", 0] call EFUNC(Common,getDeploymentCustomData);
+
+        if (_counterStopped == 1) exitWith {};
+
+        _timerValue = _timerValue + 0.1;
+        GVAR(namespace) setVariable [_pointId, _data];
+
+        if (_timerValue < 0) exitWith {
             _pfhId call CFUNC(removePerFrameHandler);
         };
-        if (_time > time) exitWith {};
+        if (_timerValue < 30) exitWith {};
 
         private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
+
+
 
         [{
             params ["_pos"];
@@ -35,13 +47,13 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         [_pointId] call EFUNC(Common,removeDeploymentPoint);
 
-    }, 0.1, [_pointId, time + 30]] call CFUNC(addPerFrameHandler);
-    GVAR(namespace) setVariable [_pointId, _pfhId];
+    }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
+    GVAR(namespace) setVariable [_pointId, [_pfhId, time]];
 
     [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
 
-[QGVAR(stopDestroyTimer), {
+[QGVAR(resetDestroyTimer), {
     (_this select 0) params ["_pointId"];
     private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
     _data params ["_pfhId"];
@@ -49,6 +61,12 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     GVAR(namespace) setVariable [_pointId, nil];
 
     [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
+}] call CFUNC(addEventhandler);
+
+[QGVAR(stopDestroyTimer), {
+    (_this select 0) params ["_pointId"];
+    [_pointId, "counterStopped", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [

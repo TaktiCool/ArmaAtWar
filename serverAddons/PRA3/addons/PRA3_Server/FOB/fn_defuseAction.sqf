@@ -42,6 +42,7 @@ private _onStart = {
     params ["_target", "_caller"];
 
     GVAR(defuseStartTime) = time;
+    [QGVAR(stopDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
 };
 
 private _onProgress = {
@@ -52,7 +53,7 @@ private _onComplete = {
     params ["_target", "_caller"];
 
     GVAR(defuseStartTime) = -1;
-    [QGVAR(stopDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
+    [QGVAR(resetDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
 };
 
 private _onInterruption = {
