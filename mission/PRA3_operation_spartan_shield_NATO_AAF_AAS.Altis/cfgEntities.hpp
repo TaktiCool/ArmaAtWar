@@ -130,7 +130,11 @@ class CfgEntities {
         ticketValue = 75;
     };
 
-    // Logistic
+    /*
+    Logistic Config
+    */
+
+    //Crates
     class Box_Nato_Ammo_F {
         isDragable = 1;
         isLoadable = 1;
@@ -159,58 +163,90 @@ class CfgEntities {
         logisticOffset[] = {0,0,5};
     };
 
-    class Heli_Transport_01_base_F {
-        cargoCapacity = 20;
-    };
-
-    class Heli_Transport_02_base_F : Heli_Transport_01_base_F {
-    };
-
-    class Heli_Transport_03_base_F {
-        cargoCapacity = 50;
-    };
-
-    class Heli_Transport_04_base_F : Heli_Transport_03_base_F {
-    };
-
-
-    class I_Truck_02_covered_F {
-        cargoCapacity = 50;
-    };
-
-    class I_Truck_03_covered_F : I_Truck_02_covered_F {
-    };
-
-    class I_Truck_03_transport_F : I_Truck_02_covered_F {
-    };
-
-    class B_Truck_01_Box_F {
-        cargoCapacity = 80;
-    };
-
-    class B_Truck_01_Covered_F {
-        cargoCapacity = 50;
-    };
-
-    class B_Truck_01_transport_F : B_Truck_01_Covered_F {
-    };
-
-    class B_MRAP_01_F {
-        cargoCapacity = 20;
-    };
-
-    class I_MRAP_02_F : B_MRAP_01_F {
-    };
-    class B_HMG_01_high_F {
-        isDragable = 1;
-        isLoadable = 1;
-    };
-    class I_HMG_01_high_F: B_HMG_01_high_F {};
-
     class CargoNet_01_ammo_base_F : B_Slingload_01_Cargo_F {
         isLoadable = 1;
         cargoSize = 20;
         cargoCapacity = 10;
         logisticOffset[] = {0, 0, 0};
     };
+
+    // Light Helos
+    class Heli_Light_01_base_F {
+        cargoCapacity = 15;
+    };
+
+    class Heli_Light_02_base_F : Heli_Light_01_base_F {
+    };
+
+    class Heli_Light_03_base_F : Heli_Light_01_base_F {
+    };
+
+    // Transport Helos
+    class Heli_Transport_01_base_F {
+      cargoCapacity = 50;
+    };
+
+    class Heli_Transport_02_base_F : Heli_Transport_01_base_F {
+    };
+
+    class Heli_Transport_03_base_F : Heli_Transport_01_base_F {
+    };
+
+    class Heli_Transport_04_base_F : Heli_Transport_01_base_F {
+    };
+
+    // Trucks
+    class Truck_01_base_F {
+        cargoCapacity = 50;
+    };
+    class Truck_02_base_F {
+    };
+
+    class Truck_03_base_F {
+    };
+
+    // MRAPs
+    class MRAP_01_base_F {
+        cargoCapacity = 20;
+    };
+
+    class MRAP_02_base_F : MRAP_01_base_F {
+    };
+
+    class MRAP_03_base_F : MRAP_01_base_F {
+    };
+
+    //Wheeled APCs
+    class APC_Wheeled_01_base_F {
+        cargoCapacity = 25;
+    };
+
+    class APC_Wheeled_02_base_F : APC_Wheeled_01_base_F {
+    };
+
+    class APC_Wheeled_03_base_F : APC_Wheeled_01_base_F {
+    };
+
+    //Tracked APCs
+    class APC_Tracked_01_base_F {
+        cargoCapacity = 25;
+    };
+
+    class APC_Tracked_base_F : APC_Tracked_01_base_F {
+    };
+
+    class APC_Tracked_03_base_F : APC_Tracked_01_base_F {
+    };
+
+    //Tanks
+    class MBT_01_base_F {
+        cargoCapacity = 10;
+    };
+
+    class MBT_02_base_F : MBT_01_base_F {
+    };
+
+    class MBT_03_base_F : MBT_01_base_F {
+    };
+
 };
