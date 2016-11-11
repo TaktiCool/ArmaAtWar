@@ -69,6 +69,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 [QGVAR(continueDestroyTimer), {
     (_this select 0) params ["_pointId"];
     [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentCustomData);
+    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [
@@ -114,18 +115,22 @@ DFUNC(shuffleSoundArray) = {
 call FUNC(shuffleSoundArray);
 
 DFUNC(playRadioSound) = {
-    params ["_obj"];
+    params ["_pointId"];
+    private _obj = [_pointId, "pointobjects"] call EFUNC(Common,getDeploymentPointData);
+    private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
+    _obj = selectRandom _obj;
+    private _counterActive = [_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData);
     if (isNull _obj) exitWith {};
+    if (_counterActive == 1) exitWith {};
     private _data = selectRandom GVAR(soundList);
     _data params ["_soundPath", "_length", ["_volume", 1]];
     _soundPath = format ["a3\sounds_f\sfx\%1.wss", _soundPath];
 
-    playSound3D [_soundPath, _obj, false, getPosASL _obj, (_volume * 4), 1, 40];
-    [FUNC(playRadioSound), (_length + random 5), _obj] call CFUNC(wait);
+    playSound3D [_soundPath, _obj, false, _pos, (_volume * 4), 1, 40];
+    [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
 };
 
 [QGVAR(placed), {
     (_this select 0) params ["_pointId"];
-    private _data = [_pointId, "pointobjects"] call EFUNC(Common,getDeploymentPointData);
-    (selectRandom _data) call FUNC(playRadioSound);
+    _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
