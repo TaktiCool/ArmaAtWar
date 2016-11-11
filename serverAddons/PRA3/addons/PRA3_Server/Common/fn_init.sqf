@@ -156,5 +156,9 @@ if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
         ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
         ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
         CGVAR(hideHUD) = true;
+
+        ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
+        ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
+        ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
     }] call CFUNC(addAction);
 };
