@@ -17,5 +17,5 @@ class CfgPatches {
 #include "CfgCLibModules.hpp"
 
 #include "CfgCLibLocalisation.hpp"
-
+#include "\pr\PRA3\addons\PRA3_Server\FOB\cfgClibSimpleObject.hpp"
 #include "PRA3.hpp"

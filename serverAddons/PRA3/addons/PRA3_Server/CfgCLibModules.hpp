@@ -17,6 +17,26 @@ class CfgCLibModules {
             FNC(getNearestLocationName);
             FNC(isAlive);
 
+
+            MODULE(Deployment) {
+                // Inits
+                FNC(initDeployment);
+                FNC(serverInit);
+                FNC(clientInit);
+
+                // DataManagement
+                FNC(setDeploymentPointData);
+                FNC(getDeploymentPointData);
+                FNC(setDeploymentCustomData);
+                FNC(getDeploymentCustomData);
+
+                // Misc
+                FNC(getAvailableDeploymentPoints);
+                FNC(removeDeploymentPoint);
+                FNC(addDeploymentPoint);
+                FNC(prepareSpawn);
+            };
+
             //Entity Variables
             MODULE(EntityVariables) {
                 FNC(initEntityVariables);
@@ -51,31 +71,31 @@ class CfgCLibModules {
             FNC(addLineMarker);
         };
 
-        MODULE(Deployment) {
+        // Rally System
+        MODULE(Rally) {
             dependency[] = {"PRA3/Common"};
             FNC(serverInit);
             FNC(clientInit);
-            FNC(addPoint);
-            FNC(removePoint);
-            FNC(getAvailablePoints);
-            FNC(prepareSpawn);
+            FNC(place);
+            FNC(destroy);
+            FNC(canPlace);
+        };
 
-            // Rally System
-            MODULE(Rally) {
-                FNC(serverInitRally);
-                FNC(clientInitRally);
-                FNC(placeRally);
-                FNC(destroyRally);
-                FNC(canPlaceRally);
-            };
+        // FOB system
+        MODULE(FOB) {
+            dependency[] = {"PRA3/Common"};
+            FNC(clientInit);
+            FNC(serverInit);
+            FNC(place);
+            FNC(destroyAction);
+            FNC(defuseAction);
+            FNC(canPlace);
+        };
 
-            // FOB system
-            MODULE(FOB) {
-                FNC(clientInitFOB);
-                FNC(placeFOB);
-                FNC(destroyFOB);
-                FNC(canPlaceFOB);
-            };
+        // SquadRespawn system
+        MODULE(SquadRespawn) {
+            dependency[] = {"PRA3/Common"};
+            FNC(clientInit);
         };
 
         // GarbageCollector
@@ -115,7 +135,7 @@ class CfgCLibModules {
 
         // RespawnUI
         MODULE(RespawnUI) {
-            dependency[] = {"PRA3/Common", "PRA3/Deployment", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
+            dependency[] = {"PRA3/Common", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
             FNC(clientInit);
             FNC(clientInitDeployment);
             FNC(clientInitRole);
@@ -176,6 +196,7 @@ class CfgCLibModules {
         MODULE(Tickets) {
             dependency[] = {"PRA3/Common", "PRA3/Sector"};
             FNC(init);
+            FNC(addTickets);
         };
 
         // UnitTracker

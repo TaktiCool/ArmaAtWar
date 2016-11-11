@@ -38,7 +38,9 @@ CLib_Modules[] = {
     "PRA3/Revive",
     "PRA3/Tickets",
     "PRA3/UnitTracker",
-    "PRA3/VehicleRespawn"
+    "PRA3/VehicleRespawn",
+    "PRA3/FOB",
+    "PRA3/Rally"
 };
 
 class PRA3 {
@@ -64,7 +66,6 @@ class PRA3 {
     #include "ui\common\pra3Core.hpp"
 
 };
-
 
 #include "ui\common\defines.hpp"
 #include "ui\common\baseclasses.hpp"

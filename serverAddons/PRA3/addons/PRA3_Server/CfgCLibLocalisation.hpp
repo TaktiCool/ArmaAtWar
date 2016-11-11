@@ -2,6 +2,17 @@ class CfgCLibLocalisation {
 
     class PRA3 {
 
+        // Common
+        class Common {
+            class SpawnsRemaining {
+                English = "%1 (%2 spawns remaining)";
+                Czech = "%1 (Zbývají %2 body nasazení)";
+                German = "%1 (%2 Spawns übrig)";
+                Polish = "%1 (Pozostało %2 odrodzeń)";
+                Korean = "%1 (스폰 %2 남음)";
+            };
+        };
+
         // Vehicle Respawn
         class VehicleRespawn {
             class NewVehicleAvailable {
@@ -147,16 +158,8 @@ class CfgCLibLocalisation {
             };
         };
 
-        // Deployment
-        class Deployment {
-            class SpawnsRemaining {
-                English = "%1 (%2 spawns remaining)";
-                Czech = "%1 (Zbývají %2 body nasazení)";
-                German = "%1 (%2 Spawns übrig)";
-                Polish = "%1 (Pozostało %2 odrodzeń)";
-                Korean = "%1 (스폰 %2 남음)";
-            };
-            // - Rally
+        // Rally
+        class Rally {
             class CreateRally {
                 English = "Create Rally Point";
                 Czech = "Vytvořit shromaždiště";
@@ -178,8 +181,10 @@ class CfgCLibLocalisation {
                 Polish = "Dowódca drużyny ustalił punkt zbiórki w pobliżu %1";
                 Korean = "분대장이 %1 근처에 랠리포인트를 생성하였습니다.";
             };
+        };
 
-            // - FOB
+        // FOB
+        class FOB {
             class FOBTakeDown {
                 English = "Destroy FOB";
                 Czech = "Znič FOB";
@@ -201,7 +206,6 @@ class CfgCLibLocalisation {
                 Polish = "Drużyna %1 utworzyła FOB w pobliżu %2";
                 Korean = "%1 분대가 %2 전진기지 근처에 배치되었습니다";
             };
-
         };
 
         // Kit

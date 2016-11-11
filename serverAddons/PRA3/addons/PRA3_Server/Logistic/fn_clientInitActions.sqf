@@ -15,7 +15,7 @@
 */
 
 [
-    {format [MLOC(Drag), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format [MLOC(Drag), getText(configFile >> "CfgVehicles" >> typeOf cursorObject >> "displayName")]},
     GVAR(DragableClasses),
     3,
     {
@@ -41,7 +41,7 @@
 ] call CFUNC(addAction);
 
 [
-    {format[MLOC(loadItem), getText(configFile >> "CfgVehicles" >> typeof cursorTarget >> "displayName")]},
+    {format[MLOC(loadItem), getText(configFile >> "CfgVehicles" >> typeof cursorObject >> "displayName")]},
     GVAR(CargoClasses),
     10,
     {!(isNull (CLib_Player getVariable [QGVAR(Item), objNull])) && !((CLib_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target) },

@@ -62,7 +62,9 @@
         } count EGVAR(Common,competingSides);
 
         // Move the player to the side
+        private _initialUnit = CLib_Player;
         [[-1000, -1000, 10], _leastPlayerSide] call EFUNC(Common,respawnNewSide);
+        deleteVehicle _initialUnit;
 
         // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;

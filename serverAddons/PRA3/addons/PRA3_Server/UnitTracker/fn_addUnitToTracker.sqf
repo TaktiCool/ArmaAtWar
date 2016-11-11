@@ -21,6 +21,10 @@ private _groupColor = [0, 0.87, 0, 1];
 
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo group _newUnit);
 
+if (CLib_Player == _newUnit) then {
+    _color = [1, 1, 1, 1];
+};
+
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1];
 private _manDescription = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _newUnit, 20, 20, 0, name _newUnit, 2];
 

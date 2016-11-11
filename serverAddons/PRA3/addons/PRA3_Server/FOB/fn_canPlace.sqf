@@ -25,22 +25,19 @@ if (vehicle CLib_Player != CLib_Player) exitWith {false};
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _fobNearPlayer = false;
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
-    _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
-
+    private _pointData = [_x, ["type", "postion"]] call EFUNC(Common,getDeploymentPointData);
+    _pointData params ["_type", "_position"];
     // Ignore RPs
-    if (_availableFor isEqualType sideUnknown) then {
-        if ((CLib_Player distance _position) < _minDistance) exitWith {
-            _fobNearPlayer = true;
-        };
+    if (_type == "FOB" && (CLib_Player distance _position) < _minDistance) exitWith {
+        _fobNearPlayer = true;
     };
     nil
-} count (call FUNC(getAvailablePoints));
+} count (call EFUNC(Common,getAvailableDeploymentPoints));
 if (_fobNearPlayer) exitWith {false};
 
 // Check near enemies
-private _maxEnemyPlace = [QGVAR(FOB_maxEnemyPlace), 5] call CFUNC(getSetting);
-private _maxEnemyPlaceRadius = [QGVAR(FOB_maxEnemyPlaceRadius), 50] call CFUNC(getSetting);
+private _maxEnemyPlace = [QGVAR(maxEnemyPlace), 5] call CFUNC(getSetting);
+private _maxEnemyPlaceRadius = [QGVAR(maxEnemyPlaceRadius), 50] call CFUNC(getSetting);
 private _enemyCount = {(side group _x) != side group CLib_Player} count (_target nearObjects ["CAManBase", _maxEnemyPlaceRadius]);
 if (_enemyCount >= _maxEnemyPlace) exitWith {false};
 /*
@@ -48,7 +45,7 @@ if (_enemyCount >= _maxEnemyPlace) exitWith {false};
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
 private _rallyNearPlayer = false;
 {
-    private _pointDetails = GVAR(pointStorage) getVariable _x;
+    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
     _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
 
     // Ignore RPs
@@ -58,7 +55,7 @@ private _rallyNearPlayer = false;
         };
     };
     nil
-} count (call FUNC(getAvailablePoints));
+} count (call EFUNC(Common,getAvailableDeploymentPoints));
 if (_rallyNearPlayer) exitWith {false};
 */
 true
