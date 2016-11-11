@@ -21,13 +21,15 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     private _pfhId = [{
         (_this select 0) params ["_pointId", "_timerValue"];
 
+        private _data = [GVAR(namespace), _pointId, []] call CFUNC(getVariable);
+        _data params ["_pfhId", "_timerValue"];
+
         private _counterStopped = [_pointId, "counterStopped", 0] call EFUNC(Common,getDeploymentCustomData);
 
         if (_counterStopped == 1) exitWith {};
 
         _timerValue = _timerValue + 0.1;
-        DUMP(_timerValue);
-        _this set [0, [_pointId, _timerValue]];
+        GVAR(namespace) setVariable [_pointId, [_pfhId, _timerValue]];
 
         private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
 
@@ -61,8 +63,8 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         (_this select 1) call CFUNC(removePerFrameHandler);
 
-    }, 0.1, [_pointId, 0]] call CFUNC(addPerFrameHandler);
-    GVAR(namespace) setVariable [_pointId, [_pfhId]];
+    }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
+    GVAR(namespace) setVariable [_pointId, [_pfhId,0]];
 
     [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);
