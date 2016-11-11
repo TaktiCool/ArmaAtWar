@@ -8,7 +8,7 @@ class Sides {
         color[] = {0, 0.3, 0.8, 1};
         squadRallyPointObjects[] = {{"Land_TentDome_F", {0,0,0}}};
         FOBBoxObject = "B_CargoNet_01_ammo_F";
-        FOBObjects[] = {{"B_CargoNet_01_ammo_F", {0,0,0}},{"Land_SatellitePhone_F", {0,0,1.631}}};
+        FOBComposition = "FOBNATO";
         #include "kitsWest.hpp"
 
         #include "cfgLogisticWest.hpp"
@@ -21,8 +21,9 @@ class Sides {
         mapIcon = "a3\ui_f\data\Map\Markers\NATO\n_installation.paa";
         color[] = {0, 0.5, 0, 1};
         squadRallyPointObjects[] = {{"Land_TentA_F", {0,0,0}}};
-        FOBBoxObject = "I_CargoNet_01_ammo_F";
-        FOBObjects[] = {{"I_CargoNet_01_ammo_F", {0,0,0}},{"Land_SatellitePhone_F", {0,0,1.631}}};
+        FOBBoxObject = "O_CargoNet_01_ammo_F";
+        FOBComposition = "FOBAAF";
+
         #include "kitsIndependent.hpp"
 
         #include "cfgLogisticIndependent.hpp"
