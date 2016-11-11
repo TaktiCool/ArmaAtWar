@@ -16,8 +16,6 @@
 */
 params ["_targetPosition", "_targetSide"];
 
-private _oldUnit = CLib_Player;
-
 // Create new body
 private _className = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str _targetSide) >> "playerClass");
 if (_className == "") then {
