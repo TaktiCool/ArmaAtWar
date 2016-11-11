@@ -138,10 +138,6 @@ GVAR(deactivateTicketSystem) = false;
 
         }] call CFUNC(addEventhandler);
 
-        ["FOBDestroyed", {
-
-        }] call CFUNC(addEventhandler);
-
     };
 
     if (hasInterface) then {
@@ -159,6 +155,7 @@ GVAR(deactivateTicketSystem) = false;
         ["ticketsChanged", {
             if (GVAR(deactivateTicketSystem)) exitWith {};
             private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
+            if (isNull _dialog) exitWith {};
             (_dialog displayCtrl 2011) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1),EGVAR(Common,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
             (_dialog displayCtrl 2012) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1),EGVAR(Common,competingSides) select 0],""]);
             (_dialog displayCtrl 2013) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 0],0]);
