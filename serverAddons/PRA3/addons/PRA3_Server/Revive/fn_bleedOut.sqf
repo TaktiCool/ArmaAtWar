@@ -14,6 +14,8 @@
     -
 */
 GVAR(bleedoutTimer) = -1;
+
+GVAR(bloodRefreshTimer) = -1;
 ["unconsciousnessChanged", {
     (_this select 0) params ["_state"];
 
@@ -45,6 +47,25 @@ GVAR(bleedoutTimer) = -1;
                 };
 
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
+            };
+        }, 1] call CFUNC(addPerFrameHandler);
+    };
+
+    if (!_state && {alive CLib_Player && {GVAR(bloodRefreshTimer) < 0}}) then {
+        GVAR(bloodRefreshTimer) = [{
+            private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
+            _bloodLevel = _bloodLevel + 1/([QGVAR(Settings_bloodRestoreDuration), 300] call CFUNC(getSetting));
+
+            CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel min 1];
+
+            if (_bloodLevel >= 1) then {
+                GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
+                GVAR(bloodRefreshTimer) = -1;
+            };
+
+            if (!alive CLib_Player || (CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
+                GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
+                GVAR(bloodRefreshTimer) = -1;
             };
         }, 1] call CFUNC(addPerFrameHandler);
     };
