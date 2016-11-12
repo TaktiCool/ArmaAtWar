@@ -152,7 +152,7 @@ if (hasInterface) then {
             "Hide HUD (Permanent) + Hide Player",
             CLib_Player,
             0,
-            { true },
+            { (true isEqualTo true) },
             {
                 ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
                 ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
