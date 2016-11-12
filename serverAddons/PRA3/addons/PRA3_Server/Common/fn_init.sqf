@@ -156,7 +156,7 @@ if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
     [
         "Hide HUD (Permanent) + Hide Player",
         CLib_Player,
-        9001,
+        0,
         { true },
         {
             ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
