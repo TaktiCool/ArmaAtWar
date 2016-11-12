@@ -18,7 +18,7 @@ enableDebugConsole = 1;
 disabledAI = 1;
 author = "Project Reality Development Team";
 onLoadName = "PRA3 - OP Spartan Shield";
-onLoadMission = "Advance and Secure, 8 km², Infantry Layout";
+onLoadMission = "Advance and Secure, 2 km², Infantry Layout";
 loadScreen =  "ui\media\loadscreen.jpg";
 
 respawn = 3;
