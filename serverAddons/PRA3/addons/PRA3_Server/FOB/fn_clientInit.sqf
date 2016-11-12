@@ -23,7 +23,7 @@ GVAR(sideNamespace) = false call CFUNC(createNamespace);
     private _objectType = getText (_x >> "FOBBoxObject");
     //private _fobObjectTypes = getArray (_x >> "FOBObjects");
     [QLSTRING(PlaceFOB), _objectType, 3, {
-        [QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall) && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
+        simulationEnabled _target && [QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall) && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
     }, {
         [_this select 0] call FUNC(place);
         {QGVAR(ClearFOBPlaceable) call CFUNC(localEvent);} call CFUNC(execNextFrame);
