@@ -152,7 +152,7 @@ CGVAR(hideHUD) = false;
 
 // Temp for Ribbon
 if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
-    ["Hide HUD (Permanent) + Hide Player", {true}, {
+    ["Hide HUD (Permanent) + Hide Player", CLib_Player, {true}, {
         ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
         ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
         CGVAR(hideHUD) = true;
