@@ -24,10 +24,11 @@ class cfgLogistic {
         content[] = {{"NLAW_F", 6}, {"Titan_AT", 2}, {"Titan_AA", 2}};
 		removeDefaultLoadout = 1;
     };
-	
+
 	class FOBBox {
         displayName = "FOB Box";
         classname = "I_CargoNet_01_ammo_F";
+        content[] = {};
         removeDefaultLoadout = 1;
     };
 };
