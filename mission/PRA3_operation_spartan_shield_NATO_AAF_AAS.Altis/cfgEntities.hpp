@@ -16,7 +16,7 @@ class defaultEast : defaultVehicle {
 };
 
 class defaultIndependent : defaultVehicle {
-    side = "INDEPENDENT";
+    side = "GUER";
 };
 
 class CfgEntities {
