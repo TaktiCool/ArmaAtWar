@@ -145,27 +145,27 @@ if (hasInterface) then {
         missionNamespace setVariable [format [QGVAR(SideMapIcon_%1), _side], getText (_x >> "mapIcon")];
         nil;
     } count ("true" configClasses (missionConfigFile >> QPREFIX >> "sides"));
+    // Temp for Ribbon
+    if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
+
+        [
+            "Hide HUD (Permanent) + Hide Player",
+            CLib_Player,
+            0,
+            { true },
+            {
+                ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                CGVAR(hideHUD) = true;
+
+                ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
+                ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
+                ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
+            }
+        ] call CFUNC(addAction);
+    };
+
 }] call CFUNC(addEventhandler);
 
 ["performanceCheck", 0] call CFUNC(addIgnoredEventLog);
 CGVAR(hideHUD) = false;
-
-// Temp for Ribbon
-if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
-
-    [
-        "Hide HUD (Permanent) + Hide Player",
-        CLib_Player,
-        0,
-        { true },
-        {
-            ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
-            ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
-            CGVAR(hideHUD) = true;
-
-            ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
-            ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
-            ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
-        }
-    ] call CFUNC(addAction);
-};
