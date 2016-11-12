@@ -98,6 +98,7 @@ class CfgEntities {
     class vr_ZamakTrans_0 : vr_strider_0 {
         ticketValue = 20;
         respawnTime = 180;
+        cargoCapacity = 50;
     };
     class vr_ZamakTrans_1 : vr_ZamakTrans_0 {};
 
