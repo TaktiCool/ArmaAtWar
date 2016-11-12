@@ -50,7 +50,7 @@ class CfgSectors {
             };
 
             class sector_1 : sector {
-                dependency[] = {"sector_0","sector_2"};
+                dependency[] = {"sector_0","sector_4"};
                 designator = "B";
             };
 

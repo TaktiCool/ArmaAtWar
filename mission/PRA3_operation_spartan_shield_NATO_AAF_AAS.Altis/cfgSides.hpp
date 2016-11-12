@@ -21,7 +21,7 @@ class Sides {
         mapIcon = "a3\ui_f\data\Map\Markers\NATO\n_installation.paa";
         color[] = {0, 0.5, 0, 1};
         squadRallyPointObjects[] = {{"Land_TentA_F", {0,0,0}}};
-        FOBBoxObject = "O_CargoNet_01_ammo_F";
+        FOBBoxObject = "I_CargoNet_01_ammo_F";
         FOBComposition = "FOBAAF";
 
         #include "kitsIndependent.hpp"
