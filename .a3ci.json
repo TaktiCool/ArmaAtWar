@@ -1,5 +1,5 @@
 {
   "test": "test",
   "addonFolders": ["serverAddons/PRA3"],
-  "missionFolders": ["mission/PRA3_playtest_NATO_CSAT.Stratis", "mission/PRA3_playtest_NATO_AAF.Stratis", "mission/PRA3_vDev.Stratis", "mission/PRA3_operation_spartan_shield_NATO_AAF_AAS.Altis", "PRA3_operation_spartan_shield_NATO_AAF_AAS_Infantry.Altis"]
+  "missionFolders": ["mission/PRA3_playtest_NATO_CSAT.Stratis", "mission/PRA3_playtest_NATO_AAF.Stratis", "mission/PRA3_vDev.Stratis", "mission/PRA3_operation_spartan_shield_NATO_AAF_AAS.Altis", "mission/PRA3_operation_spartan_shield_NATO_AAF_AAS_Infantry.Altis"]
 }
