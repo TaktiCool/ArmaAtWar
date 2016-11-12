@@ -22,9 +22,9 @@ class Kits {
         primaryWeapon = "arifle_Mk20_F";
         primaryAttachments[] = {"optic_ACO_grn","acc_pointer_IR"};
         primaryMagazine = "30Rnd_556x45_Stanag";
-        primaryMagazineCount = 0;
+        primaryMagazineCount = 6;
         primaryMagazineTracer = "30Rnd_556x45_Stanag_Tracer_Green";
-        primaryMagazineTracerCount = 5;
+        primaryMagazineTracerCount = 0;
 
         // Secondary weapon
         secondaryWeapon = "";
@@ -49,7 +49,7 @@ class Kits {
     class Officer: Rifleman {
         availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
 
-        displayName = "Squad Leader";
+        displayName = "Officer";
 
         isLeader = 1;
 
@@ -101,7 +101,7 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
     };
     class Grenadier: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         displayName = "Grenadier";
@@ -112,7 +112,7 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
     class Marksman: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         displayName = "Marksman";
@@ -129,7 +129,7 @@ class Kits {
         assignedItems[] += {"Rangefinder"};
     };
 	class DemolitionExpert: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         backpack = "B_TacticalPack_rgr";
@@ -151,8 +151,8 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\repair_ca.paa";
     };
     class AntiAir: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Rifle"};
+        kitGroup = "Specialized";
+        availableInGroups[] = {"Weapon"};
 
         displayName = "AA Rifleman";
 
@@ -203,7 +203,7 @@ class Kits {
         items[] = {{"200Rnd_65x39_cased_Box_Tracer", 3}};
     };
     class Crewman: Rifleman {
-        availableInGroups[] = {"Vehicle", "Helicopter"};
+        availableInGroups[] = {"Vehicle"};
 
         displayName = "Crewman";
 

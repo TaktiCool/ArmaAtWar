@@ -22,9 +22,9 @@ class Kits {
         primaryWeapon = "arifle_MX_F";
         primaryAttachments[] = {"optic_Aco","acc_pointer_IR"};
         primaryMagazine = "30Rnd_65x39_caseless_mag";
-        primaryMagazineCount = 0;
+        primaryMagazineCount = 6;
         primaryMagazineTracer = "30Rnd_65x39_caseless_mag_Tracer";
-        primaryMagazineTracerCount = 5;
+        primaryMagazineTracerCount = 0;
 
         // Secondary weapon
         secondaryWeapon = "";
@@ -49,7 +49,7 @@ class Kits {
     class Officer: Rifleman {
         availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
 
-        displayName = "Squad Leader";
+        displayName = "Officer";
 
         isLeader = 1;
 
@@ -98,7 +98,7 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
     };
     class Grenadier: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         displayName = "Grenadier";
@@ -109,7 +109,7 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
     class Marksman: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         displayName = "Marksman";
@@ -124,7 +124,7 @@ class Kits {
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
     };
     class DemolitionExpert: Rifleman {
-        kitGroup = "Limited";
+        kitGroup = "Specialized";
         availableInGroups[] = {"Rifle"};
 
         backpack = "B_AssaultPack_rgr";
@@ -147,7 +147,7 @@ class Kits {
     };
     class AntiAir: Rifleman {
         kitGroup = "Limited";
-        availableInGroups[] = {"Rifle"};
+        availableInGroups[] = {"Weapon"};
 
         displayName = "AA Rifleman";
 
@@ -198,7 +198,7 @@ class Kits {
         items[] += {{"200Rnd_65x39_cased_Box_Tracer", 3}};
     };
     class Crewman: Rifleman {
-        availableInGroups[] = {"Vehicle", "Helicopter"};
+        availableInGroups[] = {"Vehicle"};
 
         displayName = "Crewman";
 
