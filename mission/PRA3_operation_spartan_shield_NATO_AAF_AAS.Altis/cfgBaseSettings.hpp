@@ -1,4 +1,4 @@
-tickets = 800; // number of tickets per team
+tickets = 1000; // number of tickets per team
 ticketBleed[] = {10,1}; // time, tickets
 musicStart = 50; // tickets to start the music
 playerTicketValue = 1; // Ticket value of a player
