@@ -154,8 +154,9 @@ if (hasInterface) then {
                 0,
                 { (true isEqualTo true) },
                 {
-                ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                    ([UIVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     CGVAR(hideHUD) = true;
 
                     ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
