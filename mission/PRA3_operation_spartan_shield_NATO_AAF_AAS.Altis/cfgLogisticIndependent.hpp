@@ -1,5 +1,5 @@
 class cfgLogistic {
-    objectToSpawn[] = {"mainBaseFlagGuer"};
+    objectToSpawn[] = {"mainBaseFlagGuer_0", "mainBaseFlagGuer_1"};
     class MedicalBox {
       displayName = "Medical Box";
       classname = "Box_IND_Ammo_F";
@@ -28,6 +28,7 @@ class cfgLogistic {
     class FOBBox {
       displayName = "FOB Box";
       classname = "I_CargoNet_01_ammo_F";
+      content[] = {};
       removeDefaultLoadout = 1;
     };
 };
