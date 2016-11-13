@@ -38,6 +38,14 @@ private _id = format ["%1_%2", _name, _position];
     nil
 } count _customData;
 
-[QGVAR(deploymentPointAdded), _availableFor] call CFUNC(targetEvent);
+private _side = sideUnknown;
+
+if (_availableFor isEqualType sideUnknown) then {
+    _side = _availableFor;
+} else {
+    _side = side _availableFor;
+};
+
+[QGVAR(deploymentPointAdded), _side] call CFUNC(targetEvent);
 
 _id

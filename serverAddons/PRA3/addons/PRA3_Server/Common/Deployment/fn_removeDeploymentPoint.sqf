@@ -30,5 +30,12 @@ private _pointObjects = _pointDetails select 7;
 private _availableFor = _pointDetails select 3;
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
-    [QGVAR(deploymentPointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
+    private _side = sideUnknown;
+
+    if (_availableFor isEqualType sideUnknown) then {
+        _side = _availableFor;
+    } else {
+        _side = side _availableFor;
+    };
+    [QGVAR(deploymentPointRemoved), _side, _pointId] call CFUNC(targetEvent);
 };
