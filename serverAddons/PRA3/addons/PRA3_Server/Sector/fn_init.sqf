@@ -14,25 +14,19 @@
     None
 */
 
-["sideChanged", {
+private _fncDrawAllSectors = {
+    ["ATTACK"] call EFUNC(CompassUI,removeLineMarker);
+    ["DEFEND"] call EFUNC(CompassUI,removeLineMarker);
     {
         [_x] call FUNC(drawSector);
         nil
     } count GVAR(allSectorsArray);
-}] call CFUNC(addEventhandler);
+};
 
-["sectorSideChanged", {
-    {
-        [_x] call FUNC(drawSector);
-        nil
-    } count GVAR(allSectorsArray);
-}] call CFUNC(addEventhandler);
+["sideChanged", _fncDrawAllSectors] call CFUNC(addEventhandler);
 
-[{
-    {
-        [_x] call FUNC(drawSector);
-        nil
-    } count GVAR(allSectorsArray);
-}, {
+["sectorSideChanged", _fncDrawAllSectors] call CFUNC(addEventhandler);
+
+[_fncDrawAllSectors, {
     !isNil QGVAR(ServerInitDone) && {GVAR(ServerInitDone)}
 },[]] call CFUNC(waitUntil);
