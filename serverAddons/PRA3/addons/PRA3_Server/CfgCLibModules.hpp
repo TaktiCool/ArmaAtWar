@@ -32,6 +32,7 @@ class CfgCLibModules {
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
                 FNC(prepareSpawn);
