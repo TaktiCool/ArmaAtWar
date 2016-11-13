@@ -46,26 +46,22 @@ if (hasInterface) then {
         nil
     } count (_sector getVariable ["dependency",[]]);
 
-    private _attackMarkerStatus = 0;
-
     if (count _activeSides > 1 && playerSide in _activeSides) then {
         if (playerSide == _side) then {
             if (_sector call FUNC(isCaptureable)) then {
-                //_icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
-                //_color = [0.01, 0.67, 0.92, 1];
-                _attackMarkerStatus = 1;
+                _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
+                _color = [0.01, 0.67, 0.92, 1];
                 ["DEFEND", [0.01, 0.67, 0.92, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
             };
         } else {
-            _attackMarkerStatus = 2;
-            //_icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
+            _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
             ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
-            //_color = [0.99, 0.26, 0, 1];
+            _color = [0.99, 0.26, 0, 1];
 
         };
 
     };
-    /*
+
     [
         _id,
         [
@@ -74,57 +70,12 @@ if (hasInterface) then {
         ]
     ] call CFUNC(addMapGraphicsGroup);
 
-
     [
         _id,
         [
             ["ICON", _icon, _color, getMarkerPos _marker],
             ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _fullname, 2]
         ],
-        "hover"
-    ] call CFUNC(addMapGraphicsGroup);
-    */
-
-    private _symbol = ["ICON", format ["a3\ui_f_mp_mark\data\tasks\letters3d\%1_ca.paa", toLower _designator], _color, getMarkerPos _marker, 50, 50];
-
-    if (_designator == "HQ") then {
-        _symbol = ["ICON", "a3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", _color, [getMarkerPos _marker, [0, -13]], 23, 23];
-    };
-
-    private _iconData = [
-        ["ICON", "a3\ui_f_mp_mark\data\tasks\misc\background.paa", [0,0,0,0.7], getMarkerPos _marker, 50, 50],
-        _symbol
-    ];
-
-    if (_attackMarkerStatus == 1) then {
-        _iconData append [
-            ["ICON", "a3\3den\data\cfg3den\marker\iconellipse_ca.paa", [0.01, 0.67, 0.92, 1], [getMarkerPos _marker,[12,-27]], 27, 27],
-            ["ICON", "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa", [1, 1, 1, 1], [getMarkerPos _marker,[12,-27]], 18, 18]
-        ];
-    };
-
-    if (_attackMarkerStatus == 2) then {
-        _iconData append [
-            ["ICON", "a3\3den\data\cfg3den\marker\iconellipse_ca.paa", [0.99, 0.26, 0, 1], [getMarkerPos _marker,[12,-27]], 27, 27],
-            ["ICON", "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa", [1, 1, 1, 1], [getMarkerPos _marker,[12,-27]], 18, 18]
-        ];
-    };
-
-    [
-        _id,
-        _iconData
-    ] call CFUNC(addMapGraphicsGroup);
-
-    private _hoverIconData = [
-        ["ICON", "a3\ui_f_mp_mark\data\tasks\misc\background.paa", [0,0,0,1], getMarkerPos _marker, 50, 50],
-        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], [getMarkerPos _marker, [0,12]], 50, 50, 0, _fullname, 2, 0.08,"RobotoCondensed", "center"],
-        _symbol
-    ];
-
-
-    [
-        _id,
-        _hoverIconData,
         "hover"
     ] call CFUNC(addMapGraphicsGroup);
 };
