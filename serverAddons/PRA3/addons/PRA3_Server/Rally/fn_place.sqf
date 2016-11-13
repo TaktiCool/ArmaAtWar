@@ -45,5 +45,5 @@
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", group CLib_Player, [format[MLOC(RallyPlaced), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", group CLib_Player, [format[MLOC(RallyPlaced), [_position] call EFUNC(Common,getNearestLocationName)]]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);
