@@ -16,25 +16,12 @@
 [{
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = CLib_Player modelToWorld [0,1,0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
-    if (CLib_Player distance _position >= 20) exitWith {
-        [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
-    };
+    private _position = CLib_Player modelToWorld [0,1.5,0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
 
     [group CLib_Player] call FUNC(destroy);
 
-    private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
-    _pointObjects = _pointObjects apply {
-        _x params ["_type", "_offset"];
-
-        private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, _objPosition, [], 0, "CAN_COLLIDE"];
-        _obj setPosASL [_objPosition select 0, _objPosition select 1, (getTerrainHeightASL _objPosition)];
-        _obj setVectorUp (surfaceNormal (getPos _obj));
-        ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
-
-        _obj
-    };
+    private _className = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyComposition");
+    private _pointObjects = [_className, _position, vectorDirVisual CLib_Player, CLib_Player] call CFUNC(createSimpleObjectComp);
 
     (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     //private _text = [_position] call EFUNC(Common,getNearestLocationName);
@@ -46,4 +33,4 @@
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", group CLib_Player, [format[MLOC(RallyPlaced), [_position] call EFUNC(Common,getNearestLocationName)]]] call CFUNC(targetEvent);
-}, [], "respawn"] call CFUNC(mutex);
+}, [getPos CLib_Player], "respawn"] call CFUNC(mutex);
