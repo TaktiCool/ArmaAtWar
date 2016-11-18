@@ -8,11 +8,6 @@ class GroupTypes {
     };
     class Weapon: Rifle {
         displayName = "Heavy";
-        /* For Debug only
-        requiredGroups = 0;
-        requiredPlayers = 1;
-        */
-
         requiredGroups = 2;
         requiredPlayers = 15;
 
@@ -21,10 +16,6 @@ class GroupTypes {
     class Recon {
         displayName = "Recon";
         groupSize = 4;
-        /* For Debug only
-        requiredGroups = 0;
-        requiredPlayers = 1;
-        */
         requiredGroups = 3;
         requiredPlayers = 20;
 
@@ -33,10 +24,6 @@ class GroupTypes {
     class Vehicle {
         displayName = "Crew";
         groupSize = 4;
-        /* For Debug only
-        requiredGroups = 0;
-        requiredPlayers = 1;
-        */
         requiredGroups = 1;
         requiredPlayers = 10;
 
@@ -44,25 +31,20 @@ class GroupTypes {
     };
     class Helicopter: Vehicle {
         displayName = "Heli";
-        /* For Debug only
-        requiredGroups = 0;
-        requiredPlayers = 1;
-        */
         requiredPlayers = 15;
 
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_air.paa";
     };
+    /* Disabled Until we have fix the Mortar Loadout
     class Mortar {
         displayName = "Mortar";
         groupSize = 3;
-        /* For Debug only
-        requiredGroups = 0;
-        requiredPlayers = 1;
-        */
+
         requiredGroups = 3;
         requiredPlayers = 20;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";
     };
+    */
     /* Disabled Until we have Units that fit in to the Logistic Group
     class Logistic {
         displayName = "Logistic";
@@ -81,14 +63,11 @@ class GroupTypes {
 class KitGroups {
     class Unlimited {
         requiredGroupMembersPerKit = 1;
-        //requiredGroupMembersPerKit = 1;
     };
     class Limited {
         requiredGroupMembersPerKit = 2;
-        //requiredGroupMembersPerKit = 1;
     };
     class Specialized {
-        //requiredGroupMembersPerKit = 1;
         requiredGroupMembersPerKit = 4;
     };
 };
