@@ -93,7 +93,7 @@ if (hasInterface) then {
     ["playerChanged", {
         (_this select 0) params ["_newPlayer"];
         _newPlayer disableConversation true;
-        _newPlayer setVariable ["BIS_noCoreConversations", false];
+        _newPlayer setVariable ["BIS_noCoreConversations", true];
     }] call CFUNC(addEventhandler);
 
     ["entityCreated", {
