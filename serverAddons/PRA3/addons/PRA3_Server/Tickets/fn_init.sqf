@@ -17,7 +17,8 @@
 DFUNC(checkTicketBleed) = {
     // Check for Ticket Bleed
     private _sectorOwner = EGVAR(Sector,allSectorsArray) apply {
-        _x getVariable ["side",sideUnknown]};
+        _x getVariable ["side",sideUnknown]
+    };
 
     if (sideUnknown in _sectorOwner) exitWith {sideUnknown};
 
@@ -175,6 +176,10 @@ GVAR(deactivateTicketSystem) = false;
                     ["LOOSER", false] spawn BIS_fnc_endMission;
                 } else {
                     ["WINNER", true] spawn BIS_fnc_endMission;
+                };
+
+                if (isDedicated) then {
+                    endMission "END1";
                 };
 
                 GVAR(deactivateTicketSystem) = true;

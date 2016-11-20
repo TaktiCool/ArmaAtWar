@@ -16,7 +16,7 @@
 [QGVAR(RespawnSettings), missionConfigFile >> QPREFIX >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
-["Killed", { // TODO this should work without the revive module (vanilla death)
+["Killed", {
     [[-10000, -10000, 50], true] call EFUNC(Common,respawn);
 
     [{
