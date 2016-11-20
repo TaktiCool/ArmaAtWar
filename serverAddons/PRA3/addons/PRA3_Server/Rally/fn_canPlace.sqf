@@ -27,22 +27,15 @@ if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
 // Check near players
 private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
 private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
-private _count = {(group _x) == (group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
-if (_count < _nearPlayerToBuild) exitWith {false};
-/*
-// Check near DPs
-private _minDistance = [QGVAR(Rally_minDistance), 100] call CFUNC(getSetting);
-private _rallyNearPlayer = false;
-{
-    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-    if (!(isNil "_pointDetails")) then {
-        _pointDetails params ["_name", "_type", "_pointPosition"];
-        if (_type == "RALLY" && {(CLib_Player distance _pointPosition) < _minDistance}) exitWith {
-            _rallyNearPlayer = true;
+private _count = {
+    if ((group _x) == (group CLib_Player)) then {
+        true;
+    } else {
+        if (side (group _x) != sideUnknown && side (group _x) != side (group CLib_Player)) then {
+            false breakOut (_fnc_scriptName + "_Main");
         };
+        false;
     };
-    nil
-} count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
-if (_rallyNearPlayer) exitWith {false};
-*/
+} count (nearestObjects [CLib_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
+if (_count < _nearPlayerToBuild) exitWith {false};
 true

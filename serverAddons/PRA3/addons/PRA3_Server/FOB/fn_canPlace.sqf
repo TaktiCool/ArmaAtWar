@@ -40,22 +40,4 @@ private _maxEnemyPlace = [QGVAR(maxEnemyPlace), 5] call CFUNC(getSetting);
 private _maxEnemyPlaceRadius = [QGVAR(maxEnemyPlaceRadius), 50] call CFUNC(getSetting);
 private _enemyCount = {(side group _x) != side group CLib_Player} count (_target nearObjects ["CAManBase", _maxEnemyPlaceRadius]);
 if (_enemyCount >= _maxEnemyPlace) exitWith {false};
-/*
-// Check near DPs
-private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
-private _rallyNearPlayer = false;
-{
-    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _x;
-    _pointDetails params ["_name", "_position", "_availableFor", "_spawnTickets"];
-
-    // Ignore RPs
-    if (_availableFor isEqualType sideUnknown) then {
-        if ((CLib_Player distance _position) < _minDistance) exitWith {
-            _rallyNearPlayer = true;
-        };
-    };
-    nil
-} count (call EFUNC(Common,getAvailableDeploymentPoints));
-if (_rallyNearPlayer) exitWith {false};
-*/
 true
