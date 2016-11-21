@@ -155,14 +155,15 @@ GVAR(deactivateTicketSystem) = false;
         missionNamespace getVariable format [QGVAR(sideTickets_%1), str(_currentSide)];
         ["ticketsChanged", {
             if (GVAR(deactivateTicketSystem)) exitWith {};
-            private _dialog = uiNamespace getVariable UIVAR(TicketStatus);
-            if (isNull _dialog) exitWith {};
-            (_dialog displayCtrl 2011) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1),EGVAR(Common,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-            (_dialog displayCtrl 2012) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1),EGVAR(Common,competingSides) select 0],""]);
-            (_dialog displayCtrl 2013) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 0],0]);
-            (_dialog displayCtrl 2021) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1),EGVAR(Common,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-            (_dialog displayCtrl 2022) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1),EGVAR(Common,competingSides) select 1],""]);
-            (_dialog displayCtrl 2023) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 1],0]);
+                private _dialog = uiNamespace getVariable [UIVAR(TicketStatus), displayNull];
+            if !(isNull _dialog) then {
+                (_dialog displayCtrl 2011) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1),EGVAR(Common,competingSides) select 0],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+                (_dialog displayCtrl 2012) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1),EGVAR(Common,competingSides) select 0],""]);
+                (_dialog displayCtrl 2013) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 0],0]);
+                (_dialog displayCtrl 2021) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1),EGVAR(Common,competingSides) select 1],"#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+                (_dialog displayCtrl 2022) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1),EGVAR(Common,competingSides) select 1],""]);
+                (_dialog displayCtrl 2023) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 1],0]);
+            };
 
             if (isNil QGVAR(musicPlay) && {(missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= GVAR(musicStartTickets) ||
                (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 1], 1000]) <= GVAR(musicStartTickets)}) then {
