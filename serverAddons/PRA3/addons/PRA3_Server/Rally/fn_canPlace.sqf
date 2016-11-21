@@ -27,7 +27,7 @@ if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
 
 // TODO make a settings for that
 private _enemyCount = {(side group _x) != (side group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], 50]);
-if (_enemyCount != 0) exitWith {false}
+if (_enemyCount != 0) exitWith {false};
 
 // Check near players
 private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
