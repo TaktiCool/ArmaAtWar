@@ -39,7 +39,7 @@ if (_hitPartIndex <= 7) then {
             CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived max 1)];
         } else {
             [true] call FUNC(setUnconscious);
-            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived min 1)];
+            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived min 0.25)];
         };
 
     };
