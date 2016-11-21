@@ -15,7 +15,7 @@
 */
 GVAR(bleedoutTimer) = -1;
 
-GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1632];
+GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1501];
 GVAR(BleedOutEffect) ppEffectEnable false;
 
 GVAR(bloodRefreshTimer) = -1;

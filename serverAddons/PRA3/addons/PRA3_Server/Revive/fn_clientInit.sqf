@@ -172,6 +172,13 @@ GVAR(UnconsciousnessEffects) = [_hndl];
 
 }] call CFUNC(addEventhandler);
 
+["Respawn", {
+    {
+        _x ppEffectEnable false;
+        _x ppEffectCommit 1;
+    } count GVAR(UnconsciousnessEffects);
+}] call CFUNC(addEventHandler);
+
 
 
 call FUNC(bleedOut);
