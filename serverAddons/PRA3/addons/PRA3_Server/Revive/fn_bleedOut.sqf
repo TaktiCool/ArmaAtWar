@@ -48,19 +48,20 @@ GVAR(bloodRefreshTimer) = -1;
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
 
-
+                GVAR(BleedOutEffect) ppEffectEnable true;
+                GVAR(BleedOutEffect) ppEffectAdjust [1, 1+2.5*((1-_bloodLevel)^2), 0, [1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, _bloodLevel], [0.7, 0.2, 0.1, 0.0]];
 
                 if (_bloodLevel <= 0) then {
                     CLib_Player setUnconscious false;
                     CLib_Player setDamage 1;
                     GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                     GVAR(bleedoutTimer) = -1;
+                    GVAR(BleedOutEffect) ppEffectEnable false;
                 };
 
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
 
-                GVAR(BleedOutEffect) ppEffectEnable true;
-                GVAR(BleedOutEffect) ppEffectAdjust [1, 1+1*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, _bloodLevel], [0.7, 0.2, 0.1, 0.0]];
+
                 GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
@@ -84,14 +85,14 @@ GVAR(bloodRefreshTimer) = -1;
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bloodRefreshTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectEnable false;
-                GVAR(BleedOutEffect) ppEffectCommit 1;
+                GVAR(BleedOutEffect) ppEffectCommit 2;
             };
 
             if (!alive CLib_Player || (CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bloodRefreshTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectEnable false;
-                GVAR(BleedOutEffect) ppEffectCommit 1;
+                GVAR(BleedOutEffect) ppEffectCommit 2;
             };
 
             GVAR(BleedOutEffect) ppEffectEnable true;
@@ -101,6 +102,7 @@ GVAR(bloodRefreshTimer) = -1;
     };
 
 }] call CFUNC(addEventhandler);
+
 
 
 /*
