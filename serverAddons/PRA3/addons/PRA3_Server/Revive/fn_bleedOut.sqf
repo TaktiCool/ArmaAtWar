@@ -54,9 +54,12 @@ GVAR(bloodRefreshTimer) = -1;
     if (!_state && {alive CLib_Player && {GVAR(bloodRefreshTimer) < 0}}) then {
         GVAR(bloodRefreshTimer) = [{
             private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
+            private _bleedingRate = CLib_Player getVariable [QGVAR(bleedingRate), 0];
             _bloodLevel = _bloodLevel + 1/([QGVAR(Settings_bloodRestoreDuration), 300] call CFUNC(getSetting));
+            _bleedingRate = _bleedingRate - _bleedingRate/([QGVAR(Settings_bloodRestoreDuration), 300] call CFUNC(getSetting));
 
             CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel min 1];
+            CLib_Player setVariable [QGVAR(bleedingRate), _bleedingRate max 0];
 
             if (_bloodLevel >= 1) then {
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
