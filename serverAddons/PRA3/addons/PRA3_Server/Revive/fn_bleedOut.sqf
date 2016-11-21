@@ -15,7 +15,7 @@
 */
 GVAR(bleedoutTimer) = -1;
 
-GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1501];
+GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1632];
 GVAR(BleedOutEffect) ppEffectEnable false;
 
 GVAR(bloodRefreshTimer) = -1;
@@ -41,9 +41,11 @@ GVAR(bloodRefreshTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
-            if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
-                private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
 
+
+            if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
+
+                private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
 
 
@@ -56,11 +58,13 @@ GVAR(bloodRefreshTimer) = -1;
                 };
 
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
+
+                GVAR(BleedOutEffect) ppEffectEnable true;
+                GVAR(BleedOutEffect) ppEffectAdjust [1, 1+10*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [0, 0, 0, 0], [0.7*(1-_bloodLevel), 0.2*(1-_bloodLevel), 0.1*(1-_bloodLevel), 0.0]];
+                GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
-            GVAR(BleedOutEffect) ppEffectEnable true;
-            GVAR(BleedOutEffect) ppEffectAdjust [1, 1+10*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [0, 0, 0, 0], [0.7*(1-_bloodLevel), 0.2*(1-_bloodLevel), 0.1*(1-_bloodLevel), 0.0]];
-            GVAR(BleedOutEffect) ppEffectCommit 1;
+
         }, 1] call CFUNC(addPerFrameHandler);
     };
 
@@ -103,12 +107,13 @@ GVAR(bloodRefreshTimer) = -1;
  * UI STUFF
  */
 // Visual effect unconscious
+/*
 GVAR(unconsciousPPEffects) = [
     ["colorCorrections", 1632, [1, 1, 0.15, [0.3, 0.3, 0.3, 0], [0.3, 0.3, 0.3, 0.3], [1, 1, 1, 1]]] call CFUNC(createPPEffect),
     ["colorCorrections", 1633, [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [1, 1, 0, 0, 0, 0.2, 1]]] call CFUNC(createPPEffect),
     ["dynamicBlur", 525, [0]] call CFUNC(createPPEffect)
 ];
-/*
+
 // Unconscious timer
 GVAR(unconsciousPFH) = -1;
 ["unconsciousnessChanged", {

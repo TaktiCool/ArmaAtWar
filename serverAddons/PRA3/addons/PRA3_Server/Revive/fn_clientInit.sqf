@@ -165,7 +165,7 @@ GVAR(UnconsciousnessEffects) = [_hndl];
         } count GVAR(UnconsciousnessEffects);
     } else {
         {
-            _x ppEffectEnable true;
+            _x ppEffectEnable false;
             _x ppEffectCommit 3;
         } count GVAR(UnconsciousnessEffects);
     };
