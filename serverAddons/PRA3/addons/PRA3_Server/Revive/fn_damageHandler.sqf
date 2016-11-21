@@ -26,7 +26,6 @@ if (!(local _unit) || !(alive _unit) || (_unit != CLib_Player)) exitWith {};
 //DUMP(damage CLib_Player);
 private _returnedDamage = _damage;
 private _damageReceived = 0;
-private _maxDamage = 0.95;
 
 if (_hitPartIndex >= 0) then {
     private _lastDamage = CLib_Player getHit _selectionName;
@@ -37,14 +36,14 @@ if (_hitPartIndex >= 0) then {
 if (_hitPartIndex <= 7) then {
     if (_damage >= 1) then {
         if (CLib_Player getVariable [QGVAR(isUnconscious), false]) then {
-            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + _damageReceived];
+            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived max 1)];
         } else {
             [true] call FUNC(setUnconscious);
-            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived max 1)];
+            CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate),0]) + (_damageReceived min 1)];
         };
 
     };
 };
 
 
-_returnedDamage min _maxDamage;
+_returnedDamage min 0.95;
