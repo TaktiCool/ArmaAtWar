@@ -75,5 +75,5 @@ private _onInterruption = {
     } forEach _oldDamage;
 
     //CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.25];
-    CLib_Player setVariable [QGVAR(bleedingRate), 0];
+    //CLib_Player setVariable [QGVAR(bleedingRate), 0];
 }] call CFUNC(addEventhandler);

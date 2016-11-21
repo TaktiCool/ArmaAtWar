@@ -12,6 +12,7 @@ class GroupTypes {
         requiredPlayers = 5;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_inf.paa";
     };
+    /*
     class Recon {
         displayName = "Recon";
         groupSize = 4;
@@ -38,6 +39,7 @@ class GroupTypes {
         requiredPlayers = 20;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";
     };
+
     class Logistic {
         displayName = "Logistic";
         groupSize = 4;
@@ -45,6 +47,7 @@ class GroupTypes {
         requiredPlayers = 5;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_support.paa";
     };
+    */
 };
 class KitGroups {
     class Unlimited {

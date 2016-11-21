@@ -40,7 +40,7 @@ DFUNC(dropPlayer) = {
     "CAManBase",
     2,
     {
-        alive _target && _target getVariable [QGVAR(isUnconscious),false]
+        alive _target && _target getVariable [QGVAR(isUnconscious),false] && (side group _target == side group CLib_Player);
     },
     {
         params ["_draggedUnit"];

@@ -73,6 +73,7 @@ private _onInterruption = {
     if (_isMedic) then {
         CLib_Player setDamage 0;
         CLib_Player setVariable [QGVAR(bloodLevel), 1];
+        CLib_Player setVariable [QGVAR(bleedingRate), 0];
     } else {
         private _oldDamage = +((getAllHitPointsDamage CLib_Player) select 2);
         CLib_Player setDamage 0.20;

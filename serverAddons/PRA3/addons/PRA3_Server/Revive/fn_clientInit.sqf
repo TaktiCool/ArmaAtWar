@@ -15,6 +15,8 @@
 */
 [QGVAR(Settings), missionConfigFile >> "PRA3" >> "CfgRevive"] call CFUNC(loadSettings);
 
+GVAR(UnconsciousFrame) = -1;
+
 ["playerChanged", {
     (_this select 0) params ["_newPlayer", "_oldPlayer"];
     private _oldId = _oldPlayer getVariable [QGVAR(HandleDamageId), -1];
@@ -148,6 +150,35 @@ GVAR(draw3dIcons) = false;
     } count _nearUnits;
     [QGVAR(Icons),_icons] call CFUNC(add3dGraphics);
 }, 1] call CFUNC(addPerFrameHandler);
+
+private _hndl = ppEffectCreate ["DynamicBlur", 999];
+_hndl ppEffectEnable false;
+_hndl ppEffectAdjust [1];
+GVAR(UnconsciousnessEffects) = [_hndl];
+
+["unconsciousnessChanged", {
+    (_this select 0) params ["_state"];
+    if (_state) then {
+        {
+            _x ppEffectEnable true;
+            _x ppEffectCommit 1;
+        } count GVAR(UnconsciousnessEffects);
+    } else {
+        {
+            _x ppEffectEnable false;
+            _x ppEffectCommit 3;
+        } count GVAR(UnconsciousnessEffects);
+    };
+
+}] call CFUNC(addEventhandler);
+
+["Respawn", {
+    {
+        _x ppEffectEnable false;
+        _x ppEffectCommit 1;
+    } count GVAR(UnconsciousnessEffects);
+}] call CFUNC(addEventHandler);
+
 
 
 call FUNC(bleedOut);

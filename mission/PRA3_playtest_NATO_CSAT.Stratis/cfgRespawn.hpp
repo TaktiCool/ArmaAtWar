@@ -1,3 +1,3 @@
 class CfgRespawn {
-    respawnCountdown = 30; // Time until respawn is available
+    respawnCountdown = 15; // Time until respawn is available
 };

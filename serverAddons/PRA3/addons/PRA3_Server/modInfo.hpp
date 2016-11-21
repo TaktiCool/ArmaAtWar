@@ -2,10 +2,20 @@
 #define PATH pr
 #define MOD PRA3_Server
 
+// define Version Information
 #define MAJOR 0
 #define MINOR 13
 #define PATCHLVL 0
 #define BUILD 1512
+
+#ifdef VERSION
+    #undef VERSION
+#endif
+#ifdef VERSION_AR
+    #undef VERSION_AR
+#endif
+#define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
+#define VERSION MAJOR.MINOR.PATCHLVL.BUILD
 
 // dont release with this setting enabled
 // #define DEBUGFULL // enable all Debug Methods

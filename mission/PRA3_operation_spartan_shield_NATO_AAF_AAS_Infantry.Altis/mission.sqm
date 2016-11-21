@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={20895.75,75.138306,7133.0703};
-		dir[]={-0.49532944,-0.15696269,-0.85455316};
-		up[]={-0.078749768,0.98757637,-0.13585997};
-		aside[]={-0.86527967,1.7695129e-008,0.50154406};
+		pos[]={20832.395,74.582024,6824.5508};
+		dir[]={0.78764206,-0.34005478,0.51384228};
+		up[]={0.28482491,0.94039029,0.18581343};
+		aside[]={0.54640448,-1.9650906e-007,-0.83755344};
 	};
 };
 binarizationWanted=0;
@@ -2379,59 +2379,59 @@ class Mission
 		class Item38
 		{
 			dataType="Marker";
-			position[]={21684.279,-1.2871173e-020,7575.2349};
+			position[]={21660.863,1.6911318e+022,7564.0801};
 			name="sector_0";
-			text="Feres";
+			text="Feres Chapel";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=150;
-			b=150;
+			a=75;
+			b=75;
 			id=322;
-			atlOffset=-15.058432;
+			atlOffset=1.6911318e+022;
 		};
 		class Item39
 		{
 			dataType="Marker";
-			position[]={21244.506,0,7503.1113};
+			position[]={21250.34,7.8555575e+034,7476.6357};
 			name="sector_1";
 			text="Control Tower";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=100;
-			b=100;
+			a=75;
+			b=75;
 			angle=18.625;
 			id=323;
-			atlOffset=-17.964884;
+			atlOffset=7.8555575e+034;
 		};
 		class Item40
 		{
 			dataType="Marker";
-			position[]={20795.822,1.0821116e+038,7242.0049};
+			position[]={20792.787,5.9793985e+035,7260.7275};
 			name="sector_3";
 			text="Baracks";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=100;
-			b=100;
+			a=75;
+			b=75;
 			id=324;
-			atlOffset=1.0821116e+038;
+			atlOffset=5.9793985e+035;
 		};
 		class Item41
 		{
 			dataType="Marker";
-			position[]={20817.818,2.5422672e+020,6708.4868};
+			position[]={20818.758,9.6682188e+012,6747.3066};
 			name="sector_4";
 			text="Selekano";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=150;
-			b=150;
+			a=75;
+			b=75;
 			id=325;
-			atlOffset=2.5422672e+020;
+			atlOffset=9.6682188e+012;
 		};
 		class Item42
 		{
@@ -8319,7 +8319,7 @@ class Mission
 			position[]={20083.629,0,6736.936};
 			name="baseSpawn_west";
 			type="Empty";
-			angle=181.9415;
+			angle=181.94148;
 			id=531;
 			atlOffset=-100.96182;
 		};
@@ -9549,16 +9549,16 @@ class Mission
 		class Item172
 		{
 			dataType="Marker";
-			position[]={21222.482,1.5142728e+016,7114.1563};
+			position[]={21228.836,5.9778013e+035,7115.9229};
 			name="sector_2";
 			text="Gas Station";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=100;
-			b=100;
+			a=75;
+			b=75;
 			id=1010;
-			atlOffset=1.5142728e+016;
+			atlOffset=5.9778013e+035;
 		};
 		class Item173
 		{
@@ -9947,7 +9947,7 @@ class Mission
 			};
 			id=1026;
 			type="Land_TentHangar_V1_F";
-			atlOffset=0.26099968;
+			atlOffset=0.26099777;
 			class CustomAttributes
 			{
 				class Attribute0
