@@ -18,8 +18,6 @@ GVAR(bleedoutTimer) = -1;
 GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1501];
 GVAR(BleedOutEffect) ppEffectEnable false;
 
-GVAR(BleedOutEffect) = _hndl;
-
 GVAR(bloodRefreshTimer) = -1;
 ["unconsciousnessChanged", {
     (_this select 0) params ["_state"];
@@ -61,7 +59,7 @@ GVAR(bloodRefreshTimer) = -1;
             };
 
             GVAR(BleedOutEffect) ppEffectEnable true;
-            GVAR(BleedOutEffect) ppEffectAdjust [1, 1+10*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [(1-_bloodLevel), (1-_bloodLevel), (1-_bloodLevel), 0], [0.7, 0.2, 0.1, 0.0]];
+            GVAR(BleedOutEffect) ppEffectAdjust [1, 1+10*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [0, 0, 0, 0], [0.7*(1-_bloodLevel), 0.2*(1-_bloodLevel), 0.1*(1-_bloodLevel), 0.0]];
             GVAR(BleedOutEffect) ppEffectCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     };
@@ -93,7 +91,7 @@ GVAR(bloodRefreshTimer) = -1;
             };
 
             GVAR(BleedOutEffect) ppEffectEnable true;
-            GVAR(BleedOutEffect) ppEffectAdjust [1, 1, 0, [1.0, 1.0, 1.0, 0], [(1-_bloodLevel), (1-_bloodLevel), (1-_bloodLevel), 0], [0.7, 0.2, 0.1, 0.0]];
+            GVAR(BleedOutEffect) ppEffectAdjust [1, 1, 0, [1.0, 1.0, 1.0, 0], [0, 0, 0, 0], [0.7*(1-_bloodLevel), 0.2*(1-_bloodLevel), 0.1*(1-_bloodLevel), 0.0]];
             GVAR(BleedOutEffect) ppEffectCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     };
