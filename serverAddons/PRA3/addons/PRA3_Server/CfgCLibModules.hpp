@@ -36,6 +36,7 @@ class CfgCLibModules {
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
                 FNC(prepareSpawn);
+                FNC(isValidDeploymentPoint);
             };
 
             //Entity Variables
