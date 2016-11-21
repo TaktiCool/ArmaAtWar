@@ -47,7 +47,15 @@ GVAR(markerLocations) = GVAR(markerLocations) apply {
 
 if (hasInterface) then {
     ["missionStarted", {
-        (findDisplay 46) displayAddEventHandler ["KeyDown", {
+        private _mainDisplay = findDisplay 46;
+
+        _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
+        _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(40), PY(30), PX(40), safeZoneY + safeZoneH - PY(30)];
+        _ctrl ctrlSetFade 0.5;
+        _ctrl ctrlSetStructuredText parseText format ["<t align='right'>Mission Version: %1<br />Server Version: %2<br />The current version of PRA3 is in a stage of early Alpha.<br />Every element is subject to change at the current state of development</t>", (GVAR(VersionInfo) select 0) select 0, (GVAR(VersionInfo) select 1) select 0];
+        _ctrl ctrlCommit 0;
+
+        _mainDisplay displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
                 [{
                     private _pauseMenuDisplay = findDisplay 49;
