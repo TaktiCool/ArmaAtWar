@@ -21,9 +21,9 @@
 
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
 if (!(local _unit) || !(alive _unit) || (_unit != CLib_Player)) exitWith {};
-//DUMP(_this);
-//DUMP(getAllHitPointsDamage CLib_Player select 2);
-//DUMP(damage CLib_Player);
+DUMP(_this);
+DUMP(getAllHitPointsDamage CLib_Player select 2);
+DUMP(damage CLib_Player);
 private _returnedDamage = _damage;
 private _damageReceived = 0;
 
