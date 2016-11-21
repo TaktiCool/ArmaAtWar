@@ -31,6 +31,8 @@ if (_hitPartIndex >= 0) then {
     private _lastDamage = CLib_Player getHit _selectionName;
     _damageReceived = (_damage - _lastDamage) max 0;
     [_damageReceived] call FUNC(bloodEffect);
+} else {
+    _damageReceived = (_damage - damage CLib_Player) max 0;
 };
 
 if (_hitPartIndex <= 7) then {
