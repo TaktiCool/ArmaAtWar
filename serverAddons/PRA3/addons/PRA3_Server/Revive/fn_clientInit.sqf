@@ -151,6 +151,28 @@ GVAR(draw3dIcons) = false;
     [QGVAR(Icons),_icons] call CFUNC(add3dGraphics);
 }, 1] call CFUNC(addPerFrameHandler);
 
+private _hndl = ppEffectCreate ["DynamicBlur", 999];
+_hndl ppEffectEnable false;
+_hndl ppEffectAdjust [1];
+GVAR(UnconsciousnessEffects) = [_hndl];
+
+["unconsciousnessChanged", {
+    (_this select 0) params ["_state"];
+    if (_state) then {
+        {
+            _x ppEffectEnable true;
+            _x ppEffectCommit 1;
+        } count GVAR(UnconsciousnessEffects);
+    } else {
+        {
+            _x ppEffectEnable true;
+            _x ppEffectCommit 3;
+        } count GVAR(UnconsciousnessEffects);
+    };
+
+}] call CFUNC(addEventhandler);
+
+
 
 call FUNC(bleedOut);
 call FUNC(forceRespawnAction);

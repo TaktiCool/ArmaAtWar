@@ -15,6 +15,11 @@
 */
 GVAR(bleedoutTimer) = -1;
 
+GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1501];
+GVAR(BleedOutEffect) ppEffectEnable false;
+
+GVAR(BleedOutEffect) = _hndl;
+
 GVAR(bloodRefreshTimer) = -1;
 ["unconsciousnessChanged", {
     (_this select 0) params ["_state"];
@@ -25,6 +30,8 @@ GVAR(bloodRefreshTimer) = -1;
             if (!alive CLib_Player || !(CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
+                GVAR(BleedOutEffect) ppEffectEnable false;
+                GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
             if (CLib_Player != vehicle CLib_Player && {damage vehicle CLib_Player == 1}) exitWith {
@@ -32,12 +39,16 @@ GVAR(bloodRefreshTimer) = -1;
                 CLib_Player setDamage 1;
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
+                GVAR(BleedOutEffect) ppEffectEnable false;
+                GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
             if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
 
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1])/([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
+
+
 
                 if (_bloodLevel <= 0) then {
                     CLib_Player setUnconscious false;
@@ -48,6 +59,10 @@ GVAR(bloodRefreshTimer) = -1;
 
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
             };
+
+            GVAR(BleedOutEffect) ppEffectEnable true;
+            GVAR(BleedOutEffect) ppEffectAdjust [1, 1+10*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [(1-_bloodLevel), (1-_bloodLevel), (1-_bloodLevel), 0], [0.7, 0.2, 0.1, 0.0]];
+            GVAR(BleedOutEffect) ppEffectCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     };
 
@@ -61,15 +76,25 @@ GVAR(bloodRefreshTimer) = -1;
             CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel min 1];
             CLib_Player setVariable [QGVAR(bleedingRate), _bleedingRate max 0];
 
-            if (_bloodLevel >= 1) then {
+
+
+            if (_bloodLevel >= 1) exitWith {
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bloodRefreshTimer) = -1;
+                GVAR(BleedOutEffect) ppEffectEnable false;
+                GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
             if (!alive CLib_Player || (CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bloodRefreshTimer) = -1;
+                GVAR(BleedOutEffect) ppEffectEnable false;
+                GVAR(BleedOutEffect) ppEffectCommit 1;
             };
+
+            GVAR(BleedOutEffect) ppEffectEnable true;
+            GVAR(BleedOutEffect) ppEffectAdjust [1, 1, 0, [1.0, 1.0, 1.0, 0], [(1-_bloodLevel), (1-_bloodLevel), (1-_bloodLevel), 0], [0.7, 0.2, 0.1, 0.0]];
+            GVAR(BleedOutEffect) ppEffectCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     };
 
@@ -85,7 +110,7 @@ GVAR(unconsciousPPEffects) = [
     ["colorCorrections", 1633, [1, 1, 0, [0.15, 0, 0, 1], [1.0, 0.5, 0.5, 1], [0.587, 0.199, 0.114, 0], [1, 1, 0, 0, 0, 0.2, 1]]] call CFUNC(createPPEffect),
     ["dynamicBlur", 525, [0]] call CFUNC(createPPEffect)
 ];
-
+/*
 // Unconscious timer
 GVAR(unconsciousPFH) = -1;
 ["unconsciousnessChanged", {
@@ -134,3 +159,4 @@ GVAR(unconsciousPFH) = -1;
         };
     };
 }] call CFUNC(addEventHandler);
+*/
