@@ -60,7 +60,7 @@ GVAR(bloodRefreshTimer) = -1;
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
 
                 GVAR(BleedOutEffect) ppEffectEnable true;
-                GVAR(BleedOutEffect) ppEffectAdjust [1, 1+2*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, (1-_bloodLevel)], [0.7, 0.2, 0.1, 0.0]];
+                GVAR(BleedOutEffect) ppEffectAdjust [1, 1+1*(1-_bloodLevel), 0, [1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, _bloodLevel], [0.7, 0.2, 0.1, 0.0]];
                 GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
