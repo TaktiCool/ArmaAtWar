@@ -182,20 +182,18 @@ GVAR(deactivateTicketSystem) = false;
                 if (isDedicated) then {
                     endMission "END1";
                 } else {
-                    0 spawn {
-                        disableSerialization;
-                        private _displayIdd = getNumber (configFile >> "RscDisplayDebriefing" >> "idd");
-                        DUMP(_displayIdd)
-                        while {isNull findDisplay _displayIdd} do {
-                            true;
-                            DUMP("CHECK")
-                        };
+
+                    ["SkipDebriefing", "onEachFrame", {
+                        DUMP("CHECK")
+                        private _display = findDisplay _this;
+                        if (isNull _display) exitWith {};
                         DUMP("DISPLAY OPEN")
-                        private _display = findDisplay _displayIdd;
                         ctrlActivate (_display displayCtrl 2);
                         _display closeDisplay 1;
                         DUMP("DISPLAY CLOSED")
-                    };
+                        ["SkipDebriefing", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+                    }, getNumber (configFile >> "RscDisplayDebriefing" >> "idd")] call BIS_fnc_addStackedEventHandler;
+
                 };
 
                 GVAR(deactivateTicketSystem) = true;
