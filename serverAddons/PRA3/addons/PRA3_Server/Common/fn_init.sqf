@@ -56,6 +56,8 @@ if (hasInterface) then {
             PY(1.5)/0.035];
         _ctrl ctrlCommit 0;
 
+        uiNamespace setVariable [UIVAR(VersionInfo), _ctrl];
+
         _mainDisplay displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
                 [{
@@ -145,6 +147,8 @@ if (hasInterface) then {
                     ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                    ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                    (uiNamespace getVariable [UIVAR(VersionInfo), controlNull]) ctrlSetFade 1;
                     CGVAR(hideHUD) = true;
 
                     ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
