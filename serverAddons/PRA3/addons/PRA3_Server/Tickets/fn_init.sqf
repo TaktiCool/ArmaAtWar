@@ -185,8 +185,6 @@ GVAR(deactivateTicketSystem) = false;
                     0 spawn {
                         private _displayIdd = getNumber (configFile >> "RscDisplayDebriefing" >> "idd");
                         waitUntil {
-                            if (getClientState == "DEBRIEFING READ") exitWith {true};
-
                             disableSerialization;
                             private _display = findDisplay _displayIdd;
                             if (!isNull _display) exitWith {
