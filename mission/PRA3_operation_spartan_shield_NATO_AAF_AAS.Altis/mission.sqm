@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=10;
+	toggles=1;
 	class ItemIDProvider
 	{
 		nextID=1007;
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={19402.244,42.651676,13237.981};
-		dir[]={-0.8677687,-0.2987521,-0.39716956};
-		up[]={-0.27165899,0.95432895,-0.12433569};
-		aside[]={-0.4161762,-6.7098881e-008,0.9092961};
+		pos[]={17460.057,115.8036,13291.928};
+		dir[]={-0.33318582,-0.68485492,-0.64815432};
+		up[]={-0.31312448,0.7286272,-0.60912204};
+		aside[]={-0.88943309,1.8116552e-006,0.45722076};
 	};
 };
 binarizationWanted=0;
@@ -4632,8 +4632,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17511.25,16.819817,13121.284};
-				angles[]={0.0093200579,5.4765463,6.2805324};
+				position[]={17503.584,16.772577,13128.536};
+				angles[]={0.0093286335,4.5040522,6.2805333};
 			};
 			side="Empty";
 			flags=4;
@@ -4649,8 +4649,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17499.291,16.382759,13144.105};
-				angles[]={0.045308746,3.9933832,0.0026703537};
+				position[]={17490.656,16.549244,13139.051};
+				angles[]={0.038646095,3.9933832,0.0026520467};
 			};
 			side="Empty";
 			flags=4;
@@ -4661,14 +4661,15 @@ class Mission
 			};
 			id=252;
 			type="I_Truck_02_ammo_F";
+			atlOffset=0.067407608;
 		};
 		class Item97
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17496.105,16.219435,13147.672};
-				angles[]={0.014660765,3.9933832,0};
+				position[]={17487.471,16.38592,13142.617};
+				angles[]={0.029324362,3.9933832,6.2751846};
 			};
 			side="Empty";
 			flags=4;

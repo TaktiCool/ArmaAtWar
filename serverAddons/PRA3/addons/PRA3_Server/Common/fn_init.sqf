@@ -5,7 +5,7 @@ private _missionVersionStr = "";
 private _missionVersionAr = getArray(missionConfigFile >> QPREFIX >> "Version");
 
 private _serverVersionStr = "";
-private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" >> "versionAr");
+private _serverVersionAr = [VERSION_AR];
 
 {
     _missionVersionStr = _missionVersionStr + str(_x) + ".";

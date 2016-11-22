@@ -200,10 +200,10 @@ class CfgEntities {
     class Truck_01_base_F {
         cargoCapacity = 50;
     };
-    class Truck_02_base_F {
+    class Truck_02_base_F: Truck_01_base_F {
     };
 
-    class Truck_03_base_F {
+    class Truck_03_base_F: Truck_01_base_F {
     };
 
     // MRAPs
