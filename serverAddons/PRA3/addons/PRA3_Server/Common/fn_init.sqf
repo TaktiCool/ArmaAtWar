@@ -52,6 +52,7 @@ if (hasInterface) then {
         _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
         _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(50), safeZoneY + safeZoneH - PY(8), PX(50), PY(8)];
         _ctrl ctrlSetFade 0.4;
+        _ctrl ctrlSetScale 1;
         _ctrl ctrlSetStructuredText parseText format ["<t size='1' align='right'>Mission Version: %1<br />Server Version: %2</t><br /><t align='right' size='0.9'>The current version of PRA3 is in a stage of early Alpha.<br />Every element is subject to change at the current state of development</t>", (GVAR(VersionInfo) select 0) select 0, (GVAR(VersionInfo) select 1) select 0];
         _ctrl ctrlCommit 0;
 
@@ -69,6 +70,7 @@ if (hasInterface) then {
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText", -1];
                     _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(30), safeZoneY + safeZoneH - PY(30), PX(30), PY(30)];
                     _ctrl ctrlSetFade 0;
+                    _ctrl ctrlSetScale 1;
                     _ctrl ctrlSetStructuredText parseText format ["<t size='1' align='center'><img color='#ffffff' shadow='0' size='8' image='ui\media\PRA3Logo_ca.paa' /><br />Mission Version: %1<br />Server Version: %2</t><br /><t size='1.2' align='center' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>", (GVAR(VersionInfo) select 0) select 0, (GVAR(VersionInfo) select 1) select 0];
                     _ctrl ctrlCommit 0;
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
