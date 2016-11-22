@@ -181,6 +181,22 @@ GVAR(deactivateTicketSystem) = false;
 
                 if (isDedicated) then {
                     endMission "END1";
+                } else {
+                    0 spawn {
+                        private _displayIdd = getNumber (configFile >> "RscDisplayDebriefing" >> "idd");
+                        waitUntil {
+                            if (getClientState == "DEBRIEFING READ") exitWith {true};
+
+                            disableSerialization;
+                            private _display = findDisplay _displayIdd;
+                            if (!isNull _display) exitWith {
+                                ctrlActivate (_display displayCtrl 2);
+                                _display closeDisplay 1;
+                                true
+                            };
+                            false
+                        };
+                    };
                 };
 
                 GVAR(deactivateTicketSystem) = true;
