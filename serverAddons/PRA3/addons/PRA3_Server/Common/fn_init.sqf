@@ -61,14 +61,8 @@ if (hasInterface) then {
                 [{
                     private _pauseMenuDisplay = findDisplay 49;
 
-                    _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
-                    _gX = (((safezoneW / safezoneH) min 1.2) / 40);
-
-                    _gY0 = SafeZoneY;
-                    _gX0 = SafeZoneX;
-
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText", -1];
-                    _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(32), safeZoneY + safeZoneH - PY(30), PX(30), PY(32)];
+                    _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(30), safeZoneY + safeZoneH - PY(32), PX(30), PY(32)];
                     _ctrl ctrlSetFade 0;
                     _ctrl ctrlSetFontHeight PY(1);
                     _ctrl ctrlSetStructuredText parseText format ["<t align='center'><img color='#ffffff' shadow='0' size='8' image='ui\media\PRA3Logo_ca.paa' /><br />Mission Version: %1<br />Server Version: %2</t><br /><t size='1.2' align='center' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>", (GVAR(VersionInfo) select 0) select 0, (GVAR(VersionInfo) select 1) select 0];
