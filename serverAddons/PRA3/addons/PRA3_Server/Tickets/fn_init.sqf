@@ -183,19 +183,18 @@ GVAR(deactivateTicketSystem) = false;
                     endMission "END1";
                 } else {
                     0 spawn {
+                        disableSerialization;
                         private _displayIdd = getNumber (configFile >> "RscDisplayDebriefing" >> "idd");
                         DUMP(_displayIdd)
-                        waitUntil {
-                            disableSerialization;
-                            private _display = findDisplay _displayIdd;
-                            if (!isNull _display) exitWith {
-                                DUMP(_display)
-                                ctrlActivate (_display displayCtrl 2);
-                                _display closeDisplay 1;
-                                true
-                            };
-                            false
+                        while {isNull findDisplay _displayIdd} do {
+                            true;
+                            DUMP("CHECK")
                         };
+                        DUMP("DISPLAY OPEN")
+                        private _display = findDisplay _displayIdd;
+                        ctrlActivate (_display displayCtrl 2);
+                        _display closeDisplay 1;
+                        DUMP("DISPLAY CLOSED")
                     };
                 };
 
