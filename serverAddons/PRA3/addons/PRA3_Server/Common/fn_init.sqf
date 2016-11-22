@@ -139,7 +139,7 @@ if (hasInterface) then {
     if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
         [{
             [
-                "Hide HUD (Permanent) + Hide Player",
+                "Hide HUD (Permanent)",
                 CLib_Player,
                 0,
                 { (true isEqualTo true) },
@@ -150,13 +150,19 @@ if (hasInterface) then {
                     ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     (uiNamespace getVariable [UIVAR(VersionInfo), controlNull]) ctrlSetFade 1;
                     CGVAR(hideHUD) = true;
-
+                }
+            ] call CFUNC(addAction);
+            [
+                "Hide Player",
+                CLib_Player,
+                0,
+                { (true isEqualTo true) },
+                {
                     ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
                     ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
                     ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
                 }
             ] call CFUNC(addAction);
-
         }, 10] call CFUNC(wait);
     };
 
