@@ -49,15 +49,12 @@ if (hasInterface) then {
         _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
         _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(50), safeZoneY + safeZoneH - PY(8), PX(50), PY(10)];
         _ctrl ctrlSetFade 0.4;
-        //_ctrl ctrlSetFontHeight PY(1);
         _ctrl ctrlSetStructuredText parseText format ["<t align='right' size='%1'>Mission Version: %2<br />Server Version: %3</t><br /><t align='right' size='%4'>The current version of PRA3 is in a stage of early Alpha.<br />Every element is subject to change at the current state of development</t>",
             PY(1.8)/0.035,
             (GVAR(VersionInfo) select 0) select 0,
             (GVAR(VersionInfo) select 1) select 0,
             PY(1.5)/0.035];
         _ctrl ctrlCommit 0;
-
-        uiNamespace setVariable [QGVAR(TestControl), _ctrl];
 
         _mainDisplay displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
