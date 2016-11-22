@@ -152,18 +152,17 @@ if (hasInterface) then {
                     CGVAR(hideHUD) = true;
                 }
             ] call CFUNC(addAction);
-            [{
-                [
-                    "Hide Player",
-                    CLib_Player,
-                    0,
-                    { (true isEqualTo true) },
-                    {
-                        ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
-                        ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
-                        ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
-                    }
-                ] call CFUNC(addAction);
+            [
+                "Hide Player",
+                CLib_Player,
+                0,
+                { (true isEqualTo true) },
+                {
+                    ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
+                    ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
+                    ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
+                }
+            ] call CFUNC(addAction);
         }, 10] call CFUNC(wait);
     };
 
