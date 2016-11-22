@@ -4661,7 +4661,7 @@ class Mission
 			};
 			id=252;
 			type="I_Truck_02_ammo_F";
-			atlOffset=0.067407608;
+			atlOffset=0.067344666;
 		};
 		class Item97
 		{
@@ -4679,6 +4679,7 @@ class Mission
 			};
 			id=254;
 			type="I_Truck_02_fuel_F";
+			atlOffset=-0.00032043457;
 		};
 		class Item98
 		{
