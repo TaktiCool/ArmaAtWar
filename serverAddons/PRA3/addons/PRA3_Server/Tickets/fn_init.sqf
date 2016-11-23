@@ -139,6 +139,15 @@ GVAR(deactivateTicketSystem) = false;
 
         }] call CFUNC(addEventhandler);
 
+        if (isDedicated) then {
+            ["ticketsChanged", {
+                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
+                    || (missionNamespace getVariable [format [QGVAR(sideTickets_%1),EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
+
+                    endMission "END1";
+                };
+            }] call CFUNC(addEventHandler);
+        };
     };
 
     if (hasInterface) then {
@@ -177,23 +186,6 @@ GVAR(deactivateTicketSystem) = false;
                     ["LOOSER", false] spawn BIS_fnc_endMission;
                 } else {
                     ["WINNER", true] spawn BIS_fnc_endMission;
-                };
-
-                if (isDedicated) then {
-                    endMission "END1";
-                } else {
-
-                    ["SkipDebriefing", "onEachFrame", {
-                        DUMP("CHECK")
-                        private _display = findDisplay _this;
-                        if (isNull _display) exitWith {};
-                        DUMP("DISPLAY OPEN")
-                        ctrlActivate (_display displayCtrl 2);
-                        _display closeDisplay 1;
-                        DUMP("DISPLAY CLOSED")
-                        ["SkipDebriefing", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-                    }, getNumber (configFile >> "RscDisplayDebriefing" >> "idd")] call BIS_fnc_addStackedEventHandler;
-
                 };
 
                 GVAR(deactivateTicketSystem) = true;
