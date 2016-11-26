@@ -52,3 +52,4 @@ serverExtension/packages/*
 
 # IDEA files
 .idea/
+*.iml
