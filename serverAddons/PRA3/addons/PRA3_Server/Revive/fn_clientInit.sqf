@@ -51,12 +51,14 @@ GVAR(draw3dIcons) = false;
     {
         private _targetSide = side (group _x);
 
+
+        #ifdef isDev
+            #define ISDEVCONDIONREVIVE alive _x && playerSide getFriend _targetSide >= 0.6
+        #else
+            #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && (_x getVariable [QGVAR(isUnconscious), false])
+        #endif
         // Check if the unit is not the player himself, alive and a friend of player.
-    #ifdef isDev
-        if (alive _x && playerSide getFriend _targetSide >= 0.6) then {
-    #else
-        if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && (_x getVariable [QGVAR(isUnconscious), false])) then {
-    #endif
+        if (ISDEVCONDIONREVIVE) then {
             // The position of the nameTag is above the head.
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x > 0) then {
 
