@@ -30,7 +30,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 
 
 [GVAR(statemachine), "init", {
-    DUMP("Init");
+    DUMP("Init")
 
     private _configPath = (configFile >> QPREFIX >> "GarbageCollector" >> "GarbageCollectorTime");
     if (isNumber _configPath) then {
@@ -45,7 +45,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 }] call CFUNC(addStatemachineState);
 
 [GVAR(statemachine), "fillGrenades", {
-    DUMP("Fill Grenages");
+    DUMP("Fill Grenages")
     // Cycle through all units to detect near shells and enqueue them for removal.
     {
         // Cycle through all near shells.
@@ -60,7 +60,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 }] call CFUNC(addStatemachineState);
 
 [GVAR(statemachine), "fillObjects", {
-    DUMP("Fill Objects");
+    DUMP("Fill Objects")
     {
         _x call DFUNC(pushbackInQueue);
         nil
@@ -69,7 +69,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 }] call CFUNC(addStatemachineState);
 
 [GVAR(statemachine), "checkObject", {
-    DUMP("Check Object");
+    DUMP("Check Object")
     (GVAR(objectStorage) select 0) params ["_object", "_enqueueTime"];
 
     // If the time has not passed exit. This assumes all following object are pushed after the current one.
@@ -110,7 +110,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 }] call CFUNC(addStatemachineState);
 
 [GVAR(statemachine), "checkGroups", {
-    DUMP("Check all Groups");
+    DUMP("Check all Groups")
     // Remove empty groups.
     {
         if !(_x getVariable [QCGVAR(noClean), false]) then {
@@ -124,7 +124,7 @@ GVAR(statemachine) = call CFUNC(createStatemachine);
 }] call CFUNC(addStatemachineState)
 
 [GVAR(statemachine), "wait", {
-    DUMP("wait");
+    DUMP("wait")
     ["wait", "fillGrenades"] select (time - (GVAR(lastFilledTime)) >= 0); // only Fill every min 6 Frames the Cache for checking
 }] call CFUNC(addStatemachineState);
 

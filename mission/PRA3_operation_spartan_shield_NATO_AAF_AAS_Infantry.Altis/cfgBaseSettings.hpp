@@ -22,7 +22,3 @@ class GarbageCollector {
     EnableGarbageCollector = 1;
     GarbageCollectorTime = 120;
 };
-class GarbageCollector {
-    EnableGarbageCollector = 1;
-    GarbageCollectorTime = 120;
-};
