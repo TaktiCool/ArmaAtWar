@@ -168,6 +168,9 @@ class CfgEntities {
         cargoCapacity = 50;
     };
 
+    class B_Truck_01_transport_F : B_Truck_01_Covered_F {
+    };
+
     class B_MRAP_01_F {
         cargoCapacity = 20;
     };

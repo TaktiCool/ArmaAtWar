@@ -18,7 +18,16 @@
     Returns:
     None
 */
-params ["_marker", ["_dependency", []], ["_ticketValue", 30], ["_minUnits", 1], ["_captureTime",[30,60]], ["_firstCaptureTime",[5,15]], ["_designator","A"]];
+params [
+    "_marker",
+    ["_dependency", []],
+    ["_ticketValue", 30],
+    ["_minUnits", 1],
+    ["_maxUnits", 9],
+    ["_captureTime",[30,60]],
+    ["_firstCaptureTime",[5,15]],
+    ["_designator","A"]
+];
 
 
 private _size = getMarkerSize _marker;
@@ -51,6 +60,7 @@ _logic setVariable ["attackerSide", _side, true];
 _logic setVariable ["dependency", _dependency, true];
 _logic setVariable ["ticketValue", _ticketValue, true];
 _logic setVariable ["minUnits", _minUnits, true];
+_logic setVariable ["maxUnits", _maxUnits, true];
 _logic setVariable ["captureRate", 0, true];
 _logic setVariable ["captureTime", _captureTime, true];
 _logic setVariable ["firstCaptureTime", _firstCaptureTime, true];

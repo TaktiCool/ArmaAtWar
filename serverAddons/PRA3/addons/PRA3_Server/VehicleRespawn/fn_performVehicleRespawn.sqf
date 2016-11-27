@@ -39,8 +39,9 @@ if (!isNull _vehicle) then {
         private _vehicle = _type createVehicle _position;
         _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1, true];
         _vehicle setDir _direction;
-        _vehicle setVehicleVarName _varName;
-        missionNamespace setVariable [_varName, _vehicle];
+        ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
+        missionNamespace setVariable [_varName, _vehicle, true];
+        _vehicle setVariable [QGVAR(vehicleVarName), _varName, true];
         clearItemCargoGlobal _vehicle;
         clearMagazineCargoGlobal _vehicle;
         clearWeaponCargoGlobal _vehicle;

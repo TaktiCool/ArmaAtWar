@@ -35,7 +35,7 @@ private _onStart = {
 };
 
 private _onProgress = {
-    (time - GVAR(forceRespawnStartTime))/5;
+    (time - GVAR(forceRespawnStartTime))/1.5;
 };
 
 private _onComplete = {
@@ -43,6 +43,7 @@ private _onComplete = {
 
     _caller setVariable [QGVAR(forceRespawn), false, true];
     GVAR(forceRespawnStartTime) = -1;
+    _caller setUnconscious false;
     _caller setDamage 1;
 };
 

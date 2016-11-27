@@ -31,10 +31,11 @@
 
             // Check if the unit is not the player himself, alive and a friend of player.
         #ifdef isDev
-            if (alive _x && playerSide getFriend _targetSide >= 0.6) then {
+            #define ISDEVCONDIONNAMETAGS alive _x && playerSide getFriend _targetSide >= 0.6
         #else
-            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6) then {
+            #define ISDEVCONDIONNAMETAGS _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6
         #endif
+            if (ISDEVCONDIONNAMETAGS) then {
                 // The position of the nameTag is above the head.
 
                 private _color = if (group _x == group CLib_Player) then {
@@ -117,7 +118,9 @@
                     _textSize = _size * _textSize;
                     _position set [2, _offset];
                     _color set [3, _alpha];
-
+                    if (_unit call CFUNC(isSpeaking)) then {
+                        _texture = "a3\ui_f\data\igui\rscingameui\rscdisplayvoicechat\microphone_ca.paa";
+                    };
                     true;
                 }];
             };

@@ -3,10 +3,10 @@
 class sector {
     dependency[] = {};
     ticketValue = 30;
-    captureTime[] = {30,60};
+    captureTime[] = {60,90};
     minUnits = 3;
     isLastSector = "";
-    firstCaptureTime[] = {5,15};
+    firstCaptureTime[] = {15,30};
 };
 
 class CfgSectors {

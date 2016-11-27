@@ -16,9 +16,11 @@
 
 private _title = localize "STR_A3_Revive";
 private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\u100_ca.paa";
-private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_revive_ca.paa";
+private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\u100_ca.paa";
 private _condition = {
     alive _target &&
+    alive CLib_Player &&
+    !(CLib_Player getVariable [QGVAR(isUnconscious), false]) &&
     (_target distance CLib_Player < 3) &&
     (_target getVariable [QGVAR(isUnconscious),false]) &&
     (side group _target == side group CLib_Player)
@@ -72,6 +74,6 @@ private _onInterruption = {
         CLib_Player setHitIndex [_forEachIndex, _x min 0.75];
     } forEach _oldDamage;
 
-    CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.25];
-    CLib_Player setVariable [QGVAR(bleedingRate), 0];
+    //CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.25];
+    //CLib_Player setVariable [QGVAR(bleedingRate), 0];
 }] call CFUNC(addEventhandler);

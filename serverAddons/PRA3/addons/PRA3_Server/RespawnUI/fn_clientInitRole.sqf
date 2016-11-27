@@ -61,7 +61,7 @@
             _kitDetails params ["_displayName", "_UIIcon"];
 
             private _usedKits = {_x getVariable [QEGVAR(Kit,kit), ""] == _kitName} count ([group CLib_Player] call CFUNC(groupPlayers));
-            _lnbData pushBack [[_displayName, format ["%1 / %2", _usedKits, _usableKitCount]], _kitName, _UIIcon];
+            _lnbData pushBack [[_displayName], _kitName, _UIIcon];
         };
         nil
     } count (call EFUNC(Kit,getAllKits));

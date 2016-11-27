@@ -74,7 +74,6 @@ class Kits {
         isMedic = 1;
 
         primaryWeapon = "arifle_Katiba_C_F";
-        assignedItems[] += {};
 
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
         UIIcon = "a3\ui_f\data\Revive\medikit_ca.paa";
@@ -230,7 +229,7 @@ class Kits {
 
         displayName = "Sniper";
 
-
+        uniform = "U_O_GhillieSuit";
         backpack = "B_TacticalPack_ocamo";
 
         primaryWeapon = "srifle_GM6_F";
@@ -238,6 +237,7 @@ class Kits {
 
         primaryMagazine = "5Rnd_127x108_Mag";
         primaryMagazineCount = 7;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 

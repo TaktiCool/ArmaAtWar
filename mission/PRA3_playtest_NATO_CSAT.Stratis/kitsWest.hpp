@@ -73,7 +73,6 @@ class Kits {
 
         primaryWeapon = "arifle_MXC_F";
         backpack = "B_AssaultPack_rgr";
-        assignedItems[] += {};
         items[] = {{"FirstAidKit", 10}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "Medikit"};
 
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
@@ -203,7 +202,7 @@ class Kits {
 
         displayName = "Crewman";
 
-        uniform = "U_O_CombatUniform_ocamo";
+        uniform = "U_B_HeliPilotCoveralls";
         headGear = "H_HelmetCrew_B";
         primaryMagazineCount = 2;
 
@@ -234,6 +233,7 @@ class Kits {
 
         primaryMagazine = "7Rnd_408_Mag";
         primaryMagazineCount = 5;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 

@@ -19,12 +19,9 @@ DFUNC(dropPlayer) = {
     private _draggedObject = _unit getVariable [QGVAR(draggedPlayer), objNull];
     detach _draggedObject;
     _unit playAction "released";
-    [QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
-    /*
-    if (_unit == CLib_Player) then {
-        ["forceWalk","Logistic",false] call PRA3_Core_fnc_setStatusEffect;
-    };
-    */
+    ["switchMove", [_draggedObject, "unconsciousrevivedefault"]] call CFUNC(globalEvent);
+    //[QGVAR(stopGettingDraggedAnimation),[_draggedObject]] call CFUNC(globalEvent);
+
     if (isNull _draggedObject) exitWith {};
     ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
     _unit setVariable [QGVAR(draggedPlayer), objNull, true];
@@ -43,7 +40,7 @@ DFUNC(dropPlayer) = {
     "CAManBase",
     2,
     {
-        alive _target && _target getVariable [QGVAR(isUnconscious),false];
+        alive _target && _target getVariable [QGVAR(isUnconscious),false] && (side group _target == side group CLib_Player);
     },
     {
         params ["_draggedUnit"];
@@ -64,32 +61,23 @@ DFUNC(dropPlayer) = {
 
             _unit playActionNow "grabDrag";
 
-            [QGVAR(startGettingDraggedAnimation),[_draggedUnit]] call CFUNC(globalEvent);
+            ["switchMove", [_draggedUnit, "AinjPpneMrunSnonWnonDb_grab"]] call CFUNC(globalEvent);
+            [QGVAR(startGettingDraggedAnimation), _draggedUnit] call CFUNC(targetEvent);
 
             [{
                 params ["_args", "_id"];
-                _args params ["_unit"];
-                if (_unit == vehicle _unit) exitWith {};
-                [_unit] call FUNC(dropPlayer);
-                [_id] call CFUNC(removePerFrameHandler);
-            }, 1,_unit] call CFUNC(addPerFrameHandler);
+                _args params ["_draggedUnit", "_unit"];
+                if (_unit != vehicle _unit || !alive _draggedUnit || !alive _unit || (_unit getVariable [QGVAR(isUnconscious), false]) || !(_draggedUnit getVariable [QGVAR(isUnconscious), false])) then {
+                    [_unit] call FUNC(dropPlayer);
+                    [_id] call CFUNC(removePerFrameHandler);
+                };
+            }, 1,[_draggedUnit, _unit]] call CFUNC(addPerFrameHandler);
         }, [_draggedUnit, CLib_Player], "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
 
 [QGVAR(startGettingDraggedAnimation), {
-    (_this select 0) params ["_unit"];
-    if (local _unit) then {
-        _unit setDir 180;
-    };
-
-    _unit switchMove "AinjPpneMrunSnonWnonDb_grab";
-
-}] call CFUNC(addEventhandler);
-
-[QGVAR(stopGettingDraggedAnimation), {
-    (_this select 0) params ["_unit"];
-    _unit switchMove "unconsciousrevivedefault";
+    CLib_Player setDir 180;
 }] call CFUNC(addEventhandler);
 
 

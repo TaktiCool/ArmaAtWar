@@ -8,7 +8,7 @@ class Sides {
         color[] = {0, 0.3, 0.8, 1};
         squadRallyPointObjects[] = {{"Land_TentDome_F", {0,0,0}}};
         FOBBoxObject = "B_CargoNet_01_ammo_F";
-        FOBObjects[] = {{"B_CargoNet_01_ammo_F", {0,0,0}},{"Land_SatellitePhone_F", {0,0,1.631}}};
+        FOBComposition = "FOBNATO";
         #include "kitsWest.hpp"
 
         #include "cfgLogisticWest.hpp"
@@ -23,7 +23,7 @@ class Sides {
         color[] = {0.5, 0, 0, 1};
         squadRallyPointObjects[] = {{"Land_TentA_F", {0,0,0}}};
         FOBBoxObject = "O_CargoNet_01_ammo_F";
-        FOBObjects[] = {{"O_CargoNet_01_ammo_F", {0,0,0}},{"Land_SatellitePhone_F", {0,0,1.631}}};
+        FOBComposition = "FOBCSAT";
         #include "kitsEast.hpp"
 
         #include "cfgLogisticEast.hpp"

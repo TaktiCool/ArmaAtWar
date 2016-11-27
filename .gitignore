@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.bin
 
 # Windows shortcuts
 *.lnk
@@ -48,3 +49,7 @@ serverExtension/packages/*
 
 # ArmA Files
 *.pbo
+
+# IDEA files
+.idea/
+*.iml

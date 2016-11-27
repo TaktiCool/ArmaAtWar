@@ -1,77 +1,77 @@
 '.source.sqf':
 # Logging Snipets
-    'PRA3_Log':
+    'CLib_Log':
         'prefix': 'Log'
         'body': 'LOG($1)'
-    'PRA3_Dump':
+    'CLib_Dump':
         'prefix': 'Dump'
         'body': 'DUMP($1)'
 
 # PerFrame Snipets
-    'PRA3_addPFH':
+    'CLib_addPFH':
         'prefix': 'addPFH'
         'body': '[{$1\n    \n}, ${2:0}] call CFUNC(addPerFrameHandler);'
-    'PRA3_removePFH':
+    'CLib_removePFH':
         'prefix': 'removePFH'
         'body': '$1 call CFUNC(removePerFrameHandler);'
-    'PRA3_execNextF':
+    'CLib_execNextF':
         'prefix': 'execNextF'
         'body': '[{$1\n    \n}] call CFUNC(execNextFrame);'
-    'PRA3_wait':
+    'CLib_wait':
         'prefix': 'wait'
         'body': '[{$1\n    \n}, ${2:1}] call CFUNC(wait);'
-    'PRA3_waitunitl':
+    'CLib_waitunitl':
         'prefix': 'waitUntil'
         'body': '[{$1\n    \n}, {$2\n    \n}] call CFUNC(waitUntil);'
 
 # Event Snipets
-    'PRA3_addEvent':
+    'CLib_addEvent':
         'prefix': 'addEvent'
         'body': '["${1:EVENT}", {$2\n    \n}] call CFUNC(addEventhandler);'
-    'PRA3_localEvent':
+    'CLib_localEvent':
         'prefix': 'localEvent'
         'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(localEvent);'
-    'PRA3_targetEvent':
+    'CLib_targetEvent':
         'prefix': 'targetEvent'
         'body': '["${1:EVENT}", ${2:TARGETS}, ${3:ARGUMENTS}] call CFUNC(targetEvent);'
-    'PRA3_serverEvent':
+    'CLib_serverEvent':
         'prefix': 'serverEvent'
         'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(serverEvent);'
-    'PRA3_globalEvent':
+    'CLib_globalEvent':
         'prefix': 'globalEvent'
-        'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(serverEvent);'
+        'body': '["${1:EVENT}", ${2:ARGUMENTS}] call CFUNC(globalEvent);'
 
 # Namespace
-    'PRA3_allVariables':
+    'CLib_allVariables':
         'prefix': 'allVariables'
         'body': '[${1:NAMESPACE},"${2:VARIABLENAME}"] call CFUNC(allVariables);'
-    'PRA3_setVariableNamespace':
+    'CLib_setVariableNamespace':
         'prefix': 'setVariableNamespace'
         'body': '[${1:NAMESPACE}, "${2:VARIABLENAME}", ${3:VALUE},"${4:CACHENAME}", ${5:GLOBAL}] call CFUNC(setVariable);'
-    'PRA3_getVariableNamespace':
+    'CLib_getVariableNamespace':
         'prefix': 'getVariableNamespace'
         'body': '[${1:NAMESPACE}, ${2:VARIABLENAME}, ${3:DEFAULT}] call CFUNC(getVariable);'
-    'PRA3_createNamespace':
+    'CLib_createNamespace':
         'prefix': 'createNamespace'
         'body': '${1:false} call CFUNC(createNamespace);'
-    'PRA3_deleteNamespace':
+    'CLib_deleteNamespace':
         'prefix': 'deleteNamespace'
         'body': '${1:NAMESPACE} call CFUNC(deleteNamespace);'
 
 # Mutex
-    'PRA3_mutex':
+    'CLib_mutex':
         'prefix': 'mutex'
         'body': '[${1:CODE}, ${2:ARGUMENTS}, ${3:MUTEXID}] call CFUNC(mutex);'
 
 # Misc Snipets
     'PRA3_ShowNotification':
         'prefix': 'notification'
-        'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call CFUNC(displayNotification);'
+        'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call EFUNC(Common,displayNotification);'
     'CLib_Player':
         'prefix': 'player'
-        'body': 'CLib_Player'
-    'PRA3_Header':
-        'prefix': 'PRA3_Header'
-        'body': '#include "macros.hpp"\n/*\n    Project Reality ArmA 3\n    \n    Author: ${1:Author}\n    \n    Description:\n    ${2:Description}\n    \n    Parameter(s):\n    0: ${3:Argument} <${4:Type}>\n    \n    Returns:\n    0: ${5:Return} <${6:Type}>\n*/'
+        'body': 'CLib_player'
+    'CLib_Header':
+        'prefix': 'CLib_Header'
+        'body': '#include "macros.hpp"\n/*\n    Community Lib - CLib\n    \n    Author: joko // Jonas\n    \n    Description:\n    ${2:Description}\n    \n    Parameter(s):\n    0: ${3:Argument} <${4:Type}>\n    \n    Returns:\n    0: ${5:Return} <${6:Type}>\n*/'
 
-# TODO MapGrahics
+# ToDo: MapGrahics

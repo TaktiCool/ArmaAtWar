@@ -13,7 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
-params ["_group", "_groupIconId", ["_attachTo",[leader (_this select 0), [0, -20]]]];
+params ["_group", "_groupIconId", ["_attachTo", [0, -20]]];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -22,12 +22,13 @@ private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo _
 
 private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
 private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
+private _iconPos = [vehicle leader _group, _attachTo];
 
 [
     _groupIconId,
     [
-        ["ICON", _groupMapIcon, _color,_attachTo, 25, 25],
-        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _attachTo, 25, 25, 0, (groupId _group) select [0, 1], 2]
+        ["ICON", _groupMapIcon, _color,_iconPos, 25, 25],
+        ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _iconPos, 25, 25, 0, (groupId _group) select [0, 1], 2]
     ]
 ] call CFUNC(addMapGraphicsGroup);
 
@@ -43,9 +44,9 @@ private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType
         GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
-        private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
+        private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
         _pos set [0, (_pos select 0) + 15/640];
-        _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
+        _pos set [1, (_pos select 1) + (((_attachTo) select 1)+5)/480];
 
         private _display = ctrlParent _map;
         private _idd = ctrlIDD _display;
@@ -153,9 +154,9 @@ private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType
             params ["_params", "_id"];
             _params params ["_group", "_map", "_attachTo"];
 
-            private _pos = _map ctrlMapWorldToScreen getPosVisual (_attachTo select 0);
+            private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
             _pos set [0, (_pos select 0) + 15/640];
-            _pos set [1, (_pos select 1) + (((_attachTo select 1) select 1)+5)/480];
+            _pos set [1, (_pos select 1) + ((_attachTo select 1)+5)/480];
 
             private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
 

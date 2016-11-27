@@ -33,6 +33,7 @@
 ["InventoryOpened", {
     (_this select 0) params ["_unit", "_container"];
 
+
     if ((typeOf _container) == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
         if (!(_cursorTarget getVariable ["hasInventory", true]) && ((CLib_Player distance _cursorTarget) < 5)) then {
@@ -40,12 +41,11 @@
         };
     };
 
+
     if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
     GVAR(currentContainer) = _container;
     [{
         params ["_unit", "_container"];
-
-
 
         private _display = (findDisplay 602);
         private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
@@ -98,6 +98,9 @@
         _unloadBtn ctrlSetPosition [0.5*_gX, 20*_gY, 5.5*_gX, 1*_gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
+            if !(isNull (objectParent CLib_Player)) exitWith {
+                MLOC(UnableToUnload) call EFUNC(Common,displayNotification);
+            };
             [{
                 params ["_vehicle"];
                 private _index = lbCurSel (uiNamespace getVariable QGVAR(CargoListBox));

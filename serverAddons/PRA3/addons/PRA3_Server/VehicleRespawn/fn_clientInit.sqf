@@ -26,3 +26,14 @@
      ];
      _text call EFUNC(Common,displayNotification);
 }] call CFUNC(addEventHandler);
+
+// bug Fix for JIP and VehicleVarName
+{
+    if (vehicleVarName _x == "") then {
+        private _varName = _x getVariable [QGVAR(vehicleVarName), ""];
+        if (_varName != "") then {
+            _x setVehicleVarName _varName;
+        };
+    };
+    nil
+} count (((entities "") - allUnits) + allUnits);

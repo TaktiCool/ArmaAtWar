@@ -81,7 +81,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                     GVAR(processedIcons) pushBack _iconId;
                     if !(_iconId in GVAR(lastProcessedIcons)) then {
                         DUMP("GROUP ICON ADDED: " + _iconId);
-                        [group _x, _iconId, [_vehicle, [0, -20*_nbrGroups]]] call FUNC(addGroupToTracker);
+                        [group _x, _iconId, [0, -20*_nbrGroups]] call FUNC(addGroupToTracker);
                     };
                 };
                 ({group _x isEqualTo group CLib_Player} count crew _vehicle) > 0;
