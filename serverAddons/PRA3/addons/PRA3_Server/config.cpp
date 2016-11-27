@@ -18,8 +18,8 @@ class CfgPatches {
 
 #include "CfgCLibLocalisation.hpp"
 class CfgCLibSimpleObject {
-    #include "\pr\PRA3\addons\PRA3_Server\FOB\cfgClibSimpleObject.hpp"
-    #include "\pr\PRA3\addons\PRA3_Server\Rally\cfgClibSimpleObject.hpp"
+    #include "\pr\PRA3\addons\PRA3_Server\FOB\cfgCLibSimpleObject.hpp"
+    #include "\pr\PRA3\addons\PRA3_Server\Rally\cfgCLibSimpleObject.hpp"
 };
 
 #include "PRA3.hpp"
