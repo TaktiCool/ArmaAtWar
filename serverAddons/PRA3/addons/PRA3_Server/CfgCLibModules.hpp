@@ -139,13 +139,7 @@ class CfgCLibModules {
         MODULE(RespawnUI) {
             dependency[] = {"PRA3/Common", "PRA3/Kit", "PRA3/Squad", "PRA3/Sector"};
             FNC(clientInit);
-            FNC(clientInitDeployment);
-            FNC(clientInitRole);
-            FNC(clientInitSquad);
-            FNC(clientInitCamera);
             FNC(showDisplayInterruptEH);
-            FNC(updateListNBox);
-            FNC(fadeControl);
         };
 
         // Revive

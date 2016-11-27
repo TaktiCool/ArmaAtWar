@@ -66,15 +66,18 @@
         [[-1000, -1000, 10], _leastPlayerSide] call EFUNC(Common,respawnNewSide);
         deleteVehicle _initialUnit;
 
-        // Open the respawn UI
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
 
+        // Open the respawn UI
         (findDisplay 46) createDisplay UIVAR(RespawnScreen);
     }, [], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
     (_this select 0) params ["_display"];
+
+    [_display, "RespawnUIHeader", [safeZoneX, safeZoneY]] call CFUNC(createFromTemplate);
+    [_display, "RespawnUISquadHeader", [safeZoneX + PX(4), safeZoneY + PY(12.5)]] call CFUNC(createFromTemplate);
     uiNamespace setVariable [QGVAR(respawnDisplay), _display];
 
     // Load the different screens
@@ -90,32 +93,28 @@
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
 
+        private _control = uiNamespace getVariable UIVAR(MissionType);
+
+
+
         if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };
 
         // Update the MissionName Text
-        (_display displayCtrl 501) ctrlSetStructuredText parseText (getText (missionConfigFile >> "onLoadMission"));
+        private _missionName = getText (missionConfigFile >> "onLoadMission");
 
         // Update Tickets
         private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
         private _firstSide = EGVAR(Common,competingSides) select 0;
         private _secondSide = EGVAR(Common,competingSides) select 1;
-        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _firstSide], ""]);
-        (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _firstSide], _startTickets]);
-        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
-        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _secondSide], ""]);
-        (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _secondSide], _startTickets]);
 
-        {
-            (_display displayCtrl _x) ctrlCommit 0;
-            nil
-        } count [601, 602, 603, 604, 605, 606];
+        (uiNamespace getVariable UIVAR(MissionName)) ctrlSetStructuredText parseText format ["<t size='%1' align='right' shadow='0'>%2</t>", PY(2.4)/0.035*1.3,_missionName];
+        (uiNamespace getVariable UIVAR(MissionType)) ctrlSetStructuredText parseText format ["<t size='%1' align='right' shadow='0'>Advance &amp; Secure</t>", PY(1.6)/0.035*1.3];
 
-        (_display displayCtrl 500) call FUNC(fadeControl); // MissionName
-        (_display displayCtrl 600) call FUNC(fadeControl); // Tickets
+        (uiNamespace getVariable UIVAR(SquadHeaderText)) ctrlSetStructuredText parseText format ["<t size='%1' align='center' shadow='0'>JOIN OR CREATE A SQUAD</t>", PY(1.6)/0.035*1.3];
+
     }, _display] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
@@ -124,6 +123,7 @@
     if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
 
     private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
+    /*
     (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 0], _startTickets]);
     (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 1], _startTickets]);
 
@@ -131,6 +131,7 @@
         (_display displayCtrl _x) ctrlCommit 0;
         nil;
     } count [605, 606];
+    */
 }] call CFUNC(addEventHandler);
 
 // Alternative notification display

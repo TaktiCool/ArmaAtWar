@@ -149,6 +149,7 @@ if (hasInterface) then {
                     ([UIVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     (uiNamespace getVariable [UIVAR(VersionInfo), controlNull]) ctrlSetFade 1;
+                    (uiNamespace getVariable [UIVAR(VersionInfo), controlNull]) ctrlCommit 0;
                     showHUD [false, false, false, false, false, false, false, false, false];
 
                     CGVAR(hideHUD) = true;

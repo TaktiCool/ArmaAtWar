@@ -73,8 +73,6 @@ class PRA3 {
 #include "ui\common\baseclasses.hpp"
 #include "ui\common\pra3_baseclasses.hpp"
 #include "ui\dialog\RespawnScreen.hpp"
-#include "ui\dialog\SquadScreen.hpp"
-#include "ui\dialog\RoleScreen.hpp"
 
 class RscTitles {
     #include "ui\hud\CaptureStatus.hpp"
