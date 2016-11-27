@@ -1,2 +1,2 @@
 #include "modInfo.hpp"
-#include "\pr\Clib\addons\Clib\macros.hpp"
+#include "\pr\CLib\addons\CLib\macros.hpp"

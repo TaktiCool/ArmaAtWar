@@ -102,6 +102,11 @@
 
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
+
+        if !(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint)) exitWith {
+            ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayNotification);
+        };
+
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
 
         _deploymentDisplay closeDisplay 1;

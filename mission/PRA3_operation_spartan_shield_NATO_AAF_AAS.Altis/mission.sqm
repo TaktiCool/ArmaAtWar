@@ -5,10 +5,10 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=2;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=980;
+		nextID=1007;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={18868.018,250.87106,12337.79};
-		dir[]={0.82067108,-0.33427072,-0.46359557};
-		up[]={0.29106048,0.94245905,-0.16441889};
-		aside[]={-0.49188051,-5.2640826e-007,-0.87073678};
+		pos[]={17460.057,115.8036,13291.928};
+		dir[]={-0.33318582,-0.68485492,-0.64815432};
+		up[]={-0.31312448,0.7286272,-0.60912204};
+		aside[]={-0.88943309,1.8116552e-006,0.45722076};
 	};
 };
 binarizationWanted=0;
@@ -4105,6 +4105,7 @@ class Mission
 			};
 			id=196;
 			type="I_Truck_02_covered_F";
+			atlOffset=-8.5830688e-006;
 		};
 		class Item76
 		{
@@ -4139,6 +4140,7 @@ class Mission
 			};
 			id=204;
 			type="I_MRAP_03_F";
+			atlOffset=-7.2479248e-005;
 		};
 		class Item78
 		{
@@ -4156,6 +4158,7 @@ class Mission
 			};
 			id=205;
 			type="I_MRAP_03_F";
+			atlOffset=-2.0980835e-005;
 		};
 		class Item79
 		{
@@ -4173,7 +4176,7 @@ class Mission
 			};
 			id=208;
 			type="I_MRAP_03_hmg_F";
-			atlOffset=-0.067642212;
+			atlOffset=-0.067793846;
 		};
 		class Item80
 		{
@@ -4191,6 +4194,7 @@ class Mission
 			};
 			id=209;
 			type="I_MRAP_03_hmg_F";
+			atlOffset=-0.00013256073;
 		};
 		class Item81
 		{
@@ -4628,8 +4632,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17511.25,16.819817,13121.284};
-				angles[]={0.0093200579,5.4765463,6.2805324};
+				position[]={17503.584,16.772577,13128.536};
+				angles[]={0.0093286335,4.5040522,6.2805333};
 			};
 			side="Empty";
 			flags=4;
@@ -4645,8 +4649,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17499.291,16.382759,13144.105};
-				angles[]={0.045308746,3.9933832,0.0026703537};
+				position[]={17490.656,16.549244,13139.051};
+				angles[]={0.038646095,3.9933832,0.0026520467};
 			};
 			side="Empty";
 			flags=4;
@@ -4657,14 +4661,15 @@ class Mission
 			};
 			id=252;
 			type="I_Truck_02_ammo_F";
+			atlOffset=0.067344666;
 		};
 		class Item97
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={17496.105,16.219435,13147.672};
-				angles[]={0.014660765,3.9933832,0};
+				position[]={17487.471,16.38592,13142.617};
+				angles[]={0.029324362,3.9933832,6.2751846};
 			};
 			side="Empty";
 			flags=4;
@@ -4674,6 +4679,7 @@ class Mission
 			};
 			id=254;
 			type="I_Truck_02_fuel_F";
+			atlOffset=-0.00032043457;
 		};
 		class Item98
 		{
@@ -4710,21 +4716,21 @@ class Mission
 		class Item100
 		{
 			dataType="Marker";
-			position[]={20437.859,5.0667334e+016,8872.5508};
+			position[]={20231.404,0,8912.4961};
 			name="sector_0";
-			text="Panagia";
+			text="Panagia Industrial Site";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=250;
-			b=250;
+			a=150;
+			b=150;
 			id=322;
-			atlOffset=5.0667334e+016;
+			atlOffset=-46.803864;
 		};
 		class Item101
 		{
 			dataType="Marker";
-			position[]={19630.393,3.9021062e+036,10728.817};
+			position[]={19666.855,1.7902763e+025,10737.159};
 			name="sector_1";
 			text="Abandoned Outpost";
 			markerType="ELLIPSE";
@@ -4733,63 +4739,63 @@ class Mission
 			a=150;
 			b=150;
 			id=323;
-			atlOffset=3.9021062e+036;
+			atlOffset=1.7902763e+025;
 		};
 		class Item102
 		{
 			dataType="Marker";
-			position[]={20226.189,2.6618659e+038,11685.123};
+			position[]={20257.498,1.3727891e+015,11535.02};
 			name="sector_2";
-			text="Chalkeia";
+			text="Chalkeia Church";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=200;
-			b=200;
+			a=100;
+			b=100;
 			id=324;
-			atlOffset=2.6618659e+038;
+			atlOffset=1.3727891e+015;
 		};
 		class Item103
 		{
 			dataType="Marker";
-			position[]={19394.119,0,13248.832};
+			position[]={19404.422,1.1297663e+035,13249.003};
 			name="sector_3";
-			text="Dorida";
+			text="Dorida Town Center";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=250;
-			b=250;
+			a=75;
+			b=75;
 			id=325;
-			atlOffset=-38.737568;
+			atlOffset=1.1297663e+035;
 		};
 		class Item104
 		{
 			dataType="Marker";
-			position[]={17096.029,1.6240189e+015,10019.007};
+			position[]={17071.283,1.7529918e+025,10019.4};
 			name="sector_4";
 			text="Ekali Village";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=200;
-			b=200;
+			a=150;
+			b=150;
 			id=329;
-			atlOffset=1.6240189e+015;
+			atlOffset=1.7529918e+025;
 		};
 		class Item105
 		{
 			dataType="Marker";
-			position[]={17021.66,1.1200307e+035,11363.958};
+			position[]={17050.371,1.7732372e+036,11319.48};
 			name="sector_5";
 			text="Quarry";
 			markerType="ELLIPSE";
 			type="ellipse";
 			colorName="ColorYellow";
-			a=250;
-			b=250;
+			a=150;
+			b=150;
 			id=330;
-			atlOffset=1.1200307e+035;
+			atlOffset=1.7732372e+036;
 		};
 		class Item106
 		{
@@ -17899,6 +17905,7 @@ class Mission
 			};
 			id=977;
 			type="I_supplyCrate_F";
+			atlOffset=-2.2888184e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -17958,6 +17965,7 @@ class Mission
 			};
 			id=978;
 			type="Box_FIA_Ammo_F";
+			atlOffset=-2.0027161e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -18017,6 +18025,7 @@ class Mission
 			};
 			id=979;
 			type="Box_IND_AmmoVeh_F";
+			atlOffset=-8.2015991e-005;
 			class CustomAttributes
 			{
 				class Attribute0

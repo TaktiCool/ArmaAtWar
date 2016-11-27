@@ -5,7 +5,7 @@ private _missionVersionStr = "";
 private _missionVersionAr = getArray(missionConfigFile >> QPREFIX >> "Version");
 
 private _serverVersionStr = "";
-private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" >> "versionAr");
+private _serverVersionAr = [VERSION_AR];
 
 {
     _missionVersionStr = _missionVersionStr + str(_x) + ".";
@@ -18,10 +18,6 @@ private _serverVersionAr = getArray(configFile >> "CfgPatches" >> "PRA3_Server" 
 } count _serverVersionAr;
 
 DUMP("Version Mission: " + _missionVersionStr + "; Version Server: " + _serverVersionStr)
-// TODO Create Database for Compatible Versions
-if (!(_missionVersionAr isEqualTo _serverVersionAr) && (isClass (missionConfigFile >> QPREFIX))) then {
-    ["Lost"] call BIS_fnc_endMissionServer;
-};
 
 _missionVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 1)];
 _serverVersionStr = _serverVersionStr select [0, (count _serverVersionStr - 1)];
@@ -47,39 +43,35 @@ GVAR(markerLocations) = GVAR(markerLocations) apply {
 
 if (hasInterface) then {
     ["missionStarted", {
-        (findDisplay 46) displayAddEventHandler ["KeyDown", {
+
+        private _mainDisplay = findDisplay 46;
+
+        _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
+        _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(50), safeZoneY + safeZoneH - PY(8), PX(50), PY(10)];
+        _ctrl ctrlSetFade 0.4;
+        _ctrl ctrlSetStructuredText parseText format ["<t align='right' size='%1'>Mission Version: %2<br />Server Version: %3</t><br /><t align='right' size='%4'>The current version of PRA3 is in a stage of early Alpha.<br />Every element is subject to change at the current state of development</t>",
+            PY(1.8)/0.035,
+            (GVAR(VersionInfo) select 0) select 0,
+            (GVAR(VersionInfo) select 1) select 0,
+            PY(1.5)/0.035];
+        _ctrl ctrlCommit 0;
+
+        uiNamespace setVariable [UIVAR(VersionInfo), _ctrl];
+
+        _mainDisplay displayAddEventHandler ["KeyDown", {
             if ((_this select 1)==1) then {
                 [{
                     private _pauseMenuDisplay = findDisplay 49;
 
-                    _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
-                    _gX = (((safezoneW / safezoneH) min 1.2) / 40);
-
-                    _gY0 = SafeZoneY;
-                    _gX0 = SafeZoneX;
-
-                    private _controlGroup  = _pauseMenuDisplay ctrlCreate ["RscControlsGroupNoScrollbars",-1];
-                    _controlGroup ctrlSetPosition [_gX0+safezoneW-10*_gX,_gY0+safezoneH-14*_gY,14*_gX,12*_gY];
-                    _controlGroup ctrlCommit 0;
-
-                    private _ctrl = _pauseMenuDisplay ctrlCreate ["RscPicture",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0.25*_gX,0,8*_gX,8*_gY];
-                    _ctrl ctrlSetText "ui\media\PRA3Logo_ca.paa";
-                    _ctrl ctrlCommit 0;
-
-                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0.5*_gX,8*_gY,8*_gX,1*_gY];
-                    _ctrl ctrlSetText format ["Mission Version: %1", (GVAR(VersionInfo) select 0) select 0];
-                    _ctrl ctrlCommit 0;
-
-                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscText",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0.7*_gX,8.8*_gY,8*_gX,1*_gY];
-                    _ctrl ctrlSetText format ["Server Version: %1", (GVAR(VersionInfo) select 1) select 0];
-                    _ctrl ctrlCommit 0;
-
-                    _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText",-1,_controlGroup];
-                    _ctrl ctrlSetPosition [0*_gX,10*_gY,12*_gX,1*_gY];
-                    _ctrl ctrlSetStructuredText parseText "<t size='1.2' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>";
+                    private _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText", -1];
+                    _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(30), safeZoneY + safeZoneH - PY(30), PX(30), PY(30)];
+                    _ctrl ctrlSetFade 0;
+                    _ctrl ctrlSetStructuredText parseText format ["<t align='center'><img color='#ffffff' shadow='0' size='%1' image='ui\media\PRA3Logo_ca.paa' /></t><t align='center' size='%2'><br />Mission Version: %3<br />Server Version: %4<br /></t><t size='%5' align='center' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>",
+                        PY(15)/0.035,
+                        PY(1.8)/0.035,
+                        (GVAR(VersionInfo) select 0) select 0,
+                        (GVAR(VersionInfo) select 1) select 0,
+                        PY(2.2)/0.035];
                     _ctrl ctrlCommit 0;
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
             };
@@ -93,7 +85,7 @@ if (hasInterface) then {
     ["playerChanged", {
         (_this select 0) params ["_newPlayer"];
         _newPlayer disableConversation true;
-        _newPlayer setVariable ["BIS_noCoreConversations", false];
+        _newPlayer setVariable ["BIS_noCoreConversations", true];
     }] call CFUNC(addEventhandler);
 
     ["entityCreated", {
@@ -147,7 +139,7 @@ if (hasInterface) then {
     if (isClass (configFile >> "CfgPatches" >> "gcam")) then {
         [{
             [
-                "Hide HUD (Permanent) + Hide Player",
+                "Hide HUD (Permanent)",
                 CLib_Player,
                 0,
                 { (true isEqualTo true) },
@@ -155,14 +147,25 @@ if (hasInterface) then {
                     ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(TicketStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
                     ([UIVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
-                    CGVAR(hideHUD) = true;
+                    ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutFadeOut 0;
+                    (uiNamespace getVariable [UIVAR(VersionInfo), controlNull]) ctrlSetFade 1;
+                    // showHUD [false, false, false, false, false, false, false, false, false];
 
+                    CGVAR(hideHUD) = true;
+                }
+            ] call CFUNC(addAction);
+
+            [
+                "Hide Player",
+                CLib_Player,
+                0,
+                { (true isEqualTo true) },
+                {
                     ["hideObject", [CLib_Player,true]] call CFUNC(globalEvent);
                     ["enableSimulation", [CLib_Player, false]] call CFUNC(globalEvent);
                     ["blockDamage", [CLib_Player, false]] call CFUNC(globalEvent);
                 }
             ] call CFUNC(addAction);
-
         }, 10] call CFUNC(wait);
     };
 
