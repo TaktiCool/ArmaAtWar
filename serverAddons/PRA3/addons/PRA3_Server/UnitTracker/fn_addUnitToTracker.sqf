@@ -26,8 +26,8 @@ if (CLib_Player == _newUnit) then {
 };
 
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1, 0.08, "RobotoCondensed", "right", {
-    if (CLib_Player getVariable [QEGVAR(Kit,isMedic), false] && {_position getVariable [QEGVAR(Revive,isUnconscious), false]}) then {
-        _texture = "a3\ui_f\data\igui\cfg\holdactions\drawicon_incapacitated_ca.paa";
+    if ((CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) && {_position getVariable [QEGVAR(Revive,isUnconscious), false]}) then {
+        _texture = "\a3\ui_f\data\igui\cfg\holdactions\drawicon_incapacitated_ca.paa";
         _color = [1,0,0,1];
         _width = 22;
         _height = 22;
