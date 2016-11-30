@@ -680,3 +680,53 @@ class RscToolbox {
     font = "PuristaMedium";
     sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 };
+
+class BgDarkTransparent : RscPicture {
+    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.7)";
+};
+
+class BgDarkLightTransparent : RscPicture {
+    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.4)";
+};
+
+class TxtLarge : RscText {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = PY(3);
+    text = "NATO";
+    shadow = 0;
+    font = "RobotoCondensedLight";
+    sizeEx = PY(2.4)*1.3;
+    color[] = {1,1,1,1};
+};
+
+class TxtMedium : RscText {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = PY(2);
+    text = "NATO";
+    shadow = 0;
+    font = "RobotoCondensed";
+    sizeEx = PY(1.6)*1.3;
+    color[] = {1,1,1,1};
+};
+
+class BtnWhite : RscButton {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = PX(12);
+    h = PY(4);
+    text = "BUTTON";
+    shadow = 0;
+    font = "RobotoCondensedLight";
+    sizeEx = PY(1.6)*1.3;
+    colorText[] = {0,0,0,1};
+    colorBackground[] = {1,1,1,1};
+    colorBackgroundActive[] = {1.2*0.77, 1.2*0.51, 1.2*0.08, 1};
+    period = 0;
+};
