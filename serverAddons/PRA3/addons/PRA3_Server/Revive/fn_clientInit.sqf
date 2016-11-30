@@ -55,7 +55,7 @@ GVAR(draw3dIcons) = false;
         #ifdef isDev
             #define ISDEVCONDIONREVIVE alive _x && playerSide getFriend _targetSide >= 0.6
         #else
-            #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && (_x getVariable [QGVAR(isUnconscious), false])
+            #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6
         #endif
         // Check if the unit is not the player himself, alive and a friend of player.
         if (ISDEVCONDIONREVIVE) then {
