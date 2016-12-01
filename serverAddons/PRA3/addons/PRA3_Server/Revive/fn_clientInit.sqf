@@ -55,12 +55,12 @@ GVAR(draw3dIcons) = false;
         #ifdef isDev
             #define ISDEVCONDIONREVIVE alive _x && playerSide getFriend _targetSide >= 0.6
         #else
-            #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && (_x getVariable [QGVAR(isUnconscious), false])
+            #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6
         #endif
         // Check if the unit is not the player himself, alive and a friend of player.
         if (ISDEVCONDIONREVIVE) then {
             // The position of the nameTag is above the head.
-            if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x > 0) then {
+            if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x >= 0.1) then {
 
 
                 _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
