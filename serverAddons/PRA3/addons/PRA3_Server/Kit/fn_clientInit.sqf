@@ -50,28 +50,20 @@
         private _kitDetails = [_currentKitName, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
         _kitDetails params ["_isCrew", "_isPilot"];
 
-        // Tank and APC require crew.
-        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+        // Pilot kit for pilot seats.
+        if (_actionName in ["GetInPilot", "MoveToPilot"] && _isPilot == 0) exitWith {
             [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
             true
         };
 
-        // Air requires crew for gunner/commander/turret and pilot for pilot.
-        if (_vehicle isKindOf "Air" && ([_isCrew, _isPilot] select (_actionName in ["GetInPilot", "MoveToPilot"])) == 0) exitWith {
+        // Gunner and commander always require a driver.
+        if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
             [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
             true
         };
 
-        // Gunner and commander require a driver.
-        // Not possible to figure out which specific turret the player wants to board.
-        // This makes it impossible to check the config for FFV seats.
-        if (_actionName in ["GetInTurret", "GetInGunner", "GetInCommander", "MoveToTurret", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
-            [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
-            true
-        };
-
-        // Check FFV seats - everything else requires driver to board.
-        if (_actionName in ["GetInTurret", "MoveToTurret"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
+        // Turrets
+        if (_actionName in ["GetInTurret", "MoveToTurret"]) exitWith {
             // Detect the turret via scanning for the action text.
             private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
             private _actionText = getText (configFile >> "CfgActions" >> _actionName >> "text");
@@ -95,11 +87,41 @@
 
             // Now check if the turret has a gun.
             if (getText (_turretConfig >> "body") != "") exitWith {
-                [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
-                 true
+                // Turrets with guns always require a driver.
+                if (isNull (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
+                    [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+                    true
+                };
+
+                // Turrets with guns in air, tank and wheeled apc require crew kit.
+                if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+                    [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+                    true
+                };
+
+                false
+            };
+
+            // Check if its not a FFV slot.
+            if (getNumber (_turretConfig >> "hideWeaponsGunner") == 1) exitWith {
+                // This is a turret without a gun and without the players handheld weapon (only copilot afaik).
+                // Copilot need pilot kit
+                if (_vehicle isKindOf "Air" && _isPilot == 0) exitWith {
+                    [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+                    true
+                };
+
+                false
             };
 
             false
+        };
+
+        // Driver
+        // Tank and APC driver require crew kit.
+        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+            [MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotification);
+            true
         };
 
         false
