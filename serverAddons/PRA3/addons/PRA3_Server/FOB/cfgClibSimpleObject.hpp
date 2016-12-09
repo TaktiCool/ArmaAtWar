@@ -37,7 +37,7 @@ class CfgCLibSimpleObject {
         alignOnSurface = 1;
         class item0 {
             path = "o_cargonet_01_ammo_f";
-            offset[] = {-0.262329, 0.00878906, 0};
+            offset[] = {-0.262329, 0.00878906, 0.825303};
             dirVector[] = {0, 1, 0};
             upVector[] = {0, 0, 1};
         };
@@ -70,7 +70,7 @@ class CfgCLibSimpleObject {
         alignOnSurface = 1;
         class item0 {
             path = "i_cargonet_01_ammo_f";
-            offset[] = {-0.262329, 0.00878906, 0};
+            offset[] = {-0.262329, 0.00878906, 0.825303};
             dirVector[] = {0, 1, 0};
             upVector[] = {0, 0, 1};
         };

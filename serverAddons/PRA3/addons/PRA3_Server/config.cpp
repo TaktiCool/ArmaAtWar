@@ -10,23 +10,12 @@ class CfgPatches {
         version = VERSION;
         versionStr = QUOTE(VERSION);
         versionAr[] = {VERSION_AR};
-        requiredAddons[] = {"Clib"};
+        requiredAddons[] = {"CLib"};
     };
 };
 
 #include "CfgCLibModules.hpp"
 
 #include "CfgCLibLocalisation.hpp"
-
-/*
-class RscPicture;
-class RscTextNoShadow;
-class RscTitle;
-class RscStructuredText;
-class CfgUIFramework {
-    #include "\pr\PRA3\addons\PRA3_Server\RespawnUI\CfgUIFramework.hpp"
-};
-*/
-
-#include "\pr\PRA3\addons\PRA3_Server\FOB\cfgClibSimpleObject.hpp"
+#include "\pr\PRA3\addons\PRA3_Server\FOB\cfgCLibSimpleObject.hpp"
 #include "PRA3.hpp"
