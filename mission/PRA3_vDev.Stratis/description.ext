@@ -97,7 +97,7 @@ class CfgRemoteExec {
         };
     };
 };
-*/
+
 
 class CfgUIFramework {
     class RscPicture{};
@@ -219,3 +219,4 @@ class CfgUIFramework {
         };
     };
 };
+*/

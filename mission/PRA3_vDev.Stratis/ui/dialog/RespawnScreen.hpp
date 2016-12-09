@@ -10,25 +10,23 @@ class PRA3_UI_RespawnScreen {
 
 
     class ControlsBackground {
-        
+
     };
 
     class Controls {
 
         class TeamInfo : PRA3_UI_TeamInfo {};
-
         class MissionName : RscControlsGroupNoScrollbars {
             idc = 500;
-            x = safeZoneX;
+            x = safeZoneX + safeZoneW - PX(64);
             y = safeZoneY;
-            w = PX(40);
-            h = PY(6);
+            w = PX(60);
+            h = PY(10);
 
             class Controls {
                 class MissionName : TxtLarge {
                     idc = 501;
                     style = ST_RIGHT;
-                    x = safeZoneW - PX(64);
                     y = PY(2.6);
                     w = PX(60);
                     text = "OPERATION SPARTAN SHIELD";
@@ -37,12 +35,13 @@ class PRA3_UI_RespawnScreen {
                 class MissionType : TxtMedium {
                     idc = 502;
                     style = ST_RIGHT;
-                    x = safeZoneW - PX(64);
                     y = PY(5.6);
                     w = PX(60);
                     text = "Advance & Secure";
                 };
             };
         };
+
+        class SquadManagement : PRA3_UI_SquadManagement {};
     };
 };

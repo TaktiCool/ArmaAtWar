@@ -134,3 +134,58 @@ class PRA3_UI_DisableMouse_Dialog {
     };
 };
 */
+
+class BgDarkTransparent : RscPicture {
+    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.5)";
+};
+
+class BgDarkLightTransparent : RscPicture {
+    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.25)";
+};
+
+class TxtLarge : RscText {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = PY(3);
+    text = "NATO";
+    shadow = 0;
+    font = "RobotoCondensedLight";
+    sizeEx = PY(2.4)*1.28;
+    colorText[] = {1,1,1,1};
+};
+
+class TxtMedium : RscText {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = 0;
+    h = PY(2);
+    text = "NATO";
+    shadow = 0;
+    font = "RobotoCondensed";
+    sizeEx = PY(1.6)*1.28;
+    colorText[] = {1,1,1,1};
+};
+
+class TxtBold : TxtMedium {
+    font = "RobotoCondensedBold";
+};
+
+class BtnWhite : RscButton {
+    idc = -1;
+    x = 0;
+    y = 0;
+    w = PX(12);
+    h = PY(4);
+    text = "BUTTON";
+    shadow = 0;
+    font = "RobotoCondensed";
+    sizeEx = PY(1.6)*1.28;
+    colorText[] = {0,0,0,1};
+    colorFocused[] = {1,1,1,1};
+    colorBackground[] = {1,1,1,1};
+    colorBackgroundActive[] = {0.77, 0.51, 0.08, 1};
+    period = 0;
+};

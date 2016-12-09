@@ -43,11 +43,12 @@
 ["missionStarted", {
     // Choose the initial side for the player before showing the respawn screen.
     [QGVAR(SideSelection)] call bis_fnc_startLoadingScreen;
+    DUMP("missionStarted: START LOADING SCREEN")
 
     // We need a mutex to ensure the player detects the side with fewest players correctly
     [{
         50 call bis_fnc_progressLoadingScreen;
-
+        DUMP("missionStarted: MUTEX")
         // Calculate the side with fewest players
         private _leastPlayerSide = sideUnknown;
         private _leastPlayerCount = 999;
@@ -67,6 +68,7 @@
         deleteVehicle _initialUnit;
 
         // Open the respawn UI
+        DUMP("missionStarted: END LOADING SCREEN")
         [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
 
         (findDisplay 46) createDisplay UIVAR(RespawnScreen);
@@ -96,7 +98,7 @@
         };
 
         // Update the MissionName Text
-        (_display displayCtrl 501) ctrlSetStructuredText parseText (getText (missionConfigFile >> "onLoadMission"));
+        (_display displayCtrl 501) ctrlSetText (getText (missionConfigFile >> "onLoadMission"));
 
         // Update Tickets
         private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");

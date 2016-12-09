@@ -6,6 +6,7 @@ class PRA3_UI_TeamInfo : RscControlsGroupNoScrollbars {
     h = PY(10);
 
     class Controls {
+
         class BackgroundTop : BgDarkTransparent {
             idc = 199;
             x = 0;
@@ -13,6 +14,7 @@ class PRA3_UI_TeamInfo : RscControlsGroupNoScrollbars {
             w = safeZoneW;
             h = PY(10);
         };
+
 
         class BackgroundFlag : RscPicture {
             idc = -1;
@@ -39,9 +41,6 @@ class PRA3_UI_TeamInfo : RscControlsGroupNoScrollbars {
             w = PX(12);
             text = "NATO";
         };
-
-
-
         class BtnChangeSite : BtnWhite {
             idc = 104;
             x = PX(27);

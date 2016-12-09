@@ -6,15 +6,15 @@
  * HELPER
  */
 class ScrollBar {
-    arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
-    arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
+    arrowEmpty = "#(argb,8,8,3)color(1,1,1,0)";
+    arrowFull = "#(argb,8,8,3)color(1,1,1,0)";
     autoScrollDelay = 5;
     autoScrollEnabled = 0;
     autoScrollRewind = 0;
     autoScrollSpeed = -1;
-    border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
-    color[] = {1,1,1,0.6};
-    colorActive[] = COLOR_WHITE;
+    border = "#(argb,8,8,3)color(1,1,1,0)";
+    color[] = {1,1,1,1};
+    colorActive[] = {1,1,1,1};
     colorDisabled[] = {1,1,1,0.3};
     height = 0;
     scrollSpeed = 0.06;
@@ -49,7 +49,7 @@ class RscControlsGroup {
 
     class VScrollbar : ScrollBar {
         autoScrollEnabled = 1;
-        width = 0.021;
+        width = PX(1);
     };
     class HScrollbar : ScrollBar {
         height = 0.028;
@@ -681,52 +681,31 @@ class RscToolbox {
     sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 };
 
-class BgDarkTransparent : RscPicture {
-    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.7)";
-};
-
-class BgDarkLightTransparent : RscPicture {
-    text = "#(argb,8,8,3)color(0.2,0.2,0.2,0.4)";
-};
-
-class TxtLarge : RscText {
+class RscActiveText {
+    access = 0;
+    color[] = {0,0,0,1};
+    colorActive[] = {0.3,0.4,0,1};
+    colorDisabled[] = {1,1,1,0.25};
+    default = 0;
+    deletable = 0;
+    fade = 0;
+    font = "RobotoCondensedBold";
+    h = 0.035;
     idc = -1;
+    shadow = 2;
+    sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+    soundClick[] = {"",0.1,1};
+    soundEnter[] = {"",0.1,1};
+    soundEscape[] = {"",0.1,1};
+    soundPush[] = {"",0.1,1};
+    style = 2;
+    text = "";
+    tooltipColorBox[] = {1,1,1,1};
+    tooltipColorShade[] = {0,0,0,0.65};
+    tooltipColorText[] = {1,1,1,1};
+    type = 11;
+    url = "";
+    w = 0.035;
     x = 0;
     y = 0;
-    w = 0;
-    h = PY(3);
-    text = "NATO";
-    shadow = 0;
-    font = "RobotoCondensedLight";
-    sizeEx = PY(2.4)*1.3;
-    color[] = {1,1,1,1};
-};
-
-class TxtMedium : RscText {
-    idc = -1;
-    x = 0;
-    y = 0;
-    w = 0;
-    h = PY(2);
-    text = "NATO";
-    shadow = 0;
-    font = "RobotoCondensed";
-    sizeEx = PY(1.6)*1.3;
-    color[] = {1,1,1,1};
-};
-
-class BtnWhite : RscButton {
-    idc = -1;
-    x = 0;
-    y = 0;
-    w = PX(12);
-    h = PY(4);
-    text = "BUTTON";
-    shadow = 0;
-    font = "RobotoCondensedLight";
-    sizeEx = PY(1.6)*1.3;
-    colorText[] = {0,0,0,1};
-    colorBackground[] = {1,1,1,1};
-    colorBackgroundActive[] = {1.2*0.77, 1.2*0.51, 1.2*0.08, 1};
-    period = 0;
 };
