@@ -51,9 +51,9 @@ class KitGroups {
         requiredGroupMembersPerKit = 1;
     };
     class Limited {
-        requiredGroupMembersPerKit = 2;
+        requiredGroupMembersPerKit = 1;
     };
     class Specialized {
-        requiredGroupMembersPerKit = 4;
+        requiredGroupMembersPerKit = 1;
     };
 };
