@@ -7,7 +7,7 @@ class Kits {
         // Display
         displayName = "Rifleman";
         icon = "";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
+        UIIcon = "\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
         compassIcon[] = {"a3\ui_f\data\map\Markers\Military\dot_ca.paa", 3.6};
 
@@ -76,9 +76,9 @@ class Kits {
         items[] = {{"FirstAidKit", 10}, {"HandGrenade", 2}, {"SmokeShell", 2}, "SmokeShellGreen", "SmokeShellRed", "Medikit"};
 
         icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
-        UIIcon = "a3\ui_f\data\Revive\medikit_ca.paa";
+        UIIcon = "a3\ui_f\data\map\vehicleicons\pictureheal_ca.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa";
-        compassIcon[] = {"a3\ui_f\data\Revive\medikit_ca.paa", 2};
+        compassIcon[] = {"a3\ui_f\data\map\vehicleicons\pictureheal_ca.paa", 2};
     };
     class AutomaticRifleman: Rifleman {
         kitGroup = "Limited";
@@ -133,7 +133,7 @@ class Kits {
 
         displayName = "Demolition Expert";
 
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\Actions\gear_ca.paa";
+        UIIcon = "\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa";
     };
     class Engineer: Rifleman {
         kitGroup = "Limited";
@@ -244,6 +244,7 @@ class Kits {
         availableInGroups[] = {"Recon"};
 
         displayName = "Spotter";
+UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
 
         uniform = "U_B_FullGhillie_lsh";
         primaryAttachments[] = {"optic_Arco"};
