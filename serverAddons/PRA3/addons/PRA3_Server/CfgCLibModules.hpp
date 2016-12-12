@@ -100,12 +100,6 @@ class CfgCLibModules {
             FNC(clientInit);
         };
 
-        // GarbageCollector
-        MODULE(GarbageCollector) {
-            dependency[] = {"PRA3/Common"};
-            FNC(serverInit);
-        };
-
         // Kit
         MODULE(Kit) {
             dependency[] = {"PRA3/Common"};
