@@ -26,8 +26,3 @@ markerLocation[] = {
     "sector_12",
     "sector_13"
 };
-
-class GarbageCollector {
-    EnableGarbageCollector = 1;
-    GarbageCollectorTime = 120;
-};
