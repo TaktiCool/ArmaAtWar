@@ -32,6 +32,9 @@
     // Create new squad
     private _newGroup = createGroup playerSide;
     private _groupId = call FUNC(getNextSquadId);
+    if (_description == "") then {
+        _description = _groupId;
+    };
     _newGroup setGroupIdGlobal [_groupId];
     _newGroup setVariable [QGVAR(Description), _description, true];
     _newGroup setVariable [QGVAR(Type), _type, true];

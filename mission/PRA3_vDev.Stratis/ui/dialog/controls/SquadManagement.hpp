@@ -63,7 +63,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
                     y = PY(4);
                     w = PX(35);
                     h = PY(4);
-                    onMouseMoving = "systemChat str _this;";
+                    onMouseMoving = "['PRA3_UI_RespawnScreen_SquadMemberListEntry_onMouseMoving', _this] call CLib_fnc_localEvent;";
                     class Controls {
 
                         class Background: BgDarkTransparent {
@@ -76,6 +76,14 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
                             idc = 2;
                             w = PX(0.5);
                             h = PY(4);
+                        };
+
+                        class RoleIcon: BgDarkTransparent {
+                            idc = 12;
+                            x = PX(0.5);
+                            y = PY(0.5);
+                            w = PX(3);
+                            h = PY(3);
                         };
 
                         class RightTextColumn : TxtMedium {
@@ -247,7 +255,7 @@ class PRA3_UI_SquadManagement : RscControlsGroupNoScrollbars {
                     y = PY(0);
                     w = PX(35);
                     h = PY(4);
-                    onMouseMoving = "systemChat str _this;";
+                    onMouseMoving = "['PRA3_UI_RespawnScreen_SquadListEntry_onMouseMoving', _this] call CLib_fnc_localEvent;";
                     class Controls {
 
                         class SquadIconBg : BgDarkTransparent {

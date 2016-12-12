@@ -136,11 +136,11 @@ class PRA3_UI_DisableMouse_Dialog {
 */
 
 class BgDarkTransparent : RscPicture {
-    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.5)";
+    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.8)";
 };
 
 class BgDarkLightTransparent : RscPicture {
-    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.25)";
+    text = "#(argb,8,8,3)color(0.15,0.15,0.15,0.4)";
 };
 
 class TxtLarge : RscText {
@@ -180,12 +180,15 @@ class BtnWhite : RscButton {
     w = PX(12);
     h = PY(4);
     text = "BUTTON";
-    shadow = 0;
     font = "RobotoCondensed";
+    shadow=0;
+
     sizeEx = PY(1.6)*1.28;
     colorText[] = {0,0,0,1};
     colorFocused[] = {1,1,1,1};
     colorBackground[] = {1,1,1,1};
     colorBackgroundActive[] = {0.77, 0.51, 0.08, 1};
+    onMouseEnter = "(_this select 0) ctrlSetTextColor [1, 1, 1, 1]";
+    onMouseExit = "(_this select 0) ctrlSetTextColor [0, 0, 0, 1]";
     period = 0;
 };

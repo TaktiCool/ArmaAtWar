@@ -84,107 +84,16 @@
 }] call CFUNC(addEventHandler);
 
 /*
- * NEW SQUAD DESIGNATOR
- */
-// This should update on side change and when a new squad is created
-["playerSideChanged", {
-    (_this select 0) params ["_newSide", "_oldSide"];
-    [UIVAR(RespawnScreen_NewSquadDesignator_update), _oldSide] call CFUNC(targetEvent);
-}] call CFUNC(addEventHandler);
-
-["groupChanged", {
-    [UIVAR(RespawnScreen_NewSquadDesignator_update), playerSide] call CFUNC(targetEvent);
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_NewSquadDesignator_update), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    (_display displayCtrl 203) ctrlSetText ((call EFUNC(Squad,getNextSquadId)) select [0, 1]);
-}] call CFUNC(addEventHandler);
-
-// Create Squad Description Limit
-[UIVAR(RespawnScreen_SquadDescriptionInput_TextChanged), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    private _control = _display displayCtrl 204;
-    private _description = ctrlText _control;
-
-    if (count _description > 14) then {
-        _control ctrlSetBackgroundColor [0.77, 0.51, 0.08, 1];
-        _control ctrlCommit 0;
-        [{
-            params ["_control"];
-
-            _control ctrlSetBackgroundColor [0.4, 0.4, 0.4, 1];
-            _control ctrlCommit 0;
-        }, 1, _control] call CFUNC(wait);
-
-        _control ctrlSetText (_description select [0, 14]);
-    };
-}] call CFUNC(addEventHandler);
-
-/*
  * SQUAD TYPE COMBO
  */
 // This should update on side change and when a new squad is created
-["playerSideChanged", {
-    (_this select 0) params ["_newSide", "_oldSide"];
-    [UIVAR(RespawnScreen_SquadTypeCombo_update), _oldSide] call CFUNC(targetEvent);
-}] call CFUNC(addEventHandler);
 
-["groupChanged", {
-    [UIVAR(RespawnScreen_SquadTypeCombo_update), playerSide] call CFUNC(targetEvent);
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_SquadTypeCombo_update), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    // SquadTypeCombo
-    // TODO restore focus if necessary #224
-    private _control = _display displayCtrl 205;
-    private _selectedGroupType = _control lbData (lbCurSel _control);
-    lbClear _control;
-
-    private _visibleGroupTypes = [];
-    {
-        private _groupTypeName = configName _x;
-        if ([_groupTypeName] call EFUNC(Squad,canUseSquadType)) then {
-            private _rowNumber = _control lbAdd ([format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupTypeName], ""] call CFUNC(getSetting));
-            _control lbSetData [_rowNumber, _groupTypeName];
-            _visibleGroupTypes pushBack _groupTypeName;
-
-            if (_groupTypeName == _selectedGroupType) then {
-                _control lbSetCurSel _rowNumber;
-            };
-        };
-        nil
-    } count ("true" configClasses (missionConfigFile >> QPREFIX >> "GroupTypes"));
-    if (lbSize 205 == 0) then {
-        _control lbSetCurSel -1;
-    } else {
-        if (_selectedGroupType == "" || !(_selectedGroupType in _visibleGroupTypes)) then {
-            _control lbSetCurSel 0;
-        };
-    };
-}] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_CreateSquadBtn_onButtonClick), {
     private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
     if (isNull _display) exitWith {};
 
-    private _control = _display displayCtrl 204;
-    private _description = ctrlText _control;
-    if (count _description > 14) then {
-        _description = _description select [0, 14];
-    };
-
-    _control = _display displayCtrl 205;
-    private _type = _control lbData (lbCurSel _control);
-
-    [_description, _type] call EFUNC(Squad,createSquad);
+    ["", _type] call EFUNC(Squad,createSquad);
 }] call CFUNC(addEventHandler);
 
 /*
@@ -199,6 +108,23 @@
 
 ["groupChanged", {
     [UIVAR(RespawnScreen_SquadManagement_update), playerSide] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(RespawnScreen_SquadListEntry_onMouseMoving), {
+    private _data = _this select 0;
+    _data params ["_controlGroup", "_x", "_y", "_over"];
+
+    private _lastHoverState = _controlGroup getVariable ["hoverState", nil];
+
+    if (isNil "_lastHoverState" || {((_lastHoverState || _over) && !(_lastHoverState && _over))}) then {
+        _controlGroup setVariable ["hoverState", _over];
+        {
+            (_controlGroup controlsGroupCtrl _x) ctrlShow _over;
+            true;
+        } count [5];
+        (_controlGroup controlsGroupCtrl 3) ctrlShow !_over;
+
+    };
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_SquadManagement_update), {
@@ -244,8 +170,25 @@
     [UIVAR(RespawnScreen_SquadMemberManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
-[UIVAR(RespawnScreen_SquadList_onLBSelChanged), {
-    UIVAR(RespawnScreen_SquadMemberManagement_update) call CFUNC(localEvent);
+[UIVAR(RespawnScreen_SquadMemberListEntry_onMouseMoving), {
+    private _data = _this select 0;
+    _data params ["_controlGroup", "_x", "_y", "_over"];
+
+    private _lastHoverState = _controlGroup getVariable ["hoverState", nil];
+
+    if (isNil "_lastHoverState" || {(_lastHoverState || _over) && !(_lastHoverState && _over)}) then {
+        _controlGroup setVariable ["hoverState", _over];
+        {
+            (_controlGroup controlsGroupCtrl _x) ctrlShow _over;
+            true;
+        } count [5,6,7,8,9,10,11];
+        (_controlGroup controlsGroupCtrl 3) ctrlShow !_over;
+
+    };
+}] call CFUNC(addEventHandler);
+
+["groupChanged", {
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), side group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // SquadManagement
@@ -253,126 +196,57 @@
     private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
     if (isNull _display) exitWith {};
 
-    // Get the controls
-    private _controlSquadList = _display displayCtrl 207;
-    if (isNull _controlSquadList) exitWith {};
-    private _controlSquadMemberListHeader = _display displayCtrl 209;
-    private _controlSquadMemberList = _display displayCtrl 210;
-    private _controlJoinLeaveButton = _display displayCtrl 211;
+    private _controlSquadMemberListHeaderLeft = _display displayCtrl 202;
+    private _controlSquadMemberListHeaderRight = _display displayCtrl 203;
 
-    // Get the selected value
-    private _selectedEntry = lnbCurSelRow _controlSquadList;
-    if (_selectedEntry == -1) exitWith {
-        _controlSquadMemberListHeader ctrlSetText "SELECT A SQUAD";
-        lnbClear _controlSquadMemberList;
-        _controlSquadMemberList lnbSetCurSelRow -1;
-        _controlJoinLeaveButton ctrlShow false;
+    // If player is not in group, show JOIN OR CREATE SQUAD
+    if (!(groupId group CLib_Player in EGVAR(Squad,squadIds))) exitWith {
+        _controlSquadMemberListHeaderLeft ctrlSetText "JOIN OR CREATE A SQUAD";
+        _controlSquadMemberListHeaderRight ctrlShow false;
+        (_display displayCtrl 205) ctrlShow false;
+        (_display displayCtrl 204) ctrlShow false;
+        for "_i" from 210 to 219 do {
+            (_display displayCtrl _i) ctrlShow false;
+        };
     };
-    private _selectedSquad = [_controlSquadList, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
     // HeadingSquadDetails
-    _controlSquadMemberListHeader ctrlSetText toUpper (groupId _selectedSquad);
+    _controlSquadMemberListHeaderRight ctrlShow true;
+    _controlSquadMemberListHeaderLeft ctrlSetText ((group CLib_Player) getVariable [QEGVAR(Squad,Description), groupId group CLib_Player]);
+    (_display displayCtrl 204) ctrlShow true;
+    (_display displayCtrl 205) ctrlShow true;
+    (_display displayCtrl 205) ctrlSetText format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", (groupId group CLib_Player) select [0,1]];
+    (_display displayCtrl 205) ctrlSetTextColor [0,0,0,1];
+    private _groupType = (group CLib_Player) getVariable [QEGVAR(Squad,Type), ""];
+    private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
+    _controlSquadMemberListHeaderRight ctrlSetText format ["%1  |  %2 / %3", _groupTypeName, count ([group CLib_Player] call CFUNC(groupPlayers)), [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting)];
 
-    // SquadMemberList
-    private _lnbData = ([_selectedSquad] call CFUNC(groupPlayers)) apply {
-        private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
+    private _lastIndex = -1;
+
+    {
+
+        private _selectedKit = _x getVariable [QEGVAR(Kit,kit), "Rifleman"];
         private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+        private _kitName = ([_selectedKit, [["displayName", "KitNotFound"]]] call EFUNC(Kit,getKitDetails)) select 0;
+        private _memberName = [_x] call CFUNC(name);
 
-        [[[_x] call CFUNC(name)], _x, _kitIcon]
+        private _ctrlGrp = _display displayCtrl (210+_forEachIndex);
+        _ctrlGrp setVariable ["data", _x];
+        _ctrlGrp ctrlShow true;
+        (_ctrlGrp controlsGroupCtrl 3) ctrlSetText _kitName;
+        (_ctrlGrp controlsGroupCtrl 4) ctrlSetText _memberName;
+        (_ctrlGrp controlsGroupCtrl 12) ctrlSetText _kitIcon;
+
+        [UIVAR(RespawnScreen_SquadMemberListEntry_onMouseMoving),  [_ctrlGrp, 0, 0, _ctrlGrp getVariable ["hoverState", false]]] call CFUNC(localEvent);
+
+        _lastIndex = _forEachIndex;
+
+    } forEach ([group CLib_Player] call CFUNC(groupPlayers));
+
+    for "_i" from (210+_lastIndex+1) to 219 do {
+        (_display displayCtrl _i) ctrlShow false;
+        (_display displayCtrl _i) setVariable ["data", objNull];
     };
-    [_controlSquadMemberList, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
-    // JoinLeaveBtn
-    if (_selectedSquad == group CLib_Player) then {
-        _controlJoinLeaveButton ctrlSetText "LEAVE";
-        _controlJoinLeaveButton ctrlShow true;
-    } else {
-        private _groupType = _selectedSquad getVariable [QEGVAR(Squad,Type), ""];
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
 
-        _controlJoinLeaveButton ctrlSetText "JOIN";
-        _controlJoinLeaveButton ctrlShow ((count ([_selectedSquad] call CFUNC(groupPlayers))) < _groupSize);
-    };
-}] call CFUNC(addEventHandler);
-
-/*
- * SQUAD MEMBER BUTTONS
- */
-[UIVAR(RespawnScreen_SquadMemberList_onLBSelChanged), {
-    UIVAR(RespawnScreen_SquadMemberButtons_update) call CFUNC(localEvent);
-}] call CFUNC(addEventHandler);
-
-["leaderChanged", {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    // Get the selected value
-    private _control = _display displayCtrl 207;
-    if (isNull _control) exitWith {};
-    private _selectedEntry = lnbCurSelRow _control;
-    if (_selectedEntry == -1) exitWith {};
-    private _selectedSquad = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
-
-    if (_selectedSquad == group CLib_Player) then {
-        UIVAR(RespawnScreen_SquadMemberButtons_update) call CFUNC(localEvent);
-    };
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_SquadMemberButtons_update), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    // Get the controls
-    private _controlSquadMemberList = _display displayCtrl 210;
-    private _controlKickButton = _display displayCtrl 212;
-    private _controlPromoteButton = _display displayCtrl 213;
-
-    // Get the selected value
-    private _selectedEntry = lnbCurSelRow _controlSquadMemberList;
-    if (_selectedEntry == -1) exitWith {
-        _controlKickButton ctrlShow false;
-        _controlPromoteButton ctrlShow false;
-    };
-    private _selectedGroupMember = [_controlSquadMemberList, [_selectedEntry, 0]] call CFUNC(lnbLoad);
-
-    // KickBtn
-    private _buttonsVisible = (CLib_Player == leader _selectedGroupMember && CLib_Player != _selectedGroupMember);
-    _controlKickButton ctrlShow _buttonsVisible;
-
-    // PromoteBtn
-    _controlPromoteButton ctrlShow _buttonsVisible;
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_JoinLeaveBtn_onButtonClick), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    private _control = _display displayCtrl 207;
-    private _selectedGroup = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
-
-    if (_selectedGroup == group CLib_Player) then {
-        call EFUNC(Squad,leaveSquad);
-    } else {
-        [_selectedGroup] call EFUNC(Squad,joinSquad);
-    };
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_KickBtn_onButtonClick), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    private _control = _display displayCtrl 210;
-    private _selectedGroupMember = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
-
-    [_selectedGroupMember] call EFUNC(Squad,kickMember);
-}] call CFUNC(addEventHandler);
-
-[UIVAR(RespawnScreen_PromoteBtn_onButtonClick), {
-    private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
-    if (isNull _display) exitWith {};
-
-    private _control = _display displayCtrl 210;
-    private _selectedGroupMember = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
-
-    [_selectedGroupMember] call EFUNC(Squad,promoteMember);
 }] call CFUNC(addEventHandler);
