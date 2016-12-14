@@ -91,6 +91,8 @@ class CfgCLibModules {
             FNC(place);
             FNC(destroyAction);
             FNC(defuseAction);
+            FNC(dismantleAction);
+            FNC(buildAction);
             FNC(canPlace);
         };
 
