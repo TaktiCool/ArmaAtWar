@@ -13,7 +13,7 @@ briefing = 0;
 debriefing = 0;
 enableDebugConsole = 2;
 
-// skipLobby = 1;
+skipLobby = 1;
 
 disabledAI = 1;
 author = "PRA3 Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
@@ -47,7 +47,7 @@ class CLib {
         "PRA3/Rally"
     };
     useExperimentalAutoload = 0;
-    useCompressedFunction = 0;
+    useCompressedFunction = 1;
     useFallbackRemoteExecution = 0;
 };
 class PRA3 {
