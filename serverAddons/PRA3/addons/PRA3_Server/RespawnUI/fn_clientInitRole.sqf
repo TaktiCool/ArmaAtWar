@@ -81,9 +81,7 @@
     if (_selectedEntry == -1) exitWith {};
 
     private _previousSelectedKit = CLib_Player getVariable [QEGVAR(Kit,kit), ""];
-    DUMP(_previousSelectedKit)
     private _selectedKit = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
-    DUMP(_selectedKit)
 
     // Instantly assign the kit (do not apply) if changed
     if (_previousSelectedKit != _selectedKit) then {
