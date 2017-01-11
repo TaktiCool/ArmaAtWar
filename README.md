@@ -1,5 +1,6 @@
-# Project Reality ArmA 3
-Public repository for the "Project Reality: ArmA III" mission and modification.
+# Arma At War
+Public repository for the "Arma At War" mission and modification.  
+Located at: https://github.com/TaktiCool/ArmaAtWar
 
 #Licenses
 ### The Mission is under APL-SA ![](https://www.bistudio.com/assets/img/licenses/APL-SA.png)
@@ -7,4 +8,4 @@ Public repository for the "Project Reality: ArmA III" mission and modification.
 
 
 #Build Status  
-[![Build Status](https://travis-ci.org/drakelinglabs/projectrealityarma3.svg?branch=master)](https://travis-ci.org/drakelinglabs/projectrealityarma3)
+[![Build Status](https://travis-ci.org/TaktiCool/ArmaAtWar.svg?branch=master)](https://travis-ci.org/TaktiCool/ArmaAtWar)
