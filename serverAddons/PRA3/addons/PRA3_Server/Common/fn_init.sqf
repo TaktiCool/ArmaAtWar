@@ -66,7 +66,7 @@ if (hasInterface) then {
                     private _ctrl = _pauseMenuDisplay ctrlCreate ["RscStructuredText", -1];
                     _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(30), safeZoneY + safeZoneH - PY(30), PX(30), PY(30)];
                     _ctrl ctrlSetFade 0;
-                    _ctrl ctrlSetStructuredText parseText format ["<t align='center'><img color='#ffffff' shadow='0' size='%1' image='ui\media\PRA3Logo_ca.paa' /></t><t align='center' size='%2'><br />Mission Version: %3<br />Server Version: %4<br /></t><t size='%5' align='center' font='PuristaBold'><a href='https://github.com/drakelinglabs/projectrealityarma3/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>",
+                    _ctrl ctrlSetStructuredText parseText format ["<t align='center'><img color='#ffffff' shadow='0' size='%1' image='ui\media\PRA3Logo_ca.paa' /></t><t align='center' size='%2'><br />Mission Version: %3<br />Server Version: %4<br /></t><t size='%5' align='center' font='PuristaBold'><a href='https://github.com/TaktiCool/ArmaAtWar/blob/master/.github/CONTRIBUTING.md'>REPORT AN ISSUE</a></t>",
                         PY(15)/0.035,
                         PY(1.8)/0.035,
                         (GVAR(VersionInfo) select 0) select 0,

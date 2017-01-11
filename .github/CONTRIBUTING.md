@@ -14,12 +14,12 @@ Indicate if the issue appears on stable or development version. In case it is th
 
 ## Reporting the issue
 
-Head over to the [PRA3 GitHub issue tracker](https://github.com/drakelinglabs/projectrealityarma3/issues) and press the [New issue](https://github.com/drakelinglabs/projectrealityarma3/issues/new) button in the top right corner. Add a descriptive title and complete the issue template.
+Head over to the [PRA3 GitHub issue tracker](https://github.com/TaktiCool/ArmaAtWar/issues) and press the [New issue](https://github.com/TaktiCool/ArmaAtWar/issues/new) button in the top right corner. Add a descriptive title and complete the issue template.
 
 A video of the issue might be helpful in resolving it faster.
 
 # Requesting a feature
-In Order to keep the Issue Tracker Clean and Classified, we Close every Feature Requests that is not in the [Issue #40](https://github.com/drakelinglabs/projectrealityarma3/issues/40)
+In Order to keep the Issue Tracker Clean and Classified, we Close every Feature Requests that is not in the [Issue #40](https://github.com/TaktiCool/ArmaAtWar/issues/40)
 
 # Contact us
 
