@@ -15,7 +15,7 @@
     None
 */
 
-["pra3_respawnui_updatecameratarget", 0] call CFUNC(addIgnoredEventLog);
+[QGVAR(UpdateCameraTarget), 0] call CFUNC(addIgnoredEventLog);
 
 // When respawn screen is opened caused by death or upon startup init the camera
 [UIVAR(RespawnScreen_onLoad), {

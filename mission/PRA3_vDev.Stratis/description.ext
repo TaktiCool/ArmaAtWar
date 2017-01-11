@@ -70,13 +70,13 @@ class PRA3 {
 
 	#include "cfgFOB.hpp"
 
-    #include "ui\common\pra3Core.hpp"
+    #include "ui\common\aawCore.hpp"
 
 };
 
 #include "ui\common\defines.hpp"
 #include "ui\common\baseclasses.hpp"
-#include "ui\common\pra3_baseclasses.hpp"
+#include "ui\common\aaw_baseclasses.hpp"
 #include "ui\dialog\RespawnScreen.hpp"
 #include "ui\dialog\SquadScreen.hpp"
 #include "ui\dialog\RoleScreen.hpp"

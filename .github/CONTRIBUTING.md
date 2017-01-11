@@ -23,5 +23,5 @@ In Order to keep the Issue Tracker Clean and Classified, we Close every Feature 
 
 # Contact us
 
-Feel free to use our [discord](http://discord.me/pra3) to contact us.
+Feel free to use our [discord](http://discord.me/atwar-mod) to contact us.
 
