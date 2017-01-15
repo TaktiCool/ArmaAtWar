@@ -79,7 +79,7 @@ if (_icon == "") then {
 };
 if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
-};
+
 
 CLib_Player setVariable [QGVAR(kit), _kitName, true];
 CLib_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
@@ -95,11 +95,11 @@ CLib_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];
 
 if (_isMedic == 1) then {
     CLib_Player setUnitTrait ["medic", true];
-} else {
+} else
     CLib_Player setUnitTrait ["medic", false];
 };
 if (_isEngineer == 1) then {
     CLib_Player setUnitTrait ["engineer", true];
-} else {
-    CLib_Player setUnitTrait ["engineer", false];
+} else
+    CLib_Player setUnitTrait ["engineer", false
 };
