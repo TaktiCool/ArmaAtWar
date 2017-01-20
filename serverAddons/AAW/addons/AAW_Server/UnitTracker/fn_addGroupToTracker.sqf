@@ -123,7 +123,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
         private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
         private _units = ([_group] call CFUNC(groupPlayers));
 
-        _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""])+" Squad"];
+        _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""]) + " Squad"];
         _ctrlSquadDescription ctrlSetText (_group getVariable [QEGVAR(Squad,Description), ""]);
         _ctrlSquadMemberCount ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, count _units, _groupSize];
 
@@ -131,7 +131,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
         private _unitCount = {
             private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
             private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-            _squadUnits = _squadUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
+            _squadUnits = _squadUnits + format ["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon, [_x] call CFUNC(name)];
             true;
         } count _units;
 
@@ -156,7 +156,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
 
             private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
             _pos set [0, (_pos select 0) + 15 / 640];
-            _pos set [1, (_pos select 1) + ((_attachTo select 1)+5) / 480];
+            _pos set [1, (_pos select 1) + ((_attachTo select 1) + 5) / 480];
 
             private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
 
