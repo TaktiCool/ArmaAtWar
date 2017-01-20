@@ -6,5 +6,7 @@ branches:
 language: node_js
 node_js:
   - "node"
+before_script:
+  - cd serverAddons/AAW/tools
 script:
-  - node serverAddons/AAW/tools/sqf_validator.js
+  - node sqf_validator.js
