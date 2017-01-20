@@ -27,7 +27,7 @@ let rootDir = 'addons';
 try {
     fs.accessSync('addons');
 } catch (e) {
-    rootDir = '../../projectrealityarma3/serverAddons/AAW/addons';
+    rootDir = '../addons';
 }
 
 let errors = 0;
