@@ -19,7 +19,7 @@ params ["_target"];
 if (leader CLib_Player != CLib_Player) exitWith {false};
 
 // Check vehicle
-if (vehicle CLib_Player != CLib_Player) exitWith {false};
+if (!isNull objectParent CLib_Player) exitWith {false};
 
 // Check near DPs
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);

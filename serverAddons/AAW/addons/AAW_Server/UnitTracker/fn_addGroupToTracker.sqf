@@ -45,8 +45,8 @@ private _iconPos = [vehicle leader _group, _attachTo];
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
         private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
-        _pos set [0, (_pos select 0) + 15/640];
-        _pos set [1, (_pos select 1) + (((_attachTo) select 1)+5)/480];
+        _pos set [0, (_pos select 0) + 15 / 640];
+        _pos set [1, (_pos select 1) + (((_attachTo) select 1) + 5) / 480];
 
         private _display = ctrlParent _map;
         private _idd = ctrlIDD _display;
@@ -58,7 +58,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
         private _ctrlSquadMemberCount = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_SquadMemberCount), _idd], controlNull];
         private _ctrlBgBottom = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_BgBottom), _idd], controlNull];
         private _ctrlMemberList = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_MemberList), _idd], controlNull];
-        private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+        private _textSize = PY(1.8) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
         if (isNull _ctrlGrp) then {
             _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
             _ctrlGrp ctrlSetFade 0;
@@ -137,9 +137,9 @@ private _iconPos = [vehicle leader _group, _attachTo];
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _squadUnits];
 
-        _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(22), _unitCount*PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlSetPosition [0, PY(4.2), PX(22), _unitCount * PY(1.8) + PY(0.4)];
 
-        _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(22), _unitCount*PY(1.8)];
+        _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(22), _unitCount * PY(1.8)];
 
         {
             _x ctrlCommit 0;
@@ -155,8 +155,8 @@ private _iconPos = [vehicle leader _group, _attachTo];
             _params params ["_group", "_map", "_attachTo"];
 
             private _pos = _map ctrlMapWorldToScreen getPosVisual (vehicle leader _group);
-            _pos set [0, (_pos select 0) + 15/640];
-            _pos set [1, (_pos select 1) + ((_attachTo select 1)+5)/480];
+            _pos set [0, (_pos select 0) + 15 / 640];
+            _pos set [1, (_pos select 1) + ((_attachTo select 1)+5) / 480];
 
             private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
 

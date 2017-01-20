@@ -25,7 +25,7 @@ DFUNC(setLogisticVariables) = {
         private _tb = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxbackpacks");
         private _tm = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxmagazines");
         private _tw = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxweapons");
-        private _isCargo = (_tb > 0  || _tm > 0 || _tw > 0);
+        private _isCargo = (_tb > 0 || _tm > 0 || _tw > 0);
 
         _entity setVariable ["hasInventory", _isCargo, true];
     };

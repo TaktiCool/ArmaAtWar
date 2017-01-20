@@ -17,9 +17,9 @@
 GVAR(currentSector) = objNull;
 
 ["missionStarted", {
-    [QGVAR(LoadingScreen)] call bis_fnc_startLoadingScreen;
+    [QGVAR(LoadingScreen)] call BIS_fnc_startLoadingScreen;
     [{
-        [QGVAR(LoadingScreen)] call bis_fnc_endLoadingScreen;
+        [QGVAR(LoadingScreen)] call BIS_fnc_endLoadingScreen;
     }, {
         !isNil QEGVAR(Sector,ServerInitDone) && {EGVAR(Sector,ServerInitDone)}
     }] call CFUNC(waitUntil);

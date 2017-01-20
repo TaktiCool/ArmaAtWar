@@ -21,7 +21,7 @@ private _totalWeight = 0;
 
 // Cycle through all item types with their assigned config paths.
 {
-    _x params["_items","_getConfigCode"];
+    _x params ["_items", "_getConfigCode"];
     _items params ["_item", "_count"];
     // Cycle through all items and read their mass out of the config.
     {

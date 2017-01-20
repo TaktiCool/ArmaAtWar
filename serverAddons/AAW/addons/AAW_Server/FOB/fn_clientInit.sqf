@@ -17,7 +17,7 @@
 
 GVAR(sideNamespace) = false call CFUNC(createNamespace);
 
-[QGVAR(placed), {QGVAR(ClearFOBPlaceable) call CFUNC(localEvent);}] call CFUNC(addEventhandler);// clear Cached Call Space
+[QGVAR(placed), {QGVAR(ClearFOBPlaceable) call CFUNC(localEvent)}] call CFUNC(addEventhandler); // clear Cached Call Space
 
 /*
  * ACTIONS

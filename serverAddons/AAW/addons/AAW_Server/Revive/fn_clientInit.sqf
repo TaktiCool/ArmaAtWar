@@ -52,7 +52,7 @@ GVAR(draw3dIcons) = false;
         private _targetSide = side (group _x);
 
 
-        #ifdef isDev
+        #ifdef ISDEV
             #define ISDEVCONDIONREVIVE alive _x && playerSide getFriend _targetSide >= 0.6
         #else
             #define ISDEVCONDIONREVIVE _x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6
@@ -66,8 +66,8 @@ GVAR(draw3dIcons) = false;
                 _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
-                    private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
-                    private _pelvisPositionASL = AGLtoASL _pelvisPositionAGL;
+                    private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
+                    private _pelvisPositionASL = AGLToASL _pelvisPositionAGL;
 
                     if (!((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
 
@@ -80,7 +80,7 @@ GVAR(draw3dIcons) = false;
                         _size = (7 / _distance) ^ 0.7;
                         _alpha = _size;
 
-                        if (_distance >=30) then {
+                        if (_distance >= 30) then {
                             // linear fade out
                             _alpha = (1 - (_distance - 30) / 20) * _alpha;
                         };
@@ -98,8 +98,8 @@ GVAR(draw3dIcons) = false;
                 _icons pushBack ["ICON", _icon, [1,1,1,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
-                    private _pelvisPositionAGL =  _unit modelToWorldVisual (_unit selectionPosition "pilot");
-                    private _pelvisPositionASL = AGLtoASL _pelvisPositionAGL;
+                    private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
+                    private _pelvisPositionASL = AGLToASL _pelvisPositionAGL;
 
                     if (!((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
 
@@ -126,7 +126,7 @@ GVAR(draw3dIcons) = false;
                         _size = (7 / _distance) ^ 0.7;
                         _alpha = _size;
 
-                        if (_distance >=30) then {
+                        if (_distance >= 30) then {
                             // linear fade out
                             _alpha = (1 - (_distance - 30) / 20) * _alpha;
                         };

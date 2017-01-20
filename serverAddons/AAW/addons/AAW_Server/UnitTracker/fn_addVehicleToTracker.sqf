@@ -20,7 +20,7 @@ private _groupColor = [0, 0.87, 0, 1];
 
 private _color = [_sideColor, _groupColor] select _inGroup;
 
-private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
+private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
 
 [
     _vehicleIconId,
@@ -42,7 +42,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
         private _pos = _map ctrlMapWorldToScreen getPosVisual _vehicle;
-        _pos set [0, (_pos select 0) + 15/640];
+        _pos set [0, (_pos select 0) + 15 / 640];
         _pos set [1, (_pos select 1)];
 
         private _display = ctrlParent _map;
@@ -53,7 +53,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
         private _ctrlTotalSeats = uiNamespace getVariable [format [UIVAR(VehicleInfo_%1_TotalSeats), _idd], controlNull];
         private _ctrlBgBottom = uiNamespace getVariable [format [UIVAR(VehicleInfo_%1_BgBottom), _idd], controlNull];
         private _ctrlMemberList = uiNamespace getVariable [format [UIVAR(VehicleInfo_%1_MemberList), _idd], controlNull];
-        private _textSize = PY(1.8)/(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+        private _textSize = PY(1.8) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
         if (isNull _ctrlGrp) then {
             _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
             _ctrlGrp ctrlSetFade 0;
@@ -97,7 +97,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
         _ctrlGrp ctrlSetPosition [_pos select 0, _pos select 1, PX(22), PY(50)];
         _ctrlGrp ctrlShow true;
 
-        _ctrlVehicleName ctrlSetText toUpper getText(configFile >> "CfgVehicles" >> typeOf _vehicle >> "displayName");
+        _ctrlVehicleName ctrlSetText toUpper getText (configFile >> "CfgVehicles" >> typeOf _vehicle >> "displayName");
 
         private _maxCrewSize = [typeOf _vehicle, true] call BIS_fnc_crewCount;
         private _units = crew _vehicle;
@@ -108,15 +108,15 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
         private _unitCount = {
             private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
             private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-            _crewUnits = _crewUnits + format["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon,  [_x] call CFUNC(name)];
+            _crewUnits = _crewUnits + format ["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon, [_x] call CFUNC(name)];
             true;
         } count _units;
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _crewUnits];
 
-        _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), _unitCount*PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), _unitCount * PY(1.8) + PY(0.4)];
 
-        _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(22), _unitCount*PY(1.8)];
+        _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(22), _unitCount * PY(1.8)];
 
         {
             _x ctrlCommit 0;
@@ -132,7 +132,7 @@ private _vehicleMapIcon = getText(configFile >> "CfgVehicles" >> typeOf _vehicle
             _params params ["_vehicle", "_map"];
 
             private _pos = _map ctrlMapWorldToScreen getPosVisual _vehicle;
-            _pos set [0, (_pos select 0) + 15/640];
+            _pos set [0, (_pos select 0) + 15 / 640];
             _pos set [1, (_pos select 1)];
 
             private _grp = uiNamespace getVariable [format [UIVAR(VehicleInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];

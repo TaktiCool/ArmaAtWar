@@ -45,6 +45,6 @@ GVAR(squadIds) = [
     "Zulu"
 ];
 
-GVAR(restirctSideSwitchRestrictionCount) = getNumber(missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionCount");
-GVAR(restirctSideSwitchRestrictionTime) = getNumber(missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionTime");
+GVAR(restirctSideSwitchRestrictionCount) = getNumber (missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionCount");
+GVAR(restirctSideSwitchRestrictionTime) = getNumber (missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionTime");
 GVAR(isTimeUnlocked) = 0;

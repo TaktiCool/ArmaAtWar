@@ -13,11 +13,12 @@
     Returns:
     None
 */
-["missionStarted", {
+
+// ["missionStarted", {
 //    ["Role Screen", CLib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {
 //        (findDisplay 46) createDisplay UIVAR(RoleScreen);
 //    }] call CFUNC(addAction);
-}] call CFUNC(addEventHandler);
+// }] call CFUNC(addEventHandler);
 
 [UIVAR(RoleScreen_onLoad), {
     (_this select 0) params ["_display"];

@@ -64,7 +64,7 @@ addMissionEventHandler ["MapSingleClick", {
 
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {
-        PERFORMANCECOUNTER_START(CompassUI)
+        PERFORMANCECOUNTER_START(CompassUI);
 
         // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
@@ -215,7 +215,7 @@ addMissionEventHandler ["MapSingleClick", {
             private _targetSide = side (group _x);
 
             // Check if the unit is not the player himself, alive and a friend of player.
-            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && !(_x in (crew vehicle CLib_Player))) then {
+            if (_x != CLib_Player && alive _x && playerSide getFriend _targetSide >= 0.6 && (isNull objectParent CLib_Player || {!(_x in crew objectParent CLib_Player)})) then {
                 private _unitPosition = getPosVisual _x;
                 private _relativeVectorToUnit = _unitPosition vectorDiff _currentPosition;
                 private _angleToUnit = ((_relativeVectorToUnit select 0) atan2 (_relativeVectorToUnit select 1) + 360) % 360;
@@ -263,6 +263,6 @@ addMissionEventHandler ["MapSingleClick", {
             };
         };
 
-        PERFORMANCECOUNTER_END(CompassUI)
+        PERFORMANCECOUNTER_END(CompassUI);
     }];
 }] call CFUNC(addEventHandler);

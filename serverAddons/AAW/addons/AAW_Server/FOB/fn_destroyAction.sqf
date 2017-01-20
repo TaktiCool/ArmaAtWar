@@ -44,7 +44,7 @@ private _onStart = {
 };
 
 private _onProgress = {
-    (time - GVAR(destroyFOBStartTime))/5;
+    (time - GVAR(destroyFOBStartTime)) / 5;
 };
 
 private _onComplete = {

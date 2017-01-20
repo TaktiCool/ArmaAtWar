@@ -17,7 +17,7 @@
 
 [QGVAR(deploymentPointRemoved), {
     (_this select 0) params ["_pointId"];
-    DUMP(_this)
+    DUMP(_this);
 
     if (((group CLib_Player) getVariable [QGVAR(rallyId), ""]) == _pointId) then {
         (group CLib_Player) setVariable [QGVAR(rallyId), nil, true];
@@ -32,7 +32,7 @@
     [QGVAR(isRallyPlaceable), FUNC(canPlace), [], 5, QGVAR(ClearRallyPlaceable)] call CFUNC(cachedCall);
 }, {
     call FUNC(place);
-    {QGVAR(ClearRallyPlaceable) call CFUNC(globalEvent);} call CFUNC(execNextFrame);
+    {QGVAR(ClearRallyPlaceable) call CFUNC(globalEvent)} call CFUNC(execNextFrame);
 }] call CFUNC(addAction);
 
 [QGVAR(placed), {

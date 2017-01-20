@@ -14,7 +14,7 @@
     None
 */
 
-GVAR(allSectors)  = objNull;
+GVAR(allSectors) = objNull;
 GVAR(allSectorsArray) = [];
 GVAR(ServerInitDone) = false;
 

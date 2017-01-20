@@ -55,7 +55,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
     };
 
     if ([_unit] call FUNC(isValidUnit)) then {
-        if (vehicle _unit == _unit) then { // Infantry
+        if (isNull objectParent _unit) then { // Infantry
             private _iconId = toLower format [QGVAR(IconId_Player_%1_%2), _unit, group _unit isEqualTo group CLib_Player];
             GVAR(processedIcons) pushBack _iconId;
             if !(_iconId in GVAR(lastProcessedIcons)) then {
@@ -72,7 +72,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                 };
             };
         } else { // in vehicle
-            private _vehicle = vehicle _unit;
+            private _vehicle = objectParent _unit;
             private _nbrGroups = 0;
             private _inGroup = {
                 if (leader _x == _x) then {
@@ -81,7 +81,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                     GVAR(processedIcons) pushBack _iconId;
                     if !(_iconId in GVAR(lastProcessedIcons)) then {
                         DUMP("GROUP ICON ADDED: " + _iconId);
-                        [group _x, _iconId, [0, -20*_nbrGroups]] call FUNC(addGroupToTracker);
+                        [group _x, _iconId, [0, -20 * _nbrGroups]] call FUNC(addGroupToTracker);
                     };
                 };
                 ({group _x isEqualTo group CLib_Player} count crew _vehicle) > 0;

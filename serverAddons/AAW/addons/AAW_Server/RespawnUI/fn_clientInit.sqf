@@ -42,11 +42,11 @@
 // Wait for the mission start first.
 ["missionStarted", {
     // Choose the initial side for the player before showing the respawn screen.
-    [QGVAR(SideSelection)] call bis_fnc_startLoadingScreen;
+    [QGVAR(SideSelection)] call BIS_fnc_startLoadingScreen;
 
     // We need a mutex to ensure the player detects the side with fewest players correctly
     [{
-        50 call bis_fnc_progressLoadingScreen;
+        50 call BIS_fnc_progressLoadingScreen;
 
         // Calculate the side with fewest players
         private _leastPlayerSide = sideUnknown;
@@ -67,7 +67,7 @@
         deleteVehicle _initialUnit;
 
         // Open the respawn UI
-        [QGVAR(SideSelection)] call bis_fnc_endLoadingScreen;
+        [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
 
         (findDisplay 46) createDisplay UIVAR(RespawnScreen);
     }, [], "respawn"] call CFUNC(mutex);
@@ -123,7 +123,7 @@
     private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
     if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
 
-    private _startTickets = getNumber(missionConfigFile >> QPREFIX >> "tickets");
+    private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
     (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 0], _startTickets]);
     (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 1], _startTickets]);
 

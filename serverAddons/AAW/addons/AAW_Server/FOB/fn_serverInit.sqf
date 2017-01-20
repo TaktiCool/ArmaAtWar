@@ -49,8 +49,8 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             _speed = 1;
         };
 
-        if ((round(_timerValue * 10) mod _speed) == 0) then {
-            playSound3D ["a3\sounds_f\sfx\beep_target.wss", objNull, false, AGLtoASL _pos, 10, 0.5, 40];
+        if ((round (_timerValue * 10) mod _speed) == 0) then {
+            playSound3D ["a3\sounds_f\sfx\beep_target.wss", objNull, false, AGLToASL _pos, 10, 0.5, 40];
         };
 
         if (_timerValue < 30) exitWith {};
@@ -162,7 +162,7 @@ DFUNC(playRadioSoundLoop) = {
     _data params ["_soundPath", "_length", ["_volume", 1]];
     _soundPath = format ["a3\sounds_f\sfx\%1.wss", _soundPath];
 
-    playSound3D [_soundPath, objNull, false, AGLtoASL _pos, (_volume * 4), 1, 40];
+    playSound3D [_soundPath, objNull, false, AGLToASL _pos, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
     if (_soundWaitIsRunning == 0) then {
         [_pointId, "soundWaitIsRunning", 1] call EFUNC(Common,setDeploymentCustomData);

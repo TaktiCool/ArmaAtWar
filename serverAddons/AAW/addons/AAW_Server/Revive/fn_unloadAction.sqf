@@ -50,11 +50,11 @@
 ] call CFUNC(addAction);
 
 [QGVAR(unloadUnit), {
-    if (vehicle CLib_Player != CLib_Player) then {
+    if (!isNull objectParent CLib_Player) then {
         (_this select 0) params ["_position"];
         CLib_Player setUnconscious false;
         unassignVehicle CLib_Player;
-        CLib_Player action ["Eject", vehicle CLib_Player];
+        CLib_Player action ["Eject", objectParent CLib_Player];
         [{
             params ["_position"];
             CLib_Player setPosASL _position;

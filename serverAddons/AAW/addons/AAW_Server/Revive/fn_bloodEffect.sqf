@@ -16,27 +16,27 @@
 params ["_intensity"];
 
 private _firstInit = false;
-if (isnull (uinamespace getVariable ["RscHealthTextures", displayNull])) then {
-    ([QGVAR(PPBloodEffect)] call bis_fnc_rscLayer) cutRsc ["RscHealthTextures","plain"];
+if (isNull (uiNamespace getVariable ["RscHealthTextures", displayNull])) then {
+    ([QGVAR(PPBloodEffect)] call BIS_fnc_rscLayer) cutRsc ["RscHealthTextures","plain"];
     _firstInit = true;
     GVAR(PPBloodEffectIntensity) = 0;
 };
 
-private _lowerIntensity = 0 max ((_intensity*3) min 1);
-private _middleIntensity = 0 max ((_intensity*3-1) min 1);
-private _upperIntensity = 0 max ((_intensity*3-2) min 1);
+private _lowerIntensity = 0 max ((_intensity * 3) min 1);
+private _middleIntensity = 0 max ((_intensity * 3 - 1) min 1);
+private _upperIntensity = 0 max ((_intensity * 3 - 2) min 1);
 
-private _display = uinamespace getVariable "RscHealthTextures";
+private _display = uiNamespace getVariable "RscHealthTextures";
 
-private _x = ((0 * safezoneW) + safezoneX) + ((safezoneW - (2.125 * safezoneW * 3/4)) / 2);
-private _y = (-0.0625 * safezoneH) + safezoneY;
-private _w = 2.125 * safezoneW * 3/4;
-private _h = 1.125 * safezoneH;
+private _x = ((0 * safeZoneW) + safeZoneX) + ((safeZoneW - (2.125 * safeZoneW * 3 / 4)) / 2);
+private _y = (-0.0625 * safeZoneH) + safeZoneY;
+private _w = 2.125 * safeZoneW * 3 / 4;
+private _h = 1.125 * safeZoneH;
 
 
-private _texLower = _display displayctrl 1211;
-private _texMiddle = _display displayctrl 1212;
-private _texUpper = _display displayctrl 1213;
+private _texLower = _display displayCtrl 1211;
+private _texMiddle = _display displayCtrl 1212;
+private _texUpper = _display displayCtrl 1213;
 
 
 if (_firstInit) then {
@@ -44,9 +44,9 @@ if (_firstInit) then {
     _texMiddle ctrlSetFade 1;
     _texUpper ctrlSetFade 1;
 
-    _texLower ctrlsetposition [_x, _y, _w, _h];
-    _texMiddle ctrlsetposition [_x, _y, _w, _h];
-    _texUpper ctrlsetposition [_x, _y, _w, _h];
+    _texLower ctrlSetPosition [_x, _y, _w, _h];
+    _texMiddle ctrlSetPosition [_x, _y, _w, _h];
+    _texUpper ctrlSetPosition [_x, _y, _w, _h];
 
     _texLower ctrlCommit 0;
     _texMiddle ctrlCommit 0;
@@ -68,11 +68,11 @@ _texUpper ctrlCommit 0.1;
 
 private _fadeOut = {
     params ["_tex", "_time"];
-    _tex ctrlsetfade 1;
+    _tex ctrlSetFade 1;
     _tex ctrlCommit _time;
 };
 
-[{GVAR(PPBloodEffectIntensity) = 0;}, 1.5, [_texUpper,1.5]] call CFUNC(wait);
+[{GVAR(PPBloodEffectIntensity) = 0}, 1.5, [_texUpper,1.5]] call CFUNC(wait);
 
 if (_upperIntensity > 0) then {
     [_fadeOut, 1.5, [_texUpper,1.5]] call CFUNC(wait);

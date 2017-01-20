@@ -42,14 +42,14 @@
     };
 
 
-    if (_container getVariable ["cargoCapacity",0] == 0) exitWith {};
+    if (_container getVariable ["cargoCapacity", 0] == 0) exitWith {};
     GVAR(currentContainer) = _container;
     [{
         params ["_unit", "_container"];
 
         private _display = (findDisplay 602);
-        private _gY = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
-        private _gX = (((safezoneW / safezoneH) min 1.2) / 40);
+        private _gY = ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25);
+        private _gX = (((safeZoneW / safeZoneH) min 1.2) / 40);
 
         private _xOffset = [1, -5.25] select (_container getVariable ["hasInventory",true]);
 
@@ -73,29 +73,29 @@
         };
 
         private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars",-1];
-        _group ctrlSetPosition [_xOffset*_gX+(safezoneX +(safezoneW -((safezoneW / safezoneH) min 1.2))/2),_gY+(safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2),12*_gX, 25*_gY];
+        _group ctrlSetPosition [_xOffset * _gX + (safeZoneX + (safeZoneW - ((safeZoneW / safeZoneH) min 1.2)) / 2), _gY + (safeZoneY + (safeZoneH - (((safeZoneW / safeZoneH) min 1.2) / 1.2)) / 2), 12 * _gX, 25 * _gY];
         _group ctrlCommit 0;
 
         private _bg = _display ctrlCreate ["RscBackground", -1, _group];
-        _bg ctrlSetPosition [0, 0, 12*_gX, 23*_gY];
-        _bg ctrlSetBackgroundColor [0.05,0.05,0.05,0.7];
+        _bg ctrlSetPosition [0, 0, 12 * _gX, 23 * _gY];
+        _bg ctrlSetBackgroundColor [0.05, 0.05, 0.05, 0.7];
         _bg ctrlCommit 0;
 
         private _header = _display ctrlCreate ["RscText", -1, _group];
-        _header ctrlSetPosition [0.5*_gX, 0.5*_gY, 11*_gX, 1.1*_gY];
-        _header ctrlSetBackgroundColor [0,0,0,1];
+        _header ctrlSetPosition [0.5 * _gX, 0.5 * _gY, 11 * _gX, 1.1 * _gY];
+        _header ctrlSetBackgroundColor [0, 0, 0, 1];
         _header ctrlSetText "Cargo";
         _header ctrlCommit 0;
 
         with uiNamespace do {
             GVAR(CargoListBox) = _display ctrlCreate ["RscListBox", -1, _group];
-            GVAR(CargoListBox) ctrlSetPosition [0.5*_gX, 1.7*_gY, 11*_gX, 17.8*_gY];
-            GVAR(CargoListBox) ctrlSetBackgroundColor [0,0,0,0];
+            GVAR(CargoListBox) ctrlSetPosition [0.5 * _gX, 1.7 * _gY, 11 * _gX, 17.8 * _gY];
+            GVAR(CargoListBox) ctrlSetBackgroundColor [0, 0, 0, 0];
             GVAR(CargoListBox) ctrlCommit 0;
         };
 
         private _unloadBtn = _display ctrlCreate ["RscButton", -1, _group];
-        _unloadBtn ctrlSetPosition [0.5*_gX, 20*_gY, 5.5*_gX, 1*_gY];
+        _unloadBtn ctrlSetPosition [0.5 * _gX, 20 * _gY, 5.5 * _gX, 1 * _gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             if !(isNull (objectParent CLib_Player)) exitWith {
@@ -120,13 +120,13 @@
         _unloadBtn ctrlCommit 0;
 
         private _loadBarFrame = _display ctrlCreate ["RscFrame", -1, _group];
-        _loadBarFrame ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
+        _loadBarFrame ctrlSetPosition [0.5 * _gX, 21.5 * _gY, 11 * _gX, 1 * _gY];
         _loadBarFrame ctrlSetTextColor [0.9, 0.9, 0.9, 0.5];
         _loadBarFrame ctrlCommit 0;
 
         with uiNamespace do {
             GVAR(CargoLoadBar) = _display ctrlCreate ["RscProgress", -1, _group];
-            GVAR(CargoLoadBar) ctrlSetPosition [0.5*_gX, 21.5*_gY, 11*_gX, 1*_gY];
+            GVAR(CargoLoadBar) ctrlSetPosition [0.5 * _gX, 21.5 * _gY, 11 * _gX, 1 * _gY];
             GVAR(CargoLoadBar) ctrlSetTextColor [0.9, 0.9, 0.9, 0.9];
             GVAR(CargoLoadBar) progressSetPosition 0;
             GVAR(CargoLoadBar) ctrlCommit 0;
@@ -146,7 +146,7 @@
                 lbClear GVAR(CargoListBox);
 
                 {
-                    GVAR(CargoListBox) lbAdd (_x getVariable [QGVAR(displayName), getText(configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
+                    GVAR(CargoListBox) lbAdd (_x getVariable [QGVAR(displayName), getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName")]);
                     nil
                 } count _cargoItems;
             };
@@ -158,7 +158,7 @@
             } count _cargoItems;
 
             with uiNamespace do {
-                GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity/_cargoCapacity);
+                GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity / _cargoCapacity);
             };
 
         }, 1,[_container]] call CFUNC(addPerFrameHandler);
