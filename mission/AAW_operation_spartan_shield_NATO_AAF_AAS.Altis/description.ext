@@ -16,7 +16,7 @@ enableDebugConsole = 1;
 // skipLobby = 1;
 
 disabledAI = 1;
-author = "Project Reality Development Team";
+author = "AAW Development Team";
 onLoadName = "AAW - OP Spartan Shield";
 onLoadMission = "Advance and Secure, 8 km², Alternative Layout";
 loadScreen =  "ui\media\loadscreen.jpg";

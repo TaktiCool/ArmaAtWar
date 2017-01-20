@@ -15,8 +15,8 @@ enableDebugConsole = 1;
 
 disabledAI = 1;
 author = "AAW Team: NetFusion, Hoeginson, BadGuy, Mitsu, joko // Jonas";
-onLoadName = "Project Reality: Arma 3";
-onLoadMission = "Project Reality: Arma 3";
+onLoadName = "Arma At War";
+onLoadMission = "Arma At War";
 loadScreen =  "ui\media\loadingscreen_co.paa";
 
 // skipLobby = 1;

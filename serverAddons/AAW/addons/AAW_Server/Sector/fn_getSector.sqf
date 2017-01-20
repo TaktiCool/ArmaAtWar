@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Project Reality ArmA 3
+    Arma At War
 
     Author: BadGuy, joko // Jonas
 
