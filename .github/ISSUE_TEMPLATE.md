@@ -1,7 +1,7 @@
 ### ArmA3 Version:
 + x.xx (stable/rc/dev)
 
-### PRA3 Version:
+### AAW Version:
 + x.xx
 
 ### Mods:

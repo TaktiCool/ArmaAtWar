@@ -1,0 +1,1 @@
+Adobe After Effects v14.0.1 Macintosh 64 render log for project “AAW_Intro.aep”Rendering started on 19.01.17 at 14:43:08 MEZ  19.01.17 14:43:08 MEZ: Starting composition “_MAIN”.  Output To: /Users/Rasmus/Desktop/_MAIN_[#####].png    19.01.17 14:43:09 MEZ: Finished composition “_MAIN”.  Total Time Elapsed: 1 SecondsLog closed on 19.01.17 at 14:43:09 MEZ

@@ -6,4 +6,4 @@
 ---
 *Delete this line and everything below*
 
-- [Make sure to respect the coding guidelines](https://github.com/drakelinglabs/projectrealityarma3/wiki/SQF-Standard-Recommendation)
+- [Make sure to respect the coding guidelines](https://github.com/TaktiCool/ArmaAtWar/wiki/SQF-Standard-Recommendation)

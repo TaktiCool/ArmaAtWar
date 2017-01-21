@@ -64,7 +64,7 @@
         'body': '[${1:CODE}, ${2:ARGUMENTS}, ${3:MUTEXID}] call CFUNC(mutex);'
 
 # Misc Snipets
-    'PRA3_ShowNotification':
+    'AAW_ShowNotification':
         'prefix': 'notification'
         'body': '["${1:TEXT}", ${2:COLOR},${3:TIME},${4:PRIORITY},${5:CONDITION}] call EFUNC(Common,displayNotification);'
     'CLib_Player':
