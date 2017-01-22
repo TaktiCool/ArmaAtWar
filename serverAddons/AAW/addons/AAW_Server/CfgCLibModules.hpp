@@ -83,6 +83,11 @@ class CfgCLibModules {
             FNC(canPlace);
         };
 
+        // Repair system
+        MODULE(Repair) {
+            FNC(clientInit);
+        };
+
         // FOB system
         MODULE(FOB) {
             dependency[] = {"AAW/Common"};

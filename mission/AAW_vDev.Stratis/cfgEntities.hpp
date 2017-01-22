@@ -50,6 +50,10 @@ class CfgEntities {
     };
     class vr_slammer_1 : vr_slammer_0 {};
 
+    class vr_repairPad_0 {
+        repairAmount = 1;
+        repairUses = -1;
+    };
 
     // Air
     class vr_ghosthawk_0 : defaultWest {

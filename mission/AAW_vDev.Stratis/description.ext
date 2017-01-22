@@ -39,6 +39,7 @@ class CLib {
         "AAW/GarbageCollector",
         "AAW/Logistic",
         "AAW/RespawnUI",
+        "AAW/Repair",
         "AAW/Revive",
         "AAW/Tickets",
         "AAW/UnitTracker",

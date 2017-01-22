@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=579;
+		nextID=612;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={2821.4568,482.16803,2390.6235};
-		dir[]={-0.43924996,-0.27469769,0.8553403};
-		up[]={-0.12549007,0.96152812,0.24436305};
-		aside[]={0.88956118,-5.4780685e-008,0.45682344};
+		pos[]={3199.9858,140.24533,6932.0317};
+		dir[]={0.33937001,-0.66777498,-0.66265768};
+		up[]={0.3044413,0.74425602,-0.59445268};
+		aside[]={-0.89015418,-2.355082e-007,-0.45587605};
 	};
 };
 binarizationWanted=0;
@@ -48,7 +48,8 @@ addons[]=
 	"A3_Weapons_F_Ammoboxes",
 	"A3_Structures_F_Ind_Cargo",
 	"A3_Structures_F_Mil_Flags",
-	"A3_Soft_F_MRAP_01"
+	"A3_Soft_F_MRAP_01",
+	"A3_Structures_F_Mil_Helipads"
 };
 class AddonsMetaData
 {
@@ -259,7 +260,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=191;
+		items=192;
 		class Item0
 		{
 			dataType="Logic";
@@ -465,7 +466,7 @@ class Mission
 		class Item8
 		{
 			dataType="Marker";
-			position[]={2951.5708,0.52490234,5994.9897};
+			position[]={2963.3091,11.501709,6009.2305};
 			name="sector_5";
 			text="Agia Marina";
 			markerType="ELLIPSE";
@@ -474,7 +475,7 @@ class Mission
 			a=150;
 			b=150;
 			id=189;
-			atlOffset=-0.90904665;
+			atlOffset=8.1517086;
 		};
 		class Item9
 		{
@@ -658,33 +659,11 @@ class Mission
 						description="Player";
 						isPlayer=1;
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=225;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -713,33 +692,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=227;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -768,33 +725,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=229;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -823,33 +758,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=231;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -878,33 +791,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=233;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -933,33 +824,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=235;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -988,33 +857,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=237;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1043,33 +890,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=239;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1098,33 +923,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=241;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1153,33 +956,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=243;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1208,33 +989,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=245;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1263,33 +1022,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=247;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1318,33 +1055,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=249;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1373,33 +1088,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=251;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1428,33 +1121,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=253;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1483,33 +1154,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=255;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1538,33 +1187,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=257;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1593,33 +1220,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=259;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1648,33 +1253,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=261;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1703,33 +1286,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=263;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1758,33 +1319,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=265;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1813,33 +1352,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=267;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1868,33 +1385,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=269;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1923,33 +1418,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=271;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -1978,33 +1451,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=273;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2033,33 +1484,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=275;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2088,33 +1517,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=277;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2143,33 +1550,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=279;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2198,33 +1583,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=281;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2253,33 +1616,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=283;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2308,33 +1649,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=285;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2363,33 +1682,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=287;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2418,33 +1715,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=289;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2473,33 +1748,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=291;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2528,33 +1781,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=293;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2583,33 +1814,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=295;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2638,33 +1847,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=297;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2693,33 +1880,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=299;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2748,33 +1913,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=301;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2803,33 +1946,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=303;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2858,33 +1979,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=305;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2913,33 +2012,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=307;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -2968,33 +2045,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=309;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3023,33 +2078,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=311;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3078,33 +2111,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=313;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3133,33 +2144,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=315;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3188,33 +2177,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=317;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3243,33 +2210,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=319;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3298,33 +2243,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=321;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3353,33 +2276,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=323;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3408,33 +2309,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=325;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3463,33 +2342,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=327;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3518,33 +2375,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=329;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3573,33 +2408,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=331;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3628,33 +2441,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=333;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3683,33 +2474,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=335;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3738,33 +2507,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=337;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3793,33 +2540,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=339;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3848,33 +2573,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=341;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3903,33 +2606,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=343;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -3958,33 +2639,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=345;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4013,33 +2672,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=347;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4068,33 +2705,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=349;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4123,33 +2738,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=351;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4178,33 +2771,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=353;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4233,33 +2804,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=355;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4288,33 +2837,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=357;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4343,33 +2870,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=359;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4398,33 +2903,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=361;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4453,33 +2936,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=363;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4508,33 +2969,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=365;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4563,33 +3002,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=367;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4618,33 +3035,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=369;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4673,33 +3068,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=371;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4728,33 +3101,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=373;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4783,33 +3134,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=375;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4838,33 +3167,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=377;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4893,33 +3200,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=379;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -4948,33 +3233,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=381;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5003,33 +3266,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=383;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5058,33 +3299,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=385;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5113,33 +3332,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=387;
 					type="I_soldier_F";
 					atlOffset=116.95063;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5168,33 +3365,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=389;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5223,33 +3398,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=391;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5278,33 +3431,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=393;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5333,33 +3464,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=395;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5388,33 +3497,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=397;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5443,33 +3530,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=399;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5498,33 +3563,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=401;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5553,33 +3596,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=403;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5608,33 +3629,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=405;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5663,33 +3662,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=407;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5718,33 +3695,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=409;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5773,33 +3728,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=411;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5828,33 +3761,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=413;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5883,33 +3794,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=415;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5938,33 +3827,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=417;
 					type="I_soldier_F";
 					atlOffset=116.95061;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -5993,33 +3860,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=419;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -6048,33 +3893,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=421;
 					type="I_soldier_F";
 					atlOffset=116.95062;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -6103,33 +3926,11 @@ class Mission
 					{
 						description="Player";
 						isPlayable=1;
+						disableSimulation=1;
 					};
 					id=423;
 					type="I_soldier_F";
 					atlOffset=114.2331;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="enableSimulation";
-							expression="if !(is3DEN) then {_this enablesimulationglobal _value;};";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"BOOL"
-										};
-									};
-									value=0;
-								};
-							};
-						};
-						nAttributes=1;
-					};
 				};
 			};
 			class Attributes
@@ -8042,7 +5843,7 @@ class Mission
 			};
 			id=577;
 			type="B_MRAP_01_gmg_F";
-			atlOffset=-0.006000042;
+			atlOffset=-0.0059995651;
 		};
 		class Item190
 		{
@@ -8060,6 +5861,23 @@ class Mission
 			};
 			id=578;
 			type="O_MRAP_02_gmg_F";
+			atlOffset=-0.00038146973;
+		};
+		class Item191
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3200.522,3.9022093,6833.6602};
+			};
+			side="Empty";
+			class Attributes
+			{
+				name="vr_repairPad_0";
+			};
+			id=580;
+			type="Land_HelipadEmpty_F";
+			atlOffset=0.10899997;
 		};
 	};
 };
