@@ -44,7 +44,7 @@ private _onStart = {
 };
 
 private _onProgress = {
-    (time - GVAR(dismantleStartTime))/10;
+    (time - GVAR(dismantleStartTime)) / 10;
 };
 
 private _onComplete = {

@@ -20,7 +20,7 @@ params ["_target"];
 
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = position _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
         ["You can not place a FOB at this position"] call EFUNC(Common,displayNotification);
@@ -37,5 +37,5 @@ params ["_target"];
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", playerSide, [format[MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

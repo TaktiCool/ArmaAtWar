@@ -92,10 +92,10 @@ if (_forceCount >= _minUnits && _diff > 0) then {
     if (_side in [_leadingSide, sideUnknown]) then {
         if (_captureProgress < 1) then {
             _attackerSide = _leadingSide;
-            _captureRate = 1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/_maxUnits) min 1)));
+            _captureRate = 1 / (_captureTimeMin + (_captureTimeMax - _captureTimeMin) * (1 - ((_diff / _maxUnits) min 1)));
         };
     } else {
-        _captureRate = -1/(_captureTimeMin+(_captureTimeMax-_captureTimeMin)*(1-((_diff/_maxUnits) min 1)));
+        _captureRate = -1 / (_captureTimeMin + (_captureTimeMax - _captureTimeMin) * (1 - ((_diff / _maxUnits) min 1)));
     };
 } else {
     _captureRate = 0;
@@ -107,7 +107,7 @@ if (_side == sideUnknown && ((str _attackerSide) != _lastAttackerSide)) then {
 };
 
 // Update current capture progress
-_captureProgress = _captureProgress + (_tick-_lastTick)*_captureRate;
+_captureProgress = _captureProgress + (_tick - _lastTick) * _captureRate;
 
 // neutralize sector if capture progress is <= 0
 if (_captureProgress <= 0 && _captureRate < 0) then {

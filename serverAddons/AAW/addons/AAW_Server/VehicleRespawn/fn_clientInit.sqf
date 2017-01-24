@@ -18,13 +18,15 @@
     _args params ["_vehicle"];
 
     private _vehicleConfig = configFile >> "CfgVehicles" >> typeOf _vehicle;
-    private _text = format [MLOC(NewVehicleAvailable),
-        format ["<img size='0.7' color='#ffffff' image='%2'/> %1",
+    private _text = format [
+        MLOC(NewVehicleAvailable),
+        format [
+            "<img size='0.7' color='#ffffff' image='%2'/> %1",
             getText (_vehicleConfig >> "displayName"),
             getText (_vehicleConfig >> "picture")
         ]
-     ];
-     _text call EFUNC(Common,displayNotification);
+    ];
+    _text call EFUNC(Common,displayNotification);
 }] call CFUNC(addEventHandler);
 
 // bug Fix for JIP and VehicleVarName

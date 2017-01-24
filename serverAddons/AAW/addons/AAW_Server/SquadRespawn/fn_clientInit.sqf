@@ -33,6 +33,6 @@ GVAR(oldSpawns) = [];
     } count units CLib_Player;
 }, 0] call CFUNC(addPerFrameHandler);
 
-["playerChanged", {
-
-}] call CFUNC(addEventhandler);
+//["playerChanged", {
+//
+//}] call CFUNC(addEventhandler);

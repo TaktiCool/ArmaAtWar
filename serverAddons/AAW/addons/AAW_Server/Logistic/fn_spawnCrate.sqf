@@ -53,7 +53,7 @@ if !(_content isEqualTo []) then {
                 _crateObject addItemCargoGlobal _x;
             };
 
-            if (isClass(configFile >> "CfgMagazines" >> (_x select 0))) exitWith {
+            if (isClass (configFile >> "CfgMagazines" >> (_x select 0))) exitWith {
                 _crateObject addMagazineCargoGlobal _x;
             };
 
@@ -61,7 +61,7 @@ if !(_content isEqualTo []) then {
                 _crateObject addBackpackCargoGlobal _x;
             };
 
-            if (isClass(configFile >> "CfgWeapons" >> (_x select 0))) exitWith {
+            if (isClass (configFile >> "CfgWeapons" >> (_x select 0))) exitWith {
                 _crateObject addWeaponCargoGlobal _x;
             };
         };

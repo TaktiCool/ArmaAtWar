@@ -18,9 +18,9 @@ private _title = "Build";
 private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _showCondition = {
-    simulationEnabled _target &&
-    {[QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall)} &&
-    {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
+    simulationEnabled _target
+     && {[QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall)}
+     && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
 };
 
 GVAR(buildStartTime) = -1;
@@ -32,7 +32,7 @@ private _onStart = {
 };
 
 private _onProgress = {
-    (time - GVAR(buildStartTime))/5;
+    (time - GVAR(buildStartTime)) / 5;
 };
 
 private _onComplete = {

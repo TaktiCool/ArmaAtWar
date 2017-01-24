@@ -101,13 +101,13 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
 
         _abandonedSince = _vehicle getVariable [QGVAR(abandonedSince), -1];
 
-        if (_abandonedSince < 0) then {//was abandoned last time??
+        if (_abandonedSince < 0) then { //was abandoned last time??
             _vehicle setVariable [QGVAR(abandonedSince), diag_tickTime];
         } else {
             private _abandonedVehicleTime = _vehicle getVariable ["abandonedVehicleTime", 600];
-            if ((diag_tickTime - _abandonedSince) >= _abandonedVehicleTime) then {//respawn Vehicle
+            if ((diag_tickTime - _abandonedSince) >= _abandonedVehicleTime) then { //respawn Vehicle
                 private _respawnTime = _vehicle getVariable ["respawnTime", -1];
-                if (_respawnTime>=0) then {
+                if (_respawnTime >= 0) then {
                     private _respawnCondition = _vehicle getVariable ["respawnCondition", "true"];
                     private _respawnCounter = _vehicle getVariable [QGVAR(RespawnCounter), 0];
                     private _respawnDirection = _vehicle getVariable [QGVAR(respawnDirection), getDir _vehicle];

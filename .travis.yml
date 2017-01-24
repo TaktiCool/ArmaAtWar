@@ -1,16 +1,12 @@
 branches:
   only:
-   - master
-   - release
-language: python
-python:
-- '3.4'
+  - master
+  - release
+
+language: node_js
+node_js:
+  - "node"
+before_script:
+  - cd serverAddons/AAW/tools
 script:
-- python3 .dev/sqf_validator.py
-notifications:
-  slack:
-    urls:
-      - secure: $webhook
-    on_success: change
-    on_failure: always
-    on_start: never
+  - node sqf_validator.js
