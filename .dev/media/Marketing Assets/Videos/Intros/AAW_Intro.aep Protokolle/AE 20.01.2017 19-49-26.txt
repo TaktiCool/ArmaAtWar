@@ -1,12 +1,0 @@
-Adobe After Effects v14.0.1 Windows 64 Renderprotokoll für Projekt 'AAW_Intro.aep'
-
-Rendervorgang gestartet am 20.01.2017 um 19:49:26
-
-  20.01.2017 19:49:26: Komposition '_MAIN' gestartet.
-
-  Speichern unter: F:\Dropbox\AAW_Intro.avi    20.01.2017 19:50:21: Komposition '_MAIN' beendet.
-
-
-  Bish. Renderz.: 55 Sekunden
-Das Protokoll wurde am 20.01.2017 um 19:50:21 geschlossen.
-
