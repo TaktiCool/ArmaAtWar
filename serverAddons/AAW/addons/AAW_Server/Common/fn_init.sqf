@@ -84,6 +84,7 @@ if (hasInterface) then {
                     ];
                     _ctrl ctrlCommit 0;
                 }, {!isNull (findDisplay 49)}, []] call CFUNC(waitUntil);
+                nil
             };
         }];
     }] call CFUNC(addEventhandler);
