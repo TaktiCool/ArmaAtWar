@@ -31,7 +31,7 @@ class CfgCLibLocalisation {
             class waitToSwitchSide {
                 English = "You need to wait %1 seconds until you can change sides again";
                 Czech = "Musíš počkat %1 sekund, než budeš moci opět změnit stranu";
-                German = "Du musst %1 Sekunden warten bis du die Seite wieder wechseln kannst";
+                German = "Du musst %1 Sekunden warten, bis du die Seite wieder wechseln kannst";
                 Polish = "Musisz poczekać %1 sekund przed ponowną zmianą strony";
                 Korean = "%1초 뒤에 세력을 변경하실 수 있습니다";
                 Spanish = "Debes esperar %1 segundos para poder cambiar de bandos de nuevo";
@@ -114,7 +114,7 @@ class CfgCLibLocalisation {
             class selectSpawn {
                 English = "You have to select a spawnpoint!";
                 Czech = "Musíš vybrat bod nasazení!";
-                German = "Du musst erst einen Spawn Punkt auswählen!";
+                German = "Du musst erst einen Spawn-Punkt auswählen!";
                 Polish = "Musisz wybrać punkt odrodzenia!";
                 Korean = "스폰포인트를 선택해주십시오";
                 Spanish = "Debes seleccionar un punto de inserción!";
@@ -164,7 +164,7 @@ class CfgCLibLocalisation {
                 Spanish = "Descargar artículo fuera de %1";
             };
             class UnableToUnload {
-                English = "You are Unable to Unload the Crate in your Current position.";
+                English = "You are unable to unload the crate at your current position.";
                 German = "Du kannst die Kiste in deiner Aktuellen Postion nicht entladen.";
                 Spanish = "No puedes Descargar la Caja en tu posición actual.";
             };
@@ -180,25 +180,25 @@ class CfgCLibLocalisation {
         // Rally
         class Rally {
             class CreateRally {
-                English = "Create Rally Point";
+                English = "Create rally point";
                 Czech = "Vytvořit shromaždiště";
-                German = "Platziere Rally Punkt";
+                German = "Platziere Sammelpunkt";
                 Polish = "Stwórz punkt zbiórki";
                 Korean = "랠리포인트 생성";
                 Spanish = "Crear Punto de Reunión";
             };
             class cantPlaceRally {
-                English = "You can not place a rallypoint at this position";
+                English = "You can not place a rally point at this position";
                 Czech = "Nemůžeš umístit shromaždiště na tuto pozici";
-                German = "Du kannst hier keinen Rally Punkt platzieren";
+                German = "Du kannst hier keinen Sammelpunkt platzieren";
                 Polish = "Nie możesz utworzyć punktu zbiórki w tym miejscu";
                 Korean = "여기에 랠리포인트를 생성할 수 없습니다.";
                 Spanish = "No puedes colocar un punto de reunión en esta posición";
             };
             class RallyPlaced {
-                English = "Your Squadleader has placed a rally near %1";
+                English = "Your Squadleader has placed a rally point near %1";
                 Czech = "Tvůj vůdce čety umístil shromaždiště poblíž %1";
-                German = "Dein Squadleader hat einen Rally nahe %1 erstellt";
+                German = "Dein Squadleader hat einen Sammelpunkt nahe %1 erstellt";
                 Polish = "Dowódca drużyny ustalił punkt zbiórki w pobliżu %1";
                 Korean = "분대장이 %1 근처에 랠리포인트를 생성하였습니다.";
                 Spanish = "Tu Líder de Escuadrón ha colocado una reunión cerca de %1";
@@ -218,7 +218,7 @@ class CfgCLibLocalisation {
             class PlaceFOB {
                 English = "Place FOB";
                 Czech = "Umísti FOB";
-                German = "FOB Platzieren";
+                German = "FOB platzieren";
                 Polish = "Stwórz FOB";
                 Korean = "전진기치 배치";
                 Spanish = "Colocar FOB";
