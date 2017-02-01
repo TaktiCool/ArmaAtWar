@@ -51,8 +51,10 @@ class CfgEntities {
     class vr_slammer_1 : vr_slammer_0 {};
 
     class vr_repairPad_0 {
+        rearmAmount = 1;
+        refuelAmount = 1;
         repairAmount = 1;
-        repairUses = -1;
+        supplyUses = -1;
     };
 
     // Air

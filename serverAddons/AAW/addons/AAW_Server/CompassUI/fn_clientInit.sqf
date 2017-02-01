@@ -85,7 +85,7 @@ addMissionEventHandler ["MapSingleClick", {
         for "_i" from 0 to 37 do {
             private _idc = _i + _lineIndexVisibilityOffset;
             private _control = _dialog displayCtrl (7101 + _idc);
-            private _newAlpha = (_i * 5 + _lineAngleOffset) call FUNC(getAlphaFromX);
+            private _newAlpha = (_i * 5 + _lineAngleOffset) call DFUNC(getAlphaFromX);
             private _oldAlpha = GVAR(lineAlphaCache) select _idc;
 
             if (_newAlpha != _oldAlpha) then {
@@ -99,7 +99,7 @@ addMissionEventHandler ["MapSingleClick", {
         for "_i" from 0 to 13 do {
             private _idc = _i + floor (_viewDirection / 15);
             private _control = _dialog displayCtrl (7301 + _idc);
-            private _newAlpha = (_i * 15 + _bearingOffset) call FUNC(getAlphaFromX);
+            private _newAlpha = (_i * 15 + _bearingOffset) call DFUNC(getAlphaFromX);
             private _oldAlpha = GVAR(bearingAlphaCache) select _idc;
 
             if (_newAlpha != _oldAlpha) then {
@@ -197,7 +197,7 @@ addMissionEventHandler ["MapSingleClick", {
                 _x ctrlSetPosition [PX(_lineIndex * 2.5 + 0.15), PY(0.6), PX(2.2), PY(0.3)];
 
                 private _color = _x getVariable QGVAR(color);
-                _color set [3, (2.5 + ((_lineIndex - floor (_viewDirection / 5)) * 5) - (_viewDirection % 5)) call FUNC(getAlphaFromX)];
+                _color set [3, (2.5 + ((_lineIndex - floor (_viewDirection / 5)) * 5) - (_viewDirection % 5)) call DFUNC(getAlphaFromX)];
                 _x ctrlSetTextColor _color;
                 _x ctrlCommit 0;
             };
@@ -241,7 +241,7 @@ addMissionEventHandler ["MapSingleClick", {
                 _control ctrlSetText _icon;
 
                 private _color = [_sideColor, _groupColor] select (group CLib_Player == group _x);
-                _color set [3, ((1 - 0.2 * ((CLib_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call FUNC(getAlphaFromX))];
+                _color set [3, ((1 - 0.2 * ((CLib_Player distance _x) - 25)) min 1) * ((_compassAngle - _viewDirection) call DFUNC(getAlphaFromX))];
                 _control ctrlSetTextColor _color;
 
                 private _positionCenter = [PX(_compassAngle * 0.5) - ((_size select 0) / 2), PY(0.75) - ((_size select 1) / 2)];
