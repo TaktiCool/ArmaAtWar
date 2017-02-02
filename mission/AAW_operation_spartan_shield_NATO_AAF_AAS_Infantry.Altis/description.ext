@@ -19,7 +19,7 @@ disabledAI = 1;
 author = "AAW Development Team";
 onLoadName = "AAW - OP Spartan Shield";
 onLoadMission = "Advance and Secure, 2 km², Infantry Layout";
-loadScreen =  "ui\media\loadscreen.jpg";
+loadScreen =  "ui\media\loadscreen_co.paa";
 
 respawn = 3;
 respawnDelay = 0;
