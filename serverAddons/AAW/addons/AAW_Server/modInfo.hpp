@@ -4,9 +4,9 @@
 
 // define Version Information
 #define MAJOR 0
-#define MINOR 14
+#define MINOR 16
 #define PATCHLVL 0
-#define BUILD 1800
+#define BUILD 1912
 
 #ifdef VERSION
     #undef VERSION
@@ -22,4 +22,4 @@
 #define ISDEV // enable better logging
 // #define ENABLEPERFORMANCECOUNTER // enable Performance counter for Function calls
 // #define ENABLEFUNCTIONTRACE // enable SQF based Function Tracer (Later Maybe Replace with ChromeTrace Repalced)
-// #define disableCompression
+// #define DISABLECOMPRESSION

@@ -92,7 +92,7 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
         };
 
         //check nearUnits
-        private _nbrNearUnits = count ([_vehicle, _abandonedVehicleRadius] call CFUNC(getNearUnits));
+        private _nbrNearUnits = {alive _x} count ([_vehicle, _abandonedVehicleRadius] call CFUNC(getNearUnits));
 
         if (_nbrNearUnits > 0) exitWith {
             _vehicle setVariable [QGVAR(abandonedSince), -1];

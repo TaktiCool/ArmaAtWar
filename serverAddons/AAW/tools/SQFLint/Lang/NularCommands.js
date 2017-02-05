@@ -71,6 +71,7 @@ module.exports = [
     'time',
     'true',
     'uiNamespace',
+    'vehicles',
     'visibleMap',
     'west',
     'worldName',

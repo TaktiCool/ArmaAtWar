@@ -31,8 +31,6 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         _timerValue = _timerValue + 0.1;
         GVAR(namespace) setVariable [_pointId, [_pfhId, _timerValue]];
 
-        DUMP(_timerValue);
-
         private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
 
         private _speed = 10;
