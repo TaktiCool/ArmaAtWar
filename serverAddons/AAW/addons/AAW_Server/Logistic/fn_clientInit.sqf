@@ -65,8 +65,17 @@ GVAR(CargoClasses) = [];
     } count ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
 }] call CFUNC(addEventHandler);
 
+["unconsciousnessChanged", {
+    if (!isNull (CLib_Player getVariable [QGVAR(Item), objNull])) then {
+        CLib_Player call FUNC(dropObject);
+    };
+}] call CFUNC(addEventhandler);
 
 ["isNotDragging", {
     isNull (_caller getVariable [QGVAR(Item), objNull])
      && isNull (_target getVariable [QGVAR(Item), objNull])
+}] call CFUNC(addCanInteractWith);
+
+["isNotDragged", {
+    isNull (_target getVariable [QGVAR(Player), objNull])
 }] call CFUNC(addCanInteractWith);
