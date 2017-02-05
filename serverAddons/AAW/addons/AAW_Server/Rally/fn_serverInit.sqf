@@ -26,8 +26,8 @@
             if (isNull _availableFor) then {
                 [_x] call EFUNC(Common,removeDeploymentPoint);
             } else {
-                private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSetting);
-                private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSetting);
+                private _maxEnemyCount = [QGVAR(Rally_maxEnemyCount), 1] call CFUNC(getSettingOld);
+                private _maxEnemyCountRadius = [QGVAR(Rally_maxEnemyCountRadius), 10] call CFUNC(getSettingOld);
 
                 private _rallySide = side _availableFor;
                 private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);

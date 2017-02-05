@@ -20,7 +20,7 @@ if (leader CLib_Player != CLib_Player) exitWith {false};
 if (!isNull objectParent CLib_Player) exitWith {false};
 
 // Check time
-private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);
+private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSettingOld);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
 if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
 
@@ -30,8 +30,8 @@ private _enemyCount = {(side group _x) != (side group CLib_Player)} count (neare
 if (_enemyCount != 0) exitWith {false};
 
 // Check near players
-private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
-private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
+private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSettingOld);
+private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSettingOld);
 private _count = {(group _x) == (group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
 if (_count < _nearPlayerToBuild) exitWith {false};
 

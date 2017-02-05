@@ -148,7 +148,7 @@
     {
         private _groupTypeName = configName _x;
         if ([_groupTypeName] call EFUNC(Squad,canUseSquadType)) then {
-            private _rowNumber = _control lbAdd ([format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupTypeName], ""] call CFUNC(getSetting));
+            private _rowNumber = _control lbAdd ([format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupTypeName], ""] call CFUNC(getSettingOld));
             _control lbSetData [_rowNumber, _groupTypeName];
             _visibleGroupTypes pushBack _groupTypeName;
 
@@ -214,8 +214,8 @@
         private _squadDesignator = _groupId select [0, 1];
         private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
         private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
-        private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSetting);
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
+        private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSettingOld);
+        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
 
         if (_description == "") then {
             _description = _groupId;
@@ -283,7 +283,7 @@
         _controlJoinLeaveButton ctrlShow true;
     } else {
         private _groupType = _selectedSquad getVariable [QEGVAR(Squad,Type), ""];
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
+        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
 
         _controlJoinLeaveButton ctrlSetText "JOIN";
         _controlJoinLeaveButton ctrlShow ((count ([_selectedSquad] call CFUNC(groupPlayers))) < _groupSize);
