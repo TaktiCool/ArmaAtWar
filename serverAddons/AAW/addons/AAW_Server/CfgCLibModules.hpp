@@ -83,11 +83,6 @@ class CfgCLibModules {
             FNC(canPlace);
         };
 
-        // Repair system
-        MODULE(Repair) {
-            FNC(clientInit);
-        };
-
         // FOB system
         MODULE(FOB) {
             dependency[] = {"AAW/Common"};
@@ -104,6 +99,11 @@ class CfgCLibModules {
         // SquadRespawn system
         MODULE(SquadRespawn) {
             dependency[] = {"AAW/Common"};
+            FNC(clientInit);
+        };
+
+        // Supply system
+        MODULE(Supply) {
             FNC(clientInit);
         };
 
