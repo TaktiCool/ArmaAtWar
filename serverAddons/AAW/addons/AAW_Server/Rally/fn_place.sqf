@@ -29,8 +29,7 @@
 
         private _objPosition = _position vectorAdd _offset;
         private _obj = createVehicle [_type, _objPosition, [], 0, "CAN_COLLIDE"];
-        _obj setPosASL [_objPosition select 0, _objPosition select 1, (getTerrainHeightASL _objPosition)];
-        _obj setVectorUp (surfaceNormal (getPos _obj));
+        ["setVectorUp", _obj, [_obj, surfaceNormal getPos _obj]] call CFUNC(targetEvent);
         ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
 
         _obj

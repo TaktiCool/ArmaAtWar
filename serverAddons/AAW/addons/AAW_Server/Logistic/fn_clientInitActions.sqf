@@ -66,7 +66,7 @@
             detach _draggedObject;
             CLib_Player playAction "released";
 
-            ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
+            ["allowDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
 
@@ -98,7 +98,7 @@
             params ["_vehicle"];
             private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems), [objNull]];
             private _draggedObject = _draggedObjectArray deleteAt 0;
-            ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
+            ["allowDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
             [_draggedObject, CLib_Player] call FUNC(dragObject);

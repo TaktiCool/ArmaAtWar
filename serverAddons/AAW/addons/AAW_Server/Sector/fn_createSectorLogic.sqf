@@ -33,7 +33,7 @@ params [
 private _size = getMarkerSize _marker;
 
 private _logic = (call CFUNC(getLogicGroup)) createUnit ["Logic", getMarkerPos _marker, [], 0, "NONE"];
-_logic setVehicleVarName _marker;
+["setVehicleVarName", [_logic, _marker]] call CFUNC(globalEvent);
 GVAR(allSectors) setVariable [_marker, _logic, true];
 GVAR(allSectorsArray) pushBack _logic;
 

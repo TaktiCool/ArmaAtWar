@@ -110,7 +110,7 @@
                 closeDialog 602;
                 private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
                 private _draggedObject = _draggedObjectArray deleteAt _index;
-                ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
+                ["allowDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
                 ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
                 ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
                 [_draggedObject, CLib_Player] call FUNC(dragObject);

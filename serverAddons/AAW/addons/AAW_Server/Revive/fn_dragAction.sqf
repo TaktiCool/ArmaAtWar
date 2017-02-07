@@ -26,13 +26,7 @@ DFUNC(dropPlayer) = {
     ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
     _unit setVariable [QGVAR(draggedPlayer), objNull, true];
     _draggedObject setVariable [QGVAR(draggedBy), objNull, true];
-    private _position = getPosATL _draggedObject;
-    if (_position select 2 < 0) then {
-        _position set [2, 0];
-        _draggedObject setPosATL _position;
-    };
-    ["fixFloating", _draggedObject, _draggedObject] call CFUNC(targetEvent);
-    ["fixPosition", _draggedObject, _draggedObject] call CFUNC(targetEvent);
+    _draggedObject call CFUNC(fixPosition);
 };
 
 [

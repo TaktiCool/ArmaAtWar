@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Client init of repair module
+    Client init of supply module
 
     Parameter(s):
     None
@@ -53,14 +53,13 @@ GVAR(supplyPoints) = [];
                     _x params ["_className", "_turretPath", "_ammoCount"];
                     private _maxAmmo = getNumber (configFile >> "CfgMagazines" >> _className >> "count");
                     if (_ammoCount < _maxAmmo) then {
-                        [[_className, _turretPath], "removeMagazineTurret", _vehicle] call CFUNC(remoteExec);
-                        [[_className, _turretPath, (_ammoCount + (_maxAmmo * _rearmAmount)) min _maxAmmo], "addMagazineTurret", _vehicle] call CFUNC(remoteExec);
-                        _vehicle loadMagazine [_turretPath, "m256", _className];
+                        ["removeMagazineTurret", _vehicle, [_vehicle, [_className, _turretPath]]] call CFUNC(targetEvent);
+                        ["addMagazineTurret", _vehicle, [_vehicle, [_turretPath, (_ammoCount + (_maxAmmo * _rearmAmount)) min _maxAmmo]]] call CFUNC(targetEvent);
                     };
                     nil
                 } count (magazinesAllTurrets _vehicle);
 
-                [[_vehicle, ((fuel _vehicle) + _refuelAmount) min 1], "setFuel", _vehicle] call CFUNC(remoteExec);
+                ["setFuel", _vehicle, [_vehicle, ((fuel _vehicle) + _refuelAmount) min 1]] call CFUNC(targetEvent);
 
                 private _currentDamage = selectMax (getAllHitPointsDamage _vehicle select 2);
                 _vehicle setDamage ((_currentDamage - _repairAmount) max 0);
