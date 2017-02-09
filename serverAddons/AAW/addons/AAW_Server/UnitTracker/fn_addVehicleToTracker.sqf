@@ -82,7 +82,7 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             _ctrlTotalSeats ctrlSetFontHeight PY(1.8);
             _ctrlTotalSeats ctrlSetPosition [PX(16.5), PY(0), PX(5), PY(2)];
             _ctrlTotalSeats ctrlSetFont "PuristaMedium";
-            _ctrlTotalSeats ctrlSetTextColor [0.5,0.5,0.5,1];
+            _ctrlTotalSeats ctrlSetTextColor [0.5, 0.5, 0.5, 1];
             _ctrlTotalSeats ctrlSetStructuredText parseText "ALPHA";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_TotalSeats), _idd], _ctrlTotalSeats];
 
@@ -90,7 +90,7 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             _ctrlMemberList ctrlSetFontHeight PY(4);
             _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(21.5), PY(11.9)];
             _ctrlMemberList ctrlSetFont "PuristaMedium";
-            _ctrlMemberList ctrlSetTextColor [1,1,1,1];
+            _ctrlMemberList ctrlSetTextColor [1, 1, 1, 1];
             _ctrlMemberList ctrlSetText "ALPHA";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_MemberList), _idd], _ctrlMemberList];
         };

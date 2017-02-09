@@ -23,7 +23,7 @@
         params ["_vehicle"];
         CLib_Player action ["Gear", objNull];
     },
-    ["onActionAdded",{
+    ["onActionAdded", {
         params ["_id", "_object", "_args"];
         _args params ["_title"];
         _object setUserActionText [_id, _title, "<img image='\\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa' size='2.5' shadow=2 />"];
@@ -51,9 +51,9 @@
         private _gY = ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25);
         private _gX = (((safeZoneW / safeZoneH) min 1.2) / 40);
 
-        private _xOffset = [1, -5.25] select (_container getVariable ["hasInventory",true]);
+        private _xOffset = [1, -5.25] select (_container getVariable ["hasInventory", true]);
 
-        if (_container getVariable ["hasInventory",true]) then {
+        if (_container getVariable ["hasInventory", true]) then {
             {
                 private _pos = ctrlPosition _x;
 
@@ -72,7 +72,7 @@
             } count [1001, 632, 6554, 6307, 6385, 6321];
         };
 
-        private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars",-1];
+        private _group = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
         _group ctrlSetPosition [_xOffset * _gX + (safeZoneX + (safeZoneW - ((safeZoneW / safeZoneH) min 1.2)) / 2), _gY + (safeZoneY + (safeZoneH - (((safeZoneW / safeZoneH) min 1.2) / 1.2)) / 2), 12 * _gX, 25 * _gY];
         _group ctrlCommit 0;
 
@@ -108,7 +108,7 @@
 
 
                 closeDialog 602;
-                private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems),[ObjNull]];
+                private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems), [ObjNull]];
                 private _draggedObject = _draggedObjectArray deleteAt _index;
                 ["allowDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
                 ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
@@ -161,7 +161,7 @@
                 GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity / _cargoCapacity);
             };
 
-        }, 1,[_container]] call CFUNC(addPerFrameHandler);
+        }, 1, [_container]] call CFUNC(addPerFrameHandler);
 
 
     }, {!isNull (findDisplay 602)}, [_unit, _container]] call CFUNC(waitUntil);

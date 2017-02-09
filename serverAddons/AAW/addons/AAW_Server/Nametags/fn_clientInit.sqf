@@ -41,7 +41,7 @@
                 private _color = if (group _x == group CLib_Player) then {
 
                     // we need to check if _index is -1 because if the player controll a drone and try to get assignedTeam from player return Nil
-                    private _index = ["MAIN","RED","GREEN","BLUE","YELLOW"] find (assignedTeam _x);
+                    private _index = ["MAIN", "RED", "GREEN", "BLUE", "YELLOW"] find (assignedTeam _x);
                     [
                         [1, 1, 1, 1], // Main
                         [1, 0, 0.1, 1], // Red
@@ -56,7 +56,7 @@
                 private _icon = _x getVariable [QEGVAR(Kit,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
                 private _text = format ["%1", _x call CFUNC(name)];
 
-                _icons pushBack ["ICON", _icon, _color, [_x, "pilot",[0,0,0.45]], 1, 1, 0, _text, 2, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", _icon, _color, [_x, "pilot", [0, 0, 0.45]], 1, 1, 0, _text, 2, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _facePositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -127,7 +127,7 @@
             nil
         } count _nearUnits;
 
-        [QGVAR(Icons),_icons] call CFUNC(add3dGraphics);
+        [QGVAR(Icons), _icons] call CFUNC(add3dGraphics);
         PERFORMANCECOUNTER_END(Nametags);
     }, 1.6] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);

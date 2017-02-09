@@ -34,7 +34,7 @@ DFUNC(dropPlayer) = {
     "CAManBase",
     2,
     {
-        alive _target && _target getVariable [QGVAR(isUnconscious),false] && (side group _target == side group CLib_Player);
+        alive _target && _target getVariable [QGVAR(isUnconscious), false] && (side group _target == side group CLib_Player);
     },
     {
         params ["_draggedUnit"];
@@ -43,14 +43,14 @@ DFUNC(dropPlayer) = {
 
             private _position = getPos _unit;
             _draggedUnit setPos _position;
-            private _attachPoint = [0,0,0];
+            private _attachPoint = [0, 0, 0];
             _unit setVariable [QGVAR(draggedPlayer), _draggedUnit, true];
             _draggedUnit setVariable [QGVAR(draggedBy), _unit, true];
 
 
-            _attachPoint = [0, 1.1, ((_draggedUnit modelToWorld [0,0,0]) select 2) - ((_unit modelToWorld [0,0,0]) select 2)];
+            _attachPoint = [0, 1.1, ((_draggedUnit modelToWorld [0, 0, 0]) select 2) - ((_unit modelToWorld [0, 0, 0]) select 2)];
 
-            _attachPoint = _attachPoint vectorAdd (_draggedUnit getVariable ["logisticOffset", [0,0,0]]);
+            _attachPoint = _attachPoint vectorAdd (_draggedUnit getVariable ["logisticOffset", [0, 0, 0]]);
             _draggedUnit attachTo [_unit, _attachPoint];
 
             _unit playActionNow "grabDrag";
@@ -65,7 +65,7 @@ DFUNC(dropPlayer) = {
                     [_unit] call FUNC(dropPlayer);
                     [_id] call CFUNC(removePerFrameHandler);
                 };
-            }, 1,[_draggedUnit, _unit]] call CFUNC(addPerFrameHandler);
+            }, 1, [_draggedUnit, _unit]] call CFUNC(addPerFrameHandler);
         }, [_draggedUnit, CLib_Player], "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
@@ -82,7 +82,8 @@ DFUNC(dropPlayer) = {
     {!(isNull (CLib_Player getVariable [QGVAR(draggedPlayer), objNull]))},
     {
         [CLib_Player] call FUNC(dropPlayer);
-    }, ["ignoredCanInteractConditions",["isNotPlayerDragging"]]
+    },
+    ["ignoredCanInteractConditions", ["isNotPlayerDragging"]]
 ] call CFUNC(addAction);
 
 ["isNotPlayerDragging", {

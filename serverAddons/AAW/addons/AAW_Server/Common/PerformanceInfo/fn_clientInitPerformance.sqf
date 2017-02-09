@@ -28,7 +28,7 @@ DFUNC(showIndicator) = {
 };
 
 ["missionStarted", {
-    ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(PerformanceStatus),"PLAIN"];
+    ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(PerformanceStatus), "PLAIN"];
     private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
 
     ["performanceCheck", {

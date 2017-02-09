@@ -63,7 +63,7 @@ GVAR(draw3dIcons) = false;
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x >= 0.1) then {
 
 
-                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0,0,0,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0, 0, 0, 1], [_x, "pelvis", [0, 0, 0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -95,7 +95,7 @@ GVAR(draw3dIcons) = false;
                     true;
                 }];
                 private _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
-                _icons pushBack ["ICON", _icon, [1,1,1,1], [_x, "pelvis",[0,0,0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
+                _icons pushBack ["ICON", _icon, [1, 1, 1, 1], [_x, "pelvis", [0, 0, 0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
                     private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
@@ -109,9 +109,9 @@ GVAR(draw3dIcons) = false;
 
                     if (_unit getVariable [QGVAR(isUnconscious), false]) then {
                         private _iconFormat = "\A3\Ui_f\data\IGUI\Cfg\Revive\overlayIcons\%1_ca.paa";
-                        private _iconAnimation = ["u50", "u75","u100", "u75", "u50", "r50", "r75", "r100", "r75", "r50"];
+                        private _iconAnimation = ["u50", "u75", "u100", "u75", "u50", "r50", "r75", "r100", "r75", "r50"];
                         if (_unit getVariable [QGVAR(bloodLevel), 1] < 0.2) then {
-                            _iconAnimation = ["u50", "u75","u100", "u75", "u50", "d50", "d75", "d100", "d75", "d50"];
+                            _iconAnimation = ["u50", "u75", "u100", "u75", "u50", "d50", "d75", "d100", "d75", "d50"];
                         };
 
                         _texture = format [_iconFormat, _iconAnimation select floor ((time mod 1) * (count _iconAnimation))];
@@ -150,7 +150,7 @@ GVAR(draw3dIcons) = false;
         };
         nil
     } count _nearUnits;
-    [QGVAR(Icons),_icons] call CFUNC(add3dGraphics);
+    [QGVAR(Icons), _icons] call CFUNC(add3dGraphics);
 }, 1] call CFUNC(addPerFrameHandler);
 
 private _hndl = ppEffectCreate ["DynamicBlur", 999];

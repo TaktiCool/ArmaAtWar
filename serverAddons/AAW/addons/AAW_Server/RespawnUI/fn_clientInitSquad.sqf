@@ -57,7 +57,7 @@
 ["missionStarted", {
     ["Squad Screen", CLib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(squadDisplay), displayNull])}, {
         (findDisplay 46) createDisplay UIVAR(SquadScreen);
-    },["ignoredCanInteractConditions",["isNotInVehicle"], "showWindow", false]] call CFUNC(addAction);
+    }, ["ignoredCanInteractConditions", ["isNotInVehicle"], "showWindow", false]] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(SquadScreen_onLoad), {

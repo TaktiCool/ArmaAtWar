@@ -41,7 +41,7 @@ GVAR(VehicleRespawnAllVehicles) = [];
 
 
 addMissionEventHandler ["EntityKilled", {
-    params ["_killedEntity","_killer"];
+    params ["_killedEntity", "_killer"];
     private _respawnTime = _killedEntity getVariable ["respawnTime", -1];
     if (_respawnTime >= 0) then {
         private _type = typeOf _killedEntity;

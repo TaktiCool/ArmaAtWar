@@ -70,7 +70,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         [_availablefor, -_ticketValue] call EFUNC(Tickets,addTickets);
 
     }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
-    GVAR(namespace) setVariable [_pointId, [_pfhId,0]];
+    GVAR(namespace) setVariable [_pointId, [_pfhId, 0]];
 
     [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentCustomData);
 }] call CFUNC(addEventhandler);

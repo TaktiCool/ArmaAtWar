@@ -43,7 +43,7 @@ GVAR(bloodRefreshTimer) = -1;
 
 
 
-            if ((CLib_Player getVariable [QGVAR(reviveAction),""]) == "") then {
+            if ((CLib_Player getVariable [QGVAR(reviveAction), ""]) == "") then {
 
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1]) / ([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));

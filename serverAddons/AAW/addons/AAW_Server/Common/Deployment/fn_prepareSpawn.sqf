@@ -16,7 +16,7 @@
 params ["_pointId"];
 
 private _pointDetails = [_pointId, ["position", "spawntickets", "availablefor"]] call FUNC(getDeploymentPointData);
-_pointDetails params [["_position", [0,0,0]], ["_spawnTickets", -1], "_availableFor"];
+_pointDetails params [["_position", [0, 0, 0]], ["_spawnTickets", -1], "_availableFor"];
 if (_spawnTickets > 0) then {
     _spawnTickets = _spawnTickets - 1;
 

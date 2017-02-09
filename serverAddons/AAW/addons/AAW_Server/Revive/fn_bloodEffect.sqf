@@ -17,7 +17,7 @@ params ["_intensity"];
 
 private _firstInit = false;
 if (isNull (uiNamespace getVariable ["RscHealthTextures", displayNull])) then {
-    ([QGVAR(PPBloodEffect)] call BIS_fnc_rscLayer) cutRsc ["RscHealthTextures","plain"];
+    ([QGVAR(PPBloodEffect)] call BIS_fnc_rscLayer) cutRsc ["RscHealthTextures", "plain"];
     _firstInit = true;
     GVAR(PPBloodEffectIntensity) = 0;
 };
@@ -72,16 +72,16 @@ private _fadeOut = {
     _tex ctrlCommit _time;
 };
 
-[{GVAR(PPBloodEffectIntensity) = 0}, 1.5, [_texUpper,1.5]] call CFUNC(wait);
+[{GVAR(PPBloodEffectIntensity) = 0}, 1.5, [_texUpper, 1.5]] call CFUNC(wait);
 
 if (_upperIntensity > 0) then {
-    [_fadeOut, 1.5, [_texUpper,1.5]] call CFUNC(wait);
+    [_fadeOut, 1.5, [_texUpper, 1.5]] call CFUNC(wait);
 };
 
 if (_middleIntensity > 0) then {
-    [_fadeOut, 2, [_texMiddle,1]] call CFUNC(wait);
+    [_fadeOut, 2, [_texMiddle, 1]] call CFUNC(wait);
 };
 
 if (_lowerIntensity > 0) then {
-    [_fadeOut, 2.5, [_texLower,0.8]] call CFUNC(wait);
+    [_fadeOut, 2.5, [_texLower, 0.8]] call CFUNC(wait);
 };
