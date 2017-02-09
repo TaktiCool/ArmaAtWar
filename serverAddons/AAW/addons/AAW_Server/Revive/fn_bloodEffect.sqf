@@ -33,11 +33,9 @@ private _y = (-0.0625 * safeZoneH) + safeZoneY;
 private _w = 2.125 * safeZoneW * 3 / 4;
 private _h = 1.125 * safeZoneH;
 
-
 private _texLower = _display displayCtrl 1211;
 private _texMiddle = _display displayCtrl 1212;
 private _texUpper = _display displayCtrl 1213;
-
 
 if (_firstInit) then {
     _texLower ctrlSetFade 1;
@@ -56,7 +54,6 @@ if (_firstInit) then {
 if (GVAR(PPBloodEffectIntensity) > _intensity) exitWith {};
 
 GVAR(PPBloodEffectIntensity) = _intensity;
-
 
 _texLower ctrlSetFade (1 - 0.8 * _lowerIntensity);
 _texMiddle ctrlSetFade (1 - 0.8 * _middleIntensity);

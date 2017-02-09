@@ -47,7 +47,6 @@ DFUNC(dropPlayer) = {
             _unit setVariable [QGVAR(draggedPlayer), _draggedUnit, true];
             _draggedUnit setVariable [QGVAR(draggedBy), _unit, true];
 
-
             _attachPoint = [0, 1.1, ((_draggedUnit modelToWorld [0, 0, 0]) select 2) - ((_unit modelToWorld [0, 0, 0]) select 2)];
 
             _attachPoint = _attachPoint vectorAdd (_draggedUnit getVariable ["logisticOffset", [0, 0, 0]]);
@@ -73,7 +72,6 @@ DFUNC(dropPlayer) = {
 [QGVAR(startGettingDraggedAnimation), {
     CLib_Player setDir 180;
 }] call CFUNC(addEventhandler);
-
 
 [
     "Drop",

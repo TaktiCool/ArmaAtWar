@@ -41,8 +41,6 @@ GVAR(bloodRefreshTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectCommit 1;
             };
 
-
-
             if ((CLib_Player getVariable [QGVAR(reviveAction), ""]) == "") then {
 
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
@@ -62,11 +60,8 @@ GVAR(bloodRefreshTimer) = -1;
 
                 CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel max 0];
 
-
                 GVAR(BleedOutEffect) ppEffectCommit 1;
             };
-
-
         }, 1] call CFUNC(addPerFrameHandler);
     };
 
@@ -79,8 +74,6 @@ GVAR(bloodRefreshTimer) = -1;
 
             CLib_Player setVariable [QGVAR(bloodLevel), _bloodLevel min 1];
             CLib_Player setVariable [QGVAR(bleedingRate), _bleedingRate max 0];
-
-
 
             if (_bloodLevel >= 1) exitWith {
                 GVAR(bloodRefreshTimer) call CFUNC(removePerFrameHandler);

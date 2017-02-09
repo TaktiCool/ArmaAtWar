@@ -28,7 +28,6 @@ params ["_target"];
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
 
-
     deleteVehicle _target;
     private _pointObjects = [_composition, _position, _dirVector, _target] call CFUNC(createSimpleObjectComp);
 

@@ -60,5 +60,4 @@ private _onInterruption = {
     GVAR(destroyFOBStartTime) = -1;
 };
 
-
 [CLib_Player, _title, _iconIdle, _iconProgress, _showCondition, _showCondition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, true] call CFUNC(addHoldAction);

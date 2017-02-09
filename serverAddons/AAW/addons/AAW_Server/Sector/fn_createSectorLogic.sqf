@@ -29,7 +29,6 @@ params [
     ["_designator", "A"]
 ];
 
-
 private _size = getMarkerSize _marker;
 
 private _logic = (call CFUNC(getLogicGroup)) createUnit ["Logic", getMarkerPos _marker, [], 0, "NONE"];

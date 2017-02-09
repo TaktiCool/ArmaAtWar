@@ -37,7 +37,6 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
         (_this select 0) params ["_map", "_xPos", "_yPos"];
         (_this select 1) params ["_vehicle"];
 
-
         if (_vehicle isEqualTo GVAR(currentHoverVehicle)) exitWith {};
         GVAR(currentHoverVehicle) = _vehicle;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};

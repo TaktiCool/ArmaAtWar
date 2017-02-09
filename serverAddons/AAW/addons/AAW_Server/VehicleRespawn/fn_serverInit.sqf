@@ -39,7 +39,6 @@ GVAR(VehicleRespawnAllVehicles) = [];
 
 }] call CFUNC(addEventHandler);
 
-
 addMissionEventHandler ["EntityKilled", {
     params ["_killedEntity", "_killer"];
     private _respawnTime = _killedEntity getVariable ["respawnTime", -1];

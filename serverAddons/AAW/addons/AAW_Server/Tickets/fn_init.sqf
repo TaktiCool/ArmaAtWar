@@ -35,7 +35,6 @@ DFUNC(checkTicketBleed) = {
     _looser select 1;
 };
 
-
 GVAR(deactivateTicketSystem) = false;
 ["playEndMusic", {
     playMusic (selectRandom (GVAR(availableTracks)));
@@ -43,7 +42,6 @@ GVAR(deactivateTicketSystem) = false;
         playMusic (selectRandom (GVAR(availableTracks)));
     }];
 }] call CFUNC(addEventHandler);
-
 
 [{
     GVAR(availableTracks) = getArray (missionConfigFile >> QPREFIX >> "tracks");
@@ -67,7 +65,6 @@ GVAR(deactivateTicketSystem) = false;
     if (isServer) then {
         GVAR(playerTicketValue) = getNumber (missionConfigFile >> QPREFIX >> "playerTicketValue");
         GVAR(ticketBleed) = getArray (missionConfigFile >> QPREFIX >> "ticketBleed");
-
 
         private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
         {

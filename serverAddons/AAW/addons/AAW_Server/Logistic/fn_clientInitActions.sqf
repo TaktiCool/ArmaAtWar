@@ -63,7 +63,6 @@
                 [MLOC(noCargoSpace)] call EFUNC(Common,displayNotification);
             };
 
-
             detach _draggedObject;
             CLib_Player playAction "released";
 

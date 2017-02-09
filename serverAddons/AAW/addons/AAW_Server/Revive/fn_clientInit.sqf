@@ -51,7 +51,6 @@ GVAR(draw3dIcons) = false;
     {
         private _targetSide = side (group _x);
 
-
         #ifdef ISDEV
             #define ISDEVCONDIONREVIVE alive _x && playerSide getFriend _targetSide >= 0.6
         #else
@@ -61,8 +60,6 @@ GVAR(draw3dIcons) = false;
         if (ISDEVCONDIONREVIVE) then {
             // The position of the nameTag is above the head.
             if ((_x getVariable [QGVAR(isUnconscious), false]) || damage _x >= 0.1) then {
-
-
                 _icons pushBack ["ICON", "\A3\Ui_f\data\IGUI\Cfg\HoldActions\progress\progress_0_ca.paa", [0, 0, 0, 1], [_x, "pelvis", [0, 0, 0]], 1, 1, 0, "", 0, 0.05, "PuristaSemiBold", "center", false, {
                     private _unit = (_position select 0);
                     private _cameraPosASL = AGLToASL (_cameraPosition);
@@ -145,8 +142,6 @@ GVAR(draw3dIcons) = false;
             private _color = [1, 1, 1, 1];
 
             private _icon = _x getVariable [QEGVAR(Kit,kitIcon), "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"];
-
-
         };
         nil
     } count _nearUnits;
@@ -180,8 +175,6 @@ GVAR(UnconsciousnessEffects) = [_hndl];
         _x ppEffectCommit 1;
     } count GVAR(UnconsciousnessEffects);
 }] call CFUNC(addEventHandler);
-
-
 
 call FUNC(bleedOut);
 call FUNC(forceRespawnAction);

@@ -29,7 +29,6 @@ _groupPos set [0, 0.5];
 _groupPos set [2, 0];
 (_display displayCtrl 4000) ctrlSetPosition _groupPos;
 
-
 private _bgPos = ctrlPosition (_display displayCtrl 4001);
 _bgPos set [0, -(_bgPos select 2) / 2];
 (_display displayCtrl 4001) ctrlSetPosition _bgPos;
@@ -52,7 +51,6 @@ _txtPos set [0, 0];
 (_display displayCtrl 4000) ctrlCommit 0.2;
 (_display displayCtrl 4001) ctrlCommit 0.2;
 (_display displayCtrl 4002) ctrlCommit 0.2;
-
 
 GVAR(LastNotification) = time;
 GVAR(NextNotification) = time + _time;

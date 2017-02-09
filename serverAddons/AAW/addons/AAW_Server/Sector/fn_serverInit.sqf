@@ -108,8 +108,6 @@ GVAR(ServerInitDone) = false;
     }, 3, []] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
 
-
-
 ["sectorEntered", {
     (_this select 0) params ["_unit", "_sector"];
 

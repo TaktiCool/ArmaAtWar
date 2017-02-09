@@ -62,8 +62,6 @@ GVAR(currentSector) = objNull;
             [format [MLOC(YourTSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
         };
     };
-
-
 }] call CFUNC(addEventHandler);
 
 [{

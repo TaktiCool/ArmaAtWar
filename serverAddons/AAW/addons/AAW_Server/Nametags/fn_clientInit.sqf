@@ -62,7 +62,6 @@
                     private _facePositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
                     private _facePositionASL = AGLToASL _facePositionAGL;
 
-
                     if (!((lineIntersectsSurfaces [_cameraPosASL, _facePositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
 
                     private _distance = _cameraPosASL vectorDistance _facePositionASL;
@@ -86,7 +85,6 @@
                             _alpha = (1 - (_distance - 30) / 20) * _alpha;
                         };
 
-
                         private _currentTime = time;
                         private _wts = worldToScreen _facePositionAGL;
                         if !(_wts isEqualTo []) then {
@@ -98,7 +96,6 @@
                                 _unit setVariable [QGVAR(lastTimeInFocus), _currentTime];
                             };
                         };
-
 
                         private _diffTime = _currentTime - (_unit getVariable [QGVAR(lastTimeInFocus), 0]);
 

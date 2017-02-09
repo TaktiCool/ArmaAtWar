@@ -24,7 +24,6 @@ private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
 if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
 
-
 // TODO make a settings for that
 private _enemyCount = {(side group _x) != (side group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], 50]);
 if (_enemyCount != 0) exitWith {false};

@@ -39,7 +39,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
         (_this select 0) params ["_map", "_xPos", "_yPos"];
         (_this select 1) params ["_group", "_attachTo"];
 
-
         if (_group isEqualTo GVAR(currentHoverGroup)) exitWith {};
         GVAR(currentHoverGroup) = _group;
         //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};

@@ -33,14 +33,12 @@
 ["InventoryOpened", {
     (_this select 0) params ["_unit", "_container"];
 
-
     if ((typeOf _container) == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
         if (!(_cursorTarget getVariable ["hasInventory", true]) && ((CLib_Player distance _cursorTarget) < 5)) then {
             _container = _cursorTarget;
         };
     };
-
 
     if (_container getVariable ["cargoCapacity", 0] == 0) exitWith {};
     GVAR(currentContainer) = _container;
@@ -106,7 +104,6 @@
                 private _index = lbCurSel (uiNamespace getVariable QGVAR(CargoListBox));
                 if (_index == -1) exitWith {};
 
-
                 closeDialog 602;
                 private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems), [ObjNull]];
                 private _draggedObject = _draggedObjectArray deleteAt _index;
@@ -162,7 +159,5 @@
             };
 
         }, 1, [_container]] call CFUNC(addPerFrameHandler);
-
-
     }, {!isNull (findDisplay 602)}, [_unit, _container]] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);

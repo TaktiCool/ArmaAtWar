@@ -62,7 +62,6 @@ private _onInterruption = {
     CLib_Player playActionNow "medicStop";
 };
 
-
 ["CAManBase", _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 1000, true, false, ["isNotUnconscious"]] call CFUNC(addHoldAction);
 
 [QGVAR(revive), {

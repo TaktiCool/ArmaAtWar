@@ -26,7 +26,6 @@ GVAR(CargoClasses) = [];
     nil
 } count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
 
-
 ["missionStarted", {
     {
         private _side = configName _x;

@@ -48,5 +48,4 @@ if (_hitPartIndex <= 7) then {
     };
 };
 
-
 _returnedDamage min 0.95;
