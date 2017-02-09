@@ -65,7 +65,7 @@ GVAR(supplyPoints) = [];
                 _vehicle setDamage ((_currentDamage - _repairAmount) max 0);
 
                 if (_supplyUses > 0) then {
-                    _repairPoint setVariable ["supplyUses", _supplyUses - 1];
+                    _repairPoint setVariable ["supplyUses", _supplyUses - 1, true];
                 };
             },
             ["arguments", _object]
