@@ -54,5 +54,4 @@ private _onInterruption = {
     GVAR(forceRespawnStartTime) = -1;
 };
 
-
-[CLib_Player, _title, _iconIdle, _iconProgress, _showCondition, _progressCondition, _onStart, _onProgress,_onComplete,_onInterruption, [], 5000, true, true, ["isNotUnconscious", "isNotInVehicle"]] call CFUNC(addHoldAction);
+[CLib_Player, _title, _iconIdle, _iconProgress, _showCondition, _progressCondition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, true, ["isNotUnconscious", "isNotInVehicle"]] call CFUNC(addHoldAction);

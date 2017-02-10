@@ -19,6 +19,10 @@ class defaultIndependent : defaultVehicle {
     side = "GUER";
 };
 
+class baseSupplyObject {
+    supplyUses = -1;
+};
+
 class CfgEntities {
 
     // mission objects
@@ -65,7 +69,6 @@ class CfgEntities {
         ticketValue = 75;
     };
 
-
     // Air
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 600;
@@ -76,6 +79,17 @@ class CfgEntities {
     class vr_pawnee_0 : vr_ghosthawk_0 {
         respawnTime = 900;
         ticketValue = 75;
+    };
+
+    // Supply
+    class vr_vehicleAmmo_0 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_0 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_repairContainer_0 : baseSupplyObject {
+        repairAmount = 1;
     };
 
 
@@ -129,6 +143,17 @@ class CfgEntities {
     class vr_hellcat_0 : defaultIndependent {
         respawnTime = 900;
         ticketValue = 75;
+    };
+
+    // Supply
+    class vr_vehicleAmmo_1 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_1 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_repairContainer_1 : baseSupplyObject {
+        repairAmount = 1;
     };
 
     /*

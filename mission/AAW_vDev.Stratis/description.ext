@@ -19,7 +19,7 @@ disabledAI = 1;
 author = "AAW Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
 onLoadName = "Arma At War";
 onLoadMission = "Arma At War";
-// loadScreen =  "ui\media\loadingscreen_co.paa";
+// loadScreen =  "ui\media\loadscreen_co.paa";
 
 respawn = 3;
 respawnDelay = 0;
@@ -39,8 +39,8 @@ class CLib {
         "AAW/GarbageCollector",
         "AAW/Logistic",
         "AAW/RespawnUI",
-        "AAW/Repair",
         "AAW/Revive",
+        "AAW/Supply",
         "AAW/Tickets",
         "AAW/UnitTracker",
         "AAW/VehicleRespawn",

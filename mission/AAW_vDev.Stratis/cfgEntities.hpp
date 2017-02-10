@@ -19,6 +19,10 @@ class defaultIndependent : defaultVehicle {
     side = "INDEPENDENT";
 };
 
+class baseSupplyObject {
+    supplyUses = -1;
+};
+
 class CfgEntities {
 
     // mission objects
@@ -50,11 +54,6 @@ class CfgEntities {
     };
     class vr_slammer_1 : vr_slammer_0 {};
 
-    class vr_repairPad_0 {
-        repairAmount = 1;
-        repairUses = -1;
-    };
-
     // Air
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 60;
@@ -66,6 +65,17 @@ class CfgEntities {
         respawnTime = 60;
         ticketValue = 100;
         respawnCondition = "time > 60";
+    };
+
+    // Supply
+    class vr_vehicleAmmo_0 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_0 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_repairContainer_0 : baseSupplyObject {
+        repairAmount = 1;
     };
 
 
@@ -108,6 +118,17 @@ class CfgEntities {
         respawnTime = 60;
         ticketValue = 100;
         respawnCondition = "time > 60";
+    };
+
+    // Supply
+    class vr_vehicleAmmo_1 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_1 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_vehicleParts_0 : baseSupplyObject {
+        repairAmount = 1;
     };
 
     // Logistic

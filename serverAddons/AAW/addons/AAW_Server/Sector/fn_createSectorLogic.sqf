@@ -24,16 +24,15 @@ params [
     ["_ticketValue", 30],
     ["_minUnits", 1],
     ["_maxUnits", 9],
-    ["_captureTime",[30,60]],
-    ["_firstCaptureTime",[5,15]],
-    ["_designator","A"]
+    ["_captureTime", [30, 60]],
+    ["_firstCaptureTime", [5, 15]],
+    ["_designator", "A"]
 ];
-
 
 private _size = getMarkerSize _marker;
 
 private _logic = (call CFUNC(getLogicGroup)) createUnit ["Logic", getMarkerPos _marker, [], 0, "NONE"];
-_logic setVehicleVarName _marker;
+["setVehicleVarName", [_logic, _marker]] call CFUNC(globalEvent);
 GVAR(allSectors) setVariable [_marker, _logic, true];
 GVAR(allSectorsArray) pushBack _logic;
 

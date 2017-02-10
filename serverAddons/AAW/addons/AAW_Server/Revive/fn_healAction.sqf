@@ -65,8 +65,8 @@ private _onInterruption = {
     CLib_Player switchAction "medicStop";
 };
 
-["VanillaAction", "HealSoldier", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress,_onComplete,_onInterruption] call CFUNC(addHoldAction);
-["VanillaAction", "HealSoldierSelf", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress,_onComplete,_onInterruption] call CFUNC(addHoldAction);
+["VanillaAction", "HealSoldier", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
+["VanillaAction", "HealSoldierSelf", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
 
 [QGVAR(heal), {
     (_this select 0) params ["_isMedic"];

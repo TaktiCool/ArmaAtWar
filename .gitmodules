@@ -1,0 +1,3 @@
+[submodule "serverAddons/AAW/tools/SQFLint"]
+	path = serverAddons/AAW/tools/SQFLint
+	url = https://github.com/netfusion/SQFLint

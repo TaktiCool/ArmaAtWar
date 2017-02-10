@@ -16,14 +16,14 @@
 
 params ["_sector"];
 
-private _marker = _sector getVariable ["marker",""];
-private _designator = _sector getVariable ["designator",""];
+private _marker = _sector getVariable ["marker", ""];
+private _designator = _sector getVariable ["designator", ""];
 private _fullname = _sector getVariable ["fullname", ""];
 private _side = _sector getVariable ["side", sideUnknown];
 
 private _color = [
     missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), str _side],
-    [profileNamespace getVariable ["Map_Unknown_R", 0],(profileNamespace getVariable ["Map_Unknown_G", 1]),(profileNamespace getVariable ["Map_Unknown_B", 1]),(profileNamespace getVariable ["Map_Unknown_A", 0.8])]
+    [profileNamespace getVariable ["Map_Unknown_R", 0], profileNamespace getVariable ["Map_Unknown_G", 1], profileNamespace getVariable ["Map_Unknown_B", 1], profileNamespace getVariable ["Map_Unknown_A", 0.8]]
 ] select (_side isEqualTo sideUnknown);
 
 if (isServer) then {
@@ -41,9 +41,9 @@ if (hasInterface) then {
 
     private _activeSides = [];
     {
-        _activeSides pushBackUnique (([_x] call FUNC(getSector)) getVariable ["side",sideUnknown]);
+        _activeSides pushBackUnique (([_x] call FUNC(getSector)) getVariable ["side", sideUnknown]);
         nil
-    } count (_sector getVariable ["dependency",[]]);
+    } count (_sector getVariable ["dependency", []]);
 
     if (count _activeSides > 1 && playerSide in _activeSides) then {
         if (playerSide == _side) then {
@@ -65,7 +65,7 @@ if (hasInterface) then {
         _id,
         [
             ["ICON", _icon, _color, getMarkerPos _marker],
-            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _designator, 2]
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], getMarkerPos _marker, 25, 25, 0, _designator, 2]
         ]
     ] call CFUNC(addMapGraphicsGroup);
 
@@ -73,7 +73,7 @@ if (hasInterface) then {
         _id,
         [
             ["ICON", _icon, _color, getMarkerPos _marker],
-            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], getMarkerPos _marker, 25, 25, 0, _fullname, 2]
+            ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], getMarkerPos _marker, 25, 25, 0, _fullname, 2]
         ],
         "hover"
     ] call CFUNC(addMapGraphicsGroup);

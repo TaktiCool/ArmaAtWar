@@ -16,7 +16,7 @@
 [{
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = CLib_Player modelToWorld [0,1,0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _position = CLib_Player modelToWorld [0, 1, 0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (CLib_Player distance _position >= 20) exitWith {
         [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
     };
@@ -29,8 +29,7 @@
 
         private _objPosition = _position vectorAdd _offset;
         private _obj = createVehicle [_type, _objPosition, [], 0, "CAN_COLLIDE"];
-        _obj setPosASL [_objPosition select 0, _objPosition select 1, (getTerrainHeightASL _objPosition)];
-        _obj setVectorUp (surfaceNormal (getPos _obj));
+        ["setVectorUp", _obj, [_obj, surfaceNormal getPos _obj]] call CFUNC(targetEvent);
         ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
 
         _obj

@@ -19,16 +19,15 @@ if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
 if !(call _condition) exitWith {
     call FUNC(handleNotificationQueue);
 };
-["notificationDisplayed",[_priority, _timeAdded, _text, _color, _time, _condition]] call CFUNC(localEvent);
+["notificationDisplayed", [_priority, _timeAdded, _text, _color, _time, _condition]] call CFUNC(localEvent);
 ([UIVAR(Notification)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Notification), "PLAIN", 0.2];
-private _display = uiNamespace getVariable [UIVAR(Notification),displayNull];
+private _display = uiNamespace getVariable [UIVAR(Notification), displayNull];
 
 private _groupPos = ctrlPosition (_display displayCtrl 4000);
 private _oldGroupPos = +_groupPos;
 _groupPos set [0, 0.5];
 _groupPos set [2, 0];
 (_display displayCtrl 4000) ctrlSetPosition _groupPos;
-
 
 private _bgPos = ctrlPosition (_display displayCtrl 4001);
 _bgPos set [0, -(_bgPos select 2) / 2];
@@ -53,7 +52,6 @@ _txtPos set [0, 0];
 (_display displayCtrl 4001) ctrlCommit 0.2;
 (_display displayCtrl 4002) ctrlCommit 0.2;
 
-
 GVAR(LastNotification) = time;
 GVAR(NextNotification) = time + _time;
 
@@ -61,7 +59,7 @@ GVAR(NextNotification) = time + _time;
     [{
         if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
         call FUNC(handleNotificationQueue);
-    }, {isNull (uiNamespace getVariable [UIVAR(Notification), displayNull])},[]] call CFUNC(waitUntil);
+    }, {isNull (uiNamespace getVariable [UIVAR(Notification), displayNull])}, []] call CFUNC(waitUntil);
 
     ([UIVAR(Notification)] call BIS_fnc_rscLayer) cutFadeOut 0.3;
     ["notificationHidden"] call CFUNC(localEvent);

@@ -37,7 +37,8 @@
     {!(isNull (CLib_Player getVariable [QGVAR(Item), objNull]))},
     {
         [CLib_Player] call FUNC(dropObject);
-    }, ["ignoredCanInteractConditions",["isNotDragging"]]
+    },
+    ["ignoredCanInteractConditions", ["isNotDragging"]]
 ] call CFUNC(addAction);
 
 [
@@ -62,15 +63,14 @@
                 [MLOC(noCargoSpace)] call EFUNC(Common,displayNotification);
             };
 
-
             detach _draggedObject;
             CLib_Player playAction "released";
 
-            ["blockDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
+            ["allowDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, true]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, false]] call CFUNC(serverEvent);
 
-            _draggedObject setPos [0,0,0];
+            _draggedObject setPos [0, 0, 0];
 
             _ItemArray pushBack _draggedObject;
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
@@ -82,7 +82,8 @@
 
             CLib_Player action ["SwitchWeapon", CLib_Player, CLib_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);
-    }, ["ignoredCanInteractConditions", ["isNotDragging"]]
+    },
+    ["ignoredCanInteractConditions", ["isNotDragging"]]
 ] call CFUNC(addAction);
 
 [
@@ -98,7 +99,7 @@
             params ["_vehicle"];
             private _draggedObjectArray = _vehicle getVariable [QGVAR(CargoItems), [objNull]];
             private _draggedObject = _draggedObjectArray deleteAt 0;
-            ["blockDamage", _draggedObject, [_draggedObject, false]] call CFUNC(targetEvent);
+            ["allowDamage", _draggedObject, [_draggedObject, true]] call CFUNC(targetEvent);
             ["hideObject", [_draggedObject, false]] call CFUNC(serverEvent);
             ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
             [_draggedObject, CLib_Player] call FUNC(dragObject);

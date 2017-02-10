@@ -29,4 +29,4 @@ private _fncDrawAllSectors = {
 
 [_fncDrawAllSectors, {
     !isNil QGVAR(ServerInitDone) && {GVAR(ServerInitDone)}
-},[]] call CFUNC(waitUntil);
+}, []] call CFUNC(waitUntil);

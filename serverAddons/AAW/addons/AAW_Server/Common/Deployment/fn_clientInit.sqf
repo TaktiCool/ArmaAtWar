@@ -49,12 +49,12 @@ GVAR(pointMarkerIds) = [];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
                 _color = [0, 0.87, 0, 1];
             };
-            private _icon = ["ICON",(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, _color, _position, 25, 25, 0, "", 1];
-            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 25, 0, format ["%1", _name], 2, 0.09];
+            private _icon = ["ICON", (str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, _color, _position, 25, 25, 0, "", 1];
+            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], _position, 25, 25, 0, format ["%1", _name], 2, 0.09];
             [_x, [_icon, _normalText], "normal"] call CFUNC(addMapGraphicsGroup);
 
             if (_spawnTickets > 0) then {
-                private _onHoverText = ["ICON","a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25,25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.089];
+                private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], _position, 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.089];
                 [_x, [_icon, _onHoverText], "hover"] call CFUNC(addMapGraphicsGroup);
             };
         };

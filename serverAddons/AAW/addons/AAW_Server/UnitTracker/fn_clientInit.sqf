@@ -35,7 +35,6 @@ DFUNC(isValidVehicle) = {
     !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str playerSide) && ((count crew _vehicle) == 0);
 };
 
-
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
 [GVAR(ProcessingSM), "init", {

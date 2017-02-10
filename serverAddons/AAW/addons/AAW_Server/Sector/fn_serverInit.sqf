@@ -20,7 +20,7 @@ GVAR(ServerInitDone) = false;
 
 ["missionStarted", {
     [{
-        GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0,0,0], [], 0, "NONE"];
+        GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0, 0, 0], [], 0, "NONE"];
 
         GVAR(allSectorsArray) = [];
         private _sectors = "true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors");
@@ -53,7 +53,7 @@ GVAR(ServerInitDone) = false;
                     [(_x >> "minUnits"), 1],
                     [(_x >> "maxUnits"), 9],
                     [(_x >> "captureTime"), [30, 60]],
-                    [(_x >> "firstCaptureTime"), [5,15]],
+                    [(_x >> "firstCaptureTime"), [5, 15]],
                     [(_x >> "designator"), ""]
                 ];
                 _settings call FUNC(createSectorLogic);
@@ -91,7 +91,7 @@ GVAR(ServerInitDone) = false;
                 [(_x >> "minUnits"), 1],
                 [(_x >> "maxUnits"), 9],
                 [(_x >> "captureTime"), [30, 60]],
-                [(_x >> "firstCaptureTime"), [5,15]],
+                [(_x >> "firstCaptureTime"), [5, 15]],
                 [(_x >> "designator"), ""]
             ];
             _settings call FUNC(createSectorLogic);
@@ -105,10 +105,8 @@ GVAR(ServerInitDone) = false;
         publicVariable QGVAR(allSectorsArray);
         publicVariable QGVAR(ServerInitDone);
 
-    }, 3,[]] call CFUNC(wait);
+    }, 3, []] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
-
-
 
 ["sectorEntered", {
     (_this select 0) params ["_unit", "_sector"];

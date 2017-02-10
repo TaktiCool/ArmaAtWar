@@ -46,7 +46,6 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= MAXWEIGHT / 2) t
     };
 };
 
-
 _attachPoint = _attachPoint vectorAdd (_draggedObject getVariable ["logisticOffset", [0, 0, 0]]);
 _draggedObject attachTo [_unit, _attachPoint];
 
