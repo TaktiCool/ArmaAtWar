@@ -87,7 +87,7 @@
 
                         private _currentTime = time;
                         private _wts = worldToScreen _facePositionAGL;
-                        if !(_wts isEqualTo []) then {
+                        if (!(_wts isEqualTo [])) then {
                             private _distX = abs ((_wts select 0) - 0.5);
                             private _distY = abs ((_wts select 1) - 0.5);
                             private _marginX = PX(1.5);

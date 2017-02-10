@@ -18,7 +18,7 @@
 params ["_show", "_sectorObject"];
 
 if (_show) then {
-    if !(isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull])) exitWith {
+    if (!isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull])) exitWith {
         [{
             if (GVAR(currentSector) != (_this select 1)) exitWith {};
             [true, _this select 1] call FUNC(showCaptureStatus);

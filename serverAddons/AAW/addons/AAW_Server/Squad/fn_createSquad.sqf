@@ -20,7 +20,9 @@
     // Remove leading whitespace
     private _descriptionArray = toArray _description;
     for "_i" from 0 to (count _descriptionArray - 1) do {
-        if (!((_descriptionArray select _i) in [9, 10, 13, 32])) exitWith {_description = _description select [_i]};
+        if (!((_descriptionArray select _i) in [9, 10, 13, 32])) exitWith {
+            _description = _description select [_i]
+        };
     };
 
     // Check conditions for creation

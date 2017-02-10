@@ -23,7 +23,7 @@
 (_this select 0) params ["_args", "_spawnPos"];
 _args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName"];
 
-if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
+if (!isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)
 };
 private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
@@ -44,7 +44,7 @@ if (_clearOnSpawn) then {
     clearBackpackCargoGlobal _crateObject;
 };
 
-if !(_content isEqualTo []) then {
+if (!(_content isEqualTo [])) then {
 
     // Refill the Cargo
     {

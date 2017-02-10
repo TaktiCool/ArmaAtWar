@@ -96,7 +96,7 @@
         _unloadBtn ctrlSetPosition [0.5 * _gX, 20 * _gY, 5.5 * _gX, 1 * _gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
-            if !(isNull (objectParent CLib_Player)) exitWith {
+            if (!isNull (objectParent CLib_Player)) exitWith {
                 MLOC(UnableToUnload) call EFUNC(Common,displayNotification);
             };
             [{

@@ -38,7 +38,7 @@ GVAR(UnconsciousFrame) = -1;
 GVAR(draw3dIcons) = false;
 
 [{
-    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {
+    if (!(CLib_Player getVariable [QEGVAR(Kit,isMedic), false])) exitWith {
         if (GVAR(draw3dIcons)) then {
             [QGVAR(Icons)] call CFUNC(remove3dGraphics);
         };

@@ -37,7 +37,7 @@ private _allMarkerLocationsDis = [];
     nil
 } count GVAR(markerLocations);
 
-if !(_allMarkerLocationsDis isEqualTo []) then {
+if (!(_allMarkerLocationsDis isEqualTo [])) then {
     _allMarkerLocationsDis sort true;
     ((_allMarkerLocationsDis select 0) select 1) breakOut (_fnc_scriptName + "_Main");
 };

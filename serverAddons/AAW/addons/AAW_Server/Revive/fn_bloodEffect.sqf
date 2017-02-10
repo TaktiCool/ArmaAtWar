@@ -69,7 +69,9 @@ private _fadeOut = {
     _tex ctrlCommit _time;
 };
 
-[{GVAR(PPBloodEffectIntensity) = 0}, 1.5, [_texUpper, 1.5]] call CFUNC(wait);
+[{
+    GVAR(PPBloodEffectIntensity) = 0
+}, 1.5, [_texUpper, 1.5]] call CFUNC(wait);
 
 if (_upperIntensity > 0) then {
     [_fadeOut, 1.5, [_texUpper, 1.5]] call CFUNC(wait);

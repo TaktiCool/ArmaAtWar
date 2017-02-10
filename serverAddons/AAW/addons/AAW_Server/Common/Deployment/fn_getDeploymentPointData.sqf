@@ -26,7 +26,7 @@
     Objects <ARRAY>
 */
 
-#define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
+#define DEFAULTDATA ["", "", [0, 0, 0], sideUnknown, -1, "", "", [], [[], [[], []]]]
 
 params ["_pointID", ["_type", "all"]];
 if (_type isEqualType []) exitWith {

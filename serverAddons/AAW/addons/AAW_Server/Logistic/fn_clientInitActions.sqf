@@ -20,9 +20,9 @@
     3,
     {
         isNull assignedGunner _target
-         && isNull (CLib_Player getVariable [QGVAR(Item), objNull])
-         && isNull (_target getVariable [QGVAR(Player), objNull])
-         && (_target getVariable ["isDragable", 0] == 1)
+        && isNull (CLib_Player getVariable [QGVAR(Item), objNull])
+        && isNull (_target getVariable [QGVAR(Player), objNull])
+        && (_target getVariable ["isDragable", 0] == 1)
     },
     {
         params ["_draggedObject"];

@@ -19,8 +19,8 @@ private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _showCondition = {
     CLib_Player distance _target <= 5 && simulationEnabled _target
-     && {[QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall)}
-     && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
+    && {[QGVAR(isFOBPlaceable), FUNC(canPlace), [_target], 5, QGVAR(ClearFOBPlaceable)] call CFUNC(cachedCall)}
+    && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
 };
 
 GVAR(buildStartTime) = -1;

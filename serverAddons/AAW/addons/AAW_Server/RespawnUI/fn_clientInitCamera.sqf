@@ -101,7 +101,7 @@
     // We need all sectors which have the side of the player and have our current target as a dependency
     private _possibleTargets = (EGVAR(Sector,allSectorsArray) select {
         _x getVariable ["side", sideUnknown] == playerSide
-         && GVAR(currentCameraTarget) in ((_x getVariable ["dependency", []]) apply {_x call EFUNC(Sector,getSector)})
+        && GVAR(currentCameraTarget) in ((_x getVariable ["dependency", []]) apply {_x call EFUNC(Sector,getSector)})
     });
 
     if (!(_possibleTargets isEqualTo [])) then {
