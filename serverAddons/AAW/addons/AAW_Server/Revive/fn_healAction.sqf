@@ -26,12 +26,12 @@ private _condition = {
 };
 
 GVAR(healStartTime) = -1;
-GVAR(healDuration) = ([QGVAR(Settings_healActionDuration), 20] call CFUNC(getSettingOld)) * ([[QGVAR(Settings_healCoefficient), 20] call CFUNC(getSettingOld), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+GVAR(healDuration) = ([CFGREVIVE(healActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(healCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
 private _onStart = {
     params ["_target", "_caller"];
 
     _target setVariable [QGVAR(reviveAction), "HEAL", true];
-    GVAR(healDuration) = ([QGVAR(Settings_healActionDuration), 20] call CFUNC(getSettingOld)) * ([[QGVAR(Settings_healCoefficient), 20] call CFUNC(getSettingOld), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+    GVAR(healDuration) = ([CFGREVIVE(healActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(healCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
     GVAR(healStartTime) = time;
 
     CLib_Player playAction "medicStart";

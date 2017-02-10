@@ -26,14 +26,14 @@ private _condition = {
      && (side group _target == side group CLib_Player)
 };
 
-GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSettingOld)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSettingOld), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+GVAR(reviveDuration) = ([CFGREVIVE(reviveActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
 GVAR(reviveStartTime) = 0;
 private _onStart = {
     params ["_target", "_caller"];
 
     _target setVariable [QGVAR(reviveAction), "REVIVE", true];
     GVAR(reviveStartTime) = time;
-    GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSettingOld)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSettingOld), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+    GVAR(reviveDuration) = ([CFGREVIVE(reviveActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
     CLib_Player playAction "medicStart";
 };
 
