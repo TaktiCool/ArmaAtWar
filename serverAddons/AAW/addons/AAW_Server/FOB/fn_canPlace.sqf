@@ -13,13 +13,14 @@
     Returns:
     is Rally Placeable <Bool>
 */
+
 params ["_target"];
 
 // Check leader
 if (leader CLib_Player != CLib_Player) exitWith {false};
 
 // Check vehicle
-if (!isNull objectParent CLib_Player) exitWith {false};
+if !(isNull objectParent CLib_Player) exitWith {false};
 
 // Check near DPs
 private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);

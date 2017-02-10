@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(GroupTypes), missionConfigFile >> QPREFIX >> "GroupTypes"] call CFUNC(loadSettings);
 
 //GVAR(squadIds) = ("true" configClasses (configFile >> "CfgWorlds" >> "GroupCompany")) apply {getText (_x >> "name")};

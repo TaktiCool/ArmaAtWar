@@ -14,6 +14,7 @@
     Returns:
     None
 */
+
 params ["_pointId", "_name", "_data"];
 
 private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData);

@@ -20,7 +20,7 @@
 */
 
 params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
-if (!(local _unit) || !(alive _unit) || (_unit != CLib_Player)) exitWith {};
+if !(local _unit && alive _unit && _unit == CLib_Player) exitWith {};
 //DUMP(_this);
 //DUMP(getAllHitPointsDamage CLib_Player select 2);
 //DUMP(damage CLib_Player);
@@ -44,7 +44,6 @@ if (_hitPartIndex <= 7) then {
             [true] call FUNC(setUnconscious);
             CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate), 0]) + (_damageReceived min 0.3)];
         };
-
     };
 };
 

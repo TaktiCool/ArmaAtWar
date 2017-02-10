@@ -18,11 +18,11 @@ private _iconIdle = "";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_revive_ca.paa";
 private _condition = {
     alive _target
-    && alive CLib_Player
-    && !(CLib_Player getVariable [QGVAR(isUnconscious), false])
-    && !(_target getVariable [QGVAR(isUnconscious), false])
-    && (_target distance CLib_Player < 3)
-    && (side group _target == side group CLib_Player)
+     && alive CLib_Player
+     && !(CLib_Player getVariable [QGVAR(isUnconscious), false])
+     && !(_target getVariable [QGVAR(isUnconscious), false])
+     && (_target distance CLib_Player < 3)
+     && (side group _target == side group CLib_Player)
 };
 
 GVAR(healStartTime) = -1;
@@ -35,7 +35,6 @@ private _onStart = {
     GVAR(healStartTime) = time;
 
     CLib_Player playAction "medicStart";
-
 };
 
 private _onProgress = {
@@ -81,7 +80,6 @@ private _onInterruption = {
             CLib_Player setHitIndex [_forEachIndex, _x min 0.20];
         } forEach _oldDamage;
 
-        //CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.5];
+        // CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.5];
     };
-
 }] call CFUNC(addEventhandler);

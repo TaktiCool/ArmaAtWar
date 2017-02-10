@@ -13,8 +13,9 @@
     Returns:
     None
 */
+
 [{
-    if (!(call FUNC(canPlace))) exitWith {};
+    if !(call FUNC(canPlace)) exitWith {};
 
     private _position = CLib_Player modelToWorld [0, 1, 0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (CLib_Player distance _position >= 20) exitWith {

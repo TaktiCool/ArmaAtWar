@@ -25,7 +25,7 @@ if (_currentWeight >= MAXWEIGHT) exitWith {
 
 if (_draggedObject isKindOf "StaticWeapon") then {
     private _gunner = gunner _draggedObject;
-    if (!isNull _gunner && alive _gunner) then {
+    if (alive _gunner && !isNull _gunner) then {
         _gunner setPosASL getPosASL _gunner;
     };
 };

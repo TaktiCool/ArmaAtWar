@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 params ["_control"];
 
 // Place the UI out of the screen to animate it back in

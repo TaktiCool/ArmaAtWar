@@ -27,6 +27,7 @@
     Returns:
     Id <STRING>
 */
+
 params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
 
 private _id = format ["%1_%2", _name, _position];

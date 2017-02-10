@@ -13,11 +13,12 @@
     Returns:
     Id list of points <ARRAY>
 */
+
 private _availablePoints = [];
 
 {
     private _pointDetails = GVAR(DeploymentPointStorage) getVariable _x;
-    if (!(isNil "_pointDetails")) then {
+    if !(isNil "_pointDetails") then {
         _pointDetails params ["_name", "_type", "_position", "_availableFor", "_spawnTickets"];
 
         if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {

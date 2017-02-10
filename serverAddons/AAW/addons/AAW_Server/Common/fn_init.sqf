@@ -1,4 +1,6 @@
 #include "macros.hpp"
+/*
+*/
 
 // Version Informations
 private _missionVersionStr = "";
@@ -49,7 +51,6 @@ GVAR(markerLocations) = GVAR(markerLocations) apply {
 
 if (hasInterface) then {
     ["missionStarted", {
-
         private _mainDisplay = findDisplay 46;
 
         _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
@@ -179,7 +180,6 @@ if (hasInterface) then {
             ] call CFUNC(addAction);
         }, 10] call CFUNC(wait);
     };
-
 }] call CFUNC(addEventhandler);
 
 ["performanceCheck", 0] call CFUNC(addIgnoredEventLog);

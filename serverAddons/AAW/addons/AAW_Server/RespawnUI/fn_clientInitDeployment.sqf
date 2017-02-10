@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [UIVAR(DeploymentScreen_onLoad), {
     (_this select 0) params ["_display"];
     uiNamespace setVariable [QGVAR(deploymentDisplay), _display];
@@ -39,7 +40,7 @@
     private _control = _display displayCtrl 404;
 
     // Calculate the respawn timer if necessary
-    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+    if (CLib_Player getVariable [QEGVAR(Common,tempUnit), false] || !alive CLib_Player) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
         [{
@@ -83,7 +84,7 @@
         params ["_deploymentDisplay", "_roleDisplay"];
 
         // Check squad
-        if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
+        if !(groupId group CLib_Player in EGVAR(Squad,squadIds)) exitWith {
             [MLOC(JoinASquad)] call EFUNC(Common,displayNotification);
         };
 
@@ -103,7 +104,7 @@
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
 
-        if (!(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint))) exitWith {
+        if !(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint)) exitWith {
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayNotification);
         };
 

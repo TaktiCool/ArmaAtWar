@@ -13,5 +13,6 @@
     Returns:
     is Deployment Point <Bool>
 */
+
 params ["_pointID"];
 !isNil {GVAR(DeploymentPointStorage) getVariable _pointID};

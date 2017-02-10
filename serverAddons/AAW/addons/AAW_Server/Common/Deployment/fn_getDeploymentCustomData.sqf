@@ -15,6 +15,7 @@
     Returns:
     None
 */
+
 params ["_pointId", "_name", "_default"];
 
 private _customData = (_pointId call FUNC(getDeploymentPointData)) select 8;

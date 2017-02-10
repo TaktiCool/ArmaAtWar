@@ -14,6 +14,7 @@
     Returns:
     <Bool> can change side
 */
+
 params ["_newSide", "_oldSide"];
 
 if ((GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) >= serverTime) exitWith {

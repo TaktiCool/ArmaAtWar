@@ -16,6 +16,7 @@
     Returns:
     availableKits <Number>
 */
+
 params ["_kitName"];
 
 private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], ["isLeader", 0]]] call FUNC(getKitDetails);
@@ -26,7 +27,7 @@ if (_isLeader == 1 && CLib_Player != leader CLib_Player) exitWith {0};
 
 // Check squad type
 private _squadType = (group CLib_Player) getVariable [QEGVAR(Squad,Type), ""];
-if (!(_squadType in _availableInGroups)) exitWith {0};
+if !(_squadType in _availableInGroups) exitWith {0};
 
 // Check group member count
 private _groupMembersCount = count ([group CLib_Player] call CFUNC(groupPlayers));

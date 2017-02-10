@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 GVAR(VehicleRespawnAllVehicles) = [];
 
 ["entityCreated", {
@@ -21,7 +22,6 @@ GVAR(VehicleRespawnAllVehicles) = [];
     private _respawnTime = _entity getVariable ["respawnTime", -1];
 
     if (_respawnTime >= 0) then {
-
         _entity setVariable [QGVAR(respawnPosition), getPos _entity];
         _entity setVariable [QGVAR(respawnDirection), getDir _entity];
 
@@ -36,7 +36,6 @@ GVAR(VehicleRespawnAllVehicles) = [];
             [QGVAR(vehicleRespawnAvailable), _side, _entity] call CFUNC(targetEvent);
         };
     };
-
 }] call CFUNC(addEventHandler);
 
 addMissionEventHandler ["EntityKilled", {
@@ -73,7 +72,7 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
 
     private _defaultState = [["checkVehicles", _vehicles], "init"] select (_vehicles isEqualTo []);
 
-    if (!isNull _vehicle) then {
+    if !(isNull _vehicle) then {
         private _respawnPosition = _vehicle getVariable [QGVAR(respawnPosition), getPos _vehicle];
         private _abandonedVehicleRadius = _vehicle getVariable ["abandonedVehicleRadius", 100];
 
@@ -117,7 +116,6 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
                 };
             };
         };
-
     };
     _defaultState;
 }] call CFUNC(addStatemachineState);

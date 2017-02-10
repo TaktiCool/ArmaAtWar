@@ -79,7 +79,7 @@ GVAR(deactivateTicketSystem) = false;
                 private _ticketValue = _killedEntity getVariable ["ticketValue", 0];
                 private _currentSide = _killedEntity getVariable ["side", "unknown"];
                 private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _currentSide];
-                if (!isNil "_tickets") then {
+                if !(isNil "_tickets") then {
                     _tickets = _tickets - _ticketValue;
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _currentSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _currentSide]);
@@ -90,7 +90,7 @@ GVAR(deactivateTicketSystem) = false;
             if (_killedEntity in allPlayers) exitWith {
                 private _currentSide = side group _killedEntity;
                 private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _currentSide];
-                if (!isNil "_tickets") then {
+                if !(isNil "_tickets") then {
                     _tickets = _tickets - GVAR(playerTicketValue);
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _currentSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _currentSide]);
@@ -103,7 +103,7 @@ GVAR(deactivateTicketSystem) = false;
             (_this select 0) params ["_sector", "_oldSide", "_newSide"];
             if (_oldSide != sideUnknown) then {
                 private _tickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _oldSide];
-                if (!isNil "_tickets") then {
+                if !(isNil "_tickets") then {
                     _tickets = _tickets - (_sector getVariable "ticketValue");
                     missionNamespace setVariable [format [QGVAR(sideTickets_%1), _oldSide], _tickets];
                     publicVariable (format [QGVAR(sideTickets_%1), _oldSide]);
@@ -131,16 +131,13 @@ GVAR(deactivateTicketSystem) = false;
                     publicVariable (format [QGVAR(sideTickets_%1), _side]);
                     "ticketsChanged" call CFUNC(globalEvent);
                 }, GVAR(ticketBleed) select 0, [_looser]] call CFUNC(addPerFrameHandler);
-
             };
-
         }] call CFUNC(addEventhandler);
 
         if (isDedicated) then {
             ["ticketsChanged", {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
-                || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
-
+                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
                     endMission "END1";
                 };
             }] call CFUNC(addEventHandler);
@@ -162,7 +159,7 @@ GVAR(deactivateTicketSystem) = false;
         ["ticketsChanged", {
             if (GVAR(deactivateTicketSystem)) exitWith {};
             private _dialog = uiNamespace getVariable [UIVAR(TicketStatus), displayNull];
-            if (!isNull _dialog) then {
+            if !(isNull _dialog) then {
                 (_dialog displayCtrl 2011) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), EGVAR(Common,competingSides) select 0], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
                 (_dialog displayCtrl 2012) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), EGVAR(Common,competingSides) select 0], ""]);
                 (_dialog displayCtrl 2013) ctrlSetText str (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 0]);
@@ -173,14 +170,14 @@ GVAR(deactivateTicketSystem) = false;
 
             if (isNil QGVAR(musicPlay) && {
                 (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= GVAR(musicStartTickets)
-                || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= GVAR(musicStartTickets)
+                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= GVAR(musicStartTickets)
             }) then {
                 "playEndMusic" call CFUNC(localEvent);
                 GVAR(musicPlay) = true;
             };
 
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
-            || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
+             || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_Player], 1000]) <= 0) then {
                     ["LOOSER", false] spawn BIS_fnc_endMission;
                 } else {
@@ -188,7 +185,6 @@ GVAR(deactivateTicketSystem) = false;
                 };
 
                 GVAR(deactivateTicketSystem) = true;
-
             };
         }] call CFUNC(addEventHandler);
 
@@ -199,7 +195,6 @@ GVAR(deactivateTicketSystem) = false;
             (_dialog displayCtrl 2020) ctrlSetPosition [0.5 + PX(21), safeZoneY];
             (_dialog displayCtrl 2010) ctrlCommit 0.2;
             (_dialog displayCtrl 2020) ctrlCommit 0.2;
-
         }] call CFUNC(addEventHandler);
 
         ["sectorLeaved", {
@@ -210,7 +205,5 @@ GVAR(deactivateTicketSystem) = false;
             (_dialog displayCtrl 2010) ctrlCommit 0.2;
             (_dialog displayCtrl 2020) ctrlCommit 0.2;
         }] call CFUNC(addEventHandler);
-
     };
-
 }, {!isNil QEGVAR(Common,competingSides) && {!(EGVAR(Common,competingSides) isEqualTo [])}}] call CFUNC(waitUntil);

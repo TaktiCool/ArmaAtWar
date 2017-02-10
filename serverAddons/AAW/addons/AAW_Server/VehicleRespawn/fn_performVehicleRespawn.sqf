@@ -22,7 +22,7 @@
 
 params ["_vehicle", "_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
 
-if (!isNull _vehicle) then {
+if !(isNull _vehicle) then {
     deleteVehicle _vehicle;
 };
 

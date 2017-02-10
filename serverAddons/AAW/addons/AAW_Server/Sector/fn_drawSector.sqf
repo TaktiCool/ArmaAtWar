@@ -56,9 +56,7 @@ if (hasInterface) then {
             _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
             ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
             _color = [0.99, 0.26, 0, 1];
-
         };
-
     };
 
     [

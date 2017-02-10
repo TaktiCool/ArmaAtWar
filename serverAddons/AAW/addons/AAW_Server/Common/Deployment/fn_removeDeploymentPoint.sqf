@@ -13,6 +13,7 @@
     Returns:
     Id <STRING>
 */
+
 params ["_pointId"];
 
 private _pointDetails = GVAR(DeploymentPointStorage) getVariable [_pointId, []];

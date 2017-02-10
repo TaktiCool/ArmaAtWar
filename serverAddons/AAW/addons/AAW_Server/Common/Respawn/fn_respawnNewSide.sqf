@@ -14,6 +14,7 @@
     Returns:
     None
 */
+
 params ["_targetPosition", "_targetSide"];
 
 // Create new body
@@ -36,9 +37,9 @@ private _newUnit = _tempGroup createUnit [_className, [-10000, -10000, 50], [], 
 
 // Copy all variables to the new object
 {
-    if (!(_x in CGVAR(ignoreVariables))) then {
+    if !(_x in CGVAR(ignoreVariables)) then {
         private _var = CLib_Player getVariable _x;
-        if (!isNil "_var") then {
+        if !(isNil "_var") then {
             _newUnit setVariable [_x, _var];
         };
     };

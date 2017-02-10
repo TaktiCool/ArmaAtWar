@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 params ["_group"];
 
 private _pointId = _group getVariable [QGVAR(rallyId), ""];

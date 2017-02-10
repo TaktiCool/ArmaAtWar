@@ -16,6 +16,7 @@
     Returns:
     None
 */
+
 params [["_text", "Error No Notification Text", ["", []]], ["_color", [0.2, 0.2, 0.2, 0.8]], ["_time", 6], ["_priority", 0], ["_condition", {true}]];
 
 if (_text isEqualType []) then {

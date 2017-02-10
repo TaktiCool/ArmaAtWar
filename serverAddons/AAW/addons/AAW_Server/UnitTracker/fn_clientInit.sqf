@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 GVAR(playerCounter) = 0;
 GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
@@ -55,7 +56,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 [GVAR(ProcessingSM), "addIcons", {
     params ["_dummy", "_data"];
     _data params ["_units", "_vehicles"];
-    if (!(_units isEqualTo [])) then {
+    if !(_units isEqualTo []) then {
         private _unit = _units deleteAt 0;
 
         while {!([_unit] call FUNC(isValidUnit)) && {!(_units isEqualTo [])}} do {
@@ -66,7 +67,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
             if (isNull objectParent _unit) then { // Infantry
                 private _iconId = toLower format [QGVAR(IconId_Player_%1_%2), _unit, group _unit isEqualTo group CLib_Player];
                 GVAR(processedIcons) pushBack _iconId;
-                if (!(_iconId in GVAR(lastProcessedIcons))) then {
+                if !(_iconId in GVAR(lastProcessedIcons)) then {
                     DUMP("UNIT ICON ADDED: " + _iconId);
                     [_unit, _iconId] call FUNC(addUnitToTracker);
                 };
@@ -74,7 +75,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                 if (leader _unit == _unit) then {
                     _iconId = toLower format [QGVAR(IconId_Group_%1_%2_%3), group _unit, _unit, group _unit isEqualTo group CLib_Player];
                     GVAR(processedIcons) pushBack _iconId;
-                    if (!(_iconId in GVAR(lastProcessedIcons))) then {
+                    if !(_iconId in GVAR(lastProcessedIcons)) then {
                         DUMP("GROUP ICON ADDED: " + _iconId);
                         [group _unit, _iconId] call FUNC(addGroupToTracker);
                     };
@@ -87,7 +88,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                         _nbrGroups = _nbrGroups + 1;
                         private _iconId = toLower format [QGVAR(IconId_Group_%1_%2_%3_%4), group _x, _vehicle, group _unit isEqualTo group CLib_Player, _nbrGroups];
                         GVAR(processedIcons) pushBack _iconId;
-                        if (!(_iconId in GVAR(lastProcessedIcons))) then {
+                        if !(_iconId in GVAR(lastProcessedIcons)) then {
                             DUMP("GROUP ICON ADDED: " + _iconId);
                             [group _x, _iconId, [0, -20 * _nbrGroups]] call FUNC(addGroupToTracker);
                         };
@@ -97,15 +98,14 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
                 _inGroup = _inGroup > 0;
                 private _iconId = toLower format [QGVAR(IconId_Vehicle_%1_%2), _vehicle, _inGroup];
                 GVAR(processedIcons) pushBack _iconId;
-                if (!(_iconId in GVAR(lastProcessedIcons))) then {
+                if !(_iconId in GVAR(lastProcessedIcons)) then {
                     DUMP("VEHICLE ADDED: " + _iconId);
                     [_vehicle, _iconId, _inGroup] call FUNC(addVehicleToTracker);
                 };
             };
         };
-
     };
-    if (!(_vehicles isEqualTo [])) then {
+    if !(_vehicles isEqualTo []) then {
         private _vehicle = _vehicles deleteAt 0;
 
         while {!([_vehicle] call FUNC(isValidVehicle)) && {!(_vehicle isEqualTo [])}} do {
@@ -115,7 +115,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
         if ([_vehicle] call FUNC(isValidVehicle)) then {
             private _iconId = toLower format [QGVAR(IconId_EmptyVehicle_%1), _vehicle];
             GVAR(processedIcons) pushBack _iconId;
-            if (!(_iconId in GVAR(lastProcessedIcons))) then {
+            if !(_iconId in GVAR(lastProcessedIcons)) then {
                 DUMP("EMPTY VEHICLE ADDED: " + _iconId);
                 [_vehicle, _iconId, false, true] call FUNC(addVehicleToTracker);
             };

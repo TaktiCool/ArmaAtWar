@@ -20,7 +20,7 @@ _params params ["_sector"];
 private _side = _sector getVariable ["side", sideUnknown];
 
 // if sector is not active (e.g. dependencies are not fulfilled )
-if (!(_sector getVariable ["isActive", false])) exitWith {
+if !(_sector getVariable ["isActive", false]) exitWith {
     // if sector is neutral and is being captured
     if (_side == sideUnknown && {(_sector getVariable ["captureProgress", []]) != 0}) then {
         // reset capture progress to 0
@@ -59,7 +59,7 @@ private _activeSides = _sector getVariable ["activeSides", []];
 (_sector getVariable ["captureTime", [30, 60]]) params ["_captureTimeMin", "_captureTimeMax"];
 
 // load firstCaptureTime, when sector was not captured before
-if (!(_sector getVariable ["firstCaptureDone", false])) then {
+if !(_sector getVariable ["firstCaptureDone", false]) then {
     private _temp = (_sector getVariable ["firstCaptureTime", [5, 15]]);
     _captureTimeMin = _temp select 0;
     _captureTimeMax = _temp select 1;

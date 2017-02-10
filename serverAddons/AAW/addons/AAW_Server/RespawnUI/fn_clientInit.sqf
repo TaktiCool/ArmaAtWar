@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(RespawnSettings), missionConfigFile >> QPREFIX >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
@@ -21,7 +22,7 @@
 
     [{
         // Respawn screen may already open by user action
-        if (!(isNull (uiNamespace getVariable [QGVAR(respawnDisplay), displayNull]))) exitWith {
+        if !(isNull (uiNamespace getVariable [QGVAR(respawnDisplay), displayNull])) exitWith {
             [UIVAR(RespawnScreen_onLoad), GVAR(respawnDisplay)] call CFUNC(localEvent);
         };
 
@@ -90,7 +91,7 @@
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
 
-        if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+        if (CLib_Player getVariable [QEGVAR(Common,tempUnit), false] || !alive CLib_Player) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };

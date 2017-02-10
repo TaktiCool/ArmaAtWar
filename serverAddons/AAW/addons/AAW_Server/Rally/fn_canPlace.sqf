@@ -13,11 +13,12 @@
     Returns:
     is Rally Placeable <Bool>
 */
+
 // Check leader
 if (leader CLib_Player != CLib_Player) exitWith {false};
 
 // Check vehicle
-if (!isNull objectParent CLib_Player) exitWith {false};
+if !(isNull objectParent CLib_Player) exitWith {false};
 
 // Check time
 private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);

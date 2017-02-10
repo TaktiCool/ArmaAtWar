@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(KitGroups), missionConfigFile >> QPREFIX >> "KitGroups"] call CFUNC(loadSettings);
 {
     [format [QGVAR(Kit_%1), configName _x], _x >> "Kits"] call CFUNC(loadSettings);
@@ -72,7 +73,7 @@
             private _possibleTexts = [];
             private _turretConfigs = [];
             private _scanTurrets = {
-                if (!isClass (_this >> "Turrets")) exitWith {};
+                if !(isClass (_this >> "Turrets")) exitWith {};
 
                 {
                     _possibleTexts pushBack format [_actionText, _vehicleName, getText (_x >> "gunnerName")];

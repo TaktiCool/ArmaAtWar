@@ -13,5 +13,6 @@
     Returns:
     None
 */
+
 params ["_id"];
 [GVAR(lineMarkers), _id, nil, QGVAR(lineMarkersCache)] call CFUNC(setVariable);

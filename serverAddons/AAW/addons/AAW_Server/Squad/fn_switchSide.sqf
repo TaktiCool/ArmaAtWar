@@ -13,12 +13,13 @@
     Returns:
     -
 */
+
 [{
     private _newSide = ((EGVAR(Common,competingSides) select {_x != playerSide}) select 0);
 
     private _oldSide = playerSide;
 
-    if (!call FUNC(canSwitchSide)) exitWith {};
+    if !(call FUNC(canSwitchSide)) exitWith {};
 
     // Leave old squad first
     call FUNC(leaveSquad);

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 private _oldGroup = group CLib_Player;
 
 [CLib_Player] join grpNull;

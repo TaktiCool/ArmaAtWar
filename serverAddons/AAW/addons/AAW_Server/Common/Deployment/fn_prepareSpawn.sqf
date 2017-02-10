@@ -13,6 +13,7 @@
     Returns:
     Position <POSITION>
 */
+
 params ["_pointId"];
 
 private _pointDetails = [_pointId, ["position", "spawntickets", "availablefor"]] call FUNC(getDeploymentPointData);

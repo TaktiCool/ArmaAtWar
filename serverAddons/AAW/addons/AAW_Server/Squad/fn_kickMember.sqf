@@ -13,11 +13,11 @@
     Returns:
     None
 */
+
 [{
     params ["_unit"];
 
     if (CLib_Player != leader _unit || CLib_Player == _unit) exitWith {};
 
     [_unit] join grpNull;
-
 }, _this, "respawn"] call CFUNC(mutex);

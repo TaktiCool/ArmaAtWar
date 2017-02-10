@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(vehicleRespawnAvailable), {
     params ["_args"];
     _args params ["_vehicle"];

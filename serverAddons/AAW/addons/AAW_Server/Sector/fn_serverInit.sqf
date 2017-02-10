@@ -104,7 +104,6 @@ GVAR(ServerInitDone) = false;
         publicVariable QGVAR(allSectors);
         publicVariable QGVAR(allSectorsArray);
         publicVariable QGVAR(ServerInitDone);
-
     }, 3, []] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
 

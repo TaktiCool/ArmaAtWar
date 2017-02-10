@@ -13,6 +13,7 @@
     Returns:
     <BOOL>
 */
+
 params ["_squadTypeName"];
 
 private _availableSquadCount = 1;

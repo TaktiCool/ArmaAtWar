@@ -13,6 +13,7 @@
     Returns:
     0: Return Id <STRING>
 */
+
 params ["_group", "_groupIconId", ["_attachTo", [0, -20]]];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
@@ -195,7 +196,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
 
         //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
         private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
-        if (!isNull _grp) then {
+        if !(isNull _grp) then {
             //ctrlDelete _grp;
             _grp ctrlShow false;
             _grp ctrlCommit 0;
@@ -205,7 +206,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
         if (GVAR(groupInfoPFH) != -1) then {
             GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
         };
-
     },
     _group
 ] call CFUNC(addMapGraphicsEventHandler);

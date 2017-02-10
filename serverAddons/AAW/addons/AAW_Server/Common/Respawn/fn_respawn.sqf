@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 params ["_targetPosition", ["_tempUnit", false]];
 
 // Remove tempUnit status
@@ -25,7 +26,7 @@ if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
     }, 1] call CFUNC(wait);
 };
 
-if (!alive CLib_Player) then {
+if !(alive CLib_Player) then {
     // This will cause one frame delay until new unit is available
     setPlayerRespawnTime 0;
 

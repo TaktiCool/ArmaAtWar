@@ -17,7 +17,7 @@
 GVAR(oldSpawns) = [];
 [{
     {
-        if (!(_x call EFUNC(Common,isAlive)) && !(simulationEnabled _x) && !(isObjectHidden _x)) then {
+        if !(_x call EFUNC(Common,isAlive) || simulationEnabled _x || isObjectHidden _x) then {
             _x call EFUNC(Common,removeDeploymentPoint);
         };
         nil

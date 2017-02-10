@@ -14,6 +14,7 @@
     Returns:
     Array With all Strings <Array>
 */
+
 params ["_kitName", "_details"];
 
 private _prefix = format [QGVAR(Kit_%1_%2_), playerSide, _kitName];

@@ -14,6 +14,7 @@
     Returns:
     The selected data <Any>
 */
+
 params ["_control", "_allData", "_selectedValue"];
 
 if (isNil "_selectedValue") then {
@@ -30,7 +31,7 @@ lnbClear _control;
     [_control, [_rowNumber, 0], _data] call CFUNC(lnbSave);
     _addedData pushBack _data;
 
-    if (!isNil "_icon") then {
+    if !(isNil "_icon") then {
         _control lnbSetPicture [[_rowNumber, 0], _icon];
     };
 

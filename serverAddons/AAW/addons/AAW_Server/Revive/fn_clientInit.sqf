@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(Settings), missionConfigFile >> "AAW" >> "CfgRevive"] call CFUNC(loadSettings);
 
 GVAR(UnconsciousFrame) = -1;
@@ -38,7 +39,7 @@ GVAR(UnconsciousFrame) = -1;
 GVAR(draw3dIcons) = false;
 
 [{
-    if (!(CLib_Player getVariable [QEGVAR(Kit,isMedic), false])) exitWith {
+    if !(CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) exitWith {
         if (GVAR(draw3dIcons)) then {
             [QGVAR(Icons)] call CFUNC(remove3dGraphics);
         };
@@ -66,7 +67,7 @@ GVAR(draw3dIcons) = false;
                     private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
                     private _pelvisPositionASL = AGLToASL _pelvisPositionAGL;
 
-                    if (!((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
+                    if !((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo []) exitWith {false};
 
                     private _distance = _cameraPosASL vectorDistance _pelvisPositionASL;
 
@@ -98,7 +99,7 @@ GVAR(draw3dIcons) = false;
                     private _pelvisPositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
                     private _pelvisPositionASL = AGLToASL _pelvisPositionAGL;
 
-                    if (!((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
+                    if !((lineIntersectsSurfaces [_cameraPosASL, _pelvisPositionASL, CLib_Player, _unit]) isEqualTo []) exitWith {false};
 
                     private _distance = _cameraPosASL vectorDistance _pelvisPositionASL;
 
@@ -166,7 +167,6 @@ GVAR(UnconsciousnessEffects) = [_hndl];
             _x ppEffectCommit 3;
         } count GVAR(UnconsciousnessEffects);
     };
-
 }] call CFUNC(addEventhandler);
 
 ["Respawn", {

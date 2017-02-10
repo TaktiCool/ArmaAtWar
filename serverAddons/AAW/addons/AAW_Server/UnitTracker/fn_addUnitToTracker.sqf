@@ -13,6 +13,7 @@
     Returns:
     0: Return Name <TYPE>
 */
+
 params ["_newUnit", "_iconId"];
 
 //if (!alive _newUnit || side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};

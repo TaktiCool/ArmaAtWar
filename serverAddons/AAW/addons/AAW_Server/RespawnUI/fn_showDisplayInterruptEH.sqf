@@ -17,6 +17,7 @@
     Returns:
     Handled or not <Boolean>
 */
+
 params ["_display", "_dikCode"];
 
 if (_dikCode != 1) exitWith {false};

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 params ["_kitName"];
 
 private _kitDetails = [_kitName, [
