@@ -32,7 +32,7 @@ params ["_target"];
     private _pointObjects = [_composition, _position, _dirVector, _target] call CFUNC(createSimpleObjectComp);
 
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
-    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 

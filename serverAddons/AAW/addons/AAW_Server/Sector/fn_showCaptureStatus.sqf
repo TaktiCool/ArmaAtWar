@@ -43,9 +43,18 @@ if (_show) then {
 
         private _dialog = uiNamespace getVariable QEGVAR(UI,CaptureStatus);
 
+        private _color = [
+            [0.6, 0, 0, 1],
+            [0, 0.4, 0.8, 1]
+        ] select (_aside isEqualTo side group CLib_player);
+
+        if (_aside isEqualTo sideUnknown) then {
+            _color = [0.93, 0.7, 0.01, 1];
+        };
+
         (_dialog displayCtrl 1001) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _side], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
         (_dialog displayCtrl 1002) ctrlSetStructuredText parseText format ["<t font='PuristaBold' size='1'>%1</t>  %2", _sector getVariable ["designator", ""], _sector getVariable ["fullName", ""]];
-        (_dialog displayCtrl 1004) ctrlSetTextColor (missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _aside], [0, 1, 0, 1]]);
+        (_dialog displayCtrl 1004) ctrlSetTextColor _color;
         (_dialog displayCtrl 1004) ctrlCommit 0;
         (_dialog displayCtrl 1004) progressSetPosition (_progress + (serverTime - _lastTick) * _rate);
     }, 0, [_sectorObject]] call CFUNC(addPerFrameHandler);
