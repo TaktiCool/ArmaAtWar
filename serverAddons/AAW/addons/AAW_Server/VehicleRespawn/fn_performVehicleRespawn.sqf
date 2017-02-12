@@ -8,44 +8,51 @@
     Performs a respawn after 5 seconds
 
     Parameter(s):
-    0: Old Vehicle <Object>
-    1: Vehicle Type <String>
-    2: Vehicle variable name <String>
-    3: Vehicle Position <Array>
-    4: Vehicle Direction <Array>
-    5: Respawn Condition <String>
-    6: Respawn Counter <Number>
+    0: Old vehicle <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_vehicle", "_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
+params [
+    ["_vehicle", objNull, [objNull]]
+];
 
-if !(isNull _vehicle) then {
-    deleteVehicle _vehicle;
+if (isNull _vehicle) exitWith {
+    LOG("Tried to perform vehicle respawn on objNull");
 };
 
+private _respawnCondition = compile (_vehicle getVariable ["respawnCondition", "true"]); // TODO #336
+private _vehicleType = typeOf _vehicle;
+private _vehicleVarName = vehicleVarName _vehicle;
+private _respawnPosition = _vehicle getVariable [QGVAR(respawnPosition), getPos _vehicle];
+private _respawnDirection = _vehicle getVariable [QGVAR(respawnDirection), getDir _vehicle];
+private _respawnCounter = _vehicle getVariable [QGVAR(respawnCounter), 0];
+
+deleteVehicle _vehicle;
+
 [{
-    params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
-
-    private _paramsString = "params [""_respawnCounter""];";
-
-    private _condition = compile (_paramsString + _respawnCondition);
+    params ["_respawnCondition", "_respawnArgs"];
 
     [{
-        (_this select 1) params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
-        _position = [_position, 10, 0, _type] call CFUNC(findSavePosition);
-        private _vehicle = _type createVehicle _position;
-        _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1, true];
-        _vehicle setDir _direction;
-        ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
-        missionNamespace setVariable [_varName, _vehicle, true];
-        _vehicle setVariable [QGVAR(vehicleVarName), _varName, true];
+        params ["_vehicleType", "_vehicleVarName", "_respawnPosition", "_respawnDirection", "_respawnCounter"];
+
+        _respawnPosition = [_respawnPosition, 10, 0, _vehicleType] call CFUNC(findSavePosition);
+
+        private _vehicle = _vehicleType createVehicle _respawnPosition;
+
+        ["setVehicleVarName", [_vehicle, _vehicleVarName]] call CFUNC(globalEvent);
+        missionNamespace setVariable [_vehicleVarName, _vehicle, true];
+        _vehicle setVariable [QGVAR(vehicleVarName), _vehicleVarName, true];
+
+        _vehicle setDir _respawnDirection;
+        _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1];
+
         clearItemCargoGlobal _vehicle;
         clearMagazineCargoGlobal _vehicle;
         clearWeaponCargoGlobal _vehicle;
         clearBackpackCargoGlobal _vehicle;
-        _vehicle disableTIEquipment true;
-    }, _condition, [_respawnCounter, _this]] call CFUNC(waitUntil);
-}, 3, [_type, _varName, _position, _direction, _respawnCondition, _respawnCounter]] call CFUNC(wait);
+
+        _vehicle disableTIEquipment true; // TODO make this configurable
+    }, _respawnCondition, _respawnArgs] call CFUNC(waitUntil);
+}, 3, [_respawnCondition, [_vehicleType, _vehicleVarName, _respawnPosition, _respawnDirection, _respawnCounter]]] call CFUNC(wait);
