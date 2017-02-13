@@ -8,13 +8,15 @@
     Draws a sector marker
 
     Parameter(s):
-    0: SectorId <String> or Sector <Logic>
+    0: Sector <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_sector"];
+params [
+    ["_sector", objNull, [objNull]]
+];
 
 private _marker = _sector getVariable ["marker", ""];
 private _designator = _sector getVariable ["designator", ""];

@@ -5,7 +5,7 @@
     Author: joko // Jonas, BadGuy
 
     Description:
-    init for TicketBleed System
+    Init for TicketBleed System
 
     Parameter(s):
     None

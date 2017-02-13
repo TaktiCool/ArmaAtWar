@@ -8,14 +8,17 @@
     Move the player to new unit of another side
 
     Parameter(s):
-    0: Spawn position <Position3D>
-    1: Target side <Side>
+    0: Spawn position <Array> (Default: [0, 0, 0])
+    1: Target side <Side> (Default: sideUnknown)
 
     Returns:
     None
 */
 
-params ["_targetPosition", "_targetSide"];
+params [
+    ["_targetPosition", [0, 0, 0], [[]], 3],
+    ["_targetSide", sideUnknown, [sideUnknown]]
+];
 
 // Create new body
 private _className = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str _targetSide) >> "playerClass");

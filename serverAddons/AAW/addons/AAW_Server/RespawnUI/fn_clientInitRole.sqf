@@ -2,10 +2,10 @@
 /*
     Arma At War
 
-    Author:
+    Author: NetFusion
 
     Description:
-    [Description]
+    Client init for role related parts of respawn UI
 
     Parameter(s):
     None

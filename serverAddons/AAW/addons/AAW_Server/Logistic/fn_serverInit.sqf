@@ -32,5 +32,6 @@ DFUNC(setLogisticVariables) = {
 ["entityCreated", {
     (_this select 0) call FUNC(setLogisticVariables);
 }] call CFUNC(addEventHandler);
-
-["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
+["spawnCrate", {
+    (_this select 0) call FUNC(spawnCrate);
+}] call CFUNC(addEventHandler);

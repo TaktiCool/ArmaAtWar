@@ -8,13 +8,15 @@
     Drop Dragged Objecte
 
     Parameter(s):
-    0: Unit that Drag a Object <Object>
+    0: Unit that Drag a Object <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_unit"];
+params [
+    ["_unit", objNull, [objNull]]
+];
 
 private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
 detach _draggedObject;

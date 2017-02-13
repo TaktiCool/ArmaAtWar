@@ -8,13 +8,15 @@
     Prepares to spawn at a point
 
     Parameter(s):
-    0: Id <STRING>
+    0: Id <String> (Default: "")
 
     Returns:
     Position <POSITION>
 */
 
-params ["_pointId"];
+params [
+    ["_pointId", "", [""]]
+];
 
 private _pointDetails = [_pointId, ["position", "spawntickets", "availablefor"]] call FUNC(getDeploymentPointData);
 _pointDetails params [["_position", [0, 0, 0]], ["_spawnTickets", -1], "_availableFor"];

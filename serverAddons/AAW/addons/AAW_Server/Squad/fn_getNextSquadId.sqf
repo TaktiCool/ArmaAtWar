@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    -
+    Returns the next available squad id
 
     Parameter(s):
     None

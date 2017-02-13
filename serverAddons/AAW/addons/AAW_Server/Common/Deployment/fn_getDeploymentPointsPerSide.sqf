@@ -8,13 +8,16 @@
     Get all available spawn points per side
 
     Parameter(s):
-    None
+    0: Side <Side> (Default: sideUnknown)
 
     Returns:
     Id list of points <ARRAY>
 */
 
-params [["_side", sideUnknown]];
+params [
+    ["_side", sideUnknown, [sideUnknown]]
+];
+
 private _availablePoints = [];
 
 {

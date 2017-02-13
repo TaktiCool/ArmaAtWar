@@ -8,11 +8,14 @@
     PlaceHolder Function for Later Medical System used later as Wraper Function
 
     Parameter(s):
-    0: Unit that get Checkt <Object>
+    0: Unit that get Checkt <Object> (Default: objNull)
 
     Returns:
     is Alive <Bool>
 */
 
-params ["_unit"];
+params [
+    ["_unit", objNull, [objNull]]
+];
+
 alive _unit && !(_unit getVariable [QEGVAR(Revive,isUnconscious), false])

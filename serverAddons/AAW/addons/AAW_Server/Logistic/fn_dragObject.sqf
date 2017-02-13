@@ -8,16 +8,20 @@
     Attach Object to Player and let him drag it
 
     Parameter(s):
-    0: Object that the Unit will Drag <Object>
-    1: Player that Drag the Object <Object>
+    0: Object that the Unit will Drag <Object> (Default: objNull)
+    1: Player that Drag the Object <Object> (Default: objNull)
 
     Returns:
     None
 */
 
+params [
+    ["_draggedObject", objNull, [objNull]],
+    ["_unit", objNull, [objNull]]
+];
+
 #define MAXWEIGHT 800
 
-params ["_draggedObject", "_unit"];
 private _currentWeight = _draggedObject call FUNC(getWeight);
 if (_currentWeight >= MAXWEIGHT) exitWith {
     [format [MLOC(itemToHeavy), _currentWeight - MAXWEIGHT]] call EFUNC(Common,displayNotification);

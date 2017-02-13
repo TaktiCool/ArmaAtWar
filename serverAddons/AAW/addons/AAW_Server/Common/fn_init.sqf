@@ -1,5 +1,14 @@
 #include "macros.hpp"
 /*
+    Arma At War
+
+    Author: joko // Jonas, NetFusion, BadGuy
+
+    Description:
+    Init file for common stuff
+
+    Parameter(s):
+    None
 */
 
 // Version Informations

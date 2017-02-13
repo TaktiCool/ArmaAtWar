@@ -8,12 +8,17 @@
     Creates a squad on players side
 
     Parameter(s):
-    1: Description <STRING>
-    2: Type <STRING>
+    0: Description <String> (Default: "")
+    1: Type <String> (Default: "")
 
     Returns:
     None
 */
+
+params [
+    ["_description", "", [""]],
+    ["_type", "", [""]]
+];
 
 [{
     params ["_description", "_type"];
@@ -38,4 +43,4 @@
     _newGroup setVariable [QGVAR(Type), _type, true];
 
     [CLib_Player] join _newGroup;
-}, _this, "respawn"] call CFUNC(mutex);
+}, [_description, _type], "respawn"] call CFUNC(mutex);

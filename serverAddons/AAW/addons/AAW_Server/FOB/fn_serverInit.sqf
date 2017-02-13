@@ -8,7 +8,7 @@
     Server Init
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

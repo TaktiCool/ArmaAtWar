@@ -8,11 +8,14 @@
     Remove a Position from the Compass
 
     Parameter(s):
-    0: Marker ID <String>
+    0: Marker ID <String> (Default: "")
 
     Returns:
     None
 */
 
-params ["_id"];
+params [
+    ["_id", "", [""]]
+];
+
 [GVAR(lineMarkers), _id, nil, QGVAR(lineMarkersCache)] call CFUNC(setVariable);

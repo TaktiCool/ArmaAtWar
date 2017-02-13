@@ -8,13 +8,15 @@
     Sets players unconsciousness state
 
     Parameter(s):
-    1: state <Boolean>
+    0: State <Bool> (Default: true)
 
     Returns:
     -
 */
 
-params [["_state", true]];
+params [
+    ["_state", true, [true]]
+];
 
 if (_state) then {
     if !(CLib_Player getVariable [QGVAR(isUnconscious), false]) then {

@@ -8,14 +8,19 @@
     Update a RscListNBox with new values.
 
     Parameter(s):
-    0: IDC of the control <Number>
-    1: Array of data ["Name", _data, "/icon"] <Array>
+    0: Control <Control> (Default: controlNull)
+    1: Array of data <Array> (Default: [])
+    2: Selected value <Anything> (Default: nil)
 
     Returns:
     The selected data <Any>
 */
 
-params ["_control", "_allData", "_selectedValue"];
+params [
+    ["_control", controlNull, [controlNull]],
+    ["_allData", [], [[]], []],
+    ["_selectedValue", nil, []]
+];
 
 if (isNil "_selectedValue") then {
     private _selectedEntry = lnbCurSelRow _control;

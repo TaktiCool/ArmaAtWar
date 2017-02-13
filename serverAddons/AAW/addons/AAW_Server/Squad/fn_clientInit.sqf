@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    -
+    Client init for squad system
 
     Parameter(s):
     None

@@ -8,14 +8,17 @@
     Toggle Status Layer of current Sector
 
     Parameter(s):
-    0: Show or Hide Layer <Bool>
-    1: Sector <String>
+    0: Show or Hide Layer <Bool> (Default: true)
+    1: Sector <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_show", "_sectorObject"];
+params [
+    ["_show", true, [true]],
+    ["_sectorObject", objNull, [objNull]]
+];
 
 if (_show) then {
     if !(isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull])) exitWith {

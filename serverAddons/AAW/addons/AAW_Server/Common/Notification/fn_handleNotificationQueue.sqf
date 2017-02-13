@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Comunity Lib - CLib
+    Arma At War
 
     Author: joko // Jonas, BadGuy
 

@@ -5,7 +5,7 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    get All Kit for player side
+    Get All Kit for player side
 
     Parameter(s):
     None

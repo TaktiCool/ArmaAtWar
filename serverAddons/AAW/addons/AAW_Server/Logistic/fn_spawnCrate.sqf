@@ -5,23 +5,29 @@
     Author: joko // Jonas
 
     Description:
-    Spawn a Crate at a Position
-
-    Remark:
-    Only Execute on Server
+    Spawn a Crate at a Position. Only Execute on Server
 
     Parameter(s):
+    0: Object Arguments <Array> (Default: [])
+    1: Spawn Position <Array> (Default: [0, 0, 0])
+
+    Remarks:
     0: Object Arguments <Array>
         0: Object Classname <String>
         1: Content of the Object <Array>(Default: [])
-    1: Spawn Position <Array>
 
     Returns:
     None
 */
 
-(_this select 0) params ["_args", "_spawnPos"];
+params [
+    ["_args", [], [[]], 4],
+    ["_spawnPos", [0, 0, 0], [[]], 3]
+];
+
 _args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName"];
+
+if (!isServer) exitWith {};
 
 if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)

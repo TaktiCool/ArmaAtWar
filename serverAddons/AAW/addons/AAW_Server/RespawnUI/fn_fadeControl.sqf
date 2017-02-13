@@ -8,13 +8,15 @@
     Fade a control from the closest side to its original position.
 
     Parameter(s):
-    0: IDC of the control <Number>
+    0: Control <Control> (Default: controlNull)
 
     Returns:
     None
 */
 
-params ["_control"];
+params [
+    ["_control", controlNull, [controlNull]]
+];
 
 // Place the UI out of the screen to animate it back in
 private _initialPosition = ctrlPosition _control;

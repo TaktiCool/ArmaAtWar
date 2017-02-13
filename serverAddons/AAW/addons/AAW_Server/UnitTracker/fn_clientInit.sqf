@@ -33,7 +33,9 @@ DFUNC(isValidUnit) = {
 
 DFUNC(isValidVehicle) = {
     params ["_vehicle"];
-    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str playerSide) && ((count crew _vehicle) == 0);
+    !isNull _vehicle
+     && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str playerSide) // TODO #336
+     && ((count crew _vehicle) == 0);
 };
 
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
@@ -131,23 +133,9 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
             [_x, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
             [_x] call CFUNC(removeMapGraphicsGroup);
         } count (GVAR(lastProcessedIcons) - GVAR(processedIcons));
-        //[["deleteIcons", _iconsToDelete], _defaultState] select (_iconsToDelete isEqualTo []);
     };
     _defaultState;
 }] call CFUNC(addStatemachineState);
-/*
-[GVAR(ProcessingSM), "deleteIcons", {
-    params ["_dummy", "_iconsToDelete"];
-
-    private _icon = _iconsToDelete deleteAt 0;
-    DUMP("ICON REMOVED: " + _icon);
-    [_icon] call CFUNC(removeMapGraphicsGroup);
-    [_icon, "hoverin"] call CFUNC(removeMapGraphicsEventHandler);
-    [_icon, "hoverout"] call CFUNC(removeMapGraphicsEventHandler);
-
-    [["deleteIcons", _iconsToDelete], "init"] select (_iconsToDelete isEqualTo []);
-}] call CFUNC(addStatemachineState);
-*/
 
 ["DrawMapGraphics", {
     GVAR(ProcessingSM) call CFUNC(stepStatemachine);

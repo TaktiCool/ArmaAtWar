@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Init Squad Spawn system (currently just for fun and testing :D)
+    Init Squad Spawn system. Currently just for fun and testing.
 
     Parameter(s):
     None

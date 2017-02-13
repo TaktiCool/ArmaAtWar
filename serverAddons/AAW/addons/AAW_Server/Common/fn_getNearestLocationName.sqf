@@ -5,19 +5,20 @@
     Author: joko // Jonas, NetFusion
 
     Description:
-    Find a location with a name and if in 800m Radius is no Location or Marker from the Sector Module try to build a Name from Location Type and Position
-
-    Remark:
-    !!!This Function is Very Heavy Dont call to Often!!!
+    Find a location with a name and if in 800m Radius is no Location or Marker from the Sector Module try to build a Name from Location Type and Position.
+    This Function is Very Heavy Dont call to Often
 
     Parameter(s):
-    None
+    0: Position <Array> (Default: [0, 0, 0])
 
     Returns:
     None
 */
 
-params ["_position"];
+params [
+    ["_position", [0, 0, 0], [[]], 3]
+];
+
 private _allLocations = nearestLocations [_position, GVAR(allLocationTypes), 800];
 
 // try to Find a Location with Text

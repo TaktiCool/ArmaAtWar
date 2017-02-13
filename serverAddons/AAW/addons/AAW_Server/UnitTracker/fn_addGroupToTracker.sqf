@@ -8,13 +8,19 @@
     Add or Update Group in Tracker
 
     Parameter(s):
-    0: group <Group>
+    0: Group <Group> (Default: grpNull)
+    1: Group icon id <String> (Default: "")
+    2: Attach offset <Array> (Default: [0, -20])
 
     Returns:
-    0: Return Id <STRING>
+    0: Return Id <String>
 */
 
-params ["_group", "_groupIconId", ["_attachTo", [0, -20]]];
+params [
+    ["_group", grpNull, [grpNull]],
+    ["_groupIconId", "", [""]],
+    ["_attachTo", [0, -20], [[]], 2]
+];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];

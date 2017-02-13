@@ -8,7 +8,7 @@
     Heal Action init
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

@@ -8,7 +8,7 @@
     Action to unload an unconscious unit out of a vehicle
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

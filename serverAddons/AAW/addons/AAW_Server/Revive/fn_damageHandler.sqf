@@ -8,18 +8,26 @@
     Event handler for the HandleDamage event
 
     Parameter(s):
-    0: Unit <Object>
-    1: selectionName <String>
-    2: damage <Number>
-    3: source <Object>
-    4: projectile <String>
-    5: hitPartIndex <Number>
+    0: Unit <Object> (Default: objNull)
+    1: SelectionName <String> (Default: "")
+    2: Damage <Number> (Default: 0)
+    3: Source <Object> (Default: objNull)
+    4: Projectile <String> (Default: "")
+    5: HitPartIndex <Number> (Default: 0)
 
     Returns:
     0: resulting damage <Number>
 */
 
-params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
+params [
+    ["_unit", objNull, [objNull]],
+    ["_selectionName", "", [""]],
+    ["_damage", 0, [0]],
+    ["_source", objNull, [objNull]],
+    ["_projectile", "", [""]],
+    ["_hitPartIndex", 0, [0]]
+];
+
 if !(local _unit && alive _unit && _unit == CLib_Player) exitWith {};
 //DUMP(_this);
 //DUMP(getAllHitPointsDamage CLib_Player select 2);

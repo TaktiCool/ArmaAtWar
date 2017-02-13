@@ -8,15 +8,18 @@
     Add or Update Unit in Tracker
 
     Parameter(s):
-    0: New Unit <Object>
+    0: New Unit <Object> (Default: objNull)
+    1: Icon name <String> (Default: "")
 
     Returns:
-    0: Return Name <TYPE>
+    0: Icon name <String>
 */
 
-params ["_newUnit", "_iconId"];
+params [
+    ["_newUnit", objNull, [objNull]],
+    ["_iconId", "", [""]]
+];
 
-//if (!alive _newUnit || side _newUnit != playerSide || isHidden _newUnit || !simulationEnabled _newUnit) exitWith {""};
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
 

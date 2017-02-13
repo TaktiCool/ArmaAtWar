@@ -5,10 +5,10 @@
     Author: NetFusion
 
     Description:
-    -
+    Switches the player to the other side
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

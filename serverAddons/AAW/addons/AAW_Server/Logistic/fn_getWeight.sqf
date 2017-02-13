@@ -2,19 +2,21 @@
 /*
     Arma At War
 
-    Author: joko // Jonas && NetFusion
+    Author: joko // Jonas, NetFusion
 
     Description:
     Returns the weight of a crate.
 
     Parameter(s):
-    0: Crate to get weight of <Object>
+    0: Crate to get weight of <Object> (Default: objNull)
 
     Returns:
     Weight <Number>
 */
 
-params ["_object"];
+params [
+    ["_object", objNull, [objNull]]
+];
 
 // Initialize the total weight.
 private _totalWeight = 0;

@@ -8,7 +8,7 @@
     Handles the bleedout timer when unconscious
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

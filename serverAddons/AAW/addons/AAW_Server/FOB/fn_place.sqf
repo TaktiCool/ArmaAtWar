@@ -8,13 +8,15 @@
     Place FOB
 
     Parameter(s):
-    None
+    0: Target <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_target"];
+params [
+    ["_target", objNull, [objNull]]
+];
 
 [{
     params ["_target"];
@@ -38,4 +40,4 @@ params ["_target"];
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
-}, [_target], "respawn"] call CFUNC(mutex);
+}, _target, "respawn"] call CFUNC(mutex);

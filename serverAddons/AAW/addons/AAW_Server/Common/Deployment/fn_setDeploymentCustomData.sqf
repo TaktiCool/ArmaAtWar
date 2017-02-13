@@ -5,17 +5,22 @@
     Author: joko // Jonas
 
     Description:
-    set Custom Deploymentdata to Deploymentpoint
+    Set Custom Deploymentdata to Deploymentpoint
 
     Parameter(s):
-    0: PointID <String>
-    1: Dataname <String>
+    0: PointID <String> (Default: "")
+    1: Dataname <String> (Default: "")
+    2: Data <Anything> (Default: nil)
 
     Returns:
     None
 */
 
-params ["_pointId", "_name", "_data"];
+params [
+    ["_pointId", "", [""]],
+    ["_name", "", [""]],
+    ["_data", nil, []]
+];
 
 private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData);
 

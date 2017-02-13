@@ -24,7 +24,12 @@ if (isNil QGVAR(allSectorsArray)) exitWith {};
         if (!_isActive) then {
             // set as active sector and update start per frame handler
             _x setVariable ["isActive", true];
-            [FUNC(sectorUpdatePFH), 0, [_x]] call CFUNC(addPerFrameHandler);
+            [{
+                params ["_params", "_pfhId"];
+                if !(_params call FUNC(sectorUpdatePFH)) then {
+                    _pfhId call CFUNC(removePerFrameHandler);
+                };
+            }, 0, [_x]] call CFUNC(addPerFrameHandler);
         };
     } else { // is not captureable
         // and was active

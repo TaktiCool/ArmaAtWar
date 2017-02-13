@@ -8,17 +8,17 @@
     This function shows the interrupt display which usually opens when you press the escape button.
 
     Parameter(s):
-    0: Display <Display>
-    1: DIKCode <Number>
-    2: ShiftKey <Boolean>
-    3: CtrlKey <Boolean>
-    4: AltKey <Boolean>
+    0: Display <Display> (Default: displayNull)
+    1: DIKCode <Number> (Default: 0)
 
     Returns:
     Handled or not <Boolean>
 */
 
-params ["_display", "_dikCode"];
+params [
+    ["_display", displayNull, [displayNull]],
+    ["_dikCode", 0, [0]]
+];
 
 if (_dikCode != 1) exitWith {false};
 

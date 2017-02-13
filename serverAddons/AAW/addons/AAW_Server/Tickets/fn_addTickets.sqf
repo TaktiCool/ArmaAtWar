@@ -5,17 +5,20 @@
     Author: BadGuy
 
     Description:
-    removesTicket
+    Adds tickets for a side
 
     Parameter(s):
-    0: side <Side>
-    0: tickets <Number>
+    0: Side <Side> (Default: sideUnknown)
+    1: Tickets <Number> (Default: 0)
 
     Returns:
     -
 */
 
-params [["_side", sideUnknown], ["_tickets", 0]];
+params [
+    ["_side", sideUnknown, [sideUnknown]],
+    ["_tickets", 0, [0]]
+];
 
 private _allTickets = missionNamespace getVariable format [QGVAR(sideTickets_%1), _side];
 if !(isNil "_allTickets") then {

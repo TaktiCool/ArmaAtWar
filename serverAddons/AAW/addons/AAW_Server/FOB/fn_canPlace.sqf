@@ -8,13 +8,15 @@
     Checks if FOB is placeable
 
     Parameter(s):
-    None
+    0: Target <Object> (Default: objNull)
 
     Returns:
     is Rally Placeable <Bool>
 */
 
-params ["_target"];
+params [
+    ["_target", objNull, [objNull]]
+];
 
 // Check leader
 if (leader CLib_Player != CLib_Player) exitWith {false};
