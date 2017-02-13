@@ -35,7 +35,7 @@
 
     if ((typeOf _container) == "GroundWeaponHolder") then {
         private _cursorTarget = cursorTarget;
-        if (!(_cursorTarget getVariable ["hasInventory", true]) && ((CLib_Player distance _cursorTarget) < 5)) then {
+        if !(_cursorTarget getVariable ["hasInventory", true] && CLib_Player distance _cursorTarget < 5) then {
             _container = _cursorTarget;
         };
     };
@@ -96,7 +96,7 @@
         _unloadBtn ctrlSetPosition [0.5 * _gX, 20 * _gY, 5.5 * _gX, 1 * _gY];
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
-            if !(isNull (objectParent CLib_Player)) exitWith {
+            if !(isNull objectParent CLib_Player) exitWith {
                 MLOC(UnableToUnload) call EFUNC(Common,displayNotification);
             };
             [{
@@ -157,7 +157,6 @@
             with uiNamespace do {
                 GVAR(CargoLoadBar) progressSetPosition (_usedCargoCapacity / _cargoCapacity);
             };
-
         }, 1, [_container]] call CFUNC(addPerFrameHandler);
     }, {!isNull (findDisplay 602)}, [_unit, _container]] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);

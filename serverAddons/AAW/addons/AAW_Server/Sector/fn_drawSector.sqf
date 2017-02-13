@@ -8,13 +8,15 @@
     Draws a sector marker
 
     Parameter(s):
-    0: SectorId <String> or Sector <Logic>
+    0: Sector <Object> (Default: objNull)
 
     Returns:
     None
 */
 
-params ["_sector"];
+params [
+    ["_sector", objNull, [objNull]]
+];
 
 private _marker = _sector getVariable ["marker", ""];
 private _designator = _sector getVariable ["designator", ""];
@@ -56,9 +58,7 @@ if (hasInterface) then {
             _icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
             ["ATTACK", [0.99, 0.26, 0, 1], getMarkerPos _marker] call EFUNC(CompassUI,addLineMarker);
             _color = [0.99, 0.26, 0, 1];
-
         };
-
     };
 
     [

@@ -8,15 +8,15 @@
     Adds spawn point
 
     Parameter(s):
-    0: Name <STRING>
-    1: Type <String>
-    2: Position <ARRAY>
-    3: Spawn point for <SIDE, GROUP>
-    4: Tickets <NUMBER>
-    5: Icon path <STRING>
-    6: Map icon path <STRING>
-    7: Objects <ARRAY>
-    8: CostumData <Array>
+    0: Name <String> (Default: "")
+    1: Type <String> (Default: "")
+    2: Position <Array> (Default: [0, 0, 0])
+    3: Spawn point for <Side, Group> (Default: sideUnknown)
+    4: Tickets <Number> (Default: 0)
+    5: Icon path <String> (Default: "")
+    6: Map icon path <String> (Default: "")
+    7: Objects <Array> (Default: [])
+    8: CostumData <Array> (Default: [])
 
 
     CustomData Array Structure:
@@ -27,7 +27,18 @@
     Returns:
     Id <STRING>
 */
-params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
+
+params [
+    ["_name", "", [""]],
+    ["_type", "", [""]],
+    ["_position", [0, 0, 0], [[]], 3],
+    ["_availableFor", sideUnknown, [sideUnknown, grpNull]],
+    ["_spawnTickets", 0, [0]],
+    ["_icon", "", [""]],
+    ["_mapIcon", "", [""]],
+    ["_pointObjects", [], [[]], []],
+    ["_customData", [], [[]], []]
+];
 
 private _id = format ["%1_%2", _name, _position];
 

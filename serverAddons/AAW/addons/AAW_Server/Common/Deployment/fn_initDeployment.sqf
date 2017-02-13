@@ -13,4 +13,5 @@
     Returns:
     None
 */
+
 GVAR(DeploymentVarTypes) = ["name", "type", "position", "availablefor", "spawntickets", "icon", "mapicon", "pointobjects", "customdata"];

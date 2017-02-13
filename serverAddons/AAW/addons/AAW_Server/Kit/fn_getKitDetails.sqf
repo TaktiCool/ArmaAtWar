@@ -5,16 +5,20 @@
     Author: NetFusion
 
     Description:
-    get kit details
+    Get kit details
 
     Parameter(s):
-    0: Kit name
-    1: Requested details <Array>
+    0: Kit name <String> (Default: "")
+    1: Requested details <Array> (Default: [])
 
     Returns:
     Array With all Strings <Array>
 */
-params ["_kitName", "_details"];
+
+params [
+    ["_kitName", "", [""]],
+    ["_details", [], [[]], []]
+];
 
 private _prefix = format [QGVAR(Kit_%1_%2_), playerSide, _kitName];
 

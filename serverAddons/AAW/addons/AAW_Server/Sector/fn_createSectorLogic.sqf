@@ -8,25 +8,28 @@
     Create Sector Logic and set all Base Variables
 
     Parameter(s):
-    0: Marker of the Sector <String>
-    1: Depentency of the Sector <Array>
-    2: TicketBleed of the Sector <Number>
-    3: Minimum Units in the Area to start Capturing <Number>
-    4: Time To Capture the Sector <Number>
-    5: Sector Designator <String>
+    0: Marker of the Sector <String> (Default: "")
+    1: Dependency of the Sector <Array> (Default: [])
+    2: TicketBleed of the Sector <Number> (Default: 30)
+    3: Minimum Units in the Area to start Capturing <Number> (Default: 1)
+    4: Maximum Units in the Area to start Capturing <Number> (Default: 9)
+    5: Time to capture the sector <Array> (Default: [30, 60])
+    6: Time to capture the sector for the first time <Array> (Default: [5, 15])
+    7: Sector Designator <String> (Default: "A")
 
     Returns:
     None
 */
+
 params [
-    "_marker",
-    ["_dependency", []],
-    ["_ticketValue", 30],
-    ["_minUnits", 1],
-    ["_maxUnits", 9],
-    ["_captureTime", [30, 60]],
-    ["_firstCaptureTime", [5, 15]],
-    ["_designator", "A"]
+    ["_marker", "", [""]],
+    ["_dependency", [], [[]], []],
+    ["_ticketValue", 30, [0]],
+    ["_minUnits", 1, [0]],
+    ["_maxUnits", 9, [0]],
+    ["_captureTime", [30, 60], [[]], 2],
+    ["_firstCaptureTime", [5, 15], [[]], 2],
+    ["_designator", "A", [""]]
 ];
 
 private _size = getMarkerSize _marker;

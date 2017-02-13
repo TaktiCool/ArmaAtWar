@@ -8,12 +8,15 @@
     Visualization of Blood
 
     Parameter(s):
-    0: Intensity (0..1) <Number>
+    0: Intensity <Number> (Default: 1)
 
     Returns:
     None
 */
-params ["_intensity"];
+
+params [
+    ["_intensity", 1, [0]]
+];
 
 private _firstInit = false;
 if (isNull (uiNamespace getVariable ["RscHealthTextures", displayNull])) then {

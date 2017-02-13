@@ -8,13 +8,17 @@
     Check if the player is Allowed to switch sides
 
     Parameter(s):
-    0: NewSide <Side>
-    1: OldSide <Side>
+    0: NewSide <Side> (Default: sideUnknown)
+    1: OldSide <Side> (Default: sideUnknown)
 
     Returns:
     <Bool> can change side
 */
-params ["_newSide", "_oldSide"];
+
+params [
+    ["_newSide", sideUnknown, [sideUnknown]],
+    ["_oldSide", sideUnknown, [sideUnknown]]
+];
 
 if ((GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) >= serverTime) exitWith {
     [format [MLOC(waitToSwitchSide), (GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) - serverTime]] call EFUNC(Common,displayNotification);

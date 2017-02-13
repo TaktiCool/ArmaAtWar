@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(FOB), missionConfigFile >> QPREFIX >> "cfgFOB"] call CFUNC(loadSettings);
 
 GVAR(sideNamespace) = false call CFUNC(createNamespace);

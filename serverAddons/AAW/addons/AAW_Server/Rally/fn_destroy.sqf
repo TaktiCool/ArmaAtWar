@@ -8,12 +8,15 @@
     Destroy rally
 
     Parameter(s):
-    None
+    0: Group <Group> (Default: grpNull)
 
     Returns:
     None
 */
-params ["_group"];
+
+params [
+    ["_group", grpNull, [grpNull]]
+];
 
 private _pointId = _group getVariable [QGVAR(rallyId), ""];
 if (_pointId == "") exitWith {};

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 GVAR(lineMarkers) = call CFUNC(createNamespace);
 
 // Use pools to store the controls for the markers
@@ -115,7 +116,7 @@ addMissionEventHandler ["MapSingleClick", {
 
         {
             private _lineMarker = GVAR(lineMarkers) getVariable _x;
-            if (!(isNil "_lineMarker")) then {
+            if !(isNil "_lineMarker") then {
                 private _markerPosition = _lineMarker select 1;
                 private _relativeVectorToMarker = _markerPosition vectorDiff _currentPosition;
                 private _angleToMarker = ((_relativeVectorToMarker select 0) atan2 (_relativeVectorToMarker select 1) + 360) % 360;
@@ -142,7 +143,7 @@ addMissionEventHandler ["MapSingleClick", {
 
                 // Shift
                 private _otherMarkerControl = _overlapCacheLineIndices param [_lineIndex, nil];
-                if (!(isNil "_otherMarkerControl")) then {
+                if !(isNil "_otherMarkerControl") then {
                     // Compare
                     private _otherOffset = _otherMarkerControl getVariable QGVAR(offset);
                     if (abs _otherOffset < abs _offset) then {

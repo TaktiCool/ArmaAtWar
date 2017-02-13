@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 ["groupChanged", {
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);

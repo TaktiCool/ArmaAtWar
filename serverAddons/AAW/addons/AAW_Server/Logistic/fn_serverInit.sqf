@@ -20,7 +20,6 @@ DFUNC(setLogisticVariables) = {
     private _cargoCapacity = _entity getVariable ["cargoCapacity", 0];
 
     if (_cargoCapacity > 0) then {
-
         private _className = typeOf _entity;
         private _tb = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxbackpacks");
         private _tm = getNumber (configFile >> "CfgVehicles" >> _className >> "transportmaxmagazines");
@@ -29,10 +28,10 @@ DFUNC(setLogisticVariables) = {
 
         _entity setVariable ["hasInventory", _isCargo, true];
     };
-
 };
 ["entityCreated", {
     (_this select 0) call FUNC(setLogisticVariables);
 }] call CFUNC(addEventHandler);
-
-["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
+["spawnCrate", {
+    (_this select 0) call FUNC(spawnCrate);
+}] call CFUNC(addEventHandler);

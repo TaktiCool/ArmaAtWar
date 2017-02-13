@@ -8,12 +8,15 @@
     Remove spawn point
 
     Parameter(s):
-    0: ID <STRING>
+    0: ID <String> (Default: "")
 
     Returns:
     Id <STRING>
 */
-params ["_pointId"];
+
+params [
+    ["_pointId", "", [""]]
+];
 
 private _pointDetails = GVAR(DeploymentPointStorage) getVariable [_pointId, []];
 if (_pointDetails isEqualTo []) exitWith {};

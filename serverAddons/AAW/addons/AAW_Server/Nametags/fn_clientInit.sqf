@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 // Use the missionStarted EH to prevent unnecessary executions.
 ["missionStarted", {
     [{
@@ -39,7 +40,6 @@
                 // The position of the nameTag is above the head.
 
                 private _color = if (group _x == group CLib_Player) then {
-
                     // we need to check if _index is -1 because if the player controll a drone and try to get assignedTeam from player return Nil
                     private _index = ["MAIN", "RED", "GREEN", "BLUE", "YELLOW"] find (assignedTeam _x);
                     [
@@ -62,7 +62,7 @@
                     private _facePositionAGL = _unit modelToWorldVisual (_unit selectionPosition "pilot");
                     private _facePositionASL = AGLToASL _facePositionAGL;
 
-                    if (!((lineIntersectsSurfaces [_cameraPosASL, _facePositionASL, CLib_Player, _unit]) isEqualTo [])) exitWith {false};
+                    if !((lineIntersectsSurfaces [_cameraPosASL, _facePositionASL, CLib_Player, _unit]) isEqualTo []) exitWith {false};
 
                     private _distance = _cameraPosASL vectorDistance _facePositionASL;
 

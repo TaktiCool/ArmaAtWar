@@ -8,12 +8,21 @@
     Add or Update Group in Tracker
 
     Parameter(s):
-    0: group <Group>
+    0: Vehicle <Object> (Default: objNull)
+    1: Icon id <String> (Default: "")
+    2: In group <Bool> (Default: false)
+    3: Is empty <Bool> (Default: false)
 
     Returns:
-    0: Return Id <STRING>
+    0: Return Id <String>
 */
-params ["_vehicle", "_vehicleIconId", ["_inGroup", false], ["_isEmpty", false]];
+
+params [
+    ["_vehicle", objNull, [objNull]],
+    ["_vehicleIconId", "", [""]],
+    ["_inGroup", false, [true]],
+    ["_isEmpty", false, [true]]
+];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -23,12 +32,9 @@ _color = [_color, [0.6, 0.6, 0.6, 1]] select _isEmpty;
 
 private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
 
-[
-    _vehicleIconId,
-    [
-        ["ICON", _vehicleMapIcon, _color, _vehicle, 30, 30, _vehicle, "", 1]
-    ]
-] call CFUNC(addMapGraphicsGroup);
+[_vehicleIconId, [
+    ["ICON", _vehicleMapIcon, _color, _vehicle, 30, 30, _vehicle, "", 1]
+]] call CFUNC(addMapGraphicsGroup);
 
 [
     _vehicleIconId,
@@ -39,7 +45,6 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
 
         if (_vehicle isEqualTo GVAR(currentHoverVehicle)) exitWith {};
         GVAR(currentHoverVehicle) = _vehicle;
-        //if (_map != ((findDisplay 12) displayCtrl 51)) exitWith {};
 
         private _pos = _map ctrlMapWorldToScreen getPosVisual _vehicle;
         _pos set [0, (_pos select 0) + 15 / 640];
@@ -140,21 +145,11 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             if (isNull _grp || (_map == ((findDisplay 12) displayCtrl 51) && !visibleMap) || isNull _map) exitWith {
                 _id call CFUNC(removePerFrameHandler);
                 _grp ctrlShow false;
-                //ctrlDelete _grp;
                 _grp ctrlCommit 0;
             };
 
             _grp ctrlSetPosition _pos;
             _grp ctrlCommit 0;
-
-            /*
-            if (!visibleMap) then {
-                if (!isNull _display) then {
-                    ([UIVAR(VehicleInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
-                };
-                _id call CFUNC(removePerFrameHandler);
-            };
-            */
         }, 0, [_vehicle, _map]] call CFUNC(addPerFrameHandler);
     },
     _vehicle
@@ -171,19 +166,15 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             GVAR(currentHoverVehicle) = objNull;
         };
 
-        //private _display = uiNamespace getVariable [UIVAR(VehicleInfo),displayNull];
         private _grp = uiNamespace getVariable [format [UIVAR(VehicleInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
-        if (!isNull _grp) then {
-            //ctrlDelete _grp;
+        if !(isNull _grp) then {
             _grp ctrlShow false;
             _grp ctrlCommit 0;
-            //([UIVAR(VehicleInfo)] call BIS_fnc_rscLayer) cutFadeOut 0.2;
         };
 
         if (GVAR(VehicleInfoPFH) != -1) then {
             GVAR(VehicleInfoPFH) call CFUNC(removePerFrameHandler);
         };
-
     },
     _vehicle
 ] call CFUNC(addMapGraphicsEventHandler);

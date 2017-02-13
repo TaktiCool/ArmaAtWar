@@ -8,14 +8,15 @@
     Updates Sector State when Sector is Active
 
     Parameter(s):
-    0: Sector
+    0: Sector <Object> (Default: objNull)
 
     Returns:
-    None
+    0: Success <Bool>
 */
 
-params ["_params", "_pfhId"];
-_params params ["_sector"];
+params [
+    ["_sector", objNull, [objNull]]
+];
 
 private _side = _sector getVariable ["side", sideUnknown];
 
@@ -39,7 +40,7 @@ if !(_sector getVariable ["isActive", false]) exitWith {
         _sector setVariable ["lastCaptureTick", serverTime, true];
         _sector setVariable ["captureRate", 0, true];
     };
-    _pfhId call CFUNC(removePerFrameHandler);
+    false
 };
 
 // get all necessary variables from sector
@@ -146,3 +147,5 @@ if (str _side != str _lastSide) then {
     ["sectorSideChanged", [_sector, _lastSide, _side]] call CFUNC(globalEvent);
     _sector setVariable ["firstCaptureDone", true, true];
 };
+
+true

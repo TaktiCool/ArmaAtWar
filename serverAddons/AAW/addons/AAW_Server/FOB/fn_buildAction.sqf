@@ -8,12 +8,16 @@
     Build a FOB
 
     Parameter(s):
-    0: Types <String,Object,Array>
+    0: Types <String, Object, Array> (Default: "")
 
     Returns:
     None
 */
-params ["_types"];
+
+params [
+    ["_types", "", ["", objNull, []], []]
+];
+
 private _title = "Build";
 private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
@@ -42,7 +46,6 @@ private _onComplete = {
 };
 
 private _onInterruption = {
-
     GVAR(buildStartTime) = -1;
 };
 

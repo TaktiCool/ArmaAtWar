@@ -8,7 +8,7 @@
     Server Init
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -
@@ -68,7 +68,6 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         private _ticketValue = [QGVAR(FOB_ticketValue), 20] call CFUNC(getSetting);
 
         [_availablefor, -_ticketValue] call EFUNC(Tickets,addTickets);
-
     }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
     GVAR(namespace) setVariable [_pointId, [_pfhId, 0]];
 

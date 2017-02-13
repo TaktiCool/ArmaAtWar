@@ -66,7 +66,7 @@ GVAR(CargoClasses) = [];
 }] call CFUNC(addEventHandler);
 
 ["unconsciousnessChanged", {
-    if (!isNull (CLib_Player getVariable [QGVAR(Item), objNull])) then {
+    if !(isNull (CLib_Player getVariable [QGVAR(Item), objNull])) then {
         CLib_Player call FUNC(dropObject);
     };
 }] call CFUNC(addEventhandler);

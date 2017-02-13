@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 GVAR(maxFPS) = 0;
 
 DFUNC(showIndicator) = {

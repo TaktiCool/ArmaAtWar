@@ -8,7 +8,7 @@
     Initialize the Revive Action
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

@@ -8,7 +8,7 @@
     Force respawn Action init
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -

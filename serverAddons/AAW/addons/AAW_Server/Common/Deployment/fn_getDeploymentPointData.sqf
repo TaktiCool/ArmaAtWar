@@ -5,11 +5,11 @@
     Author: joko // Jonas
 
     Description:
-    get Deploymentpoint data from the point ID
+    Get Deploymentpoint data from the point ID
 
     Parameter(s):
-    0: PointID <String>
-    1: DataName <String>
+    0: PointID <String> (Default: "")
+    1: DataName <String> (Default: "all")
 
     Remarks:
     Returns what the Entry Type is.
@@ -26,9 +26,13 @@
     Objects <ARRAY>
 */
 
-#define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
+params [
+    ["_pointID", "", [""]],
+    ["_type", "all", [""]]
+];
 
-params ["_pointID", ["_type", "all"]];
+#define DEFAULTDATA ["", "", [0, 0, 0], sideUnknown, -1, "", "", [], [[], [[], []]]]
+
 if (_type isEqualType []) exitWith {
     private _return = [];
     {

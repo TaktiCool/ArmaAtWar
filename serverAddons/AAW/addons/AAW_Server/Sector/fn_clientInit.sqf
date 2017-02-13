@@ -29,7 +29,6 @@ GVAR(currentSector) = objNull;
     params ["_args"];
     _args params ["_unit", "_sector"];
     [true, _sector] call FUNC(showCaptureStatus);
-
 }] call CFUNC(addEventHandler);
 
 ["sectorLeaved", {
@@ -73,8 +72,8 @@ GVAR(currentSector) = objNull;
             if (_marker != "") then {
                 if (CLib_Player inArea _marker) then {
                     if (GVAR(currentSector) != _x) then {
-                        if (!isNull GVAR(currentSector)) then {
-                            if (!isServer) then {
+                        if !(isNull GVAR(currentSector)) then {
+                            if !(isServer) then {
                                 ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                             };
                             ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
@@ -82,11 +81,10 @@ GVAR(currentSector) = objNull;
 
                         GVAR(currentSector) = _x;
 
-                        if (!isServer) then {
+                        if !(isServer) then {
                             ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
                         };
                         ["sectorEntered", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
-
                     };
                     breakOut "MAIN";
                 };
@@ -95,11 +93,10 @@ GVAR(currentSector) = objNull;
         } count GVAR(allSectorsArray);
     };
 
-    if (!isNull GVAR(currentSector)) then {
-        if (!isServer) then {
+    if !(isNull GVAR(currentSector)) then {
+        if !(isServer) then {
             ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(serverEvent);
         };
         ["sectorLeaved", [CLib_Player, GVAR(currentSector)]] call CFUNC(localEvent);
     };
-
 }, 0.1, []] call CFUNC(addPerFrameHandler);

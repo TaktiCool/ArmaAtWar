@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Comunity Lib - CLib
+    Arma At War
 
     Author: joko // Jonas, BadGuy
 
@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 if (CGVAR(hideHUD)) exitWith {}; // Temp for Ribbon
 if (GVAR(NotificationQueue) isEqualTo []) exitWith {};
 (GVAR(NotificationQueue) deleteAt 0) params ["_priority", "_timeAdded", "_text", "_color", "_time", "_condition"];
@@ -63,5 +64,6 @@ GVAR(NextNotification) = time + _time;
 
     ([UIVAR(Notification)] call BIS_fnc_rscLayer) cutFadeOut 0.3;
     ["notificationHidden"] call CFUNC(localEvent);
-
-}, {GVAR(NextNotification) <= time || (!(GVAR(NotificationQueue) isEqualTo []) && (GVAR(LastNotification) + 2) <= time)}, []] call CFUNC(waitUntil);
+}, {
+    !(GVAR(NotificationQueue) isEqualTo []) && GVAR(LastNotification) + 2 <= time || GVAR(NextNotification) <= time
+}, []] call CFUNC(waitUntil);

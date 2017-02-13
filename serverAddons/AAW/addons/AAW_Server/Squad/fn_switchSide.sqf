@@ -5,14 +5,15 @@
     Author: NetFusion
 
     Description:
-    -
+    Switches the player to the other side
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -
 */
+
 [{
     private _newSide = ((EGVAR(Common,competingSides) select {_x != playerSide}) select 0);
 

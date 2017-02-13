@@ -8,17 +8,20 @@
     Place FOB
 
     Parameter(s):
-    None
+    0: Target <Object> (Default: objNull)
 
     Returns:
     None
 */
-params ["_target"];
+
+params [
+    ["_target", objNull, [objNull]]
+];
 
 [{
     params ["_target"];
 
-    if (!(call FUNC(canPlace))) exitWith {};
+    if !(call FUNC(canPlace)) exitWith {};
 
     private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     private _dirVector = vectorDirVisual CLib_Player;
@@ -37,4 +40,4 @@ params ["_target"];
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
-}, [_target], "respawn"] call CFUNC(mutex);
+}, _target, "respawn"] call CFUNC(mutex);

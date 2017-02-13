@@ -5,18 +5,22 @@
     Author: joko // Jonas
 
     Description:
-    get Deploymentpoint data from the point ID
+    Get Deploymentpoint data from the point ID
 
     Parameter(s):
-    0: PointID <String>
-    1: DataName <String>
-    2: Data <Any>
+    0: PointID <String> (Default: "")
+    1: DataName <String> (Default: "")
+    2: Data <Anything> (Default: nil)
 
     Returns:
     None
 */
 
-params ["_pointID", "_dataName", "_data"];
+params [
+    ["_pointID", "", [""]],
+    ["_dataName", "", [""]],
+    ["_data", nil, []]
+];
 
 if (_dataName == "all") exitWith {
     GVAR(DeploymentPointStorage) setVariable [_pointId, _data, true];

@@ -8,11 +8,12 @@
     Handles the bleedout timer when unconscious
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -
 */
+
 GVAR(bleedoutTimer) = -1;
 
 GVAR(BleedOutEffect) = ppEffectCreate ["colorCorrections", 1501];
@@ -23,9 +24,8 @@ GVAR(bloodRefreshTimer) = -1;
     (_this select 0) params ["_state"];
 
     if (_state && {GVAR(bleedoutTimer) < 0}) then {
-
         GVAR(bleedoutTimer) = [{
-            if (!alive CLib_Player || !(CLib_Player getVariable [QGVAR(isUnconscious), false])) exitWith {
+            if !(alive CLib_Player && CLib_Player getVariable [QGVAR(isUnconscious), false]) exitWith {
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectEnable false;
@@ -42,7 +42,6 @@ GVAR(bloodRefreshTimer) = -1;
             };
 
             if ((CLib_Player getVariable [QGVAR(reviveAction), ""]) == "") then {
-
                 private _bloodLevel = CLib_Player getVariable [QGVAR(bloodLevel), 1];
                 _bloodLevel = _bloodLevel - (CLib_Player getVariable [QGVAR(bleedingRate), 1]) / ([QGVAR(Settings_unconsciousDuration), 500] call CFUNC(getSetting));
 
@@ -94,5 +93,4 @@ GVAR(bloodRefreshTimer) = -1;
             GVAR(BleedOutEffect) ppEffectCommit 1;
         }, 1] call CFUNC(addPerFrameHandler);
     };
-
 }] call CFUNC(addEventhandler);

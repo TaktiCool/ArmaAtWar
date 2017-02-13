@@ -2,10 +2,10 @@
 /*
     Arma At War
 
-    Author:
+    Author: NetFusion
 
     Description:
-    [Description]
+    Client init for squad related parts of respawn UI
 
     Parameter(s):
     None
@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 /*
  * #### TEAM INFO SCREEN ####
  * TEAM INFO

@@ -8,12 +8,15 @@
     Apply Kit to player
 
     Parameter(s):
-    0: Kit Name <String>
+    0: Kit Name <String> (Default: "")
 
     Returns:
     None
 */
-params ["_kitName"];
+
+params [
+    ["_kitName", "", [""]]
+];
 
 private _kitDetails = [_kitName, [
     ["uniform", ""], ["vest", ""], ["backpack", ""], ["headGear", ""],

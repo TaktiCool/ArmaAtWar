@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Init Squad Spawn system (currently just for fun and testing :D)
+    Init Squad Spawn system. Currently just for fun and testing.
 
     Parameter(s):
     None
@@ -17,7 +17,7 @@
 GVAR(oldSpawns) = [];
 [{
     {
-        if (!(_x call EFUNC(Common,isAlive)) && !(simulationEnabled _x) && !(isObjectHidden _x)) then {
+        if !(_x call EFUNC(Common,isAlive) || simulationEnabled _x || isObjectHidden _x) then {
             _x call EFUNC(Common,removeDeploymentPoint);
         };
         nil

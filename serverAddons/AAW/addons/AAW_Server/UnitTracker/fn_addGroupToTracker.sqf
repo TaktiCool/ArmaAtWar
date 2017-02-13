@@ -8,12 +8,19 @@
     Add or Update Group in Tracker
 
     Parameter(s):
-    0: group <Group>
+    0: Group <Group> (Default: grpNull)
+    1: Group icon id <String> (Default: "")
+    2: Attach offset <Array> (Default: [0, -20])
 
     Returns:
-    0: Return Id <STRING>
+    0: Return Id <String>
 */
-params ["_group", "_groupIconId", ["_attachTo", [0, -20]]];
+
+params [
+    ["_group", grpNull, [grpNull]],
+    ["_groupIconId", "", [""]],
+    ["_attachTo", [0, -20], [[]], 2]
+];
 
 private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 private _groupColor = [0, 0.87, 0, 1];
@@ -195,7 +202,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
 
         //private _display = uiNamespace getVariable [UIVAR(GroupInfo),displayNull];
         private _grp = uiNamespace getVariable [format [UIVAR(GroupInfo_%1_Group), ctrlIDD ctrlParent _map], controlNull];
-        if (!isNull _grp) then {
+        if !(isNull _grp) then {
             //ctrlDelete _grp;
             _grp ctrlShow false;
             _grp ctrlCommit 0;
@@ -205,7 +212,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
         if (GVAR(groupInfoPFH) != -1) then {
             GVAR(groupInfoPFH) call CFUNC(removePerFrameHandler);
         };
-
     },
     _group
 ] call CFUNC(addMapGraphicsEventHandler);

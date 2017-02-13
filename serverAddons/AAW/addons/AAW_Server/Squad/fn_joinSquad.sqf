@@ -8,11 +8,16 @@
     Handles "Join/Leave"-Button Events
 
     Parameter(s):
-    0: New group <Group>
+    0: New group <Group> (Default: grpNull)
 
     Returns:
     None
 */
+
+params [
+    ["_group", grpNull, [grpNull]]
+];
+
 [{
     params ["_group"];
 
@@ -26,4 +31,4 @@
 
     call FUNC(leaveSquad);
     [CLib_Player] join _group;
-}, _this, "respawn"] call CFUNC(mutex);
+}, _group, "respawn"] call CFUNC(mutex);

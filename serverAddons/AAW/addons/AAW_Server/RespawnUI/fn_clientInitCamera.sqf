@@ -19,7 +19,7 @@
 
 // When respawn screen is opened caused by death or upon startup init the camera
 [UIVAR(RespawnScreen_onLoad), {
-    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+    if (CLib_Player getVariable [QEGVAR(Common,tempUnit), false] || !alive CLib_Player) then {
         [QGVAR(initCamera)] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventHandler);
@@ -104,7 +104,7 @@
          && GVAR(currentCameraTarget) in ((_x getVariable ["dependency", []]) apply {_x call EFUNC(Sector,getSector)})
     });
 
-    if (!(_possibleTargets isEqualTo [])) then {
+    if !(_possibleTargets isEqualTo []) then {
         GVAR(currentCameraTarget) = selectRandom _possibleTargets;
 
         // Now we have to make sure that the camera points 90deg left/right of out movement path dependent on world center

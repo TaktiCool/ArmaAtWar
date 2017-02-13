@@ -24,7 +24,7 @@ GVAR(supplyPoints) = [];
     private _refuelAmount = _object getVariable "refuelAmount";
     private _repairAmount = _object getVariable "repairAmount";
 
-    if (!(isNil "_supplyUses" && isNil "_rearmAmount" && isNil "_refuelAmount" && isNil "_repairAmount")) then {
+    if !(isNil "_supplyUses" && isNil "_rearmAmount" && isNil "_refuelAmount" && isNil "_repairAmount") then {
         private _index = GVAR(supplyPoints) pushBack _object;
         [
             {format ["Supply %1 at %2", getText (configFile >> "CfgVehicles" >> typeOf cursorObject >> "displayName"), getText (configFile >> "CfgVehicles" >> typeOf _args >> "displayName")]},

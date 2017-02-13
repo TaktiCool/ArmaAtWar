@@ -8,7 +8,7 @@
     Heal Action init
 
     Parameter(s):
-    -
+    None
 
     Returns:
     -
@@ -35,7 +35,6 @@ private _onStart = {
     GVAR(healStartTime) = time;
 
     CLib_Player playAction "medicStart";
-
 };
 
 private _onProgress = {
@@ -81,7 +80,6 @@ private _onInterruption = {
             CLib_Player setHitIndex [_forEachIndex, _x min 0.20];
         } forEach _oldDamage;
 
-        //CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.5];
+        // CLib_Player setVariable [QGVAR(bloodLevel), (CLib_Player getVariable [QGVAR(bloodLevel), 1]) max 0.5];
     };
-
 }] call CFUNC(addEventhandler);

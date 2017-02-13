@@ -1,22 +1,30 @@
 #include "macros.hpp"
 /*
-    Comunity Lib - CLib
+    Arma At War
 
-    Author: BadGuy, joko
+    Author: BadGuy, joko // Jonas
 
     Description:
     Displays a Notification
 
     Parameter(s):
-    0: Text <StructuredText>
-    1: Color (optional, default [0.8,0.8,0.8,1]) <Array>
-    2: Time in seconds (optional, default 6) <Number>
-    3: Priority (optional, default 0) <Number>
+    0: Text <String, Array> (Default: "Error No Notification Text")
+    1: Color <Array> (Default: [0.2, 0.2, 0.2, 0.8])
+    2: Time in seconds <Number> (Default: 6)
+    3: Priority <Number> (Default: 0)
+    4: Condition <Code> (Default: {true})
 
     Returns:
     None
 */
-params [["_text", "Error No Notification Text", ["", []]], ["_color", [0.2, 0.2, 0.2, 0.8]], ["_time", 6], ["_priority", 0], ["_condition", {true}]];
+
+params [
+    ["_text", "Error No Notification Text", ["", []], []],
+    ["_color", [0.2, 0.2, 0.2, 0.8], [[]], 4],
+    ["_time", 6, [0]],
+    ["_priority", 0, [0]],
+    ["_condition", {true}, [{}]]
+];
 
 if (_text isEqualType []) then {
     {

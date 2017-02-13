@@ -60,7 +60,11 @@ DFUNC(dropPlayer) = {
             [{
                 params ["_args", "_id"];
                 _args params ["_draggedUnit", "_unit"];
-                if (!isNull objectParent _unit || !alive _draggedUnit || !alive _unit || (_unit getVariable [QGVAR(isUnconscious), false]) || !(_draggedUnit getVariable [QGVAR(isUnconscious), false])) then {
+                if !(isNull objectParent _unit
+                 && alive _draggedUnit
+                 && alive _unit
+                 && _draggedUnit getVariable [QGVAR(isUnconscious), false]
+                 && !(_unit getVariable [QGVAR(isUnconscious), false])) then {
                     [_unit] call FUNC(dropPlayer);
                     [_id] call CFUNC(removePerFrameHandler);
                 };

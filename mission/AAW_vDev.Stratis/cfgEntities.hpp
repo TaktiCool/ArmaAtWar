@@ -55,11 +55,14 @@ class CfgEntities {
     class vr_slammer_1 : vr_slammer_0 {};
 
     // Air
+    class vr_hummingbird_0 : defaultWest {
+        respawnTime = 20;
+        ticketValue = 30;
+    };
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 60;
         ticketValue = 50;
     };
-    class vr_ghosthawk_1: vr_ghosthawk_0 {};
 
     class vr_Huron_0: vr_ghosthawk_0 {
         respawnTime = 60;

@@ -8,13 +8,16 @@
     Check if a Sector is Captureable
 
     Parameter(s):
-    0: Sector to Check <Object> or <String>
+    0: Sector to Check <Object> (Default: objNull)
 
     Returns:
     is Captureable <Bool>
 */
 
-params ["_sector"];
+params [
+    ["_sector", objNull, [objNull]]
+];
+
 private _side = _sector getVariable ["side", sideUnknown];
 private _activeSides = [];
 private _currentCount = {

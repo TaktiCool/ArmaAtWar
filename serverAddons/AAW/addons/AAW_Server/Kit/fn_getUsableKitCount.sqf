@@ -5,10 +5,10 @@
     Author: joko // Jonas
 
     Description:
-    Check if Kit is usable or all Kits are away(in Group)
+    Returns number of kits with a given name available
 
     Parameter(s):
-    0: Kit name
+    0: Kit name <String> (Default: "")
 
     Remarks:
     _kitName: Current Kit
@@ -16,7 +16,10 @@
     Returns:
     availableKits <Number>
 */
-params ["_kitName"];
+
+params [
+    ["_kitName", "", [""]]
+];
 
 private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], ["isLeader", 0]]] call FUNC(getKitDetails);
 _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
@@ -26,7 +29,7 @@ if (_isLeader == 1 && CLib_Player != leader CLib_Player) exitWith {0};
 
 // Check squad type
 private _squadType = (group CLib_Player) getVariable [QEGVAR(Squad,Type), ""];
-if (!(_squadType in _availableInGroups)) exitWith {0};
+if !(_squadType in _availableInGroups) exitWith {0};
 
 // Check group member count
 private _groupMembersCount = count ([group CLib_Player] call CFUNC(groupPlayers));

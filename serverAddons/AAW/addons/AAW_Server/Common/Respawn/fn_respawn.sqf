@@ -8,12 +8,17 @@
     Simulate a "normal" respawn
 
     Parameter(s):
-    0: Spawn position <Position3D>
+    0: Spawn position <Array> (Default: [0, 0, 0])
+    1: Is temp unit <Bool> (Default: false)
 
     Returns:
     None
 */
-params ["_targetPosition", ["_tempUnit", false]];
+
+params [
+    ["_targetPosition", [0, 0, 0], [[]], 3],
+    ["_tempUnit", false, [true]]
+];
 
 // Remove tempUnit status
 if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
@@ -25,7 +30,7 @@ if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
     }, 1] call CFUNC(wait);
 };
 
-if (!alive CLib_Player) then {
+if !(alive CLib_Player) then {
     // This will cause one frame delay until new unit is available
     setPlayerRespawnTime 0;
 

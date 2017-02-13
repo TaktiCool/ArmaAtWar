@@ -5,7 +5,7 @@
     Author: joko // Jonas, BadGuy
 
     Description:
-    init for TicketBleed System
+    Init for TicketBleed System
 
     Parameter(s):
     None
@@ -131,16 +131,13 @@ GVAR(deactivateTicketSystem) = false;
                     publicVariable (format [QGVAR(sideTickets_%1), _side]);
                     "ticketsChanged" call CFUNC(globalEvent);
                 }, GVAR(ticketBleed) select 0, [_looser]] call CFUNC(addPerFrameHandler);
-
             };
-
         }] call CFUNC(addEventhandler);
 
         if (isDedicated) then {
             ["ticketsChanged", {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
                  || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
-
                     endMission "END1";
                 };
             }] call CFUNC(addEventHandler);
@@ -188,7 +185,6 @@ GVAR(deactivateTicketSystem) = false;
                 };
 
                 GVAR(deactivateTicketSystem) = true;
-
             };
         }] call CFUNC(addEventHandler);
 
@@ -199,7 +195,6 @@ GVAR(deactivateTicketSystem) = false;
             (_dialog displayCtrl 2020) ctrlSetPosition [0.5 + PX(21), safeZoneY];
             (_dialog displayCtrl 2010) ctrlCommit 0.2;
             (_dialog displayCtrl 2020) ctrlCommit 0.2;
-
         }] call CFUNC(addEventHandler);
 
         ["sectorLeaved", {
@@ -210,7 +205,5 @@ GVAR(deactivateTicketSystem) = false;
             (_dialog displayCtrl 2010) ctrlCommit 0.2;
             (_dialog displayCtrl 2020) ctrlCommit 0.2;
         }] call CFUNC(addEventHandler);
-
     };
-
 }, {!isNil QEGVAR(Common,competingSides) && {!(EGVAR(Common,competingSides) isEqualTo [])}}] call CFUNC(waitUntil);

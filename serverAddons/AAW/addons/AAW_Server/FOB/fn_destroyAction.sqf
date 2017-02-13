@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 private _title = "Destroy FOB";
 private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoput_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoput_ca.paa";

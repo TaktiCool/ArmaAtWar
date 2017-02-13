@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    -
+    Client init for squad system
 
     Parameter(s):
     None
@@ -13,6 +13,7 @@
     Returns:
     None
 */
+
 [QGVAR(GroupTypes), missionConfigFile >> QPREFIX >> "GroupTypes"] call CFUNC(loadSettings);
 
 //GVAR(squadIds) = ("true" configClasses (configFile >> "CfgWorlds" >> "GroupCompany")) apply {getText (_x >> "name")};
