@@ -41,7 +41,7 @@ addMissionEventHandler ["EntityKilled", {
     private _respawnTime = _killedEntity getVariable ["respawnTime", -1]; // TODO #366
     if (_respawnTime >= 0) then {
         GVAR(VehicleRespawnAllVehicles) deleteAt (GVAR(VehicleRespawnAllVehicles) find _killedEntity);
-        [FUNC(performVehicleRespawn), _respawnTime, [_killedEntity]] call CFUNC(wait);
+        [_killedEntity, _respawnTime] call FUNC(performVehicleRespawn)
     };
 }];
 
@@ -97,7 +97,7 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
                 private _respawnTime = _vehicle getVariable ["respawnTime", -1]; // TODO #366
                 if (_respawnTime >= 0) then {
                     GVAR(VehicleRespawnAllVehicles) deleteAt (GVAR(VehicleRespawnAllVehicles) find _vehicle);
-                    [FUNC(performVehicleRespawn), _respawnTime, [_vehicle]] call CFUNC(wait);
+                    [_vehicle, _respawnTime] call FUNC(performVehicleRespawn)
                 };
             };
         };
