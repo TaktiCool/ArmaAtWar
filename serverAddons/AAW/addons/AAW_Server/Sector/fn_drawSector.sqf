@@ -43,7 +43,7 @@ if (hasInterface) then {
     private _designatorSize = 18;
     if (toLower _designator == "hq") then {
         _designatorIconPath = "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa";
-         _designatorSize = 20;
+        _designatorSize = 20;
     } else {
         _designatorIconPath = format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator];
     };
