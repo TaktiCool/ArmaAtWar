@@ -115,8 +115,11 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _crewUnits];
 
         _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), _unitCount * PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlShow (_unitCount > 0);
 
         _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(22), _unitCount * PY(1.8)];
+
+
 
         {
             _x ctrlCommit 0;
