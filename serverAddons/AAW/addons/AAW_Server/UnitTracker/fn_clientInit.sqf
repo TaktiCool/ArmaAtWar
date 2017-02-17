@@ -27,12 +27,12 @@ GVAR(lastProcessedIcons) = [];
 
 DFUNC(isValidUnit) = {
     params ["_unit"];
-    !isNull _unit && alive _unit && side group _unit == side group CLIB_Player && simulationEnabled _unit;
+    !isNull _unit && alive _unit && side group _unit == side group CLib_Player && simulationEnabled _unit;
 };
 
 DFUNC(isValidVehicle) = {
     params ["_vehicle"];
-    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str  side group CLIB_Player) && (({alive _x} count crew _vehicle) == 0);
+    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str  side group CLib_Player) && (({alive _x} count crew _vehicle) == 0);
 };
 
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
