@@ -192,7 +192,6 @@
 }] call CFUNC(addEventHandler);
 
 [QEGVAR(Common,DeploymentPointSelected), {
-    DUMP("DEPLOYMENTPOINTSELECTED")
     private _display = uiNamespace getVariable [QGVAR(deploymentDisplay), displayNull];
     if (isNull _display) exitWith {};
 
