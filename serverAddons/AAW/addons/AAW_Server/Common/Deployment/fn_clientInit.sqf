@@ -38,6 +38,7 @@ GVAR(pointMarkerIds) = [];
 
     {
         [_x] call CFUNC(removeMapGraphicsGroup);
+        [_x] call CFUNC(removeMapGraphicsEventHandler);
         nil
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
@@ -65,6 +66,19 @@ GVAR(pointMarkerIds) = [];
 
 
             [_x, [_bgIconHover, _icon, _onHoverText], "hover", 2000] call CFUNC(addMapGraphicsGroup);
+
+            [
+                _x,
+                "selected",
+                {
+                    (_this select 0) params ["_map", "_xPos", "_yPos"];
+                    (_this select 1) params ["_deploymentPointId"];
+
+                    [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
+
+                },
+                _x
+            ] call CFUNC(addMapGraphicsEventHandler);
 
 
         };

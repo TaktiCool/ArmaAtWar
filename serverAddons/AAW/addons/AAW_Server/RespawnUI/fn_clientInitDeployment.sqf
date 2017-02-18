@@ -190,3 +190,22 @@
     _controlMap ctrlMapAnimAdd [0.5, 0.15, _position]; // Dialog syntax can not be used
     ctrlMapAnimCommit _controlMap;
 }] call CFUNC(addEventHandler);
+
+[QEGVAR(Common,DeploymentPointSelected), {
+    DUMP("DEPLOYMENTPOINTSELECTED")
+    private _display = uiNamespace getVariable [QGVAR(deploymentDisplay), displayNull];
+    if (isNull _display) exitWith {};
+
+    private _deploymentPointId = _this select 0;
+    private _control = _display displayCtrl 403;
+    private _size = lnbSize _control;
+    for "_idx" from 0 to ((_size select 0) - 1) do {
+        private _data = [_control, [_idx, 0]] call CFUNC(lnbLoad);
+        if (toLower _data == toLower _deploymentPointId) exitWith {
+            _control lnbSetCurSelRow _idx;
+            _control ctrlCommit 0;
+
+        }
+    };
+
+}] call CFUNC(addEventHandler);

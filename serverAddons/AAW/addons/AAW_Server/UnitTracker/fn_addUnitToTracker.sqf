@@ -22,7 +22,7 @@ private _groupColor = [0.13, 0.54, 0.21, 1];
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo group _newUnit);
 
 if (CLib_Player == _newUnit) then {
-    _color = [1, 1, 1, 1];
+    _color = [1, 0.4, 0, 1];
 };
 
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1, 0.08, "RobotoCondensed", "right", {
