@@ -18,7 +18,7 @@
 
     private _position = CLib_Player modelToWorld [0, 1, 0]; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     if (CLib_Player distance _position >= 20) exitWith {
-        [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotification);
+        [MLOC(cantPlaceRally)] call EFUNC(Common,displayNotificationOld);
     };
 
     [group CLib_Player] call FUNC(destroy);
@@ -44,5 +44,10 @@
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", group CLib_Player, [format [MLOC(RallyPlaced), [_position] call EFUNC(Common,getNearestLocationName)]]] call CFUNC(targetEvent);
+    //["displayNotificationOld", group CLib_Player, [format [MLOC(RallyPlaced), [_position] call EFUNC(Common,getNearestLocationName)]]] call CFUNC(targetEvent);
+    ["displayNotification", side group CLib_player, [
+        "NEW RALLY POINT AVAILABLE",
+        "near " + ([_position] call EFUNC(Common,getNearestLocationName)),
+        [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0.13, 0.54, 0.21, 1],1],["A3\ui_f\data\map\groupicons\badge_simple.paa", 0.8]]
+    ]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

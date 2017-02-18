@@ -20,7 +20,7 @@
 params ["_draggedObject", "_unit"];
 private _currentWeight = _draggedObject call FUNC(getWeight);
 if (_currentWeight >= MAXWEIGHT) exitWith {
-    [format [MLOC(itemToHeavy), _currentWeight - MAXWEIGHT]] call EFUNC(Common,displayNotification);
+    [format [MLOC(itemToHeavy), _currentWeight - MAXWEIGHT]] call EFUNC(Common,displayNotificationOld);
 };
 
 if (_draggedObject isKindOf "StaticWeapon") then {

@@ -23,7 +23,7 @@ params ["_target"];
     private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
-        ["You can not place a FOB at this position"] call EFUNC(Common,displayNotification);
+        ["You can not place a FOB at this position"] call EFUNC(Common,displayNotificationOld);
     };
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
@@ -36,5 +36,10 @@ params ["_target"];
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
+    //["displayNotificationOld", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
+    ["displayNotification", side group CLib_player, [
+        "NEW FOB PLACED",
+        "near " + _text,
+        [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
+    ]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

@@ -53,7 +53,10 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
+                FNC(displayNotificationOld);
                 FNC(displayNotification);
+                FNC(drawNotification);
+                FNC(registerDisplayNotification);
                 FNC(handleNotificationQueue);
             };
 

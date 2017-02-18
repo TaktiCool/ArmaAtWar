@@ -8,31 +8,112 @@
     Displays a Notification
 
     Parameter(s):
-    0: Text <StructuredText>
-    1: Color (optional, default [0.8,0.8,0.8,1]) <Array>
-    2: Time in seconds (optional, default 6) <Number>
-    3: Priority (optional, default 0) <Number>
+    0: Header text <String|Array>
+    1: Description text <String|Array>
+    2: Icon stack <Array of <Icon>>
 
     Returns:
     None
-*/
-params [["_text", "Error No Notification Text", ["", []]], ["_color", [0.2, 0.2, 0.2, 0.8]], ["_time", 6], ["_priority", 0], ["_condition", {true}]];
 
-if (_text isEqualType []) then {
+    Remarks:
+    <Icon>
+        0: icon path <String>
+        1: size <Number>
+        2: color <Array>
+*/
+params [["_header", "Error No Notification Text", ["", []]],
+    ["_description", "Error No Notification Text",    ["", []]],
+    ["_icons", []]];
+
+if (_header isEqualType []) then {
     {
         if (_x call CFUNC(isLocalised)) then {
-            _text set [_forEachIndex, LOC(_x)];
+            _header set [_forEachIndex, LOC(_x)];
         };
-    } forEach _text;
-    _text = format _text;
+    } forEach _header;
+    _header = format _header;
 } else {
-    if (_text call CFUNC(isLocalised)) then {
-        _text = LOC(_text);
+    if (_header call CFUNC(isLocalised)) then {
+        _header = LOC(_header);
     };
 };
 
-GVAR(NotificationQueue) pushBack [_priority, time, _text, _color, _time, _condition];
-GVAR(NotificationQueue) sort true;
-if (isNull (uiNamespace getVariable [UIVAR(Notification), displayNull])) then {
-    call FUNC(handleNotificationQueue);
+if (_description isEqualType []) then {
+    {
+        if (_x call CFUNC(isLocalised)) then {
+            _description set [_forEachIndex, LOC(_x)];
+        };
+    } forEach _description;
+    _description = format _header;
+} else {
+    if (_description call CFUNC(isLocalised)) then {
+        _description = LOC(_description);
+    };
 };
+
+private _controlGroups = [];
+private _deletableDisplays = [];
+
+{
+    _x params ["_display", "_offset"];
+    if (!isNull _display) then {
+        private _ctrlGrp = [_header, _description, _icons, _display, 0, _offset] call FUNC(drawNotification);
+        private _pos = ctrlPosition _ctrlGrp;
+        private _oldPos = +_pos;
+        _pos set [1, (_pos select 1) + (_pos select 3)];
+        _pos set [3, 0];
+        _ctrlGrp ctrlSetPosition _pos;
+        _ctrlGrp ctrlCommit 0;
+        _ctrlGrp ctrlSetPosition _oldPos;
+        _ctrlGrp ctrlSetFade 0;
+        _ctrlGrp ctrlCommit 0.3;
+        _controlGroups pushBack [_ctrlGrp, _oldPos];
+    } else {
+        _deletableDisplays pushBack _this;
+    };
+
+    nil
+} count GVAR(NotificationDisplays);
+
+GVAR(NotificationDisplays) =  GVAR(NotificationDisplays) - _deletableDisplays;
+
+{
+    _x params ["_parameter", "_groups"];
+    {
+        _x params ["_group", "_committedPosition"];
+        if (!isNull _group) then {
+            _committedPosition set [1, (_committedPosition select 1) - (_committedPosition select 3)];
+            _group ctrlSetPosition _committedPosition;
+            _group ctrlCommit 0.3;
+        };
+
+        nil;
+    } count _groups;
+    nil;
+} count GVAR(AllNotifications);
+
+private _item = [[_header, _description, _icons], _controlGroups];
+
+private _idx = GVAR(AllNotifications) pushBack _item;
+[{
+    params ["_parameter", "_controlsGroup"];
+    {
+        _x params ["_group", "_committedPosition"];
+        if (!isNull _group) then {
+            _group ctrlSetFade 1;
+            _group ctrlCommit 3;
+        };
+        nil;
+    } count _controlsGroup;
+    [{
+        params ["_parameter", "_controlsGroup"];
+        {
+            _x params ["_group", "_committedPosition"];
+            if (!isNull _group) then {
+                ctrlDelete _group;
+            };
+            nil;
+        } count _controlsGroup;
+        GVAR(AllNotifications) = GVAR(AllNotifications)  - [_this];
+    }, 3.5, _this] call CFUNC(wait);
+}, 10, _item] call CFUNC(wait);
