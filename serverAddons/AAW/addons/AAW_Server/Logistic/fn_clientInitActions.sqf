@@ -60,7 +60,7 @@
             } count _ItemArray;
 
             if (_cargoCapacity < _cargoSize) exitWith {
-                [MLOC(noCargoSpace)] call EFUNC(Common,displayNotificationOld);
+                [toUpper MLOC(noCargoSpace)] call EFUNC(Common,displayHint);
             };
 
             detach _draggedObject;

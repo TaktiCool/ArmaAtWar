@@ -23,7 +23,7 @@ params ["_target"];
     private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
-        ["You can not place a FOB at this position"] call EFUNC(Common,displayNotificationOld);
+        ["FOB NOT PLACABLE", "Not enough space available!"] call EFUNC(Common,displayHint);
     };
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");

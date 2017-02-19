@@ -20,6 +20,7 @@ GVAR(NextNotification) = -1;
 
 GVAR(AllNotifications) = [];
 GVAR(NotificationDisplays) = [];
+GVAR(CurrentHint) = [];
 
 ["displayNotificationOld", {
     (_this select 0) call FUNC(displayNotificationOld)
