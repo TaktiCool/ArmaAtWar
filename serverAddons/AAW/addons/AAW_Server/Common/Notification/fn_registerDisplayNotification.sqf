@@ -40,8 +40,3 @@ _numberOfNotifications = count GVAR(AllNotifications);
      _ctrlGrp ctrlCommit 0;
      _controlGroups pushBack [_ctrlGrp, ctrlPosition _ctrlGrp];
 } forEach GVAR(AllNotifications);
-
-
-
-private _ctrlGrp = [_header, _description, _icons, _display, 0, _offsetHint] call FUNC(drawHint);
-GVAR(CurrentHint) pushBack _ctrlGrp;
