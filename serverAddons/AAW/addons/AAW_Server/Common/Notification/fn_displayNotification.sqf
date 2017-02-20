@@ -94,6 +94,8 @@ GVAR(NotificationDisplays) =  GVAR(NotificationDisplays) - _deletableDisplays;
 
 private _item = [[_header, _description, _icons], _controlGroups];
 
+playSound "HintExpand";
+
 private _idx = GVAR(AllNotifications) pushBack _item;
 [{
     params ["_parameter", "_controlsGroup"];
@@ -105,6 +107,7 @@ private _idx = GVAR(AllNotifications) pushBack _item;
         };
         nil;
     } count _controlsGroup;
+    playSound "HintCollapse";
     [{
         params ["_parameter", "_controlsGroup"];
         {

@@ -72,6 +72,8 @@ private _controlGroups = [];
 private _deletableDisplays = [];
 GVAR(CurrentHint) = [];
 
+playSound "Hint";
+
 {
     _x params ["_display", "_offset","_offsetHint"];
     if (!isNull _display) then {
