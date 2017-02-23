@@ -92,7 +92,7 @@ GVAR(NotificationDisplays) =  GVAR(NotificationDisplays) - _deletableDisplays;
     {
         if (!isNull _x) then {
             _x ctrlSetFade 1;
-            _x ctrlCommit 3;
+            _x ctrlCommit 0.3;
         };
         nil;
     } count _this;
@@ -106,5 +106,5 @@ GVAR(NotificationDisplays) =  GVAR(NotificationDisplays) - _deletableDisplays;
         if (_this isEqualTo GVAR(CurrentHint)) then {
             GVAR(CurrentHint) = [];
         };
-    }, 3.5, _this] call CFUNC(wait);
+    }, 0.5, _this] call CFUNC(wait);
 }, 6, GVAR(CurrentHint)] call CFUNC(wait);

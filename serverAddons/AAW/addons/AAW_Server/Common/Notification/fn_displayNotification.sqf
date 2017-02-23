@@ -103,11 +103,11 @@ private _idx = GVAR(AllNotifications) pushBack _item;
         _x params ["_group", "_committedPosition"];
         if (!isNull _group) then {
             _group ctrlSetFade 1;
-            _group ctrlCommit 3;
+            _group ctrlCommit 0.3;
         };
         nil;
     } count _controlsGroup;
-    playSound "HintCollapse";
+    // playSound "HintCollapse";
     [{
         params ["_parameter", "_controlsGroup"];
         {
@@ -118,5 +118,5 @@ private _idx = GVAR(AllNotifications) pushBack _item;
             nil;
         } count _controlsGroup;
         GVAR(AllNotifications) = GVAR(AllNotifications)  - [_this];
-    }, 3.5, _this] call CFUNC(wait);
+    }, 0.5, _this] call CFUNC(wait);
 }, 10, _item] call CFUNC(wait);
