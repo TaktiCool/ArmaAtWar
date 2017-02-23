@@ -36,5 +36,7 @@ params ["_target"];
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
+    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+
     ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
 }, [_target], "respawn"] call CFUNC(mutex);
