@@ -16,8 +16,8 @@
 */
 params ["_newSide", "_oldSide"];
 
-if ((GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) >= serverTime) exitWith {
-    [format [MLOC(waitToSwitchSide), (GVAR(lastTimeSideChanged) + GVAR(restirctSideSwitchRestrictionTime)) - serverTime]] call EFUNC(Common,displayNotificationOld);
+if ((GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) >= serverTime) exitWith {
+    ["PLEASE WAIT", format [MLOC(waitToSwitchSide), (GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) - serverTime]] call EFUNC(Common,displayHint);
     false
 };
 
@@ -28,8 +28,8 @@ private _fnc = {
 
 private _newSideCount = _newSide call _fnc;
 private _oldSideCount = _oldSide call _fnc;
-if (_oldSideCount < (_newSide + GVAR(restirctSideSwitchRestrictionCount))) exitWith {
-    [MLOC(MaxPlayerCount)] call EFUNC(Common,displayNotificationOld);
+if (_oldSideCount < (_newSide + GVAR(maxPlayerCountDifference))) exitWith {
+    ["SIDE BALANCING", MLOC(MaxPlayerCount)] call EFUNC(Common,displayHint);
     false
 };
 

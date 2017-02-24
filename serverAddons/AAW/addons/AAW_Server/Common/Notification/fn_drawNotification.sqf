@@ -37,7 +37,7 @@ _grp ctrlSetPosition [safeZoneX + safeZoneW/2 + (_offset select 0), safeZoneY + 
 _grp ctrlSetFade 1;
 _grp ctrlCommit 0;
 private _textField = _display ctrlCreate ["RscStructuredText", -1, _grp];
-_textField ctrlSetStructuredText parseText format [_formatString, _largeTextSize, _header, _smallTextSize, _description];
+_textField ctrlSetStructuredText parseText format [_formatString, _largeTextSize, toUpper _header, _smallTextSize, _description];
 _textField ctrlSetPosition [0, 0, safeZoneW/2-PX(6), PY(5)];
 _textField ctrlCommit 0;
 
