@@ -17,7 +17,7 @@
 params ["_newSide", "_oldSide"];
 
 if ((GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) >= serverTime) exitWith {
-    ["PLEASE WAIT", format [MLOC(waitToSwitchSide), (GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) - serverTime]] call EFUNC(Common,displayHint);
+    ["PLEASE WAIT", format [MLOC(waitToSwitchSide), floor ((GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) - serverTime)]] call EFUNC(Common,displayHint);
     false
 };
 
