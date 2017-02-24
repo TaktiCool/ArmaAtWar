@@ -11,13 +11,22 @@ class AAW_UI_TicketStatus {
             w = PX(40);
             h = PY(5);
             class Controls {
+                class TeamFlagBG : RscPicture {
+                    idc = 2019;
+                    text = "#(argb,8,8,3)color(0.0,0.4,0.8,1)";
+                    x = PX(40-4);
+                    y = PY(0.5);
+                    w = PX(3.6);
+                    h = PY(3.6);
+                };
+
                 class TeamFlag : RscPicture {
                     idc = 2011;
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
-                    x = PX(40-4);
-                    y = PY(0.5);
-                    w = PX(3.5);
-                    h = PY(3.5);
+                    x = PX(40-4+0.5);
+                    y = PY(0.5+0.5);
+                    w = PX(2.6);
+                    h = PY(2.6);
                 };
 
                 class TeamName : AAW_RscText {
@@ -25,11 +34,11 @@ class AAW_UI_TicketStatus {
                     text = "NATO";
                     style = ST_RIGHT;
                     x = PX(0);
-                    y = PY(0);
+                    y = PY(0.2);
                     w = PX(36);
                     h = PY(2.5);
-                    sizeEx = PY(2.9);
-                    font = "PuristaSemiBold";
+                    sizeEx = PY(2.8);
+                    font = "RobotoCondensedBold";
                     shadow = 1;
                 };
 
@@ -38,9 +47,10 @@ class AAW_UI_TicketStatus {
                     text = "1234";
                     style = ST_RIGHT;
                     x = PX(0);
-                    y = PY(2.2);
+                    y = PY(2.4);
                     w = PX(36);
                     h = PY(2);
+                    font = "RobotoCondensed";
                     shadow = 1;
                 };
 
@@ -54,13 +64,22 @@ class AAW_UI_TicketStatus {
             w = PX(40);
             h = PY(4);
             class Controls {
+                class TeamFlagBG : RscPicture {
+                    idc = 2029;
+                    text = "#(argb,8,8,3)color(0.6,0.0,0.0,1)";
+                    x = PX(0.5);
+                    y = PY(0.5);
+                    w = PX(3.6);
+                    h = PY(3.6);
+                };
+
                 class TeamFlag : RscPicture {
                     idc = 2021;
                     text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
-                    x = PX(0.5);
-                    y = PY(0.5);
-                    w = PX(3.5);
-                    h = PY(3.5);
+                    x = PX(0.5+0.5);
+                    y = PY(0.5+0.5);
+                    w = PX(2.6);
+                    h = PY(2.6);
                 };
 
                 class TeamName : AAW_RscText {
@@ -68,11 +87,11 @@ class AAW_UI_TicketStatus {
                     text = "NATO";
                     style = ST_LEFT;
                     x = PX(4);
-                    y = PY(0);
+                    y = PY(0.2);
                     w = PX(36);
                     h = PY(2.5);
                     sizeEx = PY(2.9);
-                    font = "PuristaSemiBold";
+                    font = "RobotoCondensedBold";
                     shadow = 1;
                 };
 
@@ -81,9 +100,10 @@ class AAW_UI_TicketStatus {
                     text = "1234";
                     style = ST_Left;
                     x = PX(4);
-                    y = PY(2.2);
+                    y = PY(2.4);
                     w = PX(36);
                     h = PY(2);
+                    font = "RobotoCondensed";
                     shadow = 1;
                 };
 
