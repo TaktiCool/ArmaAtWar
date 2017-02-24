@@ -38,6 +38,6 @@ if (_fobNearPlayer) exitWith {false};
 // Check near enemies
 private _maxEnemyPlace = [QGVAR(maxEnemyPlace), 5] call CFUNC(getSetting);
 private _maxEnemyPlaceRadius = [QGVAR(maxEnemyPlaceRadius), 50] call CFUNC(getSetting);
-private _enemyCount = {(side group _x) != side group CLib_Player} count (_target nearObjects ["CAManBase", _maxEnemyPlaceRadius]);
+private _enemyCount = {(side group _x) != side group CLib_Player && alive _x} count ([CLib_Player, _maxEnemyPlaceRadius] call CFUNC(getNearUnits));
 if (_enemyCount >= _maxEnemyPlace) exitWith {false};
 true
