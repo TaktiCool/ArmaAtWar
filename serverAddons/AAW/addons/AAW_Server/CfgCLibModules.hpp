@@ -13,7 +13,7 @@ class CfgCLibModules {
             dependency[] = {"AAW/Sector"};
             FNC(clientInit);
             FNC(serverInit);
-        }
+        };
 
         // Common
         MODULE(Common) {
