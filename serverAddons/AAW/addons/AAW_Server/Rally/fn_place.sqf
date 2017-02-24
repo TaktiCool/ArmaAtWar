@@ -42,6 +42,8 @@
     private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
+    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     //["displayNotificationOld", group CLib_Player, [format [MLOC(RallyPlaced), [_position] call EFUNC(Common,getNearestLocationName)]]] call CFUNC(targetEvent);

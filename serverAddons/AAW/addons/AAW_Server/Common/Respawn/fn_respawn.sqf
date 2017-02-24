@@ -21,7 +21,7 @@ if (CLib_Player getVariable [QGVAR(tempUnit), false]) then {
     ["enableSimulation", [CLib_Player, true]] call CFUNC(serverEvent);
     ["hideObject", [CLib_Player, false]] call CFUNC(serverEvent);
     [{
-        CLib_Player allowDamage true;
+        ["allowDamage", "Respawn", true] call CFUNC(setStatusEffect);
     }, 1] call CFUNC(wait);
 };
 
@@ -36,7 +36,7 @@ if (!alive CLib_Player) then {
 
         if (_tempUnit) then {
             CLib_Player setVariable [QGVAR(tempUnit), true];
-            CLib_Player allowDamage false;
+            ["allowDamage", "Respawn", false] call CFUNC(setStatusEffect);
             ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
             ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
         };
