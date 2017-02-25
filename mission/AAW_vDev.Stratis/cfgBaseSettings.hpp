@@ -4,8 +4,8 @@ musicStart = 100; // tickets to start the music
 playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
-restirctSideSwitchRestrictionCount = 5;
-restirctSideSwitchRestrictionTime = 50;
+maxPlayerCountDifference = 5;
+minSideSwitchTime = 50;
 
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {

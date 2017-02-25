@@ -84,27 +84,27 @@
 
         // Check squad
         if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
-            [MLOC(JoinASquad)] call EFUNC(Common,displayNotification);
+            [MLOC(JoinASquad)] call EFUNC(Common,displayHint);
         };
 
         // Check kit
         private _currentRoleSelection = lnbCurSelRow (_roleDisplay displayCtrl 303);
         if (_currentRoleSelection < 0) exitWith {
-            [MLOC(ChooseARole)] call EFUNC(Common,displayNotification);
+            [MLOC(ChooseARole)] call EFUNC(Common,displayHint);
         };
 
         // Check deployment
         private _controlDeploymentList = _deploymentDisplay displayCtrl 403;
         private _currentDeploymentPointSelection = lnbCurSelRow _controlDeploymentList;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            [MLOC(selectSpawn)] call EFUNC(Common,displayNotification);
+            [MLOC(selectSpawn)] call EFUNC(Common,displayHint);
         };
 
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
 
         if !(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint)) exitWith {
-            ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayNotification);
+            ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
@@ -189,4 +189,22 @@
     private _controlMap = _display displayCtrl 800;
     _controlMap ctrlMapAnimAdd [0.5, 0.15, _position]; // Dialog syntax can not be used
     ctrlMapAnimCommit _controlMap;
+}] call CFUNC(addEventHandler);
+
+[QEGVAR(Common,DeploymentPointSelected), {
+    private _display = uiNamespace getVariable [QGVAR(deploymentDisplay), displayNull];
+    if (isNull _display) exitWith {};
+
+    private _deploymentPointId = _this select 0;
+    private _control = _display displayCtrl 403;
+    private _size = lnbSize _control;
+    for "_idx" from 0 to ((_size select 0) - 1) do {
+        private _data = [_control, [_idx, 0]] call CFUNC(lnbLoad);
+        if (toLower _data == toLower _deploymentPointId) exitWith {
+            _control lnbSetCurSelRow _idx;
+            _control ctrlCommit 0;
+
+        }
+    };
+
 }] call CFUNC(addEventHandler);

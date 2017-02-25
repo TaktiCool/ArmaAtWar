@@ -13,7 +13,7 @@ class CfgCLibModules {
             dependency[] = {"AAW/Sector"};
             FNC(clientInit);
             FNC(serverInit);
-        }
+        };
 
         // Common
         MODULE(Common) {
@@ -61,7 +61,12 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
+                FNC(displayNotificationOld);
                 FNC(displayNotification);
+                FNC(displayHint);
+                FNC(drawNotification);
+                FNC(drawHint);
+                FNC(registerDisplayNotification);
                 FNC(handleNotificationQueue);
             };
 

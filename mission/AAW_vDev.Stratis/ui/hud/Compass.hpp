@@ -27,7 +27,7 @@ class AAW_UI_Compass {
             class Controls {
                 class Needle : RscPicture {
                     idc = 7001;
-                    text = "ui\media\fob_ca.paa";
+                    text = "\a3\ui_f\data\map\markers\military\triangle_ca.paa";
                     angle = 180;
                     x = PX(46.25 - 1);
                     y = PY(1.6);

@@ -26,7 +26,7 @@
     ["onActionAdded", {
         params ["_id", "_object", "_args"];
         _args params ["_title"];
-        _object setUserActionText [_id, _title, "<img image='\\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa' size='2.5' shadow=2 />"];
+        _object setUserActionText [_id, _title, "<img image='\A3\ui_f\data\igui\cfg\actions\gear_ca.paa' size='2.5' shadow=2 />"];
     }, "shortcut", "Gear"]
 ] call CFUNC(addAction);
 
@@ -97,7 +97,7 @@
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             if !(isNull (objectParent CLib_Player)) exitWith {
-                MLOC(UnableToUnload) call EFUNC(Common,displayNotification);
+                [MLOC(UnableToUnload)] call EFUNC(Common,displayHint);
             };
             [{
                 params ["_vehicle"];
