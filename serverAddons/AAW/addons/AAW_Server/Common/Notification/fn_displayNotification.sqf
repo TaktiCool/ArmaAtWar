@@ -26,12 +26,7 @@ params [["_header", "Error No Notification Text", ["", []]],
     ["_icons", []]];
 
 if (_header isEqualType []) then {
-    {
-        if (_x call CFUNC(isLocalised)) then {
-            _header set [_forEachIndex, LOC(_x)];
-        };
-    } forEach _header;
-    _header = format _header;
+    _header = _header call CFUNC(formatLocalisation);;
 } else {
     if (_header call CFUNC(isLocalised)) then {
         _header = LOC(_header);
@@ -39,12 +34,7 @@ if (_header isEqualType []) then {
 };
 
 if (_description isEqualType []) then {
-    {
-        if (_x call CFUNC(isLocalised)) then {
-            _description set [_forEachIndex, LOC(_x)];
-        };
-    } forEach _description;
-    _description = format _header;
+    _description = _description call CFUNC(formatLocalisation);
 } else {
     if (_description call CFUNC(isLocalised)) then {
         _description = LOC(_description);
