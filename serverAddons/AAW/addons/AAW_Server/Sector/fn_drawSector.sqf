@@ -99,7 +99,6 @@ if (hasInterface) then {
     _hoverIcon pushBack [_markerShape, _position, _markerSize select 0, _markerSize select 1, _markerDir, +_fillColor, "#(rgb,8,8,3)color(1,1,1,1)"];
     _fillColor set [3, 0.1];
     _hoverIcon pushBack [_markerShape, _position, _markerSize select 0, _markerSize select 1, _markerDir, _fillColor, "\A3\3den\data\displays\display3deneditattributes\backgrounddisable_ca.paa"];
-    //_hoverIcon pushBack [_markerShape, _position, _markerSize select 0, _markerSize select 1, _markerDir, _color];
     _hoverIcon append _icon;
     _hoverIcon pushBack ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0, 25]], 25, 25, 0, _fullname, 2, 0.07, "RobotoCondensedBold", "center"];
 

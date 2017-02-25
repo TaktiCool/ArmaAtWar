@@ -53,13 +53,11 @@
         // Pilot kit for pilot seats.
         if (_actionName in ["GetInPilot", "MoveToPilot"] && _isPilot == 0) exitWith {
             ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
-            //[MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotificationOld);
             true
         };
 
         // Gunner and commander always require a driver.
         if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
-            //[MLOC(NotAllowToDrive)] call EFUNC(Common,displayNotificationOld);
             ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };

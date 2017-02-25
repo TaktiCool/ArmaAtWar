@@ -45,13 +45,6 @@ GVAR(currentSector) = objNull;
     private _designator = _sector getVariable ["designator", ""];
 
     if ((side group CLib_Player) isEqualTo _newSide) exitWith {
-        /*
-        if (GVAR(currentSector) isEqualTo _sector) then {
-            [format [MLOC(YouSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotificationOld);
-        } else {
-            [format [MLOC(YourTSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotificationOld);
-        };
-        */
         ["SECTOR CAPTURED", _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1, [0, 0.4, 0.8, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
@@ -60,7 +53,6 @@ GVAR(currentSector) = objNull;
     };
 
     if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
-        //[format [MLOC(YouSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotificationOld);
         ["SECTOR LOST", _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", 1, [0.6, 0, 0, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa"],
@@ -69,13 +61,6 @@ GVAR(currentSector) = objNull;
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
-        /*
-        if (GVAR(currentSector) isEqualTo _sector) then {
-            [format [MLOC(YouSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]], [0, 1, 0, 1]]] call EFUNC(Common,displayNotificationOld);
-        } else {
-            [format [MLOC(YourTSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]], [0, 1, 0, 1]]] call EFUNC(Common,displayNotificationOld);
-        };
-        */
         ["SECTOR NEUTRALIZED", _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1,  [0.93, 0.7, 0.01,0.6], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],

@@ -20,7 +20,7 @@ params ["_target"];
 
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _position = getPos _target;
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
         ["FOB NOT PLACABLE", "Not enough space available!"] call EFUNC(Common,displayHint);
@@ -37,7 +37,6 @@ params ["_target"];
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
 
-    //["displayNotificationOld", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
     ["displayNotification", side group CLib_player, [
         "NEW FOB PLACED",
         "near " + _text,

@@ -53,6 +53,6 @@
         (QGVAR(rscLayer) cutFadeOut 0) cutText ["", "BLACK IN", 1, false];
 
         // Show notfication afterwards otherwise it may be covered by the black screen
-        [{MLOC(CanNotEnterBase) call EFUNC(Common,displayNotification)}, 1] call CFUNC(wait);
+        [{MLOC(CanNotEnterBase) call EFUNC(Common,displayNotificationOld)}, 1] call CFUNC(wait);
     };
 }] call CFUNC(addEventHandler);
