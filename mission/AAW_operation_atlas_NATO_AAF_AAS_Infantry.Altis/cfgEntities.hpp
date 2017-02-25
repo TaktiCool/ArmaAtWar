@@ -34,7 +34,7 @@ class CfgEntities {
     };
     class vr_hunter_1: vr_hunter_0 {};
 
-    class vr_hunterHMG_0 : defaultWest {
+    class vr_hunterHMG_0 : vr_hunter_0 {
         ticketValue = 50;
     };
     class vr_hunterHMG_1 : vr_hunterHMG_0 {};

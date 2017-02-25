@@ -7,6 +7,8 @@ playerTicketValue = 1; // Ticket value of a player
 maxPlayerCountDifference = 5;
 minSideSwitchTime = 50;
 
+tracks[] = {"AmbientTrack01_F_EPB", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTrack01b_F", "AmbientTrack03_F", "AmbientTrack04a_F", "AmbientTrack04_F"};
+
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {
     "base_east",
@@ -25,4 +27,9 @@ markerLocation[] = {
     "sector_11",
     "sector_12",
     "sector_13"
+};
+
+class GarbageCollector {
+    EnableGarbageCollector = 1;
+    GarbageCollectorTime = 120;
 };

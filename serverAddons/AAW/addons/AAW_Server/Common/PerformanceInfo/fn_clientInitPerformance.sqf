@@ -31,6 +31,12 @@ DFUNC(showIndicator) = {
     ([UIVAR(PerformanceStatus)] call BIS_fnc_rscLayer) cutRsc [UIVAR(PerformanceStatus), "PLAIN"];
     private _display = uiNamespace getVariable [UIVAR(PerformanceStatus), displayNull];
 
+    // Server frames
+    [_display displayCtrl 9001, 9999999] call FUNC(showIndicator);
+
+    // Client frames
+    [_display displayCtrl 9002, diag_fps] call FUNC(showIndicator);
+
     ["performanceCheck", {
         params ["_serverFps", "_display"];
 
