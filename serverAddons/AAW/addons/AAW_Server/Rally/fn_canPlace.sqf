@@ -41,7 +41,7 @@ private _count = {
     _x call EFUNC(Common,isAlive)
 } count ([CLib_Player, _nearPlayerToBuildRadius] call CFUNC(getNearUnits));
 _count = _count + 1; // Player is not in getNearUnits
-if (_count =< _nearPlayerToBuild) exitWith {
+if (_count < _nearPlayerToBuild) exitWith {
     ["RALLY POINT NOT PLACABLE", format ["You need %1 more player to build a rally", _nearPlayerToBuild - _count]] call EFUNC(Common,displayHint);
     false
 };
