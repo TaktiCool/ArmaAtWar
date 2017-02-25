@@ -30,7 +30,7 @@ if (_enemyCount != 0) exitWith {
 };
 
 // Check near players
-private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
+private _nearPlayerToBuild = ([QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting)) - 1;
 private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
 private _count = {(group _x) == (group CLib_Player) && alive _x} count ([CLib_Player, _nearPlayerToBuildRadius] call CFUNC(getNearUnits));
 if (_count < _nearPlayerToBuild) exitWith {
