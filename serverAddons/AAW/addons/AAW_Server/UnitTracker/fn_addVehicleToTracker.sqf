@@ -102,8 +102,6 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
         private _maxCrewSize = [typeOf _vehicle, true] call BIS_fnc_crewCount;
         private _units = crew _vehicle;
 
-        _ctrlTotalSeats ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, count _units, _maxCrewSize];
-
         private _crewUnits = "";
         private _unitCount = {
             if (alive _x) then {
@@ -115,6 +113,8 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
                 false;
             }
         } count _units;
+
+        _ctrlTotalSeats ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, _unitCount, _maxCrewSize];
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _crewUnits];
 
