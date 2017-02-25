@@ -18,6 +18,9 @@ markerLocation[] = {
     "sector_4",
     "sector_5"
 };
+
+tracks[] = {"AmbientTrack01_F_EPB", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTrack01b_F", "AmbientTrack03_F", "AmbientTrack04a_F", "AmbientTrack04_F"};
+
 class GarbageCollector {
     EnableGarbageCollector = 1;
     GarbageCollectorTime = 120;
