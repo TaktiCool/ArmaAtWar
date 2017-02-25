@@ -45,7 +45,7 @@
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", side group CLib_player, [
+    ["displayNotification", group CLib_player, [
         "NEW RALLY POINT AVAILABLE",
         "near " + ([_position] call EFUNC(Common,getNearestLocationName)),
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0.13, 0.54, 0.21, 1],1],["A3\ui_f\data\map\groupicons\badge_simple.paa", 0.8]]
