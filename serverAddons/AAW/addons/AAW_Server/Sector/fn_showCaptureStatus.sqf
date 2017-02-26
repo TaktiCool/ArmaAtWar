@@ -75,3 +75,4 @@ if (_show) then {
 
     ([QEGVAR(UI,CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 1;
 };
+nil;
