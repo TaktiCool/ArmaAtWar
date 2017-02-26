@@ -17,8 +17,10 @@
 // Check time
 private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSettingOld);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
-if ((_lastRallyPlaced + _waitTime) >= serverTime) exitWith {
-    ["RALLY POINT NOT PLACABLE", format ["You need to wait %1 sec to place your next rally", floor ((_lastRallyPlaced + _waitTime) - serverTime)]] call EFUNC(Common,displayHint);
+private _time = ((_lastRallyPlaced + _waitTime) - serverTime);
+if (_time >= 0) exitWith {
+    // add 1 not show 0 secs.
+    ["RALLY POINT NOT PLACABLE", format ["You need to wait %1 sec to place your next rally", 1 + floor(_time)]] call EFUNC(Common,displayHint);
     false
 };
 
