@@ -187,7 +187,8 @@
 
     // Animate the map
     private _controlMap = _display displayCtrl 800;
-    _controlMap ctrlMapAnimAdd [0.5, 0.15, _position]; // Dialog syntax can not be used
+    private _scale = ctrlMapScale _controlMap;
+    _controlMap ctrlMapAnimAdd [0.5, _scale, _position]; // Dialog syntax can not be used
     ctrlMapAnimCommit _controlMap;
 }] call CFUNC(addEventHandler);
 
