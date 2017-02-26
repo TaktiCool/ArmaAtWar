@@ -4,8 +4,8 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.56;
-        author = "AAW Team: NetFusion, Hoeginson, BadGuy, joko // Jonas";
-        authors[] = {"joko // Jonas", "NetFusion", "Hoeginson", "BadGuy", "AAW Team"};
+        author = "AAW Team: NetFusion, Hoegnison, BadGuy, joko // Jonas";
+        authors[] = {"joko // Jonas", "NetFusion", "Hoegnison", "BadGuy", "AAW Team"};
         authorUrl = "";
         version = VERSION;
         versionStr = QUOTE(VERSION);
@@ -15,7 +15,8 @@ class CfgPatches {
 };
 
 #include "CfgCLibModules.hpp"
-
 #include "CfgCLibLocalisation.hpp"
+#include "CfgCLibSettings.hpp"
+
 #include "\tc\AAW\addons\AAW_Server\FOB\cfgCLibSimpleObject.hpp"
 #include "AAW.hpp"

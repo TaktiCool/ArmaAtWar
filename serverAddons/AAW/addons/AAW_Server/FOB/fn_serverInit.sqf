@@ -65,7 +65,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         (_this select 1) call CFUNC(removePerFrameHandler);
 
-        private _ticketValue = [QGVAR(FOB_ticketValue), 20] call CFUNC(getSetting);
+        private _ticketValue = [QGVAR(FOB_ticketValue), 20] call CFUNC(getSettingOld);
 
         [_availablefor, -_ticketValue] call EFUNC(Tickets,addTickets);
 

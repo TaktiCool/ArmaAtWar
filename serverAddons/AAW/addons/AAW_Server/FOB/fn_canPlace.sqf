@@ -22,7 +22,7 @@ if (leader CLib_Player != CLib_Player) exitWith {false};
 if (!isNull objectParent CLib_Player) exitWith {false};
 
 // Check near DPs
-private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSetting);
+private _minDistance = [QGVAR(FOB_minDistance), 600] call CFUNC(getSettingOld);
 private _fobNearPlayer = false;
 {
     private _pointData = [_x, ["type", "postion"]] call EFUNC(Common,getDeploymentPointData);
@@ -36,8 +36,9 @@ private _fobNearPlayer = false;
 if (_fobNearPlayer) exitWith {false};
 
 // Check near enemies
-private _maxEnemyPlace = [QGVAR(maxEnemyPlace), 5] call CFUNC(getSetting);
-private _maxEnemyPlaceRadius = [QGVAR(maxEnemyPlaceRadius), 50] call CFUNC(getSetting);
+private _maxEnemyPlace = [QGVAR(maxEnemyPlace), 5] call CFUNC(getSettingOld);
+private _maxEnemyPlaceRadius = [QGVAR(maxEnemyPlaceRadius), 50] call CFUNC(getSettingOld);
 private _enemyCount = {(side group _x) != side group CLib_Player && alive _x} count ([CLib_Player, _maxEnemyPlaceRadius] call CFUNC(getNearUnits));
+
 if (_enemyCount >= _maxEnemyPlace) exitWith {false};
 true

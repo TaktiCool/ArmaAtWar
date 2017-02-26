@@ -20,7 +20,7 @@
     if (_group == group CLib_Player) exitWith {};
 
     private _groupType = _group getVariable [QGVAR(Type), ""];
-    private _groupSize = [format [QGVAR(GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSetting);
+    private _groupSize = [format [QGVAR(GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
 
     if (count ([_group] call CFUNC(groupPlayers)) >= _groupSize) exitWith {};
 
