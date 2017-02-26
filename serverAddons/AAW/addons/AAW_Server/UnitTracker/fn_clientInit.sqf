@@ -27,12 +27,12 @@ GVAR(lastProcessedIcons) = [];
 
 DFUNC(isValidUnit) = {
     params ["_unit"];
-    !isNull _unit && alive _unit && side group _unit == playerSide && simulationEnabled _unit;
+    !isNull _unit && alive _unit && side group _unit == side group CLib_Player && simulationEnabled _unit;
 };
 
 DFUNC(isValidVehicle) = {
     params ["_vehicle"];
-    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str playerSide) && ((count crew _vehicle) == 0);
+    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str side group CLib_Player) && (({alive _x} count crew _vehicle) == 0);
 };
 
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
@@ -49,7 +49,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
     } count (GVAR(lastProcessedIcons) - GVAR(processedIcons));
     GVAR(processedIcons) = [];
 
-    [["addIcons", [_units, _vehicles]], "init"] select (_units isEqualTo []);
+    [["addIcons", [_units, _vehicles]], "init"] select (_units isEqualTo [] && _vehicles isEqualTo []);
 }] call CFUNC(addStatemachineState);
 
 [GVAR(ProcessingSM), "addIcons", {
@@ -109,7 +109,7 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
         private _vehicle = _vehicles deleteAt 0;
 
         while {!([_vehicle] call FUNC(isValidVehicle)) && {!(_vehicle isEqualTo [])}} do {
-            _vehicle = _units deleteAt 0;
+            _vehicle = _vehicles deleteAt 0;
         };
 
         if ([_vehicle] call FUNC(isValidVehicle)) then {

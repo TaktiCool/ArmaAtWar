@@ -17,21 +17,29 @@ class AAW_UI_TeamInfo : RscControlsGroupNoScrollbars {
             w = PX(GWIDTH);
             h = PY(GHEIGHT);
         };
+        class TeamFlagBG : RscPicture {
+            idc = 198;
+            text = "#(argb,8,8,3)color(0.0,0.4,0.8,1)";
+            x = PX(1);
+            y = PY(0);
+            w = PX(3.6);
+            h = PY(3.6);
+        };
         class TeamFlag : RscPicture {
             idc = 102;
             text = "#(argb,8,8,3)color(0.5,0.5,0.5,1)";
-            x = PX(0.5);
-            y = PY(0.75);
-            w = PX(3);
-            h = PY(3);
+            x = PX(1+0.5);
+            y = PY(0+0.5);
+            w = PX(2.6);
+            h = PY(2.6);
         };
         class TeamName : AAW_H1Text {
             idc = 103;
             text = "US ARMY";
-            x = PX(4);
-            y = PY(0.25);
+            x = PX(5);
+            y = PY(0);
             w = PX(GWIDTH-12);
-            h = PY(GHEIGHT-0.5);
+            h = PY(GHEIGHT-1);
             colorText[] = {1,1,1,1};
             font = "PuristaBold";
         };
@@ -39,7 +47,7 @@ class AAW_UI_TeamInfo : RscControlsGroupNoScrollbars {
             idc = 104;
             text = "CHANGE";
             x = PX(GWIDTH-9);
-            y = PY(0.75);
+            y = PY(0.3);
             w = PX(8);
             h = PY(3);
             onButtonClick = "'AAW_UI_RespawnScreen_ChangeSideBtn_onButtonClick' call CLib_fnc_localEvent;";

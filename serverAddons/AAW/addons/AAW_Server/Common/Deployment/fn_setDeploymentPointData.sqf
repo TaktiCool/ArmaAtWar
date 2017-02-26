@@ -18,6 +18,11 @@
 
 params ["_pointID", "_dataName", "_data"];
 
+// delay for 1 frame to garantie that data has updated on remoted clients
+[{
+    ["DeploymentPointDataChanged", _this] call CFUNC(globalEvent);
+}, [_pointID, _dataName]] call CFUNC(execNextFrame);
+
 if (_dataName == "all") exitWith {
     GVAR(DeploymentPointStorage) setVariable [_pointId, _data, true];
 };

@@ -14,9 +14,9 @@
     Returns:
     None
 */
-params ["_pointId", "_name", "_data"];
+params ["_pointID", "_name", "_data"];
 
-private _customData = [_pointId, "customdata"] call FUNC(getDeploymentPointData);
+private _customData = [_pointID, "customdata"] call FUNC(getDeploymentPointData);
 
 _customData params [["_names", []], ["_datas", []]];
 
@@ -26,4 +26,4 @@ if (_index == -1) then {
 };
 _datas set [_index, _data];
 
-[_pointId, "customdata", [_names, _datas]] call FUNC(setDeploymentPointData);
+[_pointID, "customdata", [_names, _datas]] call FUNC(setDeploymentPointData);

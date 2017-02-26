@@ -7,6 +7,14 @@ class CfgCLibModules {
     class AAW {
         path = "\tc\AAW\addons\AAW_Server"; // TODO add Simplifyed Macro for this
         dependency[] = {"CLib"};
+
+        // Base protection
+        MODULE(BaseProtection) {
+            dependency[] = {"AAW/Sector"};
+            FNC(clientInit);
+            FNC(serverInit);
+        };
+
         // Common
         MODULE(Common) {
             // dependency[] = {"CLib/Core", "CLib/PerFrame", "CLib/Events", "CLib/Localisation", "CLib/ConfigCaching", "CLib/3dGraphics", "CLib/extensionFramework", "CLib/Gear", "CLib/Interaction", "CLib/lnbData", "CLib/MapGraphics", "CLib/Mutex", "CLib/Namespaces", "CLib/RemoteExecution", "CLib/Statemachine", "CLib/StatusEffects", "CLib/Settings"};
@@ -53,7 +61,12 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
+                FNC(displayNotificationOld);
                 FNC(displayNotification);
+                FNC(displayHint);
+                FNC(drawNotification);
+                FNC(drawHint);
+                FNC(registerDisplayNotification);
                 FNC(handleNotificationQueue);
             };
 

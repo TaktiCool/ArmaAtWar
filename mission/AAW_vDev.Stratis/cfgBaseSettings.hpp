@@ -4,8 +4,10 @@ musicStart = 100; // tickets to start the music
 playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
-restirctSideSwitchRestrictionCount = 5;
-restirctSideSwitchRestrictionTime = 50;
+maxPlayerCountDifference = 5;
+minSideSwitchTime = 50;
+
+tracks[] = {"AmbientTrack01_F_EPB", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTrack01b_F", "AmbientTrack03_F", "AmbientTrack04a_F", "AmbientTrack04_F"};
 
 // Optional ConfigValue used if no Near Location can be found
 markerLocation[] = {
@@ -25,4 +27,9 @@ markerLocation[] = {
     "sector_11",
     "sector_12",
     "sector_13"
+};
+
+class GarbageCollector {
+    EnableGarbageCollector = 1;
+    GarbageCollectorTime = 120;
 };
