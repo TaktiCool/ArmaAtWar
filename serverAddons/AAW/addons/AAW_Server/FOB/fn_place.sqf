@@ -20,22 +20,28 @@ params ["_target"];
 
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = getPos _target; // [CLib_Player modelToWorld [0,1,0], 2] call CFUNC(findSavePosition);
+    private _position = getPos _target;
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
-        ["You can not place a FOB at this position"] call EFUNC(Common,displayNotification);
+        ["FOB NOT PLACABLE", "Not enough space available!"] call EFUNC(Common,displayHint);
     };
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
-
 
     deleteVehicle _target;
     private _pointObjects = [_composition, _position, _dirVector, _target] call CFUNC(createSimpleObjectComp);
 
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
-    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
-    ["displayNotification", playerSide, [format [MLOC(FOBPlaced), groupId (group CLib_Player), _text]]] call CFUNC(targetEvent);
+
+    ["displayNotification", side group CLib_player, [
+        "NEW FOB PLACED",
+        "near " + _text,
+        [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
+    ]] call CFUNC(targetEvent);
+
+    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
 }, [_target], "respawn"] call CFUNC(mutex);

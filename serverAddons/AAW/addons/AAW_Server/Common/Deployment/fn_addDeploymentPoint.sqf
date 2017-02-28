@@ -31,7 +31,7 @@ params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon"
 
 private _id = format ["%1_%2", _name, _position];
 
-[GVAR(DeploymentPointStorage), _id, [_name, _type, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects, [[],[]]], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+[GVAR(DeploymentPointStorage), _id, [_name, _type, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects, [[], []]], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 
 {
     _x call FUNC(setDeploymentCustomData);

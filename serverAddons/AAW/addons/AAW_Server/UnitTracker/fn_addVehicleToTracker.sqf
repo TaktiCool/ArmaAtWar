@@ -15,11 +15,11 @@
 */
 params ["_vehicle", "_vehicleIconId", ["_inGroup", false], ["_isEmpty", false]];
 
-private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
-private _groupColor = [0, 0.87, 0, 1];
+private _sideColor = [0, 0.4, 0.8, 1];
+private _groupColor = [0.13, 0.54, 0.21, 1];
 
 private _color = [_sideColor, _groupColor] select _inGroup;
-_color = [_color, [0.6, 0.6, 0.6, 1]] select _isEmpty;
+_color = [_color, [0.93, 0.7, 0.01, 1]] select _isEmpty;
 
 private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
 
@@ -36,7 +36,6 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
     {
         (_this select 0) params ["_map", "_xPos", "_yPos"];
         (_this select 1) params ["_vehicle"];
-
 
         if (_vehicle isEqualTo GVAR(currentHoverVehicle)) exitWith {};
         GVAR(currentHoverVehicle) = _vehicle;
@@ -82,7 +81,7 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             _ctrlTotalSeats ctrlSetFontHeight PY(1.8);
             _ctrlTotalSeats ctrlSetPosition [PX(16.5), PY(0), PX(5), PY(2)];
             _ctrlTotalSeats ctrlSetFont "PuristaMedium";
-            _ctrlTotalSeats ctrlSetTextColor [0.5,0.5,0.5,1];
+            _ctrlTotalSeats ctrlSetTextColor [0.5, 0.5, 0.5, 1];
             _ctrlTotalSeats ctrlSetStructuredText parseText "ALPHA";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_TotalSeats), _idd], _ctrlTotalSeats];
 
@@ -90,7 +89,7 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
             _ctrlMemberList ctrlSetFontHeight PY(4);
             _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(21.5), PY(11.9)];
             _ctrlMemberList ctrlSetFont "PuristaMedium";
-            _ctrlMemberList ctrlSetTextColor [1,1,1,1];
+            _ctrlMemberList ctrlSetTextColor [1, 1, 1, 1];
             _ctrlMemberList ctrlSetText "ALPHA";
             uiNamespace setVariable [format [UIVAR(VehicleInfo_%1_MemberList), _idd], _ctrlMemberList];
         };
@@ -103,21 +102,28 @@ private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicl
         private _maxCrewSize = [typeOf _vehicle, true] call BIS_fnc_crewCount;
         private _units = crew _vehicle;
 
-        _ctrlTotalSeats ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, count _units, _maxCrewSize];
-
         private _crewUnits = "";
         private _unitCount = {
-            private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
-            private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
-            _crewUnits = _crewUnits + format ["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon, [_x] call CFUNC(name)];
-            true;
+            if (alive _x) then {
+                private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
+                private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+                _crewUnits = _crewUnits + format ["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon, [_x] call CFUNC(name)];
+                true;
+            } else {
+                false;
+            }
         } count _units;
+
+        _ctrlTotalSeats ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2 / %3</t>", _textSize, _unitCount, _maxCrewSize];
 
         _ctrlMemberList ctrlSetStructuredText parseText format ["<t size=""%1"">%2</t>", _textSize, _crewUnits];
 
         _ctrlBgBottom ctrlSetPosition [0, PY(2.2), PX(22), _unitCount * PY(1.8) + PY(0.4)];
+        _ctrlBgBottom ctrlShow (_unitCount > 0);
 
         _ctrlMemberList ctrlSetPosition [0, PY(2.4), PX(22), _unitCount * PY(1.8)];
+
+
 
         {
             _x ctrlCommit 0;

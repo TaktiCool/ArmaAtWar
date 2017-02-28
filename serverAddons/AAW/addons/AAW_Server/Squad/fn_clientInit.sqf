@@ -45,6 +45,6 @@ GVAR(squadIds) = [
     "Zulu"
 ];
 
-GVAR(restirctSideSwitchRestrictionCount) = getNumber (missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionCount");
-GVAR(restirctSideSwitchRestrictionTime) = getNumber (missionConfigFile >> QPREFIX >> "restirctSideSwitchRestrictionTime");
+GVAR(maxPlayerCountDifference) = getNumber (missionConfigFile >> QPREFIX >> "maxPlayerCountDifference");
+GVAR(minSideSwitchTime) = getNumber (missionConfigFile >> QPREFIX >> "minSideSwitchTime");
 GVAR(isTimeUnlocked) = 0;

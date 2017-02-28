@@ -17,24 +17,24 @@
 params ["_params", "_pfhId"];
 _params params ["_sector"];
 
-private _side = _sector getVariable ["side",sideUnknown];
+private _side = _sector getVariable ["side", sideUnknown];
 
 // if sector is not active (e.g. dependencies are not fulfilled )
 if !(_sector getVariable ["isActive", false]) exitWith {
     // if sector is neutral and is being captured
-    if (_side == sideUnknown && {(_sector getVariable ["captureProgress",[]]) != 0}) then {
+    if (_side == sideUnknown && {(_sector getVariable ["captureProgress", []]) != 0}) then {
         // reset capture progress to 0
         _sector setVariable ["captureProgress", 0, true];
     };
 
     // if sector is owned by a faction but captured by another faction
-    if (_side != sideUnknown && {(_sector getVariable ["captureProgress",[]]) < 1}) then {
+    if (_side != sideUnknown && {(_sector getVariable ["captureProgress", []]) < 1}) then {
         // reset capture progress to 1
         _sector setVariable ["captureProgress", 1, true];
     };
 
     // if sector is being captured
-    if ((_sector getVariable ["captureRate",0]) != 0) then {
+    if ((_sector getVariable ["captureRate", 0]) != 0) then {
         // reset capture variables
         _sector setVariable ["lastCaptureTick", serverTime, true];
         _sector setVariable ["captureRate", 0, true];
@@ -56,7 +56,7 @@ private _attackerSide = _sector getVariable ["attackerSide", sideUnknown];
 private _lastAttackerSide = str _attackerSide;
 private _activeSides = _sector getVariable ["activeSides", []];
 
-(_sector getVariable ["captureTime", [30,60]]) params ["_captureTimeMin", "_captureTimeMax"];
+(_sector getVariable ["captureTime", [30, 60]]) params ["_captureTimeMin", "_captureTimeMax"];
 
 // load firstCaptureTime, when sector was not captured before
 if !(_sector getVariable ["firstCaptureDone", false]) then {
@@ -124,25 +124,25 @@ if (_captureProgress >= 1 && _captureRate > 0) then {
 };
 
 // update variables on sector (if necessary)
-_sector setVariable ["lastCaptureTick",_tick];
+_sector setVariable ["lastCaptureTick", _tick];
 
 if (_captureRate != _lastCaptureRate) then {
-    _sector setVariable ["captureRate",_captureRate, true];
-    _sector setVariable ["captureProgress",_captureProgress,true];
-    _sector setVariable ["lastCaptureTick",_tick, true];
+    _sector setVariable ["captureRate", _captureRate, true];
+    _sector setVariable ["captureProgress", _captureProgress, true];
+    _sector setVariable ["lastCaptureTick", _tick, true];
 };
 
 if (_captureProgress != _lastCaptureProgress) then {
-    _sector setVariable ["captureProgress",_captureProgress];
+    _sector setVariable ["captureProgress", _captureProgress];
 };
 
 if ((str _attackerSide) != _lastAttackerSide) then {
-    _sector setVariable ["attackerSide",_attackerSide, true];
+    _sector setVariable ["attackerSide", _attackerSide, true];
 };
 
 // throw event when sector side changes
 if (str _side != str _lastSide) then {
-    _sector setVariable ["side",_side,true];
-    ["sectorSideChanged",[_sector,_lastSide,_side]] call CFUNC(globalEvent);
+    _sector setVariable ["side", _side, true];
+    ["sectorSideChanged", [_sector, _lastSide, _side]] call CFUNC(globalEvent);
     _sector setVariable ["firstCaptureDone", true, true];
 };

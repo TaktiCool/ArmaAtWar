@@ -13,26 +13,37 @@
     Returns:
     is Rally Placeable <Bool>
 */
-// Check leader
-if (leader CLib_Player != CLib_Player) exitWith {false};
-
-// Check vehicle
-if (!isNull objectParent CLib_Player) exitWith {false};
 
 // Check time
-private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSetting);
+private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSettingOld);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
-if (serverTime - _lastRallyPlaced < _waitTime) exitWith {false};
-
+private _time = ((_lastRallyPlaced + _waitTime) - serverTime);
+if (_time >= 0) exitWith {
+    // add 1 not show 0 secs.
+    ["RALLY POINT NOT PLACABLE", format ["You need to wait %1 sec to place your next rally", 1 + floor(_time)]] call EFUNC(Common,displayHint);
+    false
+};
 
 // TODO make a settings for that
-private _enemyCount = {(side group _x) != (side group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], 50]);
-if (_enemyCount != 0) exitWith {false};
+private _enemyCount = {(side group _x) != (side group CLib_Player) && alive _x} count ([CLib_Player, 50] call CFUNC(getNearUnits));
+if (_enemyCount != 0) exitWith {
+    ["RALLY POINT NOT PLACABLE", "Enemies are to close to your current position"] call EFUNC(Common,displayHint);
+    false
+};
 
 // Check near players
-private _nearPlayerToBuild = [QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSetting);
-private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
-private _count = {(group _x) == (group CLib_Player)} count (nearestObjects [CLib_Player, ["CAManBase"], _nearPlayerToBuildRadius]);
-if (_count < _nearPlayerToBuild) exitWith {false};
+private _nearPlayerToBuild = ([QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSettingOld)) - 1;
+private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSettingOld);
+
+private _count = {
+    (group _x) == (group CLib_Player) &&
+    _x call EFUNC(Common,isAlive)
+} count ([CLib_Player, _nearPlayerToBuildRadius] call CFUNC(getNearUnits));
+_count = _count + 1; // Player is not in getNearUnits
+
+if (_count < _nearPlayerToBuild) exitWith {
+    ["RALLY POINT NOT PLACABLE", format ["You need %1 more player to build a rally", _nearPlayerToBuild - _count]] call EFUNC(Common,displayHint);
+    false
+};
 
 true

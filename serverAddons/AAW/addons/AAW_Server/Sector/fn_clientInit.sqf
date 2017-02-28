@@ -29,6 +29,7 @@ GVAR(currentSector) = objNull;
     params ["_args"];
     _args params ["_unit", "_sector"];
     [true, _sector] call FUNC(showCaptureStatus);
+
 }] call CFUNC(addEventHandler);
 
 ["sectorLeaved", {
@@ -41,25 +42,30 @@ GVAR(currentSector) = objNull;
     _args params ["_sector", "_oldSide", "_newSide"];
 
     private _sectorName = _sector getVariable ["fullName", ""];
+    private _designator = _sector getVariable ["designator", ""];
 
     if ((side group CLib_Player) isEqualTo _newSide) exitWith {
-        if (GVAR(currentSector) isEqualTo _sector) then {
-            [format [MLOC(YouSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
-        } else {
-            [format [MLOC(YourTSC), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
-        };
+        ["SECTOR CAPTURED", _sectorName, [
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1, [0, 0.4, 0.8, 1], 1],
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
+            [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
+        ]] call EFUNC(Common,displayNotification);
     };
 
     if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
-        [format [MLOC(YouSL), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _newSide], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
+        ["SECTOR LOST", _sectorName, [
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", 1, [0.6, 0, 0, 1], 1],
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa"],
+            [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
+        ]] call EFUNC(Common,displayNotification);
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
-        if (GVAR(currentSector) isEqualTo _sector) then {
-            [format [MLOC(YouSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
-        } else {
-            [format [MLOC(YourTSN), _sectorName], missionNamespace getVariable [format [QEGVAR(Common,SideColor_%1), _sector getVariable ["attackerSide", sideUnknown]], [0, 1, 0, 1]]] call EFUNC(Common,displayNotification);
-        };
+        ["SECTOR NEUTRALIZED", _sectorName, [
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1,  [0.93, 0.7, 0.01,0.6], 1],
+            ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
+            [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
+        ]] call EFUNC(Common,displayNotification);
     };
 }] call CFUNC(addEventHandler);
 

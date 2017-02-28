@@ -24,7 +24,6 @@ private _pointObjects = _pointDetails select 7;
     nil
 } count _pointObjects;
 
-
 [GVAR(DeploymentPointStorage), _pointId, nil, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 
 private _availableFor = _pointDetails select 3;

@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=612;
+		nextID=623;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3199.9858,140.24533,6932.0317};
-		dir[]={0.33937001,-0.66777498,-0.66265768};
-		up[]={0.3044413,0.74425602,-0.59445268};
-		aside[]={-0.89015418,-2.355082e-007,-0.45587605};
+		pos[]={3002.3975,196.04756,1858.1743};
+		dir[]={0,-0.70710683,0.70710683};
+		up[]={0,0.70710677,0.70710677};
+		aside[]={0.99999994,0,-0};
 	};
 };
 binarizationWanted=0;
@@ -49,13 +49,13 @@ addons[]=
 	"A3_Structures_F_Ind_Cargo",
 	"A3_Structures_F_Mil_Flags",
 	"A3_Soft_F_MRAP_01",
-	"A3_Structures_F_Mil_Helipads"
+	"A3_Structures_F_EPA_Mil_Scrapyard"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=15;
+		items=16;
 		class Item0
 		{
 			className="A3_Modules_F_Curator";
@@ -161,6 +161,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="http://www.arma3.com";
 		};
+		class Item15
+		{
+			className="A3_Structures_F_EPA";
+			name="Arma 3 Survive Episode - Buildings and Structures";
+			author="Bohemia Interactive";
+			url="http://www.arma3.com";
+		};
 	};
 };
 randomSeed=13778806;
@@ -174,24 +181,6 @@ class CustomAttributes
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnButton";
 			expression="true";
@@ -207,6 +196,24 @@ class CustomAttributes
 						};
 					};
 					value=1;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
 				};
 			};
 		};
@@ -260,7 +267,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=192;
+		items=197;
 		class Item0
 		{
 			dataType="Logic";
@@ -5868,16 +5875,199 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={3200.522,3.9022093,6833.6602};
+				position[]={3194.8232,3.9824557,6834.6997};
+				angles[]={0.1635199,0,0.097197384};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
-				name="vr_repairPad_0";
+				name="vr_vehicleAmmo_0";
 			};
-			id=580;
-			type="Land_HelipadEmpty_F";
-			atlOffset=0.10899997;
+			id=612;
+			type="Box_NATO_AmmoVeh_F";
+			atlOffset=2.3841858e-007;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[],[]],[[],[]],[[],[]],[[],[]]],true]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item192
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3200.1941,5.709857,6828.8701};
+				angles[]={0.13418092,1.8010052,0.012496558};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="vr_fuelContainer_0";
+			};
+			id=617;
+			type="B_Slingload_01_Fuel_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[],[]],[[],[]],[[],[]],[[],[]]],true]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item193
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3202.3672,4.8460064,6839.0962};
+				angles[]={0.11449359,4.8155727,0.059934605};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="vr_repairContainer_0";
+			};
+			id=618;
+			type="B_Slingload_01_Repair_F";
+			atlOffset=-2.3841858e-007;
+		};
+		class Item194
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3003.248,171.41452,1886.754};
+				angles[]={0.032498032,0,6.2556963};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="vr_vehicleParts_0";
+				createAsSimpleObject=1;
+			};
+			id=619;
+			type="Land_ScrapHeap_1_F";
+			atlOffset=1.5258789e-005;
+		};
+		class Item195
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3006.5139,172.22278,1881.2759};
+				angles[]={6.2631841,2.6570194,6.2606878};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="vr_fuelContainer_1";
+			};
+			id=620;
+			type="Land_Pod_Heli_Transport_04_fuel_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[],[]],[[],[]],[[],[]],[[],[]]],true]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item196
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={3001.7139,171.77946,1890.3778};
+				angles[]={6.2457128,0,6.2781763};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				name="vr_vehicleAmmo_1";
+			};
+			id=621;
+			type="Box_East_AmmoVeh_F";
+			atlOffset=1.5258789e-005;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[],[]],[[],[]],[[],[]],[[],[]]],true]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 	};
 };

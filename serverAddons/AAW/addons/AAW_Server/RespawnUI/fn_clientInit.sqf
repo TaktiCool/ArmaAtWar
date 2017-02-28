@@ -35,7 +35,7 @@
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onUnload), {
-    showHUD [true,true,true,true,true,true,true,true];
+    showHUD [true, true, true, true, true, true, true, true];
     [UIVAR(RespawnScreen), false] call CFUNC(blurScreen);
 }] call CFUNC(addEventHandler);
 
@@ -89,6 +89,7 @@
 
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
+        [_display, [-PX(40), 0]] call EFUNC(Common,registerDisplayNotification);
 
         if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
             // Catch the escape key
@@ -158,7 +159,7 @@
 
     // Text
     private _controlText = _display displayCtrl 701;
-    _controlText ctrlSetStructuredText parseText format ["%1",_text];
+    _controlText ctrlSetStructuredText parseText format ["%1", _text];
     private _txtPos = ctrlPosition _controlText;
     _txtPos set [0, -(_txtPos select 2) / 2];
     _controlText ctrlSetPosition _txtPos;

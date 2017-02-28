@@ -26,7 +26,6 @@ GVAR(CargoClasses) = [];
     nil
 } count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
 
-
 ["missionStarted", {
     {
         private _side = configName _x;
@@ -56,7 +55,8 @@ GVAR(CargoClasses) = [];
                 {
                     params ["_targetPos", "", "", "_args"];
                     ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
-                }, ["arguments", [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]]
+                },
+                ["arguments", [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]]
             ] call CFUNC(addAction);
 
             nil

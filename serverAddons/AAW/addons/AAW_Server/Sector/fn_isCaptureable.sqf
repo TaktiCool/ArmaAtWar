@@ -15,15 +15,15 @@
 */
 
 params ["_sector"];
-private _side = _sector getVariable ["side",sideUnknown];
+private _side = _sector getVariable ["side", sideUnknown];
 private _activeSides = [];
 private _currentCount = {
-    private _currentSectorSide = ([_x] call FUNC(getSector)) getVariable ["side",sideUnknown];
+    private _currentSectorSide = ([_x] call FUNC(getSector)) getVariable ["side", sideUnknown];
     if (_currentSectorSide != sideUnknown) then {
         _activeSides pushBackUnique _currentSectorSide;
     };
-    !(_currentSectorSide in [sideUnknown,_side])
-} count (_sector getVariable ["dependency",[]]);
+    !(_currentSectorSide in [sideUnknown, _side])
+} count (_sector getVariable ["dependency", []]);
 
 if (isServer) then {
     _sector setVariable ["activeSides", _activeSides];

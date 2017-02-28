@@ -20,7 +20,7 @@
 params ["_draggedObject", "_unit"];
 private _currentWeight = _draggedObject call FUNC(getWeight);
 if (_currentWeight >= MAXWEIGHT) exitWith {
-    [format [MLOC(itemToHeavy), _currentWeight - MAXWEIGHT]] call EFUNC(Common,displayNotification);
+    ["ITEM TOO HEAVY", format [MLOC(itemToHeavy), _currentWeight - MAXWEIGHT]] call EFUNC(Common,displayHint);
 };
 
 if (_draggedObject isKindOf "StaticWeapon") then {
@@ -45,7 +45,6 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= MAXWEIGHT / 2) t
         ["forceWalk", "Logistic", true] call CFUNC(setStatusEffect);
     };
 };
-
 
 _attachPoint = _attachPoint vectorAdd (_draggedObject getVariable ["logisticOffset", [0, 0, 0]]);
 _draggedObject attachTo [_unit, _attachPoint];

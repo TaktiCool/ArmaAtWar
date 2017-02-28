@@ -57,15 +57,15 @@ selectPlayer _newUnit;
 
 // Handle the vehicleVarName
 private _oldVarName = vehicleVarName _oldUnit;
-_oldUnit setVehicleVarName "";
-_newUnit setVehicleVarName _oldVarName;
+["setVehicleVarName", [_oldUnit, ""]] call CFUNC(globalEvent);
+["setVehicleVarName", [_newUnit, _oldVarName]] call CFUNC(globalEvent);
 
 // Copy event handlers
 // This should be done by our awesome event system in core on playerChanged event
 
 // Handle position
 CLib_Player setDir (random 360);
-CLib_Player setPosASL ([_targetPosition, 5, 0,_className] call CFUNC(findSavePosition));
+CLib_Player setPosASL ([_targetPosition, 5, 0, _className] call CFUNC(findSavePosition));
 
 // Broadcast the change after everything is changed
 ["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);

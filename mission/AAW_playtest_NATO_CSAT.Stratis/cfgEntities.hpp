@@ -19,6 +19,10 @@ class defaultIndependent : defaultVehicle {
     side = "INDEPENDENT";
 };
 
+class baseSupplyObject {
+    supplyUses = -1;
+};
+
 class CfgEntities {
 
     // mission objects
@@ -61,6 +65,17 @@ class CfgEntities {
         ticketValue = 5;
     };
 
+    // Supply
+    class vr_vehicleAmmo_0 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_0 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_repairContainer_0 : baseSupplyObject {
+        repairAmount = 1;
+    };
+
     // -- Opfor -- //
     // Car
     class vr_ifrit_0 : defaultEast {
@@ -96,6 +111,17 @@ class CfgEntities {
     class vr_orca_0 : defaultEast {
         respawnTime = 1200;
         ticketValue = 5;
+    };
+
+    // Supply
+    class vr_vehicleAmmo_1 : baseSupplyObject {
+        rearmAmount = 1;
+    };
+    class vr_fuelContainer_1 : baseSupplyObject {
+        refuelAmount = 1;
+    };
+    class vr_repairContainer_1 : baseSupplyObject {
+        repairAmount = 1;
     };
 
     // Logistic

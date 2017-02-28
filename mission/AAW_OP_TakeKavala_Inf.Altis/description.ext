@@ -38,6 +38,7 @@ class CLib {
         "AAW/Logistic",
         "AAW/RespawnUI",
         "AAW/Revive",
+        "AAW/Supply",
         "AAW/Tickets",
         "AAW/UnitTracker",
         "AAW/VehicleRespawn",

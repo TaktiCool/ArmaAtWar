@@ -16,4 +16,4 @@
 
 params ["_sector"];
 
-GVAR(allSectors) getVariable [_sector,objNull];
+GVAR(allSectors) getVariable [_sector, objNull];

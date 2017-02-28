@@ -38,6 +38,7 @@ GVAR(pointMarkerIds) = [];
 
     {
         [_x] call CFUNC(removeMapGraphicsGroup);
+        [_x] call CFUNC(removeMapGraphicsEventHandler);
         nil
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
@@ -46,17 +47,40 @@ GVAR(pointMarkerIds) = [];
 
         if (_mapIcon != "") then {
             private _color = _sideColor;
+            private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
+            private _bgIconHover = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
-                _color = [0, 0.87, 0, 1];
-            };
-            private _icon = ["ICON",(str missionConfigFile select [0, count str missionConfigFile - 15]) + _mapIcon, _color, _position, 25, 25, 0, "", 1];
-            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25, 25, 0, format ["%1", _name], 2, 0.09];
-            [_x, [_icon, _normalText], "normal"] call CFUNC(addMapGraphicsGroup);
 
-            if (_spawnTickets > 0) then {
-                private _onHoverText = ["ICON","a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1,1,1,1], _position, 25,25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.089];
-                [_x, [_icon, _onHoverText], "hover"] call CFUNC(addMapGraphicsGroup);
+                _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
+                _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
+                _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
+
+            private _icon = ["ICON", _mapIcon, [1,1,1,1], _position, 25, 25];
+            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, format ["%1", _name], 2, 0.08, "RobotoCondensedBold", "center"];
+            [_x, [_bgIcon, _icon, _normalText], "normal", 2000] call CFUNC(addMapGraphicsGroup);
+            private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];
+            if (_spawnTickets <= 0) then {
+                _onHoverText = _normalText;
+            };
+
+
+            [_x, [_bgIconHover, _icon, _onHoverText], "hover", 2000] call CFUNC(addMapGraphicsGroup);
+
+            [
+                _x,
+                "selected",
+                {
+                    (_this select 0) params ["_map", "_xPos", "_yPos"];
+                    (_this select 1) params ["_deploymentPointId"];
+
+                    [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
+
+                },
+                _x
+            ] call CFUNC(addMapGraphicsEventHandler);
+
+
         };
 
         nil

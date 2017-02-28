@@ -22,7 +22,7 @@ private _kitDetails = [_kitName, [
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
     ["items", []],
-    ["displayName", ""], ["icon", ""], ["mapIcon",""], ["compassIcon", ["", 1]],
+    ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
     ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
 ]] call FUNC(getKitDetails);
 _kitDetails params [

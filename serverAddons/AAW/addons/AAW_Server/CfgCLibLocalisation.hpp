@@ -1,6 +1,13 @@
 class CfgCLibLocalisation {
 
     class AAW {
+        // BaseProtection
+        class BaseProtection {
+            class CanNotEnterBase {
+                English = "You can not enter the enemy base";
+                German = "Du darfst nicht in die feindliche Basis";
+            };
+        };
 
         // Common
         class Common {

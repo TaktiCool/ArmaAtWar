@@ -22,22 +22,13 @@
     _entityClasses pushBack (vehicleVarName _entity);
     _entityClasses pushBack (str _entity);
     {
+        private _currentEntityClass = QUOTE(PREFIX/CfgEntities/) + _x;
         {
-            private _var = call {
-                if (isText _x) exitWith {
-                    getText _x;
-                };
-                if (isNumber _x) exitWith {
-                    getNumber _x;
-                };
-                if (isArray _x) exitWith {
-                    getArray _x;
-                };
-            };
-            _var = _entity getVariable [configName _x, _var];
-            _entity setVariable [configName _x, _var];
+            private _var = [_currentEntityClass + "/" + _x] call CFUNC(getSetting);
+            _var = _entity getVariable [_x, _var];
+            _entity setVariable [_x, _var];
             nil
-        } count ([(missionConfigFile >> QPREFIX >> "CfgEntities" >> _x), "true"] call CFUNC(configProperties));
+        } count ([_currentEntityClass] call CFUNC(getSettings));
         nil
     } count _entityClasses;
 }] call CFUNC(addEventhandler);

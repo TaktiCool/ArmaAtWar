@@ -22,18 +22,18 @@ private _condition = {
      && alive CLib_Player
      && !(CLib_Player getVariable [QGVAR(isUnconscious), false])
      && (_target distance CLib_Player < 3)
-     && (_target getVariable [QGVAR(isUnconscious),false])
+     && (_target getVariable [QGVAR(isUnconscious), false])
      && (side group _target == side group CLib_Player)
 };
 
-GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+GVAR(reviveDuration) = ([CFGREVIVE(reviveActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
 GVAR(reviveStartTime) = 0;
 private _onStart = {
     params ["_target", "_caller"];
 
     _target setVariable [QGVAR(reviveAction), "REVIVE", true];
     GVAR(reviveStartTime) = time;
-    GVAR(reviveDuration) = ([QGVAR(Settings_reviveActionDuration), 20] call CFUNC(getSetting)) * ([[QGVAR(Settings_reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
+    GVAR(reviveDuration) = ([CFGREVIVE(reviveActionDuration), 20] call CFUNC(getSetting)) * ([[CFGREVIVE(reviveCoefficient), 20] call CFUNC(getSetting), 1] select (CLib_Player getVariable [QEGVAR(Kit,isMedic), false]));
     CLib_Player playAction "medicStart";
 };
 
@@ -62,8 +62,7 @@ private _onInterruption = {
     CLib_Player playActionNow "medicStop";
 };
 
-
-["CAManBase", _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress,_onComplete,_onInterruption, [], 1000, true, false, ["isNotUnconscious"]] call CFUNC(addHoldAction);
+["CAManBase", _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 1000, true, false, ["isNotUnconscious"]] call CFUNC(addHoldAction);
 
 [QGVAR(revive), {
     [false] call FUNC(setUnconscious);
