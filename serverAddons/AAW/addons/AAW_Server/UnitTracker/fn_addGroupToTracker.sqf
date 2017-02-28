@@ -1,6 +1,6 @@
 #include "macros.hpp"
 /*
-    Arma At War
+    Arma At War - AAW
 
     Author: BadGuy, joko // Jonas
 
