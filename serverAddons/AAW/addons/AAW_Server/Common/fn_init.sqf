@@ -124,6 +124,7 @@ if (hasInterface) then {
         {_x setMarkerAlpha 0} count allMapMarkers;
     };
 
+    GVAR(maxPlayerCountDifference) = getNumber (missionConfigFile >> QPREFIX >> "maxPlayerCountDifference");
     GVAR(competingSides) = [];
     {
         private _side = sideUnknown;
