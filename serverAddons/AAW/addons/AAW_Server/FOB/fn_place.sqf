@@ -44,4 +44,5 @@ params ["_target"];
     ]] call CFUNC(targetEvent);
 
     [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "placeTime", serverTime] call EFUNC(Common,setDeploymentCustomData);
 }, [_target], "respawn"] call CFUNC(mutex);

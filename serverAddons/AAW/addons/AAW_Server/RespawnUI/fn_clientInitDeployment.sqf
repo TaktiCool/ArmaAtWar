@@ -107,6 +107,13 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
+        private _timeAfterPlaceToSpawn = [QGVAR(RespawnSettings_waitTimeAfterPlacement), 300] call CFUNC(getSettingOld);
+        private _placeTime = [_pointId, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
+
+        if (_timeAfterPlaceToSpawn + _placeTime > serverTime) exitWith {
+            [["Respawn Point is not Unlocked. Unlocked in %1", (_timeAfterPlaceToSpawn + _placeTime) - serverTime]] call EFUNC(Common,displayHint);
+        };
+
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
 
         _deploymentDisplay closeDisplay 1;

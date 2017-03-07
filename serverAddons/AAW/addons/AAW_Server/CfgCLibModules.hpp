@@ -101,6 +101,7 @@ class CfgCLibModules {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
             FNC(serverInit);
+            FNC(init);
             FNC(place);
             FNC(destroyAction);
             FNC(defuseAction);
