@@ -34,7 +34,7 @@ private _position = getPos _unit;
 _draggedObject setPos _position;
 private _attachPoint = [0, 0, 0];
 _unit setVariable [QGVAR(Item), _draggedObject, true];
-_draggedObject setVariable [QGVAR(Player), _unit, true];
+_draggedObject setVariable [QGVAR(Dragger), _unit, true];
 if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= MAXWEIGHT / 2) then {
     _unit playActionNow "grabDrag";
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0, 0, 0]) select 2) - ((_unit modelToWorld [0, 0, 0]) select 2)];
