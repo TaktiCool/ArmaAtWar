@@ -34,7 +34,7 @@ private _position = getPos _unit;
 _draggedObject setPos _position;
 private _attachPoint = [0, 0, 0];
 _unit setVariable [QGVAR(Item), _draggedObject, true];
-_draggedObject setVariable [QGVAR(Player), _unit, true];
+_draggedObject setVariable [QGVAR(Dragger), _unit, true];
 if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= MAXWEIGHT / 2) then {
     _unit playActionNow "grabDrag";
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0, 0, 0]) select 2) - ((_unit modelToWorld [0, 0, 0]) select 2)];
@@ -51,8 +51,8 @@ _draggedObject attachTo [_unit, _attachPoint];
 
 [{
     params ["_args", "_id"];
-    _args params ["_unit"];
-    if (isNull objectParent _unit) exitWith {};
+    _args params ["_unit", "_draggedObject"];
+    if (isNull objectParent _unit || !isNull _draggedObject) exitWith {};
     [_unit] call FUNC(dropObject);
     [_id] call CFUNC(removePerFrameHandler);
-}, 1, _unit] call CFUNC(addPerFrameHandler);
+}, 1, [_unit, _draggedObject]] call CFUNC(addPerFrameHandler);

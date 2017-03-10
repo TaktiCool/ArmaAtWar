@@ -58,6 +58,8 @@ class AAW {
 
     #include "cfgGroupTypes.hpp"
 
+    #include "cfgKitGroups.hpp"
+
     #include "cfgSides.hpp"
 
     #include "cfgSquadRallyPoint.hpp"
