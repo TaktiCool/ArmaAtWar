@@ -34,64 +34,14 @@ class CLib {
         GarbageCollectorTime = 120;
     };
     Modules[] = {
-        "AAW/Nametags",
-        "AAW/CompassUI",
-        "AAW/GarbageCollector",
-        "AAW/Logistic",
-        "AAW/RespawnUI",
-        "AAW/Revive",
-        "AAW/Supply",
-        "AAW/Tickets",
-        "AAW/UnitTracker",
-        "AAW/VehicleRespawn",
-        "AAW/FOB",
-        "AAW/Rally",
         "AAW/Mortar"
     };
     useExperimentalAutoload = 0;
     useCompressedFunction = 1;
     useFallbackRemoteExecution = 0;
 };
-class AAW {
 
-    #include "cfgBaseSettings.hpp"
-
-    #include "cfgGroupTypes.hpp"
-
-    #include "cfgSides.hpp"
-
-    #include "cfgSquadRallyPoint.hpp"
-
-    #include "cfgSectors.hpp"
-
-    #include "cfgRespawn.hpp"
-
-    #include "cfgRevive.hpp"
-
-    #include "cfgEntities.hpp"
-
-	#include "cfgFOB.hpp"
-
-    #include "ui\common\aawCore.hpp"
-
-};
-
-#include "ui\common\defines.hpp"
-#include "ui\common\baseclasses.hpp"
-#include "ui\common\aaw_baseclasses.hpp"
-#include "ui\dialog\RespawnScreen.hpp"
-#include "ui\dialog\SquadScreen.hpp"
-#include "ui\dialog\RoleScreen.hpp"
-
-class RscTitles {
-    #include "ui\hud\CaptureStatus.hpp"
-    #include "ui\hud\TicketStatus.hpp"
-    #include "ui\hud\Notification.hpp"
-    #include "ui\hud\Compass.hpp"
-    #include "ui\hud\PerformanceStatus.hpp"
-};
-
-/* disable CfgRemoteExec Until BI fix it
+/*
 class CfgRemoteExec {
     class Functions {
         mode = 1; // only whitelisted functions/commands are allowed for remote execution
