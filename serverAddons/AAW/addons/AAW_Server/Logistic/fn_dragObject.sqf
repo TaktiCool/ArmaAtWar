@@ -51,8 +51,8 @@ _draggedObject attachTo [_unit, _attachPoint];
 
 [{
     params ["_args", "_id"];
-    _args params ["_unit"];
-    if (isNull objectParent _unit) exitWith {};
+    _args params ["_unit", "_draggedObject"];
+    if (isNull objectParent _unit || !isNull _draggedObject) exitWith {};
     [_unit] call FUNC(dropObject);
     [_id] call CFUNC(removePerFrameHandler);
-}, 1, _unit] call CFUNC(addPerFrameHandler);
+}, 1, [_unit, _draggedObject]] call CFUNC(addPerFrameHandler);
