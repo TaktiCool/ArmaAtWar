@@ -57,7 +57,7 @@
         };
 
         // Gunner and commander always require a driver.
-        if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (isNull (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
+        if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (alive (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
             ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };
@@ -88,7 +88,7 @@
             // Now check if the turret has a gun.
             if (getText (_turretConfig >> "body") != "") exitWith {
                 // Turrets with guns always require a driver.
-                if (isNull (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
+                if (alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
                     ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
