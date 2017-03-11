@@ -19,6 +19,58 @@ GVAR(CalculatorInputBuffer) = "R00000 E+0000" splitString "";
 
 GVAR(BufferPosition) = 1;
 
+private _iconIdle = "\A3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa";
+private _iconProgress = "\A3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa";
+private _condition = {
+    vehicle CLib_player == CLib_player;
+};
+
+private _onStart = {
+};
+
+private _onProgress = {
+    (diag_tickTime - CGVAR(Interaction_HoldActionStartTime)) / 2;
+};
+
+private _onComplete = {
+    params ["_target", "_caller"];
+
+    _target setVariable [QGVAR(charge), 1, true];
+};
+
+private _onInterruption = {};
+
+["Mortar_01_base_F", "Load 1 Charge", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
+private _onComplete = {
+    params ["_target", "_caller"];
+
+    _target setVariable [QGVAR(charge), 2, true];
+};
+["Mortar_01_base_F", "Load 2 Charges", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
+private _onComplete = {
+    params ["_target", "_caller"];
+
+    _target setVariable [QGVAR(charge), 3, true];
+};
+["Mortar_01_base_F", "Load 3 Charges", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
+
+// script based fire
+["", CLib_player, 0, {vehicle CLib_player isKindOf "Mortar_01_base_F"}, {
+    //CLib_player forceWeaponFire [muzzle, firemode]
+    params ["_target", "_caller"];
+    private _charge = (vehicle CLib_player) getVariable [QGVAR(charge),-1];
+    if (_charge == -1) exitWith {};
+
+    (vehicle CLib_player) setVariable [QGVAR(charge), -1, true];
+
+    CLib_player forceWeaponFire [currentMuzzle CLib_player, "Single"+str _charge];
+    vehicle CLib_player fire [currentMuzzle CLib_player, "Single"+str _charge];
+
+}, [ "priority", 0, "showWindow", false, "hideOnUse", true, "shortcut", "DefaultAction", "ignoredCanInteractConditions", ["isNotInVehicle"]]] call CFUNC(addAction);
+//
+["", CLib_player, 0, {vehicle CLib_player isKindOf "Mortar_01_base_F"}, {
+}, [ "priority", 0, "showWindow", false, "hideOnUse", true, "shortcut", "NextWeapon", "ignoredCanInteractConditions", ["isNotInVehicle"]]] call CFUNC(addAction);
+
 DFUNC(updateBuffer) = {
     private _spaces = "";
     for "_i" from 1 to GVAR(BufferPosition) do {
@@ -29,13 +81,13 @@ DFUNC(updateBuffer) = {
 };
 
 DFUNC(calcSolution) = {
-
-
     private _v = [70, 140, 200];
     private _g = 9.81;
     private _inStr = GVAR(CalculatorInputBuffer) joinString "";
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
+
+    if (_r == 0) exitWith {};
 
     _aoe = _v apply {
          private _temp = atan ((_x^2 + sqrt (_x^4 - _g * (_g * _r^2 + 2 * _h * _x^2)))/(_g * _r));
