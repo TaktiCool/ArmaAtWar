@@ -40,7 +40,7 @@
             private _protected = false;
             {
                 _x params ["_marker", "_side"];
-                if (_vehicle inArea _marker && (_vehicle getVariable ["side", sideUnknown]) isEqualTo _side) exitWith {
+                if (_vehicle inArea _marker && (_vehicle getVariable ["side", ""]) isEqualTo str _side) exitWith {
                     _protected = true;
                 };
                 nil
