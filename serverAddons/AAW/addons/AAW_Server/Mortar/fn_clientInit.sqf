@@ -18,7 +18,8 @@
 GVAR(CalculatorInputBuffer) = "R00000 E+0000" splitString "";
 
 GVAR(BufferPosition) = 1;
-
+/*
+// Old reloading approach. Need more ideas
 private _iconIdle = "\A3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa";
 private _iconProgress = "\A3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa";
 private _condition = {
@@ -71,6 +72,8 @@ private _onComplete = {
 ["", CLib_player, 0, {vehicle CLib_player isKindOf "Mortar_01_base_F"}, {
 }, [ "priority", 0, "showWindow", false, "hideOnUse", true, "shortcut", "NextWeapon", "ignoredCanInteractConditions", ["isNotInVehicle"]]] call CFUNC(addAction);
 
+*/
+
 DFUNC(updateBuffer) = {
     private _spaces = "";
     for "_i" from 1 to GVAR(BufferPosition) do {
@@ -87,19 +90,23 @@ DFUNC(calcSolution) = {
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
 
-    if (_r == 0) exitWith {};
-
-    _aoe = _v apply {
-         private _temp = atan ((_x^2 + sqrt (_x^4 - _g * (_g * _r^2 + 2 * _h * _x^2)))/(_g * _r));
-         [_temp,  _r / (_x * cos _temp)]
+    hint format ["r: %1<br>h: %2", _r,_h];
+    private _aoe = [[0,0],[0,0],[0,0]];
+    if (_r > 0) then {
+        _aoe = _v apply {
+             private _temp = atan ((_x^2 + sqrt (_x^4 - _g * (_g * _r^2 + 2 * _h * _x^2)))/(_g * _r));
+             [_temp,  _r / (_x * cos _temp)]
+        };
     };
+
+
 
     {
         (_aoe select _forEachIndex) params ["_angle", "_time"];
         if (_angle >= 45 && _angle <= 88) then {
-            _x ctrlSetText format [" %1 %2/%3", _forEachIndex+1, (round (_angle*100))/100, round _time];
+            _x ctrlSetText format [" C%1 %2.%3%4/%5", _forEachIndex+1, floor _angle, floor ((_angle - floor _angle)*10), floor ((_angle*10 - floor (_angle*10))*10), round _time];
         } else {
-            _x ctrlSetText format [" %1 --/--", _forEachIndex+1];
+            _x ctrlSetText format [" C%1 --/--", _forEachIndex+1];
         };
 
     } forEach [GVAR(AOESolutionField1), GVAR(AOESolutionField2), GVAR(AOESolutionField3)];
@@ -172,35 +179,68 @@ DFUNC(calcSolution) = {
         GVAR(AOESolutionField1) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
         GVAR(AOESolutionField1) ctrlSetFont "EtelkaMonospacePro";
         GVAR(AOESolutionField1) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField1) ctrlSetText " 1 --/--";
+        GVAR(AOESolutionField1) ctrlSetText " C1 --/--";
         GVAR(AOESolutionField1) ctrlSetPosition [11*(0.01875 * safeZoneH), 29*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
         GVAR(AOESolutionField1) ctrlSetFontHeight (0.028*safeZoneH);
 
         GVAR(AOESolutionField2) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
         GVAR(AOESolutionField2) ctrlSetFont "EtelkaMonospacePro";
         GVAR(AOESolutionField2) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField2) ctrlSetText " 2 --/--";
+        GVAR(AOESolutionField2) ctrlSetText " C2 --/--";
         GVAR(AOESolutionField2) ctrlSetPosition [11*(0.01875 * safeZoneH), 30*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
         GVAR(AOESolutionField2) ctrlSetFontHeight (0.028*safeZoneH);
 
         GVAR(AOESolutionField3) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
         GVAR(AOESolutionField3) ctrlSetFont "EtelkaMonospacePro";
         GVAR(AOESolutionField3) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField3) ctrlSetText " 3 --/--";
+        GVAR(AOESolutionField3) ctrlSetText " C3 --/--";
         GVAR(AOESolutionField3) ctrlSetPosition [11*(0.01875 * safeZoneH), 31*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
         GVAR(AOESolutionField3) ctrlSetFontHeight (0.028*safeZoneH);
+
+        GVAR(ChargeInfo) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        GVAR(ChargeInfo) ctrlSetFont "EtelkaMonospacePro";
+        GVAR(ChargeInfo) ctrlSetTextColor [1,0.3,0.4,1];
+        GVAR(ChargeInfo) ctrlSetText " C1";
+        GVAR(ChargeInfo) ctrlSetPosition [33.8*(0.01875 * safeZoneH), 29.3*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), 1.2*(0.025 * safeZoneH)];
+        GVAR(ChargeInfo) ctrlSetFontHeight (0.038*safeZoneH);
+
+        GVAR(Range) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        GVAR(Range) ctrlSetFont "EtelkaMonospacePro";
+        GVAR(Range) ctrlSetTextColor [1,0.3,0.4,1];
+        GVAR(Range) ctrlSetText "00000";
+        GVAR(Range) ctrlSetPosition [25.3*(0.01875 * safeZoneH), 32.6*(0.025*safeZoneH), 5.2*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        GVAR(Range) ctrlSetFontHeight (0.028*safeZoneH);
+        GVAR(BIRange) = GVAR(WeaponSightDisplay) displayCtrl 173;
+
+        [{
+                if (!(vehicle player isKindOf "Mortar_01_base_F")) then {
+                    [_this select 1] call CFUNC(removePerFrameHandler);
+                };
+                private _weaponMode = currentWeaponMode CLib_player;
+                if (_weaponMode == "Single1") then {
+                    GVAR(ChargeInfo) ctrlSetText "C1";
+                };
+                if (_weaponMode == "Single2") then {
+                    GVAR(ChargeInfo) ctrlSetText "C2";
+                };
+                if (_weaponMode == "Single3") then {
+                    GVAR(ChargeInfo) ctrlSetText "C3";
+                };
+
+        }, 0] call CFUNC(addPerFrameHandler);
 
         GVAR(InputField) ctrlCommit 0;
         GVAR(InputFieldBG) ctrlCommit 0;
         GVAR(AOESolutionField1) ctrlCommit 0;
         GVAR(AOESolutionField2) ctrlCommit 0;
         GVAR(AOESolutionField3) ctrlCommit 0;
-
+        GVAR(ChargeInfo) ctrlCommit 0;
+        GVAR(Range) ctrlCommit 0;
         GVAR(KeyEventHandler) = (findDisplay 46) displayAddEventHandler ["KeyDown",{
             params ["_display", "_dikCode", "_shift", "_ctrl", "_alt"];
-            hint format ["%1",_this];
-            if (_shift || _ctrl || _alt || !(_dikCode in [0x0b, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x52, 0x4f, 0x50, 0x51, 0x4b, 0x4c, 0x4d, 0x47, 0x48, 0x49, 0x1c, 0x9c, 0x0c, 0x4a, 0x4e, 0x35,0x1b])) exitWith {};
 
+            if (_shift || _ctrl || _alt) exitWith {};
+            hint format ["%1",_this];
             private _char = "";
             switch (_dikCode) do {
                 case (0x0b);
@@ -255,6 +295,14 @@ DFUNC(calcSolution) = {
                 case (0x1c);
                 case (0x9c): {
                     _char = "ENTER";
+                };
+            };
+
+
+
+            if (_char == "") exitWith {
+                if (_dikCode in actionKeys "lockTarget") then {
+                    GVAR(Range) ctrlSetText ctrlText GVAR(BIRange);
                 };
             };
 
