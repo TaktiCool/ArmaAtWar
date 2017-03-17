@@ -107,14 +107,14 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _timeAfterPlaceToSpawn = [QGVAR(RespawnSettings_waitTimeAfterPlacement), 300] call CFUNC(getSettingOld);
-        private _placeTime = [_pointId, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
+        private _timeAfterPlaceToSpawn =  [_currentDeploymentPointSelection, "waitTime", 0] call EFUNC(Common,getDeploymentCustomData);
+        private _placeTime = [_currentDeploymentPointSelection, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
 
         if (_timeAfterPlaceToSpawn + _placeTime > serverTime) exitWith {
             ["Respawn Point is not Unlocked!", ["Unlocked in %1.", (_timeAfterPlaceToSpawn + _placeTime) - serverTime]] call EFUNC(Common,displayHint);
         };
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
             ["Respawn Point blocked!", "Too many enemies nearby."] call EFUNC(Common,displayHint);
         };
 
@@ -169,8 +169,8 @@
         _pointDetails params ["_name", "_tickets", "_icon","_type"];
         private _color = [1,1,1,1];
 
-        private _timeAfterPlaceToSpawn = [QGVAR(RespawnSettings_waitTimeAfterPlacement), 300] call CFUNC(getSettingOld);
-        private _placeTime = [_pointId, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
+        private _timeAfterPlaceToSpawn =  [_x, "waitTime", 0] call EFUNC(Common,getDeploymentCustomData);
+        private _placeTime = [_x, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
         if (_timeAfterPlaceToSpawn + _placeTime > serverTime) then {
             _color = [1,1,1,0.5];
         };

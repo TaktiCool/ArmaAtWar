@@ -175,21 +175,23 @@ DFUNC(playRadioSoundLoop) = {
 
 [{
     {
-        private _pointDetails = [_x, ["position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
-        _pointDetails params ["_position", "_availableFor"];
+        private _pointDetails = [_x, ["position", "availablefor", "type"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_position", "_availableFor", "_type"];
+        // For FOBs only
+        if (_type == "FOB") then {
 
-        // For RPs only
-        private _maxEnemyCount = [QGVAR(FOB_maxEnemyCount), 1] call CFUNC(getSettingOld);
-        private _maxEnemyCountRadius = [QGVAR(FOB_maxEnemyCountRadius), 10] call CFUNC(getSettingOld);
+            private _maxEnemyCount =  [CFGFOB(maxEnemyCount), 1] call CFUNC(getSetting);
+            private _maxEnemyCountRadius = [CFGFOB(maxEnemyCountRadius), 10] call CFUNC(getSetting);
 
-        private _rallySide = side _availableFor;
-        private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
+            private _rallySide = side _availableFor;
+            private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
-        private _currentStatus = [_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData);
+            private _currentStatus = [_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData);
 
-        private _newStatus = [0, 1] select (_enemyCount >= _maxEnemyCount);
-        if (_currentStatus != _newStatus) then {
-            [_x, "spawnPointLocked", _newStatus] call EFUNC(Common,setDeploymentCustomData);
+            private _newStatus = [0, 1] select (_enemyCount >= _maxEnemyCount);
+            if (_currentStatus != _newStatus) then {
+                [_x, "spawnPointLocked", _newStatus] call EFUNC(Common,setDeploymentCustomData);
+            };
         };
         nil
     } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
