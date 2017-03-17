@@ -107,15 +107,12 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _timeAfterPlaceToSpawn =  [_currentDeploymentPointSelection, "waitTime", 0] call EFUNC(Common,getDeploymentCustomData);
-        private _placeTime = [_currentDeploymentPointSelection, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
-
-        if (_timeAfterPlaceToSpawn + _placeTime > serverTime) exitWith {
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
             ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round ((_timeAfterPlaceToSpawn + _placeTime) - serverTime)]] call EFUNC(Common,displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
+        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
         };
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
@@ -169,13 +166,11 @@
         _pointDetails params ["_name", "_tickets", "_icon","_type"];
         private _color = [1,1,1,1];
 
-        private _timeAfterPlaceToSpawn =  [_x, "waitTime", 0] call EFUNC(Common,getDeploymentCustomData);
-        private _placeTime = [_x, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
-        if (_timeAfterPlaceToSpawn + _placeTime > serverTime) then {
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
             _color = [1,1,1,0.5];
         };
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 

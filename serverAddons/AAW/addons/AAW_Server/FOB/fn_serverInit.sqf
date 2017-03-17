@@ -170,6 +170,10 @@ DFUNC(playRadioSoundLoop) = {
 [QGVAR(placed), {
     (_this select 0) params ["_pointId"];
     _pointId call FUNC(playRadioSound);
+    [{
+        params ["_pointId"];
+        [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    }, [CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting), _pointId] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
 
 
@@ -186,11 +190,11 @@ DFUNC(playRadioSoundLoop) = {
             private _rallySide = side _availableFor;
             private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
-            private _currentStatus = [_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData);
+            private _currentStatus = [_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData);
 
             private _newStatus = [0, 1] select (_enemyCount >= _maxEnemyCount);
             if (_currentStatus != _newStatus) then {
-                [_x, "spawnPointLocked", _newStatus] call EFUNC(Common,setDeploymentCustomData);
+                [_x, "spawnPointBlocked", _newStatus] call EFUNC(Common,setDeploymentCustomData);
             };
         };
         nil

@@ -40,9 +40,9 @@ params ["_target"];
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 
-    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnPointLocked", 1] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnPointBlocked", 1] call EFUNC(Common,setDeploymentCustomData);
     [_pointId, "placeTime", serverTime] call EFUNC(Common,setDeploymentCustomData);
-    [_pointId, "waitTime", [CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting)] call EFUNC(Common,setDeploymentCustomData);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 }, [_target], "respawn"] call CFUNC(mutex);
