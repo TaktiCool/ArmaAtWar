@@ -56,10 +56,10 @@ GVAR(pointMarkerIds) = [];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
                 _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
 
-                private _timeAfterPlaceToSpawn =  [_x, "waitTime", 0] call EFUNC(Common,getDeploymentCustomData);
+                private _timeAfterPlaceToSpawn =  [_x, "waitTime", 0] call FUNC(getDeploymentCustomData);
                 private _placeTime = [_x, "placeTime", 0] call FUNC(getDeploymentCustomData);
                 if (_timeAfterPlaceToSpawn + _placeTime > serverTime) then {
-                    _color = [1, 1, 1, 0.5];
+                    _color = [0.5, 0.5, 0.5, 1];
                 };
 
                 if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
