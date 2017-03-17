@@ -55,6 +55,8 @@ class AAW {
 
     #include "cfgBaseSettings.hpp"
 
+    #include "cfgKitGroups.hpp"
+
     #include "cfgGroupTypes.hpp"
 
     #include "cfgSides.hpp"

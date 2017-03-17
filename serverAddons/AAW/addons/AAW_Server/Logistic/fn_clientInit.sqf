@@ -77,5 +77,5 @@ GVAR(CargoClasses) = [];
 }] call CFUNC(addCanInteractWith);
 
 ["isNotDragged", {
-    isNull (_target getVariable [QGVAR(Player), objNull])
+    isNull (_target getVariable [QGVAR(Dragger), objNull])
 }] call CFUNC(addCanInteractWith);

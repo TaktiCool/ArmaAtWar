@@ -45,7 +45,8 @@ class CLib {
         "AAW/UnitTracker",
         "AAW/VehicleRespawn",
         "AAW/FOB",
-        "AAW/Rally"
+        "AAW/Rally",
+        "AAW/BaseProtection"
     };
     useExperimentalAutoload = 0;
     useCompressedFunction = 1;
@@ -56,6 +57,8 @@ class AAW {
     #include "cfgBaseSettings.hpp"
 
     #include "cfgGroupTypes.hpp"
+
+    #include "cfgKitGroups.hpp"
 
     #include "cfgSides.hpp"
 

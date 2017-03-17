@@ -21,7 +21,7 @@
     {
         isNull assignedGunner _target
          && isNull (CLib_Player getVariable [QGVAR(Item), objNull])
-         && isNull (_target getVariable [QGVAR(Player), objNull])
+         && isNull (_target getVariable [QGVAR(Dragger), objNull])
          && (_target getVariable ["isDragable", 0] == 1)
     },
     {
@@ -76,7 +76,7 @@
             _vehicle setVariable [QGVAR(CargoItems), _ItemArray, true];
 
             CLib_Player setVariable [QGVAR(Item), objNull, true];
-            _draggedObject setVariable [QGVAR(Player), objNull, true];
+            _draggedObject setVariable [QGVAR(Dragger), objNull, true];
 
             ["forceWalk", "Logistic", false] call CFUNC(setStatusEffect);
 
