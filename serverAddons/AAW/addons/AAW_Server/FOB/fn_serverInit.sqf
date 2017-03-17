@@ -187,8 +187,7 @@ DFUNC(playRadioSoundLoop) = {
             private _maxEnemyCount =  [CFGFOB(maxEnemyCount), 1] call CFUNC(getSetting);
             private _maxEnemyCountRadius = [CFGFOB(maxEnemyCountRadius), 10] call CFUNC(getSetting);
 
-            private _rallySide = side _availableFor;
-            private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _rallySide}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
+            private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _availableFor}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
             private _currentStatus = [_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData);
 
