@@ -111,7 +111,11 @@
         private _placeTime = [_pointId, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
 
         if (_timeAfterPlaceToSpawn + _placeTime > serverTime) exitWith {
-            [["Respawn Point is not Unlocked. Unlocked in %1", (_timeAfterPlaceToSpawn + _placeTime) - serverTime]] call EFUNC(Common,displayHint);
+            ["Respawn Point is not Unlocked!", ["Unlocked in %1.", (_timeAfterPlaceToSpawn + _placeTime) - serverTime]] call EFUNC(Common,displayHint);
+        };
+
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+            ["Respawn Point blocked!", "Too many enemies nearby."] call EFUNC(Common,displayHint);
         };
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
@@ -149,6 +153,9 @@
 [QEGVAR(Common,ticketsChanged), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
+["DeploymentPointDataChanged", {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
 
 // This EH updates the deployment list
 [UIVAR(RespawnScreen_DeploymentManagement_update), {
@@ -158,13 +165,25 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        private _pointDetails = [_x, ["name", "spawntickets", "icon"]] call EFUNC(Common,getDeploymentPointData);
-        _pointDetails params ["_name", "_tickets", "_icon"];
+        private _pointDetails = [_x, ["name", "spawntickets", "icon","type"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_name", "_tickets", "_icon","_type"];
+        private _color = [1,1,1,1];
+
+        private _timeAfterPlaceToSpawn = [QGVAR(RespawnSettings_waitTimeAfterPlacement), 300] call CFUNC(getSettingOld);
+        private _placeTime = [_pointId, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
+        if (_timeAfterPlaceToSpawn + _placeTime > serverTime) then {
+            _color = [1,1,1,0.5];
+        };
+
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [0.6, 0, 0, 1];
+        };
+
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
         };
 
-        _lnbData pushBack [[_name], _x, _icon];
+        _lnbData pushBack [[_name], _x, _icon,_color];
         nil
     } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 

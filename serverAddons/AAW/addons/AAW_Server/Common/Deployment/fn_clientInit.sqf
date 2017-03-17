@@ -29,6 +29,10 @@
     [QGVAR(updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
+["DeploymentPointDataChanged", {
+    [QGVAR(updateMapIcons)] call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
 GVAR(pointMarkerIds) = [];
 [QGVAR(updateMapIcons), {
     private _availablePoints = [side group CLib_Player] call FUNC(getDeploymentPointsPerSide);
@@ -50,8 +54,18 @@ GVAR(pointMarkerIds) = [];
             private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
             private _bgIconHover = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
-
                 _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
+
+                private _timeAfterPlaceToSpawn = [QEGVAR(RespawnUI,RespawnSettings_waitTimeAfterPlacement), 300] call CFUNC(getSettingOld);
+                private _placeTime = [_pointId, "placeTime", 0] call FUNC(getDeploymentCustomData);
+                if (_timeAfterPlaceToSpawn + _placeTime > serverTime) then {
+                    _color = [1, 1, 1, 0.5];
+                };
+
+                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                    _color = [0.6, 0, 0, 1];
+                };
+
                 _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
                 _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
