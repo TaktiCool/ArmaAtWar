@@ -107,6 +107,18 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round ((_timeAfterPlaceToSpawn + _placeTime) - serverTime)]] call EFUNC(Common,displayHint);
+        };
+
+        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
+        };
+
+        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
+        };
+
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
 
         _deploymentDisplay closeDisplay 1;
@@ -142,6 +154,9 @@
 [QEGVAR(Common,ticketsChanged), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
+["DeploymentPointDataChanged", {
+    [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
 
 // This EH updates the deployment list
 [UIVAR(RespawnScreen_DeploymentManagement_update), {
@@ -151,13 +166,27 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        private _pointDetails = [_x, ["name", "spawntickets", "icon"]] call EFUNC(Common,getDeploymentPointData);
-        _pointDetails params ["_name", "_tickets", "_icon"];
+        private _pointDetails = [_x, ["name", "spawntickets", "icon","type"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_name", "_tickets", "_icon","_type"];
+        private _color = [1,1,1,1];
+
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [1,1,1,0.5];
+        };
+
+        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [0.6, 0, 0, 1];
+        };
+
+        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [0.6, 0, 0, 1];
+        };
+
         if (_tickets > 0) then {
             _name = format ["%1 (%2)", _name, _tickets];
         };
 
-        _lnbData pushBack [[_name], _x, _icon];
+        _lnbData pushBack [[_name], _x, _icon,_color];
         nil
     } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 

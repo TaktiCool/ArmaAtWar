@@ -16,7 +16,7 @@
     None
 */
 params ["_pointId", "_name", "_default"];
-
+_name = toLower _name;
 private _customData = (_pointId call FUNC(getDeploymentPointData)) select 8;
 _customData params ["_names", "_data"];
 private _index = _names find _name;
