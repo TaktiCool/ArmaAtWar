@@ -111,11 +111,11 @@
         private _placeTime = [_currentDeploymentPointSelection, "placeTime", 0] call EFUNC(Common,getDeploymentCustomData);
 
         if (_timeAfterPlaceToSpawn + _placeTime > serverTime) exitWith {
-            ["Respawn Point is not Unlocked!", ["Unlocked in %1.", (_timeAfterPlaceToSpawn + _placeTime) - serverTime]] call EFUNC(Common,displayHint);
+            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round ((_timeAfterPlaceToSpawn + _placeTime) - serverTime)]] call EFUNC(Common,displayHint);
         };
 
         if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
-            ["Respawn Point blocked!", "Too many enemies nearby."] call EFUNC(Common,displayHint);
+            ["RESPAWN POINT LOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
         };
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
