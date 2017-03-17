@@ -65,7 +65,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 
         (_this select 1) call CFUNC(removePerFrameHandler);
 
-        private _ticketValue = [QGVAR(FOB_ticketValue), 20] call CFUNC(getSettingOld);
+        private _ticketValue = [CFGFOB(ticketValue), 20] call CFUNC(getSetting);
 
         [_availablefor, -_ticketValue] call EFUNC(Tickets,addTickets);
 
@@ -170,4 +170,32 @@ DFUNC(playRadioSoundLoop) = {
 [QGVAR(placed), {
     (_this select 0) params ["_pointId"];
     _pointId call FUNC(playRadioSound);
+    [{
+        params ["_pointId"];
+        [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    }, [CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting), _pointId] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
+
+
+[{
+    {
+        private _pointDetails = [_x, ["position", "availablefor", "type"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_position", "_availableFor", "_type"];
+        // For FOBs only
+        if (_type == "FOB") then {
+
+            private _maxEnemyCount =  [CFGFOB(maxEnemyCount), 1] call CFUNC(getSetting);
+            private _maxEnemyCountRadius = [CFGFOB(maxEnemyCountRadius), 10] call CFUNC(getSetting);
+
+            private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _availableFor}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
+
+            private _currentStatus = [_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData);
+
+            private _newStatus = [0, 1] select (_enemyCount >= _maxEnemyCount);
+            if (_currentStatus != _newStatus) then {
+                [_x, "spawnPointBlocked", _newStatus] call EFUNC(Common,setDeploymentCustomData);
+            };
+        };
+        nil
+    } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
+}, 0.2] call CFUNC(addPerFrameHandler);

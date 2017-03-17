@@ -24,7 +24,7 @@ if (isNil "_selectedValue") then {
 private _addedData = [];
 lnbClear _control;
 {
-    _x params ["_textRows", "_data", "_icon"];
+    _x params ["_textRows", "_data", "_icon", "_color"];
 
     private _rowNumber = _control lnbAddRow _textRows;
     [_control, [_rowNumber, 0], _data] call CFUNC(lnbSave);
@@ -32,6 +32,10 @@ lnbClear _control;
 
     if (!isNil "_icon") then {
         _control lnbSetPicture [[_rowNumber, 0], _icon];
+    };
+
+    if (!isNil "_color") then {
+        _control lnbSetColor [[_rowNumber, 0], _color];
     };
 
     if (_data isEqualTo _selectedValue) then {
