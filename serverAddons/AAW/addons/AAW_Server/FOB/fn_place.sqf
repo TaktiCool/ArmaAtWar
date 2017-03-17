@@ -41,7 +41,7 @@ params ["_target"];
     ]] call CFUNC(targetEvent);
 
     [_pointId, "spawnPointLocked", 1] call EFUNC(Common,setDeploymentCustomData);
-    [_pointId, "spawnPointBlocked", 1] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnPointBlocked", 0] call EFUNC(Common,setDeploymentCustomData);
     [_pointId, "placeTime", serverTime] call EFUNC(Common,setDeploymentCustomData);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
