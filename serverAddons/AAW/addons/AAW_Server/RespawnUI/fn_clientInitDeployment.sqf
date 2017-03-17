@@ -115,6 +115,10 @@
             ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
         };
 
+        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
+        };
+
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
 
         _deploymentDisplay closeDisplay 1;
@@ -171,6 +175,10 @@
         };
 
         if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [0.6, 0, 0, 1];
+        };
+
+        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 

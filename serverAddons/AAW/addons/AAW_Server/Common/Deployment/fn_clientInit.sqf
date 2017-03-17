@@ -64,6 +64,10 @@ GVAR(pointMarkerIds) = [];
                     _color = [0.6, 0, 0, 1];
                 };
 
+                if ([_x, "counterActive", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                    _color = [0.6, 0, 0, 1];
+                };
+
                 _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
                 _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
