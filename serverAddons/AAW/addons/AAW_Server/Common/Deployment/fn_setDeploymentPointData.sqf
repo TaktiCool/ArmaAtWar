@@ -18,7 +18,7 @@
 
 params ["_pointID", "_dataName", "_data"];
 
-
+_dataName = toLower _dataName;
 
 if (_dataName == "all") exitWith {
     // we dont need to resend if the data is equal

@@ -16,6 +16,8 @@
 */
 params ["_pointID", "_name", "_data"];
 
+_name =  toLower _name;
+
 private _customData = +([_pointID, "customdata"] call FUNC(getDeploymentPointData));
 
 _customData params [["_names", []], ["_datas", []]];

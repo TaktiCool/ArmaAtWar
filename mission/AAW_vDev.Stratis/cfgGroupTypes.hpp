@@ -46,14 +46,3 @@ class GroupTypes {
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_support.paa";
     };
 };
-class KitGroups {
-    class Unlimited {
-        requiredGroupMembersPerKit = 1;
-    };
-    class Limited {
-        requiredGroupMembersPerKit = 1;
-    };
-    class Specialized {
-        requiredGroupMembersPerKit = 1;
-    };
-};
