@@ -24,10 +24,12 @@
     private _diff = abs ( _side1Count - _side2Count);
 
     if (_diff < GVAR(maxPlayerCountDifference)) exitWith {};
+    private _side = [_side1, _side2] select (_side1Count < _side2Count);
+    private _icon = missionNamespace getVariable [format [QEGVAR(Flag_%1), _side], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"];
 
-    ["EVENT", [_side1, _side2] select (_side1Count < _side2Count), [
+    ["displayNotification", _side, [
         "SIDES UNBALANCED",
-        "Go Change the Side",
-        [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0.13, 0.54, 0.21, 1],1],["A3\ui_f\data\map\groupicons\badge_simple.paa", 0.8]] // TODO find Icon
+        "Please change sides",
+        [_icon]
     ]]  call CFUNC(targetEvent);
 }, 120] call CFUNC(addPerFrameHandler);
