@@ -93,7 +93,7 @@ DFUNC(calcSolution) = {
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
 
-    hint format ["r: %1<br>h: %2", _r,_h];
+    //hint format ["r: %1<br>h: %2", _r,_h];
     private _aoe = [[0,0],[0,0],[0,0]];
     if (_r > 0) then {
         _aoe = _v apply {
@@ -137,7 +137,7 @@ DFUNC(calcSolution) = {
     if (isNull _display) then {
         {
             if (ctrlIDD _x == 300) exitWith {
-                diag_log "Display 300 found";
+                //diag_log "Display 300 found";
                 _display = _x;
                 0
             };
@@ -146,7 +146,7 @@ DFUNC(calcSolution) = {
     };
 
     uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
-    diag_log "Display saved";
+    //diag_log "Display saved";
     //hint "display saved";
     /*
     _ctrlDistance = GVAR(WeaponSightDisplay) displayCtrl 173;
@@ -269,7 +269,7 @@ DFUNC(calcSolution) = {
             params ["_display", "_dikCode", "_shift", "_ctrl", "_alt"];
 
             if (_shift || _ctrl || _alt) exitWith {};
-            hint format ["%1",_this];
+            //hint format ["%1",_this];
             private _char = "";
             switch (_dikCode) do {
                 case (0x0b);
