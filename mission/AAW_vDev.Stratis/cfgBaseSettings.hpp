@@ -4,7 +4,7 @@ musicStart = 100; // tickets to start the music
 playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
-maxPlayerCountDifference = 2;
+maxPlayerCountDifference = 0;
 minSideSwitchTime = 50;
 
 tracks[] = {"AmbientTrack01_F_EPB", "AmbientTrack01_F", "AmbientTrack01a_F", "AmbientTrack01b_F", "AmbientTrack03_F", "AmbientTrack04a_F", "AmbientTrack04_F"};

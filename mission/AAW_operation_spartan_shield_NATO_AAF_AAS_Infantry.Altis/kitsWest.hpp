@@ -244,7 +244,7 @@ class Kits {
         availableInGroups[] = {"Recon"};
 
         displayName = "Spotter";
-UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
+        UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
 
         uniform = "U_B_FullGhillie_lsh";
         primaryAttachments[] = {"optic_Arco"};
@@ -255,11 +255,5 @@ UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
         availableInGroups[] = {"Recon"};
 
         displayName = "Specialist";
-    };
-    class MortarOperator: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Mortar"};
-
-        displayName = "Mortar Operator";
     };
 };

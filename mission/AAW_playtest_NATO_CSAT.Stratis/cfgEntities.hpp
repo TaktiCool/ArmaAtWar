@@ -135,6 +135,8 @@ class CfgEntities {
     class Box_East_Ammo_F : Box_Nato_Ammo_F {
     };
 
+    class ReammoBox_F : Box_Nato_Ammo_F {};
+
     class Box_IND_Ammo_F : Box_Nato_Ammo_F {
     };
 

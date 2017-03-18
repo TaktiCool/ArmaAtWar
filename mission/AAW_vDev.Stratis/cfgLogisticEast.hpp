@@ -30,4 +30,11 @@ class cfgLogistic {
         classname = "O_CargoNet_01_ammo_F";
         removeDefaultLoadout = 1;
     };
+
+    class MortarBox {
+        displayName = "Mortar Box";
+        classname = "Box_East_Wps_F";
+        content[] = {{"O_Mortar_01_support_F", 1}, {"O_Mortar_01_weapon_F", 1}};
+        removeDefaultLoadout = 1;
+    };
 };

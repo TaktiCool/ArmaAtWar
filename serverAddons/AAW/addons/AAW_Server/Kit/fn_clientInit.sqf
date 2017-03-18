@@ -86,8 +86,8 @@
             private _turretConfig = _turretConfigs select (_possibleTexts find _title);
 
             // Now check if the turret has a gun.
-            if (getText (_turretConfig >> "body") != "") exitWith {
-                // Turrets with guns always require a driver.
+            if !(_vehicle isKindOf "StaticWeapon" || getText (_turretConfig >> "body") == "") exitWith {
+                // Turrets with guns always require a driver (except statics).
                 if (!alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
                     ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
