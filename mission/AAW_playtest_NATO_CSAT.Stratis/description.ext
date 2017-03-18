@@ -40,7 +40,9 @@ class CLib {
         "AAW/UnitTracker",
         "AAW/VehicleRespawn",
         "AAW/FOB",
-        "AAW/Rally"
+        "AAW/Rally",
+        "AAW/Mortar",
+        "AAW/BaseProtection"
     };
     useExperimentalAutoload = 0;
     useCompressedFunction = 0;
