@@ -30,12 +30,12 @@ class CfgEntities {
     // Cars
     class vr_hunter_0 : defaultWest {
         respawnTime = 300;
-        ticketValue = 25;
+        ticketValue = 10;
     };
     class vr_hunter_1: vr_hunter_0 {};
 
     class vr_hunterHMG_0 : vr_hunter_0 {
-        ticketValue = 50;
+        ticketValue = 20;
     };
     class vr_hunterHMG_1 : vr_hunterHMG_0 {};
 
@@ -45,7 +45,7 @@ class CfgEntities {
     // Trucks
     class vr_HEMMTTrans_0 : vr_hunter_0 {
         respawnTime = 180;
-        ticketValue = 15;
+        ticketValue = 10;
     };
     class vr_HEMMTTrans_1 : vr_HEMMTTrans_0 {};
 
@@ -56,26 +56,26 @@ class CfgEntities {
     // Tanks
     class vr_marshall_0 : vr_hunter_0 {
         respawnTime = 600;
-        ticketValue = 75;
+        ticketValue = 30;
     };
 
     class vr_panther_0 : vr_marshall_0 {};
 
     class vr_slammer_0 : vr_hunter_0 {
         respawnTime = 900;
-        ticketValue = 75;
+        ticketValue = 30;
     };
 
     // Air
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 600;
-        ticketValue = 50;
+        ticketValue = 30;
     };
     class vr_ghosthawk_1 : vr_ghosthawk_0 {};
 
     class vr_pawnee_0 : vr_ghosthawk_0 {
         respawnTime = 900;
-        ticketValue = 75;
+        ticketValue = 30;
     };
 
     // Supply
@@ -93,13 +93,13 @@ class CfgEntities {
     // -- AAF -- //
     // Car
     class vr_strider_0 : defaultIndependent {
-        ticketValue = 20;
+        ticketValue = 10;
         respawnTime = 300;
     };
     class vr_strider_1 : vr_strider_0 {};
 
     class vr_striderHMG_0 : vr_strider_0 {
-        ticketValue = 50;
+        ticketValue = 20;
     };
     class vr_striderHMG_1 : vr_striderHMG_0 {};
 
@@ -107,7 +107,7 @@ class CfgEntities {
 
     // Trucks
     class vr_ZamakTrans_0 : vr_strider_0 {
-        ticketValue = 20;
+        ticketValue = 10;
         respawnTime = 180;
         cargoCapacity = 50;
     };
