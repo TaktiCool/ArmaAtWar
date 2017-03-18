@@ -20,7 +20,7 @@ class CfgCLibModules {
             // dependency[] = {"CLib/Core", "CLib/PerFrame", "CLib/Events", "CLib/Localisation", "CLib/ConfigCaching", "CLib/3dGraphics", "CLib/extensionFramework", "CLib/Gear", "CLib/Interaction", "CLib/lnbData", "CLib/MapGraphics", "CLib/Mutex", "CLib/Namespaces", "CLib/RemoteExecution", "CLib/Statemachine", "CLib/StatusEffects", "CLib/Settings"};
             // Init
             FNC(init);
-
+            FNC(serverInit);
             // Misc
             FNC(getNearestLocationName);
             FNC(isAlive);
@@ -29,8 +29,8 @@ class CfgCLibModules {
             MODULE(Deployment) {
                 // Inits
                 FNC(initDeployment);
-                FNC(serverInit);
-                FNC(clientInit);
+                FNC(serverInitDeployment);
+                FNC(clientInitDeployment);
 
                 // DataManagement
                 FNC(setDeploymentPointData);
@@ -101,6 +101,7 @@ class CfgCLibModules {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
             FNC(serverInit);
+            FNC(init);
             FNC(place);
             FNC(destroyAction);
             FNC(defuseAction);

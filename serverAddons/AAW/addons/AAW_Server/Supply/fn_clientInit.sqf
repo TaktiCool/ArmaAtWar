@@ -54,7 +54,7 @@ GVAR(supplyPoints) = [];
                     private _maxAmmo = getNumber (configFile >> "CfgMagazines" >> _className >> "count");
                     if (_ammoCount < _maxAmmo) then {
                         ["removeMagazineTurret", _vehicle, [_vehicle, [_className, _turretPath]]] call CFUNC(targetEvent);
-                        ["addMagazineTurret", _vehicle, [_vehicle, [_turretPath, (_ammoCount + (_maxAmmo * _rearmAmount)) min _maxAmmo]]] call CFUNC(targetEvent);
+                        ["addMagazineTurret", _vehicle, [_vehicle, [_className, _turretPath, (_ammoCount + (_maxAmmo * _rearmAmount)) min _maxAmmo]]] call CFUNC(targetEvent);
                     };
                     nil
                 } count (magazinesAllTurrets _vehicle);

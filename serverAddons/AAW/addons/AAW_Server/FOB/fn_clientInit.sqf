@@ -13,8 +13,6 @@
     Returns:
     None
 */
-[QGVAR(FOB), missionConfigFile >> QPREFIX >> "cfgFOB"] call CFUNC(loadSettings);
-
 GVAR(sideNamespace) = false call CFUNC(createNamespace);
 
 [QGVAR(placed), {QGVAR(ClearFOBPlaceable) call CFUNC(localEvent)}] call CFUNC(addEventhandler); // clear Cached Call Space

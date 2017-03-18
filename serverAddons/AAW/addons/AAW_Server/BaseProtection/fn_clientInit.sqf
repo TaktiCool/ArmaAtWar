@@ -14,14 +14,28 @@
     None
 */
 
+GVAR(inProtectedZone) = false;
+
+["missionStarted", {
+    ["", CLib_Player, 0, {GVAR(inProtectedZone)}, {
+        ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+    }, [
+        "priority", 0,
+        "showWindow", false,
+        "shortcut", "DefaultAction",
+        "ignoredCanInteractConditions", ["isNotInVehicle"]
+    ]] call CFUNC(addAction);
+}] call CFUNC(addEventHandler);
+
 ["sectorEntered", {
     (_this select 0) params ["_unit", "_sector"];
 
-    if (_unit != CLib_Player || (str _sector) find "base_" != 0) exitWith {};
+    if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
     private _side = _sector getVariable ["side", _playerSide];
     if (_side == side group CLib_Player) then {
         // Own base
+        GVAR(inProtectedZone) = true;
         ["allowDamage", "BaseProtection", false] call CFUNC(setStatusEffect);
     } else {
         // Enemy base
@@ -42,11 +56,12 @@
 ["sectorLeaved", {
     (_this select 0) params ["_unit", "_sector"];
 
-    if (_unit != CLib_Player || (str _sector) find "base_" != 0) exitWith {};
+    if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
     private _side = _sector getVariable ["side", _playerSide];
     if (_side == side group CLib_Player) then {
         // Own base
+        GVAR(inProtectedZone) = false;
         ["allowDamage", "BaseProtection", true] call CFUNC(setStatusEffect);
     } else {
         // Enemy base
