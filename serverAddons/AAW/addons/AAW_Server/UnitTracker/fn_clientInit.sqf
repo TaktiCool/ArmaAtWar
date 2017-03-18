@@ -32,7 +32,7 @@ DFUNC(isValidUnit) = {
 
 DFUNC(isValidVehicle) = {
     params ["_vehicle"];
-    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str side group CLib_Player) && (({alive _x} count crew _vehicle) == 0);
+    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str side group CLib_Player) && (({alive _x} count crew _vehicle) == 0) && (damage _vehicle < 1);
 };
 
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
