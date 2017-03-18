@@ -38,7 +38,7 @@ GVAR(supplyPoints) = [];
                     _ammoCount < (getNumber (configFile >> ""CfgMagazines"" >> _className >> ""count""))
                 } count (magazinesAllTurrets _target)) > 0) exitWith {true};
                 if (_repairPoint getVariable [""refuelAmount"", 0] > 0 && fuel _target < 1) exitWith {true};
-                if (_repairPoint getVariable [""repairAmount"", 0] > 0 && (selectMax (getAllHitPointsDamage _target select 2)) > 0) exitWith {true};
+                if (_repairPoint getVariable [""repairAmount"", 0] > 0 && !(_target isKindOf ""Static"") && {(selectMax (getAllHitPointsDamage _target select 2)) > 0}) exitWith {true};
                 false
             }", QGVAR(supplyPoints), _index, typeOf _object],
             {
