@@ -28,7 +28,7 @@ private _fnc = {
 
 private _newSideCount = _newSide call _fnc;
 private _oldSideCount = _oldSide call _fnc;
-if (_oldSideCount < (_newSide + GVAR(maxPlayerCountDifference))) exitWith {
+if (_oldSideCount < (_newSideCount + GVAR(maxPlayerCountDifference))) exitWith {
     ["SIDE BALANCING", MLOC(MaxPlayerCount)] call EFUNC(Common,displayHint);
     false
 };
