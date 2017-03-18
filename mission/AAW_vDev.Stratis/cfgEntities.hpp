@@ -139,11 +139,11 @@ class CfgEntities {
         cargoSize = 5;
     };
 
-    class Box_East_Ammo_F : Box_Nato_Ammo_F {
-    };
+    class Box_East_Ammo_F : Box_Nato_Ammo_F {};
 
-    class Box_IND_Ammo_F : Box_Nato_Ammo_F {
-    };
+    class Box_IND_Ammo_F : Box_Nato_Ammo_F {};
+
+    class ReammoBox_F : Box_Nato_Ammo_F {};
 
     class Land_CargoBox_V1_F {
         isDragable = 1;
