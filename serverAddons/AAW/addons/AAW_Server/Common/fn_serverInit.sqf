@@ -25,7 +25,7 @@
 
     if (_diff < GVAR(maxPlayerCountDifference)) exitWith {};
     private _side = [_side1, _side2] select (_side1Count < _side2Count);
-    private _icon = missionNamespace getVariable [format [QEGVAR(Flag_%1), _side], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"];
+    private _icon = missionNamespace getVariable [format [QGVAR(Flag_%1), _side], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"];
 
     ["displayNotification", _side, [
         "SIDES UNBALANCED",
