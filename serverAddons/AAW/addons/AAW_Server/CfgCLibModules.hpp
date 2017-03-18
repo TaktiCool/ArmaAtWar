@@ -144,6 +144,12 @@ class CfgCLibModules {
             FNC(spawnCrate);
         };
 
+        // Mortar
+        MODULE(Mortar) {
+            dependency[] = {"AAW/Common"};
+            FNC(clientInit);
+        };
+
         // Nametags
         MODULE(Nametags) {
             dependency[] = {"AAW/Common"};

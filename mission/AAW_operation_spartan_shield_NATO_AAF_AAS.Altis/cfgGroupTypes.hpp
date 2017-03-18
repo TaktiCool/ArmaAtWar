@@ -31,15 +31,6 @@ class GroupTypes {
         requiredPlayers = 15;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_air.paa";
     };
-    /* Disabled Until we have fix the Mortar Loadout
-    class Mortar {
-        displayName = "Mortar";
-        groupSize = 4;
-        requiredGroups = 0;
-        requiredPlayers = 20;
-        mapIcon = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";
-    };
-    */
     /* Disabled Until we have Units that fit in to the Logistic Group
     class Logistic {
         displayName = "Logistic";

@@ -262,10 +262,4 @@ UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
 
         displayName = "Specialist";
     };
-    class MortarOperator: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Mortar"};
-
-        displayName = "Mortar Operator";
-    };
 };
