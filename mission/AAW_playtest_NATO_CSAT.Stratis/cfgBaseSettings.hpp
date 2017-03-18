@@ -5,7 +5,7 @@ respawnCountdown = 30;
 playerTicketValue = 1; // Ticket value of a player
 
 // restirctSideSwitch = "";
-maxPlayerCountDifference = 5;
+maxPlayerCountDifference = 2;
 minSideSwitchTime = 50;
 
 // Optional ConfigValue used if no Near Location can be found

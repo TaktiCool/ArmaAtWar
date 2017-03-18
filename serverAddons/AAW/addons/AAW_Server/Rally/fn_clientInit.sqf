@@ -22,7 +22,6 @@
     if (((group CLib_Player) getVariable [QGVAR(rallyId), ""]) == _pointId) then {
         (group CLib_Player) setVariable [QGVAR(rallyId), nil, true];
     };
-    QGVAR(ClearRallyPlaceable) call CFUNC(globalEvent);
 }] call CFUNC(addEventHandler);
 
 /*
@@ -32,8 +31,4 @@
     ((leader CLib_Player) == CLib_Player) && (CLib_Player getVariable [QEGVAR(Kit,isLeader), false]) && (isNull objectParent CLib_Player)
 }, {
     call FUNC(place);
-}] call CFUNC(addAction);
-
-[QGVAR(placed), {
-    QGVAR(ClearRallyPlaceable) call CFUNC(globalEvent);
-}] call CFUNC(addEventHandler);
+}, ["showWindow", false]] call CFUNC(addAction);

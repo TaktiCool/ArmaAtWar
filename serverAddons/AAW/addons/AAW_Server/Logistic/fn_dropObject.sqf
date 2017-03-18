@@ -28,7 +28,7 @@ if (isNull _draggedObject) exitWith {};
 
 ["enableSimulation", [_draggedObject, true]] call CFUNC(serverEvent);
 _unit setVariable [QGVAR(Item), objNull, true];
-_draggedObject setVariable [QGVAR(Player), objNull, true];
+_draggedObject setVariable [QGVAR(Dragger), objNull, true];
 
 private _position = getPosATL _draggedObject;
 if (_position select 2 < 0) then {

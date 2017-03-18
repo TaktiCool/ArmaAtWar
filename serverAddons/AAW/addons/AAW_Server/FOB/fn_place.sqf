@@ -34,14 +34,15 @@ params ["_target"];
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
     private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
 
-    [QGVAR(placed), _pointId] call CFUNC(globalEvent);
-
-
     ["displayNotification", side group CLib_player, [
         "NEW FOB PLACED",
         "near " + _text,
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 
-    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnPointLocked", 1] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnPointBlocked", 0] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "placeTime", serverTime] call EFUNC(Common,setDeploymentCustomData);
+
+    [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 }, [_target], "respawn"] call CFUNC(mutex);
