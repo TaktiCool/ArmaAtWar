@@ -16,8 +16,9 @@
 
 
 GVAR(CalculatorInputBuffer) = "R00000 E+0000" splitString "";
-
+enableEngineArtillery false;
 GVAR(BufferPosition) = 1;
+GVAR(KeyEventHandler) = -1;
 /*
 // Old reloading approach. Need more ideas
 private _iconIdle = "\A3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa";
@@ -76,11 +77,13 @@ private _onComplete = {
 
 DFUNC(updateBuffer) = {
     private _spaces = "";
+    private _ctrlInputFieldBG = uiNamespace getVariable [QGVAR(InputFieldBG), controlNull];
+    private _ctrlInputField = uiNamespace getVariable [QGVAR(InputField), controlNull];
     for "_i" from 1 to GVAR(BufferPosition) do {
         _spaces = _spaces + " ";
     };
-    GVAR(InputFieldBG) ctrlSetText (_spaces+"_");
-    GVAR(InputField) ctrlSetText (GVAR(CalculatorInputBuffer) joinString "");
+    _ctrlInputFieldBG ctrlSetText (_spaces+"_");
+    _ctrlInputField ctrlSetText (GVAR(CalculatorInputBuffer) joinString "");
 };
 
 DFUNC(calcSolution) = {
@@ -100,7 +103,9 @@ DFUNC(calcSolution) = {
     };
 
 
-
+    _ctrlSol1 = uiNamespace getVariable [QGVAR(AOESolutionField1), controlNull];
+    _ctrlSol2 = uiNamespace getVariable [QGVAR(AOESolutionField2), controlNull];
+    _ctrlSol3 = uiNamespace getVariable [QGVAR(AOESolutionField3), controlNull];
     {
         (_aoe select _forEachIndex) params ["_angle", "_time"];
         if (_angle >= 45 && _angle <= 88) then {
@@ -109,7 +114,7 @@ DFUNC(calcSolution) = {
             _x ctrlSetText format [" C%1 --/--", _forEachIndex+1];
         };
 
-    } forEach [GVAR(AOESolutionField1), GVAR(AOESolutionField2), GVAR(AOESolutionField3)];
+    } forEach [_ctrlSol1, _ctrlSol2, _ctrlSol3];
 };
 
 ["vehicleChanged", {
@@ -117,20 +122,32 @@ DFUNC(calcSolution) = {
 
 
     if (_oldVehicle isKindOf "Mortar_01_base_F") exitWith {
-        (findDisplay 46) displayRemoveEventHandler ["KeyDown", GVAR(KeyEventHandler)];
+        if (GVAR(KeyEventHandler)>=0) then {
+            (findDisplay 46) displayRemoveEventHandler ["KeyDown", GVAR(KeyEventHandler)];
+        };
+
         nil;
     };
 
     if (!(_newVehicle isKindOf "Mortar_01_base_F")) exitWith {nil};
 
-    if (isNil QGVAR(WeaponSightDisplay)) then {
+    private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
+
+
+    if (isNull _display) then {
         {
             if (ctrlIDD _x == 300) exitWith {
-                GVAR(WeaponSightDisplay) = _x;
+                diag_log "Display 300 found";
+                _display = _x;
                 0
-            }
+            };
+            nil;
         } count (uiNamespace getVariable "IGUI_displays");
     };
+
+    uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
+    diag_log "Display saved";
+    //hint "display saved";
     /*
     _ctrlDistance = GVAR(WeaponSightDisplay) displayCtrl 173;
     _ctrlDistanceText = GVAR(WeaponSightDisplay) displayCtrl 1010;
@@ -151,91 +168,103 @@ DFUNC(calcSolution) = {
     _ctrlGroupRange = GVAR(WeaponSightDisplay) displayCtrl 177;
     */
     [{
+        private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
+        if (isNull _display) exitWith {};
         {
-            (GVAR(WeaponSightDisplay) displayCtrl _x) ctrlSetFade 1;
-            (GVAR(WeaponSightDisplay) displayCtrl _x) ctrlCommit 0;
+            (_display displayCtrl _x) ctrlSetFade 1;
+            (_display displayCtrl _x) ctrlCommit 0;
             nil
         } count [173, 174, 176, 177, 1010, 1011, 1012, 1013, 1014, 1015];
         {
-            (GVAR(WeaponSightDisplay) displayCtrl _x) ctrlSetTextColor [1,0.3,0.4,1];
-            (GVAR(WeaponSightDisplay) displayCtrl _x) ctrlCommit 0;
+            (_display displayCtrl _x) ctrlSetTextColor [1,0.3,0.4,1];
+            (_display displayCtrl _x) ctrlCommit 0;
             nil
         } count [156, 182, 180, 179, 175, 1013];
-        private _ctrlGroup = GVAR(WeaponSightDisplay) displayCtrl 170;
-        GVAR(InputField) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(InputField) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(InputField) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(InputField) ctrlSetText (GVAR(CalculatorInputBuffer) joinString "");
-        GVAR(InputField) ctrlSetPosition [11*(0.01875 * safeZoneH), 28*(0.025*safeZoneH), 8*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(InputField) ctrlSetFontHeight (0.028*safeZoneH);
+        private _ctrlGroup = _display displayCtrl 170;
+        private _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText (GVAR(CalculatorInputBuffer) joinString "");
+        _ctrl ctrlSetPosition [11*(0.01875 * safeZoneH), 28*(0.025*safeZoneH), 8*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(InputField), _ctrl];
+        _ctrl ctrlCommit 0;
 
-        GVAR(InputFieldBG) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(InputFieldBG) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(InputFieldBG) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(InputFieldBG) ctrlSetText " _    ";
-        GVAR(InputFieldBG) ctrlSetPosition [11*(0.01875 * safeZoneH), 28*(0.025*safeZoneH), 8*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(InputFieldBG) ctrlSetFontHeight (0.028*safeZoneH);
 
-        GVAR(AOESolutionField1) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(AOESolutionField1) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(AOESolutionField1) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField1) ctrlSetText " C1 --/--";
-        GVAR(AOESolutionField1) ctrlSetPosition [11*(0.01875 * safeZoneH), 29*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(AOESolutionField1) ctrlSetFontHeight (0.028*safeZoneH);
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText " _    ";
+        _ctrl ctrlSetPosition [11*(0.01875 * safeZoneH), 28*(0.025*safeZoneH), 8*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(InputFieldBG), _ctrl];
+        _ctrl ctrlCommit 0;
 
-        GVAR(AOESolutionField2) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(AOESolutionField2) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(AOESolutionField2) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField2) ctrlSetText " C2 --/--";
-        GVAR(AOESolutionField2) ctrlSetPosition [11*(0.01875 * safeZoneH), 30*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(AOESolutionField2) ctrlSetFontHeight (0.028*safeZoneH);
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText " C1 --/--";
+        _ctrl ctrlSetPosition [11*(0.01875 * safeZoneH), 29*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(AOESolutionField1), _ctrl];
+        _ctrl ctrlCommit 0;
 
-        GVAR(AOESolutionField3) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(AOESolutionField3) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(AOESolutionField3) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(AOESolutionField3) ctrlSetText " C3 --/--";
-        GVAR(AOESolutionField3) ctrlSetPosition [11*(0.01875 * safeZoneH), 31*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(AOESolutionField3) ctrlSetFontHeight (0.028*safeZoneH);
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText " C2 --/--";
+        _ctrl ctrlSetPosition [11*(0.01875 * safeZoneH), 30*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(AOESolutionField2), _ctrl];
+        _ctrl ctrlCommit 0;
 
-        GVAR(ChargeInfo) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(ChargeInfo) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(ChargeInfo) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(ChargeInfo) ctrlSetText " C1";
-        GVAR(ChargeInfo) ctrlSetPosition [33.8*(0.01875 * safeZoneH), 29.3*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), 1.2*(0.025 * safeZoneH)];
-        GVAR(ChargeInfo) ctrlSetFontHeight (0.038*safeZoneH);
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText " C3 --/--";
+        _ctrl ctrlSetPosition [11*(0.01875 * safeZoneH), 31*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(AOESolutionField3), _ctrl];
+        _ctrl ctrlCommit 0;
 
-        GVAR(Range) = GVAR(WeaponSightDisplay) ctrlCreate ["RscTitle", -1, _ctrlGroup];
-        GVAR(Range) ctrlSetFont "EtelkaMonospacePro";
-        GVAR(Range) ctrlSetTextColor [1,0.3,0.4,1];
-        GVAR(Range) ctrlSetText "00000";
-        GVAR(Range) ctrlSetPosition [25.3*(0.01875 * safeZoneH), 32.6*(0.025*safeZoneH), 5.2*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
-        GVAR(Range) ctrlSetFontHeight (0.028*safeZoneH);
-        GVAR(BIRange) = GVAR(WeaponSightDisplay) displayCtrl 173;
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText " C1";
+        _ctrl ctrlSetPosition [33.8*(0.01875 * safeZoneH), 29.3*(0.025*safeZoneH), 7.5*(0.01875 * safeZoneH), 1.2*(0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.038*safeZoneH);
+        uiNamespace setVariable [QGVAR(ChargeInfo), _ctrl];
+        _ctrl ctrlCommit 0;
+
+        _ctrl = _display ctrlCreate ["RscTitle", -1, _ctrlGroup];
+        _ctrl ctrlSetFont "EtelkaMonospacePro";
+        _ctrl ctrlSetTextColor [1,0.3,0.4,1];
+        _ctrl ctrlSetText "00000";
+        _ctrl ctrlSetPosition [25.3*(0.01875 * safeZoneH), 32.6*(0.025*safeZoneH), 5.2*(0.01875 * safeZoneH), (0.025 * safeZoneH)];
+        _ctrl ctrlSetFontHeight (0.028*safeZoneH);
+        uiNamespace setVariable [QGVAR(Range), _ctrl];
+        _ctrl ctrlCommit 0;
+        uiNamespace setVariable [QGVAR(BIRange),  _display displayCtrl 173];
+        //GVAR(BIRange) = _display displayCtrl 173;
 
         [{
+                _ctrl = uiNamespace getVariable [QGVAR(ChargeInfo), controlNull];
                 if (!(vehicle player isKindOf "Mortar_01_base_F")) then {
                     [_this select 1] call CFUNC(removePerFrameHandler);
                 };
                 private _weaponMode = currentWeaponMode CLib_player;
                 if (_weaponMode == "Single1") then {
-                    GVAR(ChargeInfo) ctrlSetText "C1";
+                    _ctrl ctrlSetText "C1";
                 };
                 if (_weaponMode == "Single2") then {
-                    GVAR(ChargeInfo) ctrlSetText "C2";
+                    _ctrl ctrlSetText "C2";
                 };
                 if (_weaponMode == "Single3") then {
-                    GVAR(ChargeInfo) ctrlSetText "C3";
+                    _ctrl ctrlSetText "C3";
                 };
 
         }, 0] call CFUNC(addPerFrameHandler);
 
-        GVAR(InputField) ctrlCommit 0;
-        GVAR(InputFieldBG) ctrlCommit 0;
-        GVAR(AOESolutionField1) ctrlCommit 0;
-        GVAR(AOESolutionField2) ctrlCommit 0;
-        GVAR(AOESolutionField3) ctrlCommit 0;
-        GVAR(ChargeInfo) ctrlCommit 0;
-        GVAR(Range) ctrlCommit 0;
         GVAR(KeyEventHandler) = (findDisplay 46) displayAddEventHandler ["KeyDown",{
             params ["_display", "_dikCode", "_shift", "_ctrl", "_alt"];
 
@@ -302,7 +331,9 @@ DFUNC(calcSolution) = {
 
             if (_char == "") exitWith {
                 if (_dikCode in actionKeys "lockTarget") then {
-                    GVAR(Range) ctrlSetText ctrlText GVAR(BIRange);
+                    private _biRange = uiNamespace getVariable [QGVAR(BIRange), controlNull];
+                    private _range = uiNamespace getVariable [QGVAR(Range), controlNull];
+                    _range ctrlSetText ctrlText _biRange;
                 };
 
                 if (_dikCode == 0xCB) then {
@@ -373,7 +404,8 @@ DFUNC(calcSolution) = {
         }];
 
     }, {
-        !isNull (GVAR(WeaponSightDisplay) displayCtrl 170);
+        private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
+        !isNull _display && {!isNull (_display displayCtrl 170)};
     }] call CFUNC(waitUntil);
     nil;
 
