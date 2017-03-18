@@ -304,6 +304,32 @@ DFUNC(calcSolution) = {
                 if (_dikCode in actionKeys "lockTarget") then {
                     GVAR(Range) ctrlSetText ctrlText GVAR(BIRange);
                 };
+
+                if (_dikCode == 0xCB) then {
+                    GVAR(BufferPosition) = GVAR(BufferPosition) - 1;
+                };
+
+                if (_dikCode == 0xCD) then {
+                    GVAR(BufferPosition) = GVAR(BufferPosition) + 1;
+                };
+
+                if (GVAR(BufferPosition) == -1) then {
+                    GVAR(BufferPosition) = 12;
+                };
+
+                if (GVAR(BufferPosition) == 8) then {
+                    GVAR(BufferPosition) = 5;
+                };
+
+                if (GVAR(BufferPosition) == 6) then {
+                    GVAR(BufferPosition) = 9;
+                };
+
+                if (GVAR(BufferPosition) == 13) then {
+                    GVAR(BufferPosition) = 1;
+                };
+
+                call FUNC(updateBuffer);
             };
 
             if (_char == "+" || _char == "-") exitWith {
