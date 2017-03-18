@@ -40,7 +40,7 @@ class CLib {
         "AAW/VehicleRespawn",
         "AAW/FOB",
         "AAW/Rally",
-        "AAW/Mortar",
+        //"AAW/Mortar",
         "AAW/BaseProtection"
     };
     useExperimentalAutoload = 0;
