@@ -111,12 +111,6 @@
                     true
                 };
 
-                // Statics need crew kit
-                if (_vehicle isKindOf "StaticWeapon" && _isCrew == 0) exitWith {
-                    ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
-                    true
-                };
-
                 false
             };
 
