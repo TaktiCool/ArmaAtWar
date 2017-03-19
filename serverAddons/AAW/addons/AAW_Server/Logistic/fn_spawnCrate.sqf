@@ -27,8 +27,8 @@ if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)
 };
 private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
-private _crateObject = _crateType createVehicle _spawnPos;
-
+private _crateObject = _crateType createVehicle [0, 0, 0];
+_crateObject setPos _spawnPos;
 if (_displayName != "") then {
     _crateObject setVariable [QGVAR(displayName), _displayName, true];
 };

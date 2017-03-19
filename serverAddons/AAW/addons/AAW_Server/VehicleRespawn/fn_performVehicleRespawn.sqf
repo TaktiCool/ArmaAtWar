@@ -36,7 +36,8 @@ if (!isNull _vehicle) then {
     [{
         (_this select 1) params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
         _position = [_position, 10, 0, _type] call CFUNC(findSavePosition);
-        private _vehicle = _type createVehicle _position;
+        private _vehicle = _type createVehicle [0, 0, 0];
+        _vehicle setPos _position;
         _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1, true];
         _vehicle setDir _direction;
         ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
