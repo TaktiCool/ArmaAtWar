@@ -20,7 +20,7 @@ GVAR(ServerInitDone) = false;
 
 ["missionStarted", {
     [{
-        GVAR(allSectors) = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0, 0, 0], [], 0, "NONE"];
+        GVAR(allSectors) = true call CFUNC(createNameSpace);
 
         GVAR(allSectorsArray) = [];
         private _sectors = "true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors");
