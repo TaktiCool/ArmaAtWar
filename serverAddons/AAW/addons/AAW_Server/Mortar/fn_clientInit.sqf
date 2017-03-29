@@ -162,11 +162,13 @@ DFUNC(calcSolution) = {
         if (isNull _display) exitWith {};
         DUMP("DISPLAY NOT NULL!");
         {
+            if (isNull (_display displayCtrl _x)) then {DUMP(_x)};
             (_display displayCtrl _x) ctrlSetFade 1;
             (_display displayCtrl _x) ctrlCommit 0;
             nil
         } count [173, 174, 176, 177, 1010, 1011, 1012, 1013, 1014, 1015];
         {
+            if (isNull (_display displayCtrl _x)) then {DUMP(_x)};
             (_display displayCtrl _x) ctrlSetTextColor [1,0.3,0.4,1];
             (_display displayCtrl _x) ctrlCommit 0;
             nil
