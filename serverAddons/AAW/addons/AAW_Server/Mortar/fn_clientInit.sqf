@@ -131,21 +131,7 @@ DFUNC(calcSolution) = {
 
     if (!(_newVehicle isKindOf "Mortar_01_base_F")) exitWith {nil};
 
-    private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
 
-
-    if (isNull _display) then {
-        {
-            if (ctrlIDD _x == 300) exitWith {
-                //diag_log "Display 300 found";
-                _display = _x;
-                0
-            };
-            nil;
-        } count (uiNamespace getVariable "IGUI_displays");
-    };
-
-    uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
     //diag_log "Display saved";
     //hint "display saved";
     /*
@@ -167,9 +153,14 @@ DFUNC(calcSolution) = {
 
     _ctrlGroupRange = GVAR(WeaponSightDisplay) displayCtrl 177;
     */
+
+    DUMP("IN MORTAR!");
+
     [{
+        DUMP("DISPLAY FOUND!");
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
         if (isNull _display) exitWith {};
+        DUMP("DISPLAY NOT NULL!");
         {
             (_display displayCtrl _x) ctrlSetFade 1;
             (_display displayCtrl _x) ctrlCommit 0;
@@ -405,6 +396,20 @@ DFUNC(calcSolution) = {
 
     }, {
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
+
+
+        if (isNull _display) then {
+            {
+                if (ctrlIDD _x == 300) exitWith {
+                    //diag_log "Display 300 found";
+                    _display = _x;
+                    0
+                };
+                nil;
+            } count (uiNamespace getVariable "IGUI_displays");
+        };
+
+        uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
         !isNull _display && {!isNull (_display displayCtrl 170)};
     }] call CFUNC(waitUntil);
     nil;
