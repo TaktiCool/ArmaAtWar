@@ -93,7 +93,7 @@ DFUNC(calcSolution) = {
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
 
-    //hint format ["r: %1<br>h: %2", _r,_h];
+    hint format ["r: %1<br>h: %2", _r,_h];
     private _aoe = [[0,0],[0,0],[0,0]];
     if (_r > 0) then {
         _aoe = _v apply {
