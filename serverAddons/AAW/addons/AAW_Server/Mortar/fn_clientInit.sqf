@@ -400,15 +400,15 @@ DFUNC(calcSolution) = {
 
         if (isNull _display) then {
             {
-                if (ctrlIDD _x == 300) then {
+                if (ctrlIDD _x == 300 && !isNull (_x displayCtrl 170)) then {
                     _display = _x;
                 };
                 nil;
             } count (uiNamespace getVariable "IGUI_displays");
+            uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
         };
 
-        uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
-        !isNull _display && {!isNull (_display displayCtrl 170)};
+        !isNull _display;
     }] call CFUNC(waitUntil);
     nil;
 
