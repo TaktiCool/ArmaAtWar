@@ -400,7 +400,7 @@ DFUNC(calcSolution) = {
 
         if (isNull _display) then {
             {
-                if (ctrlIDD _x == 300) exitWith {
+                if (ctrlIDD _x == 300) then {
                     _display = _x;
                 };
                 nil;
