@@ -401,9 +401,7 @@ DFUNC(calcSolution) = {
         if (isNull _display) then {
             {
                 if (ctrlIDD _x == 300) exitWith {
-                    //diag_log "Display 300 found";
                     _display = _x;
-                    0
                 };
                 nil;
             } count (uiNamespace getVariable "IGUI_displays");
