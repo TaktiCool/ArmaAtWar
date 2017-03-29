@@ -402,7 +402,7 @@ DFUNC(calcSolution) = {
 
         if (isNull _display) then {
             {
-                if (ctrlIDD _x == 300 && !isNull (_x displayCtrl 170)) then {
+                if (ctrlIDD _x == 300 && !isNull (_x displayCtrl 173)) then {
                     _display = _x;
                 };
                 nil;
