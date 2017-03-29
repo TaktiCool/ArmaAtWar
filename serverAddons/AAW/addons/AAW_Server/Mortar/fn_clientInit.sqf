@@ -93,12 +93,11 @@ DFUNC(calcSolution) = {
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
 
-    hint format ["r: %1<br>h: %2", _r,_h];
     private _aoe = [[0,0],[0,0],[0,0]];
     if (_r > 0) then {
         _aoe = _v apply {
              private _temp = atan ((_x^2 + sqrt (_x^4 - _g * (_g * _r^2 + 2 * _h * _x^2)))/(_g * _r));
-             [_temp,  _r / (_x * cos _temp)]
+             [_temp - ,  _r / (_x * cos _temp)]
         };
     };
 
@@ -154,21 +153,17 @@ DFUNC(calcSolution) = {
     _ctrlGroupRange = GVAR(WeaponSightDisplay) displayCtrl 177;
     */
 
-    DUMP("IN MORTAR!");
 
     [{
-        DUMP("DISPLAY FOUND!");
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
         if (isNull _display) exitWith {};
-        DUMP("DISPLAY NOT NULL!");
+
         {
-            if (isNull (_display displayCtrl _x)) then {DUMP(_x)};
             (_display displayCtrl _x) ctrlSetFade 1;
             (_display displayCtrl _x) ctrlCommit 0;
             nil
         } count [173, 174, 176, 177, 1010, 1011, 1012, 1013, 1014, 1015];
         {
-            if (isNull (_display displayCtrl _x)) then {DUMP(_x)};
             (_display displayCtrl _x) ctrlSetTextColor [1,0.3,0.4,1];
             (_display displayCtrl _x) ctrlCommit 0;
             nil
