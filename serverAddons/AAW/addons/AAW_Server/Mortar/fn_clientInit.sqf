@@ -400,7 +400,8 @@ DFUNC(calcSolution) = {
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
 
 
-        if (isNull _display) then {
+        if (isNull _display || {isNull (_display displayCtrl 173)}) then {
+            _display = displayNull;
             {
                 if (ctrlIDD _x == 300 && !isNull (_x displayCtrl 173)) then {
                     _display = _x;
