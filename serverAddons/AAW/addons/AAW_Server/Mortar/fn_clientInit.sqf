@@ -97,7 +97,7 @@ DFUNC(calcSolution) = {
     if (_r > 0) then {
         _aoe = _v apply {
              private _temp = atan ((_x^2 + sqrt (_x^4 - _g * (_g * _r^2 + 2 * _h * _x^2)))/(_g * _r));
-             [_temp - ,  _r / (_x * cos _temp)]
+             [_temp,  _r / (_x * cos _temp)]
         };
     };
 
