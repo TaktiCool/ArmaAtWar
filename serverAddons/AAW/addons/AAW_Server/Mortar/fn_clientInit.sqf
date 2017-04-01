@@ -93,7 +93,6 @@ DFUNC(calcSolution) = {
     private _r = parseNumber (_inStr select [1, 5]);
     private _h = parseNumber (_inStr select [8, 5]);
 
-    //hint format ["r: %1<br>h: %2", _r,_h];
     private _aoe = [[0,0],[0,0],[0,0]];
     if (_r > 0) then {
         _aoe = _v apply {
@@ -131,21 +130,7 @@ DFUNC(calcSolution) = {
 
     if (!(_newVehicle isKindOf "Mortar_01_base_F")) exitWith {nil};
 
-    private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
 
-
-    if (isNull _display) then {
-        {
-            if (ctrlIDD _x == 300) exitWith {
-                //diag_log "Display 300 found";
-                _display = _x;
-                0
-            };
-            nil;
-        } count (uiNamespace getVariable "IGUI_displays");
-    };
-
-    uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
     //diag_log "Display saved";
     //hint "display saved";
     /*
@@ -167,9 +152,12 @@ DFUNC(calcSolution) = {
 
     _ctrlGroupRange = GVAR(WeaponSightDisplay) displayCtrl 177;
     */
+
+
     [{
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
         if (isNull _display) exitWith {};
+
         {
             (_display displayCtrl _x) ctrlSetFade 1;
             (_display displayCtrl _x) ctrlCommit 0;
@@ -405,7 +393,20 @@ DFUNC(calcSolution) = {
 
     }, {
         private _display = uiNamespace getVariable [QGVAR(WeaponSightDisplay), displayNull];
-        !isNull _display && {!isNull (_display displayCtrl 170)};
+
+
+        if (isNull _display || {isNull (_display displayCtrl 173)}) then {
+            _display = displayNull;
+            {
+                if (ctrlIDD _x == 300 && !isNull (_x displayCtrl 173)) then {
+                    _display = _x;
+                };
+                nil;
+            } count (uiNamespace getVariable "IGUI_displays");
+            uiNamespace setVariable [QGVAR(WeaponSightDisplay), _display];
+        };
+
+        !isNull _display;
     }] call CFUNC(waitUntil);
     nil;
 
