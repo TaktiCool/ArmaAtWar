@@ -16,7 +16,7 @@
     5: Icon path <STRING>
     6: Map icon path <STRING>
     7: Objects <ARRAY>
-    8: CostumData <Array>
+    8: CustomData <Array>
 
 
     CustomData Array Structure:
@@ -30,11 +30,21 @@
 params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
 
 private _id = format ["%1_%2", _name, _position];
+private _namespace = true call CFUNC(createNamespace);
 
-[GVAR(DeploymentPointStorage), _id, [_name, _type, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects, [[], []]], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+[GVAR(DeploymentPointStorage), _id, _namespace, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+
+["name", _name] call FUNC(setDeploymentData);
+["type", _type] call FUNC(setDeploymentData);
+["position", _position] call FUNC(setDeploymentData);
+["availableFor", _availableFor] call FUNC(setDeploymentData);
+["spawnTickets", _spawnTickets] call FUNC(setDeploymentData);
+["icon", _icon] call FUNC(setDeploymentData);
+["mapIcon", _mapIcon] call FUNC(setDeploymentData);
+["pointObjects", pointObjects] call FUNC(setDeploymentData);
 
 {
-    _x call FUNC(setDeploymentCustomData);
+    _x call FUNC(setDeploymentData);
     nil
 } count _customData;
 

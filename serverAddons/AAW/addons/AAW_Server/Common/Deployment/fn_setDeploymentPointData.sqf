@@ -19,7 +19,7 @@
 params ["_pointID", "_dataName", "_data"];
 
 _dataName = toLower _dataName;
-if (_dataName isEqualTo "all") exitWith {LOG("All is not Supported anymore!")};
+if (_dataName isEqualTo "all") exitWith {LOG("Warning: All is not Supported anymore!")};
 
 private _namespace = GVAR(DeploymentPointStorage) getVariable [_pointID, objNull];
 

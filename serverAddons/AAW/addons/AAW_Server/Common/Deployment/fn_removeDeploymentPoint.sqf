@@ -15,14 +15,15 @@
 */
 params ["_pointId"];
 
-private _pointDetails = GVAR(DeploymentPointStorage) getVariable [_pointId, []];
-if (_pointDetails isEqualTo []) exitWith {};
+private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
+if (isNull _pointDetails) exitWith {};
+private _pointObjects = "pointObjects" call FUNC(getDeploymentPointData);
 
-private _pointObjects = _pointDetails select 7;
 {
     deleteVehicle _x;
     nil
 } count _pointObjects;
+
 
 [GVAR(DeploymentPointStorage), _pointId, nil, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 
