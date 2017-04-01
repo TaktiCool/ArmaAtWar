@@ -110,7 +110,7 @@ class CfgEntities {
         side = "EAST";
     };
 
-    class O_MRAP_02_gmg_base_F : MRAP_01_gmg_base_F {
+    class MRAP_02_gmg_base_F : MRAP_01_gmg_base_F {
         side = "EAST";
     };
 
