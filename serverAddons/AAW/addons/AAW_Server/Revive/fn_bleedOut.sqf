@@ -52,6 +52,7 @@ GVAR(bloodRefreshTimer) = -1;
                 if (_bloodLevel <= 0) then {
                     CLib_Player setUnconscious false;
                     CLib_Player setDamage 1;
+                    ["playerDied", [CLib_Player]] call CFUNC(serverEvent);
                     GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                     GVAR(bleedoutTimer) = -1;
                     GVAR(BleedOutEffect) ppEffectAdjust [1, 1, 0, [1.0, 1.0, 1.0, 0], [1.0, 1.0, 1.0, 1], [0.7, 0.2, 0.1, 0.0]];

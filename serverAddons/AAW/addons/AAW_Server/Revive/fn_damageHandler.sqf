@@ -19,7 +19,7 @@
     0: resulting damage <Number>
 */
 
-params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex"];
+params ["_unit", "_selectionName", "_damage", "_source", "_projectile", "_hitPartIndex", "_instigator"];
 if (!(local _unit) || !(alive _unit) || (_unit != CLib_Player)) exitWith {};
 //DUMP(_this);
 //DUMP(getAllHitPointsDamage CLib_Player select 2);
@@ -42,6 +42,7 @@ if (_hitPartIndex <= 7) then {
         } else {
             GVAR(UnconsciousFrame) = diag_frameNo;
             [true] call FUNC(setUnconscious);
+            ["playerKilled", [_unit, _instigator]] call CFUNC(serverEvent);
             CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate), 0]) + (_damageReceived min 0.3)];
         };
 
