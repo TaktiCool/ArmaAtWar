@@ -4,4 +4,5 @@ class PREFIX {
     };
 
     #include "\tc\AAW\addons\AAW_Server\Revive\cfgRevive.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Rally\cfgSquadRallyPoint.hpp"
 };
