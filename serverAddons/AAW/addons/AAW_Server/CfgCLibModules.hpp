@@ -86,6 +86,14 @@ class CfgCLibModules {
             FNC(addLineMarker);
         };
 
+        // ScoreTable
+        MODULE(ScoreTable) {
+            dependency[] = {"AAW/Common"};
+            
+            FNC(clientInit);
+            FNC(serverInit);
+        };
+
         // Rally System
         MODULE(Rally) {
             dependency[] = {"AAW/Common"};
