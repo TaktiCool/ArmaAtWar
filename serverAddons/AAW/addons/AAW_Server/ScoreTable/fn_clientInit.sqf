@@ -199,7 +199,7 @@ DFUNC(updateSimplePlayerList) = {
                 _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
                 _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
                 _ctrlPlayerScore ctrlSetPosition [PX(33), PY(0.5), PX(6), PY(3)];
-                _ctrlPlayerScore ctrlSetText str str (_scores select 4);
+                _ctrlPlayerScore ctrlSetText str (_scores select 4);
                 _ctrlPlayerScore ctrlCommit 0;
                 _verticalPosition = _verticalPosition + PY(4);
                 nil;

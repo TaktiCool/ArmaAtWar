@@ -41,10 +41,11 @@ if (_hitPartIndex <= 7) then {
             CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate), 0]) + (_damageReceived max 0.7)];
         } else {
             GVAR(UnconsciousFrame) = diag_frameNo;
-            [true] call FUNC(setUnconscious);
             if (!(CLib_Player getVariable [QGVAR(isUnconscious), false])) then {
                 ["playerKilled", [_unit, _instigator]] call CFUNC(serverEvent);
             };
+            [true] call FUNC(setUnconscious);
+
 
             CLib_Player setVariable [QGVAR(bleedingRate), (CLib_Player getVariable [QGVAR(bleedingRate), 0]) + (_damageReceived min 0.3)];
         };
