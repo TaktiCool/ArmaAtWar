@@ -85,6 +85,8 @@ DFUNC(createGroupEntry) = {
         private _numberOfRevives = {_uid != (_x select 1) && {(_x select 2) == "REVIVED"}} count _medicalTreatments;
         private _numberOfHeals = {_uid != (_x select 1) && {(_x select 2) == "HEALED"}} count _medicalTreatments;
 
+        private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"SECTORCAPTURES", []]);
+
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
         private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
 
@@ -126,20 +128,20 @@ DFUNC(createGroupEntry) = {
         _ctrlPlayerCaptured ctrlSetFontHeight PY(2.2);
         _ctrlPlayerCaptured ctrlSetFont "RobotoCondensed";
         _ctrlPlayerCaptured ctrlSetPosition [PX(67), PY(0.5), PX(6), PY(3)];
-        _ctrlPlayerCaptured ctrlSetText "0";
+        _ctrlPlayerCaptured ctrlSetText str (10*_captureScore);
         _ctrlPlayerCaptured ctrlCommit 0;
 
         private _ctrlPlayerScore = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
         _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
         _ctrlPlayerScore ctrlSetPosition [PX(73), PY(0.5), PX(6), PY(3)];
-        _ctrlPlayerScore ctrlSetText str (_numberOfRevives*10 + _numberOfHeals*2 + _numberOfKills*10 - _numberOfFFKills*20);
+        _ctrlPlayerScore ctrlSetText str (_numberOfRevives*5 + _numberOfHeals*1 + _numberOfKills*10 - _numberOfFFKills*20 + _captureScore*10);
         _ctrlPlayerScore ctrlCommit 0;
 
         _groupHeight = _groupHeight + PY(4);
         nil;
-    //} count ([_group] call CFUNC(groupPlayers));
-    } count units _group;
+    } count ([_group] call CFUNC(groupPlayers));
+    //} count units _group;
 
     _playerBg ctrlSetPosition [0, 0, PX(79), _groupHeight];
     _playerBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";;
@@ -186,6 +188,8 @@ DFUNC(updateSimplePlayerList) = {
 
                 private _numberOfDeaths = count (GVAR(ScoreNamespace) getVariable [_uid+"_DEATHS", []]);
 
+                private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"SECTORCAPTURES", []]);
+
                 private _medicalTreatments = (GVAR(ScoreNamespace) getVariable [_uid+"_MEDICALTREATMENTS", []]);
                 private _numberOfRevives = {_uid != (_x select 1) && {(_x select 2) == "REVIVED"}} count _medicalTreatments;
                 private _numberOfHeals = {_uid != (_x select 1) && {(_x select 2) == "HEALED"}} count _medicalTreatments;
@@ -204,11 +208,12 @@ DFUNC(updateSimplePlayerList) = {
                 _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
                 _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
                 _ctrlPlayerScore ctrlSetPosition [PX(33), PY(0.5), PX(6), PY(3)];
-                _ctrlPlayerScore ctrlSetText str (_numberOfRevives*10 + _numberOfHeals*2 + _numberOfKills*10 - _numberOfFFKills*20);
+                _ctrlPlayerScore ctrlSetText str (_numberOfRevives*5 + _numberOfHeals*1 + _numberOfKills*10 - _numberOfFFKills*20 + _captureScore*10);
                 _ctrlPlayerScore ctrlCommit 0;
                 _verticalPosition = _verticalPosition + PY(4);
                 nil;
-            } count units _x;
+            //} count units _x;
+            } count ([_x] call CFUNC(groupPlayers));
         };
         nil;
     } count allGroups;
