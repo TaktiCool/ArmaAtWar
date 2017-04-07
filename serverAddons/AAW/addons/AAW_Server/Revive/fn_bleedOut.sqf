@@ -35,6 +35,7 @@ GVAR(bloodRefreshTimer) = -1;
             if (!isNull objectParent CLib_Player && {damage objectParent CLib_Player == 1}) exitWith {
                 CLib_Player setUnconscious false;
                 CLib_Player setDamage 1;
+                ["playerDied", [CLib_Player]] call CFUNC(serverEvent);
                 GVAR(bleedoutTimer) call CFUNC(removePerFrameHandler);
                 GVAR(bleedoutTimer) = -1;
                 GVAR(BleedOutEffect) ppEffectEnable false;

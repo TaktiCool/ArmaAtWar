@@ -54,6 +54,8 @@ private _onComplete = {
     GVAR(healStartTime) = -1;
     [QGVAR(heal), _target, [CLib_Player getVariable [QEGVAR(Kit,isMedic), false]]] call CFUNC(targetEvent);
 
+    ["playerHealed", [CLib_Player, _target, CLib_Player getVariable [QEGVAR(Kit,isMedic), false]]] call CFUNC(serverEvent);
+
     CLib_Player playAction "medicStop";
 };
 
