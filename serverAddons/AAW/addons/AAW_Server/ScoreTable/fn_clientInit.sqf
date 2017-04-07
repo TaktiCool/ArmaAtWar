@@ -168,7 +168,7 @@ DFUNC(updateSimplePlayerList) = {
 
     private _verticalPosition = 0;
     {
-        if (side _x == _side) then {
+        if (side _x == _side && groupId _x in EGVAR(Squad,squadIds)) then {
             {
                 private _playerGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _ctrlListGroup];
                 _playerGroup ctrlSetPosition [0, _verticalPosition, PX(39), PY(4)];
@@ -188,7 +188,7 @@ DFUNC(updateSimplePlayerList) = {
 
                 private _numberOfDeaths = count (GVAR(ScoreNamespace) getVariable [_uid+"_DEATHS", []]);
 
-                private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"SECTORCAPTURES", []]);
+                private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"_SECTORCAPTURES", []]);
 
                 private _medicalTreatments = (GVAR(ScoreNamespace) getVariable [_uid+"_MEDICALTREATMENTS", []]);
                 private _numberOfRevives = {_uid != (_x select 1) && {(_x select 2) == "REVIVED"}} count _medicalTreatments;
@@ -239,7 +239,7 @@ DFUNC(updateExtendedPlayerList) = {
 
     private _verticalPosition = 0;
     {
-        if (side _x == _side) then {
+        if (side _x == _side && groupId _x in EGVAR(Squad,squadIds)) then {
             private _groupGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _ctrlListGroup];
             private _groupGroupHeight = [_groupGroup, _x] call FUNC(createGroupEntry);
 
