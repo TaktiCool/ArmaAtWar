@@ -70,12 +70,12 @@ DFUNC(createGroupEntry) = {
         private _uid = getPlayerUID _x;
 
         private _numberOfKills = {
-            params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
+            _x params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
             !_friendlyFire;
         } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
 
         private _numberOfFFKills = {
-            params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
+            _x params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
             _friendlyFire;
         } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
 
@@ -85,7 +85,7 @@ DFUNC(createGroupEntry) = {
         private _numberOfRevives = {_uid != (_x select 1) && {(_x select 2) == "REVIVED"}} count _medicalTreatments;
         private _numberOfHeals = {_uid != (_x select 1) && {(_x select 2) == "HEALED"}} count _medicalTreatments;
 
-        private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"SECTORCAPTURES", []]);
+        private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"_SECTORCAPTURES", []]);
 
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
         private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
@@ -177,12 +177,12 @@ DFUNC(updateSimplePlayerList) = {
                 private _uid = getPlayerUID _x;
 
                 private _numberOfKills = {
-                    params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
+                    _x params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
                     !_friendlyFire;
                 } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
 
                 private _numberOfFFKills = {
-                    params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
+                    _x params ["_serverTime", "_killedUnitUid", "_friendlyFire"];
                     _friendlyFire;
                 } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
 
