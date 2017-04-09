@@ -21,7 +21,11 @@ GVAR(maxTickets) = getNumber (missionConfigFile >> QPREFIX >> "tickets");
 DFUNC(createGroupEntry) = {
     params ["_ctrlGroup", "_group"];
 
+    private _display = ctrlParent _ctrlGroup;
+
     private _groupColor = ["#(argb,8,8,3)color(0.6,0,0,1)", "#(argb,8,8,3)color(0.0,0.4,0.8,1)"] select (side _group == side group CLib_player);
+
+    _groupColor = ["#(argb,8,8,3)color(0.6,0,0,1)", "#(argb,8,8,3)color(0.13,0.54,0.21,1)"] select (_group == group CLib_player);
 
     private _groupHeight = PY(3);
 
@@ -29,7 +33,7 @@ DFUNC(createGroupEntry) = {
 
     private _groupBg = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
     _groupBg ctrlSetPosition [PX(0), PY(0), PX(79), PY(3)];
-    _groupBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";;
+    _groupBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.3)";;
     _groupBg ctrlCommit 0;
 
     private _groupDesignatorBg = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
@@ -63,10 +67,31 @@ DFUNC(createGroupEntry) = {
     _groupType ctrlCommit 0;
 
     {
+        private _font = ["RobotoCondensed", "RobotoCondensedBold"] select (_x == CLib_player);
         private _playerGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _ctrlGroup];
         _playerGroup ctrlSetPosition [0, _groupHeight, PX(79), PY(4)];
         _playerGroup ctrlCommit 0;
 
+
+        /*
+        private _playerHoverBg = _display ctrlCreate ["RscPicture", -1, _playerGroup];
+        _playerHoverBg ctrlSetPosition [PX(0), PY(0.5), PX(79), PY(3)];
+        _playerHoverBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.3)";
+        _playerHoverBg ctrlSetFade 0;
+        _playerHoverBg ctrlCommit 0;
+
+        _playerHoverBg ctrlAddEventHandler ["mouseEnter",{
+            params ["_ctrl"];
+            _ctrl ctrlSetFade 0;
+            _ctrl ctrlCommit 0.2;
+        }];
+
+        _playerHoverBg ctrlAddEventHandler ["mouseExit",{
+            params ["_ctrl"];
+            _ctrl ctrlSetFade 1;
+            _ctrl ctrlCommit 0.2;
+        }];
+        */
         private _uid = getPlayerUID _x;
 
         private _scores = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES", [0,0,0,0,0]];
@@ -81,7 +106,7 @@ DFUNC(createGroupEntry) = {
 
         private _ctrlPlayerName = _display ctrlCreate ["RscTitle", -1, _playerGroup];
         _ctrlPlayerName ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerName ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerName ctrlSetFont _font;
         _ctrlPlayerName ctrlSetTextColor [1, 1, 1, 1];
         _ctrlPlayerName ctrlSetPosition [PX(3.5), PY(0.5), PX(28), PY(3)];
         _ctrlPlayerName ctrlSetText ([_x] call CFUNC(name));
@@ -89,35 +114,35 @@ DFUNC(createGroupEntry) = {
 
         private _ctrlPlayerKills = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerKills ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerKills ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerKills ctrlSetFont _font;
         _ctrlPlayerKills ctrlSetPosition [PX(49), PY(0.5), PX(6), PY(3)];
         _ctrlPlayerKills ctrlSetText str (_scores select 0);
         _ctrlPlayerKills ctrlCommit 0;
 
         private _ctrlPlayerDeaths = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerDeaths ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerDeaths ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerDeaths ctrlSetFont _font;
         _ctrlPlayerDeaths ctrlSetPosition [PX(55), PY(0.5), PX(6), PY(3)];
         _ctrlPlayerDeaths ctrlSetText str (_scores select 1);
         _ctrlPlayerDeaths ctrlCommit 0;
 
         private _ctrlPlayerMedical = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerMedical ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerMedical ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerMedical ctrlSetFont _font;
         _ctrlPlayerMedical ctrlSetPosition [PX(61), PY(0.5), PX(6), PY(3)];
         _ctrlPlayerMedical ctrlSetText str (_scores select 2);
         _ctrlPlayerMedical ctrlCommit 0;
 
         private _ctrlPlayerCaptured = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerCaptured ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerCaptured ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerCaptured ctrlSetFont _font;
         _ctrlPlayerCaptured ctrlSetPosition [PX(67), PY(0.5), PX(6), PY(3)];
         _ctrlPlayerCaptured ctrlSetText str (_scores select 3);
         _ctrlPlayerCaptured ctrlCommit 0;
 
         private _ctrlPlayerScore = _display ctrlCreate ["RscTextNoShadow", -1, _playerGroup];
         _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
-        _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
+        _ctrlPlayerScore ctrlSetFont _font;
         _ctrlPlayerScore ctrlSetPosition [PX(73), PY(0.5), PX(6), PY(3)];
         _ctrlPlayerScore ctrlSetText str (_scores select 4);
         _ctrlPlayerScore ctrlCommit 0;
@@ -128,7 +153,7 @@ DFUNC(createGroupEntry) = {
     //} count units _group;
 
     _playerBg ctrlSetPosition [0, 0, PX(79), _groupHeight];
-    _playerBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";;
+    _playerBg ctrlSetText "#(argb,8,8,3)color(0.4,0.4,0.4,0.3)";
     _playerBg ctrlCommit 0;
 
     _groupHeight;
@@ -426,6 +451,8 @@ DFUNC(buildStaticUI) = {
 };
 
 
+
+
 ["showScoreTable", {
     private _display = (findDisplay 46) createDisplay "RscDisplayEmpty";
 
@@ -446,11 +473,15 @@ DFUNC(buildStaticUI) = {
         GVAR(ppColor) ppEffectCommit 0.3;
         GVAR(ppBlur) ppEffectAdjust [0];
         GVAR(ppBlur) ppEffectCommit 0.3;
-
+        ["scoreUpdate", GVAR(scoreUpdateEventId)] call CFUNC(removeEventhandler);
     }];
 
-    [_display] call FUNC(buildStaticUI);
 
+
+    [_display] call FUNC(buildStaticUI);
+    GVAR(scoreUpdateEventId) = ["scoreUpdate", {
+        [] call FUNC(updateUI);
+    }] call CFUNC(addEventhandler);
 
     GVAR(ppColor) ppEffectEnable true;
     GVAR(ppColor) ppEffectAdjust [0.7, 0.7, 0.1, [0, 0, 0, 0], [1, 1, 1, 1], [0.7, 0.2, 0.1, 0.0]];
@@ -461,6 +492,8 @@ DFUNC(buildStaticUI) = {
     GVAR(ppBlur) ppEffectCommit 0.2;
 
     [] call FUNC(updateUI);
+
+
 
 }] call CFUNC(addEventhandler);
 

@@ -32,13 +32,14 @@ DFUNC(publicScores) = {
                     private _entry = GVAR(ScoreNamespace) getVariable [_x+"_SCORES", [0, 0, 0, 0, 0]];
                     GVAR(ScoreNamespace) setVariable [_x+"_SCORES", _entry, true];
                 } count GVAR(ScoreBuffer);
+                GVAR(ScoreBuffer) = [];
                 ["scoreUpdate"] call CFUNC(globalEvent);
             }, 3] call CFUNC(wait);
         };
     };
 };
 
-DFUNC(calcScore) = {
+DFUNC(calcScores) = {
     params ["_uid"];
 
     private _numberOfKills = {
