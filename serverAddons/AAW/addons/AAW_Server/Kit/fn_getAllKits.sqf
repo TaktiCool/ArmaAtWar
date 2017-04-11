@@ -14,4 +14,5 @@
     Array With all Strings <Array>
 */
 
-("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
+//("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
+([QUOTE(PREFIX/CfgKits/) + (str playerSide)] call CFUNC(getSettingSubClasses)) select {([_x + "/scope"] call CFUNC(getSetting)) == 1};
