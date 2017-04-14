@@ -23,7 +23,7 @@ GVAR(inProtectedZone) = false;
         "priority", 0,
         "showWindow", false,
         "shortcut", "DefaultAction",
-        "ignoredCanInteractConditions", ["isNotInVehicle"]
+        "ignoredCanInteractConditions", ["isNotInVehicle", "isNotReloading"]
     ]] call CFUNC(addAction);
 }] call CFUNC(addEventHandler);
 
