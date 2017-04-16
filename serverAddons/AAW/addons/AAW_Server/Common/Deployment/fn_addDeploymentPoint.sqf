@@ -31,17 +31,22 @@ params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon"
 
 private _id = format ["%1_%2", _name, _position];
 private _namespace = true call CFUNC(createNamespace);
+_namespace setPos _position;
 
 [GVAR(DeploymentPointStorage), _id, _namespace, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
-
-["name", _name] call FUNC(setDeploymentData);
-["type", _type] call FUNC(setDeploymentData);
-["position", _position] call FUNC(setDeploymentData);
-["availableFor", _availableFor] call FUNC(setDeploymentData);
-["spawnTickets", _spawnTickets] call FUNC(setDeploymentData);
-["icon", _icon] call FUNC(setDeploymentData);
-["mapIcon", _mapIcon] call FUNC(setDeploymentData);
-["pointObjects", pointObjects] call FUNC(setDeploymentData);
+{
+    _x call FUNC(setDeploymentData
+    nil
+} count [
+    ["name", _name],
+    ["type", _type],
+    ["position", _position],
+    ["availableFor", _availableFor],
+    ["spawnTickets", _spawnTickets],
+    ["icon", _icon],
+    ["mapIcon", _mapIcon],
+    ["pointObjects", _pointObjects]
+];
 
 {
     _x call FUNC(setDeploymentData);

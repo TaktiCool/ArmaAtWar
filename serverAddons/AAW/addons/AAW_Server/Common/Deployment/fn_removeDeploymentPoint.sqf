@@ -17,7 +17,7 @@ params ["_pointId"];
 
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
 if (isNull _pointDetails) exitWith {};
-private _pointObjects = "pointObjects" call FUNC(getDeploymentPointData);
+private _pointObjects = [_pointId, "pointObjects"] call FUNC(getDeploymentPointData);
 
 {
     deleteVehicle _x;
@@ -25,9 +25,7 @@ private _pointObjects = "pointObjects" call FUNC(getDeploymentPointData);
 } count _pointObjects;
 
 
-[GVAR(DeploymentPointStorage), _pointId, nil, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
-
-private _availableFor = _pointDetails select 3;
+private _availableFor = [_pointId, "availableFor"] call FUNC(getDeploymentPointData);
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
     private _side = sideUnknown;
@@ -39,3 +37,6 @@ if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
     };
     [QGVAR(deploymentPointRemoved), _side, _pointId] call CFUNC(targetEvent);
 };
+private _namespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
+deleteVehicle _namespace;
+[GVAR(DeploymentPointStorage), _pointId, nil, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
