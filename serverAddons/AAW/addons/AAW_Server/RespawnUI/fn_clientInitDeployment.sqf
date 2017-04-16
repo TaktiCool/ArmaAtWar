@@ -109,8 +109,9 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
+        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentCustomData);
         if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round ((_timeAfterPlaceToSpawn + _placeTime) - serverTime)]] call EFUNC(Common,displayHint);
+            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
         };
 
         if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
