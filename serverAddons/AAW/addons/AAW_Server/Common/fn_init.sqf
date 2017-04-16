@@ -1,26 +1,13 @@
 #include "macros.hpp"
 
 // Version Informations
-private _missionVersionStr = "";
 private _missionVersionAr = getArray (missionConfigFile >> QPREFIX >> "Version");
+private _missionVersionStr = _missionVersionAr joinString ".";
 
-private _serverVersionStr = "";
 private _serverVersionAr = [VERSION_AR];
-
-{
-    _missionVersionStr = _missionVersionStr + str _x + ".";
-    nil
-} count _missionVersionAr;
-
-{
-    _serverVersionStr = _serverVersionStr + str _x + ".";
-    nil
-} count _serverVersionAr;
+private _serverVersionStr = _serverVersionAr joinString ".";
 
 DUMP("Version Mission: " + _missionVersionStr + "; Version Server: " + _serverVersionStr);
-
-_missionVersionStr = _missionVersionStr select [0, (count _missionVersionStr - 1)];
-_serverVersionStr = _serverVersionStr select [0, (count _serverVersionStr - 1)];
 GVAR(VersionInfo) = [[_missionVersionStr, _missionVersionAr], [_serverVersionStr, _serverVersionAr]];
 publicVariable QGVAR(VersionInfo);
 
