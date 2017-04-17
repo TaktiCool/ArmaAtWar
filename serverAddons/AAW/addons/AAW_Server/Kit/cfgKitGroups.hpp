@@ -3,9 +3,9 @@ class cfgKitGroups {
         requiredGroupMembersPerKit = 1;
     };
     class Limited {
-        requiredGroupMembersPerKit = 1;
+        requiredGroupMembersPerKit = 2;
     };
     class Specialized {
-        requiredGroupMembersPerKit = 1;
+        requiredGroupMembersPerKit = 4;
     };
 };

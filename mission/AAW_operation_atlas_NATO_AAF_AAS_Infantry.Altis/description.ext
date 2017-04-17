@@ -58,21 +58,13 @@ class AAW {
 
     #include "cfgGroupTypes.hpp"
 
-    #include "cfgKitGroups.hpp"
-
     #include "cfgSides.hpp"
-
-    #include "cfgSquadRallyPoint.hpp"
 
     #include "cfgSectors.hpp"
 
     #include "cfgRespawn.hpp"
 
-    #include "cfgRevive.hpp"
-
     #include "cfgEntities.hpp"
-
-  	#include "cfgFOB.hpp"
 
     #include "ui\common\aawCore.hpp"
 

@@ -1,4 +1,4 @@
-class cfgLogistic {
+class NATO {
     objectToSpawn[] = {"mainBaseFlagWest"};
     class MedicalBox {
         displayName = "Medical Box";

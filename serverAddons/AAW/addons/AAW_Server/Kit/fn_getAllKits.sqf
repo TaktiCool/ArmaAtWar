@@ -15,4 +15,5 @@
 */
 
 //("getNumber (_x >> 'scope') != 0" configClasses (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "Kits")) apply {configName _x}
-([QUOTE(PREFIX/CfgKits/) + (str playerSide)] call CFUNC(getSettingSubClasses)) select {([_x + "/scope"] call CFUNC(getSetting)) == 1};
+private _cfg = QUOTE(PREFIX/CfgKits/) + ([format [QUOTE(PREFIX/Sides/%1/kits), (str side group CLib_player)], ""] call CFUNC(getSetting));
+([_cfg] call CFUNC(getSettingSubClasses)) select {([format ["%1/%2/scope", _cfg, _x], 0] call CFUNC(getSetting)) == 1};

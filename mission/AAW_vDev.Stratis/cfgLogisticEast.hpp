@@ -1,4 +1,4 @@
-class cfgLogistic {
+class CSAT {
     objectToSpawn[] = {"mainBaseFlagEast"};
     class MedicalBox {
         displayName = "Medical Box";

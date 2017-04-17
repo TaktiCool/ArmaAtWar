@@ -4,6 +4,7 @@ class CfgCLibSettings {
     aaw_cfgFob[] = {"AAW", "CfgFob"};
     aaw_cfgSquadRallyPoint[] = {"AAW", "CfgSquadRallyPoint"};
     aaw_cfgKits[] = {"AAW", "CfgKits"};
-    aaw_cfgKits[] = {"AAW", "CfgLogistics"};
-    aaw_cfgKits[] = {"AAW", "CfgKitGroups"};
+    aaw_cfgLogistics[] = {"AAW", "CfgLogistics"};
+    aaw_cfgKitGroups[] = {"AAW", "CfgKitGroups"};
+    aaw_cfgSides[] = {"AAW", "Sides"};
 };
