@@ -69,8 +69,22 @@
         // Open the respawn UI
         [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
 
-        (findDisplay 46) createDisplay UIVAR(RespawnScreen);
+        (findDisplay 46) createDisplay UIVAR(WelcomeScreen);
     }, [], "respawn"] call CFUNC(mutex);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(WelcomeScreen_onLoad), {
+    (_this select 0) params ["_display"];
+    uiNamespace setVariable [QGVAR(welcomeDisplay), _display];
+
+    // Load the welcome screen
+    (_display displayCtrl 100) htmlLoad format ["https://www.atwar-mod.com/popup/%1", EGVAR(Common,VersionInfo) select 1 select 0];
+}] call CFUNC(addEventHandler);
+
+[UIVAR(WelcomeScreen_CloseButton_action), {
+    private _display = uiNamespace getVariable [QGVAR(welcomeDisplay), displayNull];
+    _display closeDisplay 1;
+    (findDisplay 46) createDisplay UIVAR(RespawnScreen);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {

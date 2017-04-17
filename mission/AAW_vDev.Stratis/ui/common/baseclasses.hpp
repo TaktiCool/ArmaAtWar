@@ -65,6 +65,78 @@ class RscControlsGroupNoScrollbars : RscControlsGroup {
     };
 };
 
+// HTML
+class RscHTML
+{
+    type = CT_HTML;
+    style = ST_LEFT;
+    colorBackground[] = {0,0,0,0};
+
+    FONTCONTROL;
+    TOOLTIPCONTROL;
+
+	colorBold[] = {1,1,1,1};
+	colorLink[] = {1,1,1,0.75};
+	colorLinkActive[] = {1,1,1,1};
+	colorPicture[] = {1,1,1,1};
+	colorPictureBorder[] = {0,0,0,0};
+	colorPictureLink[] = {1,1,1,1};
+	colorPictureSelected[] = {1,1,1,1};
+	prevPage = "\A3\ui_f\data\gui\rsccommon\rschtml\arrow_left_ca.paa";
+	nextPage = "\A3\ui_f\data\gui\rsccommon\rschtml\arrow_right_ca.paa";
+	filename = "a3\ui_f\data\html\RscFeedback.html";
+	shadow = 2;
+	class H1
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";
+		align = "left";
+	};
+	class H2
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "right";
+	};
+	class H3
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "left";
+	};
+	class H4
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "left";
+	};
+	class H5
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "left";
+	};
+	class H6
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "left";
+	};
+	class P
+	{
+		font = "RobotoCondensed";
+		fontBold = "RobotoCondensedBold";
+		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+		align = "left";
+	};
+};
+
 // Lists
 class RscListBox
 {
