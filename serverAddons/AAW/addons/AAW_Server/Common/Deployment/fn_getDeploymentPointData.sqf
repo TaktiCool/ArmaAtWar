@@ -30,9 +30,9 @@
 
 #define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
 
-params ["_pointID", ["_type", "all"]];
+params ["_pointID", ["_type", ""];
 // Type is a array and wants multible returns
-if ((_type select 0) isEqualType []) exitWith {
+if (_type isEqualType [] && {(_type select 0) isEqualType []}) exitWith {
     private _return = [];
     {
         _return pushback ([_pointID, _x] call FUNC(getDeploymentPointData));
@@ -48,5 +48,12 @@ if (_type isEqualTo "all") exitWith {
 };
 
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointID, objNull];
-if (isNull _pointNamespace) exitWith {LOG("Warning: Point does not exist or is allready deleted")};
+if (isNull _pointNamespace) exitWith {
+    LOG("Warning: Point does not exist or is allready deleted");
+    if (_type isEqualType []) then {
+        (_type select 1)
+    } else {
+        nil
+    };
+};
 _pointNamespace getVariable _type;
