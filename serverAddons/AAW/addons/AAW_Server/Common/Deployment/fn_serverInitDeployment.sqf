@@ -61,7 +61,7 @@ GVAR(changedDPDWaitIsRunning) = false;
                 private _availableFor = [_x, ["availableFor", sideUnknown]] call FUNC(getDeploymentPointData);
                 if !(_availableFor isEqualTo sideUnknown) then {
                     private _dataNames = GVAR(changedDPDDataNames) select _forEachIndex;
-                    ["DeploymentPointDataChanged", _availableFor, [_pointID, _dataNames] call CFUNC(targetEvent);
+                    ["DeploymentPointDataChanged", _availableFor, [_pointID, _dataNames]] call CFUNC(targetEvent);
                 };
             };
         } forEach GVAR(changedDPDPointIDs);

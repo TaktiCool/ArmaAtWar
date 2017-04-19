@@ -30,7 +30,7 @@
 
 #define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
 
-params ["_pointID", ["_type", ""];
+params ["_pointID", ["_type", ""]];
 // Type is a array and wants multible returns
 if (_type isEqualType [] && {(_type select 0) isEqualType []}) exitWith {
     private _return = [];
