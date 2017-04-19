@@ -35,8 +35,6 @@ class CfgCLibModules {
                 // DataManagement
                 FNC(setDeploymentPointData);
                 FNC(getDeploymentPointData);
-                FNC(setDeploymentCustomData);
-                FNC(getDeploymentCustomData);
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
