@@ -15,7 +15,7 @@
 */
 
 // Check time
-private _waitTime = [QGVAR(Rally_waitTime), 10] call CFUNC(getSettingOld);
+private _waitTime = [CFGSRP(waitTime), 10] call CFUNC(getSetting);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
 private _time = ((_lastRallyPlaced + _waitTime) - serverTime);
 if (_time >= 0) exitWith {
@@ -32,14 +32,13 @@ if (_enemyCount != 0) exitWith {
 };
 
 // Check near players
-private _nearPlayerToBuild = ([QGVAR(Rally_nearPlayerToBuild), 1] call CFUNC(getSettingOld)) - 1;
-private _nearPlayerToBuildRadius = [QGVAR(Rally_nearPlayerToBuildRadius), 10] call CFUNC(getSettingOld);
+private _nearPlayerToBuild = ([CFGSRP(nearPlayerToBuild), 1] call CFUNC(getSetting));
+private _nearPlayerToBuildRadius = [CFGSRP(nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
 
 private _count = {
     (group _x) == (group CLib_Player) &&
     _x call EFUNC(Common,isAlive)
 } count ([CLib_Player, _nearPlayerToBuildRadius] call CFUNC(getNearUnits));
-_count = _count + 1; // Player is not in getNearUnits
 
 if (_count < _nearPlayerToBuild) exitWith {
     ["RALLY POINT NOT PLACABLE", format ["You need %1 more player to build a rally", _nearPlayerToBuild - _count]] call EFUNC(Common,displayHint);

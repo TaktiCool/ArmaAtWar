@@ -42,7 +42,7 @@ params ["_target"];
 
     [_pointId, "spawnPointLocked", 1] call EFUNC(Common,setDeploymentCustomData);
     [_pointId, "spawnPointBlocked", 0] call EFUNC(Common,setDeploymentCustomData);
-    [_pointId, "placeTime", serverTime] call EFUNC(Common,setDeploymentCustomData);
+    [_pointId, "spawnTime", serverTime + ([CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting))] call EFUNC(Common,setDeploymentCustomData);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 }, [_target], "respawn"] call CFUNC(mutex);

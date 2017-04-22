@@ -17,6 +17,8 @@
     (_this select 0) params ["_display"];
     uiNamespace setVariable [QGVAR(deploymentDisplay), _display];
 
+    GVAR(lastSelectedPoint) = "";
+
     // The dialog needs one frame until access to controls is possible
     [{
         params ["_display"];
@@ -107,8 +109,9 @@
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
+        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentCustomData);
         if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round ((_timeAfterPlaceToSpawn + _placeTime) - serverTime)]] call EFUNC(Common,displayHint);
+            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
         };
 
         if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
@@ -166,12 +169,12 @@
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        private _pointDetails = [_x, ["name", "spawntickets", "icon","type"]] call EFUNC(Common,getDeploymentPointData);
-        _pointDetails params ["_name", "_tickets", "_icon","_type"];
-        private _color = [1,1,1,1];
+        private _pointDetails = [_x, ["name", "spawntickets", "icon", "type"]] call EFUNC(Common,getDeploymentPointData);
+        _pointDetails params ["_name", "_tickets", "_icon", "_type"];
+        private _color = [1, 1, 1, 1];
 
         if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
-            _color = [1,1,1,0.5];
+            _color = [1, 1, 1, 0.5];
         };
 
         if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
@@ -186,7 +189,7 @@
             _name = format ["%1 (%2)", _name, _tickets];
         };
 
-        _lnbData pushBack [[_name], _x, _icon,_color];
+        _lnbData pushBack [[_name], _x, _icon, _color];
         nil
     } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
@@ -196,7 +199,6 @@
 
 // When the selected entry changed animate the map
 [UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
-    // TODO only animate if really changed
     UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
@@ -209,6 +211,8 @@
     private _selectedEntry = lnbCurSelRow _control;
     if (_selectedEntry == -1) exitWith {};
     private _selectedPoint = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
+    if (_selectedPoint == GVAR(lastSelectedPoint)) exitWith {};
+    GVAR(lastSelectedPoint) = _selectedPoint;
 
     // Get the point data
     private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _selectedPoint;
