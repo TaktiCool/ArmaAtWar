@@ -13,6 +13,10 @@
     Returns:
     None
 */
+
+GVAR(lastDeploymentPoint) = "";
+GVAR(selectedDeploymentPoint) = "";
+
 [UIVAR(DeploymentScreen_onLoad), {
     (_this select 0) params ["_display"];
     uiNamespace setVariable [QGVAR(deploymentDisplay), _display];
@@ -28,6 +32,8 @@
 
         // Update the values of the UI elements
         UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
+
+        [QEGVAR(Common,DeploymentPointSelected), GVAR(lastDeploymentPoint)] call CFUNC(localEvent);
 
         // Fade the control in
         (_display displayCtrl 400) call FUNC(fadeControl);
@@ -123,7 +129,7 @@
         };
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
-
+        GVAR(lastDeploymentPoint) = _currentDeploymentPointSelection;
         _deploymentDisplay closeDisplay 1;
 
         [{
@@ -199,6 +205,9 @@
 
 // When the selected entry changed animate the map
 [UIVAR(RespawnScreen_SpawnPointList_onLBSelChanged), {
+    private _display = uiNamespace getVariable [QGVAR(deploymentDisplay), displayNull];
+    private _control = _display displayCtrl 403;
+    GVAR(selectedDeploymentPoint) = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
     UIVAR(RespawnScreen_DeploymentManagement_animateMap) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
@@ -234,7 +243,7 @@
     private _size = lnbSize _control;
     for "_idx" from 0 to ((_size select 0) - 1) do {
         private _data = [_control, [_idx, 0]] call CFUNC(lnbLoad);
-        if (toLower _data == toLower _deploymentPointId) exitWith {
+        if (toLower _data == toLower _deploymentPointId && _idx != lnbCurSelRow _control) exitWith {
             _control lnbSetCurSelRow _idx;
             _control ctrlCommit 0;
 

@@ -71,17 +71,21 @@ GVAR(pointMarkerIds) = [];
                 _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
                 _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
-
+            private _selectedIcon = ["ICON", "A3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa", [1,1,1,0], _position, 40, 40, 0, "", 0, 0.08, "RobotoCondensedBold", "center", {
+                if (_groupId == EGVAR(RespawnUI,selectedDeploymentPoint)) then {
+                    _color = [1,1,1,1];
+                };
+            }];
             private _icon = ["ICON", _mapIcon, [1,1,1,1], _position, 25, 25];
             private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, format ["%1", _name], 2, 0.08, "RobotoCondensedBold", "center"];
-            [_x, [_bgIcon, _icon, _normalText], "normal", 2000] call CFUNC(addMapGraphicsGroup);
+            [_x, [_bgIcon, _icon, _normalText, _selectedIcon], "normal", 2000] call CFUNC(addMapGraphicsGroup);
             private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];
             if (_spawnTickets <= 0) then {
                 _onHoverText = _normalText;
             };
 
 
-            [_x, [_bgIconHover, _icon, _onHoverText], "hover", 2000] call CFUNC(addMapGraphicsGroup);
+            [_x, [_bgIconHover, _icon, _onHoverText, _selectedIcon], "hover", 2000] call CFUNC(addMapGraphicsGroup);
 
             [
                 _x,
