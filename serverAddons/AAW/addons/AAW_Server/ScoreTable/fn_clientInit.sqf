@@ -15,7 +15,7 @@
 */
 
 GVAR(ppBlur) = ppEffectCreate ["DynamicBlur", 999];
-GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1501];
+GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
 GVAR(maxTickets) = getNumber (missionConfigFile >> QPREFIX >> "tickets");
 
 DFUNC(createGroupEntry) = {
@@ -82,16 +82,19 @@ DFUNC(createGroupEntry) = {
 
         _playerHoverBg ctrlAddEventHandler ["mouseEnter",{
             params ["_ctrl"];
+            hint "Enter";
             _ctrl ctrlSetFade 0;
             _ctrl ctrlCommit 0.2;
         }];
 
         _playerHoverBg ctrlAddEventHandler ["mouseExit",{
             params ["_ctrl"];
+            hint "Exit";
             _ctrl ctrlSetFade 1;
             _ctrl ctrlCommit 0.2;
         }];
         */
+
         private _uid = getPlayerUID _x;
 
         private _scores = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES", [0,0,0,0,0]];
@@ -163,17 +166,26 @@ DFUNC(updateSimplePlayerList) = {
     params ["_ctrlListGroup", "_side"];
 
     // Copy old Positon and parent control
-    private _oldPosition = ctrlPosition _ctrlListGroup;
-    private _parentCtrl = ctrlParentControlsGroup _ctrlListGroup;
+    //private _oldPosition = ctrlPosition _ctrlListGroup;
+    //private _parentCtrl = ctrlParentControlsGroup _ctrlListGroup;
     private _display = ctrlParent _ctrlListGroup;
-    ctrlDelete _ctrlListGroup;
+    //ctrlDelete _ctrlListGroup;
 
     // create new one
-    private _ctrlListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", -1, _parentCtrl];
-    _ctrlListGroup ctrlSetPosition _oldPosition;
-    _ctrlListGroup ctrlCommit 0;
+    //private _ctrlListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", -1, _parentCtrl];
+    //_ctrlListGroup ctrlSetPosition _oldPosition;
+    //_ctrlListGroup ctrlCommit 0;
+
+
+
+    {
+        ctrlDelete _x;
+    } count (_ctrlListGroup getVariable [QGVAR(groupControls), []]);
+
+    private _groupControls = [];
 
     private _playerBg = _display ctrlCreate ["RscPicture", -1, _ctrlListGroup];
+    _groupControls pushBack _playerBg;
 
     private _verticalPosition = 0;
     {
@@ -202,6 +214,8 @@ DFUNC(updateSimplePlayerList) = {
                 _ctrlPlayerScore ctrlSetPosition [PX(33), PY(0.5), PX(6), PY(3)];
                 _ctrlPlayerScore ctrlSetText str (_scores select 4);
                 _ctrlPlayerScore ctrlCommit 0;
+
+                _groupControls pushBack _playerGroup;
                 _verticalPosition = _verticalPosition + PY(4);
                 nil;
             //} count units _x;
@@ -209,6 +223,8 @@ DFUNC(updateSimplePlayerList) = {
         };
         nil;
     } count allGroups;
+
+    _ctrlListGroup setVariable [QGVAR(groupControls), _groupControls];
 
     _playerBg ctrlSetPosition [0, 0, PX(39), _verticalPosition];
     _playerBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";;
@@ -219,17 +235,22 @@ DFUNC(updateExtendedPlayerList) = {
     params ["_ctrlListGroup", "_side"];
 
     // Copy old Positon and parent control
-    private _oldPosition = ctrlPosition _ctrlListGroup;
-    private _parentCtrl = ctrlParentControlsGroup _ctrlListGroup;
+    //private _oldPosition = ctrlPosition _ctrlListGroup;
+    //private _parentCtrl = ctrlParentControlsGroup _ctrlListGroup;
     private _display = ctrlParent _ctrlListGroup;
-    ctrlDelete _ctrlListGroup;
+    //ctrlDelete _ctrlListGroup;
 
     // create new one
-    private _ctrlListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", -1, _parentCtrl];
-    _ctrlListGroup ctrlSetPosition _oldPosition;
-    _ctrlListGroup ctrlCommit 0;
+    //private _ctrlListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", -1, _parentCtrl];
+    //_ctrlListGroup ctrlSetPosition _oldPosition;
+    //_ctrlListGroup ctrlCommit 0;
+
+    {
+        ctrlDelete _x;
+    } count (_ctrlListGroup getVariable [QGVAR(groupControls), []]);
 
     private _verticalPosition = 0;
+    private _groupControls = [];
     {
         if (side _x == _side && groupId _x in EGVAR(Squad,squadIds)) then {
             private _groupGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _ctrlListGroup];
@@ -237,10 +258,12 @@ DFUNC(updateExtendedPlayerList) = {
 
             _groupGroup ctrlSetPosition [0, _verticalPosition, PX(80), _groupGroupHeight];
             _groupGroup ctrlCommit 0;
+            _groupControls pushBack _groupGroup;
             _verticalPosition = _verticalPosition + _groupGroupHeight + PY(1);
         };
         nil;
     } count allGroups;
+    _ctrlListGroup setVariable [QGVAR(groupControls), _groupControls];
 };
 
 DFUNC(updateUI) = {

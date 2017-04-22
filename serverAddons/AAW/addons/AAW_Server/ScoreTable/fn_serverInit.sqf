@@ -22,14 +22,14 @@ GVAR(ScoreBuffer) = [];
 DFUNC(publicScores) = {
     params ["_uid", "_entry"];
 
-    private _oldEntry = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES", [0, 0, 0, 0, 0]];
+    private _oldEntry = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES_SERVER", [0, 0, 0, 0, 0]];
     if (!(_entry isEqualTo _oldEntry)) then {
-        GVAR(ScoreNamespace) setVariable [_uid+"_SCORES", _entry];
+        GVAR(ScoreNamespace) setVariable [_uid+"_SCORES_SERVER", _entry];
         GVAR(ScoreBuffer) pushBackUnique _uid;
         if (count GVAR(ScoreBuffer) == 1) then {
             [{
                 {
-                    private _entry = GVAR(ScoreNamespace) getVariable [_x+"_SCORES", [0, 0, 0, 0, 0]];
+                    private _entry = GVAR(ScoreNamespace) getVariable [_x+"_SCORES_SERVER", [0, 0, 0, 0, 0]];
                     GVAR(ScoreNamespace) setVariable [_x+"_SCORES", _entry, true];
                 } count GVAR(ScoreBuffer);
                 GVAR(ScoreBuffer) = [];
@@ -76,30 +76,32 @@ DFUNC(registerPlayerAction) = {
 ["playerKilled", {
     (_this select 0) params ["_killedUnit", "_instigator"];
     private _friendlyFire = side group _killedUnit == side group _instigator;
-    [getPlayerUID _instigator, [time, (getPlayerUID _killedUnit), _friendlyFire], "KILLS"] call FUNC(registerPlayerAction);
-    if (!_friendlyFire) then {
-        [{
-            [_this] call FUNC(calcScores);
-        }, 60, getPlayerUID _instigator] call CFUNC(wait);
-    }
+    private _uid = getPlayerUID _instigator;
+    [_uid, [time, (getPlayerUID _killedUnit), _friendlyFire], "KILLS"] call FUNC(registerPlayerAction);
+    [{
+        [_this] call FUNC(calcScores);
+    }, 60, _uid] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
 
 ["playerDied", {
     (_this select 0) params ["_unit"];
-    [getPlayerUID _unit, [time], "DEATHS"] call FUNC(registerPlayerAction);
+    private _uid = getPlayerUID _unit;
+    [_uid, [time], "DEATHS"] call FUNC(registerPlayerAction);
     [_uid] call FUNC(calcScores);
 }] call CFUNC(addEventhandler);
 
 ["playerRevived", {
     (_this select 0) params ["_unit", "_target"];
-    [getPlayerUID _unit, [time, "REVIVED", (getPlayerUID _target)], "MEDICALTREATMENTS"] call FUNC(registerPlayerAction);
+    private _uid = getPlayerUID _unit;
+    [_uid, [time, "REVIVED", (getPlayerUID _target)], "MEDICALTREATMENTS"] call FUNC(registerPlayerAction);
     [_uid] call FUNC(calcScores);
 }] call CFUNC(addEventhandler);
 
 ["playerHealed", {
     (_this select 0) params ["_unit", "_target", "_isMedic"];
-    [getPlayerUID _unit, [time, "HEALED", (getPlayerUID _target), _isMedic], "MEDICALTREATMENTS"] call FUNC(registerPlayerAction);
-    [getPlayerUID _unit] call FUNC(calcScores);
+    private _uid = getPlayerUID _unit;
+    [_uid, [time, "HEALED", (getPlayerUID _target), _isMedic], "MEDICALTREATMENTS"] call FUNC(registerPlayerAction);
+    [_uid] call FUNC(calcScores);
 }] call CFUNC(addEventhandler);
 
 ["sectorSideChanged", {

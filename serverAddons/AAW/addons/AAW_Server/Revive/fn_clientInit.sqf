@@ -148,7 +148,7 @@ GVAR(draw3dIcons) = false;
     [QGVAR(Icons), _icons] call CFUNC(add3dGraphics);
 }, 1] call CFUNC(addPerFrameHandler);
 
-private _hndl = ppEffectCreate ["DynamicBlur", 999];
+private _hndl = ppEffectCreate ["DynamicBlur", 998];
 _hndl ppEffectEnable false;
 _hndl ppEffectAdjust [1];
 GVAR(UnconsciousnessEffects) = [_hndl];
