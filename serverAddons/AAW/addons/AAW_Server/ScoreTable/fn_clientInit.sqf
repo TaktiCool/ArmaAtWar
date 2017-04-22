@@ -25,7 +25,7 @@ DFUNC(createGroupEntry) = {
 
     private _groupColor = ["#(argb,8,8,3)color(0.6,0,0,1)", "#(argb,8,8,3)color(0.0,0.4,0.8,1)"] select (side _group == side group CLib_player);
 
-    _groupColor = ["#(argb,8,8,3)color(0.6,0,0,1)", "#(argb,8,8,3)color(0.13,0.54,0.21,1)"] select (_group == group CLib_player);
+    _groupColor = [_groupColor, "#(argb,8,8,3)color(0.13,0.54,0.21,1)"] select (_group == group CLib_player);
 
     private _groupHeight = PY(3);
 
