@@ -62,8 +62,6 @@ class AAW {
 
     #include "cfgSides.hpp"
 
-    #include "cfgSquadRallyPoint.hpp"
-
     #include "cfgSectors.hpp"
 
     #include "cfgRespawn.hpp"
