@@ -226,7 +226,7 @@
 
     // Update the lnb
     private _control = _display displayCtrl 207;
-    [_control, _lnbData, group CLib_Player] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+    [_control, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
     for "_i" from 0 to 3 do {
         _control lnbSetColor [[_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];

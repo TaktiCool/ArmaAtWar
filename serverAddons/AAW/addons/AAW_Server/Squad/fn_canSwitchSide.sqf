@@ -21,13 +21,8 @@ if ((GVAR(lastTimeSideChanged) + GVAR(minSideSwitchTime)) >= serverTime) exitWit
     false
 };
 
-private _fnc = {
-    params ["_side"];
-    {_side == side _x} count allPlayers;
-};
-
-private _newSideCount = _newSide call _fnc;
-private _oldSideCount = _oldSide call _fnc;
+private _newSideCount = _newSide countSide allPlayers;
+private _oldSideCount = _oldSide countSide allPlayers;
 
 if (_oldSideCount < (_newSideCount + EGVAR(Common,maxPlayerCountDifference))) exitWith {
     ["SIDE BALANCING", MLOC(MaxPlayerCount)] call EFUNC(Common,displayHint);
