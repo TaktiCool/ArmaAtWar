@@ -76,14 +76,11 @@ class AAW {
 
 	#include "cfgFOB.hpp"
 
-    #include "cfgKitGroups.hpp"
+    class CfgLogistics {
+        #include "cfgLogisticWest.hpp"
+    };
 
     #include "ui\common\aawCore.hpp"
-
-    class cfgLogistics {
-        #include "cfgLogisticWest.hpp"
-        #include "cfgLogisticEast.hpp"
-    };
 
 };
 

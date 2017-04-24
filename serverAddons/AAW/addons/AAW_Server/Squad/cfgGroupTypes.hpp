@@ -1,5 +1,5 @@
 class CfgGroupTypes {
-    activeGroupTypes = {"Rifle", "Weapon", "Recon", "Vehicle", "Helicopter", "Mortar", "Logistic"};
+    activeGroupTypes[] = {"Rifle", "Weapon", "Recon", "Vehicle", "Helicopter", "Mortar", "Logistic"};
     class Rifle {
         displayName = "Rifle";
         groupSize = 9;

@@ -9,9 +9,8 @@ class Sides {
         squadRallyPointObjects[] = {{"Land_TentDome_F", {0,0,0}}};
         FOBBoxObject = "B_CargoNet_01_ammo_F";
         FOBComposition = "FOBNATO";
-        #include "kitsWest.hpp"
-
-        #include "cfgLogisticWest.hpp"
+        kits = "NATO";
+        logistics = "NATO";
     };
 
     class GUER : WEST {
@@ -23,10 +22,7 @@ class Sides {
         squadRallyPointObjects[] = {{"Land_TentA_F", {0,0,0}}};
         FOBBoxObject = "O_CargoNet_01_ammo_F";
         FOBComposition = "FOBAAF";
-
-        #include "kitsIndependent.hpp"
-
-        #include "cfgLogisticIndependent.hpp"
-
+        kits = "AAF";
+        logistics = "AAF";
     };
 };

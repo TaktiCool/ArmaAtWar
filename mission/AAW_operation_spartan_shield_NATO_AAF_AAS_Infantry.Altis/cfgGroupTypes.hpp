@@ -1,3 +1,3 @@
 class GroupTypes {
-    activeGroupTypes = {"Rifle", "Weapon"};
+    activeGroupTypes[] = {"Rifle", "Weapon"};
 };

@@ -146,7 +146,7 @@
 
     private _visibleGroupTypes = [];
     {
-        private _groupTypeName = configName _x;
+        private _groupTypeName = _x;
         if ([_groupTypeName] call EFUNC(Squad,canUseSquadType)) then {
             private _rowNumber = _control lbAdd ([format [QUOTE(PREFIX/CfgGroupTypes/%1/displayName), _groupTypeName], ""] call CFUNC(getSetting));
             _control lbSetData [_rowNumber, _groupTypeName];
@@ -207,6 +207,10 @@
     private _control = _display displayCtrl 207;
 
     private _selectedSquad = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
+
+    if (!(_selectedSquad isEqualType grpNull)) then {
+        _selectedSquad = grpNull;
+    };
 
     // Prepare the data for the lnb
     private _lnbData = [];

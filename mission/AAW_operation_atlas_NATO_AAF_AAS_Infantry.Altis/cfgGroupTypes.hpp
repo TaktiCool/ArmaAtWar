@@ -1,3 +1,3 @@
-class GroupTypes {
-    activeGroupTypes = {"Rifle", "Weapon"};
+class CfgGroupTypes {
+    activeGroupTypes[] = {"Rifle", "Weapon"};
 };
