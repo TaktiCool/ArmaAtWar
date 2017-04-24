@@ -211,7 +211,7 @@
     if (!(_selectedSquad isEqualType grpNull)) then {
         _selectedSquad = grpNull;
     };
-
+    
     // Prepare the data for the lnb
     private _lnbData = [];
     {
