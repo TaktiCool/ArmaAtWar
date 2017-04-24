@@ -202,6 +202,11 @@
     if (isNull _display) exitWith {};
 
     private _ownGroupIndex = -1;
+    private _selectedSquadIndex = -1;
+
+    private _control = _display displayCtrl 207;
+
+    private _selectedSquad = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
 
     // Prepare the data for the lnb
     private _lnbData = [];
@@ -209,6 +214,10 @@
         private _groupId = groupId _x;
         if (_x == group CLib_Player) then {
             _ownGroupIndex = _forEachIndex;
+        };
+
+        if (_x == _selectedSquad) then {
+            _selectedSquadIndex = _forEachIndex;
         };
 
         private _squadDesignator = _groupId select [0, 1];
@@ -225,8 +234,8 @@
     } forEach (allGroups select {side _x == playerSide && (groupId _x in EGVAR(Squad,squadIds))});
 
     // Update the lnb
-    private _control = _display displayCtrl 207;
-    [_control, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+
+    [_control, _lnbData, _selectedSquadIndex] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
     for "_i" from 0 to 3 do {
         _control lnbSetColor [[_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];
