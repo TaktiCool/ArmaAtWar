@@ -7,4 +7,6 @@ class CfgCLibSettings {
     aaw_cfgLogistics[] = {"AAW", "CfgLogistics"};
     aaw_cfgKitGroups[] = {"AAW", "CfgKitGroups"};
     aaw_cfgSides[] = {"AAW", "Sides"};
+    aaw_cfgGroupTypes[] = {"AAW", "CfgGroupTypes"};
+    aaw_cfgRespawn[] = {"AAW", "CfgRespawn"};
 };

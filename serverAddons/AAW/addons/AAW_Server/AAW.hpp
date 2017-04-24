@@ -8,4 +8,6 @@ class PREFIX {
     #include "\tc\AAW\addons\AAW_Server\Kit\cfgKits.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\cfgKitGroups.hpp"
     #include "\tc\AAW\addons\AAW_Server\Logistic\cfgLogistics.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Squad\cfgGroupTypes.hpp"
+    #include "\tc\AAW\addons\AAW_Server\RespawnUI\cfgRespawn.hpp"
 };

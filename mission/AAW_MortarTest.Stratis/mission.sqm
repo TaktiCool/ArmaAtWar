@@ -1,4 +1,4 @@
-version=52;
+version=53;
 class EditorData
 {
 	moveGridStep=1;
@@ -20,7 +20,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={2994.8481,177.51169,1861.7808};
+		pos[]={3402.0776,324.97269,2773.1875};
 		dir[]={0,-0.70710683,0.70710683};
 		up[]={0,0.70710677,0.70710677};
 		aside[]={0.99999994,0,0};
@@ -42,14 +42,14 @@ class AddonsMetaData
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item1
 		{
 			className="A3_Static_F";
 			name="Arma 3 Alpha - Turrets";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 	};
 };
@@ -65,6 +65,24 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+				};
+			};
+		};
+		class Attribute1
+		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -79,24 +97,6 @@ class CustomAttributes
 						};
 					};
 					value=1;
-				};
-			};
-		};
-		class Attribute1
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"ARRAY"
-						};
-					};
 				};
 			};
 		};
@@ -163,33 +163,34 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2994.6836,171.32132,1865.786};
+						position[]={3401.7114,213.22081,2839.4436};
 					};
 					side="West";
-					flags=7;
+					flags=3;
 					class Attributes
 					{
 						isPlayer=1;
 					};
 					id=624;
 					type="B_support_Mort_F";
-					atlOffset=1.5258789e-005;
+					atlOffset=4.8659363;
 				};
 				class Item1
 				{
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2996.5161,171.31531,1866.526};
+						position[]={3403.5439,212.96902,2840.1836};
 					};
 					side="West";
-					flags=5;
+					flags=1;
 					class Attributes
 					{
 						isPlayable=1;
 					};
 					id=626;
 					type="B_support_Mort_F";
+					atlOffset=4.865921;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -219,16 +220,17 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2999.0171,171.31898,1868.884};
+						position[]={3406.0449,213.353,2842.5417};
 					};
 					side="West";
-					flags=5;
+					flags=1;
 					class Attributes
 					{
 						isPlayable=1;
 					};
 					id=627;
 					type="B_support_Mort_F";
+					atlOffset=4.8659363;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -258,23 +260,22 @@ class Mission
 			{
 			};
 			id=623;
-			atlOffset=1.5258789e-005;
+			atlOffset=4.8659363;
 		};
 		class Item1
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2994.0813,171.32318,1868.4799};
-				angles[]={0.0024897563,0,6.2756844};
+				position[]={3401.1091,214.879,2842.1375};
 			};
 			side="Empty";
-			flags=4;
 			class Attributes
 			{
 			};
 			id=625;
 			type="B_Mortar_01_support_F";
+			atlOffset=4.865921;
 		};
 	};
 };
