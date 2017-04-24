@@ -57,7 +57,7 @@ class CLib {
 class AAW {
 
     #include "cfgBaseSettings.hpp"
-    
+
     #include "cfgSides.hpp"
 
     #include "cfgSectors.hpp"

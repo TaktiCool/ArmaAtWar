@@ -1,24 +1,3 @@
-class defaultVehicle {
-    respawnCondition = "true";
-    side = "UNKNOWN";
-    respawnTime = -1; // disabled
-    ticketValue = 2;
-    abandonedVehicleRadius = 100;
-    abandonedVehicleTime = 300;
-};
-
-class defaultWest : defaultVehicle {
-    side = "WEST";
-};
-
-class defaultEast : defaultVehicle {
-    side = "EAST";
-};
-
-class defaultIndependent : defaultVehicle {
-    side = "INDEPENDENT";
-};
-
 class baseSupplyObject {
     supplyUses = -1;
 };
