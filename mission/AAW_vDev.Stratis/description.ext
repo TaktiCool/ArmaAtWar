@@ -86,7 +86,6 @@ class AAW {
 #include "ui\dialog\RespawnScreen.hpp"
 #include "ui\dialog\SquadScreen.hpp"
 #include "ui\dialog\RoleScreen.hpp"
-#include "ui\dialog\WelcomeScreen.hpp"
 
 class RscTitles {
     #include "ui\hud\CaptureStatus.hpp"
