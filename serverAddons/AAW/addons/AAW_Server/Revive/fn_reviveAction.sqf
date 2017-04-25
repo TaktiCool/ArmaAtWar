@@ -50,6 +50,7 @@ private _onComplete = {
 
     if (_target getVariable [QGVAR(isUnconscious), false]) then {
         [QGVAR(revive), _target] call CFUNC(targetEvent);
+        ["playerRevived", [CLib_Player, _target]] call CFUNC(serverEvent);
     };
     CLib_Player playAction "medicStop";
 };

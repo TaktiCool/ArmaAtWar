@@ -38,7 +38,7 @@ lnbClear _control;
         _control lnbSetColor [[_rowNumber, 0], _color];
     };
 
-    if (_data isEqualTo _selectedValue) then {
+    if (_data isEqualTo _selectedValue && lnbCurSelRow _control != _rowNumber) then {
         _control lnbSetCurSelRow _rowNumber;
     };
 

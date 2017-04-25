@@ -46,7 +46,8 @@ class CLib {
         "AAW/FOB",
         "AAW/Rally",
         //"AAW/Mortar",
-        "AAW/BaseProtection"
+        "AAW/BaseProtection",
+        "AAW/ScoreTable"
     };
     useExperimentalAutoload = 0;
     useCompressedFunction = 0;
@@ -62,8 +63,6 @@ class AAW {
     #include "cfgGroupTypes.hpp"
 
     #include "cfgSides.hpp"
-
-    #include "cfgSquadRallyPoint.hpp"
 
     #include "cfgSectors.hpp"
 
