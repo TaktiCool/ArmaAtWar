@@ -13,11 +13,6 @@ class CfgPatches {
         requiredAddons[] = {"CLib"};
     };
 };
-class CfgCommands {
-   allowedHTMLLoadURIs[] += {
-      "https://www.atwar-mod.com/*"
-   };
-};
 
 #include "CfgCLibModules.hpp"
 #include "CfgCLibLocalisation.hpp"
