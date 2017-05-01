@@ -94,6 +94,12 @@ class RscTitles {
     #include "ui\hud\PerformanceStatus.hpp"
 };
 
+class CfgCommands {
+   allowedHTMLLoadURIs[] += {
+      "https://www.atwar-mod.com/*"
+   };
+};
+
 /* disable CfgRemoteExec Until BI fix it
 class CfgRemoteExec {
     class Functions {
