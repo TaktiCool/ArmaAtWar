@@ -69,8 +69,43 @@
         // Open the respawn UI
         [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
 
-        (findDisplay 46) createDisplay UIVAR(RespawnScreen);
+        private _welcomeScreenDisplay = (findDisplay 46) createDisplay "RscDisplayLoadMission";
+        [UIVAR(WelcomeScreen_onLoad), _welcomeScreenDisplay] call CFUNC(localEvent);
     }, [], "respawn"] call CFUNC(mutex);
+}] call CFUNC(addEventHandler);
+
+[UIVAR(WelcomeScreen_onLoad), {
+    (_this select 0) params ["_display"];
+    uiNamespace setVariable [QGVAR(welcomeDisplay), _display];
+
+    // Disable esc button
+    _display displayAddEventHandler ["KeyDown", {_this select 1 == 1}];
+
+    // Hide the mission info and chat
+    (_display displayCtrl 2300) ctrlShow false;
+    showChat false;
+
+    // Create welcome controls
+    private _background = _display ctrlCreate ["RscText", 6000];
+    _background ctrlSetPosition [0.5 - PX(40), 0.5 - PY(20), PX(80), PY(40)];
+    _background ctrlSetBackgroundColor [0, 0, 0, 0.7];
+    _background ctrlCommit 0;
+    private _content = _display ctrlCreate ["RscHTML", 6001];
+    _content ctrlSetPosition [0.5 - PX(39), 0.5 - PY(19), PX(78), PY(38)];
+    _content ctrlCommit 0;
+    _content htmlLoad format ["https://www.atwar-mod.com/popup/%1/%2", EGVAR(Common,VersionInfo) select 1 select 0, CLib_Player call CFUNC(name)];
+    private _continueButton = _display ctrlCreate ["RscButtonMenu", 6002];
+    _continueButton ctrlSetPosition [0.5 - PX(40), 0.5 + PY(20.5), PX(80), (((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25];
+    _continueButton ctrlSetText "CONTINUE";
+    _continueButton ctrlAddEventHandler ["ButtonClick", {
+        [{
+            showChat true;
+            (findDisplay 46) createDisplay UIVAR(RespawnScreen);
+        }] call CFUNC(execNextFrame);
+        false
+    }];
+    _continueButton ctrlCommit 0;
+    ctrlSetFocus _continueButton;
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_onLoad), {
