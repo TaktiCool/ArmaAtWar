@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=35;
+		nextID=39;
 	};
 	class Camera
 	{
-		pos[]={16848.389,67.950577,15078.486};
-		dir[]={-0.80187654,-0.47556493,-0.3617211};
-		up[]={-0.43350226,0.87967998,-0.19555075};
-		aside[]={-0.41119596,-1.0587246e-007,0.91155374};
+		pos[]={16786.379,30.830894,14969.328};
+		dir[]={-0.60912371,-0.28118974,0.74156445};
+		up[]={-0.17848381,0.95965159,0.21728967};
+		aside[]={0.7727437,2.7073838e-008,0.63473558};
 	};
 };
 binarizationWanted=0;
@@ -4320,30 +4320,29 @@ class Mission
 				class Item6
 				{
 					dataType="Marker";
-					position[]={16768.662,43.980957,14985.13};
+					position[]={16774.146,43.980957,15018.695};
 					name="baseSpawn_guer";
 					type="Empty";
 					angle=101.61636;
 					id=999;
-					atlOffset=22.083418;
+					atlOffset=19.752155;
 				};
 				class Item7
 				{
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={16782.432,27.369114,14982.136};
+						position[]={16779.324,25.127842,14981.924};
 						angles[]={0,4.7690954,0};
 					};
 					side="Empty";
-					flags=1;
+					flags=5;
 					class Attributes
 					{
 						name="mainBaseFlagGuer";
 					};
 					id=997;
 					type="Flag_AAF_F";
-					atlOffset=2.2596302;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -4408,8 +4407,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={16778.076,24.08865,14998.981};
-						angles[]={6.1598153,5.3295722,6.211309};
+						position[]={16780.459,24.174009,15000.42};
+						angles[]={6.213963,3.9885621,6.2498641};
 					};
 					side="Empty";
 					flags=4;
@@ -6141,8 +6140,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={16774.236,23.294781,14995.563};
-				angles[]={0,5.0857687,0};
+				position[]={16776.955,23.041498,14995.382};
+				angles[]={0,5.4218488,0};
 			};
 			side="Empty";
 			flags=5;
@@ -6151,7 +6150,7 @@ class Mission
 			};
 			id=1475;
 			type="Land_Cargo_House_V1_F";
-			atlOffset=0.00015258789;
+			atlOffset=-0.00022506714;
 		};
 		class Item125
 		{
