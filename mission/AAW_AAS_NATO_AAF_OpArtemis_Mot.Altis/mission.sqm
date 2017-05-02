@@ -183,7 +183,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="AAW - Operation Atlas (Mot. Inf.)";
+		briefingName="AAW - Operation Artemis (Mot. Inf.)";
 		resistanceWest=0;
 		timeOfChanges=3600;
 		startWeather=0.60528088;
