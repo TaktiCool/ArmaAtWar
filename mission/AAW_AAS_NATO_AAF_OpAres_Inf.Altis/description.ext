@@ -17,8 +17,8 @@ enableDebugConsole = 1;
 
 disabledAI = 1;
 author = "AAW Development Team";
-onLoadName = "AAW - Operation Artemis";
-onLoadMission = "Advance and Secure, 3x2 km², Mot. Infantry";
+onLoadName = "AAW - Operation Ares";
+onLoadMission = "Advance and Secure, 1x2 km², Infantry";
 loadScreen =  "ui\media\loadscreen_co.paa";
 
 respawn = 3;
