@@ -202,7 +202,6 @@
     if (isNull _display) exitWith {};
 
     private _ownGroupIndex = -1;
-    private _selectedSquadIndex = -1;
 
     private _control = _display displayCtrl 207;
 
@@ -220,10 +219,6 @@
             _ownGroupIndex = _forEachIndex;
         };
 
-        if (_x == _selectedSquad) then {
-            _selectedSquadIndex = _forEachIndex;
-        };
-
         private _squadDesignator = _groupId select [0, 1];
         private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
         private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
@@ -239,7 +234,7 @@
 
     // Update the lnb
 
-    [_control, _lnbData, _selectedSquadIndex] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+    [_control, _lnbData, _selectedSquad] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 
     for "_i" from 0 to 3 do {
         _control lnbSetColor [[_ownGroupIndex, _i], [0.77, 0.51, 0.08, 1]];
