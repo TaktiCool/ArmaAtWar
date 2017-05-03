@@ -829,4 +829,5 @@ class cfgKits {
 
             displayName = "Specialist";
         };
+    };
 };
