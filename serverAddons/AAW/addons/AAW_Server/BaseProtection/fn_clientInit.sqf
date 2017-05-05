@@ -17,7 +17,7 @@
 GVAR(inProtectedZone) = false;
 
 ["missionStarted", {
-    ["", CLib_Player, 0, {GVAR(inProtectedZone)}, {
+    ["", CLib_Player, 0, {GVAR(inProtectedZone) && !(driver vehicle CLib_Player == CLib_Player && ((vehicle CLib_Player) currentWeaponTurret [-1] find "Horn") > -1)}, {
         ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
     }, [
         "priority", 0,
