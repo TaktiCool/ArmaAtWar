@@ -15,8 +15,6 @@
 */
 
 private _fncDrawAllSectors = {
-    ["ATTACK"] call EFUNC(CompassUI,removeLineMarker);
-    ["DEFEND"] call EFUNC(CompassUI,removeLineMarker);
     {
         [_x] call FUNC(drawSector);
         nil
