@@ -230,7 +230,7 @@
         };
 
         _lnbData pushBack [[_squadDesignator, _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]], _x];
-    } forEach (allGroups select {side _x == playerSide && (groupId _x in EGVAR(Squad,squadIds))});
+    } forEach (allGroups select {side _x == playerSide && groupId _x in EGVAR(Squad,squadIds) && count units _x > 0});
 
     // Update the lnb
 
@@ -250,6 +250,10 @@
 
 [UIVAR(RespawnScreen_SquadList_onLBSelChanged), {
     UIVAR(RespawnScreen_SquadMemberManagement_update) call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+["groupChanged", {
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // SquadManagement
