@@ -1,4 +1,5 @@
-class GroupTypes {
+class CfgGroupTypes {
+    activeGroupTypes[] = {"Rifle", "Weapon", "Recon", "Vehicle", "Helicopter", "Mortar", "Logistic"};
     class Rifle {
         displayName = "Rifle";
         groupSize = 9;
@@ -31,7 +32,14 @@ class GroupTypes {
         requiredPlayers = 15;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_air.paa";
     };
-    /* Disabled Until we have Units that fit in to the Logistic Group
+    class Mortar {
+        displayName = "Mortar";
+        groupSize = 4;
+        requiredGroups = 0;
+        requiredPlayers = 20;
+        mapIcon = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";
+    };
+
     class Logistic {
         displayName = "Logistic";
         groupSize = 4;
@@ -39,5 +47,4 @@ class GroupTypes {
         requiredPlayers = 5;
         mapIcon = "\A3\ui_f\data\map\markers\nato\b_support.paa";
     };
-    */
 };

@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=19;
+		nextID=23;
 	};
 	class Camera
 	{
-		pos[]={11139.038,154.59294,14536.643};
-		dir[]={-0.23262709,-0.49111587,0.8394773};
-		up[]={-0.13115382,0.87108982,0.47329092};
-		aside[]={0.96369886,-1.9103754e-007,0.26705071};
+		pos[]={13321.051,28.39357,16857.725};
+		dir[]={0.81900895,-0.44551846,0.36164725};
+		up[]={0.40757093,0.89526695,0.1799704};
+		aside[]={0.40395042,-7.3108822e-008,-0.91480803};
 	};
 };
 binarizationWanted=0;
@@ -235,7 +235,7 @@ class Mission
 			colorName="ColorUNKNOWN";
 			a=50.226627;
 			b=23.569538;
-			angle=335.90826;
+			angle=335.90823;
 			id=323;
 			atlOffset=-13.645896;
 		};
@@ -4346,7 +4346,7 @@ class Mission
 					position[]={10796.186,45.748322,14463.072};
 					name="baseSpawn_guer";
 					type="Empty";
-					angle=101.61638;
+					angle=101.61637;
 					id=999;
 				};
 				class Item9
@@ -4355,17 +4355,16 @@ class Mission
 					class PositionInfo
 					{
 						position[]={10802.555,49.223106,14461.877};
-						angles[]={0,0.17476088,0};
+						angles[]={0,0.17475981,0};
 					};
 					side="Empty";
 					flags=5;
 					class Attributes
 					{
-						name="mainBaseFlagGuer_0";
+						name="mainBaseFlagGuer";
 					};
 					id=997;
 					type="Flag_AAF_F";
-					atlOffset=-3.8146973e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -5305,18 +5304,18 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={13343.106,24.600163,16874.281};
+						position[]={13343.106,24.600657,16874.281};
 						angles[]={0,2.6715231,0};
 					};
 					side="Empty";
 					flags=4;
 					class Attributes
 					{
-						name="mainBaseFlagWest_0";
+						name="mainBaseFlagWest";
 					};
 					id=1046;
 					type="Flag_NATO_F";
-					atlOffset=0.1055069;
+					atlOffset=0.1060009;
 					class CustomAttributes
 					{
 						class Attribute0

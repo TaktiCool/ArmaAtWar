@@ -28,9 +28,10 @@ GVAR(CargoClasses) = [];
 
 ["missionStarted", {
     {
-        private _side = configName _x;
-        private _cfg = (missionConfigFile >> QPREFIX >> "Sides" >> _side >> "cfgLogistic");
-        private _objects = getArray (_cfg >> "objectToSpawn");
+        private _side = _x;
+        private _cfg =  QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), _side], ""] call CFUNC(getSetting));
+        //private _cfg = (missionConfigFile >> QPREFIX >> "Sides" >> _side >> "cfgLogistic");
+        private _objects = [_cfg + "/objectToSpawn"] call CFUNC(getSetting);
 
         _objects = _objects apply {
             private _obj = missionNamespace getVariable [_x, objNull];
@@ -40,10 +41,11 @@ GVAR(CargoClasses) = [];
         };
 
         {
-            private _content = getArray (_x >> "content");
-            private _className = getText (_x >> "classname");
-            private _clearOnSpawn = getNumber (_x >> "removeDefaultLoadout");
-            private _displayName = getText (_x >> "displayName");
+            private _subcfg = _cfg + "/" + _x;
+            private _content = [_subcfg + "/content"] call CFUNC(getSetting);
+            private _className = [_subcfg + "/classname"] call CFUNC(getSetting);
+            private _clearOnSpawn = [_subcfg + "/removeDefaultLoadout"] call CFUNC(getSetting);
+            private _displayName = [_subcfg + "/displayName"] call CFUNC(getSetting);
             if (_displayName call CFUNC(isLocalised)) then {
                 _displayName = LOC(_displayName);
             };
@@ -60,9 +62,9 @@ GVAR(CargoClasses) = [];
             ] call CFUNC(addAction);
 
             nil
-        } count (configProperties [_cfg, "isClass _x"]);
+        } count ([_cfg] call CFUNC(getSettingSubClasses));
         nil
-    } count ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
+    } count ([QUOTE(PREFIX/Sides)] call CFUNC(getSettingSubClasses));
 }] call CFUNC(addEventHandler);
 
 ["unconsciousnessChanged", {

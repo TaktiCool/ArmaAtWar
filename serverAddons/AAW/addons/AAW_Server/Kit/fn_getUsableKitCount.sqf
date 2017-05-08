@@ -30,7 +30,7 @@ if (!(_squadType in _availableInGroups)) exitWith {0};
 
 // Check group member count
 private _groupMembersCount = count ([group CLib_Player] call CFUNC(groupPlayers));
-private _requiredGroupMembersPerKit = [format [QGVAR(KitGroups_%1_requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSettingOld);
+private _requiredGroupMembersPerKit = [format [QUOTE(PREFIX/CfgKitGroups/%1/requiredGroupMembersPerKit), _kitGroupName], 1] call CFUNC(getSetting);
 private _usedKitsFromGroup = {
     private _usedKitName = _x getVariable [QGVAR(kit), ""];
     private _usedKitGroupName = ([_usedKitName, [["kitGroup", ""]]] call FUNC(getKitDetails)) select 0;

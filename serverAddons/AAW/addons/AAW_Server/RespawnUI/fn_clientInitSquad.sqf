@@ -146,9 +146,9 @@
 
     private _visibleGroupTypes = [];
     {
-        private _groupTypeName = configName _x;
+        private _groupTypeName = _x;
         if ([_groupTypeName] call EFUNC(Squad,canUseSquadType)) then {
-            private _rowNumber = _control lbAdd ([format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupTypeName], ""] call CFUNC(getSettingOld));
+            private _rowNumber = _control lbAdd ([format [QUOTE(PREFIX/CfgGroupTypes/%1/displayName), _groupTypeName], ""] call CFUNC(getSetting));
             _control lbSetData [_rowNumber, _groupTypeName];
             _visibleGroupTypes pushBack _groupTypeName;
 
@@ -157,7 +157,7 @@
             };
         };
         nil
-    } count ("true" configClasses (missionConfigFile >> QPREFIX >> "GroupTypes"));
+    } count ([QUOTE(PREFIX/CfgGroupTypes/activeGroupTypes), []] call CFUNC(getSetting));
     if (lbSize 205 == 0) then {
         _control lbSetCurSel -1;
     } else {
@@ -222,15 +222,15 @@
         private _squadDesignator = _groupId select [0, 1];
         private _description = _x getVariable [QEGVAR(Squad,Description), str _x];
         private _groupType = _x getVariable [QEGVAR(Squad,Type), ""];
-        private _groupTypeName = [format [QEGVAR(Squad,GroupTypes_%1_displayName), _groupType], ""] call CFUNC(getSettingOld);
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
+        private _groupTypeName = [format [QUOTE(PREFIX/CfgGroupTypes/%1/displayName), _groupType], ""] call CFUNC(getSetting);
+        private _groupSize = [format [QUOTE(PREFIX/CfgGroupTypes/%1/groupSize), _groupType], 0] call CFUNC(getSetting);
 
         if (_description == "") then {
             _description = _groupId;
         };
 
         _lnbData pushBack [[_squadDesignator, _description, _groupTypeName, format ["%1 / %2", count ([_x] call CFUNC(groupPlayers)), _groupSize]], _x];
-    } forEach (allGroups select {side _x == playerSide && (groupId _x in EGVAR(Squad,squadIds))});
+    } forEach (allGroups select {side _x == playerSide && groupId _x in EGVAR(Squad,squadIds) && count units _x > 0});
 
     // Update the lnb
 
@@ -250,6 +250,10 @@
 
 [UIVAR(RespawnScreen_SquadList_onLBSelChanged), {
     UIVAR(RespawnScreen_SquadMemberManagement_update) call CFUNC(localEvent);
+}] call CFUNC(addEventHandler);
+
+["groupChanged", {
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // SquadManagement
@@ -291,7 +295,7 @@
         _controlJoinLeaveButton ctrlShow true;
     } else {
         private _groupType = _selectedSquad getVariable [QEGVAR(Squad,Type), ""];
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
+        private _groupSize = [format [QUOTE(PREFIX/CfgGroupTypes/%1/groupSize), _groupType], 0] call CFUNC(getSetting);
 
         _controlJoinLeaveButton ctrlSetText "JOIN";
         _controlJoinLeaveButton ctrlShow ((count ([_selectedSquad] call CFUNC(groupPlayers))) < _groupSize);

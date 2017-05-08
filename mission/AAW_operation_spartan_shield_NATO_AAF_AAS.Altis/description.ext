@@ -58,23 +58,22 @@ class AAW {
 
     #include "cfgBaseSettings.hpp"
 
-    #include "cfgKitGroups.hpp"
-
-    #include "cfgGroupTypes.hpp"
-
     #include "cfgSides.hpp"
 
     #include "cfgSectors.hpp"
 
-    #include "cfgRespawn.hpp"
-
-    #include "cfgRevive.hpp"
-
     #include "cfgEntities.hpp"
 
-  	#include "cfgFOB.hpp"
-
     #include "ui\common\aawCore.hpp"
+
+    class CfgLogistics {
+        class NATO {
+            objectToSpawn[] = {"mainBaseFlagWest_0", "mainBaseFlagWest_1"};
+        };
+        class AAF {
+            objectToSpawn[] = {"mainBaseFlagGuer_0", "mainBaseFlagGuer_1"};
+        };
+    };
 
 };
 

@@ -1,30 +1,9 @@
-class defaultVehicle {
-    respawnCondition = "true";
-    side = "UNKNOWN";
-    respawnTime = -1; // disabled
-    ticketValue = 2;
-    abandonedVehicleRadius = 100;
-    abandonedVehicleTime = 300;
-};
-
-class defaultWest : defaultVehicle {
-    side = "WEST";
-};
-
-class defaultEast : defaultVehicle {
-    side = "EAST";
-};
-
-class defaultIndependent : defaultVehicle {
-    side = "INDEPENDENT";
-};
-
 class baseSupplyObject {
     supplyUses = -1;
 };
 
 class CfgEntities {
-
+    /*
     // mission objects
     // -- Blufor -- //
     // Cars
@@ -46,24 +25,22 @@ class CfgEntities {
 
     class vr_HEMMTLog_0: vr_HEMMTTrans_0 {};
     class vr_HEMMTLog_1: vr_HEMMTTrans_0 {};
-
+*/
     // Tanks
-    class vr_slammer_0 : vr_hunter_0 {
+    class vr_slammer_0 {
         respawnCondition = "time > 60";
-        ticketValue = 20;
     };
     class vr_slammer_1 : vr_slammer_0 {};
 
     // Air
+/*
     class vr_ghosthawk_0 : defaultWest {
         respawnTime = 60;
         ticketValue = 50;
     };
     class vr_ghosthawk_1: vr_ghosthawk_0 {};
-
-    class vr_Huron_0: vr_ghosthawk_0 {
-        respawnTime = 60;
-        ticketValue = 100;
+*/
+    class vr_Huron_0 {
         respawnCondition = "time > 60";
     };
 
@@ -78,7 +55,7 @@ class CfgEntities {
         repairAmount = 1;
     };
 
-
+/*
     // -- Opfor -- //
     // Car
     class vr_ifrit_0 : defaultEast {
@@ -99,24 +76,24 @@ class CfgEntities {
 
     class vr_ZamakLog_0: vr_ZamakTrans_0 {};
     class vr_ZamakLog_1: vr_ZamakTrans_0 {};
-
+*/
     // Tanks
-    class vr_varsuk_0 : vr_ifrit_0 {
+    class vr_varsuk_0 {
         respawnCondition = "time > 60";
-        ticketValue = 20;
+        //ticketValue = 20;
     };
     class vr_varsuk_1: vr_varsuk_0 {};
-
+/*
     // Air
     class vr_orca_0 : defaultEast {
         respawnTime = 60; // 10 seconds
         ticketValue = 50;
     };
     class vr_orca_1: vr_orca_0 {};
-
-    class vr_Taru_0: vr_orca_0 {
-        respawnTime = 60;
-        ticketValue = 100;
+*/
+    class vr_Taru_0 {
+        //respawnTime = 60;
+        //ticketValue = 100;
         respawnCondition = "time > 60";
     };
 
@@ -130,7 +107,7 @@ class CfgEntities {
     class vr_vehicleParts_0 : baseSupplyObject {
         repairAmount = 1;
     };
-
+/*
     // Logistic
     class Box_Nato_Ammo_F {
         isDragable = 1;
@@ -214,4 +191,5 @@ class CfgEntities {
         cargoCapacity = 10;
         logisticOffset[] = {0, 0, 0};
     };
+    */
 };
