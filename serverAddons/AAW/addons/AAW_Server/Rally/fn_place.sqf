@@ -28,7 +28,8 @@
         _x params ["_type", "_offset"];
 
         private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, _objPosition, [], 0, "CAN_COLLIDE"];
+        private _obj = createVehicle [_type, [0, 0, 0], [], 0, "CAN_COLLIDE"];
+        _obj setPos _objPosition;
         ["setVectorUp", _obj, [_obj, surfaceNormal getPos _obj]] call CFUNC(targetEvent);
         ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
 
