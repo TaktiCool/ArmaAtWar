@@ -31,7 +31,7 @@ params [
 
 private _size = getMarkerSize _marker;
 
-private _logic = (call CFUNC(getLogicGroup)) createUnit ["Logic", [0, 0, 0], [], 0, "NONE"];
+private _logic = true call CFUNC(createNameSpace);
 _logic setPos (getMarkerPos _marker);
 ["setVehicleVarName", [_logic, _marker]] call CFUNC(globalEvent);
 GVAR(allSectors) setVariable [_marker, _logic, true];

@@ -21,9 +21,11 @@
         1: size <Number>
         2: color <Array>
 */
-params [["_header", "", ["", []]],
-    ["_description", "",    ["", []]],
-    ["_icons", []]];
+params [
+    ["_header", "", ["", []]],
+    ["_description", "", ["", []]],
+    ["_icons", []]
+];
 
 if (_header isEqualType []) then {
     _header = _header call CFUNC(formatLocalisation);
@@ -65,7 +67,7 @@ GVAR(CurrentHint) = [];
 playSound "Hint";
 
 {
-    _x params ["_display", "_offset","_offsetHint"];
+    _x params ["_display", "_offset", "_offsetHint"];
     if (!isNull _display) then {
         private _ctrlGrp = [_header, _description, _icons, _display, 0, _offsetHint] call FUNC(drawHint);
         GVAR(CurrentHint) pushBack _ctrlGrp;
@@ -76,7 +78,7 @@ playSound "Hint";
     nil
 } count GVAR(NotificationDisplays);
 
-GVAR(NotificationDisplays) =  GVAR(NotificationDisplays) - _deletableDisplays;
+GVAR(NotificationDisplays) = GVAR(NotificationDisplays) - _deletableDisplays;
 
 [{
     {

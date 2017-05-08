@@ -1,4 +1,4 @@
-version=52;
+version=53;
 class EditorData
 {
 	moveGridStep=1;
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={20039.309,123.59398,6710.04};
-		dir[]={0.55490303,-0.72122252,0.41465279};
-		up[]={0.57773966,0.69270074,0.43171826};
-		aside[]={0.59859371,-1.9016443e-007,-0.80106223};
+		pos[]={21020.699,119.25307,7187.5254};
+		dir[]={0.73140281,-0.40970823,0.54521418};
+		up[]={0.32850602,0.912202,0.24487987};
+		aside[]={0.59767127,-1.0798685e-006,-0.80177772};
 	};
 };
 binarizationWanted=0;
@@ -58,84 +58,84 @@ class AddonsMetaData
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item1
 		{
 			className="A3_Structures_F";
 			name="Arma 3 - Buildings and Structures";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item2
 		{
 			className="A3_Ui_F";
 			name="Arma 3 - User Interface";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item3
 		{
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item4
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item5
 		{
 			className="A3_Soft_F_Beta";
 			name="Arma 3 Beta - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item6
 		{
 			className="A3_Soft_F";
 			name="Arma 3 Alpha - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item7
 		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item8
 		{
 			className="A3_Air_F_Gamma";
 			name="Arma 3 - Aircrafts";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item9
 		{
 			className="A3_Weapons_F";
 			name="Arma 3 Alpha - Weapons and Accessories";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item10
 		{
 			className="A3_Structures_F_EPA";
 			name="Arma 3 Survive Episode - Buildings and Structures";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item11
 		{
 			className="A3_Supplies_F_Heli";
 			name="Arma 3 Helicopters - Ammoboxes and Supplies";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 	};
 };
@@ -6316,6 +6316,7 @@ class Mission
 			};
 			id=1002;
 			type="B_Truck_01_covered_F";
+			atlOffset=-0.013626099;
 		};
 		class Item165
 		{
@@ -6376,13 +6377,12 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={21287.984,30.269444,7424.5527};
+				position[]={21287.984,30.269442,7424.5532};
 			};
 			side="Empty";
 			flags=5;
 			class Attributes
 			{
-				disableSimulation=1;
 			};
 			id=1006;
 			type="Land_Cargo_Tower_V1_No7_F";
@@ -6415,14 +6415,13 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={21218.27,28.574984,7485.9844};
-				angles[]={0,3.1939707,0};
+				position[]={21218.27,28.574982,7485.9839};
+				angles[]={0,3.19397,0};
 			};
 			side="Empty";
 			flags=5;
 			class Attributes
 			{
-				disableSimulation=1;
 			};
 			id=1007;
 			type="Land_Airport_Tower_F";
@@ -6456,13 +6455,12 @@ class Mission
 			class PositionInfo
 			{
 				position[]={21314.936,18.096132,7412.5039};
-				angles[]={0,1.8145741,0};
+				angles[]={0,1.8145665,0};
 			};
 			side="Empty";
 			flags=5;
 			class Attributes
 			{
-				disableSimulation=1;
 			};
 			id=1008;
 			type="Land_Cargo_House_V1_F";
@@ -6496,18 +6494,16 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={21311.059,17.94293,7442.833};
-				angles[]={0,0.85310584,0};
+				position[]={21311.061,17.942947,7442.833};
+				angles[]={0,0.85309952,0};
 			};
 			side="Empty";
 			flags=5;
 			class Attributes
 			{
-				disableSimulation=1;
 			};
 			id=1009;
 			type="Land_Cargo_House_V1_F";
-			atlOffset=-2.0980835e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -6797,8 +6793,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={21317.697,16.724447,7531.6538};
-				angles[]={0,6.1624575,0};
+				position[]={21317.697,16.724215,7531.6538};
+				angles[]={0,6.1624608,0};
 			};
 			side="Empty";
 			flags=5;
@@ -6807,7 +6803,29 @@ class Mission
 			};
 			id=1019;
 			type="Land_Cargo_House_V1_F";
-			atlOffset=0.00023269653;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item180
 		{
@@ -6911,6 +6929,7 @@ class Mission
 			};
 			id=1029;
 			type="I_Plane_Fighter_03_CAS_F";
+			atlOffset=-0.17357063;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -6954,7 +6973,7 @@ class Mission
 			};
 			id=1031;
 			type="I_Plane_Fighter_03_CAS_F";
-			atlOffset=0.00023078918;
+			atlOffset=-0.17298508;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -6984,8 +7003,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={21298.688,17.965849,7505.6753};
-				angles[]={0,4.5241957,0};
+				position[]={21298.688,17.965841,7505.6748};
+				angles[]={0,4.5241904,0};
 			};
 			side="Empty";
 			flags=5;
@@ -6994,7 +7013,30 @@ class Mission
 			};
 			id=1035;
 			type="Land_Cargo_House_V1_F";
-			atlOffset=7.6293945e-006;
+			atlOffset=-1.9073486e-006;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item185
 		{
@@ -7152,6 +7194,7 @@ class Mission
 			};
 			id=1041;
 			type="Box_NATO_AmmoVeh_F";
+			atlOffset=-0.0055160522;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -7192,6 +7235,7 @@ class Mission
 			};
 			id=1042;
 			type="B_Slingload_01_Repair_F";
+			atlOffset=-0.0027694702;
 		};
 		class Item191
 		{
@@ -7209,6 +7253,7 @@ class Mission
 			};
 			id=1043;
 			type="B_Slingload_01_Fuel_F";
+			atlOffset=-0.0020828247;
 			class CustomAttributes
 			{
 				class Attribute0
