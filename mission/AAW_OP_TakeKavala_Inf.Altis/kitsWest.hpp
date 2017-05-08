@@ -118,6 +118,7 @@ class Kits {
         primaryAttachments[] = {"optic_DMS","bipod_01_F_blk"};
         primaryMagazine = "20Rnd_762x51_Mag";
         primaryMagazineCount = 5;
+        primaryMagazineTracerCount = 0;
 
         secondaryWeapon = "Rangefinder";
 

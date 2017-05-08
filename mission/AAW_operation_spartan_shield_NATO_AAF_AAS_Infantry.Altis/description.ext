@@ -45,7 +45,8 @@ class CLib {
         "AAW/FOB",
         "AAW/Rally",
         //"AAW/Mortar",
-        "AAW/BaseProtection"
+        "AAW/BaseProtection",
+        "AAW/ScoreTable"
     };
     useExperimentalAutoload = 0;
     useCompressedFunction = 0;
@@ -61,8 +62,6 @@ class AAW {
     #include "cfgGroupTypes.hpp"
 
     #include "cfgSides.hpp"
-
-    #include "cfgSquadRallyPoint.hpp"
 
     #include "cfgSectors.hpp"
 
@@ -92,6 +91,12 @@ class RscTitles {
     #include "ui\hud\Notification.hpp"
     #include "ui\hud\Compass.hpp"
     #include "ui\hud\PerformanceStatus.hpp"
+};
+
+class CfgCommands {
+   allowedHTMLLoadURIs[] += {
+      "https://www.atwar-mod.com/*"
+   };
 };
 
 /* disable CfgRemoteExec Until BI fix it

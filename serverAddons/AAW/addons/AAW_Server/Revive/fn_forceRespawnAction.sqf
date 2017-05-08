@@ -45,6 +45,7 @@ private _onComplete = {
     GVAR(forceRespawnStartTime) = -1;
     _caller setUnconscious false;
     _caller setDamage 1;
+    ["playerDied", [CLib_Player]] call CFUNC(serverEvent);
 };
 
 private _onInterruption = {
