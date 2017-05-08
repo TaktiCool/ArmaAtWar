@@ -1,9 +1,29 @@
+#define T_TRUCK_TRANSPORT 5
+#define T_TRUCK_SUPPLY 5
+#define T_ATV 3
+#define T_OFFROAD 3
+#define T_OFFROAD_ARMED 10
+#define T_MRAP 10
+#define T_MRAP_HMG 15
+#define T_MRAP_GMG 20
+#define T_APC_WHEELED 25
+#define T_APC_TRACKED 25
+#define T_APC_AA 25
+#define T_MBT 30
+#define T_ARTILLERY 30
+#define T_MLRS 30
+#define T_HELI_LIGHT 20
+#define T_HELI_LIGHT_ARMED 25
+#define T_HELI_TRANSPORT 20
+#define T_HELI_TRANSPORT_ARMED 25
+#define T_HELI_ATTACK_HELI 40
+
 class defaultVehicle {
     respawnCondition = "true";
     side = "UNKNOWN";
     respawnTime = -1; // disabled
     ticketValue = 2;
-    abandonedVehicleRadius = 200;
+    abandonedVehicleRadius = 100;
     abandonedVehicleTime = 300;
 };
 
@@ -59,39 +79,87 @@ class CfgEntities {
         side = "WEST";
         cargoCapacity = 50;
         respawnTime = 180;
-        ticketValue = 10;
+        ticketValue = T_TRUCK_TRANSPORT;
     };
 
-    class Truck_02_base_F : Truck_01_base_F{
+    class B_Truck_01_Ammo_F {
+        ticketValue = T_TRUCK_SUPPLY; // Support Truck
+    };
+
+    class B_Truck_01_box_F : B_Truck_01_Ammo_F {
+    };
+
+    class B_Truck_01_fuel_F : B_Truck_01_Ammo_F {
+    };
+
+    class B_Truck_01_medical_F : B_Truck_01_Ammo_F {
+    };
+
+    class B_Truck_01_Repair_F : B_Truck_01_Ammo_F {
+    };
+
+    class Truck_02_base_F : Truck_01_base_F {
         side = "GUER";
     };
 
-    class O_Truck_02_Ammo_F {
+    class I_Truck_02_Ammo_F : B_Truck_01_Ammo_F {
+    };
+
+    class I_Truck_02_box_F : I_Truck_02_Ammo_F {
+    };
+
+    class I_Truck_02_fuel_F : I_Truck_02_Ammo_F {
+    };
+
+    class I_Truck_02_medical_F : I_Truck_02_Ammo_F {
+    };
+
+    class I_Truck_02_Repair_F : I_Truck_02_Ammo_F {
+    };
+
+
+
+
+    class O_Truck_02_Ammo_F : B_Truck_01_Ammo_F {
         side = "EAST";
     };
 
-    class O_Truck_02_box_F {
-        side = "EAST";
+    class O_Truck_02_box_F : O_Truck_02_Ammo_F {
     };
 
-    class O_Truck_02_fuel_F {
-        side = "EAST";
+    class O_Truck_02_fuel_F : O_Truck_02_Ammo_F {
     };
 
-    class O_Truck_02_medical_F {
-        side = "EAST";
+    class O_Truck_02_medical_F : O_Truck_02_Ammo_F {
+    };
+
+    class O_Truck_02_Repair_F : O_Truck_02_Ammo_F {
     };
 
     class O_Truck_02_transport_F {
         side = "EAST";
     };
 
-    class O_Truck_02_covered_F {
-        side = "EAST";
+    class O_Truck_02_covered_F : O_Truck_02_transport_F {
     };
 
     class Truck_03_base_F : Truck_01_base_F {
         side = "EAST";
+    };
+
+    class O_Truck_03_Ammo_F : B_Truck_01_Ammo_F {
+    };
+
+    class O_Truck_03_box_F : O_Truck_02_Ammo_F {
+    };
+
+    class O_Truck_03_fuel_F : O_Truck_02_Ammo_F {
+    };
+
+    class O_Truck_03_medical_F : O_Truck_02_Ammo_F {
+    };
+
+    class O_Truck_03_Repair_F : O_Truck_02_Ammo_F {
     };
 
     // MRAPs
@@ -99,35 +167,45 @@ class CfgEntities {
         side = "WEST";
         cargoCapacity = 20;
         respawnTime = 300;
-        ticketValue = 10;
+        ticketValue = T_MRAP;
     };
 
-    class MRAP_01_gmg_base_F : MRAP_01_base_F {
-        ticketValue = 15;
+    class MRAP_01_hmg_base_F {
+        ticketValue = T_MRAP_HMG;
     };
+
+    class MRAP_01_gmg_base_F {
+        ticketValue = T_MRAP_GMG;
+    };
+
 
     class MRAP_02_base_F : MRAP_01_base_F {
         side = "EAST";
     };
 
-    class MRAP_02_gmg_base_F : MRAP_01_gmg_base_F {
-        side = "EAST";
+    class MRAP_02_hmg_base_F : MRAP_01_hmg_base_F {
+    };
+
+    class MRAP_02_gmg_base_F : MRAP_01_hmg_base_F  {
     };
 
     class MRAP_03_base_F : MRAP_01_base_F {
         side = "GUER";
     };
 
-    class MRAP_03_gmg_base_F : MRAP_01_gmg_base_F {
-        side = "GUER";
+    class MRAP_03_hmg_base_F : MRAP_01_hmg_base_F {
     };
+
+    class MRAP_03_gmg_base_F : MRAP_01_hmg_base_F  {
+    };
+
 
     // Tanks
     class MBT_01_base_F : defaultVehicle {
         side = "WEST";
         cargoCapacity = 10;
         respawnTime = 600;
-        ticketValue = 30;
+        ticketValue = T_MBT;
     };
 
     class MBT_02_base_F : MBT_01_base_F {
@@ -143,7 +221,7 @@ class CfgEntities {
         side = "WEST";
         cargoCapacity = 25;
         respawnTime = 420;
-        ticketValue = 20;
+        ticketValue = T_APC_WHEELED;
     };
 
     class APC_Wheeled_02_base_F : APC_Wheeled_01_base_F {
@@ -154,7 +232,9 @@ class CfgEntities {
         side = "GUER";
     };
 
-    class APC_Tracked_01_base_F : APC_Wheeled_01_base_F {};
+    class APC_Tracked_01_base_F : APC_Wheeled_01_base_F {
+        ticketValue = T_APC_TRACKED;
+    };
 
     class APC_Tracked_02_base_F : APC_Wheeled_01_base_F {
         side = "EAST";
@@ -169,31 +249,31 @@ class CfgEntities {
     class Heli_Attack_01_base_F : defaultVehicle { //AH-99 Blackfoot
         side = "WEST";
         respawnTime = 600;
-        ticketValue = 30;
+        ticketValue = T_HELI_ATTACK;
     };
 
     class Heli_Light_01_base_F : Heli_Attack_01_base_F { //MH-9 Hummingbird
         cargoCapacity = 15;
         respawnTime = 300;
-        ticketValue = 20;
+        ticketValue = T_HELI_LIGHT;
     };
 
     class Heli_Light_01_armed_base_F : Heli_Light_01_base_F { //MH-9 Pawnee
         cargoCapacity = 0;
         respawnTime = 420;
-        ticketValue = 25;
+        ticketValue = T_HELI_LIGHT_ARMED;
     };
 
     class Heli_Transport_01_base_F : Heli_Attack_01_base_F { //UH-80 Ghost Hawk
         cargoCapacity = 50;
         respawnTime = 300;
-        ticketValue = 20;
+        ticketValue = T_HELI_TRANSPORT_ARMED;
     };
 
     class Heli_Transport_03_base_F : Heli_Attack_01_base_F { // CH-67 Huron
         cargoCapacity = 100;
         respawnTime = 420;
-        ticketValue = 25;
+        ticketValue = T_HELI_TRANSPORT;
     };
 
     // EAST
@@ -201,18 +281,18 @@ class CfgEntities {
         cargoCapacity = 25;
         side = "EAST";
         respawnTime = 600;
-        ticketValue = 35;
+        ticketValue = T_HELI_ATTACK;
     };
 
     class Heli_Light_02_base_F : Heli_Attack_02_base_F { //PO-30 Orca
         cargoCapacity = 50;
         respawnTime = 420;
-        ticketValue = 30;
+        ticketValue = T_HELI_LIGHT_ARMED;
     };
 
     class Heli_Light_02_unarmed_base_F : Heli_Light_02_base_F { //PO-30 Orca (unarmed)
         respawnTime = 300;
-        ticketValue = 20;
+        ticketValue = T_HELI_LIGHT;
     };
 
     //TODO: Taru versions
@@ -222,19 +302,19 @@ class CfgEntities {
         side = "GUER";
         cargoCapacity = 70;
         respawnTime = 420;
-        ticketValue = 25;
+        ticketValue = T_HELI_TRANSPORT;
     };
 
     class Heli_light_03_base_F : Heli_Transport_02_base_F { //WY-55 Hellcat
         cargoCapacity = 40;
         respawnTime = 420;
-        ticketValue = 20;
+        ticketValue = T_HELI_LIGHT_ARMED;
     };
 
     class Heli_light_03_unarmed_base_F : Heli_light_03_base_F { //WY-55 Hellcat (unarmed)
         cargoCapacity = 50;
         respawnTime = 300;
-        ticketValue = 15;
+        ticketValue = T_HELI_LIGHT;
     };
 
 
