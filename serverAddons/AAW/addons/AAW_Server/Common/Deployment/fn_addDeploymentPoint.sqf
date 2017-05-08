@@ -35,26 +35,26 @@ _namespace setPos _position;
 
 [GVAR(DeploymentPointStorage), _id, _namespace, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 {
-    _x call FUNC(setDeploymentData);
+    [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
     nil
 } count [
-    [_id, "name", _name],
-    [_id, "type", _type],
-    [_id, "position", _position],
-    [_id, "availableFor", _availableFor],
-    [_id, "spawnTickets", _spawnTickets],
-    [_id, "icon", _icon],
-    [_id, "mapIcon", _mapIcon],
-    [_id, "pointObjects", _pointObjects]
+    ["name", _name],
+    ["type", _type],
+    ["position", _position],
+    ["availableFor", _availableFor],
+    ["spawnTickets", _spawnTickets],
+    ["icon", _icon],
+    ["mapIcon", _mapIcon],
+    ["pointObjects", _pointObjects]
 ];
 
 {
-    [_id, _x select 0, _x select 1] call FUNC(setDeploymentData);
+    [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
     nil
 } count _customData;
 
 
-if !(_availableFor isEqualTye sideUnknown) then {
+if !(_availableFor isEqualType sideUnknown) then {
     _availableFor = side _availableFor;
 };
 

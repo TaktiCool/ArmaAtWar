@@ -32,7 +32,7 @@
 
 params ["_pointID", ["_type", ""]];
 // Type is a array and wants multible returns
-if (_type isEqualType [] && {(_type select 0) isEqualType []}) exitWith {
+if (_type isEqualType []) exitWith {
     private _return = [];
     {
         _return pushback ([_pointID, _x] call FUNC(getDeploymentPointData));

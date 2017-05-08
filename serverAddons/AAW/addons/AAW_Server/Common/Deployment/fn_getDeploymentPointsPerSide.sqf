@@ -17,10 +17,8 @@ params [["_side", sideUnknown]];
 private _availablePoints = [];
 
 {
-    private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_x, objNull];
-    if (!(isNull _pointNamespace)) then {
-        private _availableFor = [_x, ["availableFor", sideUnknown]] call FUNC(getDeploymentPointData);
-
+    private _availableFor = [_x, "availableFor"] call FUNC(getDeploymentPointData);
+    if !(isNil "_availableFor") then {
         if ((_availableFor isEqualType playerSide && {_side == _availableFor}) || (_availableFor isEqualType grpNull && {_side == side _availableFor})) then {
             _availablePoints pushBack _x;
         };
