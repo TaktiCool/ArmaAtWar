@@ -75,7 +75,7 @@ class cfgKits {
 
             isMedic = 1;
             uniform = "U_B_CombatUniform_mcam_tshirt";
-            primaryWeapon = "arifle_MXC_F";
+            primaryMagazineCount = 5;
             backpack = "B_AssaultPack_rgr";
             items[] = {{"FirstAidKit", 6}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
 
@@ -351,7 +351,7 @@ class cfgKits {
             displayName = "Medic";
 
             isMedic = 1;
-            primaryWeapon = "arifle_Mk20C_F";
+            primaryMagazineCount = 5;
             backpack = "B_AssaultPack_dgtl";
             items[] = {{"FirstAidKit", 6}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
 
@@ -629,7 +629,7 @@ class cfgKits {
             displayName = "Medic";
 
             isMedic = 1;
-            primaryWeapon = "arifle_Katiba_C_F";
+            primaryMagazineCount = 5;
             backpack = "B_AssaultPack_ocamo";
             items[] = {{"FirstAidKit", 6}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
 
@@ -763,7 +763,7 @@ class cfgKits {
 
             displayName = "Crewman";
 
-            primaryWeapon = "arifle_Katiba_C_F";
+            primaryMagazineCount = 5;
 
             headGear = "H_HelmetCrew_O";
             primaryMagazineCount = 3;
