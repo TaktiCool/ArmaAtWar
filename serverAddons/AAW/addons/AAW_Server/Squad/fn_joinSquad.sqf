@@ -24,6 +24,11 @@
 
     if (count ([_group] call CFUNC(groupPlayers)) >= _groupSize) exitWith {};
 
-    call FUNC(leaveSquad);
+    private _oldGroup = group CLib_Player;
     [CLib_Player] join _group;
+
+    // Make sure invalid groups are not in allGroups
+    if ((count ([_oldGroup] call CFUNC(groupPlayers))) == 0) then {
+        ["deleteGroup", _oldGroup] call CFUNC(serverEvent);
+    };
 }, _this, "respawn"] call CFUNC(mutex);

@@ -252,6 +252,10 @@
     UIVAR(RespawnScreen_SquadMemberManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
+["groupChanged", {
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), _this] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+
 // SquadManagement
 [UIVAR(RespawnScreen_SquadMemberManagement_update), {
     private _display = uiNamespace getVariable [QGVAR(squadDisplay), displayNull];
