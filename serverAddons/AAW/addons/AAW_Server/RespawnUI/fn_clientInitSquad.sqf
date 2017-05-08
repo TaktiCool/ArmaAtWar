@@ -253,7 +253,7 @@
 }] call CFUNC(addEventHandler);
 
 ["groupChanged", {
-    [UIVAR(RespawnScreen_SquadMemberManagement_update), _this] call CFUNC(targetEvent);
+    [UIVAR(RespawnScreen_SquadMemberManagement_update), _this select 0] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 
 // SquadManagement
