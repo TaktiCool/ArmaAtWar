@@ -1,0 +1,109 @@
+/*
+ * https://community.bistudio.com/wiki/Description.ext
+ */
+class Header {
+    gameType = "SCont"; // Game type, see 'class' columns in the table below
+    minPlayers = 1; //min # of players the mission supports
+    maxPlayers = 100; //max # of players the mission supports
+};
+joinUnassigned = 0;
+allowFunctionsRecompile = 1;
+allowFunctionsLog = 1;
+briefing = 0;
+debriefing = 0;
+enableDebugConsole = 1;
+
+// skipLobby = 1;
+
+disabledAI = 1;
+author = "AAW Development Team";
+onLoadName = "AAW - Operation Artemis";
+onLoadMission = "Advance and Secure, 3x2 km², Mot. Infantry";
+loadScreen =  "ui\media\loadscreen_co.paa";
+
+respawn = 3;
+respawnDelay = 0;
+respawnDialog = 0;
+
+disableChannels[] = {{0, "false", "true"}, {1, "false", "true"}};
+class CLib {
+    class GarbageCollector {
+        EnableGarbageCollector = 1;
+        GarbageCollectorTime = 120;
+    };
+    Modules[] = {
+        "AAW/Nametags",
+        "AAW/CompassUI",
+        "AAW/GarbageCollector",
+        "AAW/Logistic",
+        "AAW/RespawnUI",
+        "AAW/Revive",
+        "AAW/Supply",
+        "AAW/Tickets",
+        "AAW/UnitTracker",
+        "AAW/VehicleRespawn",
+        "AAW/FOB",
+        "AAW/Rally",
+        //"AAW/Mortar",
+        "AAW/BaseProtection",
+        "AAW/ScoreTable"
+    };
+    useExperimentalAutoload = 0;
+    useCompressedFunction = 0;
+    useFallbackRemoteExecution = 0;
+};
+
+class AAW {
+
+    #include "cfgBaseSettings.hpp"
+
+    #include "cfgGroupTypes.hpp"
+
+    #include "cfgSides.hpp"
+
+    #include "cfgSectors.hpp"
+
+    #include "cfgEntities.hpp"
+
+    #include "ui\common\aawCore.hpp"
+
+};
+
+
+#include "ui\common\defines.hpp"
+#include "ui\common\baseclasses.hpp"
+#include "ui\common\aaw_baseclasses.hpp"
+#include "ui\dialog\RespawnScreen.hpp"
+#include "ui\dialog\SquadScreen.hpp"
+#include "ui\dialog\RoleScreen.hpp"
+
+class RscTitles {
+    #include "ui\hud\CaptureStatus.hpp"
+    #include "ui\hud\TicketStatus.hpp"
+    #include "ui\hud\Notification.hpp"
+    #include "ui\hud\Compass.hpp"
+    #include "ui\hud\PerformanceStatus.hpp"
+};
+
+class CfgCommands {
+   allowedHTMLLoadURIs[] += {
+      "https://www.atwar-mod.com/*"
+   };
+};
+
+/* disable CfgRemoteExec Until BI fix it
+class CfgRemoteExec {
+    class Functions {
+        mode = 1; // only whitelisted functions/commands are allowed for remote execution
+        jip = 0; // no functions can use jip
+
+        class AAW_Core_fnc_localEvent {
+            allowedTargets = 0; // all targets
+        };
+        class BIS_fnc_call {
+            allowedTargets = 0;
+            jip = 1;
+        };
+    };
+};
+*/
