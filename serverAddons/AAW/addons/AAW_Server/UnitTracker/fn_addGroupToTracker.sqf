@@ -21,7 +21,8 @@ private _groupColor = [0.13, 0.54, 0.21, 1];
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo _group);
 
 private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
-private _groupMapIcon = [format [QEGVAR(Squad,GroupTypes_%1_mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSettingOld);
+private _groupMapIcon = [format [QUOTE(PREFIX/CfgGroupTypes/%1/mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
+
 private _iconPos = [vehicle leader _group, _attachTo];
 
 [
@@ -119,7 +120,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
         _ctrlSquadName ctrlSetText toUpper groupId _group;
 
         private _groupType = _group getVariable [QEGVAR(Squad,Type), ""];
-        private _groupSize = [format [QEGVAR(Squad,GroupTypes_%1_groupSize), _groupType], 0] call CFUNC(getSettingOld);
+        private _groupSize = [format [QUOTE(PREFIX/CfgGroupTypes/%1/groupSize), _groupType], 0] call CFUNC(getSetting);
         private _units = ([_group] call CFUNC(groupPlayers));
 
         _ctrlSquadType ctrlSetStructuredText parseText format ["<t size=""%1"" align=""right"">%2</t>", _textSize, (_group getVariable [QEGVAR(Squad,Type), ""]) + " Squad"];

@@ -38,7 +38,7 @@ class CLib {
         "AAW/Logistic",
         "AAW/RespawnUI",
         "AAW/Revive",
-//        "AAW/Supply",
+        "AAW/Supply",
         "AAW/Tickets",
         "AAW/UnitTracker",
         "AAW/VehicleRespawn",
@@ -59,19 +59,11 @@ class AAW {
 
     #include "cfgGroupTypes.hpp"
 
-    #include "cfgKitGroups.hpp"
-
     #include "cfgSides.hpp"
 
     #include "cfgSectors.hpp"
 
-    #include "cfgRespawn.hpp"
-
-    #include "cfgRevive.hpp"
-
     #include "cfgEntities.hpp"
-
-  	#include "cfgFOB.hpp"
 
     #include "ui\common\aawCore.hpp"
 

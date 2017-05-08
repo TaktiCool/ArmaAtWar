@@ -70,7 +70,7 @@ GVAR(selectedDeploymentPoint) = "";
             // Update the text on the button
             private _time = _respawnTime - diag_tickTime;
             _control ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-        }, 0.1, [_control, diag_tickTime + ([QGVAR(RespawnSettings_respawnCountdown), 0] call CFUNC(getSettingOld))]] call CFUNC(addPerFrameHandler);
+        }, 0.1, [_control, diag_tickTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting))]] call CFUNC(addPerFrameHandler);
     } else {
         _control ctrlSetText "Close";
     };

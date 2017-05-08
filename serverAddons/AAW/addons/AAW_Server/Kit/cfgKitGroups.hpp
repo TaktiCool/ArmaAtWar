@@ -1,4 +1,4 @@
-class KitGroups {
+class cfgKitGroups {
     class Unlimited {
         requiredGroupMembersPerKit = 1;
     };
