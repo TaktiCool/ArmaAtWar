@@ -20,7 +20,7 @@ params ["_target"];
 
     if (!(call FUNC(canPlace))) exitWith {};
 
-    private _position = getPos _target;
+    private _position = _target modelToWorld [0, 0, 0];
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
         ["FOB NOT PLACABLE", "Not enough space available!"] call EFUNC(Common,displayHint);
