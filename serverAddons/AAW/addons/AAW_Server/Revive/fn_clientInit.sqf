@@ -17,14 +17,8 @@
 
 GVAR(UnconsciousFrame) = -1;
 
-["playerChanged", {
-    (_this select 0) params ["_newPlayer", "_oldPlayer"];
-    private _oldId = _oldPlayer getVariable [QGVAR(HandleDamageId), -1];
-    if (_oldId >= 0) then {
-        _oldPlayer removeEventHandler ["HandleDamage", _oldId];
-    };
-    private _id = _newPlayer addEventHandler ["HandleDamage", {_this call FUNC(damageHandler)}];
-    _newPlayer setVariable [QGVAR(HandleDamageId), _id];
+["HandleDamage", {
+    (_this select 0) call FUNC(damageHandler);
 }] call CFUNC(addEventhandler);
 
 ["Respawn", {
