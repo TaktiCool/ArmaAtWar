@@ -35,7 +35,7 @@ class CfgEntities {
 
     //Crates
     class Box_Nato_Ammo_F {
-        isDragable = 1;
+        isDraggable = 1;
         isLoadable = 1;
         cargoCapacity = 3;
         cargoSize = 5;
@@ -50,14 +50,14 @@ class CfgEntities {
     };
 
     class Land_CargoBox_V1_F {
-        isDragable = 1;
+        isDraggable = 1;
         isLoadable = 1;
         cargoCapacity = 20;
         cargoSize = 25;
     };
 
     class B_Slingload_01_Cargo_F {
-        isDragable = 1;
+        isDraggable = 1;
         isLoadable = 0;
         cargoCapacity = 50;
         cargoSize = 60;
