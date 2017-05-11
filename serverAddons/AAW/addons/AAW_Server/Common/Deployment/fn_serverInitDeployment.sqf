@@ -32,7 +32,7 @@ publicVariable QGVAR(DeploymentPointStorage);
 GVAR(changedDPDPointIDs) = [];
 GVAR(changedDPDDataNames) = [];
 GVAR(changedDPDWaitIsRunning) = false;
-
+/* TODO Cache the event call to reduce Network Trafic
 [QGVAR(DeploymentPointDataChanged), {
     (_this select 0) params ["_pointID", "_dataName"];
     _pointID = toLower _pointID;
@@ -71,3 +71,4 @@ GVAR(changedDPDWaitIsRunning) = false;
     }, 1] call CFUNC(wait);
 
 }] call CFUNC(addEventHandler);
+*/

@@ -29,4 +29,4 @@ private _oldData = _namespace getVariable _dataName;
 if (_oldData isEqualTo _data) exitWith {};
 
 _namespace setVariable [_dataName, _data, true];
-[QGVAR(DeploymentPointDataChanged), [_pointID, _dataName]] call CFUNC(serverEvent);
+["DeploymentPointDataChanged", [_pointID, _dataName]] call CFUNC(globalEvent);
