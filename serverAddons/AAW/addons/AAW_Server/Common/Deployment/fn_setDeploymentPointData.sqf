@@ -29,4 +29,10 @@ private _oldData = _namespace getVariable _dataName;
 if (_oldData isEqualTo _data) exitWith {};
 
 _namespace setVariable [_dataName, _data, true];
-["DeploymentPointDataChanged", [_pointID, _dataName]] call CFUNC(globalEvent);
+private _target = _namespace getVariable ["availableFor", sideUnknown];
+if !(_target isEqualType sideUnknown) then {
+    _target = side _target;
+};
+[{
+    _this call CFUNC(targetEvent);
+}, ["DeploymentPointDataChanged", _target, [_pointID, _dataName]]] call CFUNC(execNextFrame);
