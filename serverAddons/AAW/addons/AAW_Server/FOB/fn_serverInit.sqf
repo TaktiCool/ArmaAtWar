@@ -198,5 +198,5 @@ DFUNC(playRadioSoundLoop) = {
             };
         };
         nil
-    } count (call FUNC(getAllDeploymentPoints));
+    } count (call EFUNC(Common,getAllDeploymentPoints));
 }, 0.2] call CFUNC(addPerFrameHandler);
