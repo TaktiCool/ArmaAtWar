@@ -57,7 +57,7 @@ _groupType ctrlSetFontHeight PY(2.2);
 _groupType ctrlSetFont "RobotoCondensed";
 _groupType ctrlSetTextColor [0.8, 0.8, 0.8, 1];
 _groupType ctrlSetPosition [PX(32), PY(0), PX(16), PY(3)];
-_groupType ctrlSetText ([format [QEGVAR(Squad,GroupTypes_%1_displayName), _group getVariable [QEGVAR(Squad,Type), ""]], ""] call CFUNC(getSettingOld));
+_groupType ctrlSetText ([format [QUOTE(PREFIX/CfgGroupTypes/%1/displayName), _group getVariable [QEGVAR(Squad,Type), ""]], ""] call CFUNC(getSetting));
 _groupType ctrlCommit 0;
 
 {
