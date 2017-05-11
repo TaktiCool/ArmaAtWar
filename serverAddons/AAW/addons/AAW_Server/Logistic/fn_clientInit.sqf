@@ -14,22 +14,13 @@
     None
 */
 
-GVAR(DragableClasses) = [];
-{
-    GVAR(DragableClasses) pushBack configName _x;
-    nil
-} count ("getNumber (_x >> ""isDragable"") == 1" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
-
-GVAR(CargoClasses) = [];
-{
-    GVAR(CargoClasses) pushBack configName _x;
-    nil
-} count ("getNumber (_x >> ""cargoCapacity"") > 0" configClasses (missionConfigFile >> QPREFIX >> "CfgEntities"));
+GVAR(DraggableClasses) = ["Thing"];
+GVAR(CargoClasses) = ["AllVehicles", "Thing"];
 
 ["missionStarted", {
     {
         private _side = _x;
-        private _cfg =  QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), _side], ""] call CFUNC(getSetting));
+        private _cfg = QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), _side], ""] call CFUNC(getSetting));
         //private _cfg = (missionConfigFile >> QPREFIX >> "Sides" >> _side >> "cfgLogistic");
         private _objects = [_cfg + "/objectToSpawn"] call CFUNC(getSetting);
 

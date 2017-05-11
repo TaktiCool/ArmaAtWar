@@ -45,7 +45,7 @@ class cfgKits {
 
             // Items
             assignedItems[] = {"ItemWatch", "ItemCompass", "ItemRadio", "ItemMap", "ItemGPS"};
-            items[] = {{"FirstAidKit",4}, {"HandGrenade",2}, {"SmokeShell", 2}};
+            items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2}};
         };
         class Officer: Rifleman {
             availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
@@ -75,6 +75,7 @@ class cfgKits {
 
             isMedic = 1;
             uniform = "U_B_CombatUniform_mcam_tshirt";
+
             primaryMagazineCount = 5;
             backpack = "B_AssaultPack_rgr";
             items[] = {{"FirstAidKit", 4}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
@@ -351,6 +352,7 @@ class cfgKits {
             displayName = "Medic";
 
             isMedic = 1;
+          
             primaryMagazineCount = 5;
             backpack = "B_AssaultPack_dgtl";
             items[] = {{"FirstAidKit", 4}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
@@ -629,6 +631,7 @@ class cfgKits {
             displayName = "Medic";
 
             isMedic = 1;
+
             primaryMagazineCount = 5;
             backpack = "B_AssaultPack_ocamo";
             items[] = {{"FirstAidKit", 4}, {"HandGrenade", 1}, {"SmokeShell", 4}, "SmokeShellRed", "SmokeShellGreen", "Medikit"};
@@ -763,7 +766,7 @@ class cfgKits {
 
             displayName = "Crewman";
 
-            primaryMagazineCount = 5;
+            primaryWeapon = "arifle_Katiba_C_F";
 
             headGear = "H_HelmetCrew_O";
             primaryMagazineCount = 3;
