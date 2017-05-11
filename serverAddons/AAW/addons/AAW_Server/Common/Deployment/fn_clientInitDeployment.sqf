@@ -56,15 +56,15 @@ GVAR(pointMarkerIds) = [];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
                 _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
 
-                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.5, 0.5, 0.5, 1];
                 };
 
-                if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.6, 0, 0, 1];
                 };
 
-                if ([_x, "counterActive", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "counterActive", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.6, 0, 0, 1];
                 };
 

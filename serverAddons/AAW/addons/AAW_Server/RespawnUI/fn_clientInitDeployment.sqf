@@ -115,16 +115,16 @@ GVAR(selectedDeploymentPoint) = "";
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentCustomData);
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
             ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
             ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
         };
 
@@ -179,15 +179,15 @@ GVAR(selectedDeploymentPoint) = "";
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [1, 1, 1, 0.5];
         };
 
-        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
-        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
