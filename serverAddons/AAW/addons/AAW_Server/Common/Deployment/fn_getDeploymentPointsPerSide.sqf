@@ -24,6 +24,6 @@ private _availablePoints = [];
         };
     };
     nil
-} count ([GVAR(DeploymentPointStorage), QGVAR(DeploymentPointStorage)] call CFUNC(allVariables));
+} count (call FUNC(getAllDeploymentPoints));
 
 _availablePoints

@@ -47,7 +47,8 @@ GVAR(pointMarkerIds) = [];
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
     {
-        (GVAR(DeploymentPointStorage) getVariable _x) params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
+        private _pointData = [_x, ["name", "type", "position", "availableFor", "spawnTickets", "icon", "mapIcon"]] call FUNC(getDeploymentPointData);
+        _pointData params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
         if (_mapIcon != "") then {
             private _color = _sideColor;

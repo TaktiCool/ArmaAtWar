@@ -50,10 +50,6 @@ if (_type isEqualTo "all") exitWith {
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointID, objNull];
 if (isNull _pointNamespace) exitWith {
     LOG("Warning: Point does not exist or is allready deleted");
-    if (_type isEqualType []) then {
-        (_type select 1)
-    } else {
-        nil
-    };
+    nil
 };
 _pointNamespace getVariable _type;
