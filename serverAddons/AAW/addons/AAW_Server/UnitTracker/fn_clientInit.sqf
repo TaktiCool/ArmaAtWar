@@ -150,8 +150,10 @@ GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 */
 
 ["DrawMapGraphics", {
-    GVAR(ProcessingSM) call CFUNC(stepStatemachine);
-    GVAR(lastFrameTriggered) = diag_frameNo;
+    if (GVAR(lastFrameTriggered) != diag_frameNo) then {
+        GVAR(ProcessingSM) call CFUNC(stepStatemachine);
+        GVAR(lastFrameTriggered) = diag_frameNo;
+    };
 }] call CFUNC(addEventhandler);
 
 [{

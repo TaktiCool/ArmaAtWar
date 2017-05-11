@@ -16,13 +16,13 @@
 
 [
     {format [MLOC(Drag), getText (configFile >> "CfgVehicles" >> typeOf _target >> "displayName")]},
-    GVAR(DragableClasses),
+    GVAR(DraggableClasses),
     3,
     {
         isNull assignedGunner _target
          && isNull (CLib_Player getVariable [QGVAR(Item), objNull])
          && isNull (_target getVariable [QGVAR(Dragger), objNull])
-         && (_target getVariable ["isDragable", 0] == 1)
+         && (_target getVariable ["isDraggable", 0] == 1)
     },
     {
         params ["_draggedObject"];

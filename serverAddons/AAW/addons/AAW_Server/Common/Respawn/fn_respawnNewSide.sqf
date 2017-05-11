@@ -24,7 +24,8 @@ if (_className == "") then {
 
 // We need to create a new group otherwise the new unit may not be local (looks like its sometimes local to the group owner).
 private _tempGroup = createGroup _targetSide;
-private _newUnit = _tempGroup createUnit [_className, [-10000, -10000, 50], [], 0, "NONE"];
+private _newUnit = _tempGroup createUnit [_className, [0, 0, 0], [], 0, "CAN_COLLIDE"];
+_newUnit setPos [-10000, -10000, 50];
 
 // Reattach all triggers
 {
