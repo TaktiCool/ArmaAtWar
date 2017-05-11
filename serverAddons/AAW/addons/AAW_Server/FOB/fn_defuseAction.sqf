@@ -21,7 +21,6 @@ private _showCondition = {
         _target = CLib_Player;
         scopeName "ActionCondition";
         {
-            // EGVAR(Common,DeploymentPointStorage) getVariable _x;
             private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
             _pointDetails params ["_name", "_type", "_position", "_availableFor"];
 
@@ -31,7 +30,7 @@ private _showCondition = {
                 GVAR(currentFob) = _x;
                 true breakOut "ActionCondition";
             };
-        } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
+        } count (call FUNC(getAllDeploymentPoints));
         false
     };
 };

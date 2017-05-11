@@ -224,8 +224,7 @@ GVAR(selectedDeploymentPoint) = "";
     GVAR(lastSelectedPoint) = _selectedPoint;
 
     // Get the point data
-    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _selectedPoint;
-    private _position = _pointDetails select 2;
+    private _position = [_selectedPoint, "position"] call EFUNC(Common,getDeploymentPointData);
 
     // Animate the map
     private _controlMap = _display displayCtrl 800;

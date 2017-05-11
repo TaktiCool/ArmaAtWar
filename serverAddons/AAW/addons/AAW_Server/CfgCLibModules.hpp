@@ -38,6 +38,7 @@ class CfgCLibModules {
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(getAllDeploymentPoints);
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
@@ -87,7 +88,7 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-            
+
             FNC(clientInit);
             FNC(serverInit);
         };

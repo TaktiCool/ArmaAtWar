@@ -30,7 +30,7 @@ private _showCondition = {
                 GVAR(currentFob) = _x;
                 true breakOut "ActionCondition";
             };
-        } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
+        } count (call FUNC(getAllDeploymentPoints));
         false
     };
 };
