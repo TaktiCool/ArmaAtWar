@@ -28,7 +28,7 @@ _vsep ctrlCommit 0;
 */
 
 private _globalGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
-_globalGroup ctrlSetPosition [0.5-PX(60), safeZoneY, safeZoneW, safeZoneH];
+_globalGroup ctrlSetPosition [0.5 - PX(60), safeZoneY, safeZoneW, safeZoneH];
 _globalGroup ctrlCommit 0;
 
 

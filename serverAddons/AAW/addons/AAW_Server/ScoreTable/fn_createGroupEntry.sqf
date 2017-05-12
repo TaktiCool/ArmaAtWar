@@ -27,7 +27,7 @@ private _playerBg = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
 
 private _groupBg = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
 _groupBg ctrlSetPosition [PX(0), PY(0), PX(79), PY(3)];
-_groupBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.3)";;
+_groupBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.3)";
 _groupBg ctrlCommit 0;
 
 private _groupDesignatorBg = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
@@ -91,7 +91,7 @@ _groupType ctrlCommit 0;
 
     private _uid = getPlayerUID _x;
 
-    private _scores = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES", [0,0,0,0,0]];
+    private _scores = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES", [0, 0, 0, 0, 0]];
 
     private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
     private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;

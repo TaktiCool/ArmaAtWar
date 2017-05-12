@@ -47,7 +47,7 @@ private _verticalPosition = 0;
 
             private _uid = getPlayerUID _x;
 
-            private _scores = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES", [0,0,0,0,0]];
+            private _scores = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES", [0, 0, 0, 0, 0]];
 
             private _ctrlPlayerName = _display ctrlCreate ["RscTitle", -1, _playerGroup];
             _ctrlPlayerName ctrlSetFontHeight PY(2.2);
@@ -68,7 +68,6 @@ private _verticalPosition = 0;
             _groupControls pushBack _playerGroup;
             _verticalPosition = _verticalPosition + PY(4);
             nil;
-        //} count units _x;
         } count ([_x] call CFUNC(groupPlayers));
     };
     nil;
@@ -77,5 +76,5 @@ private _verticalPosition = 0;
 _ctrlListGroup setVariable [QGVAR(groupControls), _groupControls];
 
 _playerBg ctrlSetPosition [0, 0, PX(39), _verticalPosition];
-_playerBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";;
+_playerBg ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";
 _playerBg ctrlCommit 0;
