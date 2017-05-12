@@ -33,7 +33,7 @@ DFUNC(publicScores) = {
                     GVAR(ScoreNamespace) setVariable [_x + "_SCORES", _entry, true];
                 } count GVAR(ScoreBuffer);
                 GVAR(ScoreBuffer) = [];
-                ["scoreUpdate"] call CFUNC(globalEvent);
+                [QGVAR(ScoreUpdate)] call CFUNC(globalEvent);
             }, 3] call CFUNC(wait);
         };
     };
@@ -119,7 +119,6 @@ DFUNC(registerPlayerAction) = {
                 [getPlayerUID _x, [time, str _sector, "NEUTRALIZED"], "SECTORCAPTURES"] call FUNC(registerPlayerAction);
                 [getPlayerUID _x] call FUNC(calcScores);
             };
-
         } count (_sector getVariable [format ["units%1", _attackerSide], []]);
     } else {
         {
