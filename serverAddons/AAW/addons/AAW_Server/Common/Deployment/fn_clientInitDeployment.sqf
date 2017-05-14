@@ -89,7 +89,7 @@ GVAR(pointMarkerIds) = [];
 
             [
                 _x,
-                "selected",
+                "clicked",
                 {
                     (_this select 0) params ["_map", "_xPos", "_yPos"];
                     (_this select 1) params ["_deploymentPointId"];
