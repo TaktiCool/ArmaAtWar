@@ -35,7 +35,9 @@ lnbClear _control;
     };
 
     if (!isNil "_color") then {
-        _control lnbSetColor [[_rowNumber, 0], _color];
+        for "_i" from 0 to (((lnbSize _control) select 1) - 1) do {
+            _control lnbSetColor [[_rowNumber, _i], _color];
+        };
     };
 
     if (_data isEqualTo _selectedValue && lnbCurSelRow _control != _rowNumber) then {
