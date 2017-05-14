@@ -49,6 +49,8 @@
     private _display = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _display) exitWith {};
 
+    private _selectedKit = CLib_Player getVariable QEGVAR(Kit,kit);
+
     // Prepare the data for the lnb
     private _lnbData = [];
     {
@@ -56,13 +58,21 @@
 
         // Only list usable kits
         private _usableKitCount = [_kitName] call EFUNC(Kit,getUsableKitCount);
-        if (_usableKitCount > 0) then {
+
+        if (!isNil "_usableKitCount") then {
+            _usableKitCount params ["_availableKitCount", "_usedKitsFromGroup"];
             // Get the required details
             private _kitDetails = [_kitName, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails);
             _kitDetails params ["_displayName", "_UIIcon"];
 
             private _usedKits = {_x getVariable [QEGVAR(Kit,kit), ""] == _kitName} count ([group CLib_Player] call CFUNC(groupPlayers));
-            _lnbData pushBack [[_displayName], _kitName, _UIIcon];
+            private _color = [1, 1, 1, 1];
+            private _numberKitsString = format ["%1 / %2", _usedKits, _usedKits + _availableKitCount - _usedKitsFromGroup - ([0, 1] select (_selectedKit == _kitName))];
+
+            if ((_availableKitCount - _usedKitsFromGroup) <= 0) then {
+                _color = [0.3, 0.3, 0.3, 1];
+            };
+            _lnbData pushBack [[_displayName, _numberKitsString], _kitName, _UIIcon, _color];
         };
         nil
     } count (call EFUNC(Kit,getAllKits));
@@ -84,14 +94,20 @@
     private _previousSelectedKit = CLib_Player getVariable [QEGVAR(Kit,kit), ""];
     private _selectedKit = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
+    private _usableKitCount = [_selectedKit] call EFUNC(Kit,getUsableKitCount);
+    if (isNil "_usableKitCount") exitWith {};
+    _usableKitCount params ["_availableKitCount", "_usedKitsFromGroup"];
+    if ((_availableKitCount - _usedKitsFromGroup) <= 0) exitWith {
+        [UIVAR(RespawnScreen_RoleManagement_update)] call CFUNC(localEvent);
+    };
+
     // Instantly assign the kit (do not apply) if changed
     if (_previousSelectedKit != _selectedKit) then {
         CLib_Player setVariable [QEGVAR(Kit,kit), _selectedKit, true];
         [UIVAR(RespawnScreen_RoleManagement_update), group CLib_Player] call CFUNC(targetEvent);
         [QGVAR(KitChanged)] call CFUNC(localEvent);
-    } else {
-        UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
     };
+    UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
 // When the selected tab changed update the weapon tab content

@@ -22,11 +22,11 @@ private _kitDetails = [_kitName, [["kitGroup", ""], ["availableInGroups", []], [
 _kitDetails params ["_kitGroupName", "_availableInGroups", "_isLeader"];
 
 // Check leader
-if (_isLeader == 1 && CLib_Player != leader CLib_Player) exitWith {0};
+if (_isLeader == 1 && CLib_Player != leader CLib_Player) exitWith {nil};
 
 // Check squad type
 private _squadType = (group CLib_Player) getVariable [QEGVAR(Squad,Type), ""];
-if (!(_squadType in _availableInGroups)) exitWith {0};
+if (!(_squadType in _availableInGroups)) exitWith {nil};
 
 // Check group member count
 private _groupMembersCount = count ([group CLib_Player] call CFUNC(groupPlayers));
@@ -38,4 +38,4 @@ private _usedKitsFromGroup = {
 } count (([group CLib_Player] call CFUNC(groupPlayers)) - [CLib_Player]);
 
 private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit);
-[_availableKits - _usedKitsFromGroup, 1] select _isLeader
+[[_availableKits, _usedKitsFromGroup], [1, _usedKitsFromGroup]] select _isLeader
