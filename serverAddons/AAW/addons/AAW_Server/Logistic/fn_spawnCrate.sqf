@@ -21,7 +21,7 @@
 */
 
 (_this select 0) params ["_args", "_spawnPos"];
-_args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName"];
+_args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName", "_resources"];
 
 if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)

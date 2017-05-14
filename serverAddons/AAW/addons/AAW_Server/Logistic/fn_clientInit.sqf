@@ -37,19 +37,26 @@ GVAR(CargoClasses) = ["AllVehicles", "Thing"];
             private _className = [_subcfg + "/classname"] call CFUNC(getSetting);
             private _clearOnSpawn = [_subcfg + "/removeDefaultLoadout"] call CFUNC(getSetting);
             private _displayName = [_subcfg + "/displayName"] call CFUNC(getSetting);
+            private _resources = [_subcfg + "/resources", 0] call CFUNC(getSetting);
             if (_displayName call CFUNC(isLocalised)) then {
                 _displayName = LOC(_displayName);
             };
             [
-                _displayName,
+                format ["%1 (%2)", _displayName, _resources],
                 _objects,
                 3,
                 compile format ["(str playerside) == ""%1""", _side],
                 {
                     params ["_targetPos", "", "", "_args"];
-                    ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
+                    _args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName", "_resources"];
+                    if (missionNamespace getVariable [format [QGVAR(sideResources_%1), side group CLib_player], 0] >= _resources) then {
+                        ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
+                    } else {
+                        ["RESOURCES INSUFFICIENT", "You need more resources"] call EFUNC(Common,displayHint);
+                    };
+
                 },
-                ["arguments", [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]]
+                ["arguments", [_className, _content, _clearOnSpawn isEqualTo 1, _displayName, _resources]]
             ] call CFUNC(addAction);
 
             nil
