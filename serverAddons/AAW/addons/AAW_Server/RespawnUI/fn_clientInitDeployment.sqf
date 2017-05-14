@@ -180,7 +180,7 @@ GVAR(selectedDeploymentPoint) = "";
         private _color = [1, 1, 1, 1];
 
         if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
-            _color = [1, 1, 1, 0.5];
+            _color = [0.3, 0.3, 0.3, 1];
         };
 
         if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
