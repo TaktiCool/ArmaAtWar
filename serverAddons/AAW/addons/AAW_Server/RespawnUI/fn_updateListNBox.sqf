@@ -52,7 +52,7 @@ if ((lnbSize _control select 0) == 0) then {
     _selectedValue = nil;
 } else {
     if (isNil "_selectedValue" || {!(_selectedValue in _addedData)}) then {
-        _control lnbSetCurSelRow 0;
+        _control lnbSetCurSelRow -1;
         _selectedValue = [_control, [0, 0]] call CFUNC(lnbLoad);
     };
 };

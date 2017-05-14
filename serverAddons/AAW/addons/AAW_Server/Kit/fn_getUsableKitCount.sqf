@@ -38,4 +38,4 @@ private _usedKitsFromGroup = {
 } count (([group CLib_Player] call CFUNC(groupPlayers)) - [CLib_Player]);
 
 private _availableKits = floor (_groupMembersCount / _requiredGroupMembersPerKit);
-[[_availableKits, _usedKitsFromGroup], [1, _usedKitsFromGroup]] select _isLeader
+[_availableKits - _usedKitsFromGroup, 1] select _isLeader

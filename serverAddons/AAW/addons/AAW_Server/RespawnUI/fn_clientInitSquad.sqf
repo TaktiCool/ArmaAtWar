@@ -208,9 +208,9 @@
     private _selectedSquad = [_control, [lnbCurSelRow _control, 0]] call CFUNC(lnbLoad);
 
     if (!(_selectedSquad isEqualType grpNull)) then {
-        _selectedSquad = grpNull;
+        _selectedSquad = group CLib_player;
     };
-    
+
     // Prepare the data for the lnb
     private _lnbData = [];
     {

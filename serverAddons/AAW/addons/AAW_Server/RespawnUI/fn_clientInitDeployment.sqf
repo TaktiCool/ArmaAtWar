@@ -230,7 +230,7 @@ GVAR(selectedDeploymentPoint) = "";
     // Animate the map
     private _controlMap = _display displayCtrl 800;
     private _scale = ctrlMapScale _controlMap;
-    _controlMap ctrlMapAnimAdd [0.5, _scale, _position]; // Dialog syntax can not be used
+    _controlMap ctrlMapAnimAdd [0.2, _scale, _position]; // Dialog syntax can not be used
     ctrlMapAnimCommit _controlMap;
 }] call CFUNC(addEventHandler);
 
