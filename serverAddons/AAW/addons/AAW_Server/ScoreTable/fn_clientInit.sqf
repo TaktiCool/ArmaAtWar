@@ -199,3 +199,12 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
     [_display displayCtrl 1200, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
 }] call CFUNC(addEventhandler);
+
+// This events is trigger by the server to update the scores
+[QEGVAR(Common,ticketsChanged), {
+    private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
+    if (isNull _display) exitWith {};
+
+    (_display displayCtrl 1005) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), playerSide], GVAR(maxTickets)]);
+    (_display displayCtrl 1005) ctrlCommit 0;
+}] call CFUNC(addEventhandler);
