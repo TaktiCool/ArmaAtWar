@@ -15,6 +15,8 @@
 */
 params ["_listGroup", "_side", "_extended"];
 
+(ctrlPosition _listGroup) params ["_listGroupX", "_listGroupY", "_listGroupWidth", "_listGroupHeight"];
+
 {ctrlDelete _x; nil} count (_listGroup getVariable [QGVAR(entries), []]);
 
 private _entries = [];
@@ -37,7 +39,7 @@ private _verticalPosition = 0;
         _ctrlSquadBackground ctrlSetText "#(argb,8,8,3)color(0.4,0.4,0.4,0.3)";
 
         private _ctrlSquadHeaderBackground = _display ctrlCreate ["RscPicture", -1, _squadEntry];
-        _ctrlSquadHeaderBackground ctrlSetPosition [PX(0), PY(0), PX(79), PY(3)];
+        _ctrlSquadHeaderBackground ctrlSetPosition [PX(0), PY(0), _listGroupWidth, PY(3)];
         _ctrlSquadHeaderBackground ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.3)";
         _ctrlSquadHeaderBackground ctrlCommit 0;
 
@@ -77,7 +79,7 @@ private _verticalPosition = 0;
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
 
         private _playerRow = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _listGroup];
-        _playerRow ctrlSetPosition [0, _squadEntryHeight, PX(79), PY(4)];
+        _playerRow ctrlSetPosition [0, _squadEntryHeight, _listGroupWidth, PY(4)];
         _playerRow ctrlCommit 0;
 
         if (_extended) then {
@@ -104,7 +106,7 @@ private _verticalPosition = 0;
                 private _ctrlScoreText = _display ctrlCreate ["RscTextNoShadow", -1, _playerRow];
                 _ctrlScoreText ctrlSetFontHeight PY(2.2);
                 _ctrlScoreText ctrlSetFont _font;
-                _ctrlScoreText ctrlSetPosition [PX(6) * _forEachIndex + PX(49), PY(0.5), PX(6), PY(3)];
+                _ctrlScoreText ctrlSetPosition [PX(6) * _forEachIndex + _listGroupWidth - PX(30), PY(0.5), PX(6), PY(3)];
                 _ctrlScoreText ctrlSetText str _x;
                 _ctrlScoreText ctrlCommit 0;
             } forEach _scores;
@@ -112,7 +114,7 @@ private _verticalPosition = 0;
             private _ctrlPlayerScore = _display ctrlCreate ["RscTextNoShadow", -1, _playerRow];
             _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
             _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
-            _ctrlPlayerScore ctrlSetPosition [PX(33), PY(0.5), PX(6), PY(3)];
+            _ctrlPlayerScore ctrlSetPosition [_listGroupWidth - PX(7), PY(0.5), PX(6), PY(3)];
             _ctrlPlayerScore ctrlSetText str (_scores select 4);
             _ctrlPlayerScore ctrlCommit 0;
         };
@@ -122,10 +124,10 @@ private _verticalPosition = 0;
     } count ([_x] call CFUNC(groupPlayers));
 
     if (_extended) then {
-        _ctrlSquadBackground ctrlSetPosition [0, 0, PX(79), _squadEntryHeight];
+        _ctrlSquadBackground ctrlSetPosition [0, 0, _listGroupWidth, _squadEntryHeight];
         _ctrlSquadBackground ctrlCommit 0;
 
-        _listGroup ctrlSetPosition [0, _verticalPosition, PX(80), _squadEntryHeight];
+        _listGroup ctrlSetPosition [0, _verticalPosition, _listGroupWidth, _squadEntryHeight];
         _listGroup ctrlCommit 0;
     };
 
@@ -141,7 +143,7 @@ _listGroup setVariable [QGVAR(entries), _entries];
 
 if (!_extended) then {
     private _ctrlEnemyPlayerBackground = _display ctrlCreate ["RscPicture", -1, _listGroup];
-    _ctrlEnemyPlayerBackground ctrlSetPosition [0, 0, PX(39), _verticalPosition];
+    _ctrlEnemyPlayerBackground ctrlSetPosition [0, 0, _listGroupWidth, _verticalPosition];
     _ctrlEnemyPlayerBackground ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";
     _ctrlEnemyPlayerBackground ctrlCommit 0;
 };
