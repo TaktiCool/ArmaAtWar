@@ -91,7 +91,7 @@ class CfgCLibModules {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
             FNC(serverInit);
-            FNC(updateUI);
+            FNC(updateList);
         };
 
         // Rally System

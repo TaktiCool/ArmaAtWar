@@ -178,11 +178,6 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     private _enemyPlayerListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", 1200, _globalGroup];
     _enemyPlayerListGroup ctrlSetPosition [PX(81), PY(25), PX(40), PY(70)];
     _enemyPlayerListGroup ctrlCommit 0;
-
-    private _enemyPlayerBackground = _display ctrlCreate ["RscPicture", 1201, _enemyPlayerListGroup];
-    _enemyPlayerBackground ctrlSetPosition [0, 0, PX(39), PY(70)];
-    _enemyPlayerBackground ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";
-    _enemyPlayerBackground ctrlCommit 0;
 }, [_ppBlur, _ppColor]] call CFUNC(addEventhandler);
 
 [UIVAR(ScoreTable_onUnload), {
@@ -197,4 +192,10 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
 }, [_ppBlur, _ppColor]] call CFUNC(addEventhandler);
 
 // This events is trigger by the server to update the scores
-[QGVAR(ScoreUpdate), FUNC(updateUI)] call CFUNC(addEventhandler);
+[QGVAR(ScoreUpdate), {
+    private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
+    if (isNull _display) exitWith {};
+
+    [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
+    [_display displayCtrl 1200, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
+}] call CFUNC(addEventhandler);
