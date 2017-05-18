@@ -200,7 +200,6 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     [_display displayCtrl 1200, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
 }] call CFUNC(addEventhandler);
 
-// This events is trigger by the server to update the scores
 [QEGVAR(Common,ticketsChanged), {
     private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
     if (isNull _display) exitWith {};
