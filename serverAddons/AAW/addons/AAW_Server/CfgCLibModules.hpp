@@ -89,7 +89,7 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-            
+
             FNC(clientInit);
             FNC(serverInit);
         };
@@ -150,6 +150,8 @@ class CfgCLibModules {
             FNC(dragObject);
             FNC(dropObject);
             FNC(spawnCrate);
+            FNC(buildResourcesDisplay);
+            FNC(updateResourcesDisplay);
         };
 
         // Mortar
