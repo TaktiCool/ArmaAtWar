@@ -235,9 +235,15 @@ GVAR(deactivateTicketSystem) = false;
 
         ["ticketsChanged", _fncUpdateTickets] call CFUNC(addEventHandler);
 
+        ["resourcesChanged", _fncUpdateResources] call CFUNC(addEventHandler);
 
-
-        [_fncUpdateResources, 2] call CFUNC(addPerFrameHandler);
+        {
+            (format [QEGVAR(Logistic,sideResources_%1), _x]) addPublicVariableEventHandler {
+                hint (_this select 0);
+                if ((_this select 0) != format [QEGVAR(Logistic,sideResources_%1), side group CLib_player]) exitWith {};
+                call _fncUpdateResources;
+            };
+        } count EGVAR(Common,competingSides);
 
         ["ticketsChanged", {
             if (GVAR(deactivateTicketSystem)) exitWith {};
