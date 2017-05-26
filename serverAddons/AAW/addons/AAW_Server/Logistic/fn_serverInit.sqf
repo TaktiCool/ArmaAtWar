@@ -48,6 +48,7 @@ DFUNC(setLogisticVariables) = {
             private _resources = missionNamespace getVariable [format [QGVAR(sideResources_%1), _side], 0];
             _resources = _resources + (_resourceGrowth select 0);
             missionNamespace setVariable [format [QGVAR(sideResources_%1), _side], _resources, true];
+            ["resourcesChanged", _side] call CFUNC(targetEvent);
         }, _resourceGrowth select 1, [_resourceGrowth, _x]] call CFUNC(addPerFrameHandler);
         nil;
     } count EGVAR(Common,competingSides);
