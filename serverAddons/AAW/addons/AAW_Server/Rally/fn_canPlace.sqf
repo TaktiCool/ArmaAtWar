@@ -15,6 +15,10 @@
 */
 
 // Check time
+if !(CLib_Player call EFUNC(Common,isAlive)) exitWith {
+    false
+};
+
 private _waitTime = [CFGSRP(waitTime), 10] call CFUNC(getSetting);
 private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlaced), -_waitTime];
 private _time = ((_lastRallyPlaced + _waitTime) - serverTime);

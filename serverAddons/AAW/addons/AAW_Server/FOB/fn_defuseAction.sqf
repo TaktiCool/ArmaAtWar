@@ -17,9 +17,13 @@ private _title = "Defuse";
 private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _showCondition = {
+
     call {
         _target = CLib_Player;
         scopeName "ActionCondition";
+        if !(CLib_Player call EFUNC(Common,isAlive)) then {
+            false breakOut "ActionCondition";
+        };
         {
             // EGVAR(Common,DeploymentPointStorage) getVariable _x;
             private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);

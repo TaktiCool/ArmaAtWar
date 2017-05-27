@@ -20,6 +20,9 @@ private _showCondition = {
     call {
         _target = CLib_Player;
         scopeName "ActionCondition";
+        if !(CLib_Player call EFUNC(Common,isAlive)) then {
+            false breakOut "ActionCondition";
+        };
         {
             private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
             _pointDetails params ["_name", "_type", "_position", "_availableFor"];
