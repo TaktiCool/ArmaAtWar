@@ -61,13 +61,11 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
-                FNC(displayNotificationOld);
                 FNC(displayNotification);
                 FNC(displayHint);
                 FNC(drawNotification);
                 FNC(drawHint);
                 FNC(registerDisplayNotification);
-                FNC(handleNotificationQueue);
             };
 
             // Performance Info
@@ -89,7 +87,7 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-            
+
             FNC(clientInit);
             FNC(serverInit);
         };

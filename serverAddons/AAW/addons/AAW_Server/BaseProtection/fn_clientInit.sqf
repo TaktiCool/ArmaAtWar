@@ -68,6 +68,8 @@ GVAR(inProtectedZone) = false;
         (QGVAR(rscLayer) cutFadeOut 0) cutText ["", "BLACK IN", 1, false];
 
         // Show notfication afterwards otherwise it may be covered by the black screen
-        [{MLOC(CanNotEnterBase) call EFUNC(Common,displayNotificationOld)}, 1] call CFUNC(wait);
+        [{
+            ["BASE PROTECTION", MLOC(CanNotEnterBase), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+        }, 1] call CFUNC(wait);
     };
 }] call CFUNC(addEventHandler);
