@@ -35,7 +35,7 @@ params ["_pointID", ["_type", "", [[], ""]], "_default"];
 if (_type isEqualType []) exitWith {
     private _return = [];
     _return resize (count _type);
-    if !(_default isEqualTo []) then {
+    if !(_default isEqualType []) then {
         _default = _return apply {_default};
     };
     if (isNil "_default") then {
