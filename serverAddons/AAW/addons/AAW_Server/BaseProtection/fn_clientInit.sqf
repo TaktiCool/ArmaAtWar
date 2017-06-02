@@ -32,7 +32,7 @@ GVAR(inProtectedZone) = false;
 
     if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
-    private _side = _sector getVariable ["side", _playerSide];
+    private _side = _sector getVariable ["side", sideUnknown];
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = true;
@@ -58,7 +58,7 @@ GVAR(inProtectedZone) = false;
 
     if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
-    private _side = _sector getVariable ["side", _playerSide];
+    private _side = _sector getVariable ["side", sideUnknown];
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = false;

@@ -39,7 +39,7 @@ if (hasInterface) then {
 
         private _mainDisplay = findDisplay 46;
 
-        _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
+        private _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
         _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(50), safeZoneY + safeZoneH - PY(8), PX(50), PY(10)];
         _ctrl ctrlSetFade 0.4;
         _ctrl ctrlSetStructuredText parseText format [
@@ -99,7 +99,7 @@ if (hasInterface) then {
         (_this select 0) params ["_currentSide", "_oldSide"];
 
         if (_currentSide == sideEnemy) then {
-            _rating = rating CLib_Player;
+            private _rating = rating CLib_Player;
             CLib_Player addRating (0 - _rating);
         };
     }] call CFUNC(addEventhandler);

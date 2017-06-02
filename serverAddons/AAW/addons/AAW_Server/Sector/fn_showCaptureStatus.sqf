@@ -18,16 +18,51 @@
 params ["_show", "_sectorObject"];
 
 if (_show) then {
-    if !(isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull])) exitWith {
+    if !(isNull (uiNamespace getVariable [UIVAR(CaptureStatus), displayNull])) exitWith {
         [{
             if (GVAR(currentSector) != (_this select 1)) exitWith {};
-            [true, _this select 1] call FUNC(showCaptureStatus);
+            _this call FUNC(showCaptureStatus);
         }, {
-            (isNull (uiNamespace getVariable [QEGVAR(UI,CaptureStatus), displayNull]))
+            (isNull (uiNamespace getVariable [UIVAR(CaptureStatus), displayNull]))
         }, _this] call CFUNC(waitUntil);
     };
 
-    ([QEGVAR(UI,CaptureStatus)] call BIS_fnc_rscLayer) cutRsc [QEGVAR(UI,CaptureStatus), "PLAIN"];
+    //QEGVAR(UI,CaptureStatus) cutRsc [QEGVAR(UI,CaptureStatus), "PLAIN"];
+    UIVAR(CaptureStatus) cutRsc ["RscTitleDisplayEmpty", "PLAIN"];
+    private _display = uiNamespace getVariable ["RscTitleDisplayEmpty", displayNull];
+    if (isNull _display) exitWith {};
+
+    (_display displayCtrl 1202) ctrlSetFade 1;
+    (_display displayCtrl 1202) ctrlCommit 0;
+
+    private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+    _ctrlGrp ctrlSetPosition [ 0.5 - PX(14), safeZoneY + PY(3.5), PX(30), PY(3)];
+    _ctrlGrp ctrlSetFade 1;
+    _ctrlGrp ctrlCommit 0;
+
+    private _ctrlBg = _display ctrlCreate ["RscText", -1, _ctrlGrp];
+    _ctrlBg ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlBg ctrlSetBackgroundColor [0.5, 0.5, 0.5, 0.5];
+    _ctrlBg ctrlCommit 0;
+
+    private _ctrlProgressBar = _display ctrlCreate ["RscProgress", 1004, _ctrlGrp];
+    _ctrlProgressBar ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlProgressBar ctrlCommit 0;
+
+    private _textSize = PY(2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
+
+    private _ctrlText = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
+    _ctrlText ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlText ctrlSetStructuredText parseText format ["<t size='%1' align='center' shadow=false><t font='RobotoCondensedBold'>%2</t>  %3</t>", _textSize, _sectorObject getVariable ["designator", ""], _sectorObject getVariable ["fullName", ""]];
+    _ctrlText ctrlCommit 0;
+
+    _ctrlGrp ctrlSetFade 0;
+    _ctrlGrp ctrlCommit 1;
+
+
+    uiNamespace setVariable [UIVAR(CaptureStatus), _display];
+
+
     if (GVAR(captureStatusPFH) != -1) then {
         [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
     };
@@ -41,38 +76,25 @@ if (_show) then {
         private _rate = _sector getVariable ["captureRate", 0];
         private _lastTick = _sector getVariable ["lastCaptureTick", serverTime];
 
-        private _dialog = uiNamespace getVariable QEGVAR(UI,CaptureStatus);
+        private _dialog = uiNamespace getVariable UIVAR(CaptureStatus);
 
         private _color = [
-            [0.6, 0, 0, 1],
-            [0, 0.4, 0.8, 1]
+            [0.6, 0, 0, 0.7],
+            [0, 0.4, 0.8, 0.7]
         ] select (_aside isEqualTo side group CLib_player);
 
         if (_aside isEqualTo sideUnknown) then {
-            _color = [0.93, 0.7, 0.01, 1];
+            _color = [0, 0, 0, 0];
         };
 
-        private _color2 = [
-            [0.6, 0, 0, 1],
-            [0, 0.4, 0.8, 1]
-        ] select (_side isEqualTo side group CLib_player);
-
-        if (_side isEqualTo sideUnknown) then {
-            _color2 = [0.93, 0.7, 0.01, 1];
-        };
-
-        (_dialog displayCtrl 1001) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _side], "#(argb,8,8,3)color(0.5,0.5,0.5,0)"]);
-        (_dialog displayCtrl 1002) ctrlSetStructuredText parseText format ["<t font='RobotoCondensedBold' size='1'>%1</t>  %2", _sector getVariable ["designator", ""], _sector getVariable ["fullName", ""]];
         (_dialog displayCtrl 1004) ctrlSetTextColor _color;
         (_dialog displayCtrl 1004) ctrlCommit 0;
         (_dialog displayCtrl 1004) progressSetPosition (_progress + (serverTime - _lastTick) * _rate);
-        (_dialog displayCtrl 1998) ctrlSetText format ["#(argb,8,8,3)color(%1,%2,%3,0.6)", _color2 select 0, _color2 select 1, _color2 select 2];
-        (_dialog displayCtrl 1997) ctrlSetText format ["#(argb,8,8,3)color(%1,%2,%3,1)", _color2 select 0, _color2 select 1, _color2 select 2];
     }, 0, [_sectorObject]] call CFUNC(addPerFrameHandler);
 } else {
     [GVAR(captureStatusPFH)] call CFUNC(removePerFrameHandler);
     GVAR(captureStatusPFH) = -1;
 
-    ([QEGVAR(UI,CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 1;
+    ([UIVAR(CaptureStatus)] call BIS_fnc_rscLayer) cutFadeOut 1;
 };
 nil;

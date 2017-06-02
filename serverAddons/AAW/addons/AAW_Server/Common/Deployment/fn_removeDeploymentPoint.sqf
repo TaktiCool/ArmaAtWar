@@ -16,7 +16,7 @@
 params ["_pointId"];
 
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
-if (isNull _pointDetails) exitWith {};
+if (isNull _pointNamespace) exitWith {};
 private _pointObjects = [_pointId, "pointObjects"] call FUNC(getDeploymentPointData);
 
 {

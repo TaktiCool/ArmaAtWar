@@ -102,9 +102,9 @@ DFUNC(calcSolution) = {
     };
 
 
-    _ctrlSol1 = uiNamespace getVariable [QGVAR(AOESolutionField1), controlNull];
-    _ctrlSol2 = uiNamespace getVariable [QGVAR(AOESolutionField2), controlNull];
-    _ctrlSol3 = uiNamespace getVariable [QGVAR(AOESolutionField3), controlNull];
+    private _ctrlSol1 = uiNamespace getVariable [QGVAR(AOESolutionField1), controlNull];
+    private _ctrlSol2 = uiNamespace getVariable [QGVAR(AOESolutionField2), controlNull];
+    private _ctrlSol3 = uiNamespace getVariable [QGVAR(AOESolutionField3), controlNull];
     {
         (_aoe select _forEachIndex) params ["_angle", "_time"];
         if (_angle >= 45 && _angle <= 88) then {
