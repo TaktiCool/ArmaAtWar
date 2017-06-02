@@ -18,7 +18,7 @@
 
 _this params ["_display", "_contentGroup", "_resourcePoints"];
 
-_teamResourcePoints = (missionNamespace getVariable [format [QEGVAR(Logistic,sideResources_%1), side group CLib_player], 0]);
+private _teamResourcePoints = (missionNamespace getVariable [format [QEGVAR(Logistic,sideResources_%1), side group CLib_player], 0]);
 
 _resourcePoints ctrlSetText str _teamResourcePoints;
 
