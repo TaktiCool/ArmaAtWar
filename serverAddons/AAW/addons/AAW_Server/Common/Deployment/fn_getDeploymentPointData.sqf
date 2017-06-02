@@ -30,16 +30,20 @@
 
 #define DEFAULTDATA ["", "", [0,0,0], sideUnknown, -1, "", "", [], [[], [[],[]]]]
 
-params ["_pointID", ["_type", "", [[], ""]], ["_defaults", ""]];
+params ["_pointID", ["_type", "", [[], ""]], "_default"];
 // Type is a array and wants multible returns
 if (_type isEqualType []) exitWith {
     private _return = [];
     _return resize (count _type);
-    if (_defaults isEqualType "") then {
-        _defaults = +_return;
+    if !(_default isEqualTo []) then {
+        _default = _return apply {_default};
     };
+    if (isNil "_default") then {
+        _default = +_return;
+    };
+
     {
-        _return set [_forEachIndex, ([_pointID, _x, _defaults select _forEachIndex] call FUNC(getDeploymentPointData))];
+        _return set [_forEachIndex, ([_pointID, _x, _default select _forEachIndex] call FUNC(getDeploymentPointData))];
         nil
     } forEach _type;
     _return;
@@ -56,4 +60,5 @@ if (isNull _pointNamespace) exitWith {
     LOG("Warning: Point does not exist or is allready deleted");
     nil
 };
-_pointNamespace getVariable [_type, _defaults];
+
+_pointNamespace getVariable [_type, _default];
