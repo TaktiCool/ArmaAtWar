@@ -13,18 +13,9 @@
     Returns:
     None
 */
-
-GVAR(NotificationQueue) = [];
-GVAR(LastNotification) = -1;
-GVAR(NextNotification) = -1;
-
 GVAR(AllNotifications) = [];
 GVAR(NotificationDisplays) = [];
 GVAR(CurrentHint) = [];
-
-["displayNotificationOld", {
-    (_this select 0) call FUNC(displayNotificationOld)
-}] call CFUNC(addEventhandler);
 
 ["displayNotification", {
     (_this select 0) call FUNC(displayNotification)
