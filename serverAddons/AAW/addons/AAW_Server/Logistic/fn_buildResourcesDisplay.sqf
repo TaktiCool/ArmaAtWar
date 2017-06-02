@@ -20,13 +20,16 @@ CGVAR(Interaction_DisablePrevAction) = true;
 CGVAR(Interaction_DisableNextAction) = true;
 CGVAR(Interaction_DisableAction) = true;
 
+GVAR(LastPlayerPosition) = getPos CLib_player;
+
 _display displayAddEventHandler ["KeyDown",  {
     params ["_display", "_dikCode", "_shift", "_ctrl", "_alt"];
     private _handled = false;
-    if (_dikCode == 1) then {
+    if (_dikCode == 1 || GVAR(LastPlayerPosition) distance CLib_player > 0.5) then {
         _display closeDisplay 1;
         _handled = true;
     };
+
     _handled;
 }];
 
