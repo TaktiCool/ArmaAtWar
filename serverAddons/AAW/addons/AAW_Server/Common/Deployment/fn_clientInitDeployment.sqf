@@ -73,7 +73,7 @@ GVAR(pointMarkerIds) = [];
                 _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
             private _selectedIcon = ["ICON", "A3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa", [1,1,1,0], _position, 40, 40, 0, "", 0, 0.08, "RobotoCondensedBold", "center", {
-                if (_groupId == EGVAR(RespawnUI,selectedDeploymentPoint)) then {
+                if (_groupId isEqualTo EGVAR(RespawnUI,selectedDeploymentPoint)) then {
                     _color = [1,1,1,1];
                 };
             }];
@@ -90,7 +90,7 @@ GVAR(pointMarkerIds) = [];
 
             [
                 _x,
-                "selected",
+                "clicked",
                 {
                     (_this select 0) params ["_map", "_xPos", "_yPos"];
                     (_this select 1) params ["_deploymentPointId"];

@@ -4,9 +4,9 @@
 
 // define Version Information
 #define MAJOR 0
-#define MINOR 19
+#define MINOR 20
 #define PATCHLVL 0
-#define BUILD 2138
+#define BUILD 2202
 
 #ifdef VERSION
     #undef VERSION

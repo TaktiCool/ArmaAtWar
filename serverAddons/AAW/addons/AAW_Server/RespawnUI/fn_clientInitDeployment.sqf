@@ -179,8 +179,8 @@ GVAR(selectedDeploymentPoint) = "";
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
-            _color = [1, 1, 1, 0.5];
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+            _color = [0.3, 0.3, 0.3, 1];
         };
 
         if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
@@ -229,7 +229,7 @@ GVAR(selectedDeploymentPoint) = "";
     // Animate the map
     private _controlMap = _display displayCtrl 800;
     private _scale = ctrlMapScale _controlMap;
-    _controlMap ctrlMapAnimAdd [0.5, _scale, _position]; // Dialog syntax can not be used
+    _controlMap ctrlMapAnimAdd [0.2, _scale, _position]; // Dialog syntax can not be used
     ctrlMapAnimCommit _controlMap;
 }] call CFUNC(addEventHandler);
 
