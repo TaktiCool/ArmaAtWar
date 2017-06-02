@@ -35,6 +35,9 @@ params ["_pointID", ["_type", "", [[], ""]], ["_defaults", ""]];
 if (_type isEqualType []) exitWith {
     private _return = [];
     _return resize (count _type);
+    if (_defaults isEqualType "") then {
+        _defaults = +_return;
+    };
     {
         _return set [_forEachIndex, ([_pointID, _x, _defaults select _forEachIndex] call FUNC(getDeploymentPointData))];
         nil
