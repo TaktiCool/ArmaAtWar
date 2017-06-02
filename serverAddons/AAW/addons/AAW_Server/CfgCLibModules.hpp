@@ -35,11 +35,10 @@ class CfgCLibModules {
                 // DataManagement
                 FNC(setDeploymentPointData);
                 FNC(getDeploymentPointData);
-                FNC(setDeploymentCustomData);
-                FNC(getDeploymentCustomData);
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(getAllDeploymentPoints);
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
@@ -89,7 +88,7 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-            
+
             FNC(clientInit);
             FNC(serverInit);
         };
