@@ -21,16 +21,14 @@ private _showCondition = {
         _target = CLib_Player;
         scopeName "ActionCondition";
         {
-            private _pointDetails = [_x, ["name", "type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
-            _pointDetails params ["_name", "_type", "_position", "_availableFor"];
-
-            private _counterActive = [_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData);
+            private _pointDetails = [_x, ["type", "position", "availablefor", "counterActive"]] call EFUNC(Common,getDeploymentPointData);
+            _pointDetails params [["_type", ""], ["_position", [0, 0, 0]], ["_availableFor", sideUnknown], ["_counterActive", 0]];
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 0 && _availableFor == side group CLib_Player}) then {
                 GVAR(currentFob) = _x;
                 true breakOut "ActionCondition";
             };
-        } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
+        } count (call EFUNC(Common,getAllDeploymentPoints));
         false
     };
 };

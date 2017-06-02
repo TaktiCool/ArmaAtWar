@@ -17,15 +17,13 @@ params [["_side", sideUnknown]];
 private _availablePoints = [];
 
 {
-    private _pointDetails = GVAR(DeploymentPointStorage) getVariable _x;
-    if (!(isNil "_pointDetails")) then {
-        _pointDetails params ["_name", "_type", "_position", "_availableFor", "_spawnTickets"];
-
+    private _availableFor = [_x, "availableFor"] call FUNC(getDeploymentPointData);
+    if !(isNil "_availableFor") then {
         if ((_availableFor isEqualType playerSide && {_side == _availableFor}) || (_availableFor isEqualType grpNull && {_side == side _availableFor})) then {
             _availablePoints pushBack _x;
         };
     };
     nil
-} count ([GVAR(DeploymentPointStorage), QGVAR(DeploymentPointStorage)] call CFUNC(allVariables));
+} count (call FUNC(getAllDeploymentPoints));
 
 _availablePoints

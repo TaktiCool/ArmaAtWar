@@ -17,7 +17,6 @@
 
 [{
     {
-        // EGVAR(Common,DeploymentPointStorage) getVariable _x;
         private _pointDetails = [_x, ["position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
         _pointDetails params ["_position", "_availableFor"];
 
@@ -38,5 +37,5 @@
             };
         };
         nil
-    } count ([EGVAR(Common,DeploymentPointStorage), QEGVAR(Common,DeploymentPointStorage)] call CFUNC(allVariables));
+    } count (call EFUNC(Common,getAllDeploymentPoints));
 }, 0.2] call CFUNC(addPerFrameHandler);

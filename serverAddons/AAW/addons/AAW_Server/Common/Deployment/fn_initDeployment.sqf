@@ -2,10 +2,10 @@
 /*
     Arma At War - AAW
 
-    Author: joko // Jonas
+    Author: joko // Jonas, NetFusion
 
     Description:
-    Init for Deployment System
+    Init for deployment system
 
     Parameter(s):
     None
@@ -13,4 +13,11 @@
     Returns:
     None
 */
-GVAR(DeploymentVarTypes) = ["name", "type", "position", "availablefor", "spawntickets", "icon", "mapicon", "pointobjects", "customdata"];
+DFUNC(setDeploymentCustomData) = {
+    LOG("AAW_Common_fnc_setDeploymentCustomData was replaced with AAW_Common_fnc_setDeploymentPointData");
+    _this call FUNC(setDeploymentPointData);
+};
+DFUNC(getDeploymentCustomData) = {
+    LOG("AAW_Common_fnc_getDeploymentCustomData was replaced with AAW_Common_fnc_getDeploymentData");
+    _this call FUNC(getDeploymentPointData);
+};
