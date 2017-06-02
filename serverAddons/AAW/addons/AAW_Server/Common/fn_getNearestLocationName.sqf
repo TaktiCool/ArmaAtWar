@@ -22,7 +22,7 @@ private _allLocations = nearestLocations [_position, GVAR(allLocationTypes), 800
 // try to Find a Location with Text
 {
     if (text _x != "") then {
-        (text _x) breakOut (_fnc_scriptName + "_Main");
+        (text _x) breakOut SCRIPTSCOPENAME;
     };
 } count _allLocations;
 
@@ -39,14 +39,14 @@ private _allMarkerLocationsDis = [];
 
 if !(_allMarkerLocationsDis isEqualTo []) then {
     _allMarkerLocationsDis sort true;
-    ((_allMarkerLocationsDis select 0) select 1) breakOut (_fnc_scriptName + "_Main");
+    ((_allMarkerLocationsDis select 0) select 1) breakOut SCRIPTSCOPENAME;
 };
 
 {
     if (toLower (className _x) find "hill" >= 0 || toLower (className _x) find "mount" >= 0) then {
         private _posHight = floor (getTerrainHeightASL (getPos _x));
         private _text = (["Mountain ", "Hill "] select (toLower (className _x) find "hill" >= 0)) + str _posHight;
-        _text breakOut (_fnc_scriptName + "_Main");
+        _text breakOut SCRIPTSCOPENAME;
     };
 } count _allLocations;
 

@@ -262,6 +262,5 @@ GVAR(deactivateTicketSystem) = false;
 
         [] call _fncUpdateTickets;
         [] call _fncUpdateResources;
-    }; 
-
+    };
 }, {!isNil QEGVAR(Common,competingSides) && {!(EGVAR(Common,competingSides) isEqualTo [])}}] call CFUNC(waitUntil);
