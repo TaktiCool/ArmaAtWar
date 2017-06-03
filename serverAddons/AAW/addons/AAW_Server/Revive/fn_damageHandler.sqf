@@ -53,4 +53,4 @@ if (_hitPartIndex <= 7) then {
     };
 };
 
-_CLib_EventReturn = _returnedDamage min 0.95;
+_returnedDamage min 0.95;
