@@ -32,7 +32,7 @@ GVAR(inProtectedZone) = false;
 
     if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
-    private _side = _sector getVariable ["side", _playerSide];
+    private _side = _sector getVariable ["side", sideUnknown];
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = true;
@@ -58,7 +58,7 @@ GVAR(inProtectedZone) = false;
 
     if !(_unit == CLib_Player && (_sector getVariable ["dependency", []]) isEqualTo []) exitWith {};
 
-    private _side = _sector getVariable ["side", _playerSide];
+    private _side = _sector getVariable ["side", sideUnknown];
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = false;
@@ -68,6 +68,8 @@ GVAR(inProtectedZone) = false;
         (QGVAR(rscLayer) cutFadeOut 0) cutText ["", "BLACK IN", 1, false];
 
         // Show notfication afterwards otherwise it may be covered by the black screen
-        [{MLOC(CanNotEnterBase) call EFUNC(Common,displayNotificationOld)}, 1] call CFUNC(wait);
+        [{
+            ["BASE PROTECTION", MLOC(CanNotEnterBase), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+        }, 1] call CFUNC(wait);
     };
 }] call CFUNC(addEventHandler);

@@ -47,7 +47,8 @@ GVAR(pointMarkerIds) = [];
     } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
 
     {
-        (GVAR(DeploymentPointStorage) getVariable _x) params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
+        private _pointData = [_x, ["name", "type", "position", "availableFor", "spawnTickets", "icon", "mapIcon"]] call FUNC(getDeploymentPointData);
+        _pointData params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
         if (_mapIcon != "") then {
             private _color = _sideColor;
@@ -56,15 +57,15 @@ GVAR(pointMarkerIds) = [];
             if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
                 _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
 
-                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.5, 0.5, 0.5, 1];
                 };
 
-                if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.6, 0, 0, 1];
                 };
 
-                if ([_x, "counterActive", 0] call FUNC(getDeploymentCustomData) == 1) then {
+                if ([_x, "counterActive", 0] call FUNC(getDeploymentPointData) == 1) then {
                     _color = [0.6, 0, 0, 1];
                 };
 
@@ -72,7 +73,7 @@ GVAR(pointMarkerIds) = [];
                 _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
             private _selectedIcon = ["ICON", "A3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa", [1,1,1,0], _position, 40, 40, 0, "", 0, 0.08, "RobotoCondensedBold", "center", {
-                if (_groupId == EGVAR(RespawnUI,selectedDeploymentPoint)) then {
+                if (_groupId isEqualTo EGVAR(RespawnUI,selectedDeploymentPoint)) then {
                     _color = [1,1,1,1];
                 };
             }];
@@ -89,7 +90,7 @@ GVAR(pointMarkerIds) = [];
 
             [
                 _x,
-                "selected",
+                "clicked",
                 {
                     (_this select 0) params ["_map", "_xPos", "_yPos"];
                     (_this select 1) params ["_deploymentPointId"];

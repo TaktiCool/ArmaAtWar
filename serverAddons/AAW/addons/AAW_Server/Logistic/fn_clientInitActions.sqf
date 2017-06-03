@@ -38,7 +38,7 @@
     {
         [CLib_Player] call FUNC(dropObject);
     },
-    ["ignoredCanInteractConditions", ["isNotDragging"]]
+    ["ignoredCanInteractConditions", ["isNotDragging"], "priority", 2000]
 ] call CFUNC(addAction);
 
 [
@@ -83,7 +83,7 @@
             CLib_Player action ["SwitchWeapon", CLib_Player, CLib_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);
     },
-    ["ignoredCanInteractConditions", ["isNotDragging"]]
+    ["ignoredCanInteractConditions", ["isNotDragging"], "priority", 3000]
 ] call CFUNC(addAction);
 
 [

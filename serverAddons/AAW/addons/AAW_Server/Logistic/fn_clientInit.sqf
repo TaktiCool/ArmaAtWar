@@ -17,6 +17,9 @@
 GVAR(DraggableClasses) = ["Thing"];
 GVAR(CargoClasses) = ["AllVehicles", "Thing"];
 
+GVAR(ppBlur) = ppEffectCreate ["DynamicBlur", 999];
+GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
+
 ["missionStarted", {
     {
         private _side = _x;
@@ -31,29 +34,20 @@ GVAR(CargoClasses) = ["AllVehicles", "Thing"];
             _obj
         };
 
-        {
-            private _subcfg = _cfg + "/" + _x;
-            private _content = [_subcfg + "/content"] call CFUNC(getSetting);
-            private _className = [_subcfg + "/classname"] call CFUNC(getSetting);
-            private _clearOnSpawn = [_subcfg + "/removeDefaultLoadout"] call CFUNC(getSetting);
-            private _displayName = [_subcfg + "/displayName"] call CFUNC(getSetting);
-            if (_displayName call CFUNC(isLocalised)) then {
-                _displayName = LOC(_displayName);
-            };
-            [
-                _displayName,
-                _objects,
-                3,
-                compile format ["(str playerside) == ""%1""", _side],
-                {
-                    params ["_targetPos", "", "", "_args"];
-                    ["spawnCrate", [_args, getPos _targetPos]] call CFUNC(serverEvent);
-                },
-                ["arguments", [_className, _content, _clearOnSpawn isEqualTo 1, _displayName]]
-            ] call CFUNC(addAction);
 
-            nil
-        } count ([_cfg] call CFUNC(getSettingSubClasses));
+        [
+            "Request Resources",
+            _objects,
+            3,
+            compile format ["(str playerside) == ""%1""", _side],
+            FUNC(buildResourcesDisplay),
+            ["onActionAdded", {
+                params ["_id", "_target"];
+                _target setUserActionText [_id, "Request Resources", "<img size='3' shadow='0' color='#ffffff' image='\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa' shadow=2/><br/><br/>Request Resources"];
+            },
+            "priority", 1000, "showWindow", true]
+        ] call CFUNC(addAction);
+
         nil
     } count ([QUOTE(PREFIX/Sides)] call CFUNC(getSettingSubClasses));
 }] call CFUNC(addEventHandler);
