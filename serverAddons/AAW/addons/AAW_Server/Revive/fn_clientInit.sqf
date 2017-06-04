@@ -170,6 +170,10 @@ GVAR(UnconsciousnessEffects) = [_hndl];
     } count GVAR(UnconsciousnessEffects);
 }] call CFUNC(addEventHandler);
 
+["isNotUnconscious", {
+    !(_caller getVariable [QGVAR(isUnconscious), false])
+}] call CFUNC(addCanInteractWith);
+
 call FUNC(bleedOut);
 call FUNC(forceRespawnAction);
 call FUNC(healAction);

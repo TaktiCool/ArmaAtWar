@@ -20,12 +20,20 @@
     None
 */
 
-(_this select 0) params ["_args", "_spawnPos"];
-_args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName"];
+(_this select 0) params ["_args", "_spawnPos", ["_side", sideUnknown]];
+_args params ["_crateType", ["_content", []], "_clearOnSpawn", "_displayName", "_resources"];
 
 if !(isClass (configFile >> "CfgVehicles" >> _crateType)) exitWith {
     DUMP("Crate Classname Dont Exist: " + _crateType)
 };
+
+private _teamResourcePoints = missionNamespace getVariable [format [QEGVAR(Logistic,sideResources_%1), _side], 0];
+if (_teamResourcePoints < _resources) exitWith {};
+_teamResourcePoints = _teamResourcePoints - _resources;
+missionNamespace setVariable [format [QEGVAR(Logistic,sideResources_%1), _side], _teamResourcePoints, true];
+["resourcesChanged", _side] call CFUNC(targetEvent);
+
+
 private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
 private _crateObject = createVehicle [_crateType, [0, 0, 0], [], 0, "CAN_COLLIDE"];
 _crateObject setPos _spawnPos;

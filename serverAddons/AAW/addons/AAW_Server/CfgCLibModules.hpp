@@ -35,11 +35,10 @@ class CfgCLibModules {
                 // DataManagement
                 FNC(setDeploymentPointData);
                 FNC(getDeploymentPointData);
-                FNC(setDeploymentCustomData);
-                FNC(getDeploymentCustomData);
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(getAllDeploymentPoints);
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
@@ -61,13 +60,11 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
-                FNC(displayNotificationOld);
                 FNC(displayNotification);
                 FNC(displayHint);
                 FNC(drawNotification);
                 FNC(drawHint);
                 FNC(registerDisplayNotification);
-                FNC(handleNotificationQueue);
             };
 
             // Performance Info
@@ -150,6 +147,8 @@ class CfgCLibModules {
             FNC(dragObject);
             FNC(dropObject);
             FNC(spawnCrate);
+            FNC(buildResourcesDisplay);
+            FNC(updateResourcesDisplay);
         };
 
         // Mortar

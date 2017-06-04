@@ -98,7 +98,7 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
             _defaultState;
         };
 
-        _abandonedSince = _vehicle getVariable [QGVAR(abandonedSince), -1];
+        private _abandonedSince = _vehicle getVariable [QGVAR(abandonedSince), -1];
 
         if (_abandonedSince < 0) then { //was abandoned last time??
             _vehicle setVariable [QGVAR(abandonedSince), diag_tickTime];

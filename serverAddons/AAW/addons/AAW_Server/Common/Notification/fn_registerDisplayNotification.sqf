@@ -30,7 +30,7 @@ GVAR(NotificationDisplays) = GVAR(NotificationDisplays) - _deletableDisplays;
 
 if (_idx < 0) exitWith {};
 
-_numberOfNotifications = count GVAR(AllNotifications);
+private _numberOfNotifications = count GVAR(AllNotifications);
 
 {
      _x params ["_parameter", "_controlGroups"];
