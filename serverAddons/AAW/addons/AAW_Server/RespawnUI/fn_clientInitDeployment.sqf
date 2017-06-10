@@ -53,6 +53,7 @@ GVAR(selectedDeploymentPoint) = "";
         private _minRespawnTime = diag_tickTime;
         if (EGVAR(Revive,UnconsciousSince) > -1) then {
             _minRespawnTime = EGVAR(Revive,UnconsciousSince);
+            EGVAR(Revive,UnconsciousSince) = -1;
         };
 
         _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
