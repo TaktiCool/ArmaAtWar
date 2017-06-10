@@ -1,5 +1,5 @@
 class CfgRevive {
-    unconsciousDuration = 500; // Value which determines how long a unit stays unconscious (calculated with bleeding)
+    unconsciousDuration = 180; // Value which determines how long a unit stays unconscious (calculated with bleeding)
 
     // Heal
     healActionDuration = 8; // Time a MEDIC needs to bandage

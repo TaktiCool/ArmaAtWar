@@ -50,6 +50,13 @@ GVAR(selectedDeploymentPoint) = "";
     if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
+        private _minRespawnTime = diag_tickTime;
+        if (EGVAR(Revive,UnconsciousSince) > -1) then {
+            _minRespawnTime = EGVAR(Revive,UnconsciousSince);
+        };
+
+        _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
+
         [{
             params ["_params", "_id"];
             _params params ["_control", "_respawnTime"];
@@ -70,7 +77,7 @@ GVAR(selectedDeploymentPoint) = "";
             // Update the text on the button
             private _time = _respawnTime - diag_tickTime;
             _control ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-        }, 0.1, [_control, diag_tickTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting))]] call CFUNC(addPerFrameHandler);
+        }, 0.1, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
     } else {
         _control ctrlSetText "Close";
     };
