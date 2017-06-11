@@ -94,10 +94,10 @@ class CfgCLibModules {
         // Rally System
         MODULE(Rally) {
             dependency[] = {"AAW/Common"};
-            FNC(serverInit);
             FNC(clientInit);
             FNC(place);
             FNC(destroy);
+            FNC(destroyAction);
             FNC(canPlace);
         };
 
