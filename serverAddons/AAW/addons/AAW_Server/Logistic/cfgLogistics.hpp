@@ -91,7 +91,7 @@ class cfgLogistics {
 
         class MortarBox {
             displayName = "Mortar Box";
-            classname = "Box_CSAT_Wps_F";
+            classname = "Box_East_Wps_F";
             content[] = {{"O_Mortar_01_support_F", 1}, {"O_Mortar_01_weapon_F", 1}};
             removeDefaultLoadout = 1;
             resources = 50;
@@ -140,7 +140,7 @@ class cfgLogistics {
 
         class MortarBox {
             displayName = "Mortar Box";
-            classname = "Box_AAF_Wps_F";
+            classname = "Box_IND_Wps_F";
             content[] = {{"I_Mortar_01_support_F", 1}, {"I_Mortar_01_weapon_F", 1}};
             removeDefaultLoadout = 1;
             resources = 50;
