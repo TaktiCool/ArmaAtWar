@@ -106,7 +106,10 @@
         [UIVAR(RespawnScreen_RoleManagement_update), group CLib_Player] call CFUNC(targetEvent);
         [QGVAR(KitChanged)] call CFUNC(localEvent);
     };
-    UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
+    {
+        UIVAR(RespawnScreen_WeaponTabs_update) call CFUNC(localEvent);
+    } call CFUNC(execNextFrame);
+
 }] call CFUNC(addEventHandler);
 
 // When the selected tab changed update the weapon tab content
