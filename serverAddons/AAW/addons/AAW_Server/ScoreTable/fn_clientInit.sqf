@@ -18,6 +18,7 @@ GVAR(maxTickets) = getNumber (missionConfigFile >> QPREFIX >> "tickets");
 
 private _ppBlur = ppEffectCreate ["DynamicBlur", 999];
 private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
+/*
 
 ["missionStarted", {
     (findDisplay 46) displayAddEventHandler ["KeyDown", {
@@ -31,9 +32,12 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
         };
         _handled
     }];
+
 }] call CFUNC(addEventhandler);
+*/
 
 [UIVAR(ScoreTable_onLoad), {
+    hint "ScoreTable_onLoad";
     params ["_data", "_ppEffects"];
     _data params ["_display"];
     _ppEffects params ["_ppBlur", "_ppColor"];
@@ -42,11 +46,12 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     private _enemySide = (EGVAR(Common,competingSides) - [playerSide]) select 0;
 
     // Enable all ppEffects
-    _ppEffects ppEffectEnable true;
+    _ppBlur ppEffectEnable true;
     _ppBlur ppEffectAdjust [8];
     _ppBlur ppEffectCommit 0.2;
-    _ppColor ppEffectAdjust [0.7, 0.7, 0.1, [0, 0, 0, 0], [1, 1, 1, 1], [0.7, 0.2, 0.1, 0.0]];
-    _ppColor ppEffectCommit 0.2;
+    //_ppColor ppEffectEnable true;
+    //_ppColor ppEffectAdjust [0.7, 0.7, 0.1, [0, 0, 0, 0], [1, 1, 1, 1], [0.7, 0.2, 0.1, 0.0]];
+    //_ppColor ppEffectCommit 0.2;
 
     // Register keybind to close the score table
     _display displayAddEventHandler ["KeyDown", {
@@ -59,6 +64,17 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
         };
         _handled
     }];
+
+    // Create the score table controls
+    private _globalBackground = _display ctrlCreate ["RscPicture", -1];
+    _globalBackground ctrlSetPosition [safeZoneX, safeZoneY, safeZoneW, safeZoneH];
+    _globalBackground ctrlSetText "#(argb,8,8,3)color(0.3,0.3,0.3,0.4)";
+    _globalBackground ctrlSetFade 1;
+    _globalBackground ctrlCommit 0;
+    _globalBackground ctrlSetFade 0;
+    _globalBackground ctrlCommit 0.2;
+
+
 
     // Create the score table controls
     private _headerBackground = _display ctrlCreate ["RscPicture", -1];
@@ -182,11 +198,12 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
 
 [UIVAR(ScoreTable_onUnload), {
     (_this select 1) params ["_ppBlur", "_ppColor"];
-
+    hint "ScoreTable_onUnload";
     // Remove all ppEffects
-    _ppEffects ppEffectEnable false;
+    //_ppColor ppEffectEnable false;
     _ppColor ppEffectAdjust [1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 1], [0.7, 0.2, 0.1, 0.0]];
     _ppColor ppEffectCommit 0.3;
+    //_ppBlur ppEffectEnable false;
     _ppBlur ppEffectAdjust [0];
     _ppBlur ppEffectCommit 0.3;
 }, [_ppBlur, _ppColor]] call CFUNC(addEventhandler);
@@ -207,3 +224,37 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     (_display displayCtrl 1005) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), playerSide], GVAR(maxTickets)]);
     (_display displayCtrl 1005) ctrlCommit 0;
 }] call CFUNC(addEventhandler);
+
+GVAR(lastVisibleScoreTableStatus) = false;
+
+[{
+
+    if (!(visibleScoretable isEqualTo GVAR(lastVisibleScoreTableStatus))) then {
+        GVAR(lastVisibleScoreTableStatus) = visibleScoretable;
+
+        if (visibleScoretable) then {
+            private _display = displayNull;
+            {
+                if (ctrlIDD _x == 175) then {
+                    _display = _x;
+                };
+                nil;
+            } count (uiNamespace getVariable "GUI_displays");
+            if (!isNull _display) then {
+
+                {
+                    _x ctrlShow false;
+                    nil;
+                } count allControls _display;
+                [UIVAR(ScoreTable_onLoad), _display] call CFUNC(localEvent);
+                [QGVAR(ScoreUpdate)] call CFUNC(localEvent);
+            };
+        } else {
+            [UIVAR(ScoreTable_onUnload)] call CFUNC(localEvent);
+        };
+
+    } else {
+
+    };
+
+}, 0] call CFUNC(addPerFrameHandler);
