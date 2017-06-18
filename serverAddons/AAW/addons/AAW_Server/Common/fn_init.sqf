@@ -107,10 +107,6 @@ if (hasInterface) then {
 
 // generate Base sides and Hide all Markers
 ["missionStarted", {
-    if (isServer) then {
-        {_x setMarkerAlpha 0} count allMapMarkers;
-    };
-
     GVAR(maxPlayerCountDifference) = getNumber (missionConfigFile >> QPREFIX >> "maxPlayerCountDifference");
     GVAR(competingSides) = [];
     {
