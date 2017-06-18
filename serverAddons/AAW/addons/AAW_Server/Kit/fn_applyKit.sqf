@@ -16,23 +16,13 @@
 params ["_kitName"];
 
 private _kitDetails = [_kitName, [
-    ["uniform", ""], ["vest", ""], ["backpack", ""], ["headGear", ""],
-    ["primaryWeapon", ""], ["primaryAttachments", []], ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineTracerCount", 0],
-    ["secondaryWeapon", ""], ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
-    ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
-    ["assignedItems", []],
-    ["items", []],
     ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
+    ["loadouts", ["basic"]],
     ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
-    "_uniform", "_vest", "_backpack", "_headGear",
-    "_primaryWeapon", "_primaryAttachments", "_primaryMagazine", "_primaryMagazineCount", "_primaryMagazineTracer", "_primaryMagazineTracerCount",
-    "_secondaryWeapon", "_secondaryMagazine", "_secondaryMagazineCount",
-    "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
-    "_assignedItems",
-    "_items",
     "_displayName", "_icon", "_mapIcon", "_compassIcon",
+    "_loadouts",
     "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew"
 ];
 
@@ -42,44 +32,18 @@ removeAllWeapons CLib_Player;
 removeHeadgear CLib_Player;
 removeGoggles CLib_Player;
 
-// add container
-[CLib_Player, _uniform, 0] call CFUNC(addContainer);
-[CLib_Player, _vest, 1] call CFUNC(addContainer);
-[CLib_Player, _backpack, 2] call CFUNC(addContainer);
-
-CLib_Player addHeadgear _headGear;
-
-// Primary Weapon
-[_primaryMagazineTracer, _primaryMagazineTracerCount] call CFUNC(addMagazine);
-[_primaryWeapon, _primaryMagazine, _primaryMagazineCount] call CFUNC(addWeapon);
-{
-    CLib_Player addPrimaryWeaponItem _x;
-    nil
-} count (_primaryAttachments select {_x != ""});
-
-// Secondary Weapon
-[_secondaryWeapon, _secondaryMagazine, _secondaryMagazineCount] call CFUNC(addWeapon);
-
-// Handgun Weapon
-[_handgunWeapon, _handgunMagazine, _handgunMagazineCount] call CFUNC(addWeapon);
-
-// Assigned items
-{
-    CLib_Player linkItem _x;
-    nil
-} count _assignedItems;
-
-// Items
-{
-    _x call CFUNC(addItem);
-    nil
-} count _items;
 if (_icon == "") then {
     _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
 if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
+
+
+{
+    [_x] call CFUNC(applyLoadout);
+    nil
+} count _loadouts;
 
 CLib_Player setVariable [QGVAR(kit), _kitName, true];
 CLib_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
