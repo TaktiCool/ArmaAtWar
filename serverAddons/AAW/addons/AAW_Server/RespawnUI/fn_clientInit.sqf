@@ -138,17 +138,77 @@
         private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
         private _firstSide = EGVAR(Common,competingSides) select 0;
         private _secondSide = EGVAR(Common,competingSides) select 1;
+
         (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+
         (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _firstSide], ""]);
-        (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _firstSide], _startTickets]);
+        private _pos = ctrlPosition (_display displayCtrl 603);
+        _pos set [1, PY(3.875)];
+        (_display displayCtrl 603) ctrlSetPosition _pos;
+        (_display displayCtrl 603) ctrlCommit 0;
+
+        (_display displayCtrl 605) ctrlSetText str ({_firstSide == side group _x} count allPlayers);
+        _pos = ctrlPosition (_display displayCtrl 605);
+        _pos set [1, PY(7.5)];
+        (_display displayCtrl 605) ctrlSetPosition _pos;
+        (_display displayCtrl 605) ctrlCommit 0;
+
         (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+
         (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _secondSide], ""]);
-        (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _secondSide], _startTickets]);
+        _pos = ctrlPosition (_display displayCtrl 604);
+        _pos set [1, PY(3.875)];
+        (_display displayCtrl 604) ctrlSetPosition _pos;
+        (_display displayCtrl 604) ctrlCommit 0;
+
+        (_display displayCtrl 606) ctrlSetText str ({_secondSide == side group _x} count allPlayers);
+        _pos = ctrlPosition (_display displayCtrl 606);
+        _pos set [1, PY(7.5)];
+        (_display displayCtrl 606) ctrlSetPosition _pos;
+        (_display displayCtrl 606) ctrlCommit 0;
+
+        private _captionPlayer = _display ctrlCreate ["RscTextNoShadow", 607, (_display displayCtrl 600)];
+        _captionPlayer ctrlSetFontHeight PY(2);
+        _captionPlayer ctrlSetFont "PuristaMedium";
+        _captionPlayer ctrlSetText "PLAYER";
+        _captionPlayer ctrlSetPosition [PX(20-4), PY(7.5), PX(8), PY(2)];
+        _captionPlayer ctrlCommit 0;
+
+        private _captionTickets = _display ctrlCreate ["RscTextNoShadow", 608, (_display displayCtrl 600)];
+        _captionTickets ctrlSetFontHeight PY(2);
+        _captionTickets ctrlSetFont "PuristaSemiBold";
+        _captionTickets ctrlSetText (str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), playerSide], _startTickets]) + " TICKETS AVAILABLE");
+        _captionTickets ctrlSetPosition [PX(20-10), PY(9.5), PX(20), PY(2)];
+        _captionTickets ctrlCommit 0;
+
 
         {
+            private _pos = ctrlPosition (_display displayCtrl _x);
+            _pos set [1, (_pos select 1) - PY(2)];
+            (_display displayCtrl _x) ctrlSetPosition _pos;
             (_display displayCtrl _x) ctrlCommit 0;
             nil
-        } count [601, 602, 603, 604, 605, 606];
+        } count [601, 602, 603, 604, 605, 606, 607, 608];
+
+        [{
+            private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+
+            if (isNull _display) exitWith {
+                (_this select 1) call CFUNC(removePerFrameHandler);
+            };
+
+            private _firstSide = EGVAR(Common,competingSides) select 0;
+            private _secondSide = EGVAR(Common,competingSides) select 1;
+
+            private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
+            (_display displayCtrl 605) ctrlSetText str ({_firstSide == side group _x} count allPlayers);
+            (_display displayCtrl 606) ctrlSetText str ({_secondSide == side group _x} count allPlayers);
+
+            {
+                (_display displayCtrl _x) ctrlCommit 0;
+                nil;
+            } count [605, 606];
+        }, 1] call CFUNC(addPerFrameHandler);
 
         (_display displayCtrl 500) call FUNC(fadeControl); // MissionName
         (_display displayCtrl 600) call FUNC(fadeControl); // Tickets
@@ -160,14 +220,28 @@
     if (isNull _display || EGVAR(Tickets,deactivateTicketSystem)) exitWith {};
 
     private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
-    (_display displayCtrl 605) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 0], _startTickets]);
-    (_display displayCtrl 606) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 1], _startTickets]);
+    (_display displayCtrl 608) ctrlSetText (str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), playerSide], _startTickets]) + " TICKETS AVAILABLE");
+    (_display displayCtrl 608) ctrlCommit 0;
+
+}] call CFUNC(addEventHandler);
+
+["playerSideChanged", {
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+    if (isNull _display) exitWith {};
+
+    private _firstSide = EGVAR(Common,competingSides) select 0;
+    private _secondSide = EGVAR(Common,competingSides) select 1;
+
+    private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
+    (_display displayCtrl 605) ctrlSetText str ({_firstSide == side group _x} count allPlayers);
+    (_display displayCtrl 606) ctrlSetText str ({_secondSide == side group _x} count allPlayers);
 
     {
         (_display displayCtrl _x) ctrlCommit 0;
         nil;
     } count [605, 606];
 }] call CFUNC(addEventHandler);
+
 
 // Alternative notification display
 ["notificationDisplayed", {
