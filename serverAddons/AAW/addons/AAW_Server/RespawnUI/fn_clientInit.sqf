@@ -13,7 +13,6 @@
     Returns:
     None
 */
-[QGVAR(RespawnSettings), missionConfigFile >> QPREFIX >> "CfgRespawn"] call CFUNC(loadSettings);
 
 // When player dies show respawn UI
 ["Killed", {

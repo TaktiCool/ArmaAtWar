@@ -13,4 +13,3 @@
     Returns:
     None
 */
-//[QGVAR(FOB), missionConfigFile >> QPREFIX >> "cfgFOB"] call CFUNC(loadSettings);
