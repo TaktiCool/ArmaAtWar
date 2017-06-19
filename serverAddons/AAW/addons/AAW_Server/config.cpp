@@ -3,7 +3,7 @@ class CfgPatches {
     class AAW_Server {
         units[] = {};
         weapons[] = {};
-        requiredVersion = 1.56;
+        requiredVersion = 1.70;
         author = "AAW Team: NetFusion, Hoegnison, BadGuy, joko // Jonas";
         authors[] = {"joko // Jonas", "NetFusion", "Hoegnison", "BadGuy", "AAW Team"};
         authorUrl = "";
