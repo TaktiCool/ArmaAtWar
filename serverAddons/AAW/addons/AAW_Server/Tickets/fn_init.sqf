@@ -152,51 +152,55 @@ GVAR(deactivateTicketSystem) = false;
         private _display = uiNamespace getVariable ["RscTitleDisplayEmpty", displayNull];
         if (isNull _display) exitWith {};
 
-        private _textSize = PY(2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
+        private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
 
         private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
-        _ctrlGrp ctrlSetPosition [ 0.5 - PX(14), safeZoneY + PY(0.5), PX(28), PY(3)];
+        _ctrlGrp ctrlSetPosition [ 0.5 - PX(10.5), safeZoneY + PY(0.5), PX(21), PY(3)];
         _ctrlGrp ctrlCommit 0;
 
-        private _ctrlResourceIcon = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
-        _ctrlResourceIcon ctrlSetPosition [PX(10.5-0.25), PY(-0.25), PX(2.5), PY(2.5)];
-        _ctrlResourceIcon ctrlSetText "\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa";
-        _ctrlResourceIcon ctrlCommit 0;
+
 
         private _ctrlBgResource = _display ctrlCreate ["RscText", -1, _ctrlGrp];
-        _ctrlBgResource ctrlSetPosition [0, 0, PX(10), PY(2)];
+        _ctrlBgResource ctrlSetPosition [0, 0, PX(10), PY(2.5)];
         _ctrlBgResource ctrlSetBackgroundColor [0.5, 0.5, 0.5, 0.5];
         _ctrlBgResource ctrlCommit 0;
 
         private _ctrlResourceBar = _display ctrlCreate ["RscText", 2001, _ctrlGrp];
-        _ctrlResourceBar ctrlSetPosition [0, 0, PX(10), PY(2)];
+        _ctrlResourceBar ctrlSetPosition [0, 0, PX(10), PY(0.2)];
         _ctrlResourceBar ctrlSetBackgroundColor [0.93, 0.7, 0.01, 1];
         _ctrlResourceBar ctrlCommit 0;
 
+        private _ctrlResourceIcon = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
+        _ctrlResourceIcon ctrlSetPosition [PX(8-0.25-0.5), 0, PX(2.5), PY(2.5)];
+        _ctrlResourceIcon ctrlSetText "\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa";
+        _ctrlResourceIcon ctrlCommit 0;
+
         private _ctrlResourceText = _display ctrlCreate ["RscStructuredText", 2002, _ctrlGrp];
-        _ctrlResourceText ctrlSetPosition [0, 0, PX(10), PY(2)];
+        _ctrlResourceText ctrlSetPosition [PX(0), PY(0.2), PX(7.5), PY(2.5)];
         _ctrlResourceText ctrlSetStructuredText parseText format ["<t size='%1' align='right' shadow=false>%2</t>", _textSize, "---"];
         _ctrlResourceText ctrlCommit 0;
 
-        private _ctrlTicketsIcon = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
-        _ctrlTicketsIcon ctrlSetPosition [PX(15.5), 0, PX(2), PY(2)];
-        _ctrlTicketsIcon ctrlSetText "\A3\modules_f_curator\data\portraitmissionname_ca.paa";
-        _ctrlTicketsIcon ctrlCommit 0;
+
 
         private _ctrlBgTickets = _display ctrlCreate ["RscText", -1, _ctrlGrp];
-        _ctrlBgTickets ctrlSetPosition [PX(18), 0, PX(10), PY(2)];
+        _ctrlBgTickets ctrlSetPosition [PX(11), 0, PX(10), PY(2.5)];
         _ctrlBgTickets ctrlSetBackgroundColor [0.5, 0.5, 0.5, 0.5];
         _ctrlBgTickets ctrlCommit 0;
 
         private _ctrlTicketsBar = _display ctrlCreate ["RscText", 2011, _ctrlGrp];
-        _ctrlTicketsBar ctrlSetPosition [PX(18), 0, PX(10), PY(2)];
-        _ctrlTicketsBar ctrlSetBackgroundColor [0, 0.4, 0.8, 0.7];
+        _ctrlTicketsBar ctrlSetPosition [PX(11), 0, PX(10), PY(0.2)];
+        _ctrlTicketsBar ctrlSetBackgroundColor [0, 0.4, 0.8, 1];
         _ctrlTicketsBar ctrlCommit 0;
 
         private _ctrlTicketsText = _display ctrlCreate ["RscStructuredText", 2012, _ctrlGrp];
-        _ctrlTicketsText ctrlSetPosition [PX(18), 0, PX(10), PY(2)];
+        _ctrlTicketsText ctrlSetPosition [PX(13.5), PY(0.2), PX(7.5), PY(2.5)];
         _ctrlTicketsText ctrlSetStructuredText parseText format ["<t size='%1' align='left' shadow=false>%2</t>", _textSize, "---"];
         _ctrlTicketsText ctrlCommit 0;
+
+        private _ctrlTicketsIcon = _display ctrlCreate ["RscPicture", -1, _ctrlGrp];
+        _ctrlTicketsIcon ctrlSetPosition [PX(11.5), PY(0.25), PX(2), PY(2)];
+        _ctrlTicketsIcon ctrlSetText "\A3\modules_f_curator\data\portraitmissionname_ca.paa";
+        _ctrlTicketsIcon ctrlCommit 0;
 
         uiNamespace setVariable [UIVAR(TicketStatus), _display];
 
@@ -205,12 +209,12 @@ GVAR(deactivateTicketSystem) = false;
             private _display = uiNamespace getVariable [UIVAR(TicketStatus), displayNull];
             if (isNull _display) exitWith {};
 
-            private _textSize = PY(2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
+            private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
             private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
             private _tickets = missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_player], _startTickets];
 
             (_display displayCtrl 2012) ctrlSetStructuredText parseText format ["<t size='%1' align='left' shadow=false>%2</t>", _textSize, _tickets];
-            (_display displayCtrl 2011) ctrlSetPosition [PX(18), 0, PX(10*(_tickets/_startTickets)), PY(2)];
+            (_display displayCtrl 2011) ctrlSetPosition [PX(11), 0, PX(10*(_tickets/_startTickets)), PY(0.2)];
             (_display displayCtrl 2011) ctrlCommit 0;
             (_display displayCtrl 2012) ctrlCommit 0;
         };
@@ -221,11 +225,11 @@ GVAR(deactivateTicketSystem) = false;
 
             private _cfg = QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), side group CLib_player], ""] call CFUNC(getSetting));
             private _maxResources = [_cfg + "/resourcesMax", 500] call CFUNC(getSetting);
-            private _textSize = PY(2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
+            private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
             private _resources = missionNamespace getVariable [format [QEGVAR(Logistic,sideResources_%1), side group CLib_player], 0];
 
             (_display displayCtrl 2002) ctrlSetStructuredText parseText format ["<t size='%1' align='right' shadow=false>%2</t>", _textSize, _resources];
-            (_display displayCtrl 2001) ctrlSetPosition [PX(10*(1-(_resources/_maxResources))), 0, PX(10*(_resources/_maxResources)), PY(2)];
+            (_display displayCtrl 2001) ctrlSetPosition [PX(10*(1-(_resources/_maxResources))), 0, PX(10*(_resources/_maxResources)), PY(0.2)];
             (_display displayCtrl 2001) ctrlCommit 0;
             (_display displayCtrl 2002) ctrlCommit 0;
         };
