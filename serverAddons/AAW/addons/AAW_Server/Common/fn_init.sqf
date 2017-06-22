@@ -171,8 +171,10 @@ CGVAR(hideHUD) = false;
 
 #ifdef ISDEV
 addMissionEventHandler ["MapSingleClick", {
-    params ["", "_pos"];
-    _pos set [2, 0];
-    (vehicle CLib_Player) setPos _pos;
+    params ["", ["_pos", getPos player], ["_alt", true]];
+    if (_alt) then {
+        _pos set [2, 0];
+        (vehicle CLib_Player) setPos _pos;
+    };
 }];
 #endif
