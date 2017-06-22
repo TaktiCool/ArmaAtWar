@@ -168,3 +168,11 @@ if (hasInterface) then {
 
 ["performanceCheck", 0] call CFUNC(addIgnoredEventLog);
 CGVAR(hideHUD) = false;
+
+#ifdef ISDEV
+addMissionEventHandler ["MapSingleClick", {
+    params ["", "_pos"];
+    _pos set [2, 0];
+    (vehicle CLib_Player) setPos _pos;
+}];
+#endif
