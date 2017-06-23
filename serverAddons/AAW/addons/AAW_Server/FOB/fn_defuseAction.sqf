@@ -25,9 +25,8 @@ private _showCondition = {
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
                 GVAR(currentFob) = _x;
-                private _maxDir = 1.55 atan2 (CLib_Player distance _position);
-                private _correctDir = (abs(abs((CLib_Player getRelDir _position) - 180) - 180) < _maxDir);
-                _correctDir breakOut "ActionCondition";
+                private _inVew = [CLib_Player, _position, 1.55] call CFUNC(inFOV);
+                _inVew breakOut "ActionCondition";
             };
         } count (call EFUNC(Common,getAllDeploymentPoints));
         false
