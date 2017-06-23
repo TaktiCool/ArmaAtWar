@@ -25,7 +25,8 @@ private _showCondition = {
 
             if (_type == "RALLY" && {CLib_Player distance _position <= 5 && side _availableFor != side group CLib_Player}) then {
                 GVAR(currentRally) = _x;
-                true breakOut "ActionCondition";
+                private _inView = [CLib_Player, _position, 1] call CFUNC(inFOV);
+                _inView breakOut "ActionCondition";
             };
         } count (call EFUNC(Common,getAllDeploymentPoints));
         false

@@ -96,6 +96,7 @@ class CfgCLibModules {
             FNC(destroy);
             FNC(destroyAction);
             FNC(canPlace);
+            FNC(serverInit);
         };
 
         // FOB system
