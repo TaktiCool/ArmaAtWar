@@ -25,7 +25,8 @@ private _showCondition = {
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
                 GVAR(currentFob) = _x;
-                true breakOut "ActionCondition";
+                private _inVew = [CLib_Player, _position, 1.55] call CFUNC(inFOV);
+                _inVew breakOut "ActionCondition";
             };
         } count (call EFUNC(Common,getAllDeploymentPoints));
         false

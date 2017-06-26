@@ -13,13 +13,6 @@
     Returns:
     None
 */
-/*
-[QGVAR(KitGroups), missionConfigFile >> QPREFIX >> "KitGroups"] call CFUNC(loadSettings);
-{
-    [format [QGVAR(Kit_%1), configName _x], _x >> "Kits"] call CFUNC(loadSettings);
-    nil
-} count ("true" configClasses (missionConfigFile >> QPREFIX >> "Sides"));
-*/
 // When the player changes he takes his kit with him.
 ["playerChanged", {
     (_this select 0) params ["_newPlayer", "_oldPlayer"];
