@@ -80,7 +80,8 @@ DFUNC(RadioEvent) = {
 }] call CFUNC(addEventhandler);
 
 ["stopRadioSpeaking", {
-
+    (_this select 0) params ["_unit", "_channel"];
+    
     playSound "AAW_RadioClickOut";
     if (_unit != CLib_player) then {
         private _source = objNull;
