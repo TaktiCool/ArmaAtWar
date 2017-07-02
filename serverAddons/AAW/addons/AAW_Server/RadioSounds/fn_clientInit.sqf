@@ -53,10 +53,9 @@ DFUNC(RadioEvent) = {
     if (_unit != CLib_player) then {
         private _source = objNull;
         private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
-        CLib_player getVariable [QGVAR(NoiseSoundSource), _nbrSoundSources + 1];
+        CLib_player setVariable [QGVAR(NoiseSoundSource), _nbrSoundSources + 1];
         if (_nbrSoundSources == 0) then {
             [{
-                (_this select 0) params ["_source"];
                 private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
                 if (_nbrSoundSources <= 0) exitWith {
                     (_this select 1) call CFUNC(removePerFrameHandler);
@@ -65,7 +64,7 @@ DFUNC(RadioEvent) = {
                     CLib_player say3D ["AAW_RadioNoise", 10, 0.9 + ( random 0.2)];
                 };
 
-            }, 0, _source] call CFUNC(addPerFrameHandler);
+            }, 0] call CFUNC(addPerFrameHandler);
         };
 
     };
@@ -77,7 +76,7 @@ DFUNC(RadioEvent) = {
     playSound "AAW_RadioClickOut";
     if (_unit != CLib_player) then {
         private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
-        CLib_player getVariable [QGVAR(NoiseSoundSource), (_nbrSoundSources - 1) max 0];
+        CLib_player setVariable [QGVAR(NoiseSoundSource), (_nbrSoundSources - 1) max 0];
     };
 
 }] call CFUNC(addEventhandler);
