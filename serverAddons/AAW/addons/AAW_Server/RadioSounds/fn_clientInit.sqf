@@ -52,55 +52,32 @@ DFUNC(RadioEvent) = {
     playSound "AAW_RadioClickIn";
     if (_unit != CLib_player) then {
         private _source = objNull;
-        private _nbrSoundSources = {
-            private _value = _x getVariable [QGVAR(NoiseSoundSource), 0];
-            if (_value > 0) exitWith {
-                _source = _x;
-                _value;
-            };
-            false;
-        } count attachedObjects CLib_player;
+        private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
+        CLib_player getVariable [QGVAR(NoiseSoundSource), _nbrSoundSources + 1];
+        if (_nbrSoundSources == 0) then {
+            [{
+                (_this select 0) params ["_source"];
+                private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
+                if (_nbrSoundSources <= 0) exitWith {
+                    (_this select 1) call CFUNC(removePerFrameHandler);
+                };
+                for "_i" from 1 to _nbrSoundSources do {
+                    CLib_player say3D ["AAW_RadioNoise", 10, 0.9 + ( random 0.2)];
+                };
 
-        if (isNull _source) then {
-            _source = "#particlesource" createVehicleLocal getPos CLib_player;
-            _source attachTo [CLib_player, [0, 0, 0], "neck"];
+            }, 0, _source] call CFUNC(addPerFrameHandler);
         };
-
-        _source setVariable [QGVAR(NoiseSoundSource), _nbrSoundSources + 1];
-
-        [{
-            (_this select 0) params ["_source"];
-            if (!isNull _source) exitWith {
-                (_this select 1) call CFUNC(removePerFrameHandler);
-            };
-            _source say2D "AAW_RadioNoise";
-        }, 5, _source] call CFUNC(addPerFrameHandler);
 
     };
 }] call CFUNC(addEventhandler);
 
 ["stopRadioSpeaking", {
     (_this select 0) params ["_unit", "_channel"];
-    
+
     playSound "AAW_RadioClickOut";
     if (_unit != CLib_player) then {
-        private _source = objNull;
-        private _nbrSoundSources = {
-            private _value = _x getVariable [QGVAR(NoiseSoundSource), 0];
-            if (_value > 0) exitWith {
-                _source = _x;
-                _value;
-            };
-            false;
-        } count attachedObjects CLib_player;
-
-        if (_nbrSoundSources > 0) then {
-            _nbrSoundSources = _nbrSoundSources - 1;
-            _source setVariable [QGVAR(NoiseSoundSource), _nbrSoundSources];
-            if (_nbrSoundSources == 0) then {
-                deleteVehicle _source;
-            };
-        };
+        private _nbrSoundSources = CLib_player getVariable [QGVAR(NoiseSoundSource), 0];
+        CLib_player getVariable [QGVAR(NoiseSoundSource), (_nbrSoundSources - 1) max 0];
     };
 
 }] call CFUNC(addEventhandler);
