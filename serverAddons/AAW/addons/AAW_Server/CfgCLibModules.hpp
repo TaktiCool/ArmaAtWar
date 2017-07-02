@@ -83,9 +83,9 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-
             FNC(clientInit);
             FNC(serverInit);
+            FNC(updateList);
         };
 
         // Rally System
