@@ -31,3 +31,5 @@
 }, {
     call FUNC(place);
 }, ["showWindow", false]] call CFUNC(addAction);
+
+call FUNC(destroyAction);

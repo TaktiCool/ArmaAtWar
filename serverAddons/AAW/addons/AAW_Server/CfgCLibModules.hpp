@@ -1,7 +1,4 @@
-#define DFNC(f) class f
-#define FNC(f) DFNC(f)
-#define APIFNC(f) DFNC(f) {api = 1;}
-#define MODULE(m) class m
+#include "\tc\CLib\addons\CLib\ModuleMacros.hpp"
 
 class CfgCLibModules {
     class AAW {
@@ -87,19 +84,20 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-
             FNC(clientInit);
             FNC(serverInit);
+            FNC(updateList);
         };
 
         // Rally System
         MODULE(Rally) {
             dependency[] = {"AAW/Common"};
-            FNC(serverInit);
             FNC(clientInit);
             FNC(place);
             FNC(destroy);
+            FNC(destroyAction);
             FNC(canPlace);
+            FNC(serverInit);
         };
 
         // FOB system
@@ -107,7 +105,6 @@ class CfgCLibModules {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
             FNC(serverInit);
-            FNC(init);
             FNC(place);
             FNC(destroyAction);
             FNC(defuseAction);

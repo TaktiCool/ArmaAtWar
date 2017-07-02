@@ -51,6 +51,12 @@
 
     private _selectedKit = CLib_Player getVariable [QEGVAR(Kit,kit), ""];
 
+    // Check if selected kit is still available
+    private _usableKitCount = [_selectedKit] call EFUNC(Kit,getUsableKitCount);
+    if (_usableKitCount <= 0) then {
+        _selectedKit = "";
+    };
+
     // Prepare the data for the lnb
     private _lnbData = [];
     {
@@ -77,7 +83,7 @@
     } count (call EFUNC(Kit,getAllKits));
 
     // Update the lnb
-    [_display displayCtrl 303, _lnbData, CLib_Player getVariable QEGVAR(Kit,kit)] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
+    [_display displayCtrl 303, _lnbData, _selectedKit] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
 }] call CFUNC(addEventHandler);
 
 // When the selected entry changed update the weapon tab content
