@@ -36,3 +36,21 @@ DFUNC(setLogisticVariables) = {
 }] call CFUNC(addEventHandler);
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
+
+["missionStarted", {
+    {
+        private _cfg = QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), _x], ""] call CFUNC(getSetting));
+        private _resources = [_cfg + "/resources", 100] call CFUNC(getSetting);
+        private _resourceGrowth = [_cfg + "/resourceGrowth", [1, 12]] call CFUNC(getSetting);
+        missionNamespace setVariable [format [QGVAR(sideResources_%1), _x], _resources, true];
+        [{
+            (_this select 0) params ["_resourceGrowth", "_side"];
+            private _resources = missionNamespace getVariable [format [QGVAR(sideResources_%1), _side], 0];
+            _resources = _resources + (_resourceGrowth select 0);
+            missionNamespace setVariable [format [QGVAR(sideResources_%1), _side], _resources, true];
+            ["resourcesChanged", _side] call CFUNC(targetEvent);
+        }, _resourceGrowth select 1, [_resourceGrowth, _x]] call CFUNC(addPerFrameHandler);
+        nil;
+    } count EGVAR(Common,competingSides);
+    nil;
+}] call CFUNC(addEventHandler);

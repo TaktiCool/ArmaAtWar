@@ -13,12 +13,18 @@
     Returns:
     None
 */
-[QGVAR(Settings), missionConfigFile >> "AAW" >> "CfgRevive"] call CFUNC(loadSettings);
 
 GVAR(UnconsciousFrame) = -1;
+GVAR(UnconsciousSince) = -1;
 
-["HandleDamage", {
-    (_this select 0) call FUNC(damageHandler);
+["playerChanged", {
+    (_this select 0) params ["_newPlayer", "_oldPlayer"];
+    private _oldId = _oldPlayer getVariable [QGVAR(HandleDamageId), -1];
+    if (_oldId >= 0) then {
+        _oldPlayer removeEventHandler ["HandleDamage", _oldId];
+    };
+    private _id = _newPlayer addEventHandler ["HandleDamage", {_this call FUNC(damageHandler)}];
+    _newPlayer setVariable [QGVAR(HandleDamageId), _id];
 }] call CFUNC(addEventhandler);
 
 ["Respawn", {

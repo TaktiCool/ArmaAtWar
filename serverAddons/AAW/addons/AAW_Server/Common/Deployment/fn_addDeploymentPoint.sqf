@@ -16,7 +16,7 @@
     5: Icon path <STRING>
     6: Map icon path <STRING>
     7: Objects <ARRAY>
-    8: CostumData <Array>
+    8: CustomData <Array>
 
 
     CustomData Array Structure:
@@ -30,22 +30,34 @@
 params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
 
 private _id = format ["%1_%2", _name, _position];
+private _namespace = true call CFUNC(createNamespace);
+_namespace setPos _position;
 
-[GVAR(DeploymentPointStorage), _id, [_name, _type, _position, _availableFor, _spawnTickets, _icon, _mapIcon, _pointObjects, [[], []]], QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+[GVAR(DeploymentPointStorage), _id, _namespace, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
+{
+    [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
+    nil
+} count [
+    ["name", _name],
+    ["type", _type],
+    ["position", _position],
+    ["availableFor", _availableFor],
+    ["spawnTickets", _spawnTickets],
+    ["icon", _icon],
+    ["mapIcon", _mapIcon],
+    ["pointObjects", _pointObjects]
+];
 
 {
-    _x call FUNC(setDeploymentCustomData);
+    [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
     nil
 } count _customData;
 
-private _side = sideUnknown;
 
-if (_availableFor isEqualType sideUnknown) then {
-    _side = _availableFor;
-} else {
-    _side = side _availableFor;
+if !(_availableFor isEqualType sideUnknown) then {
+    _availableFor = side _availableFor;
 };
 
-[QGVAR(deploymentPointAdded), _side] call CFUNC(targetEvent);
+[QGVAR(deploymentPointAdded), _availableFor, _id] call CFUNC(targetEvent);
 
 _id

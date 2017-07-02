@@ -22,18 +22,18 @@ GVAR(ScoreBuffer) = [];
 DFUNC(publicScores) = {
     params ["_uid", "_entry"];
 
-    private _oldEntry = GVAR(ScoreNamespace) getVariable [_uid+"_SCORES_SERVER", [0, 0, 0, 0, 0]];
+    private _oldEntry = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES_SERVER", [0, 0, 0, 0, 0]];
     if (!(_entry isEqualTo _oldEntry)) then {
-        GVAR(ScoreNamespace) setVariable [_uid+"_SCORES_SERVER", _entry];
+        GVAR(ScoreNamespace) setVariable [_uid + "_SCORES_SERVER", _entry];
         GVAR(ScoreBuffer) pushBackUnique _uid;
         if (count GVAR(ScoreBuffer) == 1) then {
             [{
                 {
-                    private _entry = GVAR(ScoreNamespace) getVariable [_x+"_SCORES_SERVER", [0, 0, 0, 0, 0]];
-                    GVAR(ScoreNamespace) setVariable [_x+"_SCORES", _entry, true];
+                    private _entry = GVAR(ScoreNamespace) getVariable [_x + "_SCORES_SERVER", [0, 0, 0, 0, 0]];
+                    GVAR(ScoreNamespace) setVariable [_x + "_SCORES", _entry, true];
                 } count GVAR(ScoreBuffer);
                 GVAR(ScoreBuffer) = [];
-                ["scoreUpdate"] call CFUNC(globalEvent);
+                [QGVAR(ScoreUpdate)] call CFUNC(globalEvent);
             }, 3] call CFUNC(wait);
         };
     };
@@ -45,22 +45,28 @@ DFUNC(calcScores) = {
     private _numberOfKills = {
         _x params ["_time", "_killedUnitUid", "_friendlyFire"];
         _time < (time + 60) && !_friendlyFire;
-    } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
+    } count (GVAR(ScoreNamespace) getVariable [_uid + "_KILLS", []]);
 
     private _numberOfFFKills = {
         _x params ["_time", "_killedUnitUid", "_friendlyFire"];
         _friendlyFire;
-    } count (GVAR(ScoreNamespace) getVariable [_uid+"_KILLS", []]);
+    } count (GVAR(ScoreNamespace) getVariable [_uid + "_KILLS", []]);
 
-    private _numberOfDeaths = count (GVAR(ScoreNamespace) getVariable [_uid+"_DEATHS", []]);
+    private _numberOfDeaths = count (GVAR(ScoreNamespace) getVariable [_uid + "_DEATHS", []]);
 
-    private _medicalTreatments = (GVAR(ScoreNamespace) getVariable [_uid+"_MEDICALTREATMENTS", []]);
+    private _medicalTreatments = (GVAR(ScoreNamespace) getVariable [_uid + "_MEDICALTREATMENTS", []]);
     private _numberOfRevives = {_uid != (_x select 2) && {(_x select 1) == "REVIVED"}} count _medicalTreatments;
     private _numberOfHeals = {_uid != (_x select 2) && {(_x select 1) == "HEALED"}} count _medicalTreatments;
 
-    private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid+"_SECTORCAPTURES", []]);
+    private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid + "_SECTORCAPTURES", []]);
 
-    private _entry = [_numberOfKills, _numberOfDeaths, _numberOfHeals + 5*_numberOfRevives, _captureScore*10, (_numberOfRevives*5 + _numberOfHeals*1 + _numberOfKills*10 - _numberOfFFKills*20 + _captureScore*10)];
+    private _entry = [
+        _numberOfKills,
+        _numberOfDeaths,
+        _numberOfHeals + 5 * _numberOfRevives,
+        _captureScore * 10,
+        (_numberOfRevives * 5 + _numberOfHeals * 1 + _numberOfKills * 10 - _numberOfFFKills * 20 + _captureScore * 10)
+    ];
 
     [_uid, _entry] call FUNC(publicScores);
 };
@@ -113,7 +119,6 @@ DFUNC(registerPlayerAction) = {
                 [getPlayerUID _x, [time, str _sector, "NEUTRALIZED"], "SECTORCAPTURES"] call FUNC(registerPlayerAction);
                 [getPlayerUID _x] call FUNC(calcScores);
             };
-
         } count (_sector getVariable [format ["units%1", _attackerSide], []]);
     } else {
         {

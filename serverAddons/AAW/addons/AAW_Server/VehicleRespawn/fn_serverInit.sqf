@@ -98,7 +98,7 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
             _defaultState;
         };
 
-        _abandonedSince = _vehicle getVariable [QGVAR(abandonedSince), -1];
+        private _abandonedSince = _vehicle getVariable [QGVAR(abandonedSince), -1];
 
         if (_abandonedSince < 0) then { //was abandoned last time??
             _vehicle setVariable [QGVAR(abandonedSince), diag_tickTime];
@@ -113,7 +113,9 @@ GVAR(AbandonedVehiclesSM) = call CFUNC(createStatemachine);
 
                     GVAR(VehicleRespawnAllVehicles) deleteAt (GVAR(VehicleRespawnAllVehicles) find _vehicle);
 
-                    [FUNC(performVehicleRespawn), _respawnTime, [_vehicle, typeOf _vehicle, vehicleVarName _vehicle, _respawnPosition, _respawnDirection, _respawnCondition, _respawnCounter]] call CFUNC(wait);
+                    deleteVehicle _vehicle;
+
+                    [FUNC(performVehicleRespawn), _respawnTime max 0, [_vehicle, typeOf _vehicle, vehicleVarName _vehicle, _respawnPosition, _respawnDirection, _respawnCondition, _respawnCounter]] call CFUNC(wait);
                 };
             };
         };

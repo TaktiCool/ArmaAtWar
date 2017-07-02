@@ -50,6 +50,14 @@ GVAR(selectedDeploymentPoint) = "";
     if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
+        private _minRespawnTime = diag_tickTime;
+        if (EGVAR(Revive,UnconsciousSince) > -1) then {
+            _minRespawnTime = EGVAR(Revive,UnconsciousSince);
+            EGVAR(Revive,UnconsciousSince) = -1;
+        };
+
+        _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
+
         [{
             params ["_params", "_id"];
             _params params ["_control", "_respawnTime"];
@@ -70,7 +78,7 @@ GVAR(selectedDeploymentPoint) = "";
             // Update the text on the button
             private _time = _respawnTime - diag_tickTime;
             _control ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-        }, 0.1, [_control, diag_tickTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting))]] call CFUNC(addPerFrameHandler);
+        }, 0.1, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
     } else {
         _control ctrlSetText "Close";
     };
@@ -115,16 +123,16 @@ GVAR(selectedDeploymentPoint) = "";
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentCustomData);
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
             ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) exitWith {
+        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
             ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
         };
 
@@ -183,11 +191,11 @@ GVAR(selectedDeploymentPoint) = "";
             _color = [0.3, 0.3, 0.3, 1];
         };
 
-        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
-        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
@@ -224,8 +232,7 @@ GVAR(selectedDeploymentPoint) = "";
     GVAR(lastSelectedPoint) = _selectedPoint;
 
     // Get the point data
-    private _pointDetails = EGVAR(Common,DeploymentPointStorage) getVariable _selectedPoint;
-    private _position = _pointDetails select 2;
+    private _position = [_selectedPoint, "position"] call EFUNC(Common,getDeploymentPointData);
 
     // Animate the map
     private _controlMap = _display displayCtrl 800;

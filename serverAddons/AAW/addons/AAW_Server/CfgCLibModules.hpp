@@ -1,7 +1,4 @@
-#define DFNC(f) class f
-#define FNC(f) DFNC(f)
-#define APIFNC(f) DFNC(f) {api = 1;}
-#define MODULE(m) class m
+#include "\tc\CLib\addons\CLib\ModuleMacros.hpp"
 
 class CfgCLibModules {
     class AAW {
@@ -35,11 +32,10 @@ class CfgCLibModules {
                 // DataManagement
                 FNC(setDeploymentPointData);
                 FNC(getDeploymentPointData);
-                FNC(setDeploymentCustomData);
-                FNC(getDeploymentCustomData);
 
                 // Misc
                 FNC(getAvailableDeploymentPoints);
+                FNC(getAllDeploymentPoints);
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
@@ -61,13 +57,11 @@ class CfgCLibModules {
             // Notification
             MODULE(Notification) {
                 FNC(clientInitNotification);
-                FNC(displayNotificationOld);
                 FNC(displayNotification);
                 FNC(displayHint);
                 FNC(drawNotification);
                 FNC(drawHint);
                 FNC(registerDisplayNotification);
-                FNC(handleNotificationQueue);
             };
 
             // Performance Info
@@ -89,9 +83,9 @@ class CfgCLibModules {
         // ScoreTable
         MODULE(ScoreTable) {
             dependency[] = {"AAW/Common"};
-
             FNC(clientInit);
             FNC(serverInit);
+            FNC(updateList);
         };
 
         // RadioSounds
@@ -104,11 +98,12 @@ class CfgCLibModules {
         // Rally System
         MODULE(Rally) {
             dependency[] = {"AAW/Common"};
-            FNC(serverInit);
             FNC(clientInit);
             FNC(place);
             FNC(destroy);
+            FNC(destroyAction);
             FNC(canPlace);
+            FNC(serverInit);
         };
 
         // FOB system
@@ -116,7 +111,6 @@ class CfgCLibModules {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
             FNC(serverInit);
-            FNC(init);
             FNC(place);
             FNC(destroyAction);
             FNC(defuseAction);
@@ -157,6 +151,8 @@ class CfgCLibModules {
             FNC(dragObject);
             FNC(dropObject);
             FNC(spawnCrate);
+            FNC(buildResourcesDisplay);
+            FNC(updateResourcesDisplay);
         };
 
         // Mortar

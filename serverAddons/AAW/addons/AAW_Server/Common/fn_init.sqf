@@ -39,7 +39,7 @@ if (hasInterface) then {
 
         private _mainDisplay = findDisplay 46;
 
-        _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
+        private _ctrl = _mainDisplay ctrlCreate ["RscStructuredText", -1];
         _ctrl ctrlSetPosition [safeZoneX + safeZoneW - PX(50), safeZoneY + safeZoneH - PY(8), PX(50), PY(10)];
         _ctrl ctrlSetFade 0.4;
         _ctrl ctrlSetStructuredText parseText format [
@@ -99,7 +99,7 @@ if (hasInterface) then {
         (_this select 0) params ["_currentSide", "_oldSide"];
 
         if (_currentSide == sideEnemy) then {
-            _rating = rating CLib_Player;
+            private _rating = rating CLib_Player;
             CLib_Player addRating (0 - _rating);
         };
     }] call CFUNC(addEventhandler);
@@ -107,10 +107,6 @@ if (hasInterface) then {
 
 // generate Base sides and Hide all Markers
 ["missionStarted", {
-    if (isServer) then {
-        {_x setMarkerAlpha 0} count allMapMarkers;
-    };
-
     GVAR(maxPlayerCountDifference) = getNumber (missionConfigFile >> QPREFIX >> "maxPlayerCountDifference");
     GVAR(competingSides) = [];
     {
@@ -172,3 +168,13 @@ if (hasInterface) then {
 
 ["performanceCheck", 0] call CFUNC(addIgnoredEventLog);
 CGVAR(hideHUD) = false;
+
+#ifdef ISDEV
+addMissionEventHandler ["MapSingleClick", {
+    params ["", ["_pos", getPos player], ["_alt", true]];
+    if (_alt) then {
+        _pos set [2, 0];
+        (vehicle CLib_Player) setPos _pos;
+    };
+}];
+#endif
