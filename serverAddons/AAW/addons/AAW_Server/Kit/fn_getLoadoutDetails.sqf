@@ -29,8 +29,9 @@ _request apply {
     _x params [["_req", ""], ["_ret", []]];
     private _return = [];
     {
-        private _re = [_x, [[_req, false]]] call CFUNC(getLoadoutDetail);
-        if !(_re isEqualType false) then {
+        private _re = [_x, [[_req, false]]] call CFUNC(getLoadoutDetails);
+        DUMP(str _re);
+        if (_re isEqualType []) then {
             _ret append _re;
         };
     } count _loadouts;
