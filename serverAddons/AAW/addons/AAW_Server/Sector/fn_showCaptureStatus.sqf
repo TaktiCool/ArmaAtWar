@@ -36,23 +36,23 @@ if (_show) then {
     (_display displayCtrl 1202) ctrlCommit 0;
 
     private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
-    _ctrlGrp ctrlSetPosition [ 0.5 - PX(14), safeZoneY + PY(3.5), PX(30), PY(3)];
+    _ctrlGrp ctrlSetPosition [ 0.5 - PX(10.5), safeZoneY + PY(4), PX(30), PY(3)];
     _ctrlGrp ctrlSetFade 1;
     _ctrlGrp ctrlCommit 0;
 
     private _ctrlBg = _display ctrlCreate ["RscText", -1, _ctrlGrp];
-    _ctrlBg ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlBg ctrlSetPosition [0, 0, PX(21), PY(2.5)];
     _ctrlBg ctrlSetBackgroundColor [0.5, 0.5, 0.5, 0.5];
     _ctrlBg ctrlCommit 0;
 
     private _ctrlProgressBar = _display ctrlCreate ["RscProgress", 1004, _ctrlGrp];
-    _ctrlProgressBar ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlProgressBar ctrlSetPosition [0, 0, PX(21), PY(0.2)];
     _ctrlProgressBar ctrlCommit 0;
 
-    private _textSize = PY(2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
+    private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
 
     private _ctrlText = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
-    _ctrlText ctrlSetPosition [0, 0, PX(28), PY(2)];
+    _ctrlText ctrlSetPosition [0, PY(0.2), PX(21), PY(2.3)];
     _ctrlText ctrlSetStructuredText parseText format ["<t size='%1' align='center' shadow=false><t font='RobotoCondensedBold'>%2</t>  %3</t>", _textSize, _sectorObject getVariable ["designator", ""], _sectorObject getVariable ["fullName", ""]];
     _ctrlText ctrlCommit 0;
 
@@ -79,8 +79,8 @@ if (_show) then {
         private _dialog = uiNamespace getVariable UIVAR(CaptureStatus);
 
         private _color = [
-            [0.6, 0, 0, 0.7],
-            [0, 0.4, 0.8, 0.7]
+            [0.6, 0, 0, 1],
+            [0, 0.4, 0.8, 1]
         ] select (_aside isEqualTo side group CLib_player);
 
         if (_aside isEqualTo sideUnknown) then {
