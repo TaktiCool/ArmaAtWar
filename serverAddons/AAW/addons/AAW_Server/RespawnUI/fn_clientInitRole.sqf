@@ -133,11 +133,16 @@
     // Get the kit data
     private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
     private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGun", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getLoadoutDetails);
-    _selectedKitDetails = _selectedKitDetails select 0;
+    _selectedKitDetails = (_selectedKitDetails select 0) select 0;
+    if (_selectedKitDetails == "") then {
+        (_display displayCtrl 306) ctrlSetText "";
+        (_display displayCtrl 307) ctrlSetText "None";
+    } else {
+        // WeaponPicture
+        (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "picture"));
 
-    // WeaponPicture
-    (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture"));
+        // WeaponName
+        (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "displayName"));
+    };
 
-    // WeaponName
-    (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName"));
 }] call CFUNC(addEventHandler);

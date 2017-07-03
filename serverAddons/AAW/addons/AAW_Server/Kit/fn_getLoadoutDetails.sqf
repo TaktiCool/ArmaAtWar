@@ -38,6 +38,5 @@ _request apply {
         };
         nil
     } count _loadouts;
-    DUMP(str _return);
     _return;
 };
