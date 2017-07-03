@@ -29,12 +29,10 @@ _request apply {
     private _return = [];
     {
         private _re = [_x, [[_req, _default]]] call CFUNC(getLoadoutDetails);
-        if (_re isEqualType []) then {
-            if ((_re select 0) isEqualType []) then {
-                _return append (_re select 0);
-            } else {
-                _return pushBack (_re select 0);
-            }
+        if ((_re select 0) isEqualType []) then {
+            _return append (_re select 0);
+        } else {
+            _return pushBack (_re select 0);
         };
         nil
     } count _loadouts;

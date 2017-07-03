@@ -132,10 +132,11 @@
 
     // Get the kit data
     private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
-    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGun", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getLoadoutDetails);
+    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGun", "secondaryWeapon"] select _selectedTabIndex, [""]]]] call EFUNC(Kit,getLoadoutDetails);
+    DUMP(str _selectedKitDetails);
     _selectedKitDetails = (_selectedKitDetails select 0) select 0;
-    if (_selectedKitDetails == "") then {
-        (_display displayCtrl 306) ctrlSetText "";
+    if (isNil "_selectedKitDetails") then {
+        (_display displayCtrl 306) ctrlSetText "#(argb,8,8,3)color(0,0,0,0)";
         (_display displayCtrl 307) ctrlSetText "None";
     } else {
         // WeaponPicture
