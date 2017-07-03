@@ -18,9 +18,8 @@
 */
 params [["_type", "WINNER"]];
 
-//--- Save for external use
-missionnamespace setvariable ["BIS_fnc_missionHandlers_win",_type isEqualTo "WINNER"]; //--- ToDo: Detect win type in engine
-missionnamespace setvariable ["BIS_fnc_missionHandlers_end",_type]; //--- ToDo: Detect end type in engine
+missionnamespace setvariable ["BIS_fnc_missionHandlers_win",_type isEqualTo "WINNER"];
+missionnamespace setvariable ["BIS_fnc_missionHandlers_end",_type];
 
 
 private _musicVolume = musicVolume;
