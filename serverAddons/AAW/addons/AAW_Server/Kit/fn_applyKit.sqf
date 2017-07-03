@@ -39,7 +39,6 @@ if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
 
-
 {
     [_x] call CFUNC(applyLoadout);
     nil

@@ -132,6 +132,7 @@ class CfgCLibModules {
             FNC(getKitDetails);
             FNC(getUsableKitCount);
             FNC(applyKit);
+            FNC(getLoadoutDetails)
         };
 
         // Logistic
