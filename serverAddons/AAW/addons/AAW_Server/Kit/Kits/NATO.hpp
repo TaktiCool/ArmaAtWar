@@ -4,13 +4,15 @@ class NATO {
         kitGroup = "Unlimited";
         availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
 
+        // Loadouts
+        loadouts[] = {"TestLoadout"};
+
         // Display
         displayName = "Rifleman";
         icon = "";
         UIIcon = "\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa";
         mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
         compassIcon[] = {"a3\ui_f\data\map\Markers\Military\dot_ca.paa", 3.6};
-
         // Special attributes
         isLeader = 0;
         isMedic = 0;
