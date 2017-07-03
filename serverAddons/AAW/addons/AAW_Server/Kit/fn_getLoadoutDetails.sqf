@@ -24,16 +24,22 @@ if (_kitName isEqualType []) then {
     _loadouts = _kitDetails select 0;
 };
 
-
 _request apply {
-    _x params [["_req", ""], ["_ret", []]];
+    _x params [["_req", ""], ["_default", []]];
     private _return = [];
     {
         private _re = [_x, [[_req, false]]] call CFUNC(getLoadoutDetails);
-        DUMP(str _re);
         if (_re isEqualType []) then {
-            _ret append _re;
+            if ((_re select 0) isEqualType []) then {
+                _return append (_re select 0);
+            } else {
+                _return pushBack (_re select 0);
+            }
+        } else {
+            _return pushback _default;
         };
+        nil
     } count _loadouts;
-    _ret;
+    DUMP(str _return);
+    _return;
 };

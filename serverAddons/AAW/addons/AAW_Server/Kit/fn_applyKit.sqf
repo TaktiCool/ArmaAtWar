@@ -40,7 +40,7 @@ if (_mapIcon == "") then {
 };
 
 {
-    [_x] call CFUNC(applyLoadout);
+    [CLib_Player, _x] call CFUNC(applyLoadout);
     nil
 } count _loadouts;
 
