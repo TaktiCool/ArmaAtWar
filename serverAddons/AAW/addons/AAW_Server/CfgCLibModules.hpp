@@ -242,5 +242,15 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(performVehicleRespawn);
         };
+
+        // VehicleRespawn
+        MODULE(Suppression) {
+            dependency[] = {"AAW/Common"};
+            FNC(bulletHandler);
+            FNC(clientInit);
+            FNC(fired);
+            FNC(impact);
+            FNC(pinnedDown);
+        };
     };
 };
