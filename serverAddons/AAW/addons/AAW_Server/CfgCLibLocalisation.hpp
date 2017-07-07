@@ -7,6 +7,12 @@ class CfgCLibLocalisation {
                 English = "You can not enter the enemy base";
                 German = "Du darfst nicht in die feindliche Basis";
             };
+            class BASEPROTECTION {
+                English = "BASE PROTECTION";
+            };
+            class DontShoot {
+                English = "You are not allowed to shoot in your base!";
+            };
         };
 
         // Common
@@ -18,6 +24,128 @@ class CfgCLibLocalisation {
                 Polish = "%1 (Pozostało %2 odrodzeń)";
                 Korean = "%1 (스폰 %2 남음)";
                 Spanish = "%1 (%2 inserciones restantes)";
+            };
+            class IngameVersionInfo {
+                English = "<t align='right' size='%1'>Mission Version: %2<br />Server Version: %3</t><br /><t align='right' size='%4'>The current version of AAW is in a stage of early Alpha.<br />Every element is subject to change at the current state of development</t>";
+            };
+            class PauseVersionInfo {
+                English = "<t align='center'><img color='#ffffff' shadow='0' size='%1' image='%6' /></t><t align='center' size='%2'><br />Mission Version: %3<br />Server Version: %4<br /></t><t size='%5' align='center' font='PuristaBold'><a href='%7'>REPORT AN ISSUE</a></t>";
+            };
+            class SIDESUNBALANCED {
+                English = "SIDES UNBALANCED";
+            };
+            class changeSide {
+                English = "Please change side";
+            };
+        };
+
+        // FOB
+        class FOB {
+            class Build {
+                English = "Build FOB";
+            };
+            class Defuse {
+                English = "Defuse FOB";
+            };
+            class Destroy {
+                English = "Destroy FOB";
+				Czech = "Znič FOB";
+                German = "FOB zerstören";
+                Polish = "Zniszcz FOB";
+                Korean = "전진기치 철거";
+                Spanish = "Destruir FOB";
+            };
+            class Dismantle {
+                English = "Dismantle FOB";
+            };
+            class NotPlacable {
+                English = "FOB NOT PLACABLE";
+            };
+            class NotEnoughSpace {
+                English = "Not enough space available!";
+            };
+            class NewFOB {
+                English = "NEW FOB PALCED";
+            };
+            class Near {
+                English = "near %1"
+            };
+        };
+
+        // Kit
+        class Kit {
+            class VEHICLELOCKED {
+                English = "VEHICLE LOCKED";
+            };
+            class EnemyVehicle {
+                English = "You are not allowed to use enemy vehicles!";
+            };
+            class PilotRequired {
+                English = "Please select a pilot role first!";
+            };
+            class DriverRequired {
+                English = "Driver needs to be present<br>before boarding a gunner seat!";
+            };
+            class CrewRequired {
+                English = "Please select a crew role first!";
+            };
+        };
+
+        // Logistic
+        class Logistic {
+			class OpenRequestScreen {
+				English = "Request Resources";
+			};
+            class Drag {
+                English = "Drag %1";
+                Czech = "Táhni %1";
+                German = "Ziehe %1";
+                Polish = "Ciągnij %1";
+                Korean = "끌어오기 %1";
+                Spanish = "Arrastrar %1";
+            };
+            class Drop {
+                English = "Drop";
+                Czech = "Upust";
+                German = "Loslassen";
+                Polish = "Upuść";
+                Korean = "내려놓기";
+                Spanish = "Soltar";
+            };
+            class loadItem {
+                English = "Load item into %1";
+                Czech =  "Nalož předmět do %1";
+                German = "Lade Objekt in %1";
+                Polish = "Załaduj przedmiot %1";
+                Korean = "%1에 적재하기";
+                Spanish = "Cargar artículo dentro de %1";
+            };
+            class noCargoSpace {
+                English = "No cargo space available";
+                Czech = "Žádný volný nákládový prostor";
+                German = "Kein Ladeplatz mehr frei";
+                Polish = "Brak wolnej przestrzeni ładunkowej";
+                Korean = "화물을 적재할 공간이 없습니다.";
+                Spanish = "Sin espacio de carga disponible";
+            };
+            class UnloadItem {
+                English = "Unload item out of %1";
+                Czech = "Vylož předmět z %1";
+                German = "Entlade Objekt aus %1";
+                Polish = "Wyładuj przedmiot z %1";
+                Spanish = "Descargar artículo fuera de %1";
+            };
+            class UnableToUnload {
+                English = "You are unable to unload the crate at your current position.";
+                German = "Du kannst die Kiste in deiner Aktuellen Postion nicht entladen.";
+                Spanish = "No puedes Descargar la Caja en tu posición actual.";
+            };
+            class itemToHeavy {
+                English = "Item is %1kg too heavy";
+                Czech = "Předmět je %1kg příliž těžký";
+                German = "Das Objekt ist %1kg zu schwer";
+                Polish = "Przedmiot waży o %1kg za dużo";
+                Spanish = "Artículo se excede de peso por %1kg";
             };
         };
 
@@ -128,62 +256,6 @@ class CfgCLibLocalisation {
             };
         };
 
-
-        // Logistic
-        class Logistic {
-            class Drag {
-                English = "Drag %1";
-                Czech = "Táhni %1";
-                German = "Ziehe %1";
-                Polish = "Ciągnij %1";
-                Korean = "끌어오기 %1";
-                Spanish = "Arrastrar %1";
-            };
-            class Drop {
-                English = "Drop";
-                Czech = "Upust";
-                German = "Loslassen";
-                Polish = "Upuść";
-                Korean = "내려놓기";
-                Spanish = "Soltar";
-            };
-            class loadItem {
-                English = "Load item into %1";
-                Czech =  "Nalož předmět do %1";
-                German = "Lade Objekt in %1";
-                Polish = "Załaduj przedmiot %1";
-                Korean = "%1에 적재하기";
-                Spanish = "Cargar artículo dentro de %1";
-            };
-            class noCargoSpace {
-                English = "No cargo space available";
-                Czech = "Žádný volný nákládový prostor";
-                German = "Kein Ladeplatz mehr frei";
-                Polish = "Brak wolnej przestrzeni ładunkowej";
-                Korean = "화물을 적재할 공간이 없습니다.";
-                Spanish = "Sin espacio de carga disponible";
-            };
-            class UnloadItem {
-                English = "Unload item out of %1";
-                Czech = "Vylož předmět z %1";
-                German = "Entlade Objekt aus %1";
-                Polish = "Wyładuj przedmiot z %1";
-                Spanish = "Descargar artículo fuera de %1";
-            };
-            class UnableToUnload {
-                English = "You are unable to unload the crate at your current position.";
-                German = "Du kannst die Kiste in deiner Aktuellen Postion nicht entladen.";
-                Spanish = "No puedes Descargar la Caja en tu posición actual.";
-            };
-            class itemToHeavy {
-                English = "Item is %1kg too heavy";
-                Czech = "Předmět je %1kg příliž těžký";
-                German = "Das Objekt ist %1kg zu schwer";
-                Polish = "Przedmiot waży o %1kg za dużo";
-                Spanish = "Artículo se excede de peso por %1kg";
-            };
-        };
-
         // Rally
         class Rally {
             class CreateRally {
@@ -209,46 +281,6 @@ class CfgCLibLocalisation {
                 Polish = "Dowódca drużyny ustalił punkt zbiórki w pobliżu %1";
                 Korean = "분대장이 %1 근처에 랠리포인트를 생성하였습니다.";
                 Spanish = "Tu Líder de Escuadrón ha colocado una reunión cerca de %1";
-            };
-        };
-
-        // FOB
-        class FOB {
-            class FOBTakeDown {
-                English = "Destroy FOB";
-                Czech = "Znič FOB";
-                German = "FOB zerstören";
-                Polish = "Zniszcz FOB";
-                Korean = "전진기치 철거";
-                Spanish = "Destruir FOB";
-            };
-            class PlaceFOB {
-                English = "Place FOB";
-                Czech = "Umísti FOB";
-                German = "FOB platzieren";
-                Polish = "Stwórz FOB";
-                Korean = "전진기치 배치";
-                Spanish = "Colocar FOB";
-            };
-            class FOBPlaced {
-                English = "Squad %1 has placed a FOB near %2";
-                Czech = "Četa %1 umístila FOB poblíž %2";
-                German = "Squad %1 hat ein FOB nahe %1 platziert";
-                Polish = "Drużyna %1 utworzyła FOB w pobliżu %2";
-                Korean = "%1 분대가 %2 전진기지 근처에 배치되었습니다";
-                Spanish = "El Escuadrón %1 ha colocado un FOB cerca de %2";
-            };
-        };
-
-        // Kit
-        class Kit {
-            class NotAllowToDrive {
-                English = "You're not allowed to use this vehicle";
-                Czech = "Nemůžeš použít toto vozilo";
-                German = "Du darfst dieses Fahrzeug nicht benutzen";
-                Polish = "Nie możesz używać tego pojazdu";
-                Korean = "귀관은 해당 차량을 사용할 수 없습니다.";
-                Spanish = "No tienes permitido utilizar este vehículo";
             };
         };
     };
