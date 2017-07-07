@@ -148,6 +148,39 @@ class CfgCLibLocalisation {
                 Spanish = "Artículo se excede de peso por %1kg";
             };
         };
+		
+		// Rally
+        class Rally {
+			class NotPlacable {
+				English = "RALLY POINT NOT PLACABLE";
+			};
+			class TimeRequirement {
+				English = "You need to wait %1 sec to place your next rally";
+			};
+			class EnemysClose {
+				English = "Enemies are to close to your current position";
+			};
+			class PlayerRequirement {
+				English = "You need %1 more player to build a rally";
+			};
+			class Destroy {
+				English = "Destroy Rally Point";
+			};
+			class Near {
+                English = "near %1"
+            };
+			class NewRally {
+				English = "NEW RALLY POINT AVAILABLE";
+			};
+            class CreateRally {
+                English = "Create rally point";
+                Czech = "Vytvořit shromaždiště";
+                German = "Platziere Sammelpunkt";
+                Polish = "Stwórz punkt zbiórki";
+                Korean = "랠리포인트 생성";
+                Spanish = "Crear Punto de Reunión";
+            };
+        };
 
         // Vehicle Respawn
         class VehicleRespawn {
@@ -253,34 +286,6 @@ class CfgCLibLocalisation {
                 Polish = "Musisz wybrać punkt odrodzenia!";
                 Korean = "스폰포인트를 선택해주십시오";
                 Spanish = "Debes seleccionar un punto de inserción!";
-            };
-        };
-
-        // Rally
-        class Rally {
-            class CreateRally {
-                English = "Create rally point";
-                Czech = "Vytvořit shromaždiště";
-                German = "Platziere Sammelpunkt";
-                Polish = "Stwórz punkt zbiórki";
-                Korean = "랠리포인트 생성";
-                Spanish = "Crear Punto de Reunión";
-            };
-            class cantPlaceRally {
-                English = "You can not place a rally point at this position";
-                Czech = "Nemůžeš umístit shromaždiště na tuto pozici";
-                German = "Du kannst hier keinen Sammelpunkt platzieren";
-                Polish = "Nie możesz utworzyć punktu zbiórki w tym miejscu";
-                Korean = "여기에 랠리포인트를 생성할 수 없습니다.";
-                Spanish = "No puedes colocar un punto de reunión en esta posición";
-            };
-            class RallyPlaced {
-                English = "Your Squadleader has placed a rally point near %1";
-                Czech = "Tvůj vůdce čety umístil shromaždiště poblíž %1";
-                German = "Dein Squadleader hat einen Sammelpunkt nahe %1 erstellt";
-                Polish = "Dowódca drużyny ustalił punkt zbiórki w pobliżu %1";
-                Korean = "분대장이 %1 근처에 랠리포인트를 생성하였습니다.";
-                Spanish = "Tu Líder de Escuadrón ha colocado una reunión cerca de %1";
             };
         };
     };
