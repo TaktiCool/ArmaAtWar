@@ -49,7 +49,7 @@ class CfgCLibLocalisation {
             };
             class Destroy {
                 English = "Destroy FOB";
-				Czech = "Znič FOB";
+                Czech = "Znič FOB";
                 German = "FOB zerstören";
                 Polish = "Zniszcz FOB";
                 Korean = "전진기치 철거";
@@ -93,9 +93,9 @@ class CfgCLibLocalisation {
 
         // Logistic
         class Logistic {
-			class OpenRequestScreen {
-				English = "Request Resources";
-			};
+            class OpenRequestScreen {
+                English = "Request Resources";
+            };
             class Drag {
                 English = "Drag %1";
                 Czech = "Táhni %1";
@@ -148,30 +148,30 @@ class CfgCLibLocalisation {
                 Spanish = "Artículo se excede de peso por %1kg";
             };
         };
-		
-		// Rally
+
+        // Rally
         class Rally {
-			class NotPlacable {
-				English = "RALLY POINT NOT PLACABLE";
-			};
-			class TimeRequirement {
-				English = "You need to wait %1 sec to place your next rally";
-			};
-			class EnemysClose {
-				English = "Enemies are to close to your current position";
-			};
-			class PlayerRequirement {
-				English = "You need %1 more player to build a rally";
-			};
-			class Destroy {
-				English = "Destroy Rally Point";
-			};
-			class Near {
+            class NotPlacable {
+                English = "RALLY POINT NOT PLACABLE";
+            };
+            class TimeRequirement {
+                English = "You need to wait %1 sec to place your next rally";
+            };
+            class EnemysClose {
+                English = "Enemies are to close to your current position";
+            };
+            class PlayerRequirement {
+                English = "You need %1 more player to build a rally";
+            };
+            class Destroy {
+                English = "Destroy Rally Point";
+            };
+            class Near {
                 English = "near %1"
             };
-			class NewRally {
-				English = "NEW RALLY POINT AVAILABLE";
-			};
+            class NewRally {
+                English = "NEW RALLY POINT AVAILABLE";
+            };
             class CreateRally {
                 English = "Create rally point";
                 Czech = "Vytvořit shromaždiště";
@@ -182,20 +182,36 @@ class CfgCLibLocalisation {
             };
         };
 
-        // Vehicle Respawn
-        class VehicleRespawn {
-            class NewVehicleAvailable {
-                English = "New vehicle available: %1";
-                Czech = "Nové vozilo k dispozici: %1";
-                German = "Neues Fahrzeug verfügbar: %1";
-                Polish = "Nowy pojazd dostępny: %1";
-                Korean = "신규 장비 사용 가능: %1";
-                Spanish = "Nuevo vehículo disponible: %1";
+        class Revive {
+            class Drag {
+                English = "Drag %1";
+            };
+            class Unload {
+                English = "Unload wounded person";
             };
         };
 
+        // Sector
+        class Sector {
+            class SectorCaptured {
+                English = "SECTOR CAPTURED";
+            };
+            class SectorLost {
+                English = "SECTOR LOST";
+            };
+            class SectorNEUTRALIZED {
+                English = "SECTOR NEUTRALIZED";
+            };
+        };
+        
         // Squad
         class Squad {
+            class pleaseWait {
+                English = "Please Wait";
+            };
+            class SIDEBALANCING {
+                English = "SIDE BALANCING";
+            };
             class waitToSwitchSide {
                 English = "You need to wait %1 seconds until you can change sides again";
                 Czech = "Musíš počkat %1 sekund, než budeš moci opět změnit stranu";
@@ -214,52 +230,18 @@ class CfgCLibLocalisation {
             };
         };
 
-        // Sector
-        class Sector {
-            class YouSC {
-                English = "You have captured sector %1";
-                Czech = "Přivlastnil jsi sektor %1";
-                German = "Du hast Sektor %1 eingenommen";
-                Polish = "Zdobyłeś sektor %1";
-                Korean = "%1 지역을 점령하였습니다.";
-                Spanish = "Has capturado el sector %1";
-            };
-
-            class YourTSC {
-                English = "Your team has captured sector %1";
-                Czech = "Tvůj tým přivlastnil sektor %1";
-                German = "Dein Team hat Sektor %1 eingenommen";
-                Polish = "Twoja drużyna zdobyła sektor %1";
-                Korean = "아군이 %1 지역을 점령하였습니다.";
-                Spanish = "Tu equipo ha capturado el sector %1";
-            };
-
-            class YouSL {
-                English = "You have lost sector %1";
-                Czech = "Ztratil jsi sektor %1";
-                German = "Dein Team hat Sektor %1 verloren";
-                Polish = "Utraciłeś sektor %1";
-                Korean = "%1 지역을 잃었습니다.";
-                Spanish = "Has perdido el sector %1";
-            };
-            class YouSN {
-                English = "You have neutralized sector %1";
-                Czech = "Neutralizoval jsi sektor %1";
-                German = "Du hast Sektor %1 neutralisiert";
-                Polish = "Zneutralizowałeś sektor %1";
-                Korean = "%1 지역을 수복하였습니다.";
-                Spanish = "Has neutralizado el sector %1";
-            };
-            class YourTSN {
-                English = "Your team has neutralized sector %1";
-                Czech = "Tvůj team neutralizoval sektor %1";
-                German = "Dein Team hat Sektor %1 neutralisiert";
-                Polish = "Twoja drużyna zneutralizowała sektor %1";
-                Korean = "아군이 %1 지역을 수복하였습니다.";
-                Spanish = "Tu equipo ha neutralizado el sector %1";
+        class Supply {
+            class Supply {
+                English = "Supply %1 at %2";
             };
         };
 
+        // Vehicle Respawn
+        class VehicleRespawn {
+            class NewVehicleAvailable {
+                English = "NEW VEHICLE AVAILABLE";
+            };
+        };
 
         // RespawnUI
         class RespawnUI {
