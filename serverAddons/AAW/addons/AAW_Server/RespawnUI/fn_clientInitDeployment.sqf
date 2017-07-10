@@ -51,7 +51,7 @@ GVAR(firstRespawn) = true;
     if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
-        private _minRespawnTime = diag_tickTime;
+        private _minRespawnTime = time;
 
         if (GVAR(firstRespawn)) then {
             _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - serverTime);
@@ -74,7 +74,7 @@ GVAR(firstRespawn) = true;
             };
 
             // If the timer is up enabled deploying
-            if (diag_tickTime >= _respawnTime) exitWith {
+            if (time >= _respawnTime) exitWith {
                 GVAR(firstRespawn) = false;
                 _control ctrlSetText "DEPLOY";
                 _control ctrlEnable true;
@@ -83,7 +83,7 @@ GVAR(firstRespawn) = true;
             };
 
             // Update the text on the button
-            private _time = _respawnTime - diag_tickTime;
+            private _time = _respawnTime - time;
             _control ctrlSetText format ["%1 s", _time toFixed 1];
         }, 0.05, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
     } else {
