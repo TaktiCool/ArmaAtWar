@@ -34,4 +34,4 @@
     ]]  call CFUNC(targetEvent);
 }, 120] call CFUNC(addPerFrameHandler);
 
-missionNamespace setVariable [QGVAR(MissionStartTime), serverTime + ([QUOTE(PREFIX/CfgRespawn/matchStartCountdown), 0] call CFUNC(getSetting)), true];
+missionNamespace setVariable [QGVAR(MissionStartTime), (daytime*60*60) + ([QUOTE(PREFIX/CfgRespawn/matchStartCountdown), 0] call CFUNC(getSetting)), true];
