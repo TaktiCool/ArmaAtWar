@@ -110,18 +110,23 @@ if (hasInterface) then {
     GVAR(maxPlayerCountDifference) = getNumber (missionConfigFile >> QPREFIX >> "maxPlayerCountDifference");
     GVAR(competingSides) = [];
     {
-        private _side = sideUnknown;
-        if (configName _x == "WEST") then {
-            _side = west;
-        };
-        if (configName _x == "EAST") then {
-            _side = east;
-        };
-        if (configName _x == "GUER") then {
-            _side = independent;
-        };
-        if (configName _x == "CIV") then {
-            _side = civilian;
+        private _side = switch (toUpper (configName _x)) do {
+            case ("WEST"): {
+                west
+            };
+            case ("EAST"): {
+                east
+            };
+            case ("GUER"): {
+                independent
+            };
+            case ("CIV"): {
+                civilian
+            };
+            default {
+                LOG("ERROR UNKNOWN SIDE DETECTED: " + configName _x);
+                sideUnknown
+            };
         };
         GVAR(competingSides) pushBack _side;
         missionNamespace setVariable [format [QGVAR(Flag_%1), _side], getText (_x >> "flag")];

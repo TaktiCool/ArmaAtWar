@@ -59,14 +59,24 @@ DFUNC(calcScores) = {
     private _numberOfRevives = {_uid != (_x select 2) && {(_x select 1) == "REVIVED"}} count _medicalTreatments;
     private _numberOfHeals = {_uid != (_x select 2) && {(_x select 1) == "HEALED"}} count _medicalTreatments;
 
+    private _numberOfVehicleKills = {
+        _x params ["_time", "_vehicleType", "_friendlyFire"];
+        !_friendlyFire
+    } count (GVAR(ScoreNamespace) getVariable [_uid + "_VEHICLEKILLS", []]);
+
+    private _numberOfFFVehicleKills = {
+        _x params ["_time", "_vehicleType", "_friendlyFire"];
+        _friendlyFire
+    } count (GVAR(ScoreNamespace) getVariable [_uid + "_VEHICLEKILLS", []]);
+
     private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid + "_SECTORCAPTURES", []]);
 
     private _entry = [
-        _numberOfKills,
+        _numberOfKills+_numberOfFFKills,
         _numberOfDeaths,
         _numberOfHeals + 5 * _numberOfRevives,
         _captureScore * 10,
-        (_numberOfRevives * 5 + _numberOfHeals * 1 + _numberOfKills * 10 - _numberOfFFKills * 20 + _captureScore * 10)
+        (_numberOfRevives * 5 + _numberOfHeals * 1 + _numberOfKills * 10 - _numberOfFFKills * 20 + _captureScore * 10 + 50 * _numberOfVehicleKills - 50 * _numberOfFFVehicleKills)
     ];
 
     [_uid, _entry, _forceUpdate] call FUNC(publicScores);
@@ -136,3 +146,13 @@ DFUNC(registerPlayerAction) = {
         } count (_sector getVariable [format ["units%1", _side], []]);
     };
 }] call CFUNC(addEventhandler);
+
+addMissionEventHandler ["EntityKilled", {
+    params ["_killedEntity", "_killer"];
+    if (!(_killedEntity isKindOf "Man") && (_killer in allPlayers)) then {
+        private _uid = getPlayerUID _killer;
+        private _friendlyFire = (_killedEntity getVariable ["side", "unknown"]) == str side group _killer;
+        [_uid, [time, typeOf _killedEntity, _friendlyFire], "VEHICLEKILLS"] call FUNC(registerPlayerAction);
+        [_uid] call FUNC(calcScores);
+    };
+}];
