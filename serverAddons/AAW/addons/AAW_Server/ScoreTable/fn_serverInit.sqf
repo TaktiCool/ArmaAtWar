@@ -65,7 +65,7 @@ DFUNC(calcScores) = {
 
     private _numberOfFFVehicleKills = {
         _x params ["_time", "_vehicleType", "_friendlyFire"];
-        !_friendlyFire
+        _friendlyFire
     } count (GVAR(ScoreNamespace) getVariable [_uid + "_VEHICLEKILLS", []]);
 
     private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid + "_SECTORCAPTURES", []]);
