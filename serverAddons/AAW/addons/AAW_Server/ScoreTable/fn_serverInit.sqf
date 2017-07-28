@@ -71,7 +71,7 @@ DFUNC(calcScores) = {
     private _captureScore = count (GVAR(ScoreNamespace) getVariable [_uid + "_SECTORCAPTURES", []]);
 
     private _entry = [
-        _numberOfKills+_numberOfFFKills,
+        _numberOfKills - _numberOfFFKills,
         _numberOfDeaths,
         _numberOfHeals + 5 * _numberOfRevives,
         _captureScore * 10,
