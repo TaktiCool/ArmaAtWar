@@ -12,6 +12,12 @@ class CfgCLibModules {
             FNC(serverInit);
         };
 
+        // BattleLog
+        MODULE(BattleLog) {
+            dependency[] = {"AAW/Common"};
+            FNC(serverInit);
+        };
+
         // Common
         MODULE(Common) {
             // dependency[] = {"CLib/Core", "CLib/PerFrame", "CLib/Events", "CLib/Localisation", "CLib/ConfigCaching", "CLib/3dGraphics", "CLib/extensionFramework", "CLib/Gear", "CLib/Interaction", "CLib/lnbData", "CLib/MapGraphics", "CLib/Mutex", "CLib/Namespaces", "CLib/RemoteExecution", "CLib/Statemachine", "CLib/StatusEffects", "CLib/Settings"};
