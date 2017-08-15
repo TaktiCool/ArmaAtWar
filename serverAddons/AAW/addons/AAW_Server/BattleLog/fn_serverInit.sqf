@@ -17,14 +17,25 @@
 GVAR(wsServer) = "ws://localhost:8888";
 
 DFUNC(enqueueRequest) = {
-    DUMP(_this);
+    if (GVAR(connectionId) == "error") exitWith {};
     ["CLibWebSocket", "Send", format ["%1:%2", GVAR(connectionId), _this joinString ":"]] call CFUNC(callExtension);
 };
 
 [{
-    ["CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC(callExtension);
+    ["CLibWebSocket", "IsConnected", GVAR(connectionId), {
+        params ["_connected"];
+        if (_connected == "false") then {
+            ["CLibWebSocket", "Connect", GVAR(wsServer), {
+                params ["_newConnectionId"];
+                GVAR(connectionId) = _newConnectionId;
+                ["SERVER", serverName] call FUNC(enqueueRequest);
+            }] call CFUNC(callExtension);
+        };
+    }] call CFUNC(callExtension);
 }, 5] call CFUNC(addPerFrameHandler);
+
 GVAR(connectionId) = [-1, "CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
+["SERVER", serverName] call FUNC(enqueueRequest);
 
 ["playerKilled", {
     (_this select 0) params ["_killedUnit", "_instigator"];
