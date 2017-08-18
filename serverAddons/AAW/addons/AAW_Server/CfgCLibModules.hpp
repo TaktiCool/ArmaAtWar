@@ -148,6 +148,26 @@ class CfgCLibModules {
             FNC(updateResourcesDisplay);
         };
 
+        // MapInteractions
+        MODULE(MapInteractions) {
+            dependency[] = {"AAW/Common"};
+            FNC(clientInit);
+            FNC(mouseButtonClick);
+            FNC(registerMapControl);
+            FNC(addMenuEntry);
+            FNC(openContextMenu);
+            FNC(buildHeaderElement);
+            FNC(buildLabelElement);
+            FNC(buildImageStackButton);
+            FNC(buildListElement);
+        };
+
+        // MapMarker
+        MODULE(MapMarker) {
+            dependency[] = {"AAW/Common", "AAW/MapInteractions"};
+            FNC(clientInit);
+        };
+
         // Mortar
         MODULE(Mortar) {
             dependency[] = {"AAW/Common"};
