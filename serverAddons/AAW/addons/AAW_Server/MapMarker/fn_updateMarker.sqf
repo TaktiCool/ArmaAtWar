@@ -33,7 +33,6 @@ if (isNull _markerNamespace) exitWith {};
                 private _markerNamespace = missionNamespace getVariable [_markerNamespaceName, objNull];
                 if (isNull _markerNamespace) exitWith {};
                 private _markerData = _markerNamespace getVariable [_groupId, []];
-                DUMP(_markerData);
                 if (_markerData isEqualTo []) exitWith {
                     [{
                         LOG("Remove MapMarker (No MapMarker data):" + _groupId);
@@ -42,8 +41,8 @@ if (isNull _markerNamespace) exitWith {};
                     _color = [0, 0, 0, 0];
                 };
                 _markerData params ["_type", "_position", "_time"];
-                if ((serverTime - _time) > 30) then {
-                    private _alpha = 0 max ((serverTime - _time) - 30)/60;
+                if ((serverTime - _time) > GVAR(persistance)) then {
+                    private _alpha = 0 max (1-((serverTime - _time) - GVAR(persistance))/GVAR(blendoutTime));
                     _color set [3, _alpha];
                     if (_alpha == 0) then {
                         [{
@@ -54,8 +53,6 @@ if (isNull _markerNamespace) exitWith {};
                 };
             }];
         };
-        DUMP(_markerName);
-        DUMP(_mapGraphicsIcons);
         [_markerName, _mapGraphicsIcons] call CFUNC(addMapGraphicsGroup);
     };
 } count (allVariables _markerNamespace);

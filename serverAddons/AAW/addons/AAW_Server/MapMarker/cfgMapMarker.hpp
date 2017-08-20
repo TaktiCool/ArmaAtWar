@@ -1,4 +1,6 @@
 class CfgMapMarker {
+    persistance = 300; // Marker persistance in seconds
+    blendoutTime = 60; // How long it takes to blend out the marker;
     class EnemyUnits {
         name = "";
         class Infantery {

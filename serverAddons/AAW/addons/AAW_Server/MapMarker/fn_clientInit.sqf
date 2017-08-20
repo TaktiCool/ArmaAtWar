@@ -21,6 +21,9 @@
     false;
 },[]]]] call EFUNC(MapInteractions,addMenuEntry);
 
+GVAR(persistance) = ([CFGMARKER + "/persistance", []] call CFUNC(getSetting));
+GVAR(blendoutTime) = ([CFGMARKER + "/blendoutTime", []] call CFUNC(getSetting));
+
 [QUOTE(MODULE), "header", ["Marker"]] call EFUNC(MapInteractions,addMenuEntry);
 
 {
