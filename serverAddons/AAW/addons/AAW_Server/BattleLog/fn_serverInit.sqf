@@ -28,14 +28,14 @@ DFUNC(enqueueRequest) = {
             ["CLibWebSocket", "Connect", GVAR(wsServer), {
                 params ["_newConnectionId"];
                 GVAR(connectionId) = _newConnectionId;
-                ["SERVER", serverName] call FUNC(enqueueRequest);
+                ["SERVER"] call FUNC(enqueueRequest);
             }] call CFUNC(callExtension);
         };
     }] call CFUNC(callExtension);
 }, 5] call CFUNC(addPerFrameHandler);
 
 GVAR(connectionId) = [-1, "CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
-["SERVER", serverName] call FUNC(enqueueRequest);
+["SERVER"] call FUNC(enqueueRequest);
 
 ["playerKilled", {
     (_this select 0) params ["_killedUnit", "_instigator"];
@@ -70,7 +70,6 @@ GVAR(connectionId) = [-1, "CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC
             if (_x call EFUNC(Common,isAlive) && isNull objectParent _x) then {
                 ["SECTORCAPTURES", getPlayerUID _x, time, str _sector, "NEUTRALIZED"] call FUNC(enqueueRequest);
             };
-
         } count (_sector getVariable [format ["units%1", _attackerSide], []]);
     } else {
         {
