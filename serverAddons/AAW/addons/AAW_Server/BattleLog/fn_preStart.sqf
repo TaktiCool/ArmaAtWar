@@ -14,7 +14,7 @@
     None
 */
 
-GVAR(wsServer) = "ws://localhost:8888";
+GVAR(wsServer) = "ws://warlog.atwar-mod.com:8888";
 
 DUMP("CONNECTING");
 GVAR(connectionId) = [-1, "CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
