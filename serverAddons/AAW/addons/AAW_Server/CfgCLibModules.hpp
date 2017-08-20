@@ -166,6 +166,9 @@ class CfgCLibModules {
         MODULE(MapMarker) {
             dependency[] = {"AAW/Common", "AAW/MapInteractions"};
             FNC(clientInit);
+            FNC(serverInit);
+            FNC(createMapMarker);
+            FNC(updateMarker);
         };
 
         // Mortar

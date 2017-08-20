@@ -79,6 +79,10 @@ _itemActiveArea ctrlAddEventHandler ["ButtonClick", {
     private _contextMenu = ctrlParentControlsGroup ctrlParentControlsGroup _ctrl;
     private _return = [_contextMenu, _attributes, _this] call _code;
     if (isNil "_return" || {_return}) then {
+        [
+            QGVAR(CursorMarker)
+        ] call CFUNC(removeMapGraphicsGroup);
+        GVAR(CurrentContextPosition) = [];
         ctrlDelete ctrlParentControlsGroup _contextMenu;
     };
 }];

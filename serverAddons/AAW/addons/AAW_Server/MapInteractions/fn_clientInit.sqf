@@ -17,6 +17,7 @@
 
 GVAR(MapControls) = [];
 GVAR(ContextMenuEntries) = false call CFUNC(createNamespace);
+GVAR(CurrentContextPosition) = [];
 
 [{
     ((findDisplay 12) displayCtrl 51) call FUNC(registerMapControl);

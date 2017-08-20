@@ -28,15 +28,16 @@ if (!isNull (_control getVariable [QGVAR(ContextMenuGroup), controlNull])) then 
     [
         QGVAR(CursorMarker)
     ] call CFUNC(removeMapGraphicsGroup);
+    GVAR(CurrentContextPosition) = [];
 };
 
 if (_button == 1) then {
-
+    GVAR(CurrentContextPosition) = _control ctrlMapScreenToWorld [_xPos, _yPos];
     [
         QGVAR(CursorMarker),
         [
-            ["ICON", "a3\ui_f\data\map\mapcontrol\waypointeditor_ca.paa", [0, 0, 0, 0.7], _control ctrlMapScreenToWorld [_xPos, _yPos], 22, 22],
-            ["ICON", "a3\ui_f\data\map\mapcontrol\waypointeditor_ca.paa", [1, 1, 1, 1], _control ctrlMapScreenToWorld [_xPos, _yPos], 20, 20]
+            ["ICON", "a3\ui_f\data\map\mapcontrol\waypointeditor_ca.paa", [0, 0, 0, 0.7], GVAR(CurrentContextPosition), 22, 22],
+            ["ICON", "a3\ui_f\data\map\mapcontrol\waypointeditor_ca.paa", [1, 1, 1, 1], GVAR(CurrentContextPosition), 20, 20]
         ]
     ] call CFUNC(addMapGraphicsGroup);
 

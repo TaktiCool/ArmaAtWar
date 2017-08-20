@@ -24,6 +24,7 @@ private _animDirection = 1;
 if (isNull _contextMenuGrp) then {
     _contextMenuGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
     _contextMenuGrp ctrlAddEventHandler ["Unload", {
+        GVAR(CurrentContextPosition) = [];
         [
             QGVAR(CursorMarker)
         ] call CFUNC(removeMapGraphicsGroup);
