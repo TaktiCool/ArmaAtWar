@@ -48,10 +48,8 @@ if (isNull _contextMenuGrp) then {
     if (_c >= 0) then { // Go back
         _history resize _c;
         _animDirection = -1;
-        hint ("remove from history: " + str _history);
     } else { // Go forward
         _history pushBack _currentMenuId;
-        hint ("add to history: " + str _history);
     };
 
     _contextMenuItemsGrp ctrlSetPosition [-_animDirection*CTXMENU_WIDTH, 0];
