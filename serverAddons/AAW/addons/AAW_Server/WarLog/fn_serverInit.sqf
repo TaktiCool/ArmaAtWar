@@ -14,7 +14,7 @@
     None
 */
 
-GVAR(wsServer) = "tcp://localhost:8888";
+GVAR(wsServer) = "tcp://warlog.atwar-mod.com:8888";
 
 DFUNC(enqueueRequest) = {
     if (GVAR(connectionId) == "error") exitWith {};
