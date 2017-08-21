@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Server Init for BattleLog system
+    Server Init for WarLog system
 
     Parameter(s):
     None
@@ -14,18 +14,18 @@
     None
 */
 
-GVAR(wsServer) = "ws://warlog.atwar-mod.com:8888";
+GVAR(wsServer) = "tcp://localhost:8888";
 
 DFUNC(enqueueRequest) = {
     if (GVAR(connectionId) == "error") exitWith {};
-    ["CLibWebSocket", "Send", format ["%1:%2", GVAR(connectionId), _this joinString ":"]] call CFUNC(callExtension);
+    ["CLibSocket", "Send", format ["%1:%2", GVAR(connectionId), _this joinString ":"]] call CFUNC(callExtension);
 };
 
 [{
-    ["CLibWebSocket", "IsConnected", GVAR(connectionId), {
+    ["CLibSocket", "IsConnected", GVAR(connectionId), {
         params ["_connected"];
         if (_connected == "false") then {
-            ["CLibWebSocket", "Connect", GVAR(wsServer), {
+            ["CLibSocket", "Connect", GVAR(wsServer), {
                 params ["_newConnectionId"];
                 GVAR(connectionId) = _newConnectionId;
                 ["SERVER"] call FUNC(enqueueRequest);
@@ -34,7 +34,7 @@ DFUNC(enqueueRequest) = {
     }] call CFUNC(callExtension);
 }, 5] call CFUNC(addPerFrameHandler);
 
-GVAR(connectionId) = [-1, "CLibWebSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
+GVAR(connectionId) = [-1, "CLibSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
 ["SERVER"] call FUNC(enqueueRequest);
 
 ["playerKilled", {

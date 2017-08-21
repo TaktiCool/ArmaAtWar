@@ -3,7 +3,7 @@ class cfgFunctions {
 
     class AAW {
         class AAW {
-            file = "\tc\AAW\addons\AAW_Server\BattleLog";
+            file = "\tc\AAW\addons\AAW_Server\WarLog";
             class preStart {
                 preInit = 0;
                 postInit = 0;
