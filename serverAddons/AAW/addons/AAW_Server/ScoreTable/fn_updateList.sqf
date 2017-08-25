@@ -141,8 +141,8 @@ private _squadEntry = _listGroup;
         _ctrlSquadBackground ctrlSetPosition [0, 0, _listGroupWidth, _squadEntryHeight];
         _ctrlSquadBackground ctrlCommit 0;
 
-        _listGroup ctrlSetPosition [0, _verticalPosition, _listGroupWidth, _squadEntryHeight];
-        _listGroup ctrlCommit 0;
+        _squadEntry ctrlSetPosition [0, _verticalPosition, _listGroupWidth, _squadEntryHeight];
+        _squadEntry ctrlCommit 0;
     };
     _verticalPosition = _verticalPosition + _squadEntryHeight;
     if (_extended) then {
