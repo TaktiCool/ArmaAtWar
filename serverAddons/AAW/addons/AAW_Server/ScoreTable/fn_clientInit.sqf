@@ -202,7 +202,7 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
         _enemyTicketCount ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _enemySide], GVAR(maxTickets)]);
         _enemyTicketCount ctrlCommit 0;
 
-        private _enemyKillHeader = _display ctrlCreate ["RscTextNoShadow", 1007, _globalGroup];
+        private _enemyKillHeader = _display ctrlCreate ["RscTextNoShadow", 1006, _globalGroup];
         _enemyKillHeader ctrlSetFontHeight PY(2.2);
         _enemyKillHeader ctrlSetFont "RobotoCondensedBold";
         _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 36), PY(20), PX(6), PY(4)];
