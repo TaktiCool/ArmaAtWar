@@ -195,49 +195,49 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     _enemyPlayerCount ctrlCommit 0;
 
     if (_endScreen) then {
-        private _enemyTicketCount = _display ctrlCreate ["RscTextNoShadow", 1016, _globalGroup];
+        private _enemyTicketCount = _display ctrlCreate ["RscTextNoShadow", -1, _globalGroup];
         _enemyTicketCount ctrlSetFontHeight PY(3.3);
         _enemyTicketCount ctrlSetFont "RobotoCondensedBold";
         _enemyTicketCount ctrlSetPosition [PX(_startPosition + _sideWidth - 7), PY(17), PX(6), PY(4)];
         _enemyTicketCount ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), _enemySide], GVAR(maxTickets)]);
         _enemyTicketCount ctrlCommit 0;
 
-        private _enemyKillHeader = _display ctrlCreate ["RscTextNoShadow", 1017, _globalGroup];
+        private _enemyKillHeader = _display ctrlCreate ["RscTextNoShadow", -1, _globalGroup];
         _enemyKillHeader ctrlSetFontHeight PY(2.2);
         _enemyKillHeader ctrlSetFont "RobotoCondensedBold";
         _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 36), PY(20), PX(6), PY(4)];
         _enemyKillHeader ctrlSetText "KILLS";
         _enemyKillHeader ctrlCommit 0;
 
-        private _enemyVehicleKillHeader = _display ctrlCreate ["RscPictureKeepAspect", 1018, _globalGroup];
+        private _enemyVehicleKillHeader = _display ctrlCreate ["RscPictureKeepAspect", -1, _globalGroup];
         _enemyKillHeader ctrlSetFontHeight PY(2.2);
         _enemyKillHeader ctrlSetFont "RobotoCondensedBold";
         _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 30), PY(21), PX(6), PY(2)];
         _enemyKillHeader ctrlSetText "\A3\ui_f\data\gui\rsc\rscdisplaygarage\car_ca.paa";
         _enemyKillHeader ctrlCommit 0;
 
-        private _enemyDeathHeader = _display ctrlCreate ["RscTextNoShadow", 1019, _globalGroup];
+        private _enemyDeathHeader = _display ctrlCreate ["RscTextNoShadow", -1, _globalGroup];
         _enemyDeathHeader ctrlSetFontHeight PY(2.2);
         _enemyDeathHeader ctrlSetFont "RobotoCondensedBold";
         _enemyDeathHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 24), PY(20), PX(6), PY(4)];
         _enemyDeathHeader ctrlSetText "DEATHS";
         _enemyDeathHeader ctrlCommit 0;
 
-        private _enemyMedicalHeader = _display ctrlCreate ["RscPictureKeepAspect", 1020, _globalGroup];
+        private _enemyMedicalHeader = _display ctrlCreate ["RscPictureKeepAspect", -1, _globalGroup];
         _enemyMedicalHeader ctrlSetFontHeight PY(2.2);
         _enemyMedicalHeader ctrlSetFont "RobotoCondensedBold";
         _enemyMedicalHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 18), PY(21), PX(6), PY(2)];
         _enemyMedicalHeader ctrlSetText "\A3\ui_f\data\igui\cfg\simpletasks\types\heal_ca.paa";
         _enemyMedicalHeader ctrlCommit 0;
 
-        private _enemyCapturedHeader = _display ctrlCreate ["RscPictureKeepAspect", 1021, _globalGroup];
+        private _enemyCapturedHeader = _display ctrlCreate ["RscPictureKeepAspect", -1, _globalGroup];
         _enemyCapturedHeader ctrlSetFontHeight PY(2.2);
         _enemyCapturedHeader ctrlSetFont "RobotoCondensedBold";
         _enemyCapturedHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 12), PY(21), PX(6), PY(2)];
         _enemyCapturedHeader ctrlSetText "\A3\ui_f\data\igui\cfg\simpletasks\types\attack_ca.paa";
         _enemyCapturedHeader ctrlCommit 0;
 
-        private _enemyScoreHeader = _display ctrlCreate ["RscTextNoShadow", 1022, _globalGroup];
+        private _enemyScoreHeader = _display ctrlCreate ["RscTextNoShadow", -1, _globalGroup];
         _enemyScoreHeader ctrlSetFontHeight PY(2.2);
         _enemyScoreHeader ctrlSetFont "RobotoCondensedBold";
         _enemyScoreHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 6), PY(20), PX(6), PY(4)];
