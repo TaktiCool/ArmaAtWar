@@ -16,6 +16,7 @@
 
 GVAR(lastDeploymentPoint) = "";
 GVAR(selectedDeploymentPoint) = "";
+GVAR(firstRespawn) = true;
 
 [UIVAR(DeploymentScreen_onLoad), {
     (_this select 0) params ["_display"];
@@ -50,6 +51,19 @@ GVAR(selectedDeploymentPoint) = "";
     if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
+        private _minRespawnTime = time;
+
+        if (GVAR(firstRespawn)) then {
+            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime*60*60));
+        } else {
+            if (EGVAR(Revive,UnconsciousSince) > -1) then {
+                _minRespawnTime = EGVAR(Revive,UnconsciousSince);
+                EGVAR(Revive,UnconsciousSince) = -1;
+            };
+
+            _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
+        };
+
         [{
             params ["_params", "_id"];
             _params params ["_control", "_respawnTime"];
@@ -60,7 +74,8 @@ GVAR(selectedDeploymentPoint) = "";
             };
 
             // If the timer is up enabled deploying
-            if (diag_tickTime >= _respawnTime) exitWith {
+            if (time >= _respawnTime) exitWith {
+                GVAR(firstRespawn) = false;
                 _control ctrlSetText "DEPLOY";
                 _control ctrlEnable true;
 
@@ -68,9 +83,9 @@ GVAR(selectedDeploymentPoint) = "";
             };
 
             // Update the text on the button
-            private _time = _respawnTime - diag_tickTime;
-            _control ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-        }, 0.1, [_control, diag_tickTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting))]] call CFUNC(addPerFrameHandler);
+            private _time = _respawnTime - time;
+            _control ctrlSetText format ["%1 s", _time toFixed 1];
+        }, 0.05, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
     } else {
         _control ctrlSetText "Close";
     };

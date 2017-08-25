@@ -13,9 +13,9 @@
     Returns:
     None
 */
-[QGVAR(Settings), missionConfigFile >> "AAW" >> "CfgRevive"] call CFUNC(loadSettings);
 
 GVAR(UnconsciousFrame) = -1;
+GVAR(UnconsciousSince) = -1;
 
 ["playerChanged", {
     (_this select 0) params ["_newPlayer", "_oldPlayer"];

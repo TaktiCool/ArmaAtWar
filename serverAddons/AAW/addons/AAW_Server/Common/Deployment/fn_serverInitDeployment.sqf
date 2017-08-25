@@ -28,7 +28,3 @@ publicVariable QGVAR(DeploymentPointStorage);
         nil
     } count EGVAR(Common,competingSides);
 }] call CFUNC(addEventHandler);
-
-GVAR(changedDPDPointIDs) = [];
-GVAR(changedDPDDataNames) = [];
-GVAR(changedDPDWaitIsRunning) = false;

@@ -39,7 +39,7 @@ GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
             "Request Resources",
             _objects,
             3,
-            compile format ["(str playerside) == ""%1""", _side],
+            compile format ["(str playerside) == ""%1"" && ((leader CLib_Player) == CLib_Player) && (CLib_Player getVariable [""%2"", false])", _side, QEGVAR(Kit,isLeader)],
             FUNC(buildResourcesDisplay),
             ["onActionAdded", {
                 params ["_id", "_target"];

@@ -28,14 +28,11 @@ private _pointObjects = [_pointId, "pointObjects"] call FUNC(getDeploymentPointD
 private _availableFor = [_pointId, "availableFor"] call FUNC(getDeploymentPointData);
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
-    private _side = sideUnknown;
 
-    if (_availableFor isEqualType sideUnknown) then {
-        _side = _availableFor;
-    } else {
-        _side = side _availableFor;
+    if !(_availableFor isEqualType sideUnknown) then {
+        _availableFor = side _availableFor;
     };
-    [QGVAR(deploymentPointRemoved), _side, _pointId] call CFUNC(targetEvent);
+    [QGVAR(deploymentPointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
 };
 private _namespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
 deleteVehicle _namespace;

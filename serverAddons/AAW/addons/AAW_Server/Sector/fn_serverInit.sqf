@@ -19,6 +19,15 @@ GVAR(allSectorsArray) = [];
 GVAR(ServerInitDone) = false;
 
 ["missionStarted", {
+    // hide only sectors so that other marker that are other kind of markers dont get hidden after mission start
+    private _sectorPaths = "true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath");
+    {
+        {
+            (configName _x) setMarkerAlpha 0;
+            nil
+        } count ("true" configClasses _x);
+        nil
+    } count _sectorPaths;
     [{
         GVAR(allSectors) = true call CFUNC(createNameSpace);
 
