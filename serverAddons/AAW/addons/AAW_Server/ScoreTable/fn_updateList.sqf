@@ -22,10 +22,19 @@ _listGroupWidth = _listGroupWidth - PX(1); // ListGroup is smaller due to possib
 private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
 private _entries = [];
 private _verticalPosition = 0;
-private _squadEntry = _listGroup;
+
+
+private _ctrlEnemyPlayerBackground = controlNull;
+
+if (!_extended) then {
+    _ctrlEnemyPlayerBackground = _display ctrlCreate ["RscPicture", -1, _listGroup];
+    _ctrlEnemyPlayerBackground ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";
+};
+private _squadEntryHeight = 0;
 { // Squad loop
-    private _squadEntryHeight = 0;
-    private _ctrlSquadBackground = ctrlNull;
+
+    private _ctrlSquadBackground = controlNull;
+    private _squadEntry = controlNull;
 
     if (_extended) then {
         private _groupId = groupId _x;
@@ -81,7 +90,8 @@ private _squadEntry = _listGroup;
         private _font = ["RobotoCondensed", "RobotoCondensedBold"] select (_x == CLib_player);
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
 
-        private _playerRow = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _squadEntry];
+        private _parentGroup = [_listGroup, _squadEntry] select (_extended);
+        private _playerRow = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _parentGroup];
         _playerRow ctrlSetPosition [0, _squadEntryHeight, _listGroupWidth, PY(4)];
         _playerRow ctrlCommit 0;
 
@@ -151,11 +161,9 @@ private _squadEntry = _listGroup;
     nil
 } count (allGroups select {side _x == _side && groupId _x in EGVAR(Squad,squadIds) && count units _x > 0});
 
-_listGroup setVariable [QGVAR(entries), _entries];
-
 if (!_extended) then {
-    private _ctrlEnemyPlayerBackground = _display ctrlCreate ["RscPicture", -1, _listGroup];
     _ctrlEnemyPlayerBackground ctrlSetPosition [0, 0, _listGroupWidth, _verticalPosition];
-    _ctrlEnemyPlayerBackground ctrlSetText "#(argb,8,8,3)color(0.5,0.5,0.5,0.2)";
     _ctrlEnemyPlayerBackground ctrlCommit 0;
 };
+
+_listGroup setVariable [QGVAR(entries), _entries];
