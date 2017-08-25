@@ -313,12 +313,12 @@ GVAR(lastVisibleScoreTableStatus) = false;
 ["endMission", {
     private _oldDisplay = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
     if (!isNull _oldDisplay) then {
-        _display closeDisplay 1;
+        _oldDisplay closeDisplay 1;
     };
     [{
         private _oldDisplay = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
         if (!isNull _oldDisplay) then {
-            _display closeDisplay 1;
+            _oldDisplay closeDisplay 1;
         };
         private _display = findDisplay 46 createDisplay "RscDisplayEmpty";
         [UIVAR(ScoreTable_onLoad), [_display, true]] call CFUNC(localEvent);
