@@ -22,6 +22,7 @@ _listGroupWidth = _listGroupWidth - PX(1); // ListGroup is smaller due to possib
 private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
 private _entries = [];
 private _verticalPosition = 0;
+private _squadEntry = _listGroup;
 { // Squad loop
     private _squadEntryHeight = 0;
     private _ctrlSquadBackground = ctrlNull;
@@ -70,7 +71,8 @@ private _verticalPosition = 0;
         _ctrlSquadType ctrlCommit 0;
 
         _squadEntryHeight = PY(3);
-        _listGroup = _squadEntry;
+
+        _entries pushBack _squadEntry;
     };
 
     { // Player loop
@@ -79,7 +81,7 @@ private _verticalPosition = 0;
         private _font = ["RobotoCondensed", "RobotoCondensedBold"] select (_x == CLib_player);
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
 
-        private _playerRow = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _listGroup];
+        private _playerRow = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _squadEntry];
         _playerRow ctrlSetPosition [0, _squadEntryHeight, _listGroupWidth, PY(4)];
         _playerRow ctrlCommit 0;
 
@@ -127,6 +129,8 @@ private _verticalPosition = 0;
             _ctrlPlayerScore ctrlSetPosition [_listGroupWidth - PX(7), PY(0.5), PX(6), PY(3)];
             _ctrlPlayerScore ctrlSetText str (_scores select 5);
             _ctrlPlayerScore ctrlCommit 0;
+
+            _entries pushBack _playerRow;
         };
 
         _squadEntryHeight = _squadEntryHeight + PY(4);
@@ -140,8 +144,6 @@ private _verticalPosition = 0;
         _listGroup ctrlSetPosition [0, _verticalPosition, _listGroupWidth, _squadEntryHeight];
         _listGroup ctrlCommit 0;
     };
-
-    _entries pushBack _listGroup;
     _verticalPosition = _verticalPosition + _squadEntryHeight;
     if (_extended) then {
         _verticalPosition = _verticalPosition + PY(1);

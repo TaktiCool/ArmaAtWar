@@ -73,10 +73,7 @@ DFUNC(calcScores) = {
 
     private _entry = [
         _numberOfKills - _numberOfFFKills,
-<<<<<<< HEAD
         _numberOfVehicleKills - _numberOfFFVehicleKills,
-=======
->>>>>>> master
         _numberOfDeaths,
         _numberOfHeals + 5 * _numberOfRevives,
         _captureScore * 10,
