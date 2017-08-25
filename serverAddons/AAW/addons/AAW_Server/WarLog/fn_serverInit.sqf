@@ -21,19 +21,6 @@ DFUNC(enqueueRequest) = {
     ["CLibSocket", "Send", format ["%1:%2", GVAR(connectionId), _this joinString ":"]] call CFUNC(callExtension);
 };
 
-[{
-    ["CLibSocket", "IsConnected", GVAR(connectionId), {
-        params ["_connected"];
-        if (_connected == "false") then {
-            ["CLibSocket", "Connect", GVAR(wsServer), {
-                params ["_newConnectionId"];
-                GVAR(connectionId) = _newConnectionId;
-                ["SERVER"] call FUNC(enqueueRequest);
-            }] call CFUNC(callExtension);
-        };
-    }] call CFUNC(callExtension);
-}, 5] call CFUNC(addPerFrameHandler);
-
 GVAR(connectionId) = [-1, "CLibSocket", "Connect", GVAR(wsServer)] call CFUNC(extensionRequest);
 ["SERVER"] call FUNC(enqueueRequest);
 
