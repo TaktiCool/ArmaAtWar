@@ -17,7 +17,7 @@ params [["_state", true]];
 
 if (_state) then {
     if (!(CLib_Player getVariable [QGVAR(isUnconscious), false])) then {
-        GVAR(UnconsciousSince) = diag_tickTime;
+        GVAR(UnconsciousSince) = time;
         CLib_Player setVariable [QGVAR(isUnconscious), true, true];
         CLib_Player setUnconscious true;
         ["setMimic", [CLib_Player, "dead"]] call CFUNC(globalEvent);
