@@ -216,7 +216,7 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
         _enemyKillHeader ctrlSetText "\A3\ui_f\data\gui\rsc\rscdisplaygarage\car_ca.paa";
         _enemyKillHeader ctrlCommit 0;
 
-        private _enemyDeathHeader = _display ctrlCreate ["RscTextNoShadow", 10^9, _globalGroup];
+        private _enemyDeathHeader = _display ctrlCreate ["RscTextNoShadow", 1019, _globalGroup];
         _enemyDeathHeader ctrlSetFontHeight PY(2.2);
         _enemyDeathHeader ctrlSetFont "RobotoCondensedBold";
         _enemyDeathHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 24), PY(20), PX(6), PY(4)];
