@@ -14,7 +14,7 @@
 
 */
 params ["_listGroup", "_side", "_extended"];
-
+DUMP(_this);
 (ctrlPosition _listGroup) params ["_listGroupX", "_listGroupY", "_listGroupWidth", "_listGroupHeight"];
 _listGroupWidth = _listGroupWidth - PX(1); // ListGroup is smaller due to possible Scrollbar
 
