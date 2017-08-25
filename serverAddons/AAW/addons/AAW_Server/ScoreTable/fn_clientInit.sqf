@@ -246,7 +246,7 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     };
 
     // The group which contains the enemy scores
-    private _enemyPlayerListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", 1200, _globalGroup];
+    private _enemyPlayerListGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", 1300, _globalGroup];
     _enemyPlayerListGroup ctrlSetPosition [PX(_startPosition), PY(25), PX(_sideWidth+1), PY(70)];
     _enemyPlayerListGroup ctrlCommit 0;
 
@@ -267,7 +267,7 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     if (isNull _display) exitWith {};
 
     [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
-    [_display displayCtrl 1200, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
+    [_display displayCtrl 1300, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
 }] call CFUNC(addEventhandler);
 
 [QEGVAR(Common,ticketsChanged), {
@@ -315,6 +315,6 @@ GVAR(lastVisibleScoreTableStatus) = false;
         private _display = findDisplay 46 createDisplay "RscDisplayEmpty";
         [UIVAR(ScoreTable_onLoad), [_display, true]] call CFUNC(localEvent);
         [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
-        [_display displayCtrl 1200, (EGVAR(Common,competingSides) - [playerSide]) select 0, true] call FUNC(updateList);
+        [_display displayCtrl 1300, (EGVAR(Common,competingSides) - [playerSide]) select 0, true] call FUNC(updateList);
     }, 9.9] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
