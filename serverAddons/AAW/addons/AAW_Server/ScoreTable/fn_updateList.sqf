@@ -35,7 +35,7 @@ private _squadEntry = _listGroup;
             _groupDescription = _groupId;
         };
 
-        private _squadEntry = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _listGroup];
+        _squadEntry = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _listGroup];
 
         _ctrlSquadBackground = _display ctrlCreate ["RscPicture", -1, _squadEntry];
         _ctrlSquadBackground ctrlSetText "#(argb,8,8,3)color(0.4,0.4,0.4,0.3)";
