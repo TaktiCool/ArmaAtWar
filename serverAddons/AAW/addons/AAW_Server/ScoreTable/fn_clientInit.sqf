@@ -324,5 +324,9 @@ GVAR(lastVisibleScoreTableStatus) = false;
         [UIVAR(ScoreTable_onLoad), [_display, true]] call CFUNC(localEvent);
         [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
         [_display displayCtrl 1300, (EGVAR(Common,competingSides) - [playerSide]) select 0, true] call FUNC(updateList);
+        [{
+            params ["_display"];
+            _display closeDisplay 1;
+        }, 20, [_display]] call CFUNC(wait);
     }, 9.9] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
