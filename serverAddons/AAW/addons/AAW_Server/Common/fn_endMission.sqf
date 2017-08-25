@@ -51,8 +51,12 @@ RscMissionEnd_win = _type isEqualTo "WINNER";
         failMission _type;
     };
 
+}, 9.9, [_type]] call CFUNC(wait);
+
+[{
+
     findDisplay 46 closeDisplay 1;
 
-}, 15.9, [_type]] call CFUNC(wait);
+}, 20] call CFUNC(wait);
 
 ["endMission", [_type]] call CFUNC(localEvent);

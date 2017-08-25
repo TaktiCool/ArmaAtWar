@@ -311,6 +311,7 @@ GVAR(lastVisibleScoreTableStatus) = false;
 }, 0] call CFUNC(addPerFrameHandler);
 
 ["endMission", {
+    showScoretable 0;
     [{
         private _display = findDisplay 46 createDisplay "RscDisplayEmpty";
         [UIVAR(ScoreTable_onLoad), [_display, true]] call CFUNC(localEvent);
