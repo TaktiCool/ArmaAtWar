@@ -123,9 +123,16 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     private _friendlyKillHeader = _display ctrlCreate ["RscTextNoShadow", 1007, _globalGroup];
     _friendlyKillHeader ctrlSetFontHeight PY(2.2);
     _friendlyKillHeader ctrlSetFont "RobotoCondensedBold";
-    _friendlyKillHeader ctrlSetPosition [PX(_sideWidth - 30), PY(20), PX(6), PY(4)];
+    _friendlyKillHeader ctrlSetPosition [PX(_sideWidth - 36), PY(20), PX(6), PY(4)];
     _friendlyKillHeader ctrlSetText "KILLS";
     _friendlyKillHeader ctrlCommit 0;
+
+    private _friendlyVehicleKillHeader = _display ctrlCreate ["RscPictureKeepAspect", 1007, _globalGroup];
+    _friendlyVehicleKillHeader ctrlSetFontHeight PY(2.2);
+    _friendlyVehicleKillHeader ctrlSetFont "RobotoCondensedBold";
+    _friendlyVehicleKillHeader ctrlSetPosition [PX(_sideWidth - 30), PY(21), PX(6), PY(2)];
+    _friendlyVehicleKillHeader ctrlSetText "\A3\ui_f\data\gui\rsc\rscdisplaygarage\car_ca.paa";
+    _friendlyVehicleKillHeader ctrlCommit 0;
 
     private _friendlyDeathHeader = _display ctrlCreate ["RscTextNoShadow", 1008, _globalGroup];
     _friendlyDeathHeader ctrlSetFontHeight PY(2.2);
@@ -198,8 +205,15 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
         private _enemyKillHeader = _display ctrlCreate ["RscTextNoShadow", 1007, _globalGroup];
         _enemyKillHeader ctrlSetFontHeight PY(2.2);
         _enemyKillHeader ctrlSetFont "RobotoCondensedBold";
-        _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 30), PY(20), PX(6), PY(4)];
+        _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 36), PY(20), PX(6), PY(4)];
         _enemyKillHeader ctrlSetText "KILLS";
+        _enemyKillHeader ctrlCommit 0;
+
+        private _enemyVehicleKillHeader = _display ctrlCreate ["RscPictureKeepAspect", 1007, _globalGroup];
+        _enemyKillHeader ctrlSetFontHeight PY(2.2);
+        _enemyKillHeader ctrlSetFont "RobotoCondensedBold";
+        _enemyKillHeader ctrlSetPosition [PX(_startPosition + _sideWidth - 30), PY(21), PX(6), PY(2)];
+        _enemyKillHeader ctrlSetText "\A3\ui_f\data\gui\rsc\rscdisplaygarage\car_ca.paa";
         _enemyKillHeader ctrlCommit 0;
 
         private _enemyDeathHeader = _display ctrlCreate ["RscTextNoShadow", 1008, _globalGroup];

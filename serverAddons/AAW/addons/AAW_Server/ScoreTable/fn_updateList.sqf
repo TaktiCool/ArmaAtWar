@@ -75,7 +75,7 @@ private _verticalPosition = 0;
 
     { // Player loop
         private _uid = getPlayerUID _x;
-        private _scores = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES", [0, 0, 0, 0, 0]];
+        private _scores = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES", [0, 0, 0, 0, 0, 0]];
         private _font = ["RobotoCondensed", "RobotoCondensedBold"] select (_x == CLib_player);
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
 
@@ -116,7 +116,7 @@ private _verticalPosition = 0;
                 private _ctrlScoreText = _display ctrlCreate ["RscTextNoShadow", -1, _playerRow];
                 _ctrlScoreText ctrlSetFontHeight PY(2.2);
                 _ctrlScoreText ctrlSetFont _font;
-                _ctrlScoreText ctrlSetPosition [PX(6) * _forEachIndex + _listGroupWidth - PX(30), PY(0.5), PX(6), PY(3)];
+                _ctrlScoreText ctrlSetPosition [PX(6) * _forEachIndex + _listGroupWidth - PX(36), PY(0.5), PX(6), PY(3)];
                 _ctrlScoreText ctrlSetText str _x;
                 _ctrlScoreText ctrlCommit 0;
             } forEach _scores;
@@ -125,7 +125,7 @@ private _verticalPosition = 0;
             _ctrlPlayerScore ctrlSetFontHeight PY(2.2);
             _ctrlPlayerScore ctrlSetFont "RobotoCondensed";
             _ctrlPlayerScore ctrlSetPosition [_listGroupWidth - PX(7), PY(0.5), PX(6), PY(3)];
-            _ctrlPlayerScore ctrlSetText str (_scores select 4);
+            _ctrlPlayerScore ctrlSetText str (_scores select 5);
             _ctrlPlayerScore ctrlCommit 0;
         };
 
