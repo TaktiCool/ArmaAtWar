@@ -20,13 +20,14 @@ publicVariable QGVAR(ScoreNamespace);
 GVAR(ScoreBuffer) = [];
 
 DFUNC(publicScores) = {
-    params ["_uid", "_entry"];
+    params ["_uid", "_entry", ["_forceUpdate", false]];
 
     private _oldEntry = GVAR(ScoreNamespace) getVariable [_uid + "_SCORES_SERVER", [0, 0, 0, 0, 0]];
     if (!(_entry isEqualTo _oldEntry)) then {
         GVAR(ScoreNamespace) setVariable [_uid + "_SCORES_SERVER", _entry];
         GVAR(ScoreBuffer) pushBackUnique _uid;
         if (count GVAR(ScoreBuffer) == 1) then {
+            private _waitTime = [3, 0] select _forceUpdate;
             [{
                 {
                     private _entry = GVAR(ScoreNamespace) getVariable [_x + "_SCORES_SERVER", [0, 0, 0, 0, 0]];
@@ -34,17 +35,17 @@ DFUNC(publicScores) = {
                 } count GVAR(ScoreBuffer);
                 GVAR(ScoreBuffer) = [];
                 [QGVAR(ScoreUpdate)] call CFUNC(globalEvent);
-            }, 3] call CFUNC(wait);
+            }, _waitTime] call CFUNC(wait);
         };
     };
 };
 
 DFUNC(calcScores) = {
-    params ["_uid"];
+    params ["_uid", ["_forceUpdate", false]];
 
     private _numberOfKills = {
         _x params ["_time", "_killedUnitUid", "_friendlyFire"];
-        _time < (time + 60) && !_friendlyFire;
+        (_time < (time + 60) && !_friendlyFire) || _forceUpdate;
     } count (GVAR(ScoreNamespace) getVariable [_uid + "_KILLS", []]);
 
     private _numberOfFFKills = {
@@ -78,7 +79,7 @@ DFUNC(calcScores) = {
         (_numberOfRevives * 5 + _numberOfHeals * 1 + _numberOfKills * 10 - _numberOfFFKills * 20 + _captureScore * 10 + 50 * _numberOfVehicleKills - 50 * _numberOfFFVehicleKills)
     ];
 
-    [_uid, _entry] call FUNC(publicScores);
+    [_uid, _entry, _forceUpdate] call FUNC(publicScores);
 };
 
 DFUNC(registerPlayerAction) = {
@@ -118,6 +119,12 @@ DFUNC(registerPlayerAction) = {
     private _uid = getPlayerUID _unit;
     [_uid, [time, "HEALED", (getPlayerUID _target), _isMedic], "MEDICALTREATMENTS"] call FUNC(registerPlayerAction);
     [_uid] call FUNC(calcScores);
+}] call CFUNC(addEventhandler);
+
+["endMission", {
+    {
+        [getPlayerUID _x, true] call FUNC(calcScores);
+    } count allPlayers;
 }] call CFUNC(addEventhandler);
 
 ["sectorSideChanged", {

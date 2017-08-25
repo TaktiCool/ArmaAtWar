@@ -241,6 +241,11 @@
     } count [605, 606];
 }] call CFUNC(addEventHandler);
 
+["endMission", {
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+    _display closeDisplay 1;
+}] call CFUNC(addEventHandler);
+
 
 // Alternative notification display
 ["notificationDisplayed", {

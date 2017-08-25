@@ -57,7 +57,7 @@ private _verticalPosition = 0;
         private _ctrlSquadDescription = _display ctrlCreate ["RscTitle", -1, _squadEntry];
         _ctrlSquadDescription ctrlSetFontHeight PY(2.2);
         _ctrlSquadDescription ctrlSetFont "RobotoCondensedBold";
-        _ctrlSquadDescription ctrlSetPosition [PX(3.5), PY(0), PX(28), PY(3)];
+        _ctrlSquadDescription ctrlSetPosition [PX(3.5), PY(0), PX(20), PY(3)];
         _ctrlSquadDescription ctrlSetText toUpper _groupDescription;
         _ctrlSquadDescription ctrlCommit 0;
 
@@ -65,7 +65,7 @@ private _verticalPosition = 0;
         _ctrlSquadType ctrlSetFontHeight PY(2.2);
         _ctrlSquadType ctrlSetFont "RobotoCondensed";
         _ctrlSquadType ctrlSetTextColor [0.8, 0.8, 0.8, 1];
-        _ctrlSquadType ctrlSetPosition [PX(32), PY(0), PX(16), PY(3)];
+        _ctrlSquadType ctrlSetPosition [PX(21), PY(0), PX(16), PY(3)];
         _ctrlSquadType ctrlSetText ([format [QUOTE(PREFIX/CfgGroupTypes/%1/displayName), _groupType], ""] call CFUNC(getSetting));
         _ctrlSquadType ctrlCommit 0;
 
@@ -95,7 +95,7 @@ private _verticalPosition = 0;
         _ctrlPlayerName ctrlSetFont _font;
         _ctrlPlayerName ctrlSetTextColor [1, 1, 1, 1];
         if (_extended) then {
-            _ctrlPlayerName ctrlSetPosition [PX(3.5), PY(0.5), PX(28), PY(3)];
+            _ctrlPlayerName ctrlSetPosition [PX(3.5), PY(0.5), PX(20), PY(3)];
         } else {
             _ctrlPlayerName ctrlSetPosition [PX(1), PY(0.5), PX(38), PY(3)];
         };
@@ -103,6 +103,15 @@ private _verticalPosition = 0;
         _ctrlPlayerName ctrlCommit 0;
 
         if (_extended) then {
+
+            private _ctrlPlayerRole = _display ctrlCreate ["RscTitle", -1, _playerRow];
+            _ctrlPlayerRole ctrlSetFontHeight PY(2.2);
+            _ctrlPlayerRole ctrlSetFont _font;
+            _ctrlPlayerRole ctrlSetTextColor [0.8, 0.8, 0.8, 1];
+            _ctrlPlayerRole ctrlSetPosition [PX(21), PY(0.5), PX(18), PY(3)];
+            _ctrlPlayerRole ctrlSetText (([_selectedKit, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails)) select 0);
+            _ctrlPlayerRole ctrlCommit 0;
+
             {
                 private _ctrlScoreText = _display ctrlCreate ["RscTextNoShadow", -1, _playerRow];
                 _ctrlScoreText ctrlSetFontHeight PY(2.2);
