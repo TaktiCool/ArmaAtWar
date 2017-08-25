@@ -66,10 +66,13 @@
         deleteVehicle _initialUnit;
 
         // Open the respawn UI
-        [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
+        [{
+            [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
 
-        private _welcomeScreenDisplay = (findDisplay 46) createDisplay "RscDisplayLoadMission";
-        [UIVAR(WelcomeScreen_onLoad), _welcomeScreenDisplay] call CFUNC(localEvent);
+            private _welcomeScreenDisplay = (findDisplay 46) createDisplay "RscDisplayLoadMission";
+            [UIVAR(WelcomeScreen_onLoad), _welcomeScreenDisplay] call CFUNC(localEvent);
+        }] call CFUNC(execNextFrame);
+
     }, [], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
 
