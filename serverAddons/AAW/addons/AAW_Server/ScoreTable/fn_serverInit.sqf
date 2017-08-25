@@ -150,7 +150,7 @@ DFUNC(registerPlayerAction) = {
 
 addMissionEventHandler ["EntityKilled", {
     params ["_killedEntity", "_killer"];
-    if (!(_killedEntity isKindOf "Man") && (_killer in allPlayers)) then {
+    if (!(_killedEntity isKindOf "CAManBase") && (_killer in allPlayers)) then {
         private _uid = getPlayerUID _killer;
         private _friendlyFire = (_killedEntity getVariable ["side", "unknown"]) == str side group _killer;
         [_uid, [time, typeOf _killedEntity, _friendlyFire], "VEHICLEKILLS"] call FUNC(registerPlayerAction);
