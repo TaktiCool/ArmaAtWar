@@ -194,7 +194,7 @@ GVAR(firstRespawn) = true;
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.3, 0.3, 0.3, 1];
         };
 
