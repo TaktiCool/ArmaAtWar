@@ -14,10 +14,10 @@
 
 */
 params ["_listGroup", "_side", "_extended"];
-DUMP(_this);
+
 (ctrlPosition _listGroup) params ["_listGroupX", "_listGroupY", "_listGroupWidth", "_listGroupHeight"];
 _listGroupWidth = _listGroupWidth - PX(1); // ListGroup is smaller due to possible Scrollbar
-DUMP(ctrlPosition _listGroup);
+
 {ctrlDelete _x; nil} count (_listGroup getVariable [QGVAR(entries), []]);
 private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
 private _entries = [];
