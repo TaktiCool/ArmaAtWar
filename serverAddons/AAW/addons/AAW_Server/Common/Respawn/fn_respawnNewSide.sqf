@@ -69,9 +69,7 @@ CLib_Player setDir (random 360);
 CLib_Player setPosASL ([_targetPosition, 5, 0, _className] call CFUNC(findSavePosition));
 
 // Broadcast the change after everything is changed
-["playerChanged", [_newUnit, _oldUnit]] call CFUNC(localEvent);
-CLib_Player = _newUnit;
-CLib_Events_EventNamespace setVariable ["CLib_Events_EventData_player", _newUnit];
+_newUnit call CFUNC(invokePlayerChanged);
 
 // Trigger respawn event
 ["Respawn", [CLib_Player, _oldUnit]] call CFUNC(localEvent);
