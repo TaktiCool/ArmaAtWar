@@ -45,7 +45,11 @@
     {format [MLOC(loadItem), getText (configFile >> "CfgVehicles" >> typeOf _target >> "displayName")]},
     GVAR(CargoClasses),
     10,
-    {!(isNull (CLib_Player getVariable [QGVAR(Item), objNull])) && !((CLib_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target)},
+    {
+        !(isNull (CLib_Player getVariable [QGVAR(Item), objNull]))
+         && !((CLib_Player getVariable [QGVAR(Item), objNull]) isEqualTo _target)
+         && !(_target isKindOf "CAManBase")
+    },
     {
         params ["_vehicle"];
         [{
