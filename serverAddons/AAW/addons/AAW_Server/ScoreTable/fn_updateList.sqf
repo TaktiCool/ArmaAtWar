@@ -14,10 +14,10 @@
 
 */
 params ["_listGroup", "_side", "_extended"];
-DUMP(_this);
+
 (ctrlPosition _listGroup) params ["_listGroupX", "_listGroupY", "_listGroupWidth", "_listGroupHeight"];
 _listGroupWidth = _listGroupWidth - PX(1); // ListGroup is smaller due to possible Scrollbar
-DUMP(ctrlPosition _listGroup);
+
 {ctrlDelete _x; nil} count (_listGroup getVariable [QGVAR(entries), []]);
 private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
 private _entries = [];
@@ -97,7 +97,7 @@ private _squadEntryHeight = 0;
         if (_extended) then {
             private _ctrlKitIcon = _display ctrlCreate ["RscPicture", -1, _playerRow];
             _ctrlKitIcon ctrlSetPosition [PX(0.5), PY(1), PX(2), PY(2)];
-            _ctrlKitIcon ctrlSetText (([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0);
+            _ctrlKitIcon ctrlSetText (([_selectedKit, side group _x, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0);
             _ctrlKitIcon ctrlCommit 0;
         };
 
@@ -120,7 +120,7 @@ private _squadEntryHeight = 0;
             _ctrlPlayerRole ctrlSetFont _font;
             _ctrlPlayerRole ctrlSetTextColor [0.8, 0.8, 0.8, 1];
             _ctrlPlayerRole ctrlSetPosition [PX(21), PY(0.5), PX(18), PY(3)];
-            _ctrlPlayerRole ctrlSetText (([_selectedKit, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails)) select 0);
+            _ctrlPlayerRole ctrlSetText (([_selectedKit, side group _x, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails)) select 0);
             _ctrlPlayerRole ctrlCommit 0;
 
             {

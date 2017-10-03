@@ -41,7 +41,7 @@
 
         // Read the player kit settings.
         private _currentKitName = CLib_Player getVariable [QGVAR(kit), ""];
-        private _kitDetails = [_currentKitName, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
+        private _kitDetails = [_currentKitName, side group CLib_Player, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
         _kitDetails params ["_isCrew", "_isPilot"];
 
         // Pilot kit for pilot seats.
