@@ -158,7 +158,7 @@ GVAR(firstRespawn) = true;
                 ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
 
                 // Apply selected kit
-                [CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
             }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
@@ -212,7 +212,7 @@ GVAR(firstRespawn) = true;
 
         _lnbData pushBack [[_name], _x, _icon, _color];
         nil
-    } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
+    } count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event

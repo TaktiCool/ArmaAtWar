@@ -283,7 +283,7 @@
     // SquadMemberList
     private _lnbData = ([_selectedSquad] call CFUNC(groupPlayers)) apply {
         private _selectedKit = _x getVariable [QEGVAR(Kit,kit), ""];
-        private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+        private _kitIcon = ([_selectedKit, side group _x, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
 
         [[[_x] call CFUNC(name)], _x, _kitIcon]
     };
