@@ -164,8 +164,6 @@ GVAR(AISM) = call CFUNC(createStatemachine);
             _unit = _units deleteAt 0;
         };
 
-
-
         if (!(_units isEqualTo [])) then {
             if (isNil QGVAR(allSectorsArray)) exitWith {};
             scopeName "MAIN";
