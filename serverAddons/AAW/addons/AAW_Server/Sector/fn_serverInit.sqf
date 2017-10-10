@@ -146,3 +146,63 @@ GVAR(ServerInitDone) = false;
 }] call CFUNC(addEventhandler);
 
 ["sectorSideChanged", FUNC(updateDependencies)] call CFUNC(addEventhandler);
+
+GVAR(AISM) = call CFUNC(createStatemachine);
+
+[GVAR(AISM), "init", {
+    private _units = +(allUnits select {!isPlayer _x});
+    [["processAI", [_units]], "init"] select (_units isEqualTo []);
+}] call CFUNC(addStatemachineState);
+
+[GVAR(AISM), "processAI", {
+    params ["_dummy", "_data"];
+    _data params ["_units"];
+    if (!(_units isEqualTo [])) then {
+        private _unit = _units deleteAt 0;
+
+        while {isPlayer _unit && {!(_units isEqualTo [])}} do {
+            _unit = _units deleteAt 0;
+        };
+
+
+
+        if (!(_units isEqualTo [])) then {
+            if (isNil QGVAR(allSectorsArray)) exitWith {};
+            scopeName "MAIN";
+            private _currentSector = _unit getVariable [QGVAR(currentSector), objNull];
+
+            if (alive _unit) then {
+                {
+                    private _marker = _x getVariable ["marker", ""];
+                    if (_marker != "") then {
+                        if (_unit inArea _marker) then {
+                            if (_currentSector != _x) then {
+                                if (!isNull _currentSector) then {
+                                    ["sectorLeaved", [_unit, _currentSector]] call CFUNC(localEvent);
+                                };
+                                _currentSector = _x;
+                                _unit setVariable [QGVAR(currentSector), _currentSector];
+                                ["sectorEntered", [_unit, _currentSector]] call CFUNC(localEvent);
+                            };
+                            breakOut "MAIN";
+                        };
+                    };
+                    nil;
+                } count GVAR(allSectorsArray);
+            };
+
+            if (!isNull _currentSector) then {
+                _unit setVariable [QGVAR(currentSector), objNull];
+                ["sectorLeaved", [CLib_Player, _currentSector]] call CFUNC(localEvent);
+            };
+
+        };
+
+    };
+
+
+    [["processAI", [_units]], "init"] select (_units isEqualTo []);
+
+}] call CFUNC(addStatemachineState);
+
+[GVAR(AISM), "init"] call CFUNC(startStateMachine);
