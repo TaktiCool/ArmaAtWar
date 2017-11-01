@@ -163,7 +163,7 @@ class CfgCLibModules {
 
         // RespawnUI
         MODULE(RespawnUI) {
-            dependency[] = {"AAW/Common", "AAW/Kit", "AAW/Squad", "AAW/Sector"};
+            dependency[] = {"AAW/Common", "AAW/Kit", "AAW/Squad", "AAW/Sector", "AAW/Spectator"};
             FNC(clientInit);
             FNC(clientInitDeployment);
             FNC(clientInitRole);
@@ -203,6 +203,13 @@ class CfgCLibModules {
             FNC(sectorUpdatePFH);
             FNC(showCaptureStatus);
             FNC(updateDependencies);
+        };
+
+        // Spectator
+        MODULE(Spectator) {
+            dependency[] = {"AAW/Common"};
+            // General
+            FNC(clientInit);
         };
 
         // Squad
