@@ -14,6 +14,8 @@
     None
 */
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 [QGVAR(deploymentPointRemoved), {
     (_this select 0) params ["_pointId"];
     DUMP(_this);

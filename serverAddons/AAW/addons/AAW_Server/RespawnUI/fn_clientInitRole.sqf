@@ -19,7 +19,7 @@
 //        (findDisplay 46) createDisplay UIVAR(RoleScreen);
 //    }] call CFUNC(addAction);
 // }] call CFUNC(addEventHandler);
-
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 [UIVAR(RoleScreen_onLoad), {
     (_this select 0) params ["_display"];
     uiNamespace setVariable [QGVAR(roleDisplay), _display];

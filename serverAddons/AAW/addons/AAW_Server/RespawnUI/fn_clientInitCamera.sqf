@@ -15,6 +15,8 @@
     None
 */
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 [QGVAR(UpdateCameraTarget), 0] call CFUNC(addIgnoredEventLog);
 
 // When respawn screen is opened caused by death or upon startup init the camera

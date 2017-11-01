@@ -42,6 +42,10 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     _ppEffects params ["_ppBlur", "_ppColor"];
     uiNamespace setVariable [QGVAR(scoreTable), _display];
 
+    if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
+        _endScreen = true;
+    };
+
     private _enemySide = (EGVAR(Common,competingSides) - [playerSide]) select 0;
 
     // Enable all ppEffects
