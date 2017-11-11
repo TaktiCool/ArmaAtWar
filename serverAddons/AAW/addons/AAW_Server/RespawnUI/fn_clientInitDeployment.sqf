@@ -54,7 +54,7 @@ GVAR(firstRespawn) = true;
         private _minRespawnTime = time;
 
         if (GVAR(firstRespawn)) then {
-            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime*60*60));
+            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime * 60 * 60));
         } else {
             if (EGVAR(Revive,UnconsciousSince) > -1) then {
                 _minRespawnTime = EGVAR(Revive,UnconsciousSince);
