@@ -8,6 +8,7 @@ python:
   - '3.5'
 install: true
 before_script:
-  - cd serverAddons/AAW/tools
+  - pip3 install sqflint
 script:
-  - python3 sqf_validator.py
+  - python3 serverAddons/AAW/tools/sqf_validator.py
+  - sqflint -d serverAddons/AAW/addons
