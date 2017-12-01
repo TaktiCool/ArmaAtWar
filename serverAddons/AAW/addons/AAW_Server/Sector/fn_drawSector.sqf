@@ -30,10 +30,17 @@ if (isServer) then {
 };
 
 if (hasInterface) then {
+    private _friendlySide = side group CLib_player;
+    private _isSpectator = side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"};
+
+    if (_isSpectator) then {
+        _friendlySide = EGVAR(Common,competingSides) select 0;
+    };
+
     private _color = [
         [0.6, 0, 0, 0.6],
         [0, 0.4, 0.8, 0.6]
-    ] select (_side isEqualTo side group CLib_player);
+    ] select (_side isEqualTo _friendlySide);
 
     if (_side isEqualTo sideUnknown) then {
         _color = [0.93, 0.7, 0.01, 0.6];
@@ -47,8 +54,8 @@ if (hasInterface) then {
     } else {
         _designatorIconPath = format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator];
     };
-    private _borderIconPath = ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa", "A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"] select (_side isEqualTo side group CLib_player || _side isEqualTo sideUnknown);
-    private _backgroundIconPath = ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", "A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa"] select (_side isEqualTo side group CLib_player || _side isEqualTo sideUnknown);
+    private _borderIconPath = ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa", "A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"] select (_side isEqualTo _friendlySide || _side isEqualTo sideUnknown);
+    private _backgroundIconPath = ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", "A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa"] select (_side isEqualTo _friendlySide || _side isEqualTo sideUnknown);
 
     private _id = format [QGVAR(ID_%1), _marker];
 
@@ -62,7 +69,7 @@ if (hasInterface) then {
     private _shadow = 0;
 
     [_marker] call EFUNC(CompassUI,removeLineMarker);
-    if (count _activeSides > 1 && playerSide in _activeSides) then {
+    if (count _activeSides > 1 && (playerSide in _activeSides || _isSpectator)) then {
         if (playerSide == _side) then {
             if (_sector call FUNC(isCaptureable)) then {
                 _icon pushBack ["ICON", _borderIconPath, [1, 1, 1, 1], _position, 70, 35];

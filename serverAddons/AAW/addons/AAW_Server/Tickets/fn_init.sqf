@@ -152,6 +152,10 @@ GVAR(deactivateTicketSystem) = false;
         private _display = uiNamespace getVariable ["RscTitleDisplayEmpty", displayNull];
         if (isNull _display) exitWith {};
 
+        (_display displayCtrl 1202) ctrlSetFade 1;
+        (_display displayCtrl 1202) ctrlShow false;
+        (_display displayCtrl 1202) ctrlCommit 0;
+
         private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
 
         private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];

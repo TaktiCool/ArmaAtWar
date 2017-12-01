@@ -14,6 +14,7 @@
     None
 */
 // Use the missionStarted EH to prevent unnecessary executions.
+if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
 ["missionStarted", {
     [{
         PERFORMANCECOUNTER_START(Nametags);
