@@ -81,7 +81,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             private _turretConfig = _turretConfigs select (_possibleTexts find _title);
 
             // Now check if the turret has a gun.
-            if (!(getText (_turretConfig >> "body") == "") && (_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F")) exitWith {
+            if (!(getText (_turretConfig >> "body") == "") && ([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray))) exitWith {
                 // Turrets with guns always require a driver (except statics).
                 if (!alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
                     ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
@@ -89,7 +89,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                 };
 
                 // Turrets with guns in air, tank and wheeled apc require crew kit.
-                if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+                if (([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
                     ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
@@ -114,7 +114,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 
         // Driver
         // Tank and APC driver require crew kit.
-        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+        if (([_vehicle, ["Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
             ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };
