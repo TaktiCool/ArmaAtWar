@@ -23,7 +23,7 @@ private _kitDetails = [_kitName, side group _unit, [
     ["assignedItems", []],
     ["items", []],
     ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
-    ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
+    ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0], ["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -33,7 +33,7 @@ _kitDetails params [
     "_assignedItems",
     "_items",
     "_displayName", "_icon", "_mapIcon", "_compassIcon",
-    "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew"
+    "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew", "_uiIcon"
 ];
 
 // remove all Items
@@ -80,11 +80,15 @@ if (_icon == "") then {
 if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
+if (_uiIcon == "") then {
+    _uiIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
+};
 
 _unit setVariable [QGVAR(kit), _kitName, true];
 _unit setVariable [QGVAR(kitDisplayName), _displayName, true];
 _unit setVariable [QGVAR(kitIcon), _icon, true];
 _unit setVariable [QGVAR(MapIcon), _mapIcon, true];
+_unit setVariable [QGVAR(UIIcon), _uiIcon, true];
 _unit setVariable [QGVAR(compassIcon), _compassIcon, true];
 
 _unit setVariable [QGVAR(isLeader), _isLeader == 1, true];
