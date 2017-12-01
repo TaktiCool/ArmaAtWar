@@ -8,7 +8,7 @@ python:
   - '3.5'
 install: true
 before_script:
-  - pip3 install sqflint
+  - git clone https://github.com/jokoho48/sqf.git sqfLint
 script:
   - python3 serverAddons/AAW/tools/sqf_validator.py
-  - sqflint -d serverAddons/AAW/addons
+  - python3 sqfLint/sqflint.py -d serverAddons/AAW/addons
