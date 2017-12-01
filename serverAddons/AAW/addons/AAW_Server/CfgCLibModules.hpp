@@ -208,8 +208,15 @@ class CfgCLibModules {
         // Spectator
         MODULE(Spectator) {
             dependency[] = {"AAW/Common"};
-            // General
             FNC(clientInit);
+            FNC(clientInitSector);
+            FNC(cameraUpdateLoop);
+            FNC(draw3dEH);
+            FNC(keyDownEH);
+            FNC(keyUpEH);
+            FNC(mouseMovingEH);
+            FNC(mouseWheelEH);
+            FNC(setCameraPosDirPitch);
         };
 
         // Squad
