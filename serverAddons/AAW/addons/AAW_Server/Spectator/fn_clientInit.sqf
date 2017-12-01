@@ -159,7 +159,7 @@ DFUNC(dik2Char) = {
     private _ctrlCameraMode = _display ctrlCreate ["RscStructuredText", -1];
     _ctrlCameraMode ctrlSetPosition [safeZoneX + safeZoneW - pixelW*220, safeZoneY + pixelH*3, pixelW*200, pixelH*18];
     _ctrlCameraMode ctrlSetFontHeight pixelH*15;
-    _ctrlTargetInfo ctrlSetFont "RobotoCondensedBold";
+    _ctrlCameraMode ctrlSetFont "RobotoCondensedBold";
     _ctrlCameraMode ctrlSetStructuredText parseText "<t align='right'>FREE</t>";
     _ctrlCameraMode ctrlCommit 0;
 
@@ -274,11 +274,7 @@ DFUNC(dik2Char) = {
                     };
 
                     GVAR(InputGuess) = _guess;
-                } else {
-                     _temp = _temp + _searchStr +"| ";
                 };
-
-                _temp
             };
             default {
             };
