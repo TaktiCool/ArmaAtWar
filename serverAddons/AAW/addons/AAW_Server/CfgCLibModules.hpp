@@ -21,6 +21,7 @@ class CfgCLibModules {
             // Misc
             FNC(getNearestLocationName);
             FNC(isAlive);
+            FNC(endMission);
 
 
             MODULE(Deployment) {

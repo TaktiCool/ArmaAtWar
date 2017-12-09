@@ -21,7 +21,7 @@
     private _side2Count = _side2 countSide allPlayers;
     if (_side1Count == _side2Count) exitWith {};
 
-    private _diff = abs ( _side1Count - _side2Count);
+    private _diff = abs (_side1Count - _side2Count);
 
     if (_diff < GVAR(maxPlayerCountDifference)) exitWith {};
     private _side = [_side1, _side2] select (_side1Count < _side2Count);
@@ -31,7 +31,7 @@
         QLSTRING(SIDESUNBALANCED),
         QLSTRING(changeSide),
         [_icon]
-    ]]  call CFUNC(targetEvent);
+    ]] call CFUNC(targetEvent);
 }, 120] call CFUNC(addPerFrameHandler);
 
-missionNamespace setVariable [QGVAR(MissionStartTime), serverTime + ([QUOTE(PREFIX/CfgRespawn/matchStartCountdown), 0] call CFUNC(getSetting)), true];
+missionNamespace setVariable [QGVAR(MissionStartTime), (daytime * 60 * 60) + ([QUOTE(PREFIX/CfgRespawn/matchStartCountdown), 0] call CFUNC(getSetting)), true];
