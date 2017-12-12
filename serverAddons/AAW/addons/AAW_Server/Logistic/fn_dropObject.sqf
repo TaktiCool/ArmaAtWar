@@ -20,9 +20,7 @@ private _draggedObject = _unit getVariable [QGVAR(Item), objNull];
 detach _draggedObject;
 _unit playAction "released";
 
-if (_unit == CLib_Player) then {
-    ["forceWalk", "Logistic", false] call CFUNC(setStatusEffect);
-};
+[_unit, "forceWalk", "Logistic", false] call CFUNC(setStatusEffect);
 
 if (isNull _draggedObject) exitWith {};
 

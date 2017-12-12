@@ -82,7 +82,7 @@
             CLib_Player setVariable [QGVAR(Item), objNull, true];
             _draggedObject setVariable [QGVAR(Dragger), objNull, true];
 
-            ["forceWalk", "Logistic", false] call CFUNC(setStatusEffect);
+            [CLib_Player, "forceWalk", "Logistic", false] call CFUNC(setStatusEffect);
 
             CLib_Player action ["SwitchWeapon", CLib_Player, CLib_Player, 0];
         }, _vehicle, "logistic"] call CFUNC(mutex);
