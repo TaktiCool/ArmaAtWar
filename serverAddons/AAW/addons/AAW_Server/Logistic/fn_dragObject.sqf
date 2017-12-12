@@ -41,9 +41,7 @@ if (_draggedObject isKindOf "StaticWeapon" || _currentWeight >= MAXWEIGHT / 2) t
 } else {
     _attachPoint = [0, 1.3, ((_draggedObject modelToWorld [0, 0, 0]) select 2) - ((_unit modelToWorld [0, 0, 0]) select 2) + 0.5];
     _unit action ["SwitchWeapon", _unit, _unit, 99];
-    if (_unit == CLib_Player) then {
-        ["forceWalk", "Logistic", true] call CFUNC(setStatusEffect);
-    };
+    [_unit, "forceWalk", "Logistic", true] call CFUNC(setStatusEffect);
 };
 
 _attachPoint = _attachPoint vectorAdd (_draggedObject getVariable ["logisticOffset", [0, 0, 0]]);
