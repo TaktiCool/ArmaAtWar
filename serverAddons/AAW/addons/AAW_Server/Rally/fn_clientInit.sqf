@@ -13,7 +13,6 @@
     Returns:
     None
 */
-
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 [QGVAR(deploymentPointRemoved), {

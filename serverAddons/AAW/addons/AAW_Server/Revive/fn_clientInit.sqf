@@ -14,6 +14,7 @@
     None
 */
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 GVAR(UnconsciousFrame) = -1;
 GVAR(UnconsciousSince) = -1;
 

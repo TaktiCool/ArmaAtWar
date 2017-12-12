@@ -22,8 +22,8 @@ private _kitDetails = [_kitName, side group _unit, [
     ["handgunWeapon", ""], ["handgunMagazine", ""], ["handgunMagazineCount", 0],
     ["assignedItems", []],
     ["items", []],
-    ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
-    ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0], ["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]
+    ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]], ["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"],
+    ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
 ]] call FUNC(getKitDetails);
 _kitDetails params [
     "_uniform", "_vest", "_backpack", "_headGear",
@@ -32,8 +32,8 @@ _kitDetails params [
     "_handgunWeapon", "_handgunMagazine", "_handgunMagazineCount",
     "_assignedItems",
     "_items",
-    "_displayName", "_icon", "_mapIcon", "_compassIcon",
-    "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew", "_uiIcon"
+    "_displayName", "_icon", "_mapIcon", "_compassIcon", "_uiIcon",
+    "_isLeader", "_isMedic", "_isEngineer", "_isPilot", "_isCrew"
 ];
 
 // remove all Items

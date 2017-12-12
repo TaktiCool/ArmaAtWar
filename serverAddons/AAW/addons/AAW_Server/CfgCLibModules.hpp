@@ -163,7 +163,7 @@ class CfgCLibModules {
 
         // RespawnUI
         MODULE(RespawnUI) {
-            dependency[] = {"AAW/Common", "AAW/Kit", "AAW/Squad", "AAW/Sector", "AAW/Spectator"};
+            dependency[] = {"AAW/Common", "AAW/Kit", "AAW/Squad", "AAW/Sector"};
             FNC(clientInit);
             FNC(clientInitDeployment);
             FNC(clientInitRole);
@@ -207,7 +207,7 @@ class CfgCLibModules {
 
         // Spectator
         MODULE(Spectator) {
-            dependency[] = {"AAW/Common"};
+            dependency[] = {"AAW/Common", "AAW/Sector"};
             FNC(clientInit);
             FNC(clientInitSector);
             FNC(cameraUpdateLoop);
@@ -216,7 +216,6 @@ class CfgCLibModules {
             FNC(keyUpEH);
             FNC(mouseMovingEH);
             FNC(mouseWheelEH);
-            FNC(setCameraPosDirPitch);
         };
 
         // Squad

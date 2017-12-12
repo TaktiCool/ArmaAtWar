@@ -14,6 +14,7 @@
     None
 */
 if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 // When player dies show respawn UI
 ["Killed", {
     [[-10000, -10000, 50], true] call EFUNC(Common,respawn);

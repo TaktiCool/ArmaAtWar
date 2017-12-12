@@ -5,21 +5,27 @@
     Author: BadGuy
 
     Description:
-    MouseMoving-EH for the Spectator
+    MouseMoving event handler for the spectator
 
     Parameter(s):
-    0: display <Display>
-    1: deltaX <Number>
-    2: deltaY <Number>
+    0: Display <Display> (Default: displayNull)
+    1: DeltaX <Number> (Default: 0)
+    2: DeltaY <Number> (Default: 0)
+
     Returns:
     None
 */
-params ["", "_deltaX", "_deltaY"];
+
+params [
+    ["_display", displayNull, [displayNull]],
+    ["_deltaX", 0, [0]],
+    ["_deltaY", 0, [0]]
+];
 
 if (GVAR(CameraOffsetMode)) then {
-    GVAR(cameraDirOffset) = GVAR(cameraDirOffset) + _deltaX*0.5;
-    GVAR(cameraPitchOffset) = -89.0 max (89.9 min (GVAR(cameraPitchOffset) - _deltaY*0.5));
+    GVAR(CameraDirOffset) = GVAR(CameraDirOffset) + _deltaX * 0.5;
+    GVAR(CameraPitchOffset) = -89.0 max (89.9 min (GVAR(CameraPitchOffset) - _deltaY * 0.5));
 } else {
-    GVAR(cameraDir) = GVAR(cameraDir) + _deltaX*0.5;
-    GVAR(cameraPitch) = -89.0 max (89.9 min (GVAR(cameraPitch) - _deltaY*0.5));
+    GVAR(CameraDir) = GVAR(CameraDir) + _deltaX * 0.5;
+    GVAR(CameraPitch) = -89.0 max (89.9 min (GVAR(CameraPitch) - _deltaY * 0.5));
 };

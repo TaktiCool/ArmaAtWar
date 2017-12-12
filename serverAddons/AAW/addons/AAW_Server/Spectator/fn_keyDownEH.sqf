@@ -8,20 +8,29 @@
     KeyDown-EH for the Spectator
 
     Parameter(s):
-    0: display <Display>
-    1: keyCode <Number>
-    2: isShiftPressed <Boolean>
-    2: isCtrlPressed <Boolean>
-    2: isAltPressed <Boolean>
-    Returns:
-    None
-*/
-params ["_display", "_keyCode", "_shift", "_ctrl", "_alt"];
+    0: Display <Display> (Default: displayNull)
+    1: KeyCode <Number> (Default: 0)
+    2: ShiftPressed <Bool> (Default: false)
+    3: CtrlPressed <Bool> (Default: false)
+    4: AltPressed <Bool> (Default: false)
 
-private _ret = switch (_keyCode) do {
-    case (0x32): { // M: Map
+    Returns:
+    Event handled <Bool>
+*/
+
+params [
+    ["_display", displayNull, [displayNull]],
+    ["_keyCode", 0, [0]],
+    ["_shift", false, [true]],
+    ["_ctrl", false, [true]],
+    ["_alt", false, [true]]
+];
+
+private _return = switch (_keyCode) do {
+    case DIK_M: { // M: Map
         if (GVAR(InputMode) > 0) exitWith {false};
-        private _mapDisplay =  uiNamespace getVariable [QGVAR(MapDisplay), displayNull];
+
+        private _mapDisplay = uiNamespace getVariable [QGVAR(MapDisplay), displayNull];
         if (isNull _mapDisplay) then {
             _mapDisplay = (findDisplay 46) createDisplay "RscDisplayEmpty";
             uiNamespace setVariable [QGVAR(MapDisplay), _mapDisplay];
@@ -29,10 +38,10 @@ private _ret = switch (_keyCode) do {
             (_mapDisplay displayCtrl 1202) ctrlCommit 0;
 
             private _map = _mapDisplay ctrlCreate ["RscMapControl", -1];
-            _map ctrlSetPosition [safeZoneX+pixelW*BORDERWIDTH, safeZoneY+pixelH*BORDERWIDTH, safeZoneW-pixelW*2*BORDERWIDTH, safeZoneH-pixelH*2*BORDERWIDTH];
+            _map ctrlSetPosition [safeZoneX + PX(BORDERWIDTH), safeZoneY + PY(BORDERWIDTH), safeZoneW - PX(2 * BORDERWIDTH), safeZoneH - PY(2 * BORDERWIDTH)];
             _map ctrlCommit 0;
 
-            GVAR(MapState) params [["_zoom", 1], ["_position", position CLib_player]];
+            GVAR(MapState) params [["_zoom", 1], ["_position", getPos CLib_player]];
 
             _map ctrlMapAnimAdd [0, _zoom, _position];
             ctrlMapAnimCommit _map;
@@ -42,12 +51,12 @@ private _ret = switch (_keyCode) do {
             _mapDisplay displayAddEventHandler ["KeyDown", {
                 params ["_display", "_keyCode"];
                 switch (_keyCode) do {
-                    case (0x32): { // M
+                    case DIK_M: { // M
                         _display closeDisplay 1;
-                        true;
+                        true
                     };
                     default {
-                        false;
+                        false
                     };
                 };
             }];
@@ -63,9 +72,9 @@ private _ret = switch (_keyCode) do {
             _mapDisplay closeDisplay 1;
         };
 
-        true;
+        true
     };
-    case (0x21): { // F
+    case DIK_F: { // F
         if (GVAR(InputMode) > 0) exitWith {false};
         if (_ctrl) then {
             GVAR(InputMode) = 1;
@@ -73,7 +82,7 @@ private _ret = switch (_keyCode) do {
         } else {
             if (!isNull GVAR(CursorTarget)) then {
                 GVAR(CameraFollowTarget) = GVAR(CursorTarget);
-                GVAR(CameraRelPos) = getPosASLVisual GVAR(camera) vectorDiff getPosASLVisual GVAR(CameraFollowTarget);
+                GVAR(CameraRelPos) = getPosASLVisual GVAR(Camera) vectorDiff getPosASLVisual GVAR(CameraFollowTarget);
                 GVAR(CameraMode) = 2;
                 [QGVAR(CameraModeChanged), GVAR(CameraMode)] call CFUNC(localEvent);
             } else {
@@ -81,60 +90,54 @@ private _ret = switch (_keyCode) do {
                 [QGVAR(CameraModeChanged), GVAR(CameraMode)] call CFUNC(localEvent);
             };
         };
-
-
     };
-    case (0x2A): { // LShift
+    case DIK_LSHIFT: { // LShift
         if (GVAR(InputMode) > 0) exitWith {false};
         GVAR(CameraSpeedMode) = true;
-        false;
+        false
     };
-    case (0x1D): { // LCTRL
+    case DIK_LCONTROL: { // LCTRL
         if (GVAR(InputMode) > 0) exitWith {false};
         GVAR(CameraSmoothingMode) = true;
-
-        false;
+        false
     };
-    case (0x38): { // LAlt
+    case DIK_LALT: { // LAlt
         if (GVAR(InputMode) > 0) exitWith {false};
         GVAR(CameraOffsetMode) = true;
-
-        false;
+        false
     };
-    case (0x01): { // ESC
+    case DIK_ESCAPE: { // ESC
         if (GVAR(InputMode) > 0) exitWith {
             GVAR(InputMode) = 0;
             [QGVAR(InputModeChanged), GVAR(InputMode)] call CFUNC(localEvent);
-            true;
+            true
         };
-
-        false;
-        //code
+        false
     };
-    case (0x0F): { // TAB
+    case DIK_TAB: { // TAB
         if (GVAR(InputMode) > 0) exitWith {
             GVAR(InputGuessIndex) = GVAR(InputGuessIndex) + ([1, -1] select _shift);
-            GVAR(InputGuessIndex) = [GVAR(InputGuessIndex), count GVAR(InputGuess) - 2] select (GVAR(InputGuessIndex) < 0);
-            GVAR(InputGuessIndex) = [GVAR(InputGuessIndex), 0] select (GVAR(InputGuessIndex) >= count GVAR(InputGuess));
+            if (GVAR(InputGuessIndex) < 0) then {
+                GVAR(InputGuessIndex) = count GVAR(InputGuess) - 1;
+            };
+            if (GVAR(InputGuessIndex) >= count GVAR(InputGuess)) then {
+                GVAR(InputGuessIndex) = 0;
+            };
             [QGVAR(updateInput)] call CFUNC(localEvent);
-            true;
+            true
         };
-
-        false;
-        //code
+        false
     };
-    case (0x1C): {
+    case DIK_RETURN: { // RETURN
         if (GVAR(InputMode) == 1) exitWith {
             if !(GVAR(InputGuess) isEqualTo []) then {
                 GVAR(CameraFollowTarget) = (GVAR(InputGuess) select GVAR(InputGuessIndex)) select 1;
-                if (GVAR(CameraMode) != 2 || {(getPosASLVisual GVAR(camera) distance getPosASLVisual GVAR(CameraFollowTarget)) > 50}) then {
-                    GVAR(CameraRelPos) = (vectorNormalized (getPosASLVisual GVAR(camera) vectorDiff getPosASLVisual GVAR(CameraFollowTarget))) vectorMultiply 10;
+                if (GVAR(CameraMode) != 2 || {(getPosASLVisual GVAR(Camera) distance getPosASLVisual GVAR(CameraFollowTarget)) > 50}) then {
+                    GVAR(CameraRelPos) = (vectorNormalized (getPosASLVisual GVAR(Camera) vectorDiff getPosASLVisual GVAR(CameraFollowTarget))) vectorMultiply 10;
                 };
 
-                if (speed GVAR(CameraFollowTarget) > 20) then {
-                    if (vectorMagnitude GVAR(CameraRelPos) < 30) then {
-                        GVAR(CameraRelPos) = (vectorNormalized GVAR(CameraRelPos)) vectorMultiply 30;
-                    };
+                if (speed GVAR(CameraFollowTarget) > 20 && {vectorMagnitude GVAR(CameraRelPos) < 30}) then {
+                    GVAR(CameraRelPos) = (vectorNormalized GVAR(CameraRelPos)) vectorMultiply 30;
                 };
 
                 GVAR(CameraPitch) = -(GVAR(CameraRelPos) select 2) atan2 vectorMagnitude GVAR(CameraRelPos);
@@ -146,46 +149,44 @@ private _ret = switch (_keyCode) do {
 
             GVAR(InputMode) = 0;
             [QGVAR(InputModeChanged), GVAR(InputMode)] call CFUNC(localEvent);
-
-            true;
+            true
         };
     };
-    case (0x0E): { // BACKSPACE
-        (GVAR(InputMode)==0);
-        //code
+    case DIK_BACKSPACE: { // BACKSPACE
+        GVAR(InputMode) == 0
     };
-    case (0x3B): { // F1
+    case DIK_F1: { // F1
         GVAR(OverlayGroupMarker) = !GVAR(OverlayGroupMarker);
-        true;
+        true
     };
-    case (0x3C): { // F2
+    case DIK_F2: { // F2
         GVAR(OverlayUnitMarker) = !GVAR(OverlayUnitMarker);
-        true;
+        true
     };
-    case (0x3D): { // F3
+    case DIK_F3: { // F3
         GVAR(OverlaySectorMarker) = !GVAR(OverlaySectorMarker);
-        true;
+        true
     };
     default {
-        false;
+        false
     };
 };
 
-if (!_ret && GVAR(InputMode) > 0) then {
+if (!_return && GVAR(InputMode) > 0) then {
     private _char = [_keyCode, _shift] call FUNC(dik2char);
     if (_char != "") then {
         GVAR(InputScratchpad) = GVAR(InputScratchpad) + _char;
         [QGVAR(updateGuess)] call CFUNC(localEvent);
         [QGVAR(updateInput)] call CFUNC(localEvent);
-        _ret = true;
+        _return = true;
     } else {
-        if (_keyCode == 0x0E) then { // BACKSPACE
-            GVAR(InputScratchpad) = GVAR(InputScratchpad) select [0, (count GVAR(InputScratchpad)) - 1];
+        if (_keyCode == DIK_BACKSPACE) then { // BACKSPACE
+            GVAR(InputScratchpad) = GVAR(InputScratchpad) select [0, count GVAR(InputScratchpad) - 1];
             [QGVAR(updateGuess)] call CFUNC(localEvent);
             [QGVAR(updateInput)] call CFUNC(localEvent);
-            _ret = true;
+            _return = true;
         };
     };
 };
 
-_ret;
+_return

@@ -8,32 +8,30 @@
     KeyUp-EH for the Spectator
 
     Parameter(s):
-    0: display <Display>
-    1: keyCode <Number>
-    2: isShiftPressed <Boolean>
-    2: isCtrlPressed <Boolean>
-    2: isAltPressed <Boolean>
+    0: Display <Display> (Default: displayNull)
+    1: KeyCode <Number> (Default: 0)
+
     Returns:
-    None
+    Event handled <Bool>
 */
-params ["_display", "_keyCode"];
+
+params [
+    ["_display", displayNull, [displayNull]],
+    ["_keyCode", 0, [0]]
+];
 
 switch (_keyCode) do {
-    case (0x2A): {
+    case DIK_LSHIFT: { // LShift
         GVAR(CameraSpeedMode) = false;
-        false;
     };
-    case (0x1D): {
+    case DIK_LCONTROL: { // LCTRL
         GVAR(CameraSmoothingMode) = false;
-        false;
     };
-    case (0x38): {
+    case DIK_LALT: { // LAlt
         GVAR(CameraOffsetMode) = false;
-        GVAR(cameraDirOffset) = 0;
-        GVAR(cameraPitchOffset) = 0;
-        false;
-    };
-    default {
-        false;
+        GVAR(CameraDirOffset) = 0;
+        GVAR(CameraPitchOffset) = 0;
     };
 };
+
+false
