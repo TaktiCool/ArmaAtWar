@@ -13,6 +13,8 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 /*
  * #### TEAM INFO SCREEN ####
  * TEAM INFO

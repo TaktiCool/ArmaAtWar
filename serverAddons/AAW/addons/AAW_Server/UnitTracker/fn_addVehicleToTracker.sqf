@@ -21,6 +21,18 @@ private _groupColor = [0.13, 0.54, 0.21, 1];
 private _color = [_sideColor, _groupColor] select _inGroup;
 _color = [_color, [0.93, 0.7, 0.01, 1]] select _isEmpty;
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
+    if (_vehicle getVariable ["side", str sideUnknown] == str (EGVAR(Common,CompetingSides) select 0)) then {
+        _color = _sideColor;
+    } else {
+        _color = [0.6, 0, 0, 1];
+    };
+
+    if (_isEmpty) then {
+        _color set [3, 0.5];
+    };
+};
+
 private _vehicleMapIcon = getText (configFile >> "CfgVehicles" >> typeOf _vehicle >> "Icon");
 
 [

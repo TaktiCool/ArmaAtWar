@@ -25,6 +25,8 @@ GVAR(currentSector) = objNull;
     }] call CFUNC(waitUntil);
 }] call CFUNC(addEventhandler);
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 ["sectorEntered", {
     params ["_args"];
     _args params ["_unit", "_sector"];
@@ -36,6 +38,7 @@ GVAR(currentSector) = objNull;
     [false, _this select 1] call FUNC(showCaptureStatus);
     GVAR(currentSector) = objNull;
 }] call CFUNC(addEventHandler);
+
 
 ["sectorSideChanged", {
     params ["_args"];

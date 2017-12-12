@@ -13,6 +13,8 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 // When the player changes he takes his kit with him.
 ["playerChanged", {
     (_this select 0) params ["_newPlayer", "_oldPlayer"];

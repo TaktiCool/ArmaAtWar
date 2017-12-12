@@ -13,6 +13,8 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 // Use the missionStarted EH to prevent unnecessary executions.
 ["missionStarted", {
     [{

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(lastDeploymentPoint) = "";
 GVAR(selectedDeploymentPoint) = "";

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 // ["missionStarted", {
 //    ["Role Screen", CLib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {

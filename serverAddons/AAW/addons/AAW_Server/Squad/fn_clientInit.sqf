@@ -14,6 +14,8 @@
     None
 */
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 //GVAR(squadIds) = ("true" configClasses (configFile >> "CfgWorlds" >> "GroupCompany")) apply {getText (_x >> "name")};
 GVAR(squadIds) = [
     "Alpha",

@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 GVAR(lineMarkers) = call CFUNC(createNamespace);
 
 // Use pools to store the controls for the markers
