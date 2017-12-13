@@ -72,11 +72,11 @@ if (GVAR(CameraSmoothingTime) > 0) then {
 
     private _sinDirection = ((sin _lastDirection) * _smoothingAmount + sin _direction) / (1 + _smoothingAmount);
     private _cosDirection = ((cos _lastDirection) * _smoothingAmount + cos _direction) / (1 + _smoothingAmount);
-    _cameraDirection = _sinDirection atan2 _cosDirection;
+    _direction = _sinDirection atan2 _cosDirection;
 
     private _sinPitch = ((sin _lastPitch) * _smoothingAmount + sin _pitch) / (1 + _smoothingAmount);
     private _cosPitch = ((cos _lastPitch) * _smoothingAmount + cos _pitch) / (1 + _smoothingAmount);
-    _cameraPitch = _sinPitch atan2 _cosPitch;
+    _pitch = _sinPitch atan2 _cosPitch;
 
     GVAR(CameraPreviousState) = [time, _position, _direction, _pitch];
 } else {
