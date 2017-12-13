@@ -14,7 +14,7 @@
     None
 */
 
-if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 
 //GVAR(squadIds) = ("true" configClasses (configFile >> "CfgWorlds" >> "GroupCompany")) apply {getText (_x >> "name")};
 GVAR(squadIds) = [
@@ -45,6 +45,8 @@ GVAR(squadIds) = [
     "Yankee",
     "Zulu"
 ];
+
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(minSideSwitchTime) = getNumber (missionConfigFile >> QPREFIX >> "minSideSwitchTime");
 GVAR(isTimeUnlocked) = 0;
