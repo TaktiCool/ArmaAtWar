@@ -14,7 +14,7 @@
     None
 */
 GVAR(VehicleRespawnAllVehicles) = [];
-if (true) exitWith {};
+
 ["entityCreated", {
     (_this select 0) params ["_entity"];
 
