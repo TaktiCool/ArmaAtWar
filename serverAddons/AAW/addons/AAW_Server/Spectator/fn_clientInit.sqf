@@ -237,7 +237,7 @@ DFUNC(dik2Char) = {
         (_this select 0) params ["_mode"];
         (_this select 1) params ["_ctrl"];
 
-        private _textMode = ["FREE", format ["FOLLOW [%2]", GVAR(CameraFollowTarget) call CFUNC(name)]] select (_mode - 1);
+        private _textMode = ["FREE", format ["FOLLOW [%1]", GVAR(CameraFollowTarget) call CFUNC(name)]] select (_mode - 1);
 
         _ctrl ctrlSetStructuredText parseText format ["<t align='right'>%1</t>", _textMode];
         _ctrl ctrlCommit 0;
