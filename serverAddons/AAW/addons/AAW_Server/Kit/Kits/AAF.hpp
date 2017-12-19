@@ -105,7 +105,7 @@ class AAF {
         displayName = "Grenadier";
 
         primaryWeapon = "arifle_Mk20_GL_F";
-        items[] += {{"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2}, {"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
@@ -175,7 +175,7 @@ class AAF {
         displayName = "Ammo Bearer";
 
         backpack = "B_AssaultPack_dgtl";
-        items[] += {{"200Rnd_65x39_cased_Box_Tracer", 3}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2}, {"200Rnd_65x39_cased_Box_Tracer", 3}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle"};

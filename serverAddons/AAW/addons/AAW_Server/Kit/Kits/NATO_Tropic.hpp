@@ -108,7 +108,7 @@ class NATO_Tropic {
         displayName = "Grenadier";
 
         primaryWeapon = "arifle_MX_GL_khk_F";
-        items[] += {{"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2},{"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
@@ -178,7 +178,7 @@ class NATO_Tropic {
         displayName = "Ammo Bearer";
 
         backpack = "B_AssaultPack_tna_F";
-        items[] += {{"100Rnd_65x39_caseless_mag_Tracer", 6}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2},{"100Rnd_65x39_caseless_mag_Tracer", 6}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle"};

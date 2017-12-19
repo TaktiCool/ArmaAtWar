@@ -107,7 +107,7 @@ class CSAT_Tropic {
         displayName = "Grenadier";
 
         primaryWeapon = "arifle_CTAR_GL_ghex_F";
-        items[] += {{"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2}, {"1Rnd_HE_Grenade_shell", 8}, {"1Rnd_Smoke_Grenade_shell", 4}, {"1Rnd_SmokeRed_Grenade_shell", 2}, {"1Rnd_SmokeGreen_Grenade_shell", 2}};
 
         UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
     };
@@ -176,7 +176,7 @@ class CSAT_Tropic {
         displayName = "Ammo Bearer";
 
         backpack = "B_AssaultPack_ocamo";
-        items[] += {{"100Rnd_580x42_Mag_Tracer_F", 3}};
+        items[] = {{"FirstAidKit",2}, {"HandGrenade",2}, {"SmokeShell", 2}, {"100Rnd_580x42_Mag_Tracer_F", 3}};
     };
     class Crewman: Rifleman {
         availableInGroups[] = {"Vehicle"};
