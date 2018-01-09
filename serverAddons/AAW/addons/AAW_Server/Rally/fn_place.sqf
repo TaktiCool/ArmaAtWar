@@ -18,7 +18,7 @@
 
     private _position = CLib_Player modelToWorld [0, 1.5, 0];
     if (CLib_Player distance _position >= 20) exitWith {
-        ["RALLY POINT NOT PLACABLE", "Not enough space available!"] call EFUNC(Common,displayHint);
+        ["RALLY POINT NOT PLACABLE", "Not enough space available!"] call MFUNC(displayHint);
     };
 
     [group CLib_Player] call FUNC(destroy);
@@ -39,16 +39,16 @@
     (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = format ["RP %1", groupId group CLib_Player];
     private _spawnCount = [CFGSRP(spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", _pointObjects] call MFUNC(addDeploymentPoint);
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
-    [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentPointData);
+    [_pointId, "spawnPointLocked", 0] call MFUNC(setDeploymentPointData);
 
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", group CLib_player, [
         "NEW RALLY POINT AVAILABLE",
-        "near " + ([_position] call EFUNC(Common,getNearestLocationName)),
+        "near " + ([_position] call MFUNC(getNearestLocationName)),
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0.13, 0.54, 0.21, 1],1],["A3\ui_f\data\map\groupicons\badge_simple.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

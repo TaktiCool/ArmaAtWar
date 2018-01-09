@@ -24,7 +24,7 @@ DFUNC(drawSector) = {
     private _fullname = _sector getVariable ["fullname", ""];
     private _side = _sector getVariable ["side", sideUnknown];
     private _position = getMarkerPos _marker;
-    private _friendlySide = EGVAR(Common,competingSides) select 0;
+    private _friendlySide = MGVAR(competingSides) select 0;
     private _color = [[0.6, 0, 0, 0.6], [0, 0.4, 0.8, 0.6]] select (_side isEqualTo _friendlySide);
 
     if (_side isEqualTo sideUnknown) then {

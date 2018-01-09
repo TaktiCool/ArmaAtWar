@@ -133,14 +133,14 @@ DFUNC(registerPlayerAction) = {
     if (_lastSide != sideUnknown) then {
         private _attackerSide = _sector getVariable ["attackerSide", sideUnknown];
         {
-            if (_x call EFUNC(Common,isAlive) && isNull objectParent _x) then {
+            if (_x call MFUNC(isAlive) && isNull objectParent _x) then {
                 [getPlayerUID _x, [time, str _sector, "NEUTRALIZED"], "SECTORCAPTURES"] call FUNC(registerPlayerAction);
                 [getPlayerUID _x] call FUNC(calcScores);
             };
         } count (_sector getVariable [format ["units%1", _attackerSide], []]);
     } else {
         {
-            if (_x call EFUNC(Common,isAlive) && isNull objectParent _x) then {
+            if (_x call MFUNC(isAlive) && isNull objectParent _x) then {
                 [getPlayerUID _x, [time, str _sector, "CAPTURED"], "SECTORCAPTURES"] call FUNC(registerPlayerAction);
                 [getPlayerUID _x] call FUNC(calcScores);
             };

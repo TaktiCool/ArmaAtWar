@@ -21,7 +21,7 @@ private _groupColor = [0.13, 0.54, 0.21, 1];
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo _group);
 
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
-    if (side _group isEqualTo (EGVAR(Common,CompetingSides) select 0)) then {
+    if (side _group isEqualTo (MGVAR(CompetingSides) select 0)) then {
         _color = _sideColor;
     } else {
         _color = [0.6, 0, 0, 1];

@@ -26,7 +26,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             ["\A3\ui_f_curator\data\rsccommon\rscattributerespawnvehicle\start_ca.paa", 1.2, [1,1,1,1],1],
             [getText (_vehicleConfig >> "picture"), 0.3, [1,1,1,1],1]
         ]
-    ] call EFUNC(Common,displayNotification);
+    ] call MFUNC(displayNotification);
 }] call CFUNC(addEventHandler);
 
 // bug Fix for JIP and VehicleVarName

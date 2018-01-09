@@ -17,7 +17,7 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
 
 // When player dies show respawn UI
 ["Killed", {
-    [[-10000, -10000, 50], true] call EFUNC(Common,respawn);
+    [[-10000, -10000, 50], true] call MFUNC(respawn);
 
     [{
         // Respawn screen may already open by user action
@@ -59,11 +59,11 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
                 _leastPlayerCount = _playerCount;
             };
             nil
-        } count EGVAR(Common,competingSides);
+        } count MGVAR(competingSides);
 
         // Move the player to the side
         private _initialUnit = CLib_Player;
-        [[-1000, -1000, 10], _leastPlayerSide] call EFUNC(Common,respawnNewSide);
+        [[-1000, -1000, 10], _leastPlayerSide] call MFUNC(respawnNewSide);
         deleteVehicle _initialUnit;
 
         // Open the respawn UI
@@ -96,7 +96,7 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
     private _content = _display ctrlCreate ["RscHTML", 6001];
     _content ctrlSetPosition [0.5 - PX(39), 0.5 - PY(19), PX(78), PY(38)];
     _content ctrlCommit 0;
-    _content htmlLoad format ["https://www.atwar-mod.com/popup/%1/%2", EGVAR(Common,VersionInfo) select 1 select 0, CLib_Player call CFUNC(name)];
+    _content htmlLoad format ["https://www.atwar-mod.com/popup/%1/%2", MGVAR(VersionInfo) select 1 select 0, CLib_Player call CFUNC(name)];
     private _continueButton = _display ctrlCreate ["RscButtonMenu", 6002];
     _continueButton ctrlSetPosition [0.5 - PX(40), 0.5 + PY(20.5), PX(80), (((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25];
     _continueButton ctrlSetText "CONTINUE";
@@ -127,9 +127,9 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
 
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
-        [_display, [-PX(40), 0]] call EFUNC(Common,registerDisplayNotification);
+        [_display, [-PX(40), 0]] call MFUNC(registerDisplayNotification);
 
-        if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+        if (!(alive CLib_Player) || (CLib_Player getVariable [QMGVAR(tempUnit), false])) then {
             // Catch the escape key
             _display displayAddEventHandler ["KeyDown", FUNC(showDisplayInterruptEH)];
         };
@@ -139,12 +139,12 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
 
         // Update Tickets
         private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
-        private _firstSide = EGVAR(Common,competingSides) select 0;
-        private _secondSide = EGVAR(Common,competingSides) select 1;
+        private _firstSide = MGVAR(competingSides) select 0;
+        private _secondSide = MGVAR(competingSides) select 1;
 
-        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 601) ctrlSetText (missionNamespace getVariable [format [QMGVAR(Flag_%1), _firstSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
 
-        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _firstSide], ""]);
+        (_display displayCtrl 603) ctrlSetText (missionNamespace getVariable [format [QMGVAR(sideName_%1), _firstSide], ""]);
         private _pos = ctrlPosition (_display displayCtrl 603);
         _pos set [1, PY(3.875)];
         (_display displayCtrl 603) ctrlSetPosition _pos;
@@ -156,9 +156,9 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
         (_display displayCtrl 605) ctrlSetPosition _pos;
         (_display displayCtrl 605) ctrlCommit 0;
 
-        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+        (_display displayCtrl 602) ctrlSetText (missionNamespace getVariable [format [QMGVAR(Flag_%1), _secondSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
 
-        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _secondSide], ""]);
+        (_display displayCtrl 604) ctrlSetText (missionNamespace getVariable [format [QMGVAR(sideName_%1), _secondSide], ""]);
         _pos = ctrlPosition (_display displayCtrl 604);
         _pos set [1, PY(3.875)];
         (_display displayCtrl 604) ctrlSetPosition _pos;
@@ -200,8 +200,8 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
                 (_this select 1) call CFUNC(removePerFrameHandler);
             };
 
-            private _firstSide = EGVAR(Common,competingSides) select 0;
-            private _secondSide = EGVAR(Common,competingSides) select 1;
+            private _firstSide = MGVAR(competingSides) select 0;
+            private _secondSide = MGVAR(competingSides) select 1;
 
             private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
             (_display displayCtrl 605) ctrlSetText str ({_firstSide == side group _x} count allPlayers);
@@ -232,8 +232,8 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
     private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
     if (isNull _display) exitWith {};
 
-    private _firstSide = EGVAR(Common,competingSides) select 0;
-    private _secondSide = EGVAR(Common,competingSides) select 1;
+    private _firstSide = MGVAR(competingSides) select 0;
+    private _secondSide = MGVAR(competingSides) select 1;
 
     private _startTickets = getNumber (missionConfigFile >> QPREFIX >> "tickets");
     (_display displayCtrl 605) ctrlSetText str ({_firstSide == side group _x} count allPlayers);

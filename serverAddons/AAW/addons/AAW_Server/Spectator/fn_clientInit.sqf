@@ -297,7 +297,7 @@ DFUNC(dik2Char) = {
                         if (GVAR(InputGuessIndex) >= count _guess) then {
                             GVAR(InputGuessIndex) = 0;
                         };
-                        private _friendlySide = EGVAR(Common,competingSides) select 0;
+                        private _friendlySide = MGVAR(competingSides) select 0;
 
                         _guess = _guess select [GVAR(InputGuessIndex), count _guess];
                         private _bestGuess = _guess select 0;

@@ -26,5 +26,5 @@ publicVariable QGVAR(DeploymentPointStorage);
             ["BASE", "BASE", _markerPosition, _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
         };
         nil
-    } count EGVAR(Common,competingSides);
+    } count MGVAR(competingSides);
 }] call CFUNC(addEventHandler);

@@ -45,8 +45,8 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     if (isNull _display) exitWith {};
 
     // Update the flag and text
-    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), playerSide], ""]);
-    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,SideName_%1), playerSide], ""]);
+    (_display displayCtrl 102) ctrlSetText (missionNamespace getVariable [format [QMGVAR(Flag_%1), playerSide], ""]);
+    (_display displayCtrl 103) ctrlSetText (missionNamespace getVariable [format [QMGVAR(SideName_%1), playerSide], ""]);
 }] call CFUNC(addEventHandler);
 
 [UIVAR(RespawnScreen_ChangeSideBtn_onButtonClick), {

@@ -22,7 +22,7 @@ DFUNC(checkTicketBleed) = {
 
     if (sideUnknown in _sectorOwner) exitWith {sideUnknown};
 
-    private _nbrOwnedSectors = EGVAR(Common,competingSides) apply {
+    private _nbrOwnedSectors = MGVAR(competingSides) apply {
         private _side = _x;
         [{_x == _side} count _sectorOwner, _side];
     };
@@ -71,7 +71,7 @@ GVAR(deactivateTicketSystem) = false;
             missionNamespace setVariable [format [QGVAR(sideTickets_%1), _x], _startTickets];
             publicVariable (format [QGVAR(sideTickets_%1), _x]);
             nil
-        } count EGVAR(Common,competingSides);
+        } count MGVAR(competingSides);
 
         addMissionEventHandler ["EntityKilled", {
             params ["_killedEntity", "_killer"];
@@ -138,8 +138,8 @@ GVAR(deactivateTicketSystem) = false;
 
         if (isDedicated) then {
             ["ticketsChanged", {
-                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
-                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
+                if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), MGVAR(competingSides) select 0], 1000]) <= 0
+                 || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), MGVAR(competingSides) select 1], 1000]) <= 0) then {
 
                     endMission "END1";
                 };
@@ -250,17 +250,17 @@ GVAR(deactivateTicketSystem) = false;
                 if ((_this select 0) != format [QEGVAR(Logistic,sideResources_%1), side group CLib_player]) exitWith {};
                 call _fncUpdateResources;
             };
-        } count EGVAR(Common,competingSides);
+        } count MGVAR(competingSides);
 
         ["ticketsChanged", {
             if (GVAR(deactivateTicketSystem)) exitWith {};
 
-            if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
-             || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
+            if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), MGVAR(competingSides) select 0], 1000]) <= 0
+             || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), MGVAR(competingSides) select 1], 1000]) <= 0) then {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_Player], 1000]) <= 0) then {
-                    ["LOOSER"] call EFUNC(Common,endMission);
+                    ["LOOSER"] call MFUNC(endMission);
                 } else {
-                    ["WINNER"] call EFUNC(Common,endMission);
+                    ["WINNER"] call MFUNC(endMission);
                 };
 
                 GVAR(deactivateTicketSystem) = true;
@@ -271,4 +271,4 @@ GVAR(deactivateTicketSystem) = false;
         [] call _fncUpdateTickets;
         [] call _fncUpdateResources;
     };
-}, {!isNil QEGVAR(Common,competingSides) && {!(EGVAR(Common,competingSides) isEqualTo [])}}] call CFUNC(waitUntil);
+}, {!isNil QMGVAR(competingSides) && {!(MGVAR(competingSides) isEqualTo [])}}] call CFUNC(waitUntil);

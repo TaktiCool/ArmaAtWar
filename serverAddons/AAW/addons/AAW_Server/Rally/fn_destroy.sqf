@@ -18,5 +18,5 @@ params ["_group"];
 private _pointId = _group getVariable [QGVAR(rallyId), ""];
 if (_pointId == "") exitWith {};
 
-[_pointId] call EFUNC(Common,removeDeploymentPoint);
+[_pointId] call MFUNC(removeDeploymentPoint);
 _group setVariable [QGVAR(rallyId), nil, true];

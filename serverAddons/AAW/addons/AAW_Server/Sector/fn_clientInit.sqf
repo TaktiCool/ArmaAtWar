@@ -52,7 +52,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1, [0, 0.4, 0.8, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call MFUNC(displayNotification);
     };
 
     if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
@@ -60,7 +60,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", 1, [0.6, 0, 0, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call MFUNC(displayNotification);
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
@@ -68,7 +68,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1,  [0.93, 0.7, 0.01,0.6], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call MFUNC(displayNotification);
     };
 }] call CFUNC(addEventHandler);
 

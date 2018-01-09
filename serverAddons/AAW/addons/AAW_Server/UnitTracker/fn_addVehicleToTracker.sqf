@@ -22,7 +22,7 @@ private _color = [_sideColor, _groupColor] select _inGroup;
 _color = [_color, [0.93, 0.7, 0.01, 1]] select _isEmpty;
 
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
-    if (_vehicle getVariable ["side", str sideUnknown] == str (EGVAR(Common,CompetingSides) select 0)) then {
+    if (_vehicle getVariable ["side", str sideUnknown] == str (MGVAR(CompetingSides) select 0)) then {
         _color = _sideColor;
     } else {
         _color = [0.6, 0, 0, 1];

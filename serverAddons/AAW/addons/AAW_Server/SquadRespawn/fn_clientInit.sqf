@@ -17,15 +17,15 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 GVAR(oldSpawns) = [];
 [{
     {
-        if (!(_x call EFUNC(Common,isAlive)) && !(simulationEnabled _x) && !(isObjectHidden _x)) then {
-            _x call EFUNC(Common,removeDeploymentPoint);
+        if (!(_x call MFUNC(isAlive)) && !(simulationEnabled _x) && !(isObjectHidden _x)) then {
+            _x call MFUNC(removeDeploymentPoint);
         };
         nil
     } count GVAR(oldSpawns);
 
     {
         if (_x getVariable [QGVAR(hasRespawnPointAttached), false]) then {
-            GVAR(oldSpawns) pushBack ["Player " + name _x, "SQUAD", getPos _x, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", []] call EFUNC(Common,addDeploymentPoint);
+            GVAR(oldSpawns) pushBack ["Player " + name _x, "SQUAD", getPos _x, playerSide, -1, "ui\media\fob_ca.paa", "ui\media\fob_ca.paa", []] call MFUNC(addDeploymentPoint);
         };
         nil
     } count units CLib_Player;

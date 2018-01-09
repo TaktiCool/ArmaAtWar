@@ -28,7 +28,7 @@ GVAR(lastProcessedIcons) = [];
 if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) then {
     DFUNC(isValidUnit) = {
         params ["_unit"];
-        !isNull _unit && alive _unit && side group _unit in EGVAR(Common,CompetingSides) && simulationEnabled _unit;
+        !isNull _unit && alive _unit && side group _unit in MGVAR(CompetingSides) && simulationEnabled _unit;
     };
 
     DFUNC(isValidVehicle) = {

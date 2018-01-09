@@ -38,7 +38,7 @@ GVAR(pointMarkerIds) = [];
     private _availablePoints = [side group CLib_Player] call FUNC(getDeploymentPointsPerSide);
     private _existingMapIconPoints = GVAR(pointMarkerIds) arrayIntersect _availablePoints;
 
-    private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
+    private _sideColor = +(missionNamespace getVariable format [QMGVAR(SideColor_%1), playerSide]);
 
     {
         [_x] call CFUNC(removeMapGraphicsGroup);

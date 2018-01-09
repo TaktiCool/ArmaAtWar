@@ -26,7 +26,7 @@ if (CLib_Player == _newUnit) then {
 };
 
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
-    if (side group _newUnit isEqualTo (EGVAR(Common,CompetingSides) select 0)) then {
+    if (side group _newUnit isEqualTo (MGVAR(CompetingSides) select 0)) then {
         _color = _sideColor;
     } else {
         _color = [0.6, 0, 0, 1];

@@ -42,13 +42,13 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
     _ppEffects params ["_ppBlur", "_ppColor"];
     uiNamespace setVariable [QGVAR(scoreTable), _display];
 
-    private _enemySide = (EGVAR(Common,competingSides) - [playerSide]) select 0;
+    private _enemySide = (MGVAR(competingSides) - [playerSide]) select 0;
     private _friendSide = playerSide;
 
     if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
         _endScreen = true;
-        _enemySide = EGVAR(Common,competingSides) select 1;
-        _friendSide = EGVAR(Common,competingSides) select 0;
+        _enemySide = MGVAR(competingSides) select 1;
+        _friendSide = MGVAR(competingSides) select 0;
     };
 
     // Enable all ppEffects
@@ -103,14 +103,14 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
 
     private _friendlyFlag = _display ctrlCreate ["RscPictureKeepAspect", 1003, _globalGroup];
     _friendlyFlag ctrlSetPosition [PX(0.5), PY(17.5), PX(6), PY(6)];
-    _friendlyFlag ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _friendSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+    _friendlyFlag ctrlSetText (missionNamespace getVariable [format [QMGVAR(Flag_%1), _friendSide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
     _friendlyFlag ctrlCommit 0;
 
     private _friendlySideName = _display ctrlCreate ["RscTitle", 1004, _globalGroup];
     _friendlySideName ctrlSetFontHeight PY(3.3);
     _friendlySideName ctrlSetFont "RobotoCondensedBold";
     _friendlySideName ctrlSetPosition [PX(7), PY(17), PX(30), PY(4)];
-    _friendlySideName ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _friendSide], ""]);
+    _friendlySideName ctrlSetText (missionNamespace getVariable [format [QMGVAR(sideName_%1), _friendSide], ""]);
     _friendlySideName ctrlCommit 0;
 
     private _friendlyTicketCount = _display ctrlCreate ["RscTextNoShadow", 1005, _globalGroup];
@@ -184,14 +184,14 @@ private _ppColor = ppEffectCreate ["ColorCorrections", 1502];
 
     private _enemyFlag = _display ctrlCreate ["RscPictureKeepAspect", 1013, _globalGroup];
     _enemyFlag ctrlSetPosition [PX(_startPosition+0.5), PY(17.5), PX(6), PY(6)];
-    _enemyFlag ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,Flag_%1), _enemySide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
+    _enemyFlag ctrlSetText (missionNamespace getVariable [format [QMGVAR(Flag_%1), _enemySide], "#(argb,8,8,3)color(0.5,0.5,0.5,1)"]);
     _enemyFlag ctrlCommit 0;
 
     private _enemySideName = _display ctrlCreate ["RscTitle", 1014, _globalGroup];
     _enemySideName ctrlSetFontHeight PY(3.3);
     _enemySideName ctrlSetFont "RobotoCondensedBold";
     _enemySideName ctrlSetPosition [PX(_startPosition+7), PY(17), PX(30), PY(4)];
-    _enemySideName ctrlSetText (missionNamespace getVariable [format [QEGVAR(Common,sideName_%1), _enemySide], ""]);
+    _enemySideName ctrlSetText (missionNamespace getVariable [format [QMGVAR(sideName_%1), _enemySide], ""]);
     _enemySideName ctrlCommit 0;
 
     private _enemyPlayerCount = _display ctrlCreate ["RscTitle", 1015, _globalGroup];
@@ -274,18 +274,18 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) the
         private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
         if (isNull _display) exitWith {};
 
-        [_display displayCtrl 1100, EGVAR(Common,competingSides) select 0, true] call FUNC(updateList);
-        [_display displayCtrl 1300, EGVAR(Common,competingSides) select 1, true] call FUNC(updateList);
+        [_display displayCtrl 1100, MGVAR(competingSides) select 0, true] call FUNC(updateList);
+        [_display displayCtrl 1300, MGVAR(competingSides) select 1, true] call FUNC(updateList);
     }] call CFUNC(addEventhandler);
 
-    [QEGVAR(Common,ticketsChanged), {
+    [QMGVAR(ticketsChanged), {
         private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
         if (isNull _display) exitWith {};
 
-        (_display displayCtrl 1005) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 0], GVAR(maxTickets)]);
+        (_display displayCtrl 1005) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), MGVAR(competingSides) select 0], GVAR(maxTickets)]);
         (_display displayCtrl 1005) ctrlCommit 0;
 
-        (_display displayCtrl 1016) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), EGVAR(Common,competingSides) select 1], GVAR(maxTickets)]);
+        (_display displayCtrl 1016) ctrlSetText str (missionNamespace getVariable [format [QEGVAR(Tickets,sideTickets_%1), MGVAR(competingSides) select 1], GVAR(maxTickets)]);
         (_display displayCtrl 1016) ctrlCommit 0;
     }] call CFUNC(addEventhandler);
 } else {
@@ -294,10 +294,10 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) the
         if (isNull _display) exitWith {};
 
         [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
-        [_display displayCtrl 1300, (EGVAR(Common,competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
+        [_display displayCtrl 1300, (MGVAR(competingSides) - [playerSide]) select 0, false] call FUNC(updateList);
     }] call CFUNC(addEventhandler);
 
-    [QEGVAR(Common,ticketsChanged), {
+    [QMGVAR(ticketsChanged), {
         private _display = uiNamespace getVariable [QGVAR(scoreTable), displayNull];
         if (isNull _display) exitWith {};
 
@@ -353,7 +353,7 @@ GVAR(lastVisibleScoreTableStatus) = false;
         private _display = findDisplay 46 createDisplay "RscDisplayEmpty";
         [UIVAR(ScoreTable_onLoad), [_display, true]] call CFUNC(localEvent);
         [_display displayCtrl 1100, playerSide, true] call FUNC(updateList);
-        [_display displayCtrl 1300, (EGVAR(Common,competingSides) - [playerSide]) select 0, true] call FUNC(updateList);
+        [_display displayCtrl 1300, (MGVAR(competingSides) - [playerSide]) select 0, true] call FUNC(updateList);
         [{
             params ["_display"];
             _display closeDisplay 1;

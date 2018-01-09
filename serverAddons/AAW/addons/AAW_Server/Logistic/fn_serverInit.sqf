@@ -51,6 +51,6 @@ DFUNC(setLogisticVariables) = {
             ["resourcesChanged", _side] call CFUNC(targetEvent);
         }, _resourceGrowth select 1, [_resourceGrowth, _x]] call CFUNC(addPerFrameHandler);
         nil;
-    } count EGVAR(Common,competingSides);
+    } count MGVAR(competingSides);
     nil;
 }] call CFUNC(addEventHandler);

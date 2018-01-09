@@ -25,14 +25,14 @@ if (!isNull objectParent CLib_Player) exitWith {false};
 private _minDistance = [CFGFOB(minDistance), 600] call CFUNC(getSetting);
 private _fobNearPlayer = false;
 {
-    private _pointData = [_x, ["type", "position"]] call EFUNC(Common,getDeploymentPointData);
+    private _pointData = [_x, ["type", "position"]] call MFUNC(getDeploymentPointData);
     _pointData params ["_type", "_position"];
     // Ignore RPs
     if (_type == "FOB" && (CLib_Player distance _position) < _minDistance) exitWith {
         _fobNearPlayer = true;
     };
     nil
-} count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints));
+} count ([CLib_Player] call MFUNC(getAvailableDeploymentPoints));
 if (_fobNearPlayer) exitWith {false};
 
 // Check near enemies

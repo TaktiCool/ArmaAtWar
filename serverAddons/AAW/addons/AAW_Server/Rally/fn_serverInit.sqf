@@ -12,15 +12,15 @@
 
 [{
     {
-        private _pointDetails = [_x, ["type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
+        private _pointDetails = [_x, ["type", "position", "availablefor"]] call MFUNC(getDeploymentPointData);
         _pointDetails params ["_type", "_position", "_availableFor"];
 
         // For RPs only
         if (_type == "RALLY") then {
             if (isNull _availableFor || {((count (units _availableFor)) == 0)}) then {
-                [_x] call EFUNC(Common,removeDeploymentPoint);
+                [_x] call MFUNC(removeDeploymentPoint);
             };
         };
         nil
-    } count (call EFUNC(Common,getAllDeploymentPoints));
+    } count (call MFUNC(getAllDeploymentPoints));
 }, 0.5] call CFUNC(addPerFrameHandler);

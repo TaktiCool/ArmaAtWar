@@ -20,7 +20,7 @@ private _showCondition = {
     call {
         scopeName "ActionCondition";
         {
-            private _pointDetails = [_x, ["type", "position", "availablefor", "counterActive"]] call EFUNC(Common,getDeploymentPointData);
+            private _pointDetails = [_x, ["type", "position", "availablefor", "counterActive"]] call MFUNC(getDeploymentPointData);
             _pointDetails params [["_type", ""], ["_position", [0, 0, 0]], ["_availableFor", sideUnknown], ["_counterActive", 0]];
 
             if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 0 && _availableFor != side group CLib_Player}) then {
@@ -28,7 +28,7 @@ private _showCondition = {
                 private _inVew = [CLib_Player, _position, 1.55] call CFUNC(inFOV);
                 _inVew breakOut "ActionCondition";
             };
-        } count (call EFUNC(Common,getAllDeploymentPoints));
+        } count (call MFUNC(getAllDeploymentPoints));
         false
     };
 };

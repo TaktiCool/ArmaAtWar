@@ -24,14 +24,14 @@ GVAR(namespace) = false call CFUNC(createNamespace);
         private _data = GVAR(namespace) getVariable [_pointId, []];
         _data params ["_pfhId", ["_timerValue", 0]];
 
-        private _counterStopped = [_pointId, "counterStopped", 0] call EFUNC(Common,getDeploymentPointData);
+        private _counterStopped = [_pointId, "counterStopped", 0] call MFUNC(getDeploymentPointData);
 
         if (_counterStopped == 1) exitWith {};
 
         _timerValue = _timerValue + 0.1;
         GVAR(namespace) setVariable [_pointId, [_pfhId, _timerValue]];
 
-        private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
+        private _pos = [_pointId, "position"] call MFUNC(getDeploymentPointData);
 
         private _speed = 10;
 
@@ -60,9 +60,9 @@ GVAR(namespace) = false call CFUNC(createNamespace);
             _bomb setDamage 1;
         }, [_pos]] call CFUNC(execNextFrame);
 
-        private _availablefor = [_pointId, "availablefor"] call EFUNC(Common,getDeploymentPointData);
+        private _availablefor = [_pointId, "availablefor"] call MFUNC(getDeploymentPointData);
 
-        [_pointId] call EFUNC(Common,removeDeploymentPoint);
+        [_pointId] call MFUNC(removeDeploymentPoint);
 
         (_this select 1) call CFUNC(removePerFrameHandler);
 
@@ -73,7 +73,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     }, 0.1, [_pointId]] call CFUNC(addPerFrameHandler);
     GVAR(namespace) setVariable [_pointId, [_pfhId, 0]];
 
-    [_pointId, "counterActive", 1] call EFUNC(Common,setDeploymentPointData);
+    [_pointId, "counterActive", 1] call MFUNC(setDeploymentPointData);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(resetDestroyTimer), {
@@ -83,19 +83,19 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     _pfhId call CFUNC(removePerFrameHandler);
     GVAR(namespace) setVariable [_pointId, nil];
 
-    [_pointId, "counterActive", 0] call EFUNC(Common,setDeploymentPointData);
-    [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentPointData);
+    [_pointId, "counterActive", 0] call MFUNC(setDeploymentPointData);
+    [_pointId, "counterStopped", 0] call MFUNC(setDeploymentPointData);
     _pointId call FUNC(playRadioSound);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(stopDestroyTimer), {
     (_this select 0) params ["_pointId"];
-    [_pointId, "counterStopped", 1] call EFUNC(Common,setDeploymentPointData);
+    [_pointId, "counterStopped", 1] call MFUNC(setDeploymentPointData);
 }] call CFUNC(addEventhandler);
 
 [QGVAR(continueDestroyTimer), {
     (_this select 0) params ["_pointId"];
-    [_pointId, "counterStopped", 0] call EFUNC(Common,setDeploymentPointData);
+    [_pointId, "counterStopped", 0] call MFUNC(setDeploymentPointData);
 }] call CFUNC(addEventhandler);
 
 GVAR(soundList) = [
@@ -142,7 +142,7 @@ call FUNC(shuffleSoundArray);
 
 DFUNC(playRadioSound) = {
     params ["_pointId"];
-    private _soundWaitIsRunning = [_pointId, "soundWaitIsRunning", 0] call EFUNC(Common,getDeploymentPointData);
+    private _soundWaitIsRunning = [_pointId, "soundWaitIsRunning", 0] call MFUNC(getDeploymentPointData);
     if (_soundWaitIsRunning == 0) then {
         _pointId call FUNC(playRadioSoundLoop);
     };
@@ -150,12 +150,12 @@ DFUNC(playRadioSound) = {
 
 DFUNC(playRadioSoundLoop) = {
     params ["_pointId"];
-    private _obj = [_pointId, "pointobjects"] call EFUNC(Common,getDeploymentPointData);
-    private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
+    private _obj = [_pointId, "pointobjects"] call MFUNC(getDeploymentPointData);
+    private _pos = [_pointId, "position"] call MFUNC(getDeploymentPointData);
     _obj = selectRandom _obj;
-    private _counterActive = [_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData);
+    private _counterActive = [_pointId, "counterActive", 0] call MFUNC(getDeploymentPointData);
     if (isNull _obj || _counterActive == 1) exitWith {
-        [_pointId, "soundWaitIsRunning", 0] call EFUNC(Common,setDeploymentPointData);
+        [_pointId, "soundWaitIsRunning", 0] call MFUNC(setDeploymentPointData);
     };
     private _data = selectRandom GVAR(soundList);
     _data params ["_soundPath", "_length", ["_volume", 1]];
@@ -164,7 +164,7 @@ DFUNC(playRadioSoundLoop) = {
     playSound3D [_soundPath, objNull, false, AGLToASL _pos, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
     if (_soundWaitIsRunning == 0) then {
-        [_pointId, "soundWaitIsRunning", 1] call EFUNC(Common,setDeploymentPointData);
+        [_pointId, "soundWaitIsRunning", 1] call MFUNC(setDeploymentPointData);
     };
 };
 
@@ -173,14 +173,14 @@ DFUNC(playRadioSoundLoop) = {
     _pointId call FUNC(playRadioSound);
     [{
         params ["_pointId"];
-        [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentPointData);
+        [_pointId, "spawnPointLocked", 0] call MFUNC(setDeploymentPointData);
     }, [CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting), _pointId] call CFUNC(wait);
 }] call CFUNC(addEventhandler);
 
 
 [{
     {
-        private _pointDetails = [_x, ["position", "availablefor", "type"]] call EFUNC(Common,getDeploymentPointData);
+        private _pointDetails = [_x, ["position", "availablefor", "type"]] call MFUNC(getDeploymentPointData);
         _pointDetails params ["_position", "_availableFor", "_type"];
         // For FOBs only
         if (_type == "FOB") then {
@@ -190,13 +190,13 @@ DFUNC(playRadioSoundLoop) = {
 
             private _enemyCount = {(side group _x != sideUnknown) && {(side group _x) != _availableFor}} count (_position nearObjects ["CAManBase", _maxEnemyCountRadius]);
 
-            private _currentStatus = [_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData);
+            private _currentStatus = [_x, "spawnPointBlocked", 0] call MFUNC(getDeploymentPointData);
 
             private _newStatus = [0, 1] select (_enemyCount >= _maxEnemyCount);
             if (_currentStatus != _newStatus) then {
-                [_x, "spawnPointBlocked", _newStatus] call EFUNC(Common,setDeploymentPointData);
+                [_x, "spawnPointBlocked", _newStatus] call MFUNC(setDeploymentPointData);
             };
         };
         nil
-    } count (call EFUNC(Common,getAllDeploymentPoints));
+    } count (call MFUNC(getAllDeploymentPoints));
 }, 0.2] call CFUNC(addPerFrameHandler);

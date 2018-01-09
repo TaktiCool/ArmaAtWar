@@ -35,7 +35,7 @@ GVAR(firstRespawn) = true;
         // Update the values of the UI elements
         UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 
-        [QEGVAR(Common,DeploymentPointSelected), GVAR(lastDeploymentPoint)] call CFUNC(localEvent);
+        [QMGVAR(DeploymentPointSelected), GVAR(lastDeploymentPoint)] call CFUNC(localEvent);
 
         // Fade the control in
         (_display displayCtrl 400) call FUNC(fadeControl);
@@ -49,13 +49,13 @@ GVAR(firstRespawn) = true;
     private _control = _display displayCtrl 404;
 
     // Calculate the respawn timer if necessary
-    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+    if (!(alive CLib_Player) || (CLib_Player getVariable [QMGVAR(tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
         private _minRespawnTime = time;
 
         if (GVAR(firstRespawn)) then {
-            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime * 60 * 60));
+            _minRespawnTime = _minRespawnTime + (MGVAR(missionStartTime) - (daytime * 60 * 60));
         } else {
             if (EGVAR(Revive,UnconsciousSince) > -1) then {
                 _minRespawnTime = EGVAR(Revive,UnconsciousSince);
@@ -98,7 +98,7 @@ GVAR(firstRespawn) = true;
     private _roleDisplay = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _deploymentDisplay || isNull _roleDisplay) exitWith {};
 
-    if (alive CLib_Player && !(CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) exitWith {
+    if (alive CLib_Player && !(CLib_Player getVariable [QMGVAR(tempUnit), false])) exitWith {
         _deploymentDisplay closeDisplay 1;
     };
 
@@ -108,43 +108,43 @@ GVAR(firstRespawn) = true;
 
         // Check squad
         if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
-            [MLOC(JoinASquad)] call EFUNC(Common,displayHint);
+            [MLOC(JoinASquad)] call MFUNC(displayHint);
         };
 
         // Check kit
         private _currentRoleSelection = lnbCurSelRow (_roleDisplay displayCtrl 303);
         if (_currentRoleSelection < 0) exitWith {
-            [MLOC(ChooseARole)] call EFUNC(Common,displayHint);
+            [MLOC(ChooseARole)] call MFUNC(displayHint);
         };
 
         // Check deployment
         private _controlDeploymentList = _deploymentDisplay displayCtrl 403;
         private _currentDeploymentPointSelection = lnbCurSelRow _controlDeploymentList;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            [MLOC(selectSpawn)] call EFUNC(Common,displayHint);
+            [MLOC(selectSpawn)] call MFUNC(displayHint);
         };
 
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
 
-        if !(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint)) exitWith {
-            ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
+        if !(_currentDeploymentPointSelection call MFUNC(isValidDeploymentPoint)) exitWith {
+            ["Respawn Point Don't Exist anymore"] call MFUNC(displayHint);
         };
 
-        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
+        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call MFUNC(getDeploymentPointData);
+        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call MFUNC(getDeploymentPointData) == 1) exitWith {
+            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call MFUNC(displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
+        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call MFUNC(getDeploymentPointData) == 1) exitWith {
+            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call MFUNC(displayHint);
         };
 
-        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
-            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
+        if ([_currentDeploymentPointSelection, "counterActive", 0] call MFUNC(getDeploymentPointData) == 1) then {
+            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call MFUNC(displayHint);
         };
 
-        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
+        private _deployPosition = [_currentDeploymentPointSelection] call MFUNC(prepareSpawn);
         GVAR(lastDeploymentPoint) = _currentDeploymentPointSelection;
         _deploymentDisplay closeDisplay 1;
 
@@ -152,7 +152,7 @@ GVAR(firstRespawn) = true;
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
+            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call MFUNC(respawn);
 
             [{
                 // Fix issue that player spawn Prone
@@ -170,13 +170,13 @@ GVAR(firstRespawn) = true;
     UIVAR(RespawnScreen_DeploymentManagement_update) call CFUNC(localEvent);
 }] call CFUNC(addEventHandler);
 
-[QEGVAR(Common,deploymentPointAdded), {
+[QMGVAR(deploymentPointAdded), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
-[QEGVAR(Common,deploymentPointRemoved), {
+[QMGVAR(deploymentPointRemoved), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
-[QEGVAR(Common,ticketsChanged), {
+[QMGVAR(ticketsChanged), {
     [UIVAR(RespawnScreen_DeploymentManagement_update), group CLib_Player] call CFUNC(targetEvent);
 }] call CFUNC(addEventHandler);
 ["DeploymentPointDataChanged", {
@@ -191,19 +191,19 @@ GVAR(firstRespawn) = true;
     // Prepare the data for the lnb
     private _lnbData = [];
     {
-        private _pointDetails = [_x, ["name", "spawntickets", "icon", "type"]] call EFUNC(Common,getDeploymentPointData);
+        private _pointDetails = [_x, ["name", "spawntickets", "icon", "type"]] call MFUNC(getDeploymentPointData);
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+        if ([_x, "spawnPointLocked", 0] call MFUNC(getDeploymentPointData) == 1) then {
             _color = [0.3, 0.3, 0.3, 1];
         };
 
-        if ([_x, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+        if ([_x, "spawnPointBlocked", 0] call MFUNC(getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
-        if ([_x, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+        if ([_x, "counterActive", 0] call MFUNC(getDeploymentPointData) == 1) then {
             _color = [0.6, 0, 0, 1];
         };
 
@@ -213,7 +213,7 @@ GVAR(firstRespawn) = true;
 
         _lnbData pushBack [[_name], _x, _icon, _color];
         nil
-    } count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
+    } count ([CLib_Player] call MFUNC(getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -240,7 +240,7 @@ GVAR(firstRespawn) = true;
     GVAR(lastSelectedPoint) = _selectedPoint;
 
     // Get the point data
-    private _position = [_selectedPoint, "position"] call EFUNC(Common,getDeploymentPointData);
+    private _position = [_selectedPoint, "position"] call MFUNC(getDeploymentPointData);
 
     // Animate the map
     private _controlMap = _display displayCtrl 800;
@@ -249,7 +249,7 @@ GVAR(firstRespawn) = true;
     ctrlMapAnimCommit _controlMap;
 }] call CFUNC(addEventHandler);
 
-[QEGVAR(Common,DeploymentPointSelected), {
+[QMGVAR(DeploymentPointSelected), {
     private _display = uiNamespace getVariable [QGVAR(deploymentDisplay), displayNull];
     if (isNull _display) exitWith {};
 

@@ -20,7 +20,7 @@ private _showCondition = {
     call {
         scopeName "ActionCondition";
         {
-            private _pointDetails = [_x, ["type", "position", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
+            private _pointDetails = [_x, ["type", "position", "availablefor"]] call MFUNC(getDeploymentPointData);
             _pointDetails params [["_type", ""], ["_position", [0, 0, 0]], ["_availableFor", grpNull]];
 
             if (_type == "RALLY" && {CLib_Player distance _position <= 5 && side _availableFor != side group CLib_Player}) then {
@@ -28,7 +28,7 @@ private _showCondition = {
                 private _inView = [CLib_Player, _position, 1] call CFUNC(inFOV);
                 _inView breakOut "ActionCondition";
             };
-        } count (call EFUNC(Common,getAllDeploymentPoints));
+        } count (call MFUNC(getAllDeploymentPoints));
         false
     };
 };
@@ -49,7 +49,7 @@ private _onComplete = {
     params ["_target", "_caller"];
 
     GVAR(destroyRallyStartTime) = -1;
-    private _group = [GVAR(currentRally), "availablefor", grpNull] call EFUNC(Common,getDeploymentPointData);
+    private _group = [GVAR(currentRally), "availablefor", grpNull] call MFUNC(getDeploymentPointData);
 
     if (!isNull _group) then {
         [{

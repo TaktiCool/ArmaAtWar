@@ -20,7 +20,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 
 // When respawn screen is opened caused by death or upon startup init the camera
 [UIVAR(RespawnScreen_onLoad), {
-    if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
+    if (!(alive CLib_Player) || (CLib_Player getVariable [QMGVAR(tempUnit), false])) then {
         [QGVAR(initCamera)] call CFUNC(localEvent);
     };
 }] call CFUNC(addEventHandler);

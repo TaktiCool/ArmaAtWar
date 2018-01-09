@@ -32,7 +32,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         private _playerSide = str side group CLib_Player;
         private _vehicleSide = _vehicle getVariable ["side", _playerSide];
         if (_vehicleSide != _playerSide) exitWith {
-            ["VEHICLE LOCKED", "You are not allowed to use enemy vehicles!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["VEHICLE LOCKED", "You are not allowed to use enemy vehicles!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
             true
         };
 
@@ -48,13 +48,13 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 
         // Pilot kit for pilot seats.
         if (_actionName in ["GetInPilot", "MoveToPilot"] && _isPilot == 0) exitWith {
-            ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
             true
         };
 
         // Gunner and commander always require a driver.
         if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (!alive (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
-            ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
             true
         };
 
@@ -85,13 +85,13 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             if (!(getText (_turretConfig >> "body") == "") && ([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray))) exitWith {
                 // Turrets with guns always require a driver (except statics).
                 if (!alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
-                    ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
                     true
                 };
 
                 // Turrets with guns in air, tank and wheeled apc require crew kit.
                 if (([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
-                    ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
                     true
                 };
 
@@ -103,7 +103,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                 // This is a turret without a gun and without the players handheld weapon (only copilot afaik).
                 // Copilot need pilot kit
                 if (_vehicle isKindOf "Air" && _isPilot == 0) exitWith {
-                    ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
                     true
                 };
 
@@ -116,7 +116,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         // Driver
         // Tank and APC driver require crew kit.
         if (([_vehicle, ["Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
-            ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call MFUNC(displayHint);
             true
         };
 

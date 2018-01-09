@@ -41,8 +41,8 @@ if !(_nextTarget isEqualTo GVAR(CursorTarget)) then {
 //Units
 if (GVAR(OverlayUnitMarker)) then {
     {
-        if (side _x in EGVAR(Common,CompetingSides)) then {
-            private _sideColor = [[0.6, 0, 0, 0.7], [0, 0.4, 0.8, 0.7]] select (side _x == (EGVAR(Common,CompetingSides) select 0));
+        if (side _x in MGVAR(CompetingSides)) then {
+            private _sideColor = [[0.6, 0, 0, 0.7], [0, 0.4, 0.8, 0.7]] select (side _x == (MGVAR(CompetingSides) select 0));
             private _distance = GVAR(Camera) distance _x;
             if (_distance < NAMETAGDIST) then {
                 private _icon = _x getVariable [QEGVAR(Kit,UIIcon), ""];
@@ -65,8 +65,8 @@ if (GVAR(OverlayUnitMarker)) then {
 // GROUPS
 if (GVAR(OverlayGroupMarker)) then {
     {
-        if (side _x in EGVAR(Common,CompetingSides)) then {
-            private _sideColor = [[0.6, 0, 0, 1], [0, 0.4, 0.8, 1]] select (side _x == (EGVAR(Common,CompetingSides) select 0));
+        if (side _x in MGVAR(CompetingSides)) then {
+            private _sideColor = [[0.6, 0, 0, 1], [0, 0.4, 0.8, 1]] select (side _x == (MGVAR(CompetingSides) select 0));
             private _distance = GVAR(Camera) distance leader _x;
             private _groupType = _x getVariable [QEGVAR(Squad,Type), "Rifle"];
             private _groupMapIcon = [format [QUOTE(PREFIX/CfgGroupTypes/%1/mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);

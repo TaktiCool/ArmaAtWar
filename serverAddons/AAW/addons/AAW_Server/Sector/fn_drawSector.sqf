@@ -34,7 +34,7 @@ if (hasInterface) then {
     private _isSpectator = side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"};
 
     if (_isSpectator) then {
-        _friendlySide = EGVAR(Common,competingSides) select 0;
+        _friendlySide = MGVAR(competingSides) select 0;
     };
 
     private _color = [

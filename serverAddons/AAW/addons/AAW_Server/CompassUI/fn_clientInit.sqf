@@ -209,7 +209,7 @@ addMissionEventHandler ["MapSingleClick", {
         private _nextIconMarkerControl = 0;
 
         private _nearUnits = [positionCameraToWorld [0, 0, 0], 31] call CFUNC(getNearUnits);
-        private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
+        private _sideColor = +(missionNamespace getVariable format [QMGVAR(SideColor_%1), playerSide]);
         private _groupColor = [0, 0.87, 0, 1];
 
         {
