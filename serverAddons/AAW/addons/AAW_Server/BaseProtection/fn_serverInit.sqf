@@ -16,7 +16,7 @@
 
 ["missionStarted", {
     [{
-        private _bases = EGVAR(Sector,allSectorsArray) select {
+        private _bases = (EGVAR(Sector,allSectorsArray)) select {
             (_x getVariable ["dependency", []]) isEqualTo []
         } apply {
             [_x getVariable ["marker", ""], _x getVariable ["side", sideUnknown]]
@@ -56,7 +56,6 @@
 
         [GVAR(protectVehiclesSM), "fillVehicles"] call CFUNC(startStatemachine);
     }, {
-        !isNil QEGVAR(Sector,ServerInitDone) && {EGVAR(Sector,ServerInitDone)}
+        !isNil (QEGVAR(Sector,ServerInitDone)) && {EGVAR(Sector,ServerInitDone)}
     }] call CFUNC(waitUntil);
 }] call CFUNC(addEventHandler);
-
