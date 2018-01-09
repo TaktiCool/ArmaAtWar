@@ -152,7 +152,7 @@ DFUNC(playRadioSoundLoop) = {
     params ["_pointId"];
     private _obj = [_pointId, "pointobjects"] call MFUNC(getDeploymentPointData);
     private _pos = [_pointId, "position"] call MFUNC(getDeploymentPointData);
-    _obj = selectRandom _obj;
+    _obj = _obj select 0;
     private _counterActive = [_pointId, "counterActive", 0] call MFUNC(getDeploymentPointData);
     if (isNull _obj || _counterActive == 1) exitWith {
         [_pointId, "soundWaitIsRunning", 0] call MFUNC(setDeploymentPointData);
@@ -163,6 +163,7 @@ DFUNC(playRadioSoundLoop) = {
 
     playSound3D [_soundPath, objNull, false, AGLToASL _pos, (_volume * 4), 1, 40];
     [FUNC(playRadioSound), (_length + random 5), _pointId] call CFUNC(wait);
+    private _soundWaitIsRunning = [_pointId, "soundWaitIsRunning", 0] call MFUNC(getDeploymentPointData);
     if (_soundWaitIsRunning == 0) then {
         [_pointId, "soundWaitIsRunning", 1] call MFUNC(setDeploymentPointData);
     };

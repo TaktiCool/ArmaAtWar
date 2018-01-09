@@ -17,20 +17,17 @@ private _title = "Defuse";
 private _iconIdle = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceRespawn_ca.paa";
 private _showCondition = {
-    call {
-        scopeName "ActionCondition";
-        {
-            private _pointDetails = [_x, ["type", "position", "availablefor", "counterActive"]] call MFUNC(getDeploymentPointData);
-            _pointDetails params [["_type", ""], ["_position", [0, 0, 0]], ["_availableFor", sideUnknown], ["_counterActive", 0]];
-
-            if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 1 && _availableFor == side group CLib_Player}) then {
+    scopeName "ActionCondition";
+    {
+        if ([_x, CLib_Player] call FUNC(canDefuse)) then {
+            private _position = [_x, "position"] call MFUNC(getDeploymentPointData);
+            if ([CLib_Player, _position, 1.55] call CFUNC(inFOV)) then {
                 GVAR(currentFob) = _x;
-                private _inVew = [CLib_Player, _position, 1.55] call CFUNC(inFOV);
-                _inVew breakOut "ActionCondition";
+                true breakOut "ActionCondition";
             };
-        } count (call MFUNC(getAllDeploymentPoints));
-        false
-    };
+        };
+    } count (call MFUNC(getAllDeploymentPoints));
+    false
 };
 
 GVAR(defuseStartTime) = -1;
@@ -47,14 +44,11 @@ private _onProgress = {
 };
 
 private _onComplete = {
-    params ["_target", "_caller"];
-
     GVAR(defuseStartTime) = -1;
     [QGVAR(resetDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
 };
 
 private _onInterruption = {
-    params ["_target", "_caller"];
     [QGVAR(continueDestroyTimer), [GVAR(currentFob)]] call CFUNC(serverEvent);
     GVAR(defuseStartTime) = -1;
 };

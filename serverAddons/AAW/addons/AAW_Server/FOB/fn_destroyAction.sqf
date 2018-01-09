@@ -17,20 +17,17 @@ private _title = "Destroy FOB";
 private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoput_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoput_ca.paa";
 private _showCondition = {
-    call {
-        scopeName "ActionCondition";
-        {
-            private _pointDetails = [_x, ["type", "position", "availablefor", "counterActive"]] call MFUNC(getDeploymentPointData);
-            _pointDetails params [["_type", ""], ["_position", [0, 0, 0]], ["_availableFor", sideUnknown], ["_counterActive", 0]];
-
-            if (_type == "FOB" && {CLib_Player distance _position <= 5 && _counterActive == 0 && _availableFor != side group CLib_Player}) then {
+    scopeName "ActionCondition";
+    {
+        if ([_x, CLib_Player] call FUNC(canDestroy)) then {
+            private _position = [_x, "position"] call MFUNC(getDeploymentPointData);
+            if ([CLib_Player, _position, 1.55] call CFUNC(inFOV)) then {
                 GVAR(currentFob) = _x;
-                private _inVew = [CLib_Player, _position, 1.55] call CFUNC(inFOV);
-                _inVew breakOut "ActionCondition";
+                true breakOut "ActionCondition";
             };
-        } count (call MFUNC(getAllDeploymentPoints));
-        false
-    };
+        };
+    } count (call MFUNC(getAllDeploymentPoints));
+    false
 };
 
 GVAR(destroyFOBStartTime) = -1;

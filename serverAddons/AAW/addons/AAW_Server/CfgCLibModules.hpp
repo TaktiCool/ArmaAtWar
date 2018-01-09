@@ -111,6 +111,9 @@ class CfgCLibModules {
             FNC(dismantleAction);
             FNC(buildAction);
             FNC(canPlace);
+            FNC(canDefuse);
+            FNC(canDestroy);
+            FNC(canDismantle);
         };
 
         // SquadRespawn system
