@@ -59,10 +59,12 @@ GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
 }] call CFUNC(addEventhandler);
 
 ["isNotDragging", {
+    params ["_caller", "_target"];
     isNull (_caller getVariable [QGVAR(Item), objNull])
      && isNull (_target getVariable [QGVAR(Item), objNull])
 }] call CFUNC(addCanInteractWith);
 
 ["isNotDragged", {
+    params ["", "_target"];
     isNull (_target getVariable [QGVAR(Dragger), objNull])
 }] call CFUNC(addCanInteractWith);
