@@ -16,7 +16,7 @@ GVAR(ignoreVariables) = [
     toLower QGVAR(tempUnit),
     toLower QGVAR(isProcessed),
     toLower QEGVAR(Revive,reviveEventhandlerAdded),
-    toLower QEGVAR(Revive,damageWaitIsRunning)
+    toLower (QEGVAR(Revive,damageWaitIsRunning))
 ];
 
 GVAR(allLocationTypes) = [];
@@ -96,7 +96,7 @@ if (hasInterface) then {
 
     // Rating system
     ["sideChanged", {
-        (_this select 0) params ["_currentSide", "_oldSide"];
+        (_this select 0) params ["_currentSide"];
 
         if (_currentSide == sideEnemy) then {
             private _rating = rating CLib_Player;
