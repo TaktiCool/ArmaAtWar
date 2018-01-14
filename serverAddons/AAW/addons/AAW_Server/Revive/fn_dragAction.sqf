@@ -85,6 +85,7 @@ DFUNC(dropPlayer) = {
 ] call CFUNC(addAction);
 
 ["isNotPlayerDragging", {
+    params ["_caller", "_target"];
     isNull (_caller getVariable [QGVAR(draggedPlayer), objNull])
      && isNull (_target getVariable [QGVAR(draggedPlayer), objNull])
 }] call CFUNC(addCanInteractWith);

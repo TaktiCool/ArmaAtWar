@@ -178,6 +178,7 @@ GVAR(UnconsciousnessEffects) = [_hndl];
 }] call CFUNC(addEventHandler);
 
 ["isNotUnconscious", {
+    params ["_caller"];
     !(_caller getVariable [QGVAR(isUnconscious), false])
 }] call CFUNC(addCanInteractWith);
 
