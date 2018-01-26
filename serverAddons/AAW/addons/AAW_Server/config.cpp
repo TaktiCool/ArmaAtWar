@@ -7,6 +7,7 @@ class CfgPatches {
         author = "AAW Team: NetFusion, Hoegnison, BadGuy, joko // Jonas";
         authors[] = {"joko // Jonas", "NetFusion", "Hoegnison", "BadGuy", "AAW Team"};
         authorUrl = "https://www.atwar-mod.com/";
+        url = "https://www.atwar-mod.com/";
         version = VERSION;
         versionStr = QUOTE(VERSION);
         versionAr[] = {VERSION_AR};
