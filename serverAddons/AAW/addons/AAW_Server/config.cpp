@@ -1,11 +1,12 @@
 #include "macros.hpp"
 class CfgPatches {
     class AAW_Server {
+        name = "Arma At War";
         units[] = {};
         weapons[] = {};
         requiredVersion = 1.70;
-        author = "AAW Team: NetFusion, Hoegnison, BadGuy, joko // Jonas";
-        authors[] = {"joko // Jonas", "NetFusion", "Hoegnison", "BadGuy", "AAW Team"};
+        author = "AAW Team";
+        authors[] = {"joko // Jonas", "NetFusion", "Hoegnison", "BadGuy"};
         authorUrl = "https://www.atwar-mod.com/";
         url = "https://www.atwar-mod.com/";
         version = VERSION;
