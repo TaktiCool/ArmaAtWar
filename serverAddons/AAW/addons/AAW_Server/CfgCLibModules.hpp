@@ -256,5 +256,11 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(performVehicleRespawn);
         };
+
+        // WarLog
+        MODULE(WarLog) {
+            dependency[] = {"AAW/Common"};
+            FNC(serverInit);
+        };
     };
 };
