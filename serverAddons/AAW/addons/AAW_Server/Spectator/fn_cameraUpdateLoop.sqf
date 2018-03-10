@@ -21,22 +21,22 @@ private _right = [cos GVAR(CameraDir), -sin GVAR(CameraDir), 0];
 private _velocity = [0, 0, 0];
 if (GVAR(InputMode) == 0) then {
     if (inputAction "cameraMoveForward" > 0) then {
-        _velocity = _velocity vectorAdd _forward;
+        _velocity = _velocity vectorAdd (_forward vectorMultiply (inputAction "cameraMoveForward"));
     };
     if (inputAction "cameraMoveBackward" > 0) then {
-        _velocity = _velocity vectorDiff _forward;
+        _velocity = _velocity vectorDiff (_forward vectorMultiply (inputAction "cameraMoveBackward"));
     };
     if (inputAction "cameraMoveRight" > 0) then {
-        _velocity = _velocity vectorAdd _right;
+        _velocity = _velocity vectorAdd (_right vectorMultiply (inputAction "cameraMoveRight"));
     };
     if (inputAction "cameraMoveLeft" > 0) then {
-        _velocity = _velocity vectorDiff _right;
+        _velocity = _velocity vectorDiff (_right vectorMultiply (inputAction "cameraMoveLeft"));
     };
     if (inputAction "cameraMoveUp" > 0) then {
-        _velocity = _velocity vectorAdd [0, 0, 1];
+        _velocity = _velocity vectorAdd [0, 0, inputAction "cameraMoveUp"];
     };
     if (inputAction "cameraMoveDown" > 0) then {
-        _velocity = _velocity vectorAdd [0, 0, -1];
+        _velocity = _velocity vectorAdd [0, 0, -inputAction "cameraMoveDown"];
     };
 };
 
