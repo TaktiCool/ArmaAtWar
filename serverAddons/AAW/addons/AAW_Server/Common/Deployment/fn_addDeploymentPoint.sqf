@@ -27,7 +27,7 @@
     Returns:
     Id <STRING>
 */
-params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_pointObjects", []], ["_customData", []]];
+params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_customData", []]];
 
 private _id = format ["%1_%2", _name, _position];
 private _namespace = true call CFUNC(createNamespace);
@@ -45,7 +45,6 @@ _namespace setPos _position;
     ["spawnTickets", _spawnTickets],
     ["icon", _icon],
     ["mapIcon", _mapIcon],
-    ["pointObjects", _pointObjects]
 ];
 
 {
