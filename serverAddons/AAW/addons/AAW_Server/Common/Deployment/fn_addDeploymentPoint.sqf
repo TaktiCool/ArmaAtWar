@@ -44,7 +44,7 @@ _namespace setPos _position;
     ["availableFor", _availableFor],
     ["spawnTickets", _spawnTickets],
     ["icon", _icon],
-    ["mapIcon", _mapIcon],
+    ["mapIcon", _mapIcon]
 ];
 
 {
