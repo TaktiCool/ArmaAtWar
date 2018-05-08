@@ -67,7 +67,7 @@ addMissionEventHandler ["MapSingleClick", {
 ["missionStarted", {
     call FUNC(showCompass);
     DFUNC(draw3D) = {
-        PERFORMANCECOUNTER_START(CompassUI);
+        RUNTIMESTART;
 
         // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
@@ -266,7 +266,7 @@ addMissionEventHandler ["MapSingleClick", {
             };
         };
 
-        PERFORMANCECOUNTER_END(CompassUI);
+        RUNTIME("CompassUI");
     };
     // The draw3D event triggers on each frame if the client window has focus.
     addMissionEventHandler ["Draw3D", {call FUNC(draw3D)}];
