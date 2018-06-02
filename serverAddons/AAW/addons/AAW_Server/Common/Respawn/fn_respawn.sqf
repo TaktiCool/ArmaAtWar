@@ -43,14 +43,14 @@ if (!alive CLib_Player) then {
         };
 
         CLib_Player setDir (random 360);
-        CLib_Player setPosASL _targetPosition;
+        CLib_Player setVehiclePosition [_targetPosition, [], 0, "NONE"];
 
         // Respawn event is triggered by engine
         ["MPRespawn", [CLib_Player, _oldPlayer]] call CFUNC(globalEvent);
     }, [_targetPosition, _isTempUnit, CLib_Player]] call CFUNC(execNextFrame);
 } else {
     CLib_Player setDir (random 360);
-    CLib_Player setPosASL _targetPosition;
+    CLib_Player setVehiclePosition [_targetPosition, [], 0, "NONE"];
 
     // This is instant cause we reuse the old unit
     ["Respawn", [CLib_Player, CLib_Player]] call CFUNC(localEvent);

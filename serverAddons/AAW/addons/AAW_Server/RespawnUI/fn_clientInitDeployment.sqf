@@ -152,7 +152,7 @@ GVAR(firstRespawn) = true;
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
+            [_deployPosition] call EFUNC(Common,respawn);
 
             [{
                 // Fix issue that player spawn Prone

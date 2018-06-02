@@ -25,6 +25,10 @@ publicVariable QGVAR(DeploymentPointStorage);
         if (!(_markerPosition isEqualTo [0, 0, 0])) then {
             ["BASE", "BASE", _markerPosition, _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
         };
+
+        if (!isNull (missionNamespace getVariable ["baseSpawn_" + (toLower str _x), objNull])) then {
+            ["BASE", "BASE", getPosATL (missionNamespace getVariable ["baseSpawn_" + (toLower str _x), objNull]), _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
+        };
         nil
     } count EGVAR(Common,competingSides);
 }] call CFUNC(addEventHandler);
