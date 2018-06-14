@@ -28,8 +28,16 @@ DFUNC(setLogisticVariables) = {
         private _isCargo = (_tb > 0 || _tm > 0 || _tw > 0);
 
         _entity setVariable ["hasInventory", _isCargo, true];
+        _entity addEventhandler ["Killed", {
+            params ["_entity"];
+            private _cargo = _entity getVariable [QGVAR(CargoItems), []];
+            {
+                deleteVehicle _x;
+                nil
+            } count _cargo;
+            _entity setVariable [QGVAR(CargoItems), nil, true];
+        }];
     };
-
 };
 ["entityCreated", {
     (_this select 0) call FUNC(setLogisticVariables);
