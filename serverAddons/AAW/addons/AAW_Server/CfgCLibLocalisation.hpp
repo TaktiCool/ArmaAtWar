@@ -53,6 +53,15 @@ class CfgCLibLocalisation {
             };
         };
 
+        // Supply
+        class Supply {
+            class Resupply {
+                English = "Resupply";
+                German = "Munition aufnehmen";
+            };
+        };
+
+
         // Sector
         class Sector {
             class YouSC {
