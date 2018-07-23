@@ -36,7 +36,17 @@ params ["_target"];
 
     private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa"] call EFUNC(Common,addDeploymentPoint);
 
-    [_pointId, _composition, _position, _dirVector, _target] call CFUNC(createSimpleObjectComp);
+    [_pointId, _composition, _position, _dirVector, _target, objNull, {
+        _this params ["_pointObjects"];
+        {
+            ["allowDamage", _x, [_x, false]] call CFUNC(targetEvent);
+            _x setVariable ["FOBState", 1, true];
+            _x setVariable ["side", str side group CLib_player, true];
+            _x setVariable [QGVAR(fobId), _pointId, true];
+        } count _pointObjects;
+    }] call CFUNC(createSimpleObjectComp);
+
+
 
     ["displayNotification", side group CLib_player, [
         "NEW FOB PLACED",

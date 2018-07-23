@@ -3,10 +3,11 @@ class CfgCLibSimpleObject {
     class FOBNATO {
         alignOnSurface = 1;
         class item0 {
-            path = "a3\supplies_f_heli\cargonets\cargonet_01_ammo_f.p3d";
-            offset[] = {-0.262329, 0.00878906, 0.825303};
+            path = "b_cargonet_01_ammo_f";
+            offset[] = {-0.262329, 0.00878906, 0};
             dirVector[] = {0, 1, 0};
             upVector[] = {0, 0, 1};
+            fullObject = 1;
         };
         class item1 {
             path = "a3\props_f_exp\military\camps\satelliteantenna_01_f.p3d";
@@ -40,6 +41,7 @@ class CfgCLibSimpleObject {
             offset[] = {-0.262329, 0.00878906, 0};
             dirVector[] = {0, 1, 0};
             upVector[] = {0, 0, 1};
+            fullObject = 1;
         };
         class item1 {
             path = "a3\props_f_exp\military\camps\satelliteantenna_01_f.p3d";
@@ -73,6 +75,7 @@ class CfgCLibSimpleObject {
             offset[] = {-0.262329, 0.00878906, 0};
             dirVector[] = {0, 1, 0};
             upVector[] = {0, 0, 1};
+            fullObject = 1;
         };
         class item1 {
             path = "a3\props_f_exp\military\camps\satelliteantenna_01_f.p3d";

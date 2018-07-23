@@ -43,19 +43,15 @@ class CfgEntities {
         isLoadable = 1;
         cargoCapacity = 3;
         cargoSize = 5;
-        rearmAmountInfantery = 6000;
     };
 
     class Box_East_Ammo_F : Box_Nato_Ammo_F {
-        rearmAmountInfantery = 6000;
     };
 
     class ReammoBox_F : Box_Nato_Ammo_F {
-        rearmAmountInfantery = 6000;
     };
 
     class Box_IND_Ammo_F : Box_Nato_Ammo_F {
-        rearmAmountInfantery = 6000;
     };
 
     class Land_CargoBox_V1_F {
@@ -96,6 +92,7 @@ class CfgEntities {
     };
 
     class B_Truck_01_box_F : B_Truck_01_Ammo_F {
+        constructionVehicle = 1;
     };
 
     class B_Truck_01_fuel_F : B_Truck_01_Ammo_F {
@@ -115,6 +112,7 @@ class CfgEntities {
     };
 
     class I_Truck_02_box_F : I_Truck_02_Ammo_F {
+        constructionVehicle = 1;
     };
 
     class I_Truck_02_fuel_F : I_Truck_02_Ammo_F {
@@ -131,6 +129,7 @@ class CfgEntities {
     };
 
     class O_Truck_02_box_F : O_Truck_02_Ammo_F {
+        constructionVehicle = 1;
     };
 
     class O_Truck_02_fuel_F : O_Truck_02_Ammo_F {
@@ -157,6 +156,7 @@ class CfgEntities {
     };
 
     class O_Truck_03_box_F : O_Truck_02_Ammo_F {
+        constructionVehicle = 1;
     };
 
     class O_Truck_03_fuel_F : O_Truck_02_Ammo_F {

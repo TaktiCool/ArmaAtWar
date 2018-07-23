@@ -46,7 +46,7 @@ _display displayAddEventHandler ["Unload",  {
 
     private _eventId = _display getVariable [QGVAR(resourceChangedEventHandler), -1];
     if (_eventId != -1) then {
-        ["resourcesChanged", _eventId] call CFUNC(removeEventHandler);
+        ["constructionPointsChanged", _eventId] call CFUNC(removeEventHandler);
     };
 }];
 
@@ -91,7 +91,7 @@ private _contentGroup = _display ctrlCreate ["RscControlsGroupNoHScrollbars", -1
 _contentGroup ctrlSetPosition [0, PY(20), safeZoneW, safeZoneH - PY(40)];
 _contentGroup ctrlCommit 0;
 
-private _resourceChangedEventHandler = ["resourcesChanged", {(_this select 1) call FUNC(updateResourcesDisplay);} ,[_display, _contentGroup, _resourcePoints]] call CFUNC(addEventHandler);
+private _resourceChangedEventHandler = ["constructionPointsChanged", {(_this select 1) call FUNC(updateResourcesDisplay);} ,[_display, _contentGroup, _resourcePoints]] call CFUNC(addEventHandler);
 _display setVariable [QGVAR(resourceChangedEventHandler), _resourceChangedEventHandler];
 
 [_display, _contentGroup, _resourcePoints] call FUNC(updateResourcesDisplay);

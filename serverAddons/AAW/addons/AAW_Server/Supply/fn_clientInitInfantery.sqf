@@ -15,40 +15,40 @@
 */
 if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
-["entityCreated", {
-    params ["_object"];
 
-    private _rearmAmount = _object getVariable ["rearmAmountInfantery", -1];
-    if (_rearmAmount == -1) exitWith {};
+private _title = MLOC(Resupply);
+private _iconIdle = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
+private _iconProgress = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
+private _condition = {
+    (_target distance CLib_Player < 3)
+    && {(_target getVariable ["supplyType", ""]) in ["Ammo", "AmmoInfantery", "Medical"]
+    && {(_target getVariable ["supplyPoints", 0]) > 0}}
+};
 
-    private _title = MLOC(Resupply);
-    private _iconIdle = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
-    private _iconProgress = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
-    private _condition = {
-         (_target distance CLib_Player < 3)
-         && (_target getVariable ["rearmAmountInfantery", -1]) > 0
-    };
+private _onStart = {
+    params ["_target", "_caller"];
 
-    private _onStart = {
-        params ["_target", "_caller"];
+    private _kitName = _caller getVariable [QEGVAR(Kit,kit), ""];
 
-        private _kitName = _caller getVariable [QEGVAR(Kit,kit), ""];
+    if (_kitName == "") exitWith {};
+    private _magazineData = [];
+    private _totalCost = 0;
 
-        if (_kitName == "") exitWith {};
+    private _kitDetails = [_kitName, side group _caller, [
+            ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineTracerCount", 0],
+            ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
+            ["handgunMagazine", ""], ["handgunMagazineCount", 0],
+            ["items", []]
+    ], true] call EFUNC(Kit,getKitDetails);
 
-        private _kitDetails = [_kitName, side group _caller, [
-                ["primaryMagazine", ""], ["primaryMagazineCount", 0], ["primaryMagazineTracer", ""], ["primaryMagazineTracerCount", 0],
-                ["secondaryMagazine", ""], ["secondaryMagazineCount", 0],
-                ["handgunMagazine", ""], ["handgunMagazineCount", 0],
-                ["items", []]
-        ], true] call EFUNC(Kit,getKitDetails);
+    _kitDetails params [
+        "_primaryMagazine", "_primaryMagazineCount", "_primaryMagazineTracer", "_primaryMagazineTracerCount",
+        "_secondaryMagazine", "_secondaryMagazineCount",
+        "_handgunMagazine", "_handgunMagazineCount",
+        "_items"
+    ];
 
-        _kitDetails params [
-            "_primaryMagazine", "_primaryMagazineCount", "_primaryMagazineTracer", "_primaryMagazineTracerCount",
-            "_secondaryMagazine", "_secondaryMagazineCount",
-            "_handgunMagazine", "_handgunMagazineCount",
-            "_items"
-        ];
+    if (_target getVariable ["supplyType", ""] in ["Ammo", "AmmoInfantery"]) then {
 
         private _kitMagazineData = [
             [_primaryMagazine, _primaryMagazineCount],
@@ -84,8 +84,6 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             nil
         } count _items;
 
-        private _magazineData = [];
-        private _totalCost = 0;
 
         {
             _x params ["_selectedMagazine", "_selectedMagazineDesiredCount"];
@@ -117,66 +115,94 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             };
             nil
         } count _kitMagazineData;
-        DUMP(_magazineData);
-        CLib_player setVariable [QGVAR(MagazineData), _magazineData];
-        CLib_player setVariable [QGVAR(ResupplyTime), time];
-        CLib_player setVariable [QGVAR(TotalCosts), _totalCost];
-        CLib_player setVariable [QGVAR(SpentCosts), 0];
     };
 
-    private _onProgress = {
-        params ["_target", "_caller"];
-
-        private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
-        private _time = CLib_player getVariable [QGVAR(ResupplyTime), time];
-        private _totalCosts = CLib_player getVariable [QGVAR(TotalCosts), 0];
-        private _spentCosts = CLib_player getVariable [QGVAR(SpentCosts), 0];
-        private _accumulatedCosts = floor ((time - _time)*6);
-
-        private _rearmAmountAvailable = _target getVariable ["rearmAmountInfantery", 0];
-
-        if (_rearmAmountAvailable == 0) exitWith {1};
-        if (_totalCosts == 0) exitWith {1};
-
+    if (_target getVariable ["supplyType", ""] in ["Medical"]) then {
+        private _nbrDesiredFirstAidKits = 0;
         {
-            _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
-
-            if (_cost > 0 && _cost <= (_accumulatedCosts - _spentCosts)
-                && _rearmAmountAvailable >= _cost
-                && _currentAmmo < _desiredAmmo) then {
-                _x set [0, 0];
-                _spentCosts = _spentCosts + _cost;
-                [{
-                    params ["_target", "_cost", "_magazineDataIndex"];
-                    private _rearmAmountAvailable = _target getVariable ["rearmAmountInfantery", 0];
-                    private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
-
-                    if (_rearmAmountAvailable >= _cost) then {
-                        private _magazineDataElement = _magazineData select _magazineDataIndex;
-                        _magazineDataElement set [2, _magazineDataElement select 3];
-                        CLib_player setVariable [QGVAR(MagazineData), _magazineData];
-                        _target setVariable ["rearmAmountInfantery", _rearmAmountAvailable - _cost, true];
-                        CLib_player playAction "PutDown";
-                    };
-                }, [_target, _cost,_forEachIndex], QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
+            private _item = _x;
+            if (_item isEqualType "" && {toLower _item == toLower "FirstAidKit"}) then {
+                _nbrDesiredFirstAidKits = _nbrDesiredFirstAidKits + 1;
+            } else {
+                _item params ["_type", "_count"];
+                if (toLower _type == toLower "FirstAidKit") then {
+                    _nbrDesiredFirstAidKits = _nbrDesiredFirstAidKits + _count;
+                };
             };
             nil
-        } forEach _magazineData;
+        } count _items;
 
-        CLib_player setVariable [QGVAR(SpentCosts), _spentCosts];
-
-        if ((_accumulatedCosts - _spentCosts) > _rearmAmountAvailable) exitWith {1};
-
-        _accumulatedCosts / _totalCosts;
+        private _nbrFirstAidKits = {
+            toLower _x == toLower "FirstAidKit";
+        } count items CLib_player;
+        private _cost = 10;
+        for "_k" from 1 to (_nbrDesiredFirstAidKits - _nbrFirstAidKits) do {
+            _totalCost = _totalCost + _cost;
+            _magazineData pushBack [_cost, "FirstAidKit", 0, 1];
+        };
     };
 
-    private _onComplete = {
-        params ["_target", "_caller"];
+    DUMP(_magazineData);
+    CLib_player setVariable [QGVAR(MagazineData), _magazineData];
+    CLib_player setVariable [QGVAR(ResupplyTime), time];
+    CLib_player setVariable [QGVAR(TotalCosts), _totalCost];
+    CLib_player setVariable [QGVAR(SpentCosts), 0];
+};
+
+private _onProgress = {
+    params ["_target", "_caller"];
+
+    private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
+    private _time = CLib_player getVariable [QGVAR(ResupplyTime), time];
+    private _totalCosts = CLib_player getVariable [QGVAR(TotalCosts), 0];
+    private _spentCosts = CLib_player getVariable [QGVAR(SpentCosts), 0];
+    private _accumulatedCosts = floor ((time - _time)*6);
+
+    private _rearmAmountAvailable = _target getVariable ["supplyPoints", 0];
+
+    if (_rearmAmountAvailable == 0) exitWith {1};
+    if (_totalCosts == 0) exitWith {1};
+
+    {
+        _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
+
+        if (_cost > 0 && _cost <= (_accumulatedCosts - _spentCosts)
+            && _rearmAmountAvailable >= _cost
+            && _currentAmmo < _desiredAmmo) then {
+            _x set [0, 0];
+            _spentCosts = _spentCosts + _cost;
+            [{
+                params ["_target", "_cost", "_magazineDataIndex"];
+                private _rearmAmountAvailable = _target getVariable ["supplyPoints", 0];
+                private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
+
+                if (_rearmAmountAvailable >= _cost) then {
+                    private _magazineDataElement = _magazineData select _magazineDataIndex;
+                    _magazineDataElement set [2, _magazineDataElement select 3];
+                    CLib_player setVariable [QGVAR(MagazineData), _magazineData];
+                    _target setVariable ["supplyPoints", _rearmAmountAvailable - _cost, true];
+                    CLib_player playAction "PutDown";
+                };
+            }, [_target, _cost,_forEachIndex], QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
+        };
+        nil
+    } forEach _magazineData;
+
+    CLib_player setVariable [QGVAR(SpentCosts), _spentCosts];
+
+    if ((_accumulatedCosts - _spentCosts) > _rearmAmountAvailable) exitWith {1};
+
+    _accumulatedCosts / _totalCosts;
+};
+
+private _onComplete = {
+
+    params ["_target", "_caller"];
+
+    if (_target getVariable ["supplyType", ""] in ["Ammo", "AmmoInfantery"]) then {
 
         [{
-            params ["_target", "_caller"];
             private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
-
             private _temp = [];
 
             {
@@ -189,12 +215,25 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                 };
                 nil;
             } count _magazineData;
-        }, _this, QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
-
+        }, [], QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
     };
 
-    private _onInterruption = _onComplete;
+    if (_target getVariable ["supplyType", ""] in ["Medical"]) then {
+        [{
+            private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
 
-    [_object, _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, false, ["isNotUnconscious"]] call CFUNC(addHoldAction);
+            {
+                _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
+                if (_currentAmmo > 0) then {
+                    CLib_player addItem _magazineType;
+                };
+                nil;
+            } count _magazineData;
+        }, [], QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
+    };
 
-}] call CFUNC(addEventHandler);
+};
+
+private _onInterruption = _onComplete;
+
+["All", _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, false, ["isNotUnconscious"]] call CFUNC(addHoldAction);
