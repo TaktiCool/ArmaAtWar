@@ -45,19 +45,46 @@ DFUNC(setLogisticVariables) = {
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
 
+[QGVAR(loadSupplies), {
+    (_this select 0) params ["_target"];
+
+    DUMP(_this);
+
+    private _supplyCapacity = _target getVariable ["supplyCapacity", 0];
+    DUMP(_supplyCapacity);
+    if (_supplyCapacity == 0) exitWith {};
+
+    private _side = _target getVariable ["side", str sideUnknown];
+    private _totalSupplyPoints = missionNamespace getVariable [format [QEGVAR(Logistic,supplyPoints_%1), _side], 0];
+    DUMP(_totalSupplyPoints);
+    if (_totalSupplyPoints == 0) exitWith {};
+
+    private _supplyPoints = _target getVariable ["supplyPoints", 0];
+
+
+    private _addedSupplyPoints = _totalSupplyPoints min (_supplyCapacity-_supplyPoints);
+
+    _supplyPoints = _supplyPoints + _addedSupplyPoints;
+    _totalSupplyPoints = _totalSupplyPoints - _addedSupplyPoints;
+
+    _target setVariable ["supplyPoints", _supplyPoints, true];
+    missionNamespace setVariable [format [QEGVAR(Logistic,supplyPoints_%1), _side], _totalSupplyPoints, true];
+    ["supplyPointsChanged", _side] call CFUNC(targetEvent);
+}] call CFUNC(addEventHandler);
+
 ["missionStarted", {
     {
         private _cfg = QUOTE(PREFIX/CfgLogistics/) + ([format [QUOTE(PREFIX/Sides/%1/logistics), _x], ""] call CFUNC(getSetting));
-        private _constructionPoints = [_cfg + "/constructionPoints", 100] call CFUNC(getSetting);
-        private _resourceGrowth = [_cfg + "/constructionPointsGrowth", [1, 12]] call CFUNC(getSetting);
-        missionNamespace setVariable [format [QGVAR(constructionPoints_%1), _x], _constructionPoints, true];
+        private _supplyPoints = [_cfg + "/supplyPoints", 100] call CFUNC(getSetting);
+        private _supplyPointsGrowth = [_cfg + "/supplyPointsGrowth", [1, 12]] call CFUNC(getSetting);
+        missionNamespace setVariable [format [QGVAR(supplyPoints_%1), _x], _supplyPoints, true];
         [{
-            (_this select 0) params ["_constructionPointsGrowth", "_side"];
-            private _constructionPoints = missionNamespace getVariable [format [QGVAR(constructionPoints_%1), _side], 0];
-            _constructionPoints = _constructionPoints + (_constructionPointsGrowth select 0);
-            missionNamespace setVariable [format [QGVAR(constructionPoints_%1), _side], _constructionPoints, true];
-            ["constructionPointsChanged", _side] call CFUNC(targetEvent);
-        }, _resourceGrowth select 1, [_resourceGrowth, _x]] call CFUNC(addPerFrameHandler);
+            (_this select 0) params ["_supplyPointsGrowth", "_side"];
+            private _supplyPoints = missionNamespace getVariable [format [QGVAR(supplyPoints_%1), _side], 0];
+            _supplyPoints = _supplyPoints + (_supplyPointsGrowth select 0);
+            missionNamespace setVariable [format [QGVAR(supplyPoints_%1), _side], _supplyPoints, true];
+            ["supplyPointsChanged", _side] call CFUNC(targetEvent);
+        }, _supplyPointsGrowth select 1, [_supplyPointsGrowth, _x]] call CFUNC(addPerFrameHandler);
         nil;
     } count EGVAR(Common,competingSides);
     nil;

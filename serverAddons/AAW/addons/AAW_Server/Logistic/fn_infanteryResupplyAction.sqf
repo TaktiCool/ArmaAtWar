@@ -5,7 +5,7 @@
     Author: NetFusion
 
     Description:
-    Client init of supply module
+    Adds the Infantery Resupply Action
 
     Parameter(s):
     None
@@ -13,7 +13,6 @@
     Returns:
     None
 */
-if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 
 private _title = MLOC(Resupply);

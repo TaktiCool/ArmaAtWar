@@ -122,7 +122,6 @@ class CfgCLibModules {
         // Supply system
         MODULE(Supply) {
             dependency[] = {"AAW/Common", "AAW/Kit"};
-            FNC(clientInitInfantery);
             FNC(clientInitVehicle);
         };
 
@@ -142,6 +141,7 @@ class CfgCLibModules {
             FNC(serverInit);
             FNC(clientInit);
             FNC(clientInitActions);
+            FNC(infanteryResupplyAction);
             FNC(clientInitCargoInventory);
             FNC(getWeight);
             FNC(dragObject);

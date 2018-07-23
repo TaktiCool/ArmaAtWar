@@ -22,6 +22,8 @@
 #define T_VTOL_TRANSPORT 20
 #define T_VTOL_ARMED 25
 
+#define S_CAP_CONSTRUCTION_TRUCK 50000
+
 class defaultVehicle {
     respawnCondition = "true";
     side = "UNKNOWN";
@@ -82,7 +84,6 @@ class CfgEntities {
     // TRUCKS
     class Truck_01_base_F {
         side = "WEST";
-        cargoCapacity = 50;
         respawnTime = 180;
         ticketValue = T_TRUCK_TRANSPORT;
     };
@@ -93,6 +94,7 @@ class CfgEntities {
 
     class B_Truck_01_box_F : B_Truck_01_Ammo_F {
         constructionVehicle = 1;
+        supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
     };
 
     class B_Truck_01_fuel_F : B_Truck_01_Ammo_F {
@@ -113,6 +115,7 @@ class CfgEntities {
 
     class I_Truck_02_box_F : I_Truck_02_Ammo_F {
         constructionVehicle = 1;
+        supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
     };
 
     class I_Truck_02_fuel_F : I_Truck_02_Ammo_F {
@@ -130,6 +133,7 @@ class CfgEntities {
 
     class O_Truck_02_box_F : O_Truck_02_Ammo_F {
         constructionVehicle = 1;
+        supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
     };
 
     class O_Truck_02_fuel_F : O_Truck_02_Ammo_F {
@@ -157,6 +161,7 @@ class CfgEntities {
 
     class O_Truck_03_box_F : O_Truck_02_Ammo_F {
         constructionVehicle = 1;
+        supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
     };
 
     class O_Truck_03_fuel_F : O_Truck_02_Ammo_F {

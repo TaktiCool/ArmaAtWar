@@ -111,3 +111,5 @@
         }, _vehicle, "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
+
+call FUNC(infanteryResupplyAction);
