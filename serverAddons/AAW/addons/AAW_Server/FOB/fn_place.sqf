@@ -32,11 +32,10 @@ params ["_target"];
 
     private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa"] call EFUNC(Common,addDeploymentPoint);
 
-    [_pointId, _composition, _position, _dirVector, _target, CLib_player, {
-        params ["_par", "_ret"];
-        _par params ["","","","","_target"];
+    [_pointId, _composition, _position, _dirVector, _target, CLib_player, [CLib_player, {
+        params ["_uid", "_target"];
         deleteVehicle _target;
-    }] call CFUNC(createSimpleObjectComp);
+    }, _target]] call CFUNC(createSimpleObjectComp);
 
     ["displayNotification", side group CLib_player, [
         "NEW FOB PLACED",

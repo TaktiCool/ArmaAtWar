@@ -151,7 +151,7 @@ DFUNC(playRadioSound) = {
 DFUNC(playRadioSoundLoop) = {
     params ["_pointId"];
     private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
-    _obj = selectRandom ((GVAR(compNamespace) getVariable [_pointId, [[],[]]]) select 1);
+    _obj = selectRandom (GVAR(compNamespace) getVariable [_pointId, []]);
     private _counterActive = [_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData);
     if (isNull _obj || _counterActive == 1) exitWith {
         [_pointId, "soundWaitIsRunning", 0] call EFUNC(Common,setDeploymentPointData);
