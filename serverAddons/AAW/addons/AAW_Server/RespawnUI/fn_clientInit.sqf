@@ -15,6 +15,101 @@
 */
 if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
 
+DFUNC(createRespawnScreen) = {
+    // ---------------------------------------------------
+    // CREATE RESPAWN UI
+    // ---------------------------------------------------
+    private _display = (findDisplay 46) createDisplay "RscDisplayEmpty";
+    GUI_INIT(_display);
+    //MAIN GROUP
+    private _grpMain = GUI_NEWGROUP(safeZoneX, safezoneY, safeZoneW, safeZoneH);GUI_COMMIT(0);
+
+    // HEADER BACKGROUND
+    private _grpHeader = GUI_NEWGROUP(0, 0, safeZoneW, PY(9)); GUI_COMMIT(0);
+    private _grpHeaderBg = AAWUI_PANELBACKGROUND(0, 0, safeZoneW, PY(9));GUI_COMMIT(0);
+
+    // OWNTEAM
+    private _grpHeaderFriendlyTeam =  GUI_NEWGROUP(PX(2), PY(2), PX(40), PY(5)); GUI_COMMIT(0);
+    AAWUI_FRIENDLYBACKGROUND(0, 0, PX(5), PY(5)); GUI_COMMIT(0);
+    private _ctrlTextFriendlyTeam = GUI_NEWCTRL_TEXT_LEFT;
+    GUI_TEXT("NATO");
+    AAWUI_TEXTSTYLE_DISPLAY_BOLD_LARGE;
+    GUI_POSITION(GUI_RIGHT+PX(1), 0, PX(30), PY(5));
+    GUI_COMMIT(0);
+    private _ctrlIconFriendlyTeam = GUI_NEWCTRL("RscPicture");
+    GUI_TEXTURECOLOR(C_A_BRIGHT_TEXT);
+    GUI_TEXTURE("\a3\ui_f_orange\Data\CfgOrange\Missions\orange_airdrop_ca.paa");
+    GUI_POSITION_CENTERED(PX(2.5), PY(2.5), PX(4), PY(4));
+    GUI_COMMIT(0);
+    GUI_POPGRP; // Close _grpHeaderFriendlyTeam
+
+    GUI_POPGRP; // Close _grpHeader
+
+    private _ctrlUiHint = GUI_NEWGROUP(PX(2), PY(10), PX(41), PY(5)); GUI_COMMIT(0);
+    AAWUI_SPECIALBACKGROUND(0, 0, PX(41), PY(5)); GUI_COMMIT(0);
+    private _ctrlUiHintText = GUI_NEWCTRL_TEXT_CENTERED;
+    GUI_TEXT("SELECT YOUR SQUAD");
+    AAWUI_TEXTSTYLE_UIHINT;
+    GUI_POSITION(0, 0, PX(41.5), PY(5));
+    GUI_COMMIT(0);
+    GUI_POPGRP;
+
+
+    private _grpSquadList = GUI_NEWGROUP_VSCROLL(PX(2), PY(16), PX(42), PY(83));GUI_COMMIT(0);
+
+    private _grpSquadItem = GUI_NEWGROUP(0, 0, PX(41), PY(17));GUI_COMMIT(0);
+    private _grpSquadItemHeader = GUI_NEWGROUP(0, 0, PX(41), PY(4));GUI_COMMIT(0);
+    GUI_FIX_MOUSEENTER;
+    GUI_LASTCTRL setVariable ["MouseEnterEH", [{
+        params ["_ctrl"];
+        private GUI_LASTCTRL = _ctrl getVariable [QGVAR(Background), controlNull];
+        GUI_BACKGROUNDCOLOR(C_A_BRIGHT_TEXT);
+        GUI_COMMIT(0);
+        {
+            GUI_LASTCTRL = _ctrl getVariable [_x, controlNull];
+            GUI_TEXTCOLOR(C_A_DARK_TEXT);
+            GUI_COMMIT(0);
+            nil;
+        } count [QGVAR(SquadName), QGVAR(SquadType)];
+    }]];
+    GUI_LASTCTRL setVariable ["MouseExitEH", [{
+        params ["_ctrl"];
+        private GUI_LASTCTRL = _ctrl getVariable [QGVAR(Background), controlNull];
+        GUI_BACKGROUNDCOLOR(C_A_DARK);
+        GUI_COMMIT(0);
+        {
+            GUI_LASTCTRL = _ctrl getVariable [_x, controlNull];
+            GUI_TEXTCOLOR(C_A_BRIGHT_TEXT);
+            GUI_COMMIT(0);
+            nil;
+        } count [QGVAR(SquadName), QGVAR(SquadType)];
+    }]];
+    private _grpSquadItemHeaderBackground = AAWUI_BUTTONBACKGROUND(0, 0, PX(41), PY(4));
+    _grpSquadItemHeader setVariable [QGVAR(Background), _grpSquadItemHeaderBackground];
+    GUI_COMMIT(0);
+
+    private _squadDesignator = AAWUI_SQUAD_DESIGNATOR("A", C_A_FRIENDLY, PX(0.5), PY(0.5));GUI_COMMIT(0);
+    DUMP(_squadDesignator);
+    _grpSquadItemHeader setVariable [QGVAR(SquadName), GUI_NEWCTRL_TEXT_LEFT];
+    AAWUI_TEXTSTYLE_NORMAL_BOLD_SMALL;
+    GUI_POSITION(PX(4), PY(0.2), PX(16), PY(1.8));
+    GUI_TEXT("SQUADNAME");
+    GUI_COMMIT(0);
+
+    _grpSquadItemHeader setVariable [QGVAR(SquadType), GUI_NEWCTRL_TEXT_LEFT];
+    AAWUI_TEXTSTYLE_NORMAL_REGULAR_SMALL;
+    GUI_POSITION(PX(4), PY(2), PX(16), PY(1.8));
+    GUI_TEXT("SQUADTYPE");
+    GUI_COMMIT(0);
+
+
+
+
+    // SQUAD LIST
+    // GUI_CREATEGROUP_VSCROLL(_grpSquadList, PX(2), PY(16), PX(42), PY(83);
+
+};
+
 // When player dies show respawn UI
 ["Killed", {
     [[-10000, -10000, 50], true] call EFUNC(Common,respawn);
