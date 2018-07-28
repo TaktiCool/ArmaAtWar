@@ -258,5 +258,26 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(performVehicleRespawn);
         };
+
+        MODULE(AAS) {
+            dependency[] = {"AAW/BaseProtection",
+                "AAW/CompassUI",
+                "AAW/FOB",
+                "AAW/Kit",
+                "AAW/Logistic",
+                "AAW/Nametags",
+                "AAW/Rally",
+                "AAW/RespawnUI",
+                "AAW/Revive",
+                "AAW/ScoreTable",
+                "AAW/Sector",
+                "AAW/Spectator",
+                "AAW/Squad",
+                "AAW/Supply",
+                "AAW/Tickets",
+                "AAW/UnitTracker",
+                "AAW/VehicleRespawn"};
+            FNC(serverInit);
+        };
     };
 };
