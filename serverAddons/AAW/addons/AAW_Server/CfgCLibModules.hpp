@@ -142,6 +142,7 @@ class CfgCLibModules {
             FNC(clientInit);
             FNC(clientInitActions);
             FNC(infanteryResupplyAction);
+            FNC(resupplySupplyVehicleAction);
             FNC(clientInitCargoInventory);
             FNC(getWeight);
             FNC(dragObject);

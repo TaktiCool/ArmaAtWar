@@ -40,7 +40,7 @@
     },
     ["ignoredCanInteractConditions", ["isNotDragging"], "priority", 2000]
 ] call CFUNC(addAction);
-
+/*
 [
     {format [MLOC(loadItem), getText (configFile >> "CfgVehicles" >> typeOf _target >> "displayName")]},
     GVAR(CargoClasses),
@@ -111,5 +111,6 @@
         }, _vehicle, "logistic"] call CFUNC(mutex);
     }
 ] call CFUNC(addAction);
-
+*/
 call FUNC(infanteryResupplyAction);
+call FUNC(resupplySupplyVehicleAction);

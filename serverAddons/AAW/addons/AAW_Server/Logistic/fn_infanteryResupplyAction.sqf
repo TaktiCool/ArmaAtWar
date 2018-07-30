@@ -19,8 +19,8 @@ private _title = MLOC(Resupply);
 private _iconIdle = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
 private _iconProgress = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
 private _condition = {
-    (_target distance CLib_Player < 3)
-    && {(_target getVariable ["supplyType", ""]) in ["Ammo", "AmmoInfantery", "Medical"]
+    [_target, 3] call CFUNC(inRange)
+    && {!((_target getVariable ["supplyType", []]) arrayIntersect ["Ammo", "AmmoInfantery", "Medical"] isEqualTo [])
     && {(_target getVariable ["supplyPoints", 0]) > 0}}
 };
 
@@ -47,7 +47,7 @@ private _onStart = {
         "_items"
     ];
 
-    if (_target getVariable ["supplyType", ""] in ["Ammo", "AmmoInfantery"]) then {
+    if !((_target getVariable ["supplyType", []]) arrayIntersect ["AmmoInfantery", "Ammo"] isEqualTo []) then {
 
         private _kitMagazineData = [
             [_primaryMagazine, _primaryMagazineCount],
@@ -97,7 +97,7 @@ private _onStart = {
                         if (!((_x select 3) > 0) && _currentAmmo > 0) then {
                             private _cost = ceil sqrt ((_selectedMagazineAmmoCount - _currentAmmo) * _selectedMagazineAmmoCost);
                             _totalCost = _totalCost + _cost;
-                            _magazineData pushBack [_cost, _selectedMagazine, _currentAmmo, _selectedMagazineAmmoCount];
+                            _magazineData pushBack ["mag", _cost, _selectedMagazine, _currentAmmo, _selectedMagazineAmmoCount];
                         };
 
                         true;
@@ -109,14 +109,14 @@ private _onStart = {
                 private _cost = ceil sqrt (_selectedMagazineAmmoCount * _selectedMagazineAmmoCost);
                 for "_k" from 1 to (_selectedMagazineDesiredCount - _nbrOwnedMagazines) do {
                     _totalCost = _totalCost + _cost;
-                    _magazineData pushBack [_cost, _selectedMagazine, 0, _selectedMagazineAmmoCount];
+                    _magazineData pushBack ["mag", _cost, _selectedMagazine, 0, _selectedMagazineAmmoCount];
                 };
             };
             nil
         } count _kitMagazineData;
     };
 
-    if (_target getVariable ["supplyType", ""] in ["Medical"]) then {
+    if ("Medical" in (_target getVariable ["supplyType", []])) then {
         private _nbrDesiredFirstAidKits = 0;
         {
             private _item = _x;
@@ -137,11 +137,10 @@ private _onStart = {
         private _cost = 10;
         for "_k" from 1 to (_nbrDesiredFirstAidKits - _nbrFirstAidKits) do {
             _totalCost = _totalCost + _cost;
-            _magazineData pushBack [_cost, "FirstAidKit", 0, 1];
+            _magazineData pushBack ["item", _cost, "FirstAidKit", 0, 1];
         };
     };
 
-    DUMP(_magazineData);
     CLib_player setVariable [QGVAR(MagazineData), _magazineData];
     CLib_player setVariable [QGVAR(ResupplyTime), time];
     CLib_player setVariable [QGVAR(TotalCosts), _totalCost];
@@ -163,7 +162,7 @@ private _onProgress = {
     if (_totalCosts == 0) exitWith {1};
 
     {
-        _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
+        _x params ["_type", "_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
 
         if (_cost > 0 && _cost <= (_accumulatedCosts - _spentCosts)
             && _rearmAmountAvailable >= _cost
@@ -177,7 +176,7 @@ private _onProgress = {
 
                 if (_rearmAmountAvailable >= _cost) then {
                     private _magazineDataElement = _magazineData select _magazineDataIndex;
-                    _magazineDataElement set [2, _magazineDataElement select 3];
+                    _magazineDataElement set [3, _magazineDataElement select 4];
                     CLib_player setVariable [QGVAR(MagazineData), _magazineData];
                     _target setVariable ["supplyPoints", _rearmAmountAvailable - _cost, true];
                     CLib_player playAction "PutDown";
@@ -198,33 +197,38 @@ private _onComplete = {
 
     params ["_target", "_caller"];
 
-    if (_target getVariable ["supplyType", ""] in ["Ammo", "AmmoInfantery"]) then {
+    if !((_target getVariable ["supplyType", []] arrayIntersect ["Ammo", "AmmoInfantery"]) isEqualTo [] ) then {
 
         [{
             private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
             private _temp = [];
 
             {
-                _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
-                if (_temp pushBackUnique _magazineType >= 0) then {
-                    CLib_player removeMagazines _magazineType;
+                _x params ["_type", "_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
+                if (_type isEqualTo "mag") then {
+                    if (_temp pushBackUnique _magazineType >= 0) then {
+                        CLib_player removeMagazines _magazineType;
+                    };
+                    if (_currentAmmo > 0) then {
+                        CLib_player addMagazine [_magazineType, _currentAmmo];
+                    };
                 };
-                if (_currentAmmo > 0) then {
-                    CLib_player addMagazine [_magazineType, _currentAmmo];
-                };
+
                 nil;
             } count _magazineData;
         }, [], QGVAR(InfanterySupply) + netId _target] call CFUNC(mutex);
     };
 
-    if (_target getVariable ["supplyType", ""] in ["Medical"]) then {
+    if ("Medical" in (_target getVariable ["supplyType", []])) then {
         [{
             private _magazineData = CLib_player getVariable [QGVAR(MagazineData), []];
 
             {
-                _x params ["_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
-                if (_currentAmmo > 0) then {
-                    CLib_player addItem _magazineType;
+                _x params ["_type","_cost", "_magazineType", "_currentAmmo", "_desiredAmmo"];
+                if (_type isEqualTo "item") then {
+                    if (_currentAmmo > 0) then {
+                        CLib_player addItem _magazineType;
+                    };
                 };
                 nil;
             } count _magazineData;

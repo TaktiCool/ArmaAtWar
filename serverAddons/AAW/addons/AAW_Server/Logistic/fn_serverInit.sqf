@@ -45,24 +45,23 @@ DFUNC(setLogisticVariables) = {
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
 
-[QGVAR(loadSupplies), {
-    (_this select 0) params ["_target"];
+[QGVAR(LoadSupplies), {
+    (_this select 0) params ["_target", ["_points", 50]];
 
-    DUMP(_this);
+
 
     private _supplyCapacity = _target getVariable ["supplyCapacity", 0];
-    DUMP(_supplyCapacity);
     if (_supplyCapacity == 0) exitWith {};
 
     private _side = _target getVariable ["side", str sideUnknown];
     private _totalSupplyPoints = missionNamespace getVariable [format [QEGVAR(Logistic,supplyPoints_%1), _side], 0];
-    DUMP(_totalSupplyPoints);
+
     if (_totalSupplyPoints == 0) exitWith {};
 
     private _supplyPoints = _target getVariable ["supplyPoints", 0];
 
 
-    private _addedSupplyPoints = _totalSupplyPoints min (_supplyCapacity-_supplyPoints);
+    private _addedSupplyPoints = _points min (_totalSupplyPoints min (_supplyCapacity-_supplyPoints));
 
     _supplyPoints = _supplyPoints + _addedSupplyPoints;
     _totalSupplyPoints = _totalSupplyPoints - _addedSupplyPoints;

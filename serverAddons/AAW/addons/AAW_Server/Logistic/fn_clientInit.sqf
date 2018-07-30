@@ -40,7 +40,7 @@ GVAR(supplySourceObjects) = [];
         nil
     } count ([QUOTE(PREFIX/Sides)] call CFUNC(getSettingSubClasses));
 }] call CFUNC(addEventHandler);
-
+/*
 [
     "Load Supplies",
     "AllVehicles",
@@ -62,7 +62,7 @@ GVAR(supplySourceObjects) = [];
         _target setUserActionText [_id, "Load Supplies", "<img size='3' shadow='0' color='#ffffff' image='\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa' shadow=2/><br/><br/>Load Supplies"];
     }, "priority", 1000, "showWindow", true, "ignoredCanInteractConditions", ["isNotInVehicle"]]
 ] call CFUNC(addAction);
-
+*/
 [
     "Build",
     "All",

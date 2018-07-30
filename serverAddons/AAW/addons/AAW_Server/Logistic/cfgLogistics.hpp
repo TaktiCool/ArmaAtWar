@@ -16,7 +16,7 @@ class cfgLogistics {
             removeDefaultLoadout = 1;
             picture = "\A3\ui_f\data\map\vehicleicons\pictureheal_ca.paa";
             class Attributes {
-                supplyType = "Medical";
+                supplyType[] = {"Medical"};
                 supplyCapacity = COST_MEDICAL_BOX;
                 supplyPoints = COST_MEDICAL_BOX;
             };
@@ -27,7 +27,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType = "AmmoInfantery";
+                supplyType[]  = {"AmmoInfantery"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };
@@ -57,7 +57,7 @@ class cfgLogistics {
             supplyCost = COST_MEDICAL_BOX;
             picture = "\A3\ui_f\data\map\vehicleicons\pictureheal_ca.paa";
             class Attributes {
-                supplyType = "Medical";
+                supplyType[] = {"Medical"};
                 supplyCapacity = COST_MEDICAL_BOX;
                 supplyPoints = COST_MEDICAL_BOX;
             };
@@ -68,7 +68,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType = "AmmoInfantery";
+                supplyType[]  = {"AmmoInfantery"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };
@@ -99,7 +99,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\map\vehicleicons\pictureheal_ca.paa";
             supplyCost = COST_MEDICAL_BOX;
             class Attributes {
-                supplyType = "Medical";
+                supplyType[] = {"Medical"};
                 supplyCapacity = COST_MEDICAL_BOX;
                 supplyPoints = COST_MEDICAL_BOX;
             };
@@ -110,7 +110,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType = "AmmoInfantery";
+                supplyType[]  = {"AmmoInfantery"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };

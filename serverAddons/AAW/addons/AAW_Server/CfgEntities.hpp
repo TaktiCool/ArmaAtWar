@@ -22,7 +22,9 @@
 #define T_VTOL_TRANSPORT 20
 #define T_VTOL_ARMED 25
 
+#define S_CAP_TRUCK 10000
 #define S_CAP_CONSTRUCTION_TRUCK 50000
+#define S_CAP_CAR 2000
 
 class defaultVehicle {
     respawnCondition = "true";
@@ -86,6 +88,8 @@ class CfgEntities {
         side = "WEST";
         respawnTime = 180;
         ticketValue = T_TRUCK_TRANSPORT;
+        supplyType[] = {"Medical", "AmmoInfantery"};
+        supplyCapacity = S_CAP_TRUCK;
     };
 
     class B_Truck_01_Ammo_F {
@@ -179,6 +183,8 @@ class CfgEntities {
         cargoCapacity = 20;
         respawnTime = 300;
         ticketValue = T_MRAP;
+        supplyType[] = {"Medical", "AmmoInfantery"};
+        supplyCapacity = S_CAP_CAR;
     };
 
     class MRAP_01_hmg_base_F {
@@ -233,6 +239,8 @@ class CfgEntities {
         cargoCapacity = 25;
         respawnTime = 420;
         ticketValue = T_APC_WHEELED;
+        supplyType[] = {"Medical", "AmmoInfantery"};
+        supplyCapacity = S_CAP_CAR;
     };
 
     class APC_Wheeled_02_base_F : APC_Wheeled_01_base_F {
