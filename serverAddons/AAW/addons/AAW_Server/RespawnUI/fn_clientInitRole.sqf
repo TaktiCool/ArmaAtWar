@@ -134,11 +134,18 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 
     // Get the kit data
     private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
-    private _selectedKitDetails = [_selectedKit, side group CLib_Player, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
+    private _selectedKitDetails = [_selectedKit, side group CLib_player, [[["primaryWeapon", "handgun", "secondaryWeapon"] select _selectedTabIndex, [""]]]] call EFUNC(Kit,getLoadoutDetails);
+    DUMP(str _selectedKitDetails);
+    _selectedKitDetails = (_selectedKitDetails select 0) select 0;
+    if (isNil "_selectedKitDetails") then {
+        (_display displayCtrl 306) ctrlSetText "#(argb,8,8,3)color(0,0,0,0)";
+        (_display displayCtrl 307) ctrlSetText "None";
+    } else {
+        // WeaponPicture
+        (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "picture"));
 
-    // WeaponPicture
-    (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture"));
+        // WeaponName
+        (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "displayName"));
+    };
 
-    // WeaponName
-    (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName"));
 }] call CFUNC(addEventHandler);
