@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(DraggableClasses) = ["Thing"];
 GVAR(CargoClasses) = ["AllVehicles", "Thing"];
@@ -44,8 +45,7 @@ GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
             ["onActionAdded", {
                 params ["_id", "_target"];
                 _target setUserActionText [_id, "Request Resources", "<img size='3' shadow='0' color='#ffffff' image='\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa' shadow=2/><br/><br/>Request Resources"];
-            },
-            "priority", 1000, "showWindow", true]
+            }, "priority", 1000, "showWindow", true]
         ] call CFUNC(addAction);
 
         nil
@@ -59,10 +59,12 @@ GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
 }] call CFUNC(addEventhandler);
 
 ["isNotDragging", {
+    params ["_caller", "_target"];
     isNull (_caller getVariable [QGVAR(Item), objNull])
      && isNull (_target getVariable [QGVAR(Item), objNull])
 }] call CFUNC(addCanInteractWith);
 
 ["isNotDragged", {
+    params ["", "_target"];
     isNull (_target getVariable [QGVAR(Dragger), objNull])
 }] call CFUNC(addCanInteractWith);

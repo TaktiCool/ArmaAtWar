@@ -13,9 +13,11 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(lastDeploymentPoint) = "";
 GVAR(selectedDeploymentPoint) = "";
+GVAR(firstRespawn) = true;
 
 [UIVAR(DeploymentScreen_onLoad), {
     (_this select 0) params ["_display"];
@@ -50,13 +52,18 @@ GVAR(selectedDeploymentPoint) = "";
     if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
         // Disable the button and start the timer
         _control ctrlEnable false;
-        private _minRespawnTime = diag_tickTime;
-        if (EGVAR(Revive,UnconsciousSince) > -1) then {
-            _minRespawnTime = EGVAR(Revive,UnconsciousSince);
-            EGVAR(Revive,UnconsciousSince) = -1;
-        };
+        private _minRespawnTime = time;
 
-        _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
+        if (GVAR(firstRespawn)) then {
+            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime * 60 * 60));
+        } else {
+            if (EGVAR(Revive,UnconsciousSince) > -1) then {
+                _minRespawnTime = EGVAR(Revive,UnconsciousSince);
+                EGVAR(Revive,UnconsciousSince) = -1;
+            };
+
+            _minRespawnTime = _minRespawnTime + ([QUOTE(PREFIX/CfgRespawn/respawnCountdown), 0] call CFUNC(getSetting));
+        };
 
         [{
             params ["_params", "_id"];
@@ -68,7 +75,8 @@ GVAR(selectedDeploymentPoint) = "";
             };
 
             // If the timer is up enabled deploying
-            if (diag_tickTime >= _respawnTime) exitWith {
+            if (time >= _respawnTime) exitWith {
+                GVAR(firstRespawn) = false;
                 _control ctrlSetText "DEPLOY";
                 _control ctrlEnable true;
 
@@ -76,9 +84,9 @@ GVAR(selectedDeploymentPoint) = "";
             };
 
             // Update the text on the button
-            private _time = _respawnTime - diag_tickTime;
-            _control ctrlSetText format ["%1.%2s", floor _time, floor ((_time % 1) * 10)];
-        }, 0.1, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
+            private _time = _respawnTime - time;
+            _control ctrlSetText format ["%1 s", _time toFixed 1];
+        }, 0.05, [_control, _minRespawnTime]] call CFUNC(addPerFrameHandler);
     } else {
         _control ctrlSetText "Close";
     };
@@ -144,14 +152,14 @@ GVAR(selectedDeploymentPoint) = "";
             params ["_deployPosition"];
 
             // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
+            [_deployPosition] call EFUNC(Common,respawn);
 
             [{
                 // Fix issue that player spawn Prone
                 ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
 
                 // Apply selected kit
-                [CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
             }] call CFUNC(execNextFrame);
         }, [_deployPosition]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
@@ -187,7 +195,7 @@ GVAR(selectedDeploymentPoint) = "";
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.3, 0.3, 0.3, 1];
         };
 
@@ -205,7 +213,7 @@ GVAR(selectedDeploymentPoint) = "";
 
         _lnbData pushBack [[_name], _x, _icon, _color];
         nil
-    } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
+    } count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event

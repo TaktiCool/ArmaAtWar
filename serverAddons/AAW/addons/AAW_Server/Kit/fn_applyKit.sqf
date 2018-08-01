@@ -13,7 +13,7 @@
     Returns:
     None
 */
-params ["_kitName"];
+params ["_unit", "_kitName"];
 
 private _kitDetails = [_kitName, [
     ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
@@ -27,16 +27,19 @@ _kitDetails params [
 ];
 
 // remove all Items
-removeAllAssignedItems CLib_Player;
-removeAllWeapons CLib_Player;
-removeHeadgear CLib_Player;
-removeGoggles CLib_Player;
+removeAllAssignedItems _unit;
+removeAllWeapons _unit;
+removeHeadgear _unit;
+removeGoggles _unit;
 
 if (_icon == "") then {
     _icon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
 if (_mapIcon == "") then {
     _mapIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
+};
+if (_uiIcon == "") then {
+    _uiIcon = "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa";
 };
 
 {
@@ -50,19 +53,19 @@ CLib_Player setVariable [QGVAR(kitIcon), _icon, true];
 CLib_Player setVariable [QGVAR(MapIcon), _mapIcon, true];
 CLib_Player setVariable [QGVAR(compassIcon), _compassIcon, true];
 
-CLib_Player setVariable [QGVAR(isLeader), _isLeader == 1, true];
-CLib_Player setVariable [QGVAR(isMedic), _isMedic == 1, true];
-CLib_Player setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
-CLib_Player setVariable [QGVAR(isPilot), _isPilot == 1, true];
-CLib_Player setVariable [QGVAR(isCrew), _isCrew == 1, true];
+_unit setVariable [QGVAR(isLeader), _isLeader == 1, true];
+_unit setVariable [QGVAR(isMedic), _isMedic == 1, true];
+_unit setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
+_unit setVariable [QGVAR(isPilot), _isPilot == 1, true];
+_unit setVariable [QGVAR(isCrew), _isCrew == 1, true];
 
 if (_isMedic == 1) then {
-    CLib_Player setUnitTrait ["medic", true];
+    _unit setUnitTrait ["medic", true];
 } else {
-    CLib_Player setUnitTrait ["medic", false];
+    _unit setUnitTrait ["medic", false];
 };
 if (_isEngineer == 1) then {
-    CLib_Player setUnitTrait ["engineer", true];
+    _unit setUnitTrait ["engineer", true];
 } else {
-    CLib_Player setUnitTrait ["engineer", false];
+    _unit setUnitTrait ["engineer", false];
 };

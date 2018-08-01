@@ -13,7 +13,7 @@
     Returns:
     None
 */
-
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(CalculatorInputBuffer) = "R00000 E+0000" splitString "";
 enableEngineArtillery false;

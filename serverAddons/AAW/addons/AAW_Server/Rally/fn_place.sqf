@@ -39,7 +39,7 @@
     (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = format ["RP %1", groupId group CLib_Player];
     private _spawnCount = [CFGSRP(spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", [["pointObjects", _pointObjects]]] call EFUNC(Common,addDeploymentPoint);
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
     [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentPointData);

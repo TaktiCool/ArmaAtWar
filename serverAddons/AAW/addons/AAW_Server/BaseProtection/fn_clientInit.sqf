@@ -36,7 +36,7 @@ GVAR(inProtectedZone) = false;
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = true;
-        ["allowDamage", "BaseProtection", false] call CFUNC(setStatusEffect);
+        [CLib_Player, "allowDamage", "BaseProtection", false] call CFUNC(setStatusEffect);
     } else {
         // Enemy base
         (QGVAR(rscLayer) cutFadeOut 0) cutText ["", "BLACK", 2, false]; // https://feedback.bistudio.com/T120768
@@ -62,7 +62,7 @@ GVAR(inProtectedZone) = false;
     if (_side == side group CLib_Player) then {
         // Own base
         GVAR(inProtectedZone) = false;
-        ["allowDamage", "BaseProtection", true] call CFUNC(setStatusEffect);
+        [CLib_Player, "allowDamage", "BaseProtection", true] call CFUNC(setStatusEffect);
     } else {
         // Enemy base
         (QGVAR(rscLayer) cutFadeOut 0) cutText ["", "BLACK IN", 1, false];

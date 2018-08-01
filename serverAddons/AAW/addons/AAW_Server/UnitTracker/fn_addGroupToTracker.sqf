@@ -20,6 +20,14 @@ private _groupColor = [0.13, 0.54, 0.21, 1];
 
 private _color = [_sideColor, _groupColor] select (group CLib_Player isEqualTo _group);
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
+    if (side _group isEqualTo (EGVAR(Common,CompetingSides) select 0)) then {
+        _color = _sideColor;
+    } else {
+        _color = [0.6, 0, 0, 1];
+    };
+};
+
 private _groupType = _group getVariable [QEGVAR(Squad,Type), "Rifle"];
 private _groupMapIcon = [format [QUOTE(PREFIX/CfgGroupTypes/%1/mapIcon), _groupType], "\A3\ui_f\data\map\markers\nato\b_inf.paa"] call CFUNC(getSetting);
 
@@ -130,7 +138,7 @@ private _iconPos = [vehicle leader _group, _attachTo];
         private _squadUnits = "";
         private _unitCount = {
             private _selectedKit = _x getVariable [QEGVAR(kit,kit), ""];
-            private _kitIcon = ([_selectedKit, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
+            private _kitIcon = ([_selectedKit, side group _x, [["UIIcon", "\a3\ui_f\data\IGUI\Cfg\Actions\clear_empty_ca.paa"]]] call EFUNC(Kit,getKitDetails)) select 0;
             _squadUnits = _squadUnits + format ["<img size='0.7' color='#ffffff' image='%1'/> %2<br />", _kitIcon, [_x] call CFUNC(name)];
             true;
         } count _units;

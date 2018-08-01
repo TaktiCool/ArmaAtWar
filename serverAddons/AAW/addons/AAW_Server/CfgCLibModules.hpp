@@ -22,6 +22,7 @@ class CfgCLibModules {
             FNC(getSideInfo);
             FNC(getNearestLocationName);
             FNC(isAlive);
+            FNC(endMission);
 
 
             MODULE(Deployment) {
@@ -206,6 +207,19 @@ class CfgCLibModules {
             FNC(updateDependencies);
         };
 
+        // Spectator
+        MODULE(Spectator) {
+            dependency[] = {"AAW/Common", "AAW/Sector"};
+            FNC(clientInit);
+            FNC(clientInitSector);
+            FNC(cameraUpdateLoop);
+            FNC(draw3dEH);
+            FNC(keyDownEH);
+            FNC(keyUpEH);
+            FNC(mouseMovingEH);
+            FNC(mouseWheelEH);
+        };
+
         // Squad
         MODULE(Squad) {
             dependency[] = {"AAW/Common"};
@@ -243,6 +257,27 @@ class CfgCLibModules {
             FNC(serverInit);
             FNC(clientInit);
             FNC(performVehicleRespawn);
+        };
+
+        MODULE(AAS) {
+            dependency[] = {"AAW/BaseProtection",
+                "AAW/CompassUI",
+                "AAW/FOB",
+                "AAW/Kit",
+                "AAW/Logistic",
+                "AAW/Nametags",
+                "AAW/Rally",
+                "AAW/RespawnUI",
+                "AAW/Revive",
+                "AAW/ScoreTable",
+                "AAW/Sector",
+                "AAW/Spectator",
+                "AAW/Squad",
+                "AAW/Supply",
+                "AAW/Tickets",
+                "AAW/UnitTracker",
+                "AAW/VehicleRespawn"};
+            FNC(serverInit);
         };
     };
 };

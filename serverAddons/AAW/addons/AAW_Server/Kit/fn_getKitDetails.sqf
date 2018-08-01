@@ -14,8 +14,8 @@
     Returns:
     Array With all Strings <Array>
 */
-params ["_kitName", "_details"];
+params ["_kitName", "_side", "_details"];
 
-private _prefix = format [QUOTE(PREFIX/CfgKits/%1/%2), [format [QUOTE(PREFIX/Sides/%1/kits), (str side group CLib_player)], ""] call CFUNC(getSetting), _kitName];
+private _prefix = format [QUOTE(PREFIX/CfgKits/%1/%2), [format [QUOTE(PREFIX/Sides/%1/kits), (str _side)], ""] call CFUNC(getSetting), _kitName];
 
 _details apply {[_prefix + "/" + (_x select 0), _x select 1] call CFUNC(getSetting)};

@@ -56,7 +56,7 @@ private _onComplete = {
 
     ["playerHealed", [CLib_Player, _target, CLib_Player getVariable [QEGVAR(Kit,isMedic), false]]] call CFUNC(serverEvent);
 
-    CLib_Player playAction "medicStop";
+    CLib_Player playActionNow "medicStop";
 };
 
 private _onInterruption = {
@@ -64,7 +64,7 @@ private _onInterruption = {
 
     _target setVariable [QGVAR(reviveAction), "", true];
     GVAR(healStartTime) = -1;
-    CLib_Player switchAction "medicStop";
+    CLib_Player switchAction "";
 };
 
 ["VanillaAction", "HealSoldier", _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption] call CFUNC(addHoldAction);
