@@ -136,4 +136,8 @@ class cfgKits {
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\CTRG.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\NATO_Tropic.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\NATO.hpp"
+
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_GER.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_RUS.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_US.hpp"
 };

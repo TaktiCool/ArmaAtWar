@@ -32,8 +32,22 @@ class A3_StandardSoldier : CfgCLibLoadoutsClassBase {
     class BasicItemsClass : A3_BasicItems{};
 };
 
+class IFA3_BasicItems : CfgCLibLoadoutsClassBase {
+    linkedItems[] = {"ItemWatch", "ItemCompass", "ItemMap"};
+};
+
+class IFA3_StandardSoldier : CfgCLibLoadoutsClassBase {
+    class MedicalsClass : A3_StandardMedicals{};
+    class GrenadesClass : A3_StandardGrenades{};
+    class BasicItemsClass : IFA3_BasicItems{};
+};
+
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\AAF.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\CSAT.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\CSAT_Tropic.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\NATO.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\NATO_Tropic.hpp"
+
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_GER.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_RUS.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_US.hpp"

@@ -17,7 +17,7 @@
 */
 params ["_kitName", "_side", "_request"];
 
-private "_loadouts";
+private _loadouts = [];
 if (_kitName isEqualType []) then {
     _loadouts = _kitName;
 } else {
@@ -25,11 +25,18 @@ if (_kitName isEqualType []) then {
     _loadouts = _kitDetails select 0;
 };
 
+DUMP(_loadouts)
+
 _request apply {
     _x params [["_req", ""], ["_default", []]];
+
     private _return = [];
     {
-        private _re = [_x, [[_req, _default]]] call CFUNC(getLoadoutDetails);
+        DUMP(_x);
+        DUMP(_req);
+        DUMP(_default);
+        private _re = [toLower _x, [[toLower _req, _default]]] call CFUNC(getLoadoutDetails);
+
         if ((_re select 0) isEqualType []) then {
             _return append (_re select 0);
         } else {
