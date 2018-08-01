@@ -1,14 +1,39 @@
-class TestLoadout : CfgCLibLoadoutsClassBase {
-    uniform[] = {"U_B_CombatUniform_mcam"};
-    vest[] = {"V_PlateCarrier1_rgr"};
-    headgear[] = {"H_HelmetB_camo"};
-    primaryWeapon[] = {"arifle_MX_F"};
-    primaryWeaponOptic[] = {"optic_Hamr"};
-    primaryWeaponLoadedMagazine[] = {"30Rnd_65x39_caseless_mag_Tracer"};
-    handgun[] = {"hgun_P07_F"};
-    handgunLoadedMagazine[] = {"16Rnd_9x21_Mag"};
-    magazines[] = {{"16Rnd_9x21_Mag",3},{"30Rnd_65x39_caseless_mag_Tracer",8}};
-    items[] = {{"ACE_EarPlugs", 1}, {"ACE_fieldDressing", 15}, {"ACE_morphine", 2},{"SmokeShellGreen", 1}, {"SmokeShellRed", 1}, {"MiniGrenade", 2}};
-    linkedItems[] = {"ItemWatch","ItemCompass"};
-    removeAllAssignedItems = 1;
+class CfgCLibLoadoutsClassBase;
+
+class A3_BasicItems : CfgCLibLoadoutsClassBase {
+    linkedItems[] = {"ItemWatch", "ItemCompass", "ItemRadio", "ItemMap", "ItemGPS"};
 };
+
+class A3_StandardMedicals : CfgCLibLoadoutsClassBase {
+    items[] = {{"FirstAidKit",2}};
+};
+
+class A3_MedicClassMedicals : CfgCLibLoadoutsClassBase {
+    class StandardMedicals : A3_StandardMedicals {};
+    items[] = {{"FirstAidKit",2}, "Medikit"};
+};
+
+class A3_StandardGrenades : CfgCLibLoadoutsClassBase {
+    items[] = {{"HandGrenade",1}, {"SmokeShell", 2}};
+};
+
+class A3_SignalGrenades : CfgCLibLoadoutsClassBase {
+    items[] = {{"SmokeShellRed",1}, {"SmokeShellGreen",1}};
+};
+
+class A3_GrenadierGrenades : CfgCLibLoadoutsClassBase {
+    class StandardGrenades : A3_StandardGrenades {};
+    items[] = {"HandGrenade", {"1Rnd_HE_Grenade_shell", 6}, {"1Rnd_HE_Grenade_shell", 3}};
+};
+
+class A3_StandardSoldier : CfgCLibLoadoutsClassBase {
+    class MedicalsClass : A3_StandardMedicals{};
+    class GrenadesClass : A3_StandardGrenades{};
+    class BasicItemsClass : A3_BasicItems{};
+};
+
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\AAF.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\CSAT.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\CSAT_Tropic.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\NATO.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\NATO_Tropic.hpp"

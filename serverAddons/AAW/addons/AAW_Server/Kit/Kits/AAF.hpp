@@ -1,130 +1,45 @@
 class AAF {
-     class Rifleman {
-        scope = 1;
-        kitGroup = "Unlimited";
-        availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
-
-        // Display
-        displayName = "Rifleman";
-        icon = "";
-        UIIcon = "\A3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa";
-        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa";
-        compassIcon[] = {"a3\ui_f\data\map\Markers\Military\dot_ca.paa", 3.6};
-
-        // Special attributes
-        isLeader = 0;
-        isMedic = 0;
-        isEngineer = 0;
-        isPilot = 0;
-        isCrew = 0;
+    class Rifleman : BaseRifleman {
+        loadouts[] = {"AAF_Rifleman"};
     };
-    class Officer: Rifleman {
-        availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
-
-        displayName = "Squad Leader";
-        icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
-        UIIcon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
-        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManLeader_ca.paa";
-        compassIcon[] = {"a3\ui_f\data\gui\cfg\ranks\corporal_gs.paa", 1.3};
-        // Special attributes
-        isLeader = 1;
+    class SquadLeader: BaseSquadLeader {
+        loadouts[] = {"AAF_SquadLeader"};
     };
-    class Medic: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Rifle", "Weapon"};
-
-        displayName = "Medic";
-        icon = "\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
-        UIIcon = "a3\ui_f\data\map\vehicleicons\pictureheal_ca.paa";
-        mapIcon = "\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa";
-        compassIcon[] = {"a3\ui_f\data\map\vehicleicons\pictureheal_ca.paa", 2};
-        // Special attributes
-        isMedic = 1;
+    class Medic: BaseMedic {
+        loadouts[] = {"AAF_Medic"};
     };
-    class AutomaticRifleman: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Rifle"};
-
-        displayName = "Automatic Rifleman";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
-
+    class AutomaticRifleman: BaseAutomaticRifleman {
+        loadouts[] = {"AAF_AutomaticRifleman"};
     };
-    class Grenadier: Rifleman {
-        kitGroup = "Specialized";
-        availableInGroups[] = {"Rifle"};
-
-        displayName = "Grenadier";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\gl_ca.paa";
+    class Grenadier: BaseGrenadier {
+        loadouts[] = {"AAF_Grenadier"};
     };
-    class Marksman: Rifleman {
-        kitGroup = "Specialized";
-        availableInGroups[] = {"Rifle"};
-
-        displayName = "Marksman";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
+    class Marksman: BaseMarksman {
+        loadouts[] = {"AAF_Marksman"};
     };
-    class AntiAir: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Weapon"};
-
-        displayName = "AA Rifleman";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\aa_ca.paa";
+    class AntiAir: BaseAntiAir {
+        loadouts[] = {"AAF_AntiAir"};
     };
-    class LightAntiTank: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Rifle"};
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\at_ca.paa";
+    class LightAntiTank: BaseLightAntiTank {
+        loadouts[] = {"AAF_LightAntiTank"};
     };
-    class HeavyAntiTank: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Weapon"};
-
-        displayName = "HAT Rifleman";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\at_ca.paa";
+    class AntiTank: BaseAntiTank {
+        loadouts[] = {"AAF_AntiTank"};
     };
-    class HeavyMachineGun: AutomaticRifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Weapon"};
-
-        displayName = "HMG Rifleman";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\mg_ca.paa";
+    class MachineGunner: BaseMachineGunner {
+        loadouts[] = {"AAF_AutomaticRifleman"};
     };
-    class AmmoBearer: Rifleman {
-        availableInGroups[] = {"Weapon"};
-
-        displayName = "Ammo Bearer";
+    class Crewman: BaseCrewman {
+        loadouts[] = {"AAF_Crewman"};
     };
-    class Crewman: Rifleman {
-        availableInGroups[] = {"Vehicle"};
-
-        displayName = "Crewman";
-        // Special attributes
-        isCrew = 1;
-    };
-    class HelicopterPilot: Rifleman {
-        availableInGroups[] = {"Helicopter"};
-
-        displayName = "Pilot";
-        // Special attributes
-        isPilot = 1;
+    class Pilot: BasePilot {
+        loadouts[] = {"AAF_Pilot"};
     };
 
-    class Sniper: Rifleman {
-        kitGroup = "Limited";
-        availableInGroups[] = {"Recon"};
-
-        displayName = "Sniper";
-        UIIcon = "a3\ui_f\data\IGUI\Cfg\WeaponIcons\srifle_ca.paa";
+    class Sniper: BaseSniper {
+        loadouts[] = {"AAF_Sniper"};
     };
-    class Spotter: Rifleman {
-        availableInGroups[] = {"Recon"};
-
-        displayName = "Spotter";
-        UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
-    };
-    class Specialist: Rifleman {
-        availableInGroups[] = {"Recon"};
-
-        displayName = "Specialist";
+    class Spotter: BaseSpotter {
+        loadouts[] = {"AAF_Spotter"};
     };
 };
