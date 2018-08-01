@@ -3,7 +3,8 @@
 // ------------------------------------
 class AAF_StandardHandgun : CfgCLibLoadoutsClassBase {
     handgun[] = {"hgun_Rook40_F"};
-    magazines[] = {{"16Rnd_9x21_Mag", 2}};
+    magazines[] = {{"16Rnd_9x21_Mag", 1}};
+    handgunLoadedMagazine[] = {"16Rnd_9x21_Mag"};
 };
 
 class AAF_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
@@ -11,6 +12,7 @@ class AAF_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeaponOptic[] = {"optic_Aco"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_556x45_Stanag", 5}};
+    primaryWeaponLoadedMagazine[] = {"30Rnd_556x45_Stanag"};
 };
 
 
@@ -29,7 +31,7 @@ class AAF_Rifleman : AAF_StandardSoldier {
 };
 
 class AAF_SquadLeader : AAF_StandardSoldier {
-    linkedItems[] = {"Binocular"};
+    binocular[] = {"Binocular"};
 
     class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_MRCO"};
@@ -49,7 +51,8 @@ class AAF_AutomaticRifleman : AAF_StandardSoldier {
     class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeapon[] = {"LMG_Mk200_F"};
         primaryWeaponResting[] = {"bipod_03_F_blk"};
-        magazines[] = {{"200Rnd_65x39_cased_Box", 2}};
+        magazines[] = {{"200Rnd_65x39_cased_Box", 1}};
+        primaryWeaponLoadedMagazine[] = {"200Rnd_65x39_cased_Box"};
     };
 };
 
@@ -70,19 +73,22 @@ class AAF_Marksman : AAF_StandardSoldier {
 class AAF_AntiAir : AAF_StandardSoldier {
     backpack[] = {"B_FieldPack_oli"};
     secondaryWeapon[] = {"launch_I_Titan_F"};
-    magazines[] = {{"Titan_AA", 2}};
+    magazines[] = {"Titan_AA"};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AA"};
 };
 
 class AAF_LightAntiTank : AAF_StandardSoldier {
     backpack[] = {"B_AssaultPack_dgtl"};
     secondaryWeapon[] = {"launch_NLAW_F"};
-    magazines[] = {{"NLAW_F", 2}};
+    magazines[] = {"NLAW_F"};
+    secondaryWeaponLoadedMagazine[] = {"NLAW_F"};
 };
 
 class AAF_AntiTank : AAF_StandardSoldier {
     backpack[] = {"B_FieldPack_oli"};
     secondaryWeapon[] = {"launch_I_Titan_short_F"};
-    magazines[] = {{"Titan_AT", 2}};
+    magazines[] = {"Titan_AT"};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AT"};
 };
 
 class AAF_Crewman : AAF_StandardSoldier {
@@ -90,6 +96,7 @@ class AAF_Crewman : AAF_StandardSoldier {
     class PrimaryWeaponClass : AAF_StandardAssaultRifle{
         primaryWeapon[] = {"arifle_Mk20C_F"};
         magazines[] = {{"30Rnd_556x45_Stanag", 3}};
+        primaryWeaponLoadedMagazine[] = {"30Rnd_556x45_Stanag"};
     };
 };
 
@@ -103,13 +110,14 @@ class AAF_Sniper : AAF_StandardSoldier {
     class PrimaryWeaponClass : AAF_StandardAssaultRifle{
         primaryWeapon[] = {"srifle_GM6_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
-        magazines[] = {{"5Rnd_127x108_Mag", 7}};
+        magazines[] = {{"5Rnd_127x108_Mag", 6}};
+        primaryWeaponLoadedMagazine[] = {"5Rnd_127x108_Mag"};
     };
 };
 
 class AAF_Spotter : AAF_StandardSoldier {
     uniform[] = {"U_I_FullGhillie_lsh"};
-    linkedItems[] = {"Rangefinder"};
+    binocular[] = {"Rangefinder"};
     class PrimaryWeaponClass : AAF_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_MRCO"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};

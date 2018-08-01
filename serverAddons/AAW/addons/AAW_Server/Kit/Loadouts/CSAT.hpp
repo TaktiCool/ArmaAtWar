@@ -3,7 +3,8 @@
 // ------------------------------------
 class CSAT_StandardHandgun : CfgCLibLoadoutsClassBase {
     handgun[] = {"hgun_Pistol_heavy_01_F"};
-    magazines[] = {{"11Rnd_45ACP_Mag", 2}};
+    magazines[] = {{"11Rnd_45ACP_Mag", 1}};
+    handgunLoadedMagazine[] = {"11Rnd_45ACP_Mag"};
 };
 
 class CSAT_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
@@ -11,6 +12,7 @@ class CSAT_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeaponOptic[] = {"optic_Aco"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_65x39_caseless_green", 5}};
+    primaryWeaponLoadedMagazine[] = {"30Rnd_65x39_caseless_green"};
 };
 
 
@@ -30,7 +32,7 @@ class CSAT_Rifleman : CSAT_StandardSoldier {
 
 class CSAT_SquadLeader : CSAT_StandardSoldier {
     headgear[] = {"H_HelmetLeaderO_ocamo"};
-    linkedItems[] = {"Binocular"};
+    binocular[] = {"Binocular"};
 
     class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_Hamr"};
@@ -50,7 +52,8 @@ class CSAT_AutomaticRifleman : CSAT_StandardSoldier {
     class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
         primaryWeapon[] = {"LMG_Zafir_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
-        magazines[] = {{"150Rnd_762x54_Box", 2}};
+        magazines[] = {{"150Rnd_762x54_Box", 1}};
+        primaryWeaponLoadedMagazine[] = {"150Rnd_762x54_Box"};
     };
 };
 
@@ -71,19 +74,22 @@ class CSAT_Marksman : CSAT_StandardSoldier {
 class CSAT_AntiAir : CSAT_StandardSoldier {
     backpack[] = {"B_FieldPack_ocamo"};
     secondaryWeapon[] = {"launch_O_Titan_F"};
-    magazines[] = {{"Titan_AA", 2}};
+    magazines[] = {{"Titan_AA", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AA"};
 };
 
 class CSAT_LightAntiTank : CSAT_StandardSoldier {
     backpack[] = {"B_AssaultPack_ocamo"};
     secondaryWeapon[] = {"launch_RPG32_F"};
-    magazines[] = {{"RPG32_F", 3}};
+    magazines[] = {{"RPG32_F", 1}};
+    secondaryWeaponLoadedMagazine[] = {"RPG32_F"};
 };
 
 class CSAT_AntiTank : CSAT_StandardSoldier {
     backpack[] = {"B_FieldPack_ocamo"};
     secondaryWeapon[] = {"launch_O_Titan_short_F"};
-    magazines[] = {{"Titan_AT", 2}};
+    magazines[] = {{"Titan_AT", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AT"};
 };
 
 class CSAT_Crewman : CSAT_StandardSoldier {
@@ -105,13 +111,14 @@ class CSAT_Sniper : CSAT_StandardSoldier {
     class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
         primaryWeapon[] = {"srifle_GM6_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
-        magazines[] = {{"5Rnd_127x108_Mag", 7}};
+        magazines[] = {{"5Rnd_127x108_Mag", 6}};
+        primaryWeaponLoadedMagazine[] = {"5Rnd_127x108_Mag"};
     };
 };
 
 class CSAT_Spotter : CSAT_StandardSoldier {
     uniform[] = {"U_O_FullGhillie_lsh"};
-    linkedItems[] = {"Rangefinder"};
+    binocular[] = {"Rangefinder"};
     class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_Hamr"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};

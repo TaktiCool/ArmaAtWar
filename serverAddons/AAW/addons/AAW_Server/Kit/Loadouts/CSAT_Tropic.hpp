@@ -3,7 +3,8 @@
 // ------------------------------------
 class CSAT_Tropic_StandardHandgun : CfgCLibLoadoutsClassBase {
     handgun[] = {"hgun_Pistol_01_F"};
-    magazines[] = {{"11Rnd_45ACP_Mag", 2}};
+    magazines[] = {{"11Rnd_45ACP_Mag", 1}};
+    handgunLoadedMagazine[] = {"11Rnd_45ACP_Mag"};
 };
 
 class CSAT_Tropic_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
@@ -11,6 +12,7 @@ class CSAT_Tropic_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeaponOptic[] = {"optic_Aco"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_580x42_Mag_Tracer_F", 5}};
+    primaryWeaponLoadedMagazine[] = {"30Rnd_580x42_Mag_Tracer_F"};
 };
 
 
@@ -30,7 +32,7 @@ class CSAT_Tropic_Rifleman : CSAT_Tropic_StandardSoldier {
 
 class CSAT_Tropic_SquadLeader : CSAT_Tropic_StandardSoldier {
     headgear[] = {"H_HelmetLeaderO_ghex_F"};
-    linkedItems[] = {"Binocular"};
+    binocular[] = {"Binocular"};
 
     class PrimaryWeaponClass : CSAT_Tropic_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_Arco_ghex_F"};
@@ -51,6 +53,7 @@ class CSAT_Tropic_AutomaticRifleman : CSAT_Tropic_StandardSoldier {
         primaryWeapon[] = {"arifle_CTARS_ghex_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"100Rnd_580x42_Mag_F", 3}};
+        primaryWeaponLoadedMagazine[] = {"100Rnd_580x42_Mag_F"};
     };
 };
 
@@ -71,19 +74,22 @@ class CSAT_Tropic_Marksman : CSAT_Tropic_StandardSoldier {
 class CSAT_Tropic_AntiAir : CSAT_Tropic_StandardSoldier {
     backpack[] = {"B_FieldPack_ocamo"};
     secondaryWeapon[] = {"launch_O_Titan_F"};
-    magazines[] = {{"Titan_AA", 2}};
+    magazines[] = {{"Titan_AA", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AA"};
 };
 
 class CSAT_Tropic_LightAntiTank : CSAT_Tropic_StandardSoldier {
     backpack[] = {"B_AssaultPack_ocamo"};
     secondaryWeapon[] = {"launch_RPG32_ghex_F"};
-    magazines[] = {{"RPG32_F", 3}};
+    magazines[] = {{"RPG32_F", 1}};
+    secondaryWeaponLoadedMagazine[] = {"RPG32_F"};
 };
 
 class CSAT_Tropic_AntiTank : CSAT_Tropic_StandardSoldier {
     backpack[] = {"B_FieldPack_ocamo"};
     secondaryWeapon[] = {"launch_O_Titan_short_ghex_F"};
-    magazines[] = {{"Titan_AT", 2}};
+    magazines[] = {{"Titan_AT", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AT"};
 };
 
 class CSAT_Tropic_Crewman : CSAT_Tropic_StandardSoldier {
@@ -104,13 +110,14 @@ class CSAT_Tropic_Sniper : CSAT_Tropic_StandardSoldier {
     class PrimaryWeaponClass : CSAT_Tropic_StandardAssaultRifle{
         primaryWeapon[] = {"srifle_GM6_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
-        magazines[] = {{"5Rnd_127x108_Mag", 7}};
+        magazines[] = {{"5Rnd_127x108_Mag", 6}};
+        primaryWeaponLoadedMagazine[] = {"5Rnd_127x108_Mag"};
     };
 };
 
 class CSAT_Tropic_Spotter : CSAT_Tropic_StandardSoldier {
     uniform[] = {"U_O_T_FullGhillie_tna_F"};
-    linkedItems[] = {"Rangefinder"};
+    binocular[] = {"Rangefinder"};
     class PrimaryWeaponClass : CSAT_Tropic_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_Hamr"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};

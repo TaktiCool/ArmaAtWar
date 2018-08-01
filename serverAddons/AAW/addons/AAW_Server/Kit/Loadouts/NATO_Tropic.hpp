@@ -4,7 +4,8 @@
 
 class NATO_Tropic_StandardHandgun : CfgCLibLoadoutsClassBase {
     handgun[] = {"hgun_P07_khk_F"};
-    magazines[] = {{"11Rnd_45ACP_Mag", 2}};
+    magazines[] = {{"11Rnd_45ACP_Mag", 1}};
+    handgunLoadedMagazine[] = {"11Rnd_45ACP_Mag"};
 };
 
 class NATO_Tropic_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
@@ -12,6 +13,7 @@ class NATO_Tropic_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeaponOptic[] = {"optic_Holosight"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_65x39_caseless_mag", 5}};
+    primaryWeaponLoadedMagazine[] = {"30Rnd_65x39_caseless_mag"};
 };
 
 
@@ -30,7 +32,7 @@ class NATO_Tropic_Rifleman : NATO_Tropic_StandardSoldier {
 
 class NATO_Tropic_SquadLeader : NATO_Tropic_StandardSoldier {
     headgear[] = {"H_HelmetB_Enh_tna_F"};
-    linkedItems[] = {"Binocular"};
+    binocular[] = {"Binocular"};
 
     class PrimaryWeaponClass : NATO_Tropic_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_Arco"};
@@ -51,7 +53,8 @@ class NATO_Tropic_AutomaticRifleman : NATO_Tropic_StandardSoldier {
     class PrimaryWeaponClass : NATO_Tropic_StandardAssaultRifle{
         primaryWeapon[] = {"arifle_MX_SW_khk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
-        magazines[] = {{"100Rnd_65x39_caseless_mag_Tracer", 4}};
+        magazines[] = {{"100Rnd_65x39_caseless_mag_Tracer", 3}};
+        primaryWeaponLoadedMagazine[] = {"100Rnd_65x39_caseless_mag_Tracer"};
     };
 };
 
@@ -73,19 +76,22 @@ class NATO_Tropic_Marksman : NATO_Tropic_StandardSoldier {
 class NATO_Tropic_AntiAir : NATO_Tropic_StandardSoldier {
     backpack[] = {"B_Kitbag_rgr"};
     secondaryWeapon[] = {"launch_B_Titan_tna_F"};
-    magazines[] = {{"Titan_AA", 2}};
+    magazines[] = {{"Titan_AA", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AA"};
 };
 
 class NATO_Tropic_LightAntiTank : NATO_Tropic_StandardSoldier {
     backpack[] = {"B_AssaultPack_rgr"};
     secondaryWeapon[] = {"launch_NLAW_F"};
-    magazines[] = {{"NLAW_F", 2}};
+    magazines[] = {{"NLAW_F", 1}};
+    secondaryWeaponLoadedMagazine[] = {"NLAW_F"};
 };
 
 class NATO_Tropic_AntiTank : NATO_Tropic_StandardSoldier {
     backpack[] = {"B_Kitbag_rgr"};
     secondaryWeapon[] = {"launch_B_Titan_short_tna_F"};
-    magazines[] = {{"Titan_AT", 2}};
+    magazines[] = {{"Titan_AT", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AT"};
 };
 
 class NATO_Tropic_Crewman : NATO_Tropic_StandardSoldier {
@@ -107,13 +113,14 @@ class NATO_Tropic_Sniper : NATO_Tropic_StandardSoldier {
         primaryWeapon[] = {"srifle_LRR_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
-        magazines[] = {{"7Rnd_408_Mag", 7}};
+        magazines[] = {{"7Rnd_408_Mag", 6}};
+        primaryWeaponLoadedMagazine[] = {"7Rnd_408_Mag"};
     };
 };
 
 class NATO_Tropic_Spotter : NATO_Tropic_StandardSoldier {
     uniform[] = {"U_B_T_Sniper_F"};
-    linkedItems[] = {"Rangefinder"};
+    binocular[] = {"Rangefinder"};
     class PrimaryWeaponClass : NATO_Tropic_StandardAssaultRifle{
         primaryWeapon[] = {"arifle_MXM_khk_F"};
         primaryWeaponOptic[] = {"optic_Arco"};

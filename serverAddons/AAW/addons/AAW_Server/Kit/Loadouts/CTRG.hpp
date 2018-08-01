@@ -3,7 +3,8 @@
 // ------------------------------------
 class CTRG_StandardHandgun : CfgCLibLoadoutsClassBase {
     handgun[] = {"hgun_Pistol_heavy_01_F"};
-    magazines[] = {{"11Rnd_45ACP_Mag", 2}};
+    magazines[] = {{"11Rnd_45ACP_Mag", 1}};
+    handgunLoadedMagazine[] = {"11Rnd_45ACP_Mag"};
 };
 
 class CTRG_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
@@ -11,6 +12,7 @@ class CTRG_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeaponOptic[] = {"optic_Holosight"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_556x45_Stanag", 5}};
+    primaryWeaponLoadedMagazine[] = {"30Rnd_556x45_Stanag"};
 };
 
 
@@ -30,7 +32,7 @@ class CTRG_Rifleman : CTRG_StandardSoldier {
 
 class CTRG_SquadLeader : CTRG_StandardSoldier {
     headgear[] = {"H_HelmetB_TI_tna_F"};
-    linkedItems[] = {"Binocular"};
+    binocular[] = {"Binocular"};
 
     class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
         primaryWeaponOptic[] = {"optic_ERCO_blk_F"};
@@ -51,6 +53,7 @@ class CTRG_AutomaticRifleman : CTRG_StandardSoldier {
         primaryWeapon[] = {"arifle_SPAR_02_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"150Rnd_556x45_Drum_Mag_Tracer_F", 2}};
+        primaryWeaponLoadedMagazine[] = {"150Rnd_556x45_Drum_Mag_Tracer_F"};
     };
 };
 
@@ -66,25 +69,29 @@ class CTRG_Marksman : CTRG_StandardSoldier {
         primaryWeaponOptic[] = {"arifle_SPAR_03_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"20Rnd_762x51_Mag", 5}};
+        primaryWeaponLoadedMagazine[] = {"20Rnd_762x51_Mag"};
     };
 };
 
 class CTRG_AntiAir : CTRG_StandardSoldier {
     backpack[] = {"B_Kitbag_rgr"};
     secondaryWeapon[] = {"launch_B_Titan_F"};
-    magazines[] = {{"Titan_AA", 2}};
+    magazines[] = {{"Titan_AA", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AA"};
 };
 
 class CTRG_LightAntiTank : CTRG_StandardSoldier {
     backpack[] = {"B_AssaultPack_ocamo"};
     secondaryWeapon[] = {"launch_NLAW_F"};
-    magazines[] = {{"NLAW_F", 3}};
+    magazines[] = {{"NLAW_F", 1}};
+    secondaryWeaponLoadedMagazine[] = {"NLAW_F"};
 };
 
 class CTRG_AntiTank : CTRG_StandardSoldier {
     backpack[] = {"B_FieldPack_ocamo"};
     secondaryWeapon[] = {"launch_B_Titan_short_F"};
-    magazines[] = {{"Titan_AT", 2}};
+    magazines[] = {{"Titan_AT", 1}};
+    secondaryWeaponLoadedMagazine[] = {"Titan_AT"};
 };
 
 class CTRG_Crewman : CTRG_StandardSoldier {
@@ -105,15 +112,15 @@ class CTRG_Sniper : CTRG_StandardSoldier {
     class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
         primaryWeapon[] = {"srifle_LRR_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
-        magazines[] = {{"7Rnd_408_Mag", 7}};
+        magazines[] = {{"7Rnd_408_Mag", 6}};
+        primaryWeaponLoadedMagazine[] = {"7Rnd_408_Mag"};
     };
 };
 
 class CTRG_Spotter : CTRG_StandardSoldier {
     uniform[] = {"U_B_FullGhillie_lsh"};
-    linkedItems[] = {"Rangefinder"};
+    binocular[] = {"Rangefinder"};
     class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
-        primaryWeapon[] = {"arifle_SPAR_01_blk_F"};
         primaryWeaponOptic[] = {"optic_ERCO_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
     };
