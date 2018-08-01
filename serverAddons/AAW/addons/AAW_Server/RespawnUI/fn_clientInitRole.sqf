@@ -135,7 +135,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     // Get the kit data
     private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
     private _selectedKitDetails = [_selectedKit, side group CLib_player, [[["primaryWeapon", "handgun", "secondaryWeapon"] select _selectedTabIndex, [""]]]] call EFUNC(Kit,getLoadoutDetails);
-    DUMP(str _selectedKitDetails);
+
     _selectedKitDetails = (_selectedKitDetails select 0) select 0;
     if (isNil "_selectedKitDetails") then {
         (_display displayCtrl 306) ctrlSetText "#(argb,8,8,3)color(0,0,0,0)";

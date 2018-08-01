@@ -25,16 +25,11 @@ if (_kitName isEqualType []) then {
     _loadouts = _kitDetails select 0;
 };
 
-DUMP(_loadouts)
-
 _request apply {
     _x params [["_req", ""], ["_default", []]];
 
     private _return = [];
     {
-        DUMP(_x);
-        DUMP(_req);
-        DUMP(_default);
         private _re = [toLower _x, [[toLower _req, _default]]] call CFUNC(getLoadoutDetails);
 
         if ((_re select 0) isEqualType []) then {
