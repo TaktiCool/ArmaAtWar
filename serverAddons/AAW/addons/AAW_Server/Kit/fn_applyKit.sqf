@@ -15,7 +15,7 @@
 */
 params ["_unit", "_kitName"];
 
-private _kitDetails = [_kitName, [
+private _kitDetails = [_kitName, side group _unit, [
     ["displayName", ""], ["icon", ""], ["mapIcon", ""], ["compassIcon", ["", 1]],
     ["loadouts", ["basic"]],
     ["isLeader", 0], ["isMedic", 0], ["isEngineer", 0], ["isPilot", 0], ["isCrew", 0]
@@ -43,15 +43,15 @@ if (_uiIcon == "") then {
 };
 
 {
-    [CLib_Player, _x] call CFUNC(applyLoadout);
+    [_unit, _x] call CFUNC(applyLoadout);
     nil
 } count _loadouts;
 
-CLib_Player setVariable [QGVAR(kit), _kitName, true];
-CLib_Player setVariable [QGVAR(kitDisplayName), _displayName, true];
-CLib_Player setVariable [QGVAR(kitIcon), _icon, true];
-CLib_Player setVariable [QGVAR(MapIcon), _mapIcon, true];
-CLib_Player setVariable [QGVAR(compassIcon), _compassIcon, true];
+_unit setVariable [QGVAR(kit), _kitName, true];
+_unit setVariable [QGVAR(kitDisplayName), _displayName, true];
+_unit setVariable [QGVAR(kitIcon), _icon, true];
+_unit setVariable [QGVAR(MapIcon), _mapIcon, true];
+_unit setVariable [QGVAR(compassIcon), _compassIcon, true];
 
 _unit setVariable [QGVAR(isLeader), _isLeader == 1, true];
 _unit setVariable [QGVAR(isMedic), _isMedic == 1, true];

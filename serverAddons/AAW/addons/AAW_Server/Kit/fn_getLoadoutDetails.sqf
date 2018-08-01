@@ -9,18 +9,19 @@
 
     Parameter(s):
     0: Kit name
-    1: Requested details <Array>
+    1: side <Side>
+    2: Requested details <Array>
 
     Returns:
     Array With all Strings <Array>
 */
-params ["_kitName", "_request"];
+params ["_kitName", "_side", "_request"];
 
 private "_loadouts";
 if (_kitName isEqualType []) then {
     _loadouts = _kitName;
 } else {
-    private _kitDetails = [_kitName, [["loadouts", ["basic"]]]] call FUNC(getKitDetails);
+    private _kitDetails = [_kitName, _side, [["loadouts", ["basic"]]]] call FUNC(getKitDetails);
     _loadouts = _kitDetails select 0;
 };
 
