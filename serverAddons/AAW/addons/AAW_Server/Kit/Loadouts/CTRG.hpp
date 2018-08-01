@@ -8,7 +8,7 @@ class CTRG_StandardHandgun : CfgCLibLoadoutsClassBase {
 
 class CTRG_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeapon[] = {"arifle_SPAR_01_blk_F"};
-    primaryWeaponOptics[] = {"optic_Holosight"};
+    primaryWeaponOptic[] = {"optic_Holosight"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_556x45_Stanag", 5}};
 };

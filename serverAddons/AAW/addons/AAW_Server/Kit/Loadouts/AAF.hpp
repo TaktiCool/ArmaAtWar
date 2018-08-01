@@ -8,7 +8,7 @@ class AAF_StandardHandgun : CfgCLibLoadoutsClassBase {
 
 class AAF_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeapon[] = {"arifle_Mk20_F"};
-    primaryWeaponOptics[] = {"optic_Aco"};
+    primaryWeaponOptic[] = {"optic_Aco"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_556x45_Stanag", 5}};
 };

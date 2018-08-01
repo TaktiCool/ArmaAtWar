@@ -8,7 +8,7 @@ class CSAT_Tropic_StandardHandgun : CfgCLibLoadoutsClassBase {
 
 class CSAT_Tropic_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeapon[] = {"arifle_CTAR_ghex_F"};
-    primaryWeaponOptics[] = {"optic_Aco"};
+    primaryWeaponOptic[] = {"optic_Aco"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_580x42_Mag_Tracer_F", 5}};
 };

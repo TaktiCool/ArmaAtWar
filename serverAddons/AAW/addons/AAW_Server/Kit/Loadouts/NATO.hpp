@@ -9,7 +9,7 @@ class NATO_StandardHandgun : CfgCLibLoadoutsClassBase {
 
 class NATO_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeapon[] = {"arifle_MX_F"};
-    primaryWeaponOptics[] = {"optic_Holosight"};
+    primaryWeaponOptic[] = {"optic_Holosight"};
     primaryWeaponMuzzle[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_65x39_caseless_mag", 5}};
 };
