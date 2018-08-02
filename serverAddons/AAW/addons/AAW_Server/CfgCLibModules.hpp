@@ -43,6 +43,10 @@ class CfgCLibModules {
                 FNC(addDeploymentPoint);
                 FNC(prepareSpawn);
                 FNC(isValidDeploymentPoint);
+
+                // Callback System
+                FNC(callDeploymentPointCallback);
+                FNCSERVER(registerDeploymentPointTypeCallback);
             };
 
             //Entity Variables
