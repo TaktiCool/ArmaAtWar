@@ -8,14 +8,19 @@
     Server Init
 
     Parameter(s):
-    -
+    None
 
     Returns:
-    -
+    None
 */
 
 GVAR(namespace) = false call CFUNC(createNamespace);
-
+["FOB", "onPlaced", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["FOB", "onPrepare", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["FOB", "onSpawn", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["FOB", "onDestroy", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["FOB", "isAvailableFor", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
 [QGVAR(startDestroyTimer), {
     (_this select 0) params ["_pointId"];
     private _pfhId = [{

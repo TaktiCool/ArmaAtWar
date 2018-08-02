@@ -17,6 +17,9 @@
 GVAR(DeploymentPointStorage) = true call CFUNC(createNamespace);
 publicVariable QGVAR(DeploymentPointStorage);
 
+GVAR(DeploymentPointTypes) = true call CFUNC(createNamespace);
+publicVariable QGVAR(DeploymentPointTypes);
+
 // Add the bases as default points
 ["missionStarted", {
     {

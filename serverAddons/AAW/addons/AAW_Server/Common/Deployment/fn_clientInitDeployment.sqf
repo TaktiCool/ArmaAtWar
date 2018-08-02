@@ -34,9 +34,10 @@
 }] call CFUNC(addEventHandler);
 
 GVAR(pointMarkerIds) = [];
-[QGVAR(updateMapIcons), {
+GVAR(updateTriggerd) = false;
+DFUNC(updateMapIcons) = {
+    GVAR(updateTriggerd) = false;
     private _availablePoints = [side group CLib_Player] call FUNC(getDeploymentPointsPerSide);
-    private _existingMapIconPoints = GVAR(pointMarkerIds) arrayIntersect _availablePoints;
 
     private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
 
@@ -44,68 +45,83 @@ GVAR(pointMarkerIds) = [];
         [_x] call CFUNC(removeMapGraphicsGroup);
         [_x] call CFUNC(removeMapGraphicsEventHandler);
         nil
-    } count (GVAR(pointMarkerIds) - _existingMapIconPoints);
+    } count GVAR(pointMarkerIds);
 
     {
         private _pointData = [_x, ["name", "type", "position", "availableFor", "spawnTickets", "icon", "mapIcon"]] call FUNC(getDeploymentPointData);
         _pointData params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", "_mapIcon"];
 
-        if (_mapIcon != "") then {
-            private _color = _sideColor;
-            private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
-            private _bgIconHover = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
-            if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
-                _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
-
-                if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentPointData) == 1) then {
-                    _color = [0.5, 0.5, 0.5, 1];
+        switch (typeName _mapIcon) do {
+            case ("ARRAY"): {
+                if !(_mapIcon isEqualTo []) then {
+                    // TODO I currently have no idea how to best do this. because we would loose alot of features with those things
                 };
-
-                if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentPointData) == 1) then {
-                    _color = [0.6, 0, 0, 1];
-                };
-
-                if ([_x, "counterActive", 0] call FUNC(getDeploymentPointData) == 1) then {
-                    _color = [0.6, 0, 0, 1];
-                };
-
-                _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
-                _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
             };
-            private _selectedIcon = ["ICON", "A3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa", [1,1,1,0], _position, 40, 40, 0, "", 0, 0.08, "RobotoCondensedBold", "center", {
-                if (_groupId isEqualTo EGVAR(RespawnUI,selectedDeploymentPoint)) then {
-                    _color = [1,1,1,1];
+            case ("STRING"): {
+                if (_mapIcon != "") then {
+                    private _color = _sideColor;
+                    private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
+                    private _bgIconHover = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
+                    if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
+                        _color = [[0.13, 0.54, 0.21, 1], [0, 0.4, 0.8, 1]] select (_availableFor isEqualType playerSide && {playerSide == _availableFor});
+
+                        if ([_x, "spawnPointLocked", 0] call FUNC(getDeploymentPointData) == 1) then {
+                            _color = [0.5, 0.5, 0.5, 1];
+                        };
+
+                        if ([_x, "spawnPointBlocked", 0] call FUNC(getDeploymentPointData) == 1) then {
+                            _color = [0.6, 0, 0, 1];
+                        };
+
+                        if ([_x, "counterActive", 0] call FUNC(getDeploymentPointData) == 1) then {
+                            _color = [0.6, 0, 0, 1];
+                        };
+
+                        _bgIcon = ["ICON", "A3\ui_f\data\map\respawn\respawn_background_ca.paa", _color, _position, 35, 35];
+                        _bgIconHover = ["ICON", "A3\ui_f\data\map\respawn\respawn_backgroundhover_ca.paa", _color, _position, 35, 35];
+                    };
+                    private _selectedIcon = ["ICON", "A3\ui_f\data\map\groupicons\selector_selectedmission_ca.paa", [1,1,1,0], _position, 40, 40, 0, "", 0, 0.08, "RobotoCondensedBold", "center", {
+                        if (_groupId isEqualTo EGVAR(RespawnUI,selectedDeploymentPoint)) then {
+                            _color = [1,1,1,1];
+                        };
+                    }];
+                    private _icon = ["ICON", _mapIcon, [1,1,1,1], _position, 25, 25];
+                    private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, format ["%1", _name], 2, 0.08, "RobotoCondensedBold", "center"];
+                    [_x, [_bgIcon, _icon, _normalText, _selectedIcon], "normal", 2000] call CFUNC(addMapGraphicsGroup);
+                    if (_spawnTickets > 0) then {
+                        private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];;
+                        [_x, [_bgIconHover, _icon, _onHoverText, _selectedIcon], "hover", 2000] call CFUNC(addMapGraphicsGroup);
+                    };
+
+                    [
+                        _x,
+                        "clicked",
+                        {
+                            (_this select 0) params ["_map", "_xPos", "_yPos"];
+                            (_this select 1) params ["_deploymentPointId"];
+
+                            [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
+
+                        },
+                        _x
+                    ] call CFUNC(addMapGraphicsEventHandler);
                 };
-            }];
-            private _icon = ["ICON", _mapIcon, [1,1,1,1], _position, 25, 25];
-            private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, format ["%1", _name], 2, 0.08, "RobotoCondensedBold", "center"];
-            [_x, [_bgIcon, _icon, _normalText, _selectedIcon], "normal", 2000] call CFUNC(addMapGraphicsGroup);
-            private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];
-            if (_spawnTickets <= 0) then {
-                _onHoverText = _normalText;
             };
-
-
-            [_x, [_bgIconHover, _icon, _onHoverText, _selectedIcon], "hover", 2000] call CFUNC(addMapGraphicsGroup);
-
-            [
-                _x,
-                "clicked",
-                {
-                    (_this select 0) params ["_map", "_xPos", "_yPos"];
-                    (_this select 1) params ["_deploymentPointId"];
-
-                    [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
-
-                },
-                _x
-            ] call CFUNC(addMapGraphicsEventHandler);
-
-
+            default {
+                LOG("ERROR: Unknown Type for MapIcon");
+            };
         };
+
 
         nil
     } count _availablePoints;
 
     GVAR(pointMarkerIds) = _availablePoints;
+};
+[QGVAR(updateMapIcons), {
+    if (GVAR(updateTriggerd)) exitWith {};
+    GVAR(updateTriggerd) = true;
+    [{
+        call FUNC(updateMapIcons);
+    }, 0.3] call CFUNC(wait);
 }] call CFUNC(addEventHandler);
