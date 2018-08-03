@@ -42,7 +42,7 @@ class NATO_SquadLeader : NATO_StandardSoldier {
 };
 
 class NATO_Medic : Nato_StandardSoldier {
-    uniform [] = {"U_B_CombatUniform_mcam_tshirt"};
+    uniform[] = {"U_B_CombatUniform_mcam_tshirt"};
     backpack[] = {"B_AssaultPack_rgr"};
 
     class MedicalsClass : A3_MedicClassMedicals{};
