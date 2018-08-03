@@ -144,24 +144,13 @@ GVAR(firstRespawn) = true;
             ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
         };
 
-        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
+        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,onPrepare);
         GVAR(lastDeploymentPoint) = _currentDeploymentPointSelection;
         _deploymentDisplay closeDisplay 1;
 
         [{
-            params ["_deployPosition"];
-
-            // Spawn
-            [_deployPosition] call EFUNC(Common,respawn);
-
-            [{
-                // Fix issue that player spawn Prone
-                ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
-
-                // Apply selected kit
-                [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
-            }] call CFUNC(execNextFrame);
-        }, [_deployPosition]] call CFUNC(execNextFrame);
+            _this call EFUNC(Common,onSpawn);
+        }, [_deployPosition, _currentDeploymentPointSelection]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
 

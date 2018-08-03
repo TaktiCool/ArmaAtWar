@@ -13,9 +13,9 @@
     Returns:
     None
 */
-["SQUAD", "onPlaced", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["SQUAD", "onPrepare", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["SQUAD", "onSpawn", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["SQUAD", "onDestroy", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["SQUAD", "isAvailableFor", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["SQUAD", "isLocked", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+["SQUAD", "onPlaced", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["SQUAD", "onPrepare", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["SQUAD", "onSpawn", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["SQUAD", "onDestroy", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["SQUAD", "isAvailableFor", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["SQUAD", "isLocked", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);

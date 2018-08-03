@@ -15,12 +15,19 @@
 */
 
 GVAR(namespace) = false call CFUNC(createNamespace);
-["FOB", "onPlaced", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["FOB", "onPrepare", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["FOB", "onSpawn", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["FOB", "onDestroy", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["FOB", "isAvailableFor", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
-["FOB", "isLocked", {}] call FUNC(fn_registerDeploymentPointTypeCallback);
+
+["FOB", "onPlaced", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "onPrepare", {
+    params ["_pointId"];
+    private _pointDetails = [_pointId, ["position"]] call EFUNC(Common,getDeploymentPointData);
+    _pointDetails params [["_pos", [0,0,0]]];
+    _pos;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "onSpawn", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "onDestroy", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isAvailableFor", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
 [QGVAR(startDestroyTimer), {
     (_this select 0) params ["_pointId"];
     private _pfhId = [{

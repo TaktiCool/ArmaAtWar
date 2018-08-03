@@ -41,7 +41,8 @@ class CfgCLibModules {
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
-                FNC(prepareSpawn);
+                FNC(onPrepare);
+                FNC(onSpawn);
                 FNC(isValidDeploymentPoint);
 
                 // Callback System
