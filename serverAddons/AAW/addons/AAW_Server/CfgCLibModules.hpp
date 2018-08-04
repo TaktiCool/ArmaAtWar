@@ -41,13 +41,20 @@ class CfgCLibModules {
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
-                FNC(onPrepare);
-                FNC(onSpawn);
                 FNC(isValidDeploymentPoint);
 
                 // Callback System
                 FNC(callDeploymentPointCallback);
                 FNCSERVER(registerDeploymentPointTypeCallback);
+
+                MODULE(Callbacks) {
+                    FNC(isAvailableFor);
+                    FNC(isLocked);
+                    FNC(onDestroy);
+                    FNC(onPlaced);
+                    FNC(onPrepare);
+                    FNC(onSpawn);
+                };
             };
 
             //Entity Variables
