@@ -19,12 +19,7 @@ params ["_deployPosition", "_pointId"];
 [_deployPosition] call FUNC(respawn);
 
 [{
-    private _data = [_pointId, ["type"]] call FUNC(getDeploymentPointData);
+    private _data = [_this, ["type"]] call FUNC(getDeploymentPointData);
     [_data select 0, "onSpawn", _this, CLib_Player] call FUNC(callDeploymentPointCallback);
 
-    // Fix issue that player spawn Prone
-    ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
-
-    // Apply selected kit
-    [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
 }, _pointId] call CFUNC(execNextFrame);

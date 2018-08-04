@@ -150,6 +150,12 @@ GVAR(firstRespawn) = true;
 
         [{
             _this call EFUNC(Common,onSpawn);
+            [{
+                [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+                
+                // Fix issue that player spawn Prone
+                ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
+            }] call CFUNC(execNextFrame);
         }, [_deployPosition, _currentDeploymentPointSelection]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
