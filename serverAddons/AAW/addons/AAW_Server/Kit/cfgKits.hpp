@@ -139,5 +139,6 @@ class cfgKits {
 
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_GER.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_RUS.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_UK.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_US.hpp"
 };
