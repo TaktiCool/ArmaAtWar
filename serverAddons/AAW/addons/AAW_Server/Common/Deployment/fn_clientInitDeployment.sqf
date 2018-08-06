@@ -54,7 +54,22 @@ DFUNC(updateMapIcons) = {
         switch (typeName _mapIcon) do {
             case ("ARRAY"): {
                 if !(_mapIcon isEqualTo []) then {
-                    // TODO I currently have no idea how to best do this. because we would loose alot of features with those things
+                    private _pointId = _x;
+                    {
+                        if (!isNil "_x" || {!(_x isEqualTo [])}) then {
+                            switch (_forEachIndex) {
+                                case (0): {
+                                    [_pointId, _x, "normal", 2000] call CFUNC(addMapGraphicsGroup);
+                                };
+                                case (1): {
+                                    [_pointId, _x, "hover", 2000] call CFUNC(addMapGraphicsGroup);
+                                };
+                                case (2): {
+                                    [_pointId, _x, "selected", 2000] call CFUNC(addMapGraphicsGroup);
+                                };
+                            };
+                        };
+                    } forEach _mapIcon;
                 };
             };
             case ("STRING"): {
@@ -92,19 +107,6 @@ DFUNC(updateMapIcons) = {
                         private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];;
                         [_x, [_bgIconHover, _icon, _onHoverText, _selectedIcon], "hover", 2000] call CFUNC(addMapGraphicsGroup);
                     };
-
-                    [
-                        _x,
-                        "clicked",
-                        {
-                            (_this select 0) params ["_map", "_xPos", "_yPos"];
-                            (_this select 1) params ["_deploymentPointId"];
-
-                            [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
-
-                        },
-                        _x
-                    ] call CFUNC(addMapGraphicsEventHandler);
                 };
             };
             default {
@@ -112,6 +114,18 @@ DFUNC(updateMapIcons) = {
             };
         };
 
+        [
+            _x,
+            "clicked",
+            {
+                (_this select 0) params ["_map", "_xPos", "_yPos"];
+                (_this select 1) params ["_deploymentPointId"];
+
+                [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
+
+            },
+            _x
+        ] call CFUNC(addMapGraphicsEventHandler);
 
         nil
     } count _availablePoints;

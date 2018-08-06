@@ -131,18 +131,7 @@ GVAR(firstRespawn) = true;
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
-        };
-
-        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
-        };
-
-        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
-            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
-        };
+        if !([_currentDeploymentPointSelection] call EFUNC(Common,onDeploy)) exitWith {};
 
         private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,onPrepare);
         GVAR(lastDeploymentPoint) = _currentDeploymentPointSelection;
@@ -152,7 +141,7 @@ GVAR(firstRespawn) = true;
             _this call EFUNC(Common,onSpawn);
             [{
                 [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
-                
+
                 // Fix issue that player spawn Prone
                 ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
             }] call CFUNC(execNextFrame);

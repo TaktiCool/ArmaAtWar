@@ -17,7 +17,11 @@ params ["_pointId"];
 
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
 if (isNull _pointNamespace) exitWith {};
-private _pointObjects = [_pointId, "pointObjects"] call FUNC(getDeploymentPointData);
+
+[_pointId] call FUNC(onDestory);
+
+private _data = [_pointId, ["pointObjects", "availableFor"]] call FUNC(getDeploymentPointData);
+_data params ["_pointObjects", "_availableFor"];
 
 if (_pointObjects isEqualType []) then {
     {
@@ -27,8 +31,6 @@ if (_pointObjects isEqualType []) then {
 } else {
     _pointObjects call CFUNC(deleteSimpleObjectComp);
 };
-
-private _availableFor = [_pointId, "availableFor"] call FUNC(getDeploymentPointData);
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
 
