@@ -62,10 +62,10 @@ DFUNC(updateMapIcons) = {
                                     [_pointId, _x, "normal", 2000] call CFUNC(addMapGraphicsGroup);
                                 };
                                 case (1): {
-                                    [_pointId, _x, "hover", 2000] call CFUNC(addMapGraphicsGroup);
+                                    [_pointId, _x, "selected", 2000] call CFUNC(addMapGraphicsGroup);
                                 };
                                 case (2): {
-                                    [_pointId, _x, "selected", 2000] call CFUNC(addMapGraphicsGroup);
+                                    [_pointId, _x, "hover", 2000] call CFUNC(addMapGraphicsGroup);
                                 };
                             };
                         };
