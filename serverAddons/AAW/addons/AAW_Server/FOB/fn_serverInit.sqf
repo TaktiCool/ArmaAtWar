@@ -53,10 +53,45 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     _pointDetails params [["_pos", [0,0,0]]];
     _pos;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
-["FOB", "onSpawn", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-["FOB", "onDestroy", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-["FOB", "isAvailableFor", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-["FOB", "isLocked", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "isAvailableFor", {
+    params ["_pointId", "_prevRet", "_isSideCheck"];
+    if (_isSideCheck isEqualType objNull) then {
+        _isSideCheck = group _isSideCheck;
+    };
+    if (_isSideCheck isEqualType grpNull) then {
+        _isSideCheck = side _isSideCheck;
+    };
+    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _isSideCheck) exitWith {
+        true;
+    };
+    _prevRet
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 [QGVAR(startDestroyTimer), {
     (_this select 0) params ["_pointId"];

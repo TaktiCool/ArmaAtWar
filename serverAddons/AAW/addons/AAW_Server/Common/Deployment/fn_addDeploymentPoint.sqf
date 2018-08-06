@@ -57,6 +57,8 @@ if !(_availableFor isEqualType sideUnknown) then {
     _availableFor = side _availableFor;
 };
 
+[_id] call FUNC(onPlaced);
+
 [QGVAR(deploymentPointAdded), _availableFor, _id] call CFUNC(targetEvent);
 
 _id

@@ -13,7 +13,7 @@
     Returns:
     None
 */
-params ["_pointId"];
+params ["_pointId", "_target"];
 
 private _data = [_pointId, ["type"]] call FUNC(getDeploymentPointData);
-[_data select 0, "isAvailableFor", _pointId] call FUNC(callDeploymentPointCallback);
+[_data select 0, "isAvailableFor", _pointId, _target] call FUNC(callDeploymentPointCallback);

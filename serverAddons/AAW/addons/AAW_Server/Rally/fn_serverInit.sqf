@@ -37,7 +37,20 @@
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 ["RALLY", "onSpawn", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
 ["RALLY", "onDestroy", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-["RALLY", "isAvailableFor", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["RALLY", "isAvailableFor", {
+    params ["_pointId", "_prevRet", "_isSideCheck"];
+    if (_isSideCheck isEqualType objNull) then {
+        _isSideCheck = group _isSideCheck;
+    };
+    private _side = [_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData);
+    if (_isSideCheck isEqualType sideUnknown) then {
+        _side = side _side;
+    };
+    if (_side isEqualTo _isSideCheck) exitWith {
+        true;
+    };
+    _prevRet
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
 ["RALLY", "isLocked", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 [{
