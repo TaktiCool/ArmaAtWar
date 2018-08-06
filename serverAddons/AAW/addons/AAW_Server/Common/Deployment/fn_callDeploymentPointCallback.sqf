@@ -17,8 +17,10 @@
 */
 params [["_type", "", [""]], ["_callbackType", "", [""]], ["_pointId", "", [""]], ["_args", {}, [{}]]];
 
-private _varName = format [QGVAR(%1_%2), _type, _callbackType];
-private _data = GVAR(DeploymentPointTypes) getVariable [_varName, [{_this select 2}]];
+// build Namespace Variablename
+private _callbackNameSpace = format [QGVAR(Deployment_%1_CallbackNamespace), _type];
+private _namespace = missionNamespace getVariable _callbackNameSpace;
+private _data = _namespace getVariable [_callbackType, [{_this select 2}]];
 private _ret = nil;
 {
     _ret = [_pointId, _args, _ret] call _x;

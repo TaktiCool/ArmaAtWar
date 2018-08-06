@@ -20,7 +20,18 @@ if !(isServer) exitWith {
 };
 params [["_type", "", [""]], ["_callbackType", "", [""]], ["_callback", {}, [{}]]];
 
-private _varName = format [QGVAR(%1_%2), _type, _callbackType];
-private _data = GVAR(DeploymentPointTypes) getVariable [_varName, []];
-_data pushback _callback;
-GVAR(DeploymentPointTypes) setVariable [_varName, _data, true];
+// build Namespace Variablename
+private _callbackNameSpace = format [QGVAR(Deployment_%1_CallbackNamespace), _type];
+private _namespace = missionNamespace getVariable _callbackNameSpace;
+
+// Check if namespace exist and if not create and save it
+if (isNil "_namespace") then {
+    _namespace = true call CFUNC(createNamespace);
+    missionNamespace setVariable [_eventNameSpace, _namespace, true];
+};
+
+private _callbacks = _namespace getVariable [_callbackType, []];
+
+_callbacks pushBack _code;
+
+_namespace setVariable [_callbackType, _eventArray, true];
