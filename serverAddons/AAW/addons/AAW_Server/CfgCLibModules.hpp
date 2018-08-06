@@ -114,6 +114,12 @@ class CfgCLibModules {
             FNC(canPlace);
         };
 
+        // Inventory
+        MODULE(Inventory) {
+            dependency[] = {"AAW/Common"};
+            FNC(clientInit);
+        };
+
         // SquadRespawn system
         MODULE(SquadRespawn) {
             dependency[] = {"AAW/Common"};
