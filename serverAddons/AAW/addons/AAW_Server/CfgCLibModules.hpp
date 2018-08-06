@@ -50,6 +50,7 @@ class CfgCLibModules {
                 MODULE(Callbacks) {
                     FNC(isAvailableFor);
                     FNC(isLocked);
+                    FNC(onDeploy);
                     FNC(onDestroy);
                     FNC(onPlaced);
                     FNC(onPrepare);
