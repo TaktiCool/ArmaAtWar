@@ -74,6 +74,9 @@ DFUNC(updateMapIcons) = {
             };
             case ("STRING"): {
                 if (_mapIcon != "") then {
+                    if (_position isEqualType {}) then {
+                        _position = (_id call _position);
+                    };
                     private _color = _sideColor;
                     private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
                     private _bgIconHover = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
