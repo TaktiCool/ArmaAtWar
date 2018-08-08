@@ -57,7 +57,7 @@ DFUNC(updateMapIcons) = {
                     private _pointId = _x;
                     {
                         if (!isNil "_x" || {!(_x isEqualTo [])}) then {
-                            switch (_forEachIndex) {
+                            switch (_forEachIndex) do {
                                 case (0): {
                                     [_pointId, _x, "normal", 2000] call CFUNC(addMapGraphicsGroup);
                                 };
