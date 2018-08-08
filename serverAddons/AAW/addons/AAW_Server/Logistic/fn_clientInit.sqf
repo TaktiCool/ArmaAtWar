@@ -40,6 +40,84 @@ GVAR(supplySourceObjects) = [];
         nil
     } count ([QUOTE(PREFIX/Sides)] call CFUNC(getSettingSubClasses));
 }] call CFUNC(addEventHandler);
+
+DFUNC(generateSupplyData) = {
+    private _supplyType = [];
+    private _supplyNames = [];
+    private _supplyCount = [];
+    private _supplyCost = [];
+
+    {
+        private _idx = _supplyNames pushBackUnique _x;
+        private _count = [];
+        if (_idx == -1) then {
+            _idx = _supplyNames find _x;
+            _count = (_supplyCount select _idx);
+        };
+        _count pushback 1;
+        _supplyCount set [_idx, _count];
+        _supplyType set [_idx, ST_ITEM];
+        nil;
+    } count items CLib_player;
+
+    {
+        private _idx = _supplyNames pushBackUnique (_x select 0);
+        private _count = [];
+        if (_idx == -1) then {
+            _idx = _supplyNames find (_x select 0);
+            _count = _supplyCount select _idx;
+        };
+        private _ammoCount = [configFile >> "CfgMagazines" >> (_x select 0) >> "count"] call CFUNC(getConfigDataCached);
+        if (_x select 3 > 0) then {
+            _count pushBack _ammoCount;
+        } else {
+            _count pushBack (_x select 1);
+        };
+
+        _supplyCount set [_idx, _count];
+        _supplyType set [_idx, ST_MAGAZINE];
+        nil;
+    } count magazinesAmmoFull CLib_player;
+
+    private _supplyData = [];
+
+    {
+        _supplyData pushback [
+            _supplyType select _forEachIndex,
+            _x,
+            _supplyCount select _forEachIndex
+        ];
+    } forEach _supplyNames;
+
+    [_supplyNames, _supplyData];
+};
+
+["respawn", {
+    [{
+        [{
+            private _supplyData =  call FUNC(generateSupplyData);
+            private _supplyCost = (_supplyData select 1) apply {
+                if (_x select 0 == ST_MAGAZINE) then {
+                    private _cfgMagazine = configFile >> "CfgMagazines" >> _x select 1;
+                    private _ammoCount = [_cfgMagazine >> "count"] call CFUNC(getConfigDataCached);
+                    private _ammoType = [_cfgMagazine >> "ammo"] call CFUNC(getConfigDataCached);
+                    private _ammoCost = [configFile >> "CfgAmmo" >> _ammoType >> "cost"] call CFUNC(getConfigDataCached);
+                    sqrt (_ammoCost*_ammoCount)/_ammoCount;
+                } else {
+                    10;
+                };
+            };
+
+            private _collectedSupplies = (_supplyData select 0) apply {
+                0
+            };
+            _supplyData pushBack _supplyCost;
+            CLib_player setVariable [QGVAR(SupplyData), _supplyData];
+            CLib_player setVariable [QGVAR(CollectedSupplies), _collectedSupplies];
+        }] call CFUNC(execNextFrame);
+    }] call CFUNC(execNextFrame);
+}] call CFUNC(addEventHandler);
+
 /*
 [
     "Load Supplies",

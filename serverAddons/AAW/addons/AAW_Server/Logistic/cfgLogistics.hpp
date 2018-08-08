@@ -27,7 +27,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType[]  = {"AmmoInfantery"};
+                supplyType[]  = {"AmmoInfantry"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };
@@ -68,7 +68,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType[]  = {"AmmoInfantery"};
+                supplyType[]  = {"AmmoInfantry"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };
@@ -110,7 +110,7 @@ class cfgLogistics {
             picture = "\A3\ui_f\data\gui\cfg\respawnroles\assault_ca.paa";
             supplyCost = COST_BASIC_AMMO_BOX;
             class Attributes {
-                supplyType[]  = {"AmmoInfantery"};
+                supplyType[]  = {"AmmoInfantry"};
                 supplyCapacity = COST_BASIC_AMMO_BOX;
                 supplyPoints = COST_BASIC_AMMO_BOX;
             };

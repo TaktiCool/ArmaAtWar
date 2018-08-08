@@ -143,7 +143,7 @@ class CfgCLibModules {
             FNC(serverInit);
             FNC(clientInit);
             FNC(clientInitActions);
-            FNC(infanteryResupplyAction);
+            FNC(infantryResupplyAction);
             FNC(resupplySupplyVehicleAction);
             FNC(clientInitCargoInventory);
             FNC(getWeight);

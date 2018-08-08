@@ -45,6 +45,21 @@ DFUNC(setLogisticVariables) = {
 
 ["spawnCrate", FUNC(spawnCrate)] call CFUNC(addEventHandler);
 
+[QGVAR(RequestSupplies), {
+    (_this select 0) params ["_source", "_target", ["_points", 5]];
+
+    private _totalSupplyPoints = _source getVariable ["supplyPoints", 0];
+
+    private _addedSupplyPoints = _points min _totalSupplyPoints;
+
+    _totalSupplyPoints = _totalSupplyPoints - _addedSupplyPoints;
+
+    _source getVariable ["supplyPoints", _totalSupplyPoints];
+
+    [QGVAR(CollectSupplies), _target, [_source, _target, _addedSupplyPoints]] call CFUNC(targetEvent);
+
+}] call CFUNC(addEventHandler);
+
 [QGVAR(LoadSupplies), {
     (_this select 0) params ["_target", ["_points", 50]];
 
