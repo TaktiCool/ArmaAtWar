@@ -15,15 +15,20 @@
     Returns:
     Callback Return
 */
-params [["_type", "", [""]], ["_callbackType", "", [""]], ["_pointId", "", [""]], ["_args", {}, [{}]]];
+params [["_type", "", [""]], ["_callbackType", "", [""]], ["_pointId", "", [""]], "_args"];
 
 // build Namespace Variablename
 private _callbackNameSpace = format [QGVAR(Deployment_%1_CallbackNamespace), _type];
-private _namespace = missionNamespace getVariable _callbackNameSpace;
-private _data = _namespace getVariable [_callbackType, [{_this select 2}]];
+private _namespace = missionNamespace getVariable [_callbackNameSpace, objNull];
+if (isNull _namespace) exitWith {
+    LOG("Warning: RespawnType is Unknown: " + _type);
+    nil
+};
+private _data = _namespace getVariable [_callbackType, []];
 private _ret = nil;
 {
-    _ret = [_pointId, _args, _ret] call _x;
+    _ret = [_pointId, _ret, _args] call _x;
+    nil
 } count _data;
 
 _ret;

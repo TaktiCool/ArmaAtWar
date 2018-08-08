@@ -15,7 +15,13 @@
 */
 
 ["RALLY", "onPrepare", {
-    params ["_pointId", "", "_oldRet"];
+    params ["_pointId"];
+    private _pos = [_pointId, "position"] call EFUNC(Common,getDeploymentPointData);
+    _pos;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["RALLY", "onPrepare", {
+    params ["_pointId", "_prevRet"];
 
     private _pointDetails = [_pointId, ["spawntickets", "availablefor"]] call EFUNC(Common,getDeploymentPointData);
     _pointDetails params [["_spawnTickets", -1], "_availableFor"];
@@ -27,14 +33,7 @@
         [_pointId, "spawntickets", _spawnTickets] call EFUNC(Common,setDeploymentPointData);
         [QGVAR(ticketsChanged), _availableFor] call CFUNC(targetEvent);
     };
-    _oldRet
-}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-
-["RALLY", "onPrepare", {
-    params ["_pointId"];
-    private _pointDetails = [_pointId, ["position"]] call EFUNC(Common,getDeploymentPointData);
-    _pointDetails params [["_pos", [0,0,0]]];
-    _pos;
+    _prevRet
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 ["RALLY", "isAvailableFor", {
@@ -46,10 +45,15 @@
     if (_target isEqualType sideUnknown) then {
         _side = side _side;
     };
-    if (_side isEqualTo _target) exitWith {
+    if (_side isEqualTo _target) then {
         true;
+    } else {
+        if (isNil "_prevRet") then {
+            false;
+        } else {
+            _prevRet;
+        };
     };
-    _prevRet
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 ["RALLY", "isLocked", {

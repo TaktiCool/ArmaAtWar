@@ -34,4 +34,4 @@ private _callbacks = _namespace getVariable [_callbackType, []];
 
 _callbacks pushBack _callback;
 
-_namespace setVariable [_callbackType, _eventArray, true];
+_namespace setVariable [_callbackType, _callbacks, true];

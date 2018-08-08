@@ -56,25 +56,25 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
     if ([_pointId, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-        false;
+        true;
     };
-    true;
+    false;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 ["FOB", "isLocked", {
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
     if ([_pointId, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-        false;
+        true;
     };
-    true;
+    false;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 ["FOB", "isLocked", {
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
     if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
-        false;
+        true;
     };
-    true;
+    false;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 ["FOB", "isAvailableFor", {
@@ -85,13 +85,18 @@ GVAR(namespace) = false call CFUNC(createNamespace);
     if (_target isEqualType grpNull) then {
         _target = side _target;
     };
-    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _target) exitWith {
+    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _target) then {
         true;
+    } else {
+        if (isNil "_prevRet") then {
+            false;
+        } else {
+            _prevRet;
+        };
     };
-    _prevRet
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
-["RALLY", "onDestroy", {
+["FOB", "onDestroy", {
     params ["_pointId", "_prevRet", "_pointObjects"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
     _pointObjects call CFUNC(deleteSimpleObjectComp);

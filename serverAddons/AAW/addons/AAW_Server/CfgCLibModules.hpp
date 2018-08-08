@@ -128,10 +128,10 @@ class CfgCLibModules {
         };
 
         // SquadRespawn system
-        MODULE(SquadRespawn) {
+        /* MODULE(SquadPlayerRespawn) {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
-        };
+        };*/
 
         // Supply system
         MODULE(Supply) {

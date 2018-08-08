@@ -21,7 +21,7 @@ if (isNull _pointNamespace) exitWith {};
 private _data = [_pointId, ["pointObjects", "availableFor"]] call FUNC(getDeploymentPointData);
 _data params ["_pointObjects", "_availableFor"];
 
-[_pointId, _pointObjects] call FUNC(onDestory);
+[_pointId, _pointObjects] call FUNC(onDestroy);
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
 

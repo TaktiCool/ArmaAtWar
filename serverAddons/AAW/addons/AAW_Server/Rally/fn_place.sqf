@@ -28,7 +28,6 @@
     private _spawnCount = [CFGSRP(spawnCount), 1] call CFUNC(getSetting);
     private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa"] call EFUNC(Common,addDeploymentPoint);
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "RallyComposition");
-    private _position = _target modelToWorld [0, 0, 0];
     private _dirVector = vectorDirVisual CLib_Player;
 
     [_pointId, _composition, _position, _dirVector, CLib_player] call CFUNC(createSimpleObjectComp);
