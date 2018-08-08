@@ -13,7 +13,7 @@
     Returns:
     None
 */
-params ["_pointId"];
+params ["_pointId", "_pointObjects"];
 
 private _data = [_pointId, ["type"]] call FUNC(getDeploymentPointData);
-[_data select 0, "onDestroy", _pointId] call FUNC(callDeploymentPointCallback);
+[_data select 0, "onDestroy", _pointId, _pointObjects] call FUNC(callDeploymentPointCallback);

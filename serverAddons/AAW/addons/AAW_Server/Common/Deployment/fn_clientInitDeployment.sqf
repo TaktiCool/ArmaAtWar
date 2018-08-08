@@ -39,7 +39,7 @@ DFUNC(updateMapIcons) = {
     GVAR(updateTriggerd) = false;
     private _availablePoints = [side group CLib_Player] call FUNC(getDeploymentPointsPerSide);
 
-    private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), playerSide]);
+    private _sideColor = +(missionNamespace getVariable format [QEGVAR(Common,SideColor_%1), side group CLib_Player]);
 
     {
         [_x] call CFUNC(removeMapGraphicsGroup);

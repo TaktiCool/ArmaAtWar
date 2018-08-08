@@ -20,7 +20,10 @@ class CfgPatches {
 #include "CfgCLibLocalisation.hpp"
 #include "CfgCLibSettings.hpp"
 
-#include "\tc\AAW\addons\AAW_Server\FOB\cfgCLibSimpleObject.hpp"
+class cfgCLibSimpleObject {
+    #include "\tc\AAW\addons\AAW_Server\FOB\cfgCLibSimpleObject.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Rally\cfgCLibSimpleObject.hpp"
+};
 #include "AAW.hpp"
 class CfgCLibLoadoutsClassBase;
 class CfgCLibLoadouts {

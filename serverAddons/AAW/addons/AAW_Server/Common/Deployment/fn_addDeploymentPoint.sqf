@@ -61,7 +61,6 @@ if !(_availableFor isEqualType sideUnknown) then {
 switch (typeName _position) do {
     case ("OBJECT"): {
         _namespace setPos (getPos _position);
-        _namespace attachTo [_position];
     };
     case ("CODE"): {
         _namespace setPos (_id call _position);

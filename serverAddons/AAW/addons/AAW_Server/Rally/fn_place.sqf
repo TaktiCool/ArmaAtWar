@@ -23,23 +23,17 @@
 
     [group CLib_Player] call FUNC(destroy);
 
-    private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
-    _pointObjects = _pointObjects apply {
-        _x params ["_type", "_offset"];
-
-        private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, [0, 0, 0], [], 0, "CAN_COLLIDE"];
-        _obj setPos _objPosition;
-        ["setVectorUp", _obj, [_obj, surfaceNormal getPos _obj]] call CFUNC(targetEvent);
-        ["enableSimulation", [_obj, false]] call CFUNC(serverEvent);
-
-        _obj
-    };
-
     (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = format ["RP %1", groupId group CLib_Player];
     private _spawnCount = [CFGSRP(spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", [["pointObjects", _pointObjects]]] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa"] call EFUNC(Common,addDeploymentPoint);
+    private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "RallyComposition");
+    private _position = _target modelToWorld [0, 0, 0];
+    private _dirVector = vectorDirVisual CLib_Player;
+
+    [_pointId, _composition, _position, _dirVector, CLib_player] call CFUNC(createSimpleObjectComp);
+    [_pointId, "pointObjects", _pointId] call EFUNC(Common,setDeploymentPointData);
+
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
     [_pointId, "spawnPointLocked", 0] call EFUNC(Common,setDeploymentPointData);

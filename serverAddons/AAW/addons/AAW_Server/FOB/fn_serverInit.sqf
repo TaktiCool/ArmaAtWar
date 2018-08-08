@@ -16,8 +16,6 @@
 
 GVAR(namespace) = false call CFUNC(createNamespace);
 
-["FOB", "onPlaced", {}] call EFUNC(Common,registerDeploymentPointTypeCallback);
-
 ["FOB", "onDeploy", {
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
@@ -40,7 +38,7 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 ["FOB", "onDeploy", {
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
-    if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+    if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
         ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
         false;
     };
@@ -80,17 +78,24 @@ GVAR(namespace) = false call CFUNC(createNamespace);
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 ["FOB", "isAvailableFor", {
-    params ["_pointId", "_prevRet", "_isSideCheck"];
-    if (_isSideCheck isEqualType objNull) then {
-        _isSideCheck = group _isSideCheck;
+    params ["_pointId", "_prevRet", "_target"];
+    if (_target isEqualType objNull) then {
+        _target = group _target;
     };
-    if (_isSideCheck isEqualType grpNull) then {
-        _isSideCheck = side _isSideCheck;
+    if (_target isEqualType grpNull) then {
+        _target = side _target;
     };
-    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _isSideCheck) exitWith {
+    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _target) exitWith {
         true;
     };
     _prevRet
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["RALLY", "onDestroy", {
+    params ["_pointId", "_prevRet", "_pointObjects"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    _pointObjects call CFUNC(deleteSimpleObjectComp);
+    true;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 [QGVAR(startDestroyTimer), {
