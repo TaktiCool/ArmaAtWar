@@ -22,3 +22,7 @@ class CfgPatches {
 
 #include "\tc\AAW\addons\AAW_Server\FOB\cfgCLibSimpleObject.hpp"
 #include "AAW.hpp"
+class CfgCLibLoadoutsClassBase;
+class CfgCLibLoadouts {
+    #include "\tc\AAW\addons\AAW_Server\Kit\cfgLoadouts.hpp"
+};

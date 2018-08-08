@@ -42,12 +42,11 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         };
 
         // Read the player kit settings.
-        private _currentKitName = CLib_Player getVariable [QGVAR(kit), ""];
-        private _kitDetails = [_currentKitName, side group CLib_Player, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
-        _kitDetails params ["_isCrew", "_isPilot"];
+        private _isCrew = CLib_Player getVariable [QGVAR(isCrew), false];
+        private _isPilot = CLib_Player getVariable [QGVAR(isPilot), false];
 
         // Pilot kit for pilot seats.
-        if (_actionName in ["GetInPilot", "MoveToPilot"] && _isPilot == 0) exitWith {
+        if (_actionName in ["GetInPilot", "MoveToPilot"] && !_isPilot) exitWith {
             ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };
@@ -90,7 +89,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                 };
 
                 // Turrets with guns in air, tank and wheeled apc require crew kit.
-                if (([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
+                if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
                     ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
@@ -102,7 +101,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             if (getNumber (_turretConfig >> "hideWeaponsGunner") == 1) exitWith {
                 // This is a turret without a gun and without the players handheld weapon (only copilot afaik).
                 // Copilot need pilot kit
-                if (_vehicle isKindOf "Air" && _isPilot == 0) exitWith {
+                if (_vehicle isKindOf "Air" && !_isPilot) exitWith {
                     ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
@@ -115,7 +114,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 
         // Driver
         // Tank and APC driver require crew kit.
-        if (([_vehicle, ["Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray)) && _isCrew == 0) exitWith {
+        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
             ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };
