@@ -27,11 +27,11 @@ private _namespace = missionNamespace getVariable _callbackNameSpace;
 // Check if namespace exist and if not create and save it
 if (isNil "_namespace") then {
     _namespace = true call CFUNC(createNamespace);
-    missionNamespace setVariable [_eventNameSpace, _namespace, true];
+    missionNamespace setVariable [_callbackNameSpace, _namespace, true];
 };
 
 private _callbacks = _namespace getVariable [_callbackType, []];
 
-_callbacks pushBack _code;
+_callbacks pushBack _callback;
 
 _namespace setVariable [_callbackType, _eventArray, true];

@@ -75,7 +75,7 @@ DFUNC(updateMapIcons) = {
             case ("STRING"): {
                 if (_mapIcon != "") then {
                     if (_position isEqualType {}) then {
-                        _position = (_id call _position);
+                        _position = (_pointId call _position);
                     };
                     private _color = _sideColor;
                     private _bgIcon = ["ICON", "A3\ui_f\data\igui\cfg\holdactions\progress\progress_0_ca.paa", [1, 1, 1, 1], _position, 30, 30];
@@ -121,7 +121,6 @@ DFUNC(updateMapIcons) = {
             _x,
             "clicked",
             {
-                (_this select 0) params ["_map", "_xPos", "_yPos"];
                 (_this select 1) params ["_deploymentPointId"];
 
                 [QGVAR(DeploymentPointSelected), _deploymentPointId] call CFUNC(localEvent);
