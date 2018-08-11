@@ -15,23 +15,45 @@
 */
 
 
-private _title = MLOC(Resupply);
+private _title = MLOC(RearmVehicle);
 private _iconIdle = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
 private _iconProgress = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
 private _condition = {
-    [_target, 3] call CFUNC(inRange)
-    && {((_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo","Medical"]}) != -1
-    && {(_target getVariable ["supplyPoints", 0]) > 0}}
-};
+    vehicle CLib_player != CLib_player && {driver vehicle player == CLib_player} &&
+    {[format [QGVAR(nearAmmoSource_%1), vehicle CLib_player], {
+        if ((_this getVariable [QGVAR(supplyData), [[]]]) select 0 isEqualTo []) exitWith {false};
+        private _nearestObjects = nearestObjects [_this, ["All"], 20, true];
+        DUMP(_nearestObjects);
+        private _supplyIdx = _nearestObjects findIf {
+            _x != _this && ((_x getVariable ["supplyType", []]) findIf {_x in ["AmmoVehicle", "Ammo"]}) != -1 &&
+            {
+                toLower (_x getVariable ["side", str sideUnknown]) isEqualTo toLower str side group CLib_player
+                && {_x getVariable ["supplyPoints", 0] > 0}
+            }
+        };
 
+        DUMP(_supplyIdx);
+
+        if (_supplyIdx != -1) then {
+            GVAR(nearestAmmo) = _nearestObjects select _supplyIdx;
+            GVAR(targetVehicle) = _this;
+            true;
+        } else {
+            GVAR(nearestAmmo) = objNull;
+            false;
+        };
+    }, vehicle CLib_player, 1] call CFUNC(cachedCall)}
+};
+GVAR(nearestAmmo) = objNull;
+GVAR(targetVehicle) = objNull;
 private _onStart = {
     params ["_target", "_caller"];
 
     private _jobData = [];
 
-    (CLib_player getVariable [QGVAR(supplyData), [[], []]]) params ["_supplyDataNames", "_supplyData", "_supplyCost"];
+    (GVAR(targetVehicle) getVariable [QGVAR(supplyData), [[], []]]) params ["_supplyDataNames", "_supplyData", "_supplyCost"];
 
-    private _currentSupplyData = call FUNC(generateSupplyData);
+    private _currentSupplyData = GVAR(targetVehicle) call FUNC(generateSupplyDataVehicle);
 
     private _jobData = [];
     {
@@ -62,58 +84,16 @@ private _onStart = {
         _jobData pushBack [_type, _name, _jobDataElement, _totalSupplyCost];
     } forEach _supplyData;
 
-    if ((_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo"]} != -1) then {
-        _jobData = _jobData apply {
-            _x params ["_type", "_name", "_elements", "_totalSupplyCost"];
-
-            if (_type == ST_MAGAZINE) then {
-                _x
-            } else {
-                private _elementsNew = [];
-                {
-                    _x params ["_cost", "_count", "_desiredCount"];
-                    if (_count > 0) then {
-                        _elementsNew pushBack [0, _count, _desiredCount];
-                    };
-                } forEach _elements;
-                [_type, _name, _elementsNew, _totalSupplyCost];
-            };
-        };
-
-    };
-
-    if ("Medical" in (_target getVariable ["supplyType", []])) then {
-        _jobData = _jobData apply {
-            _x params ["_type", "_name", "_elements", "_totalSupplyCost"];
-
-            if (tolower _name == tolower "FirstAidKit") then {
-                _x
-            } else {
-                private _elementsNew = [];
-                {
-                    _x params ["_cost", "_count", "_desiredCount"];
-                    if (_count > 0) then {
-                        _elementsNew pushBack [0, _count, _desiredCount];
-                    };
-                } forEach _elements;
-                [_type, _name, _elementsNew, _totalSupplyCost];
-            };
-        };
-    };
-
-    CLib_player setVariable [QGVAR(JobData), _jobData];
-    CLib_player setVariable [QGVAR(ResupplyTime), time];
-
-
-
+    GVAR(targetVehicle) setVariable [QGVAR(JobData), _jobData];
+    GVAR(targetVehicle) setVariable [QGVAR(ResupplyTime), time];
 };
 
-[QGVAR(CollectSupplies), {
+[QGVAR(CollectVehicleSupplies), {
     (_this select 0) params ["_source", "_target", ["_points", 0]];
 
-    private _jobData = CLib_player getVariable [QGVAR(JobData), []];
-    private _collectedSupplies = (CLib_player getVariable [QGVAR(CollectedSupplies), []]);
-    private _resupplyTime = CLib_player getVariable [QGVAR(ResupplyTime), -1];
+    private _jobData = GVAR(targetVehicle) getVariable [QGVAR(JobData), []];
+    private _collectedSupplies = GVAR(targetVehicle) getVariable [QGVAR(CollectedSupplies), []];
+    private _resupplyTime = GVAR(targetVehicle) getVariable [QGVAR(ResupplyTime), -1];
 
     DUMP("_collectedSupplies = "+ str _collectedSupplies);
     DUMP("_resupplyTime = "+ str _resupplyTime);
@@ -201,53 +181,24 @@ private _onStart = {
     DUMP("_collectedSupplies = "+ str _collectedSupplies);
     DUMP("_jobData = "+ str _jobData);
 
-    CLib_player setVariable [QGVAR(CollectedSupplies), _collectedSupplies];
-    CLib_player setVariable [QGVAR(JobData), _jobData];
+    GVAR(targetVehicle) setVariable [QGVAR(CollectedSupplies), _collectedSupplies, true];
+    GVAR(targetVehicle) setVariable [QGVAR(JobData), _jobData];
 
 
     if (_resupplyTime == -1) then {
         DUMP("APPLY LOADOUT!");
 
-        {
-            _x params ["_type", "_name", "_elements", "_tsc"];
-            if (_type == ST_MAGAZINE) then {
-                CLib_player removeMagazines _name;
-                {
-                    if ((_x select 0) == 0 && (_x select 1) > 0) then {
-                        CLib_player addMagazine [_name, _x select 1];
-                    };
-                } forEach _elements;
-            };
-
-            if (_type == ST_ITEM) then {
-                CLib_player removeItems _name;
-                {
-                    if (_x select 0 == 0 && _x select 1 > 0) then {
-                        CLib_player addItem _name;
-                    };
-                } forEach _elements;
-            };
-        } forEach _jobData;
-    } else {
-        if (_take) then {
-            CLib_player playAction "PutDown";
-        };
-
+        [QGVAR(ApplyVehicleLoadout), GVAR(targetVehicle), [GVAR(targetVehicle), _jobData]] call CFUNC(targetEvent);
     };
-
-
-
-
-
 }] call CFUNC(addEventHandler);
 
 private _onProgress = {
     params ["_target", "_caller"];
 
-    private _startTime = CLib_player getVariable [QGVAR(ResupplyTime), time];
+    private _startTime = GVAR(targetVehicle) getVariable [QGVAR(ResupplyTime), time];
 
-    private _jobData = CLib_player getVariable [QGVAR(JobData), []];
-    private _collectedSupplies = CLib_player getVariable [QGVAR(CollectedSupplies), []];
+    private _jobData = GVAR(targetVehicle) getVariable [QGVAR(JobData), []];
+    private _collectedSupplies = GVAR(targetVehicle) getVariable [QGVAR(CollectedSupplies), []];
 
     private _currentSupplyCost = 0;
     private _totalSupplyCost = 0;
@@ -264,8 +215,8 @@ private _onProgress = {
     _currentSupplyCost = ceil _currentSupplyCost;
 
     if (time - _startTime >= 0.5) then {
-        [QGVAR(RequestSupplies), [_target, CLib_player, 5 min (_currentSupplyCost)]] call CFUNC(serverEvent);
-        CLib_player setVariable [QGVAR(ResupplyTime), time];
+        [QGVAR(RequestSupplies), [GVAR(nearestAmmo), CLib_player, 5 min (_currentSupplyCost), true]] call CFUNC(serverEvent);
+        GVAR(targetVehicle) setVariable [QGVAR(ResupplyTime), time];
     };
 
     (_totalSupplyCost -_currentSupplyCost) / _totalSupplyCost;
@@ -276,9 +227,9 @@ private _onComplete = {
 
     params ["_target", "_caller"];
 
-    CLib_player setVariable [QGVAR(ResupplyTime), -1];
+    GVAR(targetVehicle) setVariable [QGVAR(ResupplyTime), -1];
 
-    [QGVAR(CollectSupplies), [_target, CLib_player]] call CFUNC(localEvent);
+    [QGVAR(CollectVehicleSupplies), [GVAR(nearestAmmo), CLib_player]] call CFUNC(localEvent);
 
 
 
@@ -287,4 +238,4 @@ private _onComplete = {
 
 private _onInterruption = _onComplete;
 
-["All", _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, false] call CFUNC(addHoldAction);
+[CLib_player, _title, _iconIdle, _iconProgress, _condition, _condition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, false, ["isNotInVehicle"]] call CFUNC(addHoldAction);

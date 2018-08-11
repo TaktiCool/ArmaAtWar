@@ -140,11 +140,15 @@ class CfgCLibModules {
         // Logistic
         MODULE(Logistic) {
             dependency[] = {"AAW/Common"};
+            FNC(init);
             FNC(serverInit);
             FNC(clientInit);
             FNC(clientInitActions);
+            FNC(generateSupplyData);
+            FNC(generateSupplyDataVehicle);
             FNC(infantryResupplyAction);
-            FNC(resupplySupplyVehicleAction);
+            FNC(vehicleRearmAction);
+            FNC(refillSuppliesAction);
             FNC(clientInitCargoInventory);
             FNC(getWeight);
             FNC(dragObject);

@@ -113,4 +113,5 @@
 ] call CFUNC(addAction);
 */
 call FUNC(infantryResupplyAction);
-call FUNC(resupplySupplyVehicleAction);
+call FUNC(vehicleRearmAction);
+call FUNC(refillSuppliesAction);

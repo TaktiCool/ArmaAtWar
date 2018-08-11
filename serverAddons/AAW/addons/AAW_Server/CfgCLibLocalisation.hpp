@@ -181,7 +181,7 @@ class CfgCLibLocalisation {
             };
             class UnableToUnload {
                 English = "You are unable to unload the crate at your current position.";
-                German = "Du kannst die Kiste in deiner Aktuellen Postion nicht entladen.";
+                German = "Du kannst die Kiste an deiner aktuellen Postion nicht entladen.";
                 Spanish = "No puedes Descargar la Caja en tu posición actual.";
             };
             class itemToHeavy {
@@ -190,6 +190,18 @@ class CfgCLibLocalisation {
                 German = "Das Objekt ist %1kg zu schwer";
                 Polish = "Przedmiot waży o %1kg za dużo";
                 Spanish = "Artículo se excede de peso por %1kg";
+            };
+            class RearmVehicle {
+                English = "Rearm Vehicle";
+                German = "Fahrzeugmunition auffüllen";
+            };
+            class Resupply {
+                English = "Resupply";
+                German = "Ausrüstung auffüllen";
+            };
+            class RefillSupplies {
+                English = "Refill Supplies";
+                German = "Nachschub auffüllen";
             };
         };
 

@@ -41,57 +41,6 @@ GVAR(supplySourceObjects) = [];
     } count ([QUOTE(PREFIX/Sides)] call CFUNC(getSettingSubClasses));
 }] call CFUNC(addEventHandler);
 
-DFUNC(generateSupplyData) = {
-    private _supplyType = [];
-    private _supplyNames = [];
-    private _supplyCount = [];
-    private _supplyCost = [];
-
-    {
-        private _idx = _supplyNames pushBackUnique _x;
-        private _count = [];
-        if (_idx == -1) then {
-            _idx = _supplyNames find _x;
-            _count = (_supplyCount select _idx);
-        };
-        _count pushback 1;
-        _supplyCount set [_idx, _count];
-        _supplyType set [_idx, ST_ITEM];
-        nil;
-    } count items CLib_player;
-
-    {
-        private _idx = _supplyNames pushBackUnique (_x select 0);
-        private _count = [];
-        if (_idx == -1) then {
-            _idx = _supplyNames find (_x select 0);
-            _count = _supplyCount select _idx;
-        };
-        private _ammoCount = [configFile >> "CfgMagazines" >> (_x select 0) >> "count"] call CFUNC(getConfigDataCached);
-        if (_x select 3 > 0) then {
-            _count pushBack _ammoCount;
-        } else {
-            _count pushBack (_x select 1);
-        };
-
-        _supplyCount set [_idx, _count];
-        _supplyType set [_idx, ST_MAGAZINE];
-        nil;
-    } count magazinesAmmoFull CLib_player;
-
-    private _supplyData = [];
-
-    {
-        _supplyData pushback [
-            _supplyType select _forEachIndex,
-            _x,
-            _supplyCount select _forEachIndex
-        ];
-    } forEach _supplyNames;
-
-    [_supplyNames, _supplyData];
-};
-
 ["respawn", {
     [{
         [{
@@ -107,10 +56,7 @@ DFUNC(generateSupplyData) = {
                     10;
                 };
             };
-
-            private _collectedSupplies = (_supplyData select 0) apply {
-                0
-            };
+            private _collectedSupplies = (_supplyData select 0) apply {0};
             _supplyData pushBack _supplyCost;
             CLib_player setVariable [QGVAR(SupplyData), _supplyData];
             CLib_player setVariable [QGVAR(CollectedSupplies), _collectedSupplies];
@@ -118,29 +64,6 @@ DFUNC(generateSupplyData) = {
     }] call CFUNC(execNextFrame);
 }] call CFUNC(addEventHandler);
 
-/*
-[
-    "Load Supplies",
-    "AllVehicles",
-    5,
-    //compile format ["(str playerside) == ""%1"" && ((leader CLib_Player) == CLib_Player) && (CLib_Player getVariable [""%2"", false])", _side, QEGVAR(Kit,isLeader)],
-    {
-        (vehicle CLib_player) getVariable ["supplyCapacity", 0] > 0 && {
-            ({
-                _x distance vehicle CLib_player <= 20 &&
-                {toLower (_target getVariable ["side", str sideUnknown]) isEqualTo toLower str side group CLib_player}
-            } count GVAR(supplySourceObjects) > 0);
-        }
-    },
-    {
-        [QGVAR(loadSupplies), [vehicle CLib_player]] call CFUNC(serverEvent);
-    },
-    ["onActionAdded", {
-        params ["_id", "_target"];
-        _target setUserActionText [_id, "Load Supplies", "<img size='3' shadow='0' color='#ffffff' image='\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa' shadow=2/><br/><br/>Load Supplies"];
-    }, "priority", 1000, "showWindow", true, "ignoredCanInteractConditions", ["isNotInVehicle"]]
-] call CFUNC(addAction);
-*/
 [
     "Build",
     "All",

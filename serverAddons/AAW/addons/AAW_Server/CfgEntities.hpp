@@ -99,6 +99,7 @@ class CfgEntities {
     class B_Truck_01_box_F : B_Truck_01_Ammo_F {
         constructionVehicle = 1;
         supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
+        supplyType[] = {"Medical", "Ammo"};
     };
 
     class B_Truck_01_fuel_F : B_Truck_01_Ammo_F {
@@ -120,6 +121,7 @@ class CfgEntities {
     class I_Truck_02_box_F : I_Truck_02_Ammo_F {
         constructionVehicle = 1;
         supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
+        supplyType[] = {"Medical", "Ammo"};
     };
 
     class I_Truck_02_fuel_F : I_Truck_02_Ammo_F {
@@ -138,6 +140,7 @@ class CfgEntities {
     class O_Truck_02_box_F : O_Truck_02_Ammo_F {
         constructionVehicle = 1;
         supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
+        supplyType[] = {"Medical", "Ammo"};
     };
 
     class O_Truck_02_fuel_F : O_Truck_02_Ammo_F {
@@ -166,6 +169,7 @@ class CfgEntities {
     class O_Truck_03_box_F : O_Truck_02_Ammo_F {
         constructionVehicle = 1;
         supplyCapacity = S_CAP_CONSTRUCTION_TRUCK;
+        supplyType[] = {"Medical", "Ammo"};
     };
 
     class O_Truck_03_fuel_F : O_Truck_02_Ammo_F {
