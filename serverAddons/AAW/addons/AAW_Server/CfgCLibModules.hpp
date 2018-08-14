@@ -41,8 +41,21 @@ class CfgCLibModules {
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
-                FNC(prepareSpawn);
                 FNC(isValidDeploymentPoint);
+
+                // Callback System
+                FNC(callDeploymentPointCallback);
+                FNCSERVER(registerDeploymentPointTypeCallback);
+
+                MODULE(Callbacks) {
+                    FNC(isAvailableFor);
+                    FNC(isLocked);
+                    FNC(onDeploy);
+                    FNC(onDestroy);
+                    FNC(onPlaced);
+                    FNC(onPrepare);
+                    FNC(onSpawn);
+                };
             };
 
             //Entity Variables
@@ -121,10 +134,10 @@ class CfgCLibModules {
         };
 
         // SquadRespawn system
-        MODULE(SquadRespawn) {
+        /* MODULE(SquadPlayerRespawn) {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
-        };
+        };*/
 
         // Supply system
         MODULE(Supply) {

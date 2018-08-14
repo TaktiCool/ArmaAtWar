@@ -14,16 +14,5 @@
     Id list of points <ARRAY>
 */
 params [["_side", sideUnknown]];
-private _availablePoints = [];
 
-{
-    private _availableFor = [_x, "availableFor"] call FUNC(getDeploymentPointData);
-    if !(isNil "_availableFor") then {
-        if ((_availableFor isEqualType playerSide && {_side == _availableFor}) || (_availableFor isEqualType grpNull && {_side == side _availableFor})) then {
-            _availablePoints pushBack _x;
-        };
-    };
-    nil
-} count (call FUNC(getAllDeploymentPoints));
-
-_availablePoints
+(call FUNC(getAllDeploymentPoints)) select { [_x, _side] call FUNC(isAvailableFor); };

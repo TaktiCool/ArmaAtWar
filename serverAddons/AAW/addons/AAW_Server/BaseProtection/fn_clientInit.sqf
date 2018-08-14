@@ -73,3 +73,30 @@ GVAR(inProtectedZone) = false;
         }, 1] call CFUNC(wait);
     };
 }] call CFUNC(addEventHandler);
+
+GVAR(fireEHID) = -1;
+DFUNC(firedEH) = {
+    params ["_new", "_old"];
+    if (GVAR(fireEHID) != -1) then {
+        _old removeEventHandler ["FiredMan", GVAR(fireEHID)];
+    };
+    GVAR(fireEHID) = _new addEventHandler ["FiredMan", {
+        params [
+            "", // unit
+            "", // weapon
+            "", // muzzle
+            "", // mode
+            "", // ammo
+            "", // magazine
+            "_projectile" // projectile
+        ];
+        if (GVAR(inProtectedZone)) then {
+            ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            deleteVehicle _projectile;
+        };
+    }];
+};
+["playerChanged", {
+    (_this select 0) call FUNC(firedEH);
+}] call CFUNC(addEventhandler);
+[CLib_Player, objNull] call FUNC(firedEH);

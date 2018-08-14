@@ -27,11 +27,10 @@
     Returns:
     Id <STRING>
 */
-params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", ""], ["_customData", []]];
+params ["_name", "_type", "_position", "_availableFor", "_spawnTickets", "_icon", ["_mapIcon", "", ["", []]], ["_customData", []]];
 
-private _id = format ["%1_%2", _name, _position];
+private _id = format ["%1_%2_%3", _type, _name, _position];
 private _namespace = true call CFUNC(createNamespace);
-_namespace setPos _position;
 
 [GVAR(DeploymentPointStorage), _id, _namespace, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
 {
@@ -55,6 +54,20 @@ _namespace setPos _position;
 
 if !(_availableFor isEqualType sideUnknown) then {
     _availableFor = side _availableFor;
+};
+
+[_id] call FUNC(onPlaced);
+
+switch (typeName _position) do {
+    case ("OBJECT"): {
+        _namespace setPos (getPos _position);
+    };
+    case ("CODE"): {
+        _namespace setPos (_id call _position);
+    };
+    default {
+        _namespace setPos _position;
+    };
 };
 
 [QGVAR(deploymentPointAdded), _availableFor, _id] call CFUNC(targetEvent);
