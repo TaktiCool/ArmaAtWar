@@ -250,6 +250,11 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
     _display closeDisplay 1;
 }] call CFUNC(addEventHandler);
 
+addMissionEventHandler ["Ended", {
+    private _display = uiNamespace getVariable [QGVAR(respawnDisplay), displayNull];
+    _display closeDisplay 1;
+}];
+
 
 // Alternative notification display
 ["notificationDisplayed", {
