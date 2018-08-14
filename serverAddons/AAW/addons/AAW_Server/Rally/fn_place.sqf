@@ -30,16 +30,16 @@
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "RallyComposition");
     private _dirVector = vectorDirVisual CLib_Player;
 
-    [_pointId, _composition, _position, _dirVector, CLib_player, [CLib_player, {
+    [_pointId, _composition, _position, _dirVector, CLib_player, objNull, [CLib_player, {
         params ["_uid"];
 
         {
-            ["allowDamage", _x, [_x, false]] call CFUNC(targetEvent);
-            _x setVariable ["FOBState", 1, true];
+            ["enableSimulation", _x, [_x, false]] call CFUNC(targetEvent);
             _x setVariable ["side", str side group CLib_player, true];
             _x setVariable [QGVAR(rallyId), _uid, true];
-        } count (GVAR(compNamespace) getVariable [_uid, []]);
-    }]] call CFUNC(createSimpleObjectComp);] call CFUNC(createSimpleObjectComp);
+            nil;
+        } count (CLib_SimpleObjectFramework_compNamespace getVariable [_uid, []]);
+    }]] call CFUNC(createSimpleObjectComp);
     [_pointId, "pointObjects", _pointId] call EFUNC(Common,setDeploymentPointData);
 
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
