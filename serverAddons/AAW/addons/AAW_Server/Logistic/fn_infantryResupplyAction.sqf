@@ -33,6 +33,9 @@ private _onStart = {
 
     private _currentSupplyData = call FUNC(generateSupplyData);
 
+    private _isAmmoBox = (_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo"]} != -1;
+    private _isMedicBox = "Medical" in (_target getVariable ["supplyType", []]);
+
     private _jobData = [];
     {
         _x params ["_type", "_name", "_count"];
@@ -44,6 +47,7 @@ private _onStart = {
             _currentCount = _count;
         };
         _idx = 0;
+        private _isCorrectBox = (_type == ST_MAGAZINE && _isAmmoBox ) || (_name == "FirstAidKit" && _isMedicBox);
         private _jobDataElement = _count apply {
             private _n = if (count _currentCount > _idx) then {
                 (_currentCount select _idx);
@@ -51,7 +55,8 @@ private _onStart = {
                 0
             };
             _idx = _idx + 1;
-            [(_supplyCost select _forEachIndex)*(_x - _n), _n, _x];
+            private _cost = [(_supplyCost select _forEachIndex)*(_x - _n), 0] select !_isCorrectBox;
+            [_cost, _n, _x];
         };
         _jobDataElement sort true;
         private _totalSupplyCost = 0;
@@ -62,49 +67,9 @@ private _onStart = {
         _jobData pushBack [_type, _name, _jobDataElement, _totalSupplyCost];
     } forEach _supplyData;
 
-    if ((_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo"]} != -1) then {
-        _jobData = _jobData apply {
-            _x params ["_type", "_name", "_elements", "_totalSupplyCost"];
-
-            if (_type == ST_MAGAZINE) then {
-                _x
-            } else {
-                private _elementsNew = [];
-                {
-                    _x params ["_cost", "_count", "_desiredCount"];
-                    if (_count > 0) then {
-                        _elementsNew pushBack [0, _count, _desiredCount];
-                    };
-                } forEach _elements;
-                [_type, _name, _elementsNew, _totalSupplyCost];
-            };
-        };
-
-    };
-
-    if ("Medical" in (_target getVariable ["supplyType", []])) then {
-        _jobData = _jobData apply {
-            _x params ["_type", "_name", "_elements", "_totalSupplyCost"];
-
-            if (tolower _name == tolower "FirstAidKit") then {
-                _x
-            } else {
-                private _elementsNew = [];
-                {
-                    _x params ["_cost", "_count", "_desiredCount"];
-                    if (_count > 0) then {
-                        _elementsNew pushBack [0, _count, _desiredCount];
-                    };
-                } forEach _elements;
-                [_type, _name, _elementsNew, _totalSupplyCost];
-            };
-        };
-    };
 
     CLib_player setVariable [QGVAR(JobData), _jobData];
     CLib_player setVariable [QGVAR(ResupplyTime), time];
-
-
 
 };
 
@@ -234,10 +199,6 @@ private _onStart = {
         };
 
     };
-
-
-
-
 
 }] call CFUNC(addEventHandler);
 
