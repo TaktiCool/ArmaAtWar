@@ -90,7 +90,7 @@ DFUNC(firedEH) = {
             "", // magazine
             "_projectile" // projectile
         ];
-        if (call FUNC(nearBase)) then {
+        if (GVAR(inProtectedZone)) then {
             ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             deleteVehicle _projectile;
         };
