@@ -35,12 +35,12 @@ params ["_target"];
     [_pointId, _composition, _position, _dirVector, _target, CLib_player, [CLib_player, {
         params ["_uid", "_target"];
         deleteVehicle _target;
-        
+
         {
             ["allowDamage", _x, [_x, false]] call CFUNC(targetEvent);
             _x setVariable ["FOBState", 1, true];
             _x setVariable ["side", str side group CLib_player, true];
-            _x setVariable [QGVAR(fobId), _pointId, true];
+            _x setVariable [QGVAR(fobId), _uid, true];
         } count (GVAR(compNamespace) getVariable [_uid, []]);
     }, _target]] call CFUNC(createSimpleObjectComp);
 

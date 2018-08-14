@@ -8,13 +8,100 @@
     Server Init
 
     Parameter(s):
-    -
+    None
 
     Returns:
-    -
+    None
 */
 
 GVAR(namespace) = false call CFUNC(createNamespace);
+
+["FOB", "onDeploy", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    private _spawnTime = [_pointId, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
+    if ([_pointId, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "onDeploy", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "onDeploy", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
+        false;
+    };
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "onPrepare", {
+    params ["_pointId"];
+    private _pointDetails = [_pointId, ["position"]] call EFUNC(Common,getDeploymentPointData);
+    _pointDetails params [["_pos", [0,0,0]]];
+    _pos;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        true;
+    };
+    false;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
+        true;
+    };
+    false;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+["FOB", "isLocked", {
+    params ["_pointId", "_prevRet"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    if ([_pointId, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
+        true;
+    };
+    false;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "isAvailableFor", {
+    params ["_pointId", "_prevRet", "_target"];
+    if (_target isEqualType objNull) then {
+        _target = group _target;
+    };
+    if (_target isEqualType grpNull) then {
+        _target = side _target;
+    };
+    if ([_pointId, "availableFor", 0] call EFUNC(Common,getDeploymentPointData) isEqualTo _target) then {
+        true;
+    } else {
+        if (isNil "_prevRet") then {
+            false;
+        } else {
+            _prevRet;
+        };
+    };
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
+
+["FOB", "onDestroy", {
+    params ["_pointId", "_prevRet", "_pointObjects"];
+    if !(isNil "_prevRet") exitWith { _prevRet; };
+    _pointObjects call CFUNC(deleteSimpleObjectComp);
+    true;
+}] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 [QGVAR(startDestroyTimer), {
     (_this select 0) params ["_pointId"];

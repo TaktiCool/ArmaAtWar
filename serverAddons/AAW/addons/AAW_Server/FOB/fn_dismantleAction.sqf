@@ -19,7 +19,7 @@ private _iconProgress = "\A3\Ui_f\data\IGUI\Cfg\HoldActions\holdAction_forceResp
 private _showCondition = {
     _target getVariable ["FOBState", 0] == 1 && {CLib_Player distance _target <= 5}
     && {
-        private _pointDetails = [_target getVariable [QGVAR(fobId), 0], ["availablefor", "counterActive"]] call EFUNC(Common,getDeploymentPointData);
+        private _pointDetails = [_target getVariable [QGVAR(fobId), ""], ["availablefor", "counterActive"]] call EFUNC(Common,getDeploymentPointData);
         _pointDetails params [["_availableFor", sideUnknown], ["_counterActive", 0]];
         _counterActive == 0 && _availableFor == side group CLib_Player;
     }

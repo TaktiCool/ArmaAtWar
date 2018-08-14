@@ -23,29 +23,24 @@
 
     [group CLib_Player] call FUNC(destroy);
 
-    private _pointObjects = getArray (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "squadRallyPointObjects");
-
-    _pointObjects = _pointObjects apply {
-        _x params ["_type", "_offset"];
-
-        private _objPosition = _position vectorAdd _offset;
-        private _obj = createVehicle [_type, [0, 0, 0], [], 0, "CAN_COLLIDE"];
-        _obj setPos _objPosition;
-        ["setVectorUp", _obj, [_obj, surfaceNormal getPos _obj]] call CFUNC(targetEvent);
-        ["allowDamage", _obj, [_obj, false]] call CFUNC(targetEvent);
-        _obj
-    };
-
-
     (group CLib_Player) setVariable [QGVAR(lastRallyPlaced), serverTime, true];
     private _text = format ["RP %1", groupId group CLib_Player];
     private _spawnCount = [CFGSRP(spawnCount), 1] call CFUNC(getSetting);
-    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa", [["pointObjects", _pointObjects]]] call EFUNC(Common,addDeploymentPoint);
+    private _pointId = [_text, "RALLY", _position, group CLib_Player, _spawnCount, "A3\ui_f\data\map\groupicons\badge_simple.paa", "A3\ui_f\data\map\groupicons\badge_simple.paa"] call EFUNC(Common,addDeploymentPoint);
+    private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "RallyComposition");
+    private _dirVector = vectorDirVisual CLib_Player;
 
-    {
-        _x setVariable [QGVAR(rallyId), _pointId];
-        nil;
-    } count _pointObjects;
+    [_pointId, _composition, _position, _dirVector, CLib_player, [CLib_player, {
+        params ["_uid"];
+
+        {
+            ["allowDamage", _x, [_x, false]] call CFUNC(targetEvent);
+            _x setVariable ["FOBState", 1, true];
+            _x setVariable ["side", str side group CLib_player, true];
+            _x setVariable [QGVAR(rallyId), _uid, true];
+        } count (GVAR(compNamespace) getVariable [_uid, []]);
+    }]] call CFUNC(createSimpleObjectComp);] call CFUNC(createSimpleObjectComp);
+    [_pointId, "pointObjects", _pointId] call EFUNC(Common,setDeploymentPointData);
 
     (group CLib_Player) setVariable [QGVAR(rallyId), _pointId, true];
 
