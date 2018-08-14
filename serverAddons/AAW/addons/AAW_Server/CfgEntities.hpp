@@ -81,7 +81,7 @@ class CfgEntities {
     };
 
     /*
-    Vehicle Config
+    Vehicle Config VANILLA ARMA
     */
     // TRUCKS
     class Truck_01_base_F {
@@ -409,5 +409,40 @@ class CfgEntities {
 		cargoCapacity = 100;
         respawnTime = 600;
         ticketValue = T_VTOL_ARMED;
+    };
+
+    /*
+    Vehicle Config IFA3
+    */
+    /*
+    Vehicle Config
+    */
+    // TRUCKS
+    class LIB_Truck_base {
+        side = "WEST";
+        cargoCapacity = 50;
+        respawnTime = 180;
+        ticketValue = T_TRUCK_TRANSPORT;
+    };
+
+    class LIB_Scout_M3_base : LIB_Truck_base {
+        side = "GUER";
+    };
+
+    class LIB_US_GMC_Base : LIB_Truck_base {
+        side = "GUER";
+    };
+
+
+    // MRAPs
+    class LIB_Car_base : defaultVehicle {
+        side = "WEST";
+        cargoCapacity = 20;
+        respawnTime = 300;
+        ticketValue = T_MRAP;
+    };
+
+    class LIB_Willys_MB_base : LIB_Car_base {
+        side = "GUER";
     };
 };
