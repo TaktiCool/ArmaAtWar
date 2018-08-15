@@ -43,7 +43,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     private _primaryWeaponCompMags = _primaryWeapon call CFUNC(compatibleMagazines);
     private _primaryWeaponMuzzleCompMags = [];
     {
-        if (toLower _x == "this") then {
+        if (toLower _x != "this") then {
             _primaryWeaponMuzzleCompMags append ([_primaryWeapon, _x] call CFUNC(compatibleMagazines));
         };
         nil
@@ -53,7 +53,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     private _secondaryWeaponCompMags = _secondaryWeapon call CFUNC(compatibleMagazines);
     private _secondaryWeaponMuzzleCompMags = [];
     {
-        if (toLower _x == "this") then {
+        if (toLower _x != "this") then {
             _secondaryWeaponMuzzleCompMags append ([_secondaryWeapon, _x] call CFUNC(compatibleMagazines));
         };
         nil
@@ -63,7 +63,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     private _handgunWeaponCompMags = _handgunWeapon call CFUNC(compatibleMagazines);
     private _handgunWeaponMuzzleCompMags = [];
     {
-        if (toLower _x == "this") then {
+        if (toLower _x != "this") then {
             _handgunWeaponMuzzleCompMags append ([_handgunWeapon, _x] call CFUNC(compatibleMagazines));
         };
         nil
