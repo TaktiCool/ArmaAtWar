@@ -32,6 +32,78 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     _grpMain ctrlCommit 0.5;
 }] call CFUNC(addEventHandler);
 
+[UIVAR(Inventory_onUpdate), {
+    private _grpMain = uiNamespace getVariable [QGVAR(GrpMain), controlNull];
+    if ((ctrlFade _grpMain) == 1) exitWith {};
+    private _mags = magazines CLib_Player;
+
+    private _primaryWeapon = primaryWeapon CLib_Player
+    private _secondaryWeapon = secondaryWeapon CLib_Player
+    private _handgunWeapon = handgunWeapon CLib_Player
+    private _primaryWeaponCompMags = _primaryWeapon call CFUNC(compatibleMagazines);
+    private _primaryWeaponMuzzleCompMags = [];
+    {
+        if (toLower _x == "this") then {
+            _primaryWeaponMuzzleCompMags append ([_primaryWeapon, _x] call CFUNC(compatibleMagazines));
+        };
+        nil
+    } count (getArray (configFile >> "CfgWeapons" >> _primaryWeapon >> "muzzles"));
+    _primaryWeaponMuzzleCompMags = _primaryWeaponMuzzleCompMags arrayIntersect _primaryWeaponMuzzleCompMags;
+
+    private _secondaryWeaponCompMags = _secondaryWeapon call CFUNC(compatibleMagazines);
+    private _secondaryWeaponMuzzleCompMags = [];
+    {
+        if (toLower _x == "this") then {
+            _secondaryWeaponMuzzleCompMags append ([_secondaryWeapon, _x] call CFUNC(compatibleMagazines));
+        };
+        nil
+    } count (getArray (configFile >> "CfgWeapons" >> _secondaryWeapon >> "muzzles"));
+    _secondaryWeaponMuzzleCompMags = _secondaryWeaponMuzzleCompMags arrayIntersect _secondaryWeaponMuzzleCompMags;
+
+    private _handgunWeaponCompMags = _handgunWeapon call CFUNC(compatibleMagazines);
+    private _handgunWeaponMuzzleCompMags = [];
+    {
+        if (toLower _x == "this") then {
+            _handgunWeaponMuzzleCompMags append ([_handgunWeapon, _x] call CFUNC(compatibleMagazines));
+        };
+        nil
+    } count (getArray (configFile >> "CfgWeapons" >> _handgunWeapon >> "muzzles"));
+    _handgunWeaponMuzzleCompMags = _handgunWeaponMuzzleCompMags arrayIntersect _handgunWeaponMuzzleCompMags;
+
+    private _primaryWeaponMagCount = 0;
+    private _primaryWeaponMuzzleMagCount = 0;
+
+    private _secondaryWeaponMagCount = 0;
+    private _secondaryWeaponMuzzleMagCount = 0;
+
+    private _handgunWeaponMagCount = 0;
+    private _handgunWeaponMuzzleMagCount = 0;
+
+    {
+        switch (true) do {
+            case (_x in _primaryWeaponCompMags): {
+                _primaryWeaponMagCount = _primaryWeaponMagCount + 1;
+            };
+            case (_x in _primaryWeaponMuzzleCompMags): {
+                _primaryWeaponMuzzleMagCount = _primaryWeaponMuzzleMagCount + 1;
+            };
+            case (_x in _secondaryWeaponCompMags): {
+                _secondaryWeaponMagCount = _secondaryWeaponMagCount + 1;
+            };
+            case (_x in _secondaryWeaponMuzzleCompMags): {
+                _secondaryWeaponMuzzleMagCount = _secondaryWeaponMuzzleMagCount + 1;
+            };
+            case (_x in _handgunWeaponCompMags): {
+                _handgunWeaponMagCount = _handgunWeaponMagCount + 1;
+            };
+            case (_x in _handgunWeaponMuzzleCompMags): {
+                _handgunWeaponMuzzleMagCount = _handgunWeaponMuzzleMagCount + 1;
+            };
+        };
+        nil
+    } count _mags;
+}] call CFUNC(addEventhandler);
+
 ["missionStarted", {
     private _display = findDisplay 46;
     if (isNull _display) exitWith {};
@@ -89,3 +161,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         [UIVAR(Inventory_onHide), _grpMain] call CFUNC(localEvent);
     }, 1.5, _grpMain] call CFUNC(wait);
 }] call CFUNC(addEventHandler);
+
+["playerInventoryChanged", {
+    UIVAR(Inventory_onUpdate) call CFUNC(localEvent);
+}] call CFUNC(addEventhandler);
