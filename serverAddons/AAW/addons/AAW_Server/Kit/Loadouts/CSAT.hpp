@@ -22,8 +22,8 @@ class CSAT_StandardSoldier : A3_StandardSoldier {
     headgear[] = {"H_HelmetO_ocamo"};
 
 
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{};
-    class HandgunClass : CSAT_StandardHandgun{};
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {};
+    class HandgunClass : CSAT_StandardHandgun {};
 };
 
 class CSAT_Rifleman : CSAT_StandardSoldier {
@@ -34,22 +34,22 @@ class CSAT_SquadLeader : CSAT_StandardSoldier {
     headgear[] = {"H_HelmetLeaderO_ocamo"};
     binocular[] = {"Binocular"};
 
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_Hamr"};
     };
 
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class CSAT_Medic : CSAT_StandardSoldier {
     backpack[] = {"B_AssaultPack_ocamo"};
 
-    class MedicalsClass : A3_MedicClassMedicals{};
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class MedicalsClass : A3_MedicClassMedicals {};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class CSAT_AutomaticRifleman : CSAT_StandardSoldier {
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeapon[] = {"LMG_Zafir_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"150Rnd_762x54_Box", 1}};
@@ -59,13 +59,13 @@ class CSAT_AutomaticRifleman : CSAT_StandardSoldier {
 
 class CSAT_Grenadier : CSAT_StandardSoldier {
     class GrenadesClass : A3_GrenadierGrenades {};
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_Katiba_GL_F"};
     };
 };
 
 class CSAT_Marksman : CSAT_StandardSoldier {
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_Arco"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
     };
@@ -94,7 +94,7 @@ class CSAT_AntiTank : CSAT_StandardSoldier {
 
 class CSAT_Crewman : CSAT_StandardSoldier {
     headgear[] = {"H_HelmetCrew_O"};
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_Katiba_C_F"};
         magazines[] = {{"30Rnd_65x39_caseless_green", 3}};
     };
@@ -108,7 +108,7 @@ class CSAT_Pilot : CSAT_Crewman {
 
 class CSAT_Sniper : CSAT_StandardSoldier {
     uniform[] = {"U_O_FullGhillie_lsh"};
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeapon[] = {"srifle_GM6_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
         magazines[] = {{"5Rnd_127x108_Mag", 6}};
@@ -119,7 +119,7 @@ class CSAT_Sniper : CSAT_StandardSoldier {
 class CSAT_Spotter : CSAT_StandardSoldier {
     uniform[] = {"U_O_FullGhillie_lsh"};
     binocular[] = {"Rangefinder"};
-    class PrimaryWeaponClass : CSAT_StandardAssaultRifle{
+    class PrimaryWeaponClass : CSAT_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_Hamr"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
     };

@@ -22,8 +22,8 @@ class AAF_StandardSoldier : A3_StandardSoldier {
     headgear[] = {"H_HelmetIA"};
 
 
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{};
-    class HandgunClass : AAF_StandardHandgun{};
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {};
+    class HandgunClass : AAF_StandardHandgun {};
 };
 
 class AAF_Rifleman : AAF_StandardSoldier {
@@ -37,14 +37,14 @@ class AAF_SquadLeader : AAF_StandardSoldier {
         primaryWeaponOptic[] = {"optic_MRCO"};
     };
 
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class AAF_Medic : AAF_StandardSoldier {
     backpack[] = {"B_AssaultPack_dgtl"};
 
     class MedicalsClass : A3_MedicClassMedicals {};
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class AAF_AutomaticRifleman : AAF_StandardSoldier {
@@ -58,13 +58,13 @@ class AAF_AutomaticRifleman : AAF_StandardSoldier {
 
 class AAF_Grenadier : AAF_StandardSoldier {
     class GrenadesClass : A3_GrenadierGrenades {};
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_Mk20_GL_F"};
     };
 };
 
 class AAF_Marksman : AAF_StandardSoldier {
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_MRCO"};
         primaryWeaponResting[] = {"bipod_03_F_blk"};
     };
@@ -93,7 +93,7 @@ class AAF_AntiTank : AAF_StandardSoldier {
 
 class AAF_Crewman : AAF_StandardSoldier {
     headgear[] = {"H_HelmetCrew_I"};
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_Mk20C_F"};
         magazines[] = {{"30Rnd_556x45_Stanag", 3}};
         primaryWeaponLoadedMagazine[] = {"30Rnd_556x45_Stanag"};
@@ -107,7 +107,7 @@ class AAF_Pilot : AAF_Crewman {
 
 class AAF_Sniper : AAF_StandardSoldier {
     uniform[] = {"U_I_FullGhillie_lsh"};
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeapon[] = {"srifle_GM6_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
         magazines[] = {{"5Rnd_127x108_Mag", 6}};
@@ -118,7 +118,7 @@ class AAF_Sniper : AAF_StandardSoldier {
 class AAF_Spotter : AAF_StandardSoldier {
     uniform[] = {"U_I_FullGhillie_lsh"};
     binocular[] = {"Rangefinder"};
-    class PrimaryWeaponClass : AAF_StandardAssaultRifle{
+    class PrimaryWeaponClass : AAF_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_MRCO"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
     };

@@ -34,10 +34,10 @@ class IFA3_US_StandardSoldier : A3_StandardSoldier {
     backpack[] = {"B_LIB_US_M36"};
     headgear[] = {"H_LIB_US_AB_Helmet"};
 
-    class HandgunClass : IFA3_US_StandardHandgun{};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{};
-    class GrenadesClass : IFA3_US_StandardGrenades{};
-    class BasicItemsClass : IFA3_BasicItems{};
+    class HandgunClass : IFA3_US_StandardHandgun {};
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {};
+    class GrenadesClass : IFA3_US_StandardGrenades {};
+    class BasicItemsClass : IFA3_BasicItems {};
 };
 
 class IFA3_US_Rifleman : IFA3_US_StandardSoldier {
@@ -54,20 +54,20 @@ class IFA3_US_SquadLeader : IFA3_US_StandardSoldier {
         primaryWeaponLoadedMagazine[] = {"LIB_30Rnd_45ACP"};
     };
 
-    class SignalGrenadesClass : IFA3_US_SignalGrenades{};
+    class SignalGrenadesClass : IFA3_US_SignalGrenades {};
 };
 
 class IFA3_US_Medic : IFA3_US_StandardSoldier {
     vest[] = {"V_LIB_US_Vest_Medic"};
     headgear[] = {"H_LIB_US_AB_Helmet_Medic_1"};
 
-    class MedicalsClass : A3_MedicClassMedicals{};
-    class SignalGrenadesClass : IFA3_US_SignalGrenades{};
+    class MedicalsClass : A3_MedicClassMedicals {};
+    class SignalGrenadesClass : IFA3_US_SignalGrenades {};
 };
 
 class IFA3_US_AutomaticRifleman : IFA3_US_StandardSoldier {
     vest[] = {"V_LIB_US_AB_Vest_Bar"};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1918A2_BAR"};
         magazines[] = {{"LIB_20Rnd_762x63", 9}};
         primaryWeaponLoadedMagazine[] = {"LIB_20Rnd_762x63"};
@@ -76,13 +76,13 @@ class IFA3_US_AutomaticRifleman : IFA3_US_StandardSoldier {
 
 class IFA3_US_Grenadier : IFA3_US_StandardSoldier {
     class GrenadesClass : IFA3_US_GrenadierGrenades {};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryAttachments[] = {"LIB_ACC_GL_M7"};
     };
 };
 
 class IFA3_US_Marksman : IFA3_US_StandardSoldier {
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1903A4_Springfield"};
         magazines[] = {{"LIB_5Rnd_762x63", 7}};
         primaryWeaponLoadedMagazine[] = {"LIB_5Rnd_762x63"};
@@ -98,7 +98,7 @@ class IFA3_US_LightAntiTank : IFA3_US_StandardSoldier {
 
 class IFA3_US_MachineGunner : IFA3_US_StandardSoldier {
     vest[] = {"V_LIB_US_AB_Vest_Bar"};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1919A4"};
         magazines[] = {{"LIB_50Rnd_762x63", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_50Rnd_762x63"};
@@ -110,7 +110,7 @@ class IFA3_US_Crewman : IFA3_US_StandardSoldier {
     uniform[] = {"U_LIB_US_Tank_Crew"};
     headgear[] = {"H_LIB_US_Helmet_Tank"};
     vest[] = {""};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_MP40"};
         magazines[] = {{"LIB_32Rnd_9x19", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_32Rnd_9x19"};
@@ -120,7 +120,7 @@ class IFA3_US_Crewman : IFA3_US_StandardSoldier {
 class IFA3_US_Pilot : IFA3_US_Crewman {
     uniform[] = {"U_LIB_US_Tank_Crew"};
     headgear[] = {"H_LIB_US_Helmet_Tank"};
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1_Carbine"};
         magazines[] = {{"LIB_15Rnd_762x33", 3}};
     };
@@ -128,7 +128,7 @@ class IFA3_US_Pilot : IFA3_US_Crewman {
 
 class IFA3_US_Sniper : IFA3_US_StandardSoldier {
 
-    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_US_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1903A4_Springfield"};
         magazines[] = {{"LIB_10Rnd_792x57", 6}};
         primaryWeaponLoadedMagazine[] = {"LIB_10Rnd_792x57"};

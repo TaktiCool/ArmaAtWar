@@ -98,7 +98,7 @@ class IFA3_UK_LightAntiTank : IFA3_UK_StandardSoldier {
 
 class IFA3_UK_MachineGunner : IFA3_UK_StandardSoldier {
     vest[] = {"V_LIB_UK_P37_Heavy"};
-    class PrimaryWeaponClass : IFA3_UK_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_UK_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M1919A4"};
         magazines[] = {{"LIB_50Rnd_762x63", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_50Rnd_762x63"};
