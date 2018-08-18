@@ -156,6 +156,14 @@ class CfgCLibLocalisation {
                 Korean = "내려놓기";
                 Spanish = "Soltar";
             };
+            class DropAmmoBox {
+                English = "Drop Ammo Box";
+                German = "Munitionskiste aufstellen";
+            };
+            class TakeAmmoBox {
+                English = "Take Ammo Box";
+                German = "Munitionskiste aufnehmen";
+            };
             class loadItem {
                 English = "Load item into %1";
                 Czech =  "Nalož předmět do %1";
