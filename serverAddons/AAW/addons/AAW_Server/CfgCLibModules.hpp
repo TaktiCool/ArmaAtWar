@@ -133,12 +133,6 @@ class CfgCLibModules {
             FNC(clientInit);
         };*/
 
-        // Supply system
-        MODULE(Supply) {
-            dependency[] = {"AAW/Common", "AAW/Kit"};
-            FNC(clientInitVehicle);
-        };
-
         // Kit
         MODULE(Kit) {
             dependency[] = {"AAW/Common"};
