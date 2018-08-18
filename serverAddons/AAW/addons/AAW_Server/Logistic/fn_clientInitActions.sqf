@@ -91,6 +91,60 @@
     },
     ["ignoredCanInteractConditions", ["isNotDragging"], "priority", 3000]
 ] call CFUNC(addAction);
+
+[
+    QLSTRING(DropAmmoBox),
+    CLib_Player,
+    0,
+    {CLib_Player getVariable ["ammoBox", []] findIf {_x > 0} > -1},
+    {
+        private _ammoBoxData = CLib_Player getVariable ["ammoBox", []];
+
+        if (_ammoBoxData isEqualTo []) exitWith {};
+
+        _ammoBoxData sort false;
+
+        if (_ammoBoxData select 0 <= 0) exitWith {};
+
+        private _ammoBox = createVehicle ["Land_Ammobox_rounds_F", CLib_player modelToWorld [0, 1, 0], [], 0, "CAN_COLLIDE"];
+        _ammoBox setVariable ["supplyType", ["AmmoInfantrySmall"], true];
+        _ammoBox setVariable ["supplyPoints", _ammoBoxData select 0, true];
+        _ammoBox setVariable ["ammoBoxOwner", CLib_player, true];
+        _ammoBox setVariable ["side", str side group CLib_player, true];
+        _ammoBoxData set [0, 0];
+
+        CLib_player setVariable ["ammoBox", _ammoBoxData];
+
+        CLib_player playAction "PutDown";
+    },
+    ["priority", 2000]
+] call CFUNC(addAction);
+
+[
+    QLSTRING(TakeAmmoBox),
+    "Land_Ammobox_rounds_F",
+    3,
+    {_target getVariable ["ammoBoxOwner", objNull] isEqualTo CLib_player && CLib_Player getVariable ["ammoBox", []] findIf {_x == 0} > -1},
+    {
+        params ["_ammoBox"];
+        private _ammoBoxData = CLib_Player getVariable ["ammoBox", []];
+
+        if (_ammoBoxData isEqualTo []) exitWith {};
+
+        _ammoBoxData sort true;
+
+        if (_ammoBoxData select 0 > 0) exitWith {};
+
+        if !(_ammoBox getVariable ["ammoBoxOwner", objNull] isEqualTo CLib_player) exitWith {};
+
+        _ammoBoxData set [0, _ammoBox getVariable ["supplyPoints", 0]];
+
+        deleteVehicle _ammoBox;
+
+        CLib_player playAction "PutDown";
+    },
+    ["priority", 2100]
+] call CFUNC(addAction);
 /*
 [
     {format [MLOC(UnloadItem), getText (configFile >> "CfgVehicles" >> typeOf _target >> "displayName")]},

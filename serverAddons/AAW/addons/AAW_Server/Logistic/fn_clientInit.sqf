@@ -53,7 +53,11 @@ GVAR(supplySourceObjects) = [];
                     private _ammoCost = [configFile >> "CfgAmmo" >> _ammoType >> "cost"] call CFUNC(getConfigDataCached);
                     sqrt (_ammoCost*_ammoCount)/_ammoCount;
                 } else {
-                    10;
+                    if (_x select 0 == ST_AMMOBOX) then {
+                        1
+                    } else {
+                        10;
+                    }
                 };
             };
             private _collectedSupplies = (_supplyData select 0) apply {0};

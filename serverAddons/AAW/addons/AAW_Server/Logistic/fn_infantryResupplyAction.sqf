@@ -20,7 +20,7 @@ private _iconIdle = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_
 private _iconProgress = "\a3\ui_f\data\IGUI\Cfg\HoldActions\holdAction_unloadDevice_ca.paa";
 private _condition = {
     [_target, 3] call CFUNC(inRange)
-    && {((_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo","Medical"]}) != -1
+    && {((_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry","AmmoInfantrySmall", "Ammo","Medical"]}) != -1
     && {(_target getVariable ["supplyPoints", 0]) > 0}}
 };
 
@@ -33,8 +33,9 @@ private _onStart = {
 
     private _currentSupplyData = call FUNC(generateSupplyData);
 
-    private _isAmmoBox = (_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo"]} != -1;
+    private _isAmmoBox = (_target getVariable ["supplyType", []]) findIf {_x in ["AmmoInfantry", "Ammo", "AmmoInfantrySmall"]} != -1;
     private _isMedicBox = "Medical" in (_target getVariable ["supplyType", []]);
+    private _isSmall = "AmmoInfantrySmall" in (_target getVariable ["supplyType", []]);
 
     private _jobData = [];
     {
@@ -47,7 +48,8 @@ private _onStart = {
             _currentCount = _count;
         };
         _idx = 0;
-        private _isCorrectBox = (_type == ST_MAGAZINE && _isAmmoBox ) || (_name == "FirstAidKit" && _isMedicBox);
+        private _isCorrectBox = (_type in [ST_MAGAZINE, ST_AMMOBOX] && _isAmmoBox ) || (_name == "FirstAidKit" && _isMedicBox);
+
         private _jobDataElement = _count apply {
             private _n = if (count _currentCount > _idx) then {
                 (_currentCount select _idx);
@@ -55,7 +57,8 @@ private _onStart = {
                 0
             };
             _idx = _idx + 1;
-            private _cost = [(_supplyCost select _forEachIndex)*(_x - _n), 0] select !_isCorrectBox;
+            private _cost = [0, (_supplyCost select _forEachIndex)*(_x - _n)] select _isCorrectBox;
+            _cost = [_cost, 0] select (_isSmall && _cost > 20);
             [_cost, _n, _x];
         };
         _jobDataElement sort true;
@@ -103,9 +106,9 @@ private _onStart = {
         DUMP("_amount = "+ str _amount);
 
         private _sumAmount = 0;
-        {
+        private _nbrAmount = {
             _sumAmount = _sumAmount + _x;
-            nil
+            _x > 0;
         } count _amount;
 
         DUMP("_sumAmount = "+ str _sumAmount);
@@ -122,7 +125,7 @@ private _onStart = {
         };
 
         _distributedSupplies = _amount apply {
-            (_x/_sumAmount)*_points;
+            (_nbrAmount/count(_amount))*_points;
         };
 
         DUMP("_distributedSupplies = "+ str _distributedSupplies);
@@ -191,6 +194,11 @@ private _onStart = {
                         CLib_player addItem _name;
                     };
                 } forEach _elements;
+            };
+
+            if (_type == ST_AMMOBOX) then {
+                private _ammoBoxData = _elements apply {_x select 1};
+                CLib_player setVariable ["ammoBox", _ammoBoxData];
             };
         } forEach _jobData;
     } else {

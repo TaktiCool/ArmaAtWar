@@ -50,6 +50,14 @@ private _supplyCost = [];
     nil;
 } count magazinesAmmoFull CLib_player;
 
+if !(CLib_player getVariable ["ammoBox",[]] isEqualTo []) then {
+    private _ammoBoxData = CLib_player getVariable ["ammoBox",[]];
+
+    private _idx = _supplyNames pushBackUnique "AAW_AmmoBox";
+    _supplyCount set [_idx, +_ammoBoxData];
+    _supplyType set [_idx, ST_AMMOBOX];
+};
+
 private _supplyData = [];
 
 {
