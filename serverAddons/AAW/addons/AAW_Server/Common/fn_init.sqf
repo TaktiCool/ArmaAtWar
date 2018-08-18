@@ -163,7 +163,7 @@ if (hasInterface) then {
                 {
                     ["hideObject", [CLib_Player, true]] call CFUNC(serverEvent);
                     ["enableSimulation", [CLib_Player, false]] call CFUNC(serverEvent);
-                    ["allowDamage", "gcam", false] call CFUNC(setStatusEffect);
+                    [CLib_Player, "allowDamage", "gcam", false] call CFUNC(setStatusEffect);
                 }
             ] call CFUNC(addAction);
         }, 10] call CFUNC(wait);

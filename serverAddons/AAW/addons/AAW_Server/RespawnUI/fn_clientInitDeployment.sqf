@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(lastDeploymentPoint) = "";
 GVAR(selectedDeploymentPoint) = "";
@@ -54,7 +55,7 @@ GVAR(firstRespawn) = true;
         private _minRespawnTime = time;
 
         if (GVAR(firstRespawn)) then {
-            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime*60*60));
+            _minRespawnTime = _minRespawnTime + (EGVAR(Common,missionStartTime) - (daytime * 60 * 60));
         } else {
             if (EGVAR(Revive,UnconsciousSince) > -1) then {
                 _minRespawnTime = EGVAR(Revive,UnconsciousSince);
@@ -130,37 +131,21 @@ GVAR(firstRespawn) = true;
             ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
         };
 
-        private _spawnTime = [_currentDeploymentPointSelection, "spawnTime", 0] call EFUNC(Common,getDeploymentPointData);
-        if ([_currentDeploymentPointSelection, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT LOCKED!", ["Unlocked in %1 sec.", round (_spawnTime - serverTime)]] call EFUNC(Common,displayHint);
-        };
+        if !([_currentDeploymentPointSelection] call EFUNC(Common,onDeploy)) exitWith {};
 
-        if ([_currentDeploymentPointSelection, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-            ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
-        };
-
-        if ([_currentDeploymentPointSelection, "counterActive", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
-            ["RESPAWN POINT BLOCKED!", "The enemy has placed a bomb!"] call EFUNC(Common,displayHint);
-        };
-
-        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,prepareSpawn);
+        private _deployPosition = [_currentDeploymentPointSelection] call EFUNC(Common,onPrepare);
         GVAR(lastDeploymentPoint) = _currentDeploymentPointSelection;
         _deploymentDisplay closeDisplay 1;
 
         [{
-            params ["_deployPosition"];
-
-            // Spawn
-            [AGLToASL ([_deployPosition, 5, 0, typeOf CLib_Player] call CFUNC(findSavePosition))] call EFUNC(Common,respawn);
-
+            _this call EFUNC(Common,onSpawn);
             [{
+                [CLib_Player, CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
+
                 // Fix issue that player spawn Prone
                 ["switchMove", [CLib_Player, ""]] call CFUNC(globalEvent);
-
-                // Apply selected kit
-                [CLib_Player getVariable [QEGVAR(Kit,kit), ""]] call EFUNC(Kit,applyKit);
             }] call CFUNC(execNextFrame);
-        }, [_deployPosition]] call CFUNC(execNextFrame);
+        }, [_deployPosition, _currentDeploymentPointSelection]] call CFUNC(execNextFrame);
     }, [_deploymentDisplay, _roleDisplay], "respawn"] call CFUNC(mutex);
 }] call CFUNC(addEventHandler);
 
@@ -194,7 +179,7 @@ GVAR(firstRespawn) = true;
         _pointDetails params ["_name", "_tickets", "_icon", "_type"];
         private _color = [1, 1, 1, 1];
 
-        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentCustomData) == 1) then {
+        if ([_x, "spawnPointLocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) then {
             _color = [0.3, 0.3, 0.3, 1];
         };
 
@@ -212,7 +197,7 @@ GVAR(firstRespawn) = true;
 
         _lnbData pushBack [[_name], _x, _icon, _color];
         nil
-    } count (call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
+    } count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints)); // TODO use current position if deployment is deactivated
 
     // Update the lnb
     [_display displayCtrl 403, _lnbData] call FUNC(updateListNBox); // This may trigger an lbSelChanged event

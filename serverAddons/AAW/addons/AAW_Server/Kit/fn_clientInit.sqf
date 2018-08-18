@@ -13,6 +13,8 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 // When the player changes he takes his kit with him.
 ["playerChanged", {
     (_this select 0) params ["_newPlayer", "_oldPlayer"];
@@ -40,12 +42,11 @@
         };
 
         // Read the player kit settings.
-        private _currentKitName = CLib_Player getVariable [QGVAR(kit), ""];
-        private _kitDetails = [_currentKitName, [["isCrew", 0], ["isPilot", 0]]] call FUNC(getKitDetails);
-        _kitDetails params ["_isCrew", "_isPilot"];
+        private _isCrew = CLib_Player getVariable [QGVAR(isCrew), false];
+        private _isPilot = CLib_Player getVariable [QGVAR(isPilot), false];
 
         // Pilot kit for pilot seats.
-        if (_actionName in ["GetInPilot", "MoveToPilot"] && _isPilot == 0) exitWith {
+        if (_actionName in ["GetInPilot", "MoveToPilot"] && !_isPilot) exitWith {
             ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };
@@ -80,7 +81,7 @@
             private _turretConfig = _turretConfigs select (_possibleTexts find _title);
 
             // Now check if the turret has a gun.
-            if (!(getText (_turretConfig >> "body") == "") && (_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F")) exitWith {
+            if (!(getText (_turretConfig >> "body") == "") && ([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray))) exitWith {
                 // Turrets with guns always require a driver (except statics).
                 if (!alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
                     ["VEHICLE LOCKED", "Driver needs to be present<br>before boarding a gunner seat!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
@@ -88,7 +89,7 @@
                 };
 
                 // Turrets with guns in air, tank and wheeled apc require crew kit.
-                if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+                if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
                     ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
@@ -100,7 +101,7 @@
             if (getNumber (_turretConfig >> "hideWeaponsGunner") == 1) exitWith {
                 // This is a turret without a gun and without the players handheld weapon (only copilot afaik).
                 // Copilot need pilot kit
-                if (_vehicle isKindOf "Air" && _isPilot == 0) exitWith {
+                if (_vehicle isKindOf "Air" && !_isPilot) exitWith {
                     ["VEHICLE LOCKED", "Please select a pilot role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
                     true
                 };
@@ -113,7 +114,7 @@
 
         // Driver
         // Tank and APC driver require crew kit.
-        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && _isCrew == 0) exitWith {
+        if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
             ["VEHICLE LOCKED", "Please select a crew role first!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
             true
         };

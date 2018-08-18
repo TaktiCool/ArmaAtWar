@@ -14,13 +14,15 @@ class CfgCLibModules {
 
         // Common
         MODULE(Common) {
-            // dependency[] = {"CLib/Core", "CLib/PerFrame", "CLib/Events", "CLib/Localisation", "CLib/ConfigCaching", "CLib/3dGraphics", "CLib/extensionFramework", "CLib/Gear", "CLib/Interaction", "CLib/lnbData", "CLib/MapGraphics", "CLib/Mutex", "CLib/Namespaces", "CLib/RemoteExecution", "CLib/Statemachine", "CLib/StatusEffects", "CLib/Settings"};
             // Init
             FNC(init);
             FNC(serverInit);
+
             // Misc
+            FNC(getSideInfo);
             FNC(getNearestLocationName);
             FNC(isAlive);
+            FNC(endMission);
 
 
             MODULE(Deployment) {
@@ -39,8 +41,21 @@ class CfgCLibModules {
                 FNC(getDeploymentPointsPerSide);
                 FNC(removeDeploymentPoint);
                 FNC(addDeploymentPoint);
-                FNC(prepareSpawn);
                 FNC(isValidDeploymentPoint);
+
+                // Callback System
+                FNC(callDeploymentPointCallback);
+                FNCSERVER(registerDeploymentPointTypeCallback);
+
+                MODULE(Callbacks) {
+                    FNC(isAvailableFor);
+                    FNC(isLocked);
+                    FNC(onDeploy);
+                    FNC(onDestroy);
+                    FNC(onPlaced);
+                    FNC(onPrepare);
+                    FNC(onSpawn);
+                };
             };
 
             //Entity Variables
@@ -113,10 +128,10 @@ class CfgCLibModules {
         };
 
         // SquadRespawn system
-        MODULE(SquadRespawn) {
+        /* MODULE(SquadPlayerRespawn) {
             dependency[] = {"AAW/Common"};
             FNC(clientInit);
-        };
+        };*/
 
         // Supply system
         MODULE(Supply) {
@@ -131,6 +146,7 @@ class CfgCLibModules {
             FNC(getKitDetails);
             FNC(getUsableKitCount);
             FNC(applyKit);
+            FNC(getLoadoutDetails);
         };
 
         // Logistic
@@ -227,6 +243,19 @@ class CfgCLibModules {
             FNC(updateDependencies);
         };
 
+        // Spectator
+        MODULE(Spectator) {
+            dependency[] = {"AAW/Common", "AAW/Sector"};
+            FNC(clientInit);
+            FNC(clientInitSector);
+            FNC(cameraUpdateLoop);
+            FNC(draw3dEH);
+            FNC(keyDownEH);
+            FNC(keyUpEH);
+            FNC(mouseMovingEH);
+            FNC(mouseWheelEH);
+        };
+
         // Squad
         MODULE(Squad) {
             dependency[] = {"AAW/Common"};
@@ -264,6 +293,27 @@ class CfgCLibModules {
             FNC(serverInit);
             FNC(clientInit);
             FNC(performVehicleRespawn);
+        };
+
+        MODULE(AAS) {
+            dependency[] = {"AAW/BaseProtection",
+                "AAW/CompassUI",
+                "AAW/FOB",
+                "AAW/Kit",
+                "AAW/Logistic",
+                "AAW/Nametags",
+                "AAW/Rally",
+                "AAW/RespawnUI",
+                "AAW/Revive",
+                "AAW/ScoreTable",
+                "AAW/Sector",
+                "AAW/Spectator",
+                "AAW/Squad",
+                "AAW/Supply",
+                "AAW/Tickets",
+                "AAW/UnitTracker",
+                "AAW/VehicleRespawn"};
+            FNC(serverInit);
         };
     };
 };

@@ -25,6 +25,14 @@ if (CLib_Player == _newUnit) then {
     _color = [1, 0.4, 0, 1];
 };
 
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) then {
+    if (side group _newUnit isEqualTo (EGVAR(Common,CompetingSides) select 0)) then {
+        _color = _sideColor;
+    } else {
+        _color = [0.6, 0, 0, 1];
+    };
+};
+
 private _manIcon = ["ICON", _newUnit getVariable [QEGVAR(Kit,mapIcon), "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"], _color, _newUnit, 20, 20, _newUnit, "", 1, 0.08, "RobotoCondensed", "right", {
     if ((CLib_Player getVariable [QEGVAR(Kit,isMedic), false]) && {_position getVariable [QEGVAR(Revive,isUnconscious), false]}) then {
         _texture = "\A3\ui_f\data\igui\cfg\revive\overlayicons\u100_ca.paa";

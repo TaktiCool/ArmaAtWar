@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 GVAR(UnconsciousFrame) = -1;
 GVAR(UnconsciousSince) = -1;
@@ -177,6 +178,7 @@ GVAR(UnconsciousnessEffects) = [_hndl];
 }] call CFUNC(addEventHandler);
 
 ["isNotUnconscious", {
+    params ["_caller"];
     !(_caller getVariable [QGVAR(isUnconscious), false])
 }] call CFUNC(addCanInteractWith);
 

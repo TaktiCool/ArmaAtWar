@@ -25,6 +25,10 @@ private _fncDrawAllSectors = {
 
 ["sectorSideChanged", _fncDrawAllSectors] call CFUNC(addEventhandler);
 
-[_fncDrawAllSectors, {
-    !isNil QGVAR(ServerInitDone) && {GVAR(ServerInitDone)}
-}, []] call CFUNC(waitUntil);
+["missionStarted", {
+    params ["", "_fncDrawAllSectors"];
+
+    [_fncDrawAllSectors, {
+        !isNil QGVAR(ServerInitDone) && {GVAR(ServerInitDone)}
+    }, []] call CFUNC(waitUntil);
+}, _fncDrawAllSectors] call CFUNC(addEventhandler);

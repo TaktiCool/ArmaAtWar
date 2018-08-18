@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 // ["missionStarted", {
 //    ["Role Screen", CLib_Player, 0, {isNull (uiNamespace getVariable [QGVAR(roleDisplay), displayNull])}, {
@@ -49,10 +50,11 @@
     private _display = uiNamespace getVariable [QGVAR(roleDisplay), displayNull];
     if (isNull _display) exitWith {};
 
+    private _side = side group CLib_Player;
     private _selectedKit = CLib_Player getVariable [QEGVAR(Kit,kit), ""];
 
     // Check if selected kit is still available
-    private _usableKitCount = [_selectedKit] call EFUNC(Kit,getUsableKitCount);
+    private _usableKitCount = [CLib_Player, _selectedKit] call EFUNC(Kit,getUsableKitCount);
     if (_usableKitCount <= 0) then {
         _selectedKit = "";
     };
@@ -63,11 +65,11 @@
         private _kitName = _x;
 
         // Only list usable kits
-        private _usableKitCount = [_kitName] call EFUNC(Kit,getUsableKitCount);
+        private _usableKitCount = [CLib_Player, _kitName] call EFUNC(Kit,getUsableKitCount);
 
         if (!isNil "_usableKitCount") then {
             // Get the required details
-            private _kitDetails = [_kitName, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails);
+            private _kitDetails = [_kitName, _side, [["displayName", ""], ["UIIcon", ""]]] call EFUNC(Kit,getKitDetails);
             _kitDetails params ["_displayName", "_UIIcon"];
 
             private _usedKits = {_x getVariable [QEGVAR(Kit,kit), ""] == _kitName} count ([group CLib_Player] call CFUNC(groupPlayers));
@@ -80,7 +82,7 @@
             _lnbData pushBack [[_displayName, _numberKitsString], _kitName, _UIIcon, _color];
         };
         nil
-    } count (call EFUNC(Kit,getAllKits));
+    } count ([_side] call EFUNC(Kit,getAllKits));
 
     // Update the lnb
     [_display displayCtrl 303, _lnbData, _selectedKit] call FUNC(updateListNBox); // This may trigger an lbSelChanged event
@@ -99,7 +101,7 @@
     private _previousSelectedKit = CLib_Player getVariable [QEGVAR(Kit,kit), ""];
     private _selectedKit = [_control, [_selectedEntry, 0]] call CFUNC(lnbLoad);
 
-    private _usableKitCount = [_selectedKit] call EFUNC(Kit,getUsableKitCount);
+    private _usableKitCount = [CLib_Player, _selectedKit] call EFUNC(Kit,getUsableKitCount);
     if (isNil "_usableKitCount") exitWith {};
     _usableKitCount params ["_availableKitCount", "_usedKitsFromGroup"];
     if (_usableKitCount <= 0) exitWith {
@@ -132,11 +134,18 @@
 
     // Get the kit data
     private _selectedTabIndex = lbCurSel (_display displayCtrl 304);
-    private _selectedKitDetails = [_selectedKit, [[["primaryWeapon", "handGunWeapon", "secondaryWeapon"] select _selectedTabIndex, ""]]] call EFUNC(Kit,getKitDetails);
+    private _selectedKitDetails = [_selectedKit, side group CLib_player, [[["primaryWeapon", "handgun", "secondaryWeapon"] select _selectedTabIndex, [""]]]] call EFUNC(Kit,getLoadoutDetails);
 
-    // WeaponPicture
-    (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "picture"));
+    _selectedKitDetails = (_selectedKitDetails select 0) select 0;
+    if (isNil "_selectedKitDetails") then {
+        (_display displayCtrl 306) ctrlSetText "#(argb,8,8,3)color(0,0,0,0)";
+        (_display displayCtrl 307) ctrlSetText "None";
+    } else {
+        // WeaponPicture
+        (_display displayCtrl 306) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "picture"));
 
-    // WeaponName
-    (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails select 0 >> "displayName"));
+        // WeaponName
+        (_display displayCtrl 307) ctrlSetText (getText (configFile >> "CfgWeapons" >> _selectedKitDetails >> "displayName"));
+    };
+
 }] call CFUNC(addEventHandler);

@@ -33,6 +33,7 @@ if (_show) then {
     if (isNull _display) exitWith {};
 
     (_display displayCtrl 1202) ctrlSetFade 1;
+    (_display displayCtrl 1202) ctrlShow false;
     (_display displayCtrl 1202) ctrlCommit 0;
 
     private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];

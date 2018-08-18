@@ -28,11 +28,14 @@ params ["_target"];
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
 
-    deleteVehicle _target;
-    private _pointObjects = [_composition, _position, _dirVector, _target] call CFUNC(createSimpleObjectComp);
-
     private _text = [_position] call EFUNC(Common,getNearestLocationName);
-    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa", _pointObjects] call EFUNC(Common,addDeploymentPoint);
+
+    private _pointId = ["FOB " + _text, "FOB", _position, playerSide, -1, "A3\ui_f\data\map\markers\military\triangle_ca.paa", "A3\ui_f\data\map\markers\military\triangle_ca.paa"] call EFUNC(Common,addDeploymentPoint);
+
+    [_pointId, _composition, _position, _dirVector, _target, CLib_player, [CLib_player, {
+        params ["_uid", "_target"];
+        deleteVehicle _target;
+    }, _target]] call CFUNC(createSimpleObjectComp);
 
     ["displayNotification", side group CLib_player, [
         "NEW FOB PLACED",
@@ -40,6 +43,7 @@ params ["_target"];
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 
+    [_pointId, "pointObjects", _pointId] call EFUNC(Common,setDeploymentPointData);
     [_pointId, "spawnPointLocked", 1] call EFUNC(Common,setDeploymentPointData);
     [_pointId, "spawnPointBlocked", 0] call EFUNC(Common,setDeploymentPointData);
     [_pointId, "spawnTime", serverTime + ([CFGFOB(waitTimeAfterPlacement), 300] call CFUNC(getSetting))] call EFUNC(Common,setDeploymentPointData);

@@ -35,14 +35,25 @@ if (!isNull _vehicle) then {
 
     [{
         (_this select 1) params ["_type", "_varName", "_position", "_direction", ["_respawnCondition", "true"], ["_respawnCounter", 0]];
-        _position = [_position, 10, 0, _type] call CFUNC(findSavePosition);
-        private _vehicle = createVehicle [_type, [0, 0, 0], [], 0, "CAN_COLLIDE"];
-        _vehicle setPos _position;
+
+        private _preparedPosition = +_position;
+        if (getNumber(configFile >> "CfgVehicles" >> _type >> "canFloat") == 0) then {
+            _preparedPosition = ASLtoATL _preparedPosition;
+        } else {
+            _preparedPosition = ASLToAGL _preparedPosition;
+        };
+        private _vehicle = createVehicle [_type, _preparedPosition, [], 0, "NONE"];
+
         _vehicle setVariable [QGVAR(respawnCounter), _respawnCounter + 1, true];
+        _vehicle setVariable [QGVAR(respawnPosition), _position];
+        _vehicle setVariable [QGVAR(respawnDirection), _direction];
         _vehicle setDir _direction;
-        ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
-        missionNamespace setVariable [_varName, _vehicle, true];
-        _vehicle setVariable [QGVAR(vehicleVarName), _varName, true];
+        if !(_varName isEqualTo "") then {
+            ["setVehicleVarName", [_vehicle, _varName]] call CFUNC(globalEvent);
+            missionNamespace setVariable [_varName, _vehicle, true];
+            _vehicle setVariable [QGVAR(vehicleVarName), _varName, true];
+        };
+
         clearItemCargoGlobal _vehicle;
         clearMagazineCargoGlobal _vehicle;
         clearWeaponCargoGlobal _vehicle;

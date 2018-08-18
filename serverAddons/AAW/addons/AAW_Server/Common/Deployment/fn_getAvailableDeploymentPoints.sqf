@@ -13,16 +13,6 @@
     Returns:
     Id list of points <ARRAY>
 */
-private _availablePoints = [];
+params ["_unit"];
 
-{
-    private _availableFor = [_x, "availableFor"] call FUNC(getDeploymentPointData);
-    if !(isNil "_availableFor") then {
-        if ((_availableFor isEqualType playerSide && {playerSide == _availableFor}) || (_availableFor isEqualType grpNull && {group CLib_Player == _availableFor})) then {
-            _availablePoints pushBack _x;
-        };
-    };
-    nil
-} count (call FUNC(getAllDeploymentPoints));
-
-_availablePoints
+(call FUNC(getAllDeploymentPoints)) select { [_x, _unit] call FUNC(isAvailableFor); };

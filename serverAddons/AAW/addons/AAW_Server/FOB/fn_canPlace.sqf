@@ -32,7 +32,7 @@ private _fobNearPlayer = false;
         _fobNearPlayer = true;
     };
     nil
-} count (call EFUNC(Common,getAvailableDeploymentPoints));
+} count ([CLib_Player] call EFUNC(Common,getAvailableDeploymentPoints));
 if (_fobNearPlayer) exitWith {false};
 
 // Check near enemies

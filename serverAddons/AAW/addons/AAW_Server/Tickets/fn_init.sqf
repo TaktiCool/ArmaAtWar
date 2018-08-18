@@ -152,6 +152,10 @@ GVAR(deactivateTicketSystem) = false;
         private _display = uiNamespace getVariable ["RscTitleDisplayEmpty", displayNull];
         if (isNull _display) exitWith {};
 
+        (_display displayCtrl 1202) ctrlSetFade 1;
+        (_display displayCtrl 1202) ctrlShow false;
+        (_display displayCtrl 1202) ctrlCommit 0;
+
         private _textSize = PY(2.2) / (((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25) * 1);
 
         private _ctrlGrp = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
@@ -254,9 +258,9 @@ GVAR(deactivateTicketSystem) = false;
             if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 0], 1000]) <= 0
              || (missionNamespace getVariable [format [QGVAR(sideTickets_%1), EGVAR(Common,competingSides) select 1], 1000]) <= 0) then {
                 if ((missionNamespace getVariable [format [QGVAR(sideTickets_%1), side group CLib_Player], 1000]) <= 0) then {
-                    ["LOOSER", false] spawn BIS_fnc_endMission;
+                    ["LOOSER"] call EFUNC(Common,endMission);
                 } else {
-                    ["WINNER", true] spawn BIS_fnc_endMission;
+                    ["WINNER"] call EFUNC(Common,endMission);
                 };
 
                 GVAR(deactivateTicketSystem) = true;

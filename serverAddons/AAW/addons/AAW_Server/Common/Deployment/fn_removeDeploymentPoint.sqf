@@ -17,15 +17,11 @@ params ["_pointId"];
 
 private _pointNamespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
 if (isNull _pointNamespace) exitWith {};
-private _pointObjects = [_pointId, "pointObjects"] call FUNC(getDeploymentPointData);
 
-{
-    deleteVehicle _x;
-    nil
-} count _pointObjects;
+private _data = [_pointId, ["pointObjects", "availableFor"]] call FUNC(getDeploymentPointData);
+_data params ["_pointObjects", "_availableFor"];
 
-
-private _availableFor = [_pointId, "availableFor"] call FUNC(getDeploymentPointData);
+[_pointId, _pointObjects] call FUNC(onDestroy);
 
 if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
 

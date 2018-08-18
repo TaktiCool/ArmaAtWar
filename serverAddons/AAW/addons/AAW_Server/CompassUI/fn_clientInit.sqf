@@ -13,6 +13,7 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 GVAR(lineMarkers) = call CFUNC(createNamespace);
 
 // Use pools to store the controls for the markers
@@ -42,9 +43,13 @@ DFUNC(showCompass) = {
     ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutRsc [UIVAR(Compass), "PLAIN", 0, false];
 };
 
+DFUNC(hideCompass) = {
+    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+};
+
 // Hide the compass on respawn screen
 [UIVAR(RespawnScreen_onLoad), {
-    ([UIVAR(Compass)] call BIS_fnc_rscLayer) cutFadeOut 0;
+    call FUNC(hideCompass);
 }] call CFUNC(addEventHandler);
 [UIVAR(RespawnScreen_onUnLoad), {
     call FUNC(showCompass);
@@ -61,10 +66,8 @@ addMissionEventHandler ["MapSingleClick", {
 
 ["missionStarted", {
     call FUNC(showCompass);
-
-    // The draw3D event triggers on each frame if the client window has focus.
-    addMissionEventHandler ["Draw3D", {
-        PERFORMANCECOUNTER_START(CompassUI);
+    DFUNC(draw3D) = {
+        RUNTIMESTART;
 
         // Exit if the compass is not visible
         private _dialog = uiNamespace getVariable UIVAR(Compass);
@@ -263,6 +266,8 @@ addMissionEventHandler ["MapSingleClick", {
             };
         };
 
-        PERFORMANCECOUNTER_END(CompassUI);
-    }];
+        RUNTIME("CompassUI");
+    };
+    // The draw3D event triggers on each frame if the client window has focus.
+    addMissionEventHandler ["Draw3D", {call FUNC(draw3D)}];
 }] call CFUNC(addEventHandler);

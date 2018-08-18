@@ -13,10 +13,12 @@
     Returns:
     None
 */
+if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 // Use the missionStarted EH to prevent unnecessary executions.
 ["missionStarted", {
     [{
-        PERFORMANCECOUNTER_START(Nametags);
+        RUNTIMESTART;
         // Use the camera position as center for nearby player detection.
         private _cameraPosAGL = positionCameraToWorld [0, 0, 0];
         private _cameraPosASL = AGLToASL _cameraPosAGL;
@@ -118,6 +120,6 @@
         } count _nearUnits;
 
         [QGVAR(Icons), _icons] call CFUNC(add3dGraphics);
-        PERFORMANCECOUNTER_END(Nametags);
+        RUNTIME("Nametags");
     }, 1.6] call CFUNC(addPerFrameHandler);
 }] call CFUNC(addEventHandler);
