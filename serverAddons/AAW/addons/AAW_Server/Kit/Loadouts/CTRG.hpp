@@ -22,8 +22,8 @@ class CTRG_StandardSoldier : A3_StandardSoldier {
     headgear[] = {"H_HelmetB_Light_tna_F"};
 
 
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{};
-    class HandgunClass : CTRG_StandardHandgun{};
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {};
+    class HandgunClass : CTRG_StandardHandgun {};
 };
 
 class CTRG_Rifleman : CTRG_StandardSoldier {
@@ -34,22 +34,22 @@ class CTRG_SquadLeader : CTRG_StandardSoldier {
     headgear[] = {"H_HelmetB_TI_tna_F"};
     binocular[] = {"Binocular"};
 
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_ERCO_blk_F"};
     };
 
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class CTRG_Medic : CTRG_StandardSoldier {
     backpack[] = {"B_AssaultPack_tna_F"};
     uniform[] = {"U_B_CombatUniform_mcam_tshirt"};
-    class MedicalsClass : A3_MedicClassMedicals{};
-    class SignalGrenadesClass : A3_SignalGrenades{};
+    class MedicalsClass : A3_MedicClassMedicals {};
+    class SignalGrenadesClass : A3_SignalGrenades {};
 };
 
 class CTRG_AutomaticRifleman : CTRG_StandardSoldier {
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_SPAR_02_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"150Rnd_556x45_Drum_Mag_Tracer_F", 2}};
@@ -59,13 +59,13 @@ class CTRG_AutomaticRifleman : CTRG_StandardSoldier {
 
 class CTRG_Grenadier : CTRG_StandardSoldier {
     class GrenadesClass : A3_GrenadierGrenades {};
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_SPAR_01_GL_blk_F"};
     };
 };
 
 class CTRG_Marksman : CTRG_StandardSoldier {
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeaponOptic[] = {"arifle_SPAR_03_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
         magazines[] = {{"20Rnd_762x51_Mag", 5}};
@@ -96,7 +96,7 @@ class CTRG_AntiTank : CTRG_StandardSoldier {
 
 class CTRG_Crewman : CTRG_StandardSoldier {
     headgear[] = {"H_HelmetCrew_O_ghex_F"};
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeapon[] = {"arifle_SPAR_01_blk_F"};
         magazines[] = {{"30Rnd_556x45_Stanag", 3}};
     };
@@ -109,7 +109,7 @@ class CTRG_Pilot : CTRG_Crewman {
 
 class CTRG_Sniper : CTRG_StandardSoldier {
     uniform[] = {"U_B_FullGhillie_lsh"};
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeapon[] = {"srifle_LRR_F"};
         primaryWeaponOptic[] = {"optic_LRPS"};
         magazines[] = {{"7Rnd_408_Mag", 6}};
@@ -120,7 +120,7 @@ class CTRG_Sniper : CTRG_StandardSoldier {
 class CTRG_Spotter : CTRG_StandardSoldier {
     uniform[] = {"U_B_FullGhillie_lsh"};
     binocular[] = {"Rangefinder"};
-    class PrimaryWeaponClass : CTRG_StandardAssaultRifle{
+    class PrimaryWeaponClass : CTRG_StandardAssaultRifle {
         primaryWeaponOptic[] = {"optic_ERCO_blk_F"};
         primaryWeaponResting[] = {"bipod_01_F_blk"};
     };

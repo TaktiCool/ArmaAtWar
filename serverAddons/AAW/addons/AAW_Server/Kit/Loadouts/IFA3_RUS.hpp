@@ -34,10 +34,10 @@ class IFA3_RUS_StandardSoldier : A3_StandardSoldier {
     backpack[] = {"B_LIB_SOV_RA_Rucksack"};
     headgear[] = {"H_LIB_SOV_RA_Helmet"};
 
-    class HandgunClass : IFA3_RUS_StandardHandgun{};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{};
-    class GrenadesClass : IFA3_RUS_StandardGrenades{};
-    class BasicItemsClass : IFA3_BasicItems{};
+    class HandgunClass : IFA3_RUS_StandardHandgun {};
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {};
+    class GrenadesClass : IFA3_RUS_StandardGrenades {};
+    class BasicItemsClass : IFA3_BasicItems {};
 };
 
 class IFA3_RUS_Rifleman : IFA3_RUS_StandardSoldier {
@@ -55,19 +55,19 @@ class IFA3_RUS_SquadLeader : IFA3_RUS_StandardSoldier {
         primaryWeaponLoadedMagazine[] = {"LIB_35Rnd_762x25"};
     };
 
-    class SignalGrenadesClass : IFA3_RUS_SignalGrenades{};
+    class SignalGrenadesClass : IFA3_RUS_SignalGrenades {};
 };
 
 class IFA3_RUS_Medic : IFA3_RUS_StandardSoldier {
     backpack[] = {"B_LIB_SOV_RA_MedicalBag_Empty"};
     vest[] = {"V_LIB_US_Vest_Medic"};
-    class MedicalsClass : A3_MedicClassMedicals{};
-    class SignalGrenadesClass : IFA3_RUS_SignalGrenades{};
+    class MedicalsClass : A3_MedicClassMedicals {};
+    class SignalGrenadesClass : IFA3_RUS_SignalGrenades {};
 };
 
 class IFA3_RUS_AutomaticRifleman : IFA3_RUS_StandardSoldier {
     vest[] = {"V_LIB_US_AB_Vest_Bar"};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_DP28"};
         magazines[] = {{"LIB_47Rnd_762x54", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_47Rnd_762x54"};
@@ -76,13 +76,13 @@ class IFA3_RUS_AutomaticRifleman : IFA3_RUS_StandardSoldier {
 
 class IFA3_RUS_Grenadier : IFA3_RUS_StandardSoldier {
     class GrenadesClass : IFA3_RUS_GrenadierGrenades {};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryAttachments[] = {"LIB_ACC_GL_DYAKONOV_Empty"};
     };
 };
 
 class IFA3_RUS_Marksman : IFA3_RUS_StandardSoldier {
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M9130PU"};
         magazines[] = {{"LIB_5Rnd_762x54", 5}};
         primaryWeaponLoadedMagazine[] = {"LIB_5Rnd_762x54"};
@@ -97,7 +97,7 @@ class IFA3_RUS_LightAntiTank : IFA3_RUS_StandardSoldier {
 };
 
 class IFA3_RUS_MachineGunner : IFA3_RUS_StandardSoldier {
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_DT"};
         magazines[] = {{"LIB_63Rnd_762x54", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_63Rnd_762x54"};
@@ -108,7 +108,7 @@ class IFA3_RUS_Crewman : IFA3_RUS_StandardSoldier {
     uniform[] = {"U_LIB_SOV_Tank_ryadovoi"};
     headgear[] = {"H_LIB_SOV_TankHelmet"};
     vest[] = {""};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_PPSh41_m"};
         magazines[] = {{"LIB_35Rnd_762x25", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_35Rnd_762x25"};
@@ -119,7 +119,7 @@ class IFA3_RUS_Pilot : IFA3_RUS_Crewman {
     uniform[] = {"U_LIB_SOV_Tank_ryadovoi"};
     headgear[] = {"H_LIB_SOV_TankHelmet"};
     vest[] = {""};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_PPSh41_m"};
         magazines[] = {{"LIB_35Rnd_762x25", 3}};
         primaryWeaponLoadedMagazine[] = {"LIB_35Rnd_762x25"};
@@ -128,7 +128,7 @@ class IFA3_RUS_Pilot : IFA3_RUS_Crewman {
 
 class IFA3_RUS_Sniper : IFA3_RUS_StandardSoldier {
     uniform[] = {"U_LIB_SOV_Sniper_spring"};
-    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle{
+    class PrimaryWeaponClass : IFA3_RUS_StandardAssaultRifle {
         primaryWeapon[] = {"LIB_M9130PU"};
         magazines[] = {{"LIB_5Rnd_762x54", 6}};
         primaryWeaponLoadedMagazine[] = {"LIB_5Rnd_762x54"};

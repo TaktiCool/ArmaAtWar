@@ -27,9 +27,9 @@ class A3_GrenadierGrenades : CfgCLibLoadoutsClassBase {
 };
 
 class A3_StandardSoldier : CfgCLibLoadoutsClassBase {
-    class MedicalsClass : A3_StandardMedicals{};
-    class GrenadesClass : A3_StandardGrenades{};
-    class BasicItemsClass : A3_BasicItems{};
+    class MedicalsClass : A3_StandardMedicals {};
+    class GrenadesClass : A3_StandardGrenades {};
+    class BasicItemsClass : A3_BasicItems {};
 };
 
 class IFA3_BasicItems : CfgCLibLoadoutsClassBase {
@@ -37,9 +37,9 @@ class IFA3_BasicItems : CfgCLibLoadoutsClassBase {
 };
 
 class IFA3_StandardSoldier : CfgCLibLoadoutsClassBase {
-    class MedicalsClass : A3_StandardMedicals{};
-    class GrenadesClass : A3_StandardGrenades{};
-    class BasicItemsClass : IFA3_BasicItems{};
+    class MedicalsClass : A3_StandardMedicals {};
+    class GrenadesClass : A3_StandardGrenades {};
+    class BasicItemsClass : IFA3_BasicItems {};
 };
 
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\AAF.hpp"
