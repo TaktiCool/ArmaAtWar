@@ -16,7 +16,6 @@
 private _supplyType = [];
 private _supplyNames = [];
 private _supplyCount = [];
-private _supplyInWeapon = [];
 
 {
     private _idx = _supplyNames pushBackUnique _x;
@@ -38,7 +37,6 @@ private _supplyInWeapon = [];
         _idx = _supplyNames find (_x select 0);
         _count = _supplyCount select _idx;
     };
-    private _ammoCount = [configFile >> "CfgMagazines" >> (_x select 0) >> "count"] call CFUNC(getConfigDataCached);
 
     _count pushBack [(_x select 1), _x select 3];
 
