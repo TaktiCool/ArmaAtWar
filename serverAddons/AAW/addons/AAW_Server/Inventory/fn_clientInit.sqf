@@ -68,16 +68,16 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                     private _shots = 0;
 
                     {
-                        _currentShots = _currentShots + _x;
+                        _currentShots = _currentShots + (_x select 0);
                         nil;
                     } count _currentCount;
 
                     {
-                        _shots = _shots + _x;
+                        _shots = _shots + (_x select 0);
                         nil;
                     } count _count;
 
-                    _magazines pushBack [_name, _currentShots, _shots, {_x>0} count _currentCount, {_x>0} count _count];
+                    _magazines pushBack [_name, _currentShots, _shots, {_x select 0 > 0} count _currentCount, {_x select 0 > 0} count _count];
                 };
                 nil
             } count _supplyData;
@@ -159,12 +159,12 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             private _shots = 0;
 
             {
-                _currentShots = _currentShots + _x;
+                _currentShots = _currentShots + (_x select 0);
                 nil;
             } count _currentCount;
 
             {
-                _shots = _shots + _x;
+                _shots = _shots + (_x select 0);
                 nil;
             } count _count;
 
@@ -182,7 +182,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             GUI_NEWCTRL("RscTextNoShadow");
             GUI_POSITION(0, PY(3), PX(5), PY(2));
             AAWUI_TEXTSTYLE_NORMAL_BOLD_SMALL;
-            GUI_TEXT(str ({_x>0} count _currentCount) + "/" + str ({_x>0} count _count));
+            GUI_TEXT(str ({_x select 0 > 0} count _currentCount) + "/" + str ({_x select 0 > 0} count _count));
             GUI_COMMIT(0);
 
             _children pushBack GUI_POPGRP;
