@@ -49,22 +49,29 @@ private _onStart = {
         };
         _idx = 0;
         private _isCorrectBox = (_type in [ST_MAGAZINE, ST_AMMOBOX] && _isAmmoBox ) || (_name == "FirstAidKit" && _isMedicBox);
-
-        private _jobDataElement = _count apply {
+        private _jobDataElement = [];
+        {
+            _x params ["_c"];
+            private _currentMagazineInWeapon = false;
             private _n = if (count _currentCount > _idx) then {
-                (_currentCount select _idx);
+                _currentMagazineInWeapon = (_currentCount select _idx) select 1 > 0;
+                (_currentCount select _idx) select 0;
             } else {
                 0
             };
             _idx = _idx + 1;
-            private _cost = [0, (_supplyCost select _forEachIndex)*(_x - _n)] select _isCorrectBox;
+            private _cost = [0, (_supplyCost select _forEachIndex)*(_c - _n)] select _isCorrectBox;
             _cost = [_cost, 0] select (_isSmall && _cost > 20);
-            [_cost, _n, _x];
-        };
+            if (!_currentMagazineInWeapon) then {
+                _jobDataElement pushBack [_cost, _n, _c];
+            };
+            nil;
+        } count _count;
+
         _jobDataElement sort true;
         private _totalSupplyCost = 0;
         {
-            _totalSupplyCost = _totalSupplyCost + (_supplyCost select _forEachIndex)*_x
+            _totalSupplyCost = _totalSupplyCost + (_supplyCost select _forEachIndex)*(_x select 0);
         } count _count;
 
         _jobData pushBack [_type, _name, _jobDataElement, _totalSupplyCost];
