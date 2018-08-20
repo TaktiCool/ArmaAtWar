@@ -16,7 +16,7 @@
 private _supplyType = [];
 private _supplyNames = [];
 private _supplyCount = [];
-private _supplyCost = [];
+private _supplyInWeapon = [];
 
 {
     private _idx = _supplyNames pushBackUnique _x;
@@ -25,7 +25,7 @@ private _supplyCost = [];
         _idx = _supplyNames find _x;
         _count = (_supplyCount select _idx);
     };
-    _count pushback 1;
+    _count pushback [1,0];
     _supplyCount set [_idx, _count];
     _supplyType set [_idx, ST_ITEM];
     nil;
@@ -39,11 +39,8 @@ private _supplyCost = [];
         _count = _supplyCount select _idx;
     };
     private _ammoCount = [configFile >> "CfgMagazines" >> (_x select 0) >> "count"] call CFUNC(getConfigDataCached);
-    if (_x select 3 > 0) then {
-        //_count pushBack _ammoCount;
-    } else {
-        _count pushBack (_x select 1);
-    };
+
+    _count pushBack [(_x select 1), _x select 3];
 
     _supplyCount set [_idx, _count];
     _supplyType set [_idx, ST_MAGAZINE];
@@ -52,6 +49,7 @@ private _supplyCost = [];
 
 if !(CLib_player getVariable ["ammoBox",[]] isEqualTo []) then {
     private _ammoBoxData = CLib_player getVariable ["ammoBox",[]];
+    _ammoBoxData = _ammoBoxData apply {[_x, 0]};
 
     private _idx = _supplyNames pushBackUnique "AAW_AmmoBox";
     _supplyCount set [_idx, +_ammoBoxData];
