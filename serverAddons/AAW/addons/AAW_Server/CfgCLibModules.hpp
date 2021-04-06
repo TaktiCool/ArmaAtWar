@@ -103,6 +103,13 @@ class CfgCLibModules {
             FNC(updateList);
         };
 
+        // RadioSounds
+        MODULE(RadioSounds) {
+            dependency[] = {"AAW/Common"};
+
+            FNC(clientInit);
+        };
+
         // Rally System
         MODULE(Rally) {
             dependency[] = {"AAW/Common"};
