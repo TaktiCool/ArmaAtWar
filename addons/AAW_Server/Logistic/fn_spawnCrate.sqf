@@ -33,10 +33,7 @@ _teamResourcePoints = _teamResourcePoints - _resources;
 missionNamespace setVariable [format [QEGVAR(Logistic,sideResources_%1), _side], _teamResourcePoints, true];
 ["resourcesChanged", _side] call CFUNC(targetEvent);
 
-
-private _spawnPos = [_spawnPos, 10, 0, _crateType] call CFUNC(findSavePosition);
-private _crateObject = createVehicle [_crateType, [0, 0, 0], [], 0, "CAN_COLLIDE"];
-_crateObject setPos _spawnPos;
+private _crateObject = createVehicle [_crateType, [0, 0, 0], [], 0, "NONE"];
 if (_displayName != "") then {
     _crateObject setVariable [QGVAR(displayName), _displayName, true];
 };
@@ -75,7 +72,6 @@ if !(_content isEqualTo []) then {
         };
         nil
     } count _content;
-
 };
 
 _crateObject call FUNC(setLogisticVariables);

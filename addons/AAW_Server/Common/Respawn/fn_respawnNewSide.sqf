@@ -66,7 +66,7 @@ private _oldVarName = vehicleVarName _oldUnit;
 
 // Handle position
 CLib_Player setDir (random 360);
-CLib_Player setPosASL ([_targetPosition, 5, 0, _className] call CFUNC(findSavePosition));
+CLib_Player setPosASL _targetPosition;
 
 // Broadcast the change after everything is changed
 _newUnit call CFUNC(invokePlayerChanged);
