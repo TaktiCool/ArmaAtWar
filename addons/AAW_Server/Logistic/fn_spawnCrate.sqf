@@ -33,7 +33,7 @@ _teamResourcePoints = _teamResourcePoints - _resources;
 missionNamespace setVariable [format [QEGVAR(Logistic,sideResources_%1), _side], _teamResourcePoints, true];
 ["resourcesChanged", _side] call CFUNC(targetEvent);
 
-private _crateObject = createVehicle [_crateType, [0, 0, 0], [], 0, "NONE"];
+private _crateObject = createVehicle [_crateType, _spawnPos, [], 0, "NONE"];
 if (_displayName != "") then {
     _crateObject setVariable [QGVAR(displayName), _displayName, true];
 };
