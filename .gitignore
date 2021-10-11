@@ -53,3 +53,9 @@ serverExtension/packages/*
 # IDEA files
 .idea/
 *.iml
+
+# HEMTT Files
+releases/*
+*.biprivatekey
+keys/*
+.hemtt/local

@@ -10,7 +10,7 @@ class CfgPatches {
         authorUrl = "https://www.atwar-mod.com/";
         url = "https://www.atwar-mod.com/";
         version = VERSION;
-        versionStr = QUOTE(VERSION);
+        versionStr = VERSION;
         versionAr[] = {VERSION_AR};
         requiredAddons[] = {"CLib"};
     };

@@ -1,0 +1,20 @@
+name = "AAW"
+mainprefix = "tc"
+modname = "AAW"
+prefix = ""
+author = "AAW Team"
+sig_version = 3
+version = "0.23.0.2345"
+reuse_private_key = false
+files = []
+include = ["./include"]
+
+releasebuild = [
+    "@zip @AAW"
+]
+
+key_name = "AAW_{{version}}"
+authority = "AAW_{{version}}-{{git \"id 8\"}}"
+
+[header_exts]
+version= "{{git \"id 8\"}}"

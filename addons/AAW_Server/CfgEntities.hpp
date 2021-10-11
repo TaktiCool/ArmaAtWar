@@ -16,7 +16,7 @@
 #define T_HELI_LIGHT_ARMED 25
 #define T_HELI_TRANSPORT 20
 #define T_HELI_TRANSPORT_ARMED 25
-#define T_HELI_ATTACK_HELI 40
+#define T_HELI_ATTACK 40
 #define T_PLANE_CAS 75
 #define T_PLANE_FIGHTER 75
 #define T_VTOL_TRANSPORT 20
@@ -304,7 +304,7 @@ class CfgEntities {
     class O_Heli_Transport_04_covered_F : Heli_Transport_04_base_F { //Mi-290 Taru (Transport)
         cargoCapacity = 50;
     };
-	
+
     class O_Heli_Transport_04_box_F : Heli_Transport_04_base_F { //Mi-290 Taru (Cargo)
         cargoCapacity = 100;
     };
@@ -331,24 +331,24 @@ class CfgEntities {
     };
 
     // Planes
-    // WEST	
+    // WEST
     class Plane_CAS_01_base_F : defaultVehicle { //A-164 Wipeout
         side = "WEST";
         respawnTime = 600;
         ticketValue = T_PLANE_CAS;
-    };	
+    };
 
     class Plane_Fighter_01_Base_F : Plane_CAS_01_base_F { //F/A-181 Black Wasp II
         ticketValue = T_PLANE_FIGHTER;
     };
-	
-    // EAST	
+
+    // EAST
     class Plane_CAS_02_base_F : defaultVehicle { //To-199 Neophron
         side = "EAST";
         respawnTime = 600;
         ticketValue = T_PLANE_CAS;
-    };	
-	
+    };
+
     class Plane_Fighter_02_Base_F : Plane_CAS_02_base_F { //To-201 Shikra
         ticketValue = T_PLANE_FIGHTER;
     };
@@ -359,14 +359,14 @@ class CfgEntities {
         respawnTime = 600;
         ticketValue = T_PLANE_FIGHTER;
     };
-	
+
     class I_Plane_Fighter_03_CAS_F : Plane_Fighter_03_base_F { //A-143 Buzzard (CAS)
         ticketValue = T_PLANE_CAS;
-    };	
+    };
 
     class Plane_Fighter_04_Base_F : Plane_Fighter_03_base_F { //A-149 Gryphon
-    };	
-	
+    };
+
 	//VTOL
 	//WEST
     class VTOL_01_unarmed_base_F : defaultVehicle { //V-44 X Blackfish
@@ -375,13 +375,13 @@ class CfgEntities {
         respawnTime = 420;
         ticketValue = T_VTOL_TRANSPORT;
     };
-	
+
     class VTOL_01_armed_base_F : VTOL_01_unarmed_base_F { //V-44 X Blackfish (Armed)
 		respawnTime = 600;
         ticketValue = T_VTOL_ARMED;
     };
-	
-    // EAST	
+
+    // EAST
     class VTOL_02_vehicle_base_F : defaultVehicle { //Y-32 Xi'an
         side = "EAST";
 		cargoCapacity = 100;
