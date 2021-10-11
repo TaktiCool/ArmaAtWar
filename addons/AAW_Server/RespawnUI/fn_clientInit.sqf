@@ -69,9 +69,8 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
         // Open the respawn UI
         [{
             [QGVAR(SideSelection)] call BIS_fnc_endLoadingScreen;
-
-            private _welcomeScreenDisplay = (findDisplay 46) createDisplay "RscDisplayLoadMission";
-            [UIVAR(WelcomeScreen_onLoad), _welcomeScreenDisplay] call CFUNC(localEvent);
+            showChat true;
+            (findDisplay 46) createDisplay UIVAR(RespawnScreen);
         }] call CFUNC(execNextFrame);
 
     }, [], "respawn"] call CFUNC(mutex);
