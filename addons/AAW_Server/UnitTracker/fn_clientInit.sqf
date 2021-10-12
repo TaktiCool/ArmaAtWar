@@ -13,6 +13,9 @@
     Returns:
     None
 */
+
+if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) exitWith {};
+
 GVAR(playerCounter) = 0;
 GVAR(currentIcons) = [];
 GVAR(blockUpdate) = false;
@@ -25,29 +28,15 @@ GVAR(lastFrameTriggered) = diag_frameNo;
 GVAR(processedIcons) = [];
 GVAR(lastProcessedIcons) = [];
 
-if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}) then {
-    DFUNC(isValidUnit) = {
-        params ["_unit"];
-        !isNull _unit && alive _unit && side group _unit in EGVAR(Common,CompetingSides) && simulationEnabled _unit;
-    };
-
-    DFUNC(isValidVehicle) = {
-        params ["_vehicle"];
-        !isNull _vehicle && (({alive _x} count crew _vehicle) == 0) && (damage _vehicle < 1) && _vehicle getVariable ["side", ""] != "";
-    };
-} else {
-    DFUNC(isValidUnit) = {
-        params ["_unit"];
-        !isNull _unit && alive _unit && side group _unit == side group CLib_Player && simulationEnabled _unit;
-    };
-
-    DFUNC(isValidVehicle) = {
-        params ["_vehicle"];
-        !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str side group CLib_Player) && (({alive _x} count crew _vehicle) == 0) && (damage _vehicle < 1);
-    };
+DFUNC(isValidUnit) = {
+    params ["_unit"];
+    !isNull _unit && alive _unit && side group _unit == side group CLib_Player && simulationEnabled _unit;
 };
 
-
+DFUNC(isValidVehicle) = {
+    params ["_vehicle"];
+    !isNull _vehicle && (toLower (_vehicle getVariable ["side", str sideUnknown]) == toLower str side group CLib_Player) && (({alive _x} count crew _vehicle) == 0) && (damage _vehicle < 1);
+};
 
 GVAR(ProcessingSM) = call CFUNC(createStatemachine);
 
