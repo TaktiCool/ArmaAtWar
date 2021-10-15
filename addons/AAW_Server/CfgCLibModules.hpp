@@ -221,7 +221,7 @@ class CfgCLibModules {
         };
 
         // Sector
-        MODULE(Sector) {
+        MODULE(SectorRespawn) {
             dependency[] = {"AAW/Sector"};
             FNC(serverInit);
         };
