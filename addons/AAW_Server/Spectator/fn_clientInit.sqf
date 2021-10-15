@@ -13,7 +13,7 @@
     Returns:
     None
 */
-if ("streamator" call CFUNC(modLoaded)) exitWith {};
+if !("streamator" call CFUNC(modLoaded)) exitWith {};
 if !(side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exitWith {};
 
 DFUNC(drawSector) = {
