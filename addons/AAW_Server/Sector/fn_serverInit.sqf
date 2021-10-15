@@ -35,17 +35,18 @@ DFUNC(compileSettingsHashMap) = {
     {
         private _key = configName _x;
         switch (true) do {
-            case (isText (_x select 0)): {
+            case (isText _x): {
                 _hash set [_key, getText _x];
             };
-            case (isArray (_x select 0)): {
+            case (isArray _x): {
                 _hash set [_key, getArray _x];
             };
-            case (isNumber (_x select 0)): {
+            case (isNumber _x): {
                 _hash set [_key, getNumber _x];
             };
         };
     } forEach configProperties [_config, "!isClass _x", true];
+    _hash
 };
 
 ["missionStarted", {
