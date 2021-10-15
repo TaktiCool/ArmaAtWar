@@ -39,7 +39,7 @@ params ["_target"];
 
     ["displayNotification", side group CLib_player, [
         QLSTRING(NewFOB),
-        [QLSTRING(Near), _text]
+        [QLSTRING(Near), _text],
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 
