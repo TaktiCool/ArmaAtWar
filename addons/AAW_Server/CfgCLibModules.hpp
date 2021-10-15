@@ -220,6 +220,12 @@ class CfgCLibModules {
             FNC(updateDependencies);
         };
 
+        // Sector
+        MODULE(Sector) {
+            dependency[] = {"AAW/Sector"};
+            FNC(serverInit);
+        };
+
         // Spectator
         MODULE(Spectator) {
             dependency[] = {"AAW/Common", "AAW/Sector"};
