@@ -18,6 +18,36 @@ GVAR(allSectors) = objNull;
 GVAR(allSectorsArray) = [];
 GVAR(ServerInitDone) = false;
 
+GVAR(defaultValues) = createHashMapFromArray [
+    ["dependency", []],
+    ["ticketValue", 30],
+    ["minUnits", 1],
+    ["maxUnits", 9],
+    ["captureTime", [30, 60]],
+    ["firstCaptureTime", [5, 15]],
+    ["designator", ""]
+];
+
+DFUNC(compileSettingsHashMap) = {
+    params ["_config"];
+    private _hash = +GVAR(defaultValues);
+
+    {
+        private _key = configName _x;
+        switch (true) do {
+            case (isText (_x select 0)): {
+                _hash set [_key, getText _x];
+            };
+            case (isArray (_x select 0)): {
+                _hash set [_key, getArray _x];
+            };
+            case (isNumber (_x select 0)): {
+                _hash set [_key, getNumber _x];
+            };
+        };
+    } forEach configProperties [_config, "!isClass _x", true];
+};
+
 ["missionStarted", {
     // hide only sectors so that other marker that are other kind of markers dont get hidden after mission start
     private _sectorPaths = "true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath");
@@ -36,76 +66,18 @@ GVAR(ServerInitDone) = false;
 
         {
             if ((configName _x find "base") >= 0) then {
-                private _settings = [];
-                {
-                    switch (true) do {
-                        case (isText (_x select 0)): {
-                            _settings pushBack (getText (_x select 0));
-                        };
-                        case (isArray (_x select 0)): {
-                            _settings pushBack (getArray (_x select 0));
-                        };
-                        case (isNumber (_x select 0)): {
-                            _settings pushBack (getNumber (_x select 0));
-                        };
-                        case (isClass (_x select 0)): {
-                            _settings pushBack (configName (_x select 0));
-                        };
-                        default {
-                            _settings pushBack (_x select 1);
-                        };
-                    };
-                } forEach [
-                    [_x, ""],
-                    [(_x >> "dependency"), []],
-                    [(_x >> "ticketValue"), 30],
-                    [(_x >> "minUnits"), 1],
-                    [(_x >> "maxUnits"), 9],
-                    [(_x >> "captureTime"), [30, 60]],
-                    [(_x >> "firstCaptureTime"), [5, 15]],
-                    [(_x >> "designator"), ""]
-                ];
-                _settings call FUNC(createSectorLogic);
+                private _settings = _x call FUNC(compileSettingsHashMap);
+                [configName _x, _settings] call FUNC(createSectorLogic);
             };
-            nil;
-        } count _sectors;
+        } forEach _sectors;
 
         private _path = selectRandom ("true" configClasses (missionConfigFile >> QPREFIX >> "CfgSectors" >> "CfgSectorPath"));
 
         {
             // we need to set the array via hand else the defaults get never Triggerd.
-            private _settings = [];
-            {
-                switch (true) do {
-                    case (isText (_x select 0)): {
-                        _settings pushBack (getText (_x select 0));
-                    };
-                    case (isArray (_x select 0)): {
-                        _settings pushBack (getArray (_x select 0));
-                    };
-                    case (isNumber (_x select 0)): {
-                        _settings pushBack (getNumber (_x select 0));
-                    };
-                    case (isClass (_x select 0)): {
-                        _settings pushBack (configName (_x select 0));
-                    };
-                    default {
-                        _settings pushBack (_x select 1);
-                    };
-                };
-            } forEach [
-                [_x, ""],
-                [(_x >> "dependency"), []],
-                [(_x >> "ticketValue"), 30],
-                [(_x >> "minUnits"), 1],
-                [(_x >> "maxUnits"), 9],
-                [(_x >> "captureTime"), [30, 60]],
-                [(_x >> "firstCaptureTime"), [5, 15]],
-                [(_x >> "designator"), ""]
-            ];
-            _settings call FUNC(createSectorLogic);
-            nil;
-        } count ("true" configClasses _path);
+            private _settings = _x call FUNC(compileSettingsHashMap);
+            [configName _x, _settings] call FUNC(createSectorLogic);
+        } forEach ("true" configClasses _path);
 
         call FUNC(updateDependencies);
 

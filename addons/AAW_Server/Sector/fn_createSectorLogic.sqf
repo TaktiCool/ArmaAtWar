@@ -20,14 +20,12 @@
 */
 params [
     "_marker",
-    ["_dependency", []],
-    ["_ticketValue", 30],
-    ["_minUnits", 1],
-    ["_maxUnits", 9],
-    ["_captureTime", [30, 60]],
-    ["_firstCaptureTime", [5, 15]],
-    ["_designator", "A"]
+    "_settings"
 ];
+
+diag_log "----------------------------------------------------------------------";
+diag_log _this;
+diag_log "----------------------------------------------------------------------";
 
 private _size = getMarkerSize _marker;
 
@@ -53,17 +51,18 @@ if (_markerFullName call CFUNC(isLocalised)) then {
 
 _logic setVariable ["name", _marker, true];
 _logic setVariable ["fullName", _markerFullName, true];
-_logic setVariable ["designator", _designator, true];
+_logic setVariable ["designator", _settings get "designator", true];
 _logic setVariable ["marker", _marker, true];
 _logic setVariable ["side", _side, true];
 _logic setVariable ["attackerSide", _side, true];
-_logic setVariable ["dependency", _dependency, true];
-_logic setVariable ["ticketValue", _ticketValue, true];
-_logic setVariable ["minUnits", _minUnits, true];
-_logic setVariable ["maxUnits", _maxUnits, true];
+_logic setVariable ["dependency", _settings get "dependency", true];
+_logic setVariable ["ticketValue", _settings get "ticketValue", true];
+_logic setVariable ["minUnits", _settings get "minUnits", true];
+_logic setVariable ["maxUnits", _settings get "maxUnits", true];
 _logic setVariable ["captureRate", 0, true];
-_logic setVariable ["captureTime", _captureTime, true];
-_logic setVariable ["firstCaptureTime", _firstCaptureTime, true];
+_logic setVariable ["captureTime", _settings get "captureTime", true];
+_logic setVariable ["firstCaptureTime", _settings get "firstCaptureTime", true];
+_logic setVariable ["settings", _settings];
 
 if (_side == sideUnknown) then {
     _logic setVariable ["captureProgress", 0, true];
