@@ -56,15 +56,16 @@ publicVariable QGVAR(DeploymentPointStorage);
 // Add the bases as default points
 ["missionStarted", {
     {
-        private _markerName = "baseSpawn_" + (toLower str _x);
-        private _markerPosition = getMarkerPos _markerName;
-        if (!(_markerPosition isEqualTo [0, 0, 0])) then {
-            ["BASE", "BASE", _markerPosition, _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
+        private _name = "baseSpawn_" + (toLower str _x);
+        private _spawnObj = missionNamespace getVariable [_name, objNull];
+        private _baseSpawnPos = [0, 0, 0];
+        if !(isNull _spawnObj) then {
+            _baseSpawnPos = getPosATL _spawnObj;
+        } else {
+            _baseSpawnPos = getMarkerPos _name;
         };
-
-        if (!isNull (missionNamespace getVariable ["baseSpawn_" + (toLower str _x), objNull])) then {
-            ["BASE", "BASE", getPosATL (missionNamespace getVariable ["baseSpawn_" + (toLower str _x), objNull]), _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
+        if !(_baseSpawnPos isEqualTo [0, 0, 0]) then {
+            ["BASE", "BASE", _baseSpawnPos, _x, -1, "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa", "A3\ui_f\data\gui\cfg\ranks\colonel_gs.paa"] call FUNC(addDeploymentPoint);
         };
-        nil
-    } count EGVAR(Common,competingSides);
+    } forEach EGVAR(Common,competingSides);
 }] call CFUNC(addEventHandler);
