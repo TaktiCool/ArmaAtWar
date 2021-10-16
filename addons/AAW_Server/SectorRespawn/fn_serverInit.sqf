@@ -16,10 +16,9 @@
 [{
     {
         private _settings = _x getVariable "settings";
-
-        if (_settings in "spawnPoint") then {
+        if ("spawnPoint" in _settings) then {
             private _spawnPos = _settings get "spawnPoint";
-            if (_spawnPos isEqualType "") {
+            if (_spawnPos isEqualType "") then {
                 private _possibleSpawnObject = missionNamespace getVariable [_spawnPos, objNull];
                 if !(isNull _possibleSpawnObject) then {
                     _spawnPos = getPos _possibleSpawnObject;
@@ -27,19 +26,22 @@
                     _spawnPos = getMarkerPos _spawnPos;
                 };
             };
-            [
-                _x getVariable ["name", "EROR"],
+            private _side = _x getVariable ["side", sideUnknown];
+            private _pointId = [
+                _x getVariable ["fullName", "ERROR"],
                 "SECTOR",
                 _spawnPos,
-                true,
+                _side,
                 -1,
                 "A3\ui_f\data\map\markers\military\dot_ca.paa",
                 "A3\ui_f\data\map\markers\military\dot_ca.paa"
-            ] call FUNC(addDeploymentPoint);
+            ] call EFUNC(Common,addDeploymentPoint);
+            [_pointId, "sectorName", _x getVariable "name"] call EFUNC(Common,setDeploymentPointData);
+            _x setVariable [QGVAR(pointID), _pointId];
         };
     } forEach EGVAR(Sector,allSectorsArray);
 }, {
-    !isNil QEGVAR(Sector,allSectorsArray)
+    EGVAR(Sector,ServerInitDone)
 }] call CFUNC(waitUntil);
 
 
@@ -69,15 +71,29 @@
     if (_target isEqualType grpNull) then {
         _target = side _target;
     };
-    private _sector = [_pointId] call EFUNC(Sector,getSector);
-    private _sectorSpawnPoint = GVAR(sectorData) get _pointId;
+    private _sectorName = [_pointId, "sectorName"] call EFUNC(Common,getDeploymentPointData);
+    private _sector = [_sectorName] call EFUNC(Sector,getSector);
     private _side = _sector getVariable ["side", sideUnknown];
-    _side isNotEqualTo sideUnknown && !(_sector call EFUNC(Sector,isCaptureable));
+    private _spawnable = true;
+    {
+        private _sector = [_x] call EFUNC(Sector,getSector);
+        private _sectorIsCapturable = _sector call EFUNC(Sector,isCaptureable);
+        private _sectorIsCaptured = (_sector getVariable ["side", sideUnknown]) isEqualTo _target;
+        if (!_sectorIsCaptured && _sectorIsCapturable) then {
+            _spawnable = false;
+            break;
+        };
+    } foreach (_sector getVariable ["dependency", []]);
+    _side isEqualTo _target && _spawnable;
 }] call EFUNC(Common,registerDeploymentPointTypeCallback);
 
 ["sectorSideChanged", {
-    [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
+    (_this select 0) params ["_sector", "_oldSide", "_newSide"];
 
+    private _pointId = _sector getVariable [QGVAR(pointId), ""];
+    if (_pointId != "") then {
+        [_pointId, "availableFor", _newSide] call EFUNC(Common,setDeploymentPointData);
+    };
     [UIVAR(RespawnScreen_DeploymentManagement_update)] call CFUNC(globalEvent);
     [QEGVAR(Common,updateMapIcons)] call CFUNC(localEvent);
 }] call CFUNC(addEventhandler);

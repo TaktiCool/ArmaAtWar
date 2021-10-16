@@ -49,13 +49,8 @@ private _namespace = true call CFUNC(createNamespace);
 {
     [_id, _x select 0, _x select 1] call FUNC(setDeploymentPointData);
     nil
-} count _customData;
 
-
-if !(_availableFor isEqualType sideUnknown) then {
-    _availableFor = side _availableFor;
-};
-
+    } count _customData;
 [_id] call FUNC(onPlaced);
 
 switch (typeName _position) do {
@@ -70,6 +65,6 @@ switch (typeName _position) do {
     };
 };
 
-[QGVAR(deploymentPointAdded), _availableFor, _id] call CFUNC(targetEvent);
+[QGVAR(deploymentPointAdded), _id] call CFUNC(globalEvent);
 
 _id

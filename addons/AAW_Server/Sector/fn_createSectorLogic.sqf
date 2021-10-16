@@ -23,10 +23,6 @@ params [
     "_settings"
 ];
 
-diag_log "----------------------------------------------------------------------";
-diag_log _this;
-diag_log "----------------------------------------------------------------------";
-
 private _size = getMarkerSize _marker;
 
 private _logic = true call CFUNC(createNameSpace);

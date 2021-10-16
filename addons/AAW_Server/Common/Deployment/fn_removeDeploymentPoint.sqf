@@ -23,13 +23,7 @@ _data params ["_pointObjects", "_availableFor"];
 
 [_pointId, _pointObjects] call FUNC(onDestroy);
 
-if ((_availableFor isEqualType sideUnknown) || {!(isNull _availableFor)}) then {
-
-    if !(_availableFor isEqualType sideUnknown) then {
-        _availableFor = side _availableFor;
-    };
-    [QGVAR(deploymentPointRemoved), _availableFor, _pointId] call CFUNC(targetEvent);
-};
+[QGVAR(deploymentPointRemoved), _pointId] call CFUNC(globalEvent);
 private _namespace = GVAR(DeploymentPointStorage) getVariable [_pointId, objNull];
 deleteVehicle _namespace;
 [GVAR(DeploymentPointStorage), _pointId, nil, QGVAR(DeploymentPointStorage), true] call CFUNC(setVariable);
