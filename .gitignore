@@ -50,12 +50,17 @@ serverExtension/packages/*
 # ArmA Files
 *.pbo
 
-# IDEA files
+# IDEA Files
 .idea/
 *.iml
+
+# VSCode Files
+.vscode/
 
 # HEMTT Files
 releases/*
 *.biprivatekey
 keys/*
 .hemtt/local
+build.bat
+hemtt.exe

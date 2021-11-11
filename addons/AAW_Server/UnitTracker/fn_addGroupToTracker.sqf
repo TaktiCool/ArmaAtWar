@@ -83,7 +83,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadName), _idd], _ctrlSquadName];
 
             _ctrlSquadType = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
-            _ctrlSquadType ctrlSetFontHeight PY(1.8);
             _ctrlSquadType ctrlSetPosition [PX(11), 0, PX(10.5), PY(2)];
             _ctrlSquadType ctrlSetFont "PuristaMedium";
             _ctrlSquadType ctrlSetStructuredText parseText "ALPHA";
@@ -98,7 +97,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadDescription), _idd], _ctrlSquadDescription];
 
             _ctrlSquadMemberCount = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
-            _ctrlSquadMemberCount ctrlSetFontHeight PY(1.8);
             _ctrlSquadMemberCount ctrlSetPosition [PX(16), PY(1.8), PX(5.5), PY(2)];
             _ctrlSquadMemberCount ctrlSetFont "PuristaMedium";
             _ctrlSquadMemberCount ctrlSetTextColor [0.5, 0.5, 0.5, 1];
@@ -106,7 +104,6 @@ private _iconPos = [vehicle leader _group, _attachTo];
             uiNamespace setVariable [format [UIVAR(GroupInfo_%1_SquadMemberCount), _idd], _ctrlSquadMemberCount];
 
             _ctrlMemberList = _display ctrlCreate ["RscStructuredText", -1, _ctrlGrp];
-            _ctrlMemberList ctrlSetFontHeight PY(4);
             _ctrlMemberList ctrlSetPosition [0, PY(4.4), PX(22), PY(11.9)];
             _ctrlMemberList ctrlSetFont "PuristaMedium";
             _ctrlMemberList ctrlSetTextColor [1, 1, 1, 1];
