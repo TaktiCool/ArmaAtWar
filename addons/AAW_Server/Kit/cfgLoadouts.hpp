@@ -52,3 +52,6 @@ class IFA3_StandardSoldier : CfgCLibLoadoutsClassBase {
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_RUS.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_UK.hpp"
 #include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\IFA3_US.hpp"
+
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\RHS_RUS.hpp"
+#include "\tc\AAW\addons\AAW_Server\Kit\Loadouts\RHS_US.hpp"

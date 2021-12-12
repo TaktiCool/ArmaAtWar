@@ -2,7 +2,7 @@ class cfgKits {
     class BaseRifleman {
        scope = 1;
        kitGroup = "Unlimited";
-       availableInGroups[] = {"Rifle", "Weapon", "Mortar"};
+       availableInGroups[] = {"Rifle", "Weapon", "Mortar", "Logistic"};
 
        // Display
        displayName = "Rifleman";
@@ -125,7 +125,7 @@ class cfgKits {
        UIIcon = "A3\ui_f\data\gui\rsc\rscdisplayarsenal\binoculars_ca.paa";
    };
    class BaseSpecialist: BaseRifleman {
-       availableInGroups[] = {"Recon"};
+       availableInGroups[] = {"Logistic"};
 
        displayName = "Specialist";
    };
@@ -141,4 +141,7 @@ class cfgKits {
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_RUS.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_UK.hpp"
     #include "\tc\AAW\addons\AAW_Server\Kit\Kits\IFA3_US.hpp"
+
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\RHS_US.hpp"
+    #include "\tc\AAW\addons\AAW_Server\Kit\Kits\RHS_RUS.hpp"
 };
