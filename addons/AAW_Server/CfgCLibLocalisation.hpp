@@ -35,8 +35,8 @@ class CfgCLibLocalisation {
 
         // FOB
         class FOB {
-            class Build {
-                English = "Build FOB";
+            class Setup {
+                English = "Setup FOB";
             };
             class Defuse {
                 English = "Defuse FOB";

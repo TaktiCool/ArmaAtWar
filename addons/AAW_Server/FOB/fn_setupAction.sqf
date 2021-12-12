@@ -5,7 +5,7 @@
     Author: joko // Jonas
 
     Description:
-    Build a FOB
+    Setup a FOB
 
     Parameter(s):
     0: Types <String,Object,Array>
@@ -14,7 +14,7 @@
     None
 */
 params ["_types"];
-private _title = QLSTRING(BUILD);
+private _title = QLSTRING(Setup);
 private _iconIdle = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _iconProgress = "\a3\ui_f\data\gui\rsc\rscdisplayarsenal\map_ca.paa";
 private _showCondition = {
@@ -23,27 +23,27 @@ private _showCondition = {
      && {(GVAR(sideNamespace) getVariable (toLower str side group CLib_Player)) == typeOf _target}
 };
 
-GVAR(buildStartTime) = -1;
+GVAR(setupStartTime) = -1;
 GVAR(currentFob) = "";
 private _onStart = {
     params ["_target", "_caller"];
 
-    GVAR(buildStartTime) = time;
+    GVAR(setupStartTime) = time;
 };
 
 private _onProgress = {
-    (time - GVAR(buildStartTime)) / 5;
+    (time - GVAR(setupStartTime)) / 5;
 };
 
 private _onComplete = {
     params ["_target"];
     [_target] call FUNC(place);
-    GVAR(buildStartTime) = -1;
+    GVAR(setupStartTime) = -1;
 };
 
 private _onInterruption = {
 
-    GVAR(buildStartTime) = -1;
+    GVAR(setupStartTime) = -1;
 };
 
 [_types, _title, _iconIdle, _iconProgress, _showCondition, _showCondition, _onStart, _onProgress, _onComplete, _onInterruption, [], 5000, true, true] call CFUNC(addHoldAction);

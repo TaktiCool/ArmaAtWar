@@ -271,11 +271,13 @@ class CfgEntities {
         ticketValue = T_HELI_TRANSPORT_ARMED;
     };
 
-    class Heli_Transport_03_base_F : Heli_Attack_01_base_F { // CH-67 Huron
+    class Heli_Transport_02_base_F : Heli_Attack_01_base_F { // CH-67 Huron
         cargoCapacity = 100;
         respawnTime = 420;
         ticketValue = T_HELI_TRANSPORT;
     };
+
+    class Heli_Transport_03_base_F : Heli_Transport_02_base_F {}; // CH-67 Huron
 
     // EAST
     class Heli_Attack_02_base_F : defaultVehicle { //Mi-48 Kajman

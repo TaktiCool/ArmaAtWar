@@ -10,7 +10,7 @@ class CSAT_StandardHandgun : CfgCLibLoadoutsClassBase {
 class CSAT_StandardAssaultRifle : CfgCLibLoadoutsClassBase {
     primaryWeapon[] = {"arifle_Katiba_F"};
     primaryWeaponOptic[] = {"optic_Aco"};
-    primaryWeaponMuzzle[] = {"acc_pointer_IR"};
+    primaryWeaponBarrel[] = {"acc_pointer_IR"};
     magazines[] = {{"30Rnd_65x39_caseless_green", 5}};
     primaryWeaponLoadedMagazine[] = {"30Rnd_65x39_caseless_green"};
 };

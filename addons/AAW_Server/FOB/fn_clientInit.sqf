@@ -23,7 +23,7 @@ GVAR(sideNamespace) = false call CFUNC(createNamespace);
 */
 {
     private _objectType = getText (_x >> "FOBBoxObject");
-    _objectType call FUNC(buildAction); // Add Build Action
+    _objectType call FUNC(setupAction); // Add Setup Action
 
     GVAR(sideNamespace) setVariable [toLower configName _x, _objectType];
     nil

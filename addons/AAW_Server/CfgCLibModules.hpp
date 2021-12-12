@@ -123,7 +123,7 @@ class CfgCLibModules {
             FNC(destroyAction);
             FNC(defuseAction);
             FNC(dismantleAction);
-            FNC(buildAction);
+            FNC(setupAction);
             FNC(canPlace);
         };
 

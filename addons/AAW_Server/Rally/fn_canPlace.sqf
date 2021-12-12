@@ -32,16 +32,16 @@ if (_enemyCount != 0) exitWith {
 };
 
 // Check near players
-private _nearPlayerToBuild = ([CFGSRP(nearPlayerToBuild), 1] call CFUNC(getSetting));
-private _nearPlayerToBuildRadius = [CFGSRP(nearPlayerToBuildRadius), 10] call CFUNC(getSetting);
+private _nearPlayerToSetup = ([CFGSRP(nearPlayerToSetup), 1] call CFUNC(getSetting));
+private _nearPlayerToSetupRadius = [CFGSRP(nearPlayerToSetupRadius), 10] call CFUNC(getSetting);
 
 private _count = {
     (group _x) == (group CLib_Player) &&
     _x call EFUNC(Common,isAlive)
-} count ([CLib_Player, _nearPlayerToBuildRadius] call CFUNC(getNearUnits));
+} count ([CLib_Player, _nearPlayerToSetupRadius] call CFUNC(getNearUnits));
 
-if (_count < _nearPlayerToBuild) exitWith {
-    [QLSTRING(NotPlacable), [QLSTRING(PlayerRequirement), str (_nearPlayerToBuild - _count)]] call EFUNC(Common,displayHint);
+if (_count < _nearPlayerToSetup) exitWith {
+    [QLSTRING(NotPlacable), [QLSTRING(PlayerRequirement), str (_nearPlayerToSetup - _count)]] call EFUNC(Common,displayHint);
     false
 };
 
