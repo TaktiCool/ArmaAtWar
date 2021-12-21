@@ -104,7 +104,7 @@ DFUNC(updateMapIcons) = {
                         };
                     }];
                     private _icon = ["ICON", _mapIcon, [1,1,1,1], _position, 25, 25];
-                    private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, format ["%1", _name], 2, 0.08, "RobotoCondensedBold", "center"];
+                    private _normalText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position,[0,27]], 25, 25, 0, _name, 2, 0.08, "RobotoCondensedBold", "center"];
                     [_x, [_bgIcon, _icon, _normalText, _selectedIcon], "normal", 2000] call CFUNC(addMapGraphicsGroup);
                     if (_spawnTickets > 0) then {
                         private _onHoverText = ["ICON", "a3\ui_f\data\Map\Markers\System\dummy_ca.paa", [1, 1, 1, 1], [_position, [0,27]], 25, 25, 0, format [MLOC(SpawnsRemaining), _name, _spawnTickets], 2, 0.08, "RobotoCondensedBold", "center"];;
