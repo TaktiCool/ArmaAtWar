@@ -25,6 +25,11 @@ GVAR(supplyPoints) = [];
     private _repairAmount = _object getVariable "repairAmount";
 
     if (!(isNil "_supplyUses" && isNil "_rearmAmount" && isNil "_refuelAmount" && isNil "_repairAmount")) then {
+        // Disable BI actions
+        _object setAmmoCargo 0;
+        _object setFuelCargo 0;
+        _object setRepairCargo 0;
+
         private _index = GVAR(supplyPoints) pushBack _object;
         [
             {
