@@ -28,7 +28,7 @@ GVAR(allLocationTypes) = [];
 GVAR(markerLocations) = getArray (missionConfigFile >> QPREFIX >> "markerLocation");
 GVAR(markerLocations) = GVAR(markerLocations) apply {
     private _text = markerText _x;
-    if (_text call CFUNC(isLocalised)) then {
+    if (_text call CFUNC(isLocalized)) then {
         _text = LOC(_text);
     };
     [_x, getMarkerPos _x, _text]

@@ -17,7 +17,7 @@ class CfgPatches {
 };
 
 #include "CfgCLibModules.hpp"
-#include "CfgCLibLocalisation.hpp"
+#include "CfgCLibLocalization.hpp"
 #include "CfgCLibSettings.hpp"
 
 class cfgCLibSimpleObject {

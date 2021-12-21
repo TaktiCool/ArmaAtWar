@@ -39,8 +39,7 @@ _ctrlItems = [];
     private _resources = [_subcfg + "/resources", 0] call CFUNC(getSetting);
     private _picture = [_subcfg + "/picture", "\A3\3den\data\displays\display3den\panelright\modemodules_ca.paa"] call CFUNC(getSetting);
 
-
-    if (_displayName call CFUNC(isLocalised)) then {
+    if (_displayName call CFUNC(isLocalized)) then {
         _displayName = LOC(_displayName);
     };
 

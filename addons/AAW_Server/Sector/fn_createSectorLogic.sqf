@@ -41,7 +41,7 @@ private _side = switch (markerColor _marker) do {
 _marker setMarkerAlpha 1;
 
 private _markerFullName = markerText _marker;
-if (_markerFullName call CFUNC(isLocalised)) then {
+if (_markerFullName call CFUNC(isLocalized)) then {
     _markerFullName = LOC(_markerFullName);
 };
 

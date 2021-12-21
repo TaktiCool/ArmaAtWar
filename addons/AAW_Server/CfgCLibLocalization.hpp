@@ -1,4 +1,4 @@
-class CfgCLibLocalisation {
+class CfgCLibLocalization {
 
     class AAW {
         // BaseProtection
@@ -82,6 +82,9 @@ class CfgCLibLocalisation {
             };
             class CrewRequired {
                 English = "Please select a crew role first!";
+            };
+            class EngineerRequired {
+                English = "Please select a engineer role first!";
             };
         };
 
