@@ -44,4 +44,20 @@ class RHS_US {
     class Spotter: BaseSpotter {
         loadouts[] = {"RHS_US_Spotter"};
     };
+    class MortarSupport : BaseRifleman {
+        availableInGroups[] = {"Mortar"};
+        displayName = "Rifleman (Tripod)";
+        loadouts[] = {"RHS_US_MortarSupport"};
+    };
+    class MortarGunner : MortarSupport {
+        kitGroup = "Limited";
+        displayName = "Rifleman (Gun)";
+        loadouts[] = {"RHS_US_MortarGunner"};
+    };
+    class Engineer : BaseEngineer {
+        loadouts[] = {"RHS_US_Rifleman"};
+    };
+    class LeadEngineer : BaseEngineerLead {
+        loadouts[] = {"RHS_US_SquadLeader"};
+    };
 };

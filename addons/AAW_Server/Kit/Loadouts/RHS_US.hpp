@@ -136,3 +136,11 @@ class RHS_US_Spotter : RHS_US_Rifleman {
     uniform[] = {"U_B_FullGhillie_lsh"};
     binocular[] = {"Rangefinder"};
 };
+
+class RHS_US_MortarGunner : RHS_US_Rifleman {
+    backpack[] = {"rhs_M252_Gun_Bag"};
+};
+
+class RHS_US_MortarSupport : RHS_US_Rifleman {
+    backpack[] = {"rhs_M252_Bipod_Bag"};
+};

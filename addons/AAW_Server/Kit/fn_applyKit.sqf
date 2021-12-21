@@ -59,13 +59,5 @@ _unit setVariable [QGVAR(isEngineer), _isEngineer == 1, true];
 _unit setVariable [QGVAR(isPilot), _isPilot == 1, true];
 _unit setVariable [QGVAR(isCrew), _isCrew == 1, true];
 
-if (_isMedic == 1) then {
-    _unit setUnitTrait ["medic", true];
-} else {
-    _unit setUnitTrait ["medic", false];
-};
-if (_isEngineer == 1) then {
-    _unit setUnitTrait ["engineer", true];
-} else {
-    _unit setUnitTrait ["engineer", false];
-};
+_unit setUnitTrait ["medic", _isMedic == 1];
+_unit setUnitTrait ["engineer", _isEngineer == 1];
