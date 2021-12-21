@@ -69,16 +69,6 @@ class CfgCLibModules {
                 FNC(respawnNewSide);
             };
 
-            // Notification
-            MODULE(Notification) {
-                FNC(clientInitNotification);
-                FNC(displayNotification);
-                FNC(displayHint);
-                FNC(drawNotification);
-                FNC(drawHint);
-                FNC(registerDisplayNotification);
-            };
-
             // Performance Info
             MODULE(PerformanceInfo) {
                 FNC(clientInitPerformance);
