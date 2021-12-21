@@ -18,7 +18,7 @@ GVAR(inProtectedZone) = false;
 
 ["missionStarted", {
     ["", CLib_Player, 0, {GVAR(inProtectedZone) && !(driver vehicle CLib_Player == CLib_Player && ((vehicle CLib_Player) currentWeaponTurret [-1] find "Horn") > -1)}, {
-        [QLSTRING(BASEPROTECTION), QLSTRING(DontShoot), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+        [MLOC(BASEPROTECTION), MLOC(DontShoot), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
     }, [
         "priority", 0,
         "showWindow", false,
@@ -69,7 +69,7 @@ GVAR(inProtectedZone) = false;
 
         // Show notfication afterwards otherwise it may be covered by the black screen
         [{
-            [QLSTRING(BASEPROTECTION), QLSTRING(CanNotEnterBase), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            [MLOC(BASEPROTECTION), MLOC(CanNotEnterBase), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
         }, 1] call CFUNC(wait);
     };
 }] call CFUNC(addEventHandler);
@@ -91,7 +91,7 @@ DFUNC(firedEH) = {
             "_projectile" // projectile
         ];
         if (GVAR(inProtectedZone)) then {
-            ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["NO SHOOTING", "You are not allowed to shoot in your base!", ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
             deleteVehicle _projectile;
         };
     }];

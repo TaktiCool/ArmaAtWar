@@ -97,7 +97,7 @@
         _unloadBtn ctrlSetText "UNLOAD";
         _unloadBtn ctrlAddEventHandler ["ButtonClick", {
             if !(isNull (objectParent CLib_Player)) exitWith {
-                [MLOC(UnableToUnload)] call EFUNC(Common,displayHint);
+                [MLOC(UnableToUnload)] call CFUNC(displayHint);
             };
             [{
                 params ["_vehicle"];

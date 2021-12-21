@@ -37,7 +37,7 @@ GVAR(ppColor) = ppEffectCreate ["colorCorrections", 1502];
 
 
         [
-            QLSTRING(OpenRequestScreen),
+            MLOC(OpenRequestScreen),
             _objects,
             3,
             compile format ["(str playerside) == ""%1"" && ((leader CLib_Player) == CLib_Player) && (CLib_Player getVariable [""%2"", false])", _side, QEGVAR(Kit,isLeader)],

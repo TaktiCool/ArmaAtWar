@@ -23,7 +23,7 @@ params ["_target"];
     private _position = _target modelToWorld [0, 0, 0];
     private _dirVector = vectorDirVisual CLib_Player;
     if (CLib_Player distance _position >= 20) exitWith {
-        [QLSTRING(NotPlacable), QLSTRING(NotEnoughSpace)] call EFUNC(Common,displayHint);
+        [MLOC(NotPlacable), MLOC(NotEnoughSpace)] call CFUNC(displayHint);
     };
 
     private _composition = getText (missionConfigFile >> QPREFIX >> "Sides" >> (str playerSide) >> "FOBComposition");
@@ -38,8 +38,8 @@ params ["_target"];
     }, _target]] call CFUNC(createSimpleObjectComp);
 
     ["displayNotification", side group CLib_player, [
-        QLSTRING(NewFOB),
-        [QLSTRING(Near), _text],
+        MLOC(NewFOB),
+        format [MLOC(Near), _text],
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0, 0.4, 0.8, 1],1],["A3\ui_f\data\map\markers\military\triangle_ca.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 

@@ -27,7 +27,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
 /*
  * ACTIONS
  */
-[QLSTRING(CreateRally), CLib_Player, 0, {
+[MLOC(CreateRally), CLib_Player, 0, {
     ((leader CLib_Player) == CLib_Player) && (CLib_Player getVariable [QEGVAR(Kit,isLeader), false]) && (isNull objectParent CLib_Player)
 }, {
     call FUNC(place);

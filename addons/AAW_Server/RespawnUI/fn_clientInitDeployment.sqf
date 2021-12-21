@@ -108,27 +108,27 @@ GVAR(firstRespawn) = true;
 
         // Check squad
         if (!((groupId group CLib_Player) in EGVAR(Squad,squadIds))) exitWith {
-            [MLOC(JoinASquad)] call EFUNC(Common,displayHint);
+            [MLOC(JoinASquad)] call CFUNC(displayHint);
         };
 
         // Check kit
         private _currentRoleSelection = lnbCurSelRow (_roleDisplay displayCtrl 303);
         if (_currentRoleSelection < 0) exitWith {
-            [MLOC(ChooseARole)] call EFUNC(Common,displayHint);
+            [MLOC(ChooseARole)] call CFUNC(displayHint);
         };
 
         // Check deployment
         private _controlDeploymentList = _deploymentDisplay displayCtrl 403;
         private _currentDeploymentPointSelection = lnbCurSelRow _controlDeploymentList;
         if (_currentDeploymentPointSelection < 0) exitWith {
-            [MLOC(selectSpawn)] call EFUNC(Common,displayHint);
+            [MLOC(selectSpawn)] call CFUNC(displayHint);
         };
 
         // Get position
         _currentDeploymentPointSelection = [_controlDeploymentList, [_currentDeploymentPointSelection, 0]] call CFUNC(lnbLoad);
 
         if !(_currentDeploymentPointSelection call EFUNC(Common,isValidDeploymentPoint)) exitWith {
-            ["Respawn Point Don't Exist anymore"] call EFUNC(Common,displayHint);
+            ["Respawn Point Don't Exist anymore"] call CFUNC(displayHint);
         };
 
         if !([_currentDeploymentPointSelection] call EFUNC(Common,onDeploy)) exitWith {};

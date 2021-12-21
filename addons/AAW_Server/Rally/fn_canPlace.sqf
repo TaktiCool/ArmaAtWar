@@ -20,14 +20,14 @@ private _lastRallyPlaced = (group CLib_Player) getVariable [QGVAR(lastRallyPlace
 private _time = ((_lastRallyPlaced + _waitTime) - serverTime);
 if (_time >= 0) exitWith {
     // add 1 not show 0 secs.
-    [QLSTRING(NotPlacable), [QLSTRING(TimeRequirement), str (1 + floor(_time))]] call EFUNC(Common,displayHint);
+    [MLOC(NotPlacable), format [MLOC(TimeRequirement), str (1 + floor(_time))]] call CFUNC(displayHint);
     false
 };
 
 // TODO make a settings for that
 private _enemyCount = {(side group _x) != (side group CLib_Player) && alive _x} count ([CLib_Player, 50] call CFUNC(getNearUnits));
 if (_enemyCount != 0) exitWith {
-    [QLSTRING(NotPlacable), QLSTRING(EnemysClose)] call EFUNC(Common,displayHint);
+    [MLOC(NotPlacable), MLOC(EnemysClose)] call CFUNC(displayHint);
     false
 };
 
@@ -41,7 +41,7 @@ private _count = {
 } count ([CLib_Player, _nearPlayerToSetupRadius] call CFUNC(getNearUnits));
 
 if (_count < _nearPlayerToSetup) exitWith {
-    [QLSTRING(NotPlacable), [QLSTRING(PlayerRequirement), str (_nearPlayerToSetup - _count)]] call EFUNC(Common,displayHint);
+    [MLOC(NotPlacable), format [MLOC(PlayerRequirement), str (_nearPlayerToSetup - _count)]] call CFUNC(displayHint);
     false
 };
 

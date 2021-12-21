@@ -18,7 +18,7 @@
 
     private _position = CLib_Player modelToWorld [0, 1.5, 0];
     if (CLib_Player distance _position >= 20) exitWith {
-        [QLSTRING(NotPlacable), QLSTRING(NotEnoughSpace)] call EFUNC(Common,displayHint);
+        [MLOC(NotPlacable), MLOC(NotEnoughSpace)] call CFUNC(displayHint);
     };
 
     [group CLib_Player] call FUNC(destroy);
@@ -40,8 +40,8 @@
     [QGVAR(placed), _pointId] call CFUNC(globalEvent);
 
     ["displayNotification", group CLib_player, [
-        QLSTRING(NewRally),
-        [QLSTRING(Near), ([_position] call EFUNC(Common,getNearestLocationName))],
+        MLOC(NewRally),
+        format [MLOC(Near), ([_position] call EFUNC(Common,getNearestLocationName))],
         [["A3\ui_f\data\map\respawn\respawn_background_ca.paa", 1, [0.13, 0.54, 0.21, 1],1],["A3\ui_f\data\map\groupicons\badge_simple.paa", 0.8]]
     ]] call CFUNC(targetEvent);
 }, [], "respawn"] call CFUNC(mutex);

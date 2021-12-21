@@ -32,7 +32,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         private _playerSide = str side group CLib_Player;
         private _vehicleSide = _vehicle getVariable ["side", _playerSide];
         if (_vehicleSide != _playerSide) exitWith {
-            ["VEHICLE LOCKED", "You are not allowed to use enemy vehicles!", ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            ["VEHICLE LOCKED", "You are not allowed to use enemy vehicles!", ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
             true
         };
 
@@ -44,16 +44,17 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         // Read the player kit settings.
         private _isCrew = CLib_Player getVariable [QGVAR(isCrew), false];
         private _isPilot = CLib_Player getVariable [QGVAR(isPilot), false];
+        private _isEngineer = CLib_Player getVariable [QGVAR(isEngineer), false];
 
         // Pilot kit for pilot seats.
         if (_actionName in ["GetInPilot", "MoveToPilot"] && !_isPilot) exitWith {
-            [QLSTRING(VEHICLELOCKED), QLSTRING(EnemyVehicle), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            [MLOC(VEHICLELOCKED), MLOC(EnemyVehicle), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
             true
         };
 
         // Gunner and commander always require a driver.
         if (_actionName in ["GetInGunner", "GetInCommander", "MoveToGunner", "MoveToCommander"] && (!alive (driver _vehicle) || {driver _vehicle == CLib_Player})) exitWith {
-            [QLSTRING(VEHICLELOCKED), QLSTRING(PilotRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            [MLOC(VEHICLELOCKED), MLOC(PilotRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
             true
         };
 
@@ -84,13 +85,13 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
             if (!(getText (_turretConfig >> "body") == "") && ([_vehicle, ["Air", "Tank", "Wheeled_APC_F"]] call CFUNC(isKindOfArray))) exitWith {
                 // Turrets with guns always require a driver (except statics).
                 if (!alive (driver _vehicle) || {driver _vehicle == CLib_Player}) exitWith {
-                    [QLSTRING(VEHICLELOCKED), QLSTRING(DriverRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    [MLOC(VEHICLELOCKED), MLOC(DriverRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
                     true
                 };
 
                 // Turrets with guns in air, tank and wheeled apc require crew kit.
                 if ((_vehicle isKindOf "Air" || _vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
-                    [QLSTRING(VEHICLELOCKED), QLSTRING(CrewRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    [MLOC(VEHICLELOCKED), MLOC(CrewRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
                     true
                 };
 
@@ -102,7 +103,7 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
                 // This is a turret without a gun and without the players handheld weapon (only copilot afaik).
                 // Copilot need pilot kit
                 if (_vehicle isKindOf "Air" && !_isPilot) exitWith {
-                    [QLSTRING(VEHICLELOCKED), QLSTRING(PilotRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+                    [MLOC(VEHICLELOCKED), MLOC(PilotRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
                     true
                 };
 
@@ -115,10 +116,43 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
         // Driver
         // Tank and APC driver require crew kit.
         if ((_vehicle isKindOf "Tank" || _vehicle isKindOf "Wheeled_APC_F") && !_isCrew) exitWith {
-            [QLSTRING(VEHICLELOCKED), QLSTRING(CrewRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call EFUNC(Common,displayHint);
+            [MLOC(VEHICLELOCKED), MLOC(CrewRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
+            true
+        };
+
+        // Supply vehicles need engineer
+        if (((getAmmoCargo _vehicle >= 0) || (getFuelCargo _vehicle >= 0) || (getRepairCargo _vehicle >= 0)) && !_isEngineer) exitWith {
+            [MLOC(VEHICLELOCKED), MLOC(EngineerRequired), ["A3\modules_f\data\iconlock_ca.paa"]] call CFUNC(displayHint);
             true
         };
 
         false
     }, _x] call CFUNC(overrideAction);
+    nil
 } count ["GetInDriver", "GetInCommander", "GetInGunner", "GetInCargo", "GetInPilot", "GetInTurret", "MoveToDriver", "MoveToCommander", "MoveToGunner", "MoveToCargo", "MoveToPilot", "MoveToTurret"];
+
+// ACRE support
+/*
+if (isClass (configFile >> "CfgPatches" >> "acre_main")) then {
+    ["playerInventoryChanged", {
+        //[true, false] call acre_api_fnc_setupMission;
+
+        private _radios = [] call acre_api_fnc_getCurrentRadioList;
+        DUMP(_radios);
+
+        private _radio343Ids = _radios select {toLower (_x select [0, 11]) == (toLower "ACRE_PRC343")};
+        if (!(_radio343Ids isEqualTo [])) then {
+            private _channelId = ((((toArray (groupId group CLib_Player)) select 0) - 65) * 8) + ([17, 129] select (str playerSide == "EAST"));
+            private _success = [toUpper (_radio343Ids select 0), _channelId] call acre_api_fnc_setRadioChannel;
+            DUMP(_success);
+            DUMP(_channelId);
+        };
+
+        private _radio117Ids = _radios select {toLower (_x select [0, 11]) == (toLower "ACRE_PRC117")};
+        if (!(_radio117Ids isEqualTo [])) then {
+            private _success = [toUpper (_radio117Ids select 0), [2, 5] select (str playerSide == "EAST")] call acre_api_fnc_setRadioChannel;
+            DUMP(_success);
+        };
+    }] call CFUNC(addEventhandler);
+};
+*/

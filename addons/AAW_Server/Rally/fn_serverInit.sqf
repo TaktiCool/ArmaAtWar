@@ -69,7 +69,7 @@
     params ["_pointId", "_prevRet"];
     if !(isNil "_prevRet") exitWith { _prevRet; };
     if ([_pointId, "spawnPointBlocked", 0] call EFUNC(Common,getDeploymentPointData) == 1) exitWith {
-        ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call EFUNC(Common,displayHint);
+        ["RESPAWN POINT BLOCKED!", "Too many enemies nearby!"] call CFUNC(displayHint);
         false;
     };
     true;

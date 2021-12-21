@@ -126,7 +126,7 @@ if (side CLib_player == sideLogic && {CLib_player isKindOf "VirtualSpectator_F"}
 
         // Register the map for the marker system
         [_display displayCtrl 800] call CFUNC(registerMapControl);
-        [_display, [-PX(40), 0]] call EFUNC(Common,registerDisplayNotification);
+        [_display, [-PX(40), 0]] call CFUNC(registerDisplayNotification);
 
         if (!(alive CLib_Player) || (CLib_Player getVariable [QEGVAR(Common,tempUnit), false])) then {
             // Catch the escape key

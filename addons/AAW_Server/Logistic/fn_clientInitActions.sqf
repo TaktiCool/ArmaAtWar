@@ -34,7 +34,7 @@
 ] call CFUNC(addAction);
 
 [
-    QLSTRING(Drop),
+    MLOC(Drop),
     CLib_Player,
     0,
     {!(isNull (CLib_Player getVariable [QGVAR(Item), objNull]))},
@@ -70,7 +70,7 @@
             } count _ItemArray;
 
             if (_cargoCapacity < _cargoSize) exitWith {
-                [toUpper MLOC(noCargoSpace)] call EFUNC(Common,displayHint);
+                [MLOC(noCargoSpace)] call CFUNC(displayHint);
             };
 
             detach _draggedObject;

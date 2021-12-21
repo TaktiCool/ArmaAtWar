@@ -48,27 +48,27 @@ if (side CLib_player == sideLogic && {player isKindOf "VirtualSpectator_F"}) exi
     private _designator = _sector getVariable ["designator", ""];
 
     if ((side group CLib_Player) isEqualTo _newSide) exitWith {
-        [QLSTRING(SECTORCAPTURED), _sectorName, [
+        [MLOC(SECTORCAPTURED), _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1, [0, 0.4, 0.8, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call CFUNC(displayNotification);
     };
 
     if ((side group CLib_Player) isEqualTo _oldSide) exitWith {
-        [QLSTRING(SECTORLOST), _sectorName, [
+        [MLOC(SECTORLOST), _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_ca.paa", 1, [0.6, 0, 0, 1], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_opfor_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call CFUNC(displayNotification);
     };
 
     if (sideUnknown isEqualTo _newSide && !((side group CLib_Player) isEqualTo _oldSide)) exitWith {
-        [QLSTRING(SECTORNEUTRALIZED), _sectorName, [
+        [MLOC(SECTORNEUTRALIZED), _sectorName, [
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_ca.paa", 1,  [0.93, 0.7, 0.01,0.6], 1],
             ["A3\ui_f\data\gui\rsc\rscdisplaymultiplayersetup\flag_civil_empty_ca.paa"],
             [format ["A3\ui_f\data\igui\cfg\simpletasks\letters\%1_ca.paa", toLower _designator], 0.57]
-        ]] call EFUNC(Common,displayNotification);
+        ]] call CFUNC(displayNotification);
     };
 }] call CFUNC(addEventHandler);
 
