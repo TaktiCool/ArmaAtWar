@@ -30,4 +30,10 @@ if (_requiredPlayers > 0) then {
     _availableSquadCount = _availableSquadCount min (_playerCount / _requiredPlayers);
 };
 
+private _maxGroupsOfType = [_prefix + "maxGroupsOfType", 0] call CFUNC(getSetting);
+if (_maxGroupsOfType > 0) then {
+    private _groupsOfType = count (allGroups select {(side _x) == (side CLib_Player) && (_x getVariable [QGVAR(Type), ""]) == _squadTypeName});
+    _availableSquadCount = _availableSquadCount min (_maxGroupsOfType - _groupsOfType);
+};
+
 (floor _availableSquadCount) > 0
